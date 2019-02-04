@@ -1,0 +1,16 @@
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '10.0'
+use_frameworks!
+
+target 'GymRats' do
+    pod 'Alamofire', '~> 4.7'
+    pod 'RxSwift',    '~> 4.0'
+    pod 'RxCocoa',    '~> 4.0'
+    pod 'RxAlamofire'
+    pod 'Kingfisher', '~> 4.0'
+    pod 'AloeStackView'
+    pod 'RxOptional'
+    pod 'PureLayout'
+    pod "Bow", "~> 0.3.0"
+    pod 'SkyFloatingLabelTextField', '~> 3.0'
+end

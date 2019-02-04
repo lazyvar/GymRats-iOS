@@ -1,0 +1,63 @@
+PODS:
+  - Alamofire (4.8.1)
+  - AloeStackView (1.0.1)
+  - Bow (0.3.0)
+  - Kingfisher (4.10.1)
+  - PureLayout (3.1.4)
+  - RxAlamofire (4.3.0):
+    - RxAlamofire/Core (= 4.3.0)
+  - RxAlamofire/Core (4.3.0):
+    - Alamofire (~> 4.5)
+    - RxSwift (~> 4)
+  - RxAtomic (4.4.0)
+  - RxCocoa (4.4.0):
+    - RxSwift (~> 4.0)
+  - RxOptional (3.6.2):
+    - RxCocoa (~> 4.0)
+    - RxSwift (~> 4.0)
+  - RxSwift (4.4.0):
+    - RxAtomic (~> 4.4)
+  - SkyFloatingLabelTextField (3.6.0)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.7)
+  - AloeStackView
+  - Bow (~> 0.3.0)
+  - Kingfisher (~> 4.0)
+  - PureLayout
+  - RxAlamofire
+  - RxCocoa (~> 4.0)
+  - RxOptional
+  - RxSwift (~> 4.0)
+  - SkyFloatingLabelTextField (~> 3.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - AloeStackView
+    - Bow
+    - Kingfisher
+    - PureLayout
+    - RxAlamofire
+    - RxAtomic
+    - RxCocoa
+    - RxOptional
+    - RxSwift
+    - SkyFloatingLabelTextField
+
+SPEC CHECKSUMS:
+  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
+  AloeStackView: d22c006da4510db5e220968234174654b5ed6ea5
+  Bow: 00d66a7e26595923fc1b0aee922edaa84395b95d
+  Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
+  PureLayout: f08c01b8dec00bb14a1fefa3de4c7d9c265df85e
+  RxAlamofire: 09624d0f2d48ed8b686e4eb4cf68e28cbd2df556
+  RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
+  RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
+  RxOptional: 80426a0ddbd092573e4c482d8cc13302078c4d5e
+  RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
+  SkyFloatingLabelTextField: 38164979b79512f9ff9288ad8acfc4bbf5d843e3
+
+PODFILE CHECKSUM: 632477b0d0db604a2280085d12b8a850bb20536c
+
+COCOAPODS: 1.5.3
