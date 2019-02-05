@@ -54,7 +54,7 @@ class MockedNetworkProvider: NetworkProvider {
 
     func request(method: HTTPMethod, url: String, parameters: Parameters) -> Observable<(HTTPURLResponse, Data)> {
         return Observable<(HTTPURLResponse, Data)>.create { subscriber in
-            let data = self.mockedResponse(forURL: url)
+            let data = self.mockedResponse(forURL: url, and: parameters)
 
             switch url {
             case "login":
@@ -71,7 +71,7 @@ class MockedNetworkProvider: NetworkProvider {
         }.delay(1, scheduler: MainScheduler.instance)
     }
     
-    private func mockedResponse(forURL url: String) -> Data {
+    private func mockedResponse(forURL url: String, and parameters: Parameters) -> Data {
         let json: String = {
             switch url {
             case "login":
@@ -86,6 +86,69 @@ class MockedNetworkProvider: NetworkProvider {
                 """
             case "signup":
                 return "todo"
+            case "group/all":
+                switch GymRatsApp.delegate.appCoordinator.currentUser.email {
+                case "no-active-groups":
+                    return """
+                    []
+                    """
+                case "single-active-groups":
+                    return """
+                    [{
+                    "id": 101,
+                    "name": "CapTech Rats",
+                    "code": "123456",
+                    "startDate": 1546300800,
+                    "endDate": 1556668800
+                    }]
+                    """
+                case "many-active-groups":
+                    return """
+                    [{
+                    "id": 101,
+                    "name": "CapTech Rats",
+                    "code": "123456",
+                    "startDate": 1546300800,
+                    "endDate": 1556668800
+                    },{
+                    "id": 102,
+                    "name": "Hasz Fam",
+                    "code": "ABCDEF",
+                    "startDate": 1546300800,
+                    "endDate": 1556668800
+                    }]
+                    """
+                default:
+                    return """
+                    [{
+                    "id": 101,
+                    "name": "CapTech Rats",
+                    "code": "123456",
+                    "startDate": 1546300800,
+                    "endDate": 1556668800
+                    }]
+                    """
+                }
+            case "/group/123456":
+                return """
+                {
+                "id": 101,
+                "name": "CapTech Rats",
+                "code": "123456",
+                "startDate": 1546300800,
+                "endDate": 1556668800
+                }
+                """
+            case "/group":
+                return """
+                {
+                "id": 101,
+                "name": "CapTech Rats",
+                "code": "123456",
+                "startDate": 1546300800,
+                "endDate": 1556668800
+                }
+                """
             default:
                 return "path not mockec"
             }

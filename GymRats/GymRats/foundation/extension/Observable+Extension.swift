@@ -12,6 +12,14 @@ import RxCocoa
 import Kingfisher
 import PKHUD
 
+func requireAll(_ boolValues: Observable<Bool>...) -> Observable<Bool> {
+    return Observable<Bool>.combineLatest(boolValues) { collection in
+        return collection.reduce(true) { whole, part in
+            return whole && part
+        }
+    }
+}
+
 extension UIButton {
     
     /// life should be this easy
@@ -108,7 +116,7 @@ extension Observable where Element == Data {
                 switch event {
                 case .next(let data):
                     let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase // assuming true for all NASA API requests
+                    decoder.dateDecodingStrategy = .secondsSince1970
                     
                     do {
                         observer.on(.next(try decoder.decode(T.self, from: data)))
@@ -131,7 +139,7 @@ extension Observable where Element == Data {
                 switch event {
                 case .next(let data):
                     let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase // assuming true for all NASA API requests
+                    decoder.dateDecodingStrategy = .secondsSince1970
                     
                     do {
                         observer.on(.next(try decoder.decode([T].self, from: data)))

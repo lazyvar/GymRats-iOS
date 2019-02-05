@@ -11,7 +11,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    var window: UIWindow!
+    var window: UIWindow?
     var appCoordinator: AppCoordinator!
     
     func application(
@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        appCoordinator = AppCoordinator(window: window)
+        appCoordinator = AppCoordinator(window: window!)
         
         appCoordinator.start()
         

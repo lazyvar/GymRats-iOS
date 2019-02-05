@@ -38,6 +38,7 @@ class LoginViewController: UIViewController {
         textField.lineErrorColor = .brand
         textField.selectedTitleColor = .brand
         textField.isSecureTextEntry = true
+        textField.returnKeyType = .done
         
         return textField
     }()
@@ -48,7 +49,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Log In"
-        view.backgroundColor = .white
+        view.backgroundColor = .whiteSmoke
      
         view.configureLayout { layout in
             layout.isEnabled = true
@@ -59,8 +60,7 @@ class LoginViewController: UIViewController {
         
         email.configureLayout { layout in
             layout.isEnabled = true
-            layout.alignContent = .center
-            layout.justifyContent = .center
+            layout.marginTop = 15
         }
         
         password.configureLayout { layout in
@@ -86,9 +86,7 @@ class LoginViewController: UIViewController {
         let emailRequired = email.requiredValidation
         let passwordRequired = password.requiredValidation
 
-        let enableButton = Observable.combineLatest(emailRequired, passwordRequired) { a, b in
-            return a && b
-        }
+        let enableButton = requireAll(emailRequired, passwordRequired)
 
         enableButton
             .bind(to: loginButton.rx.isEnabled)
@@ -96,11 +94,12 @@ class LoginViewController: UIViewController {
     }
     
     func tryLogIn() {
+        resignFirstResponder()
         HUD.show(.progress)
         
         gymRatsAPI.login(email: email.text!, password: password.text!)
             .standardServiceResponse { user in
-                print(user)
+                GymRatsApp.delegate.appCoordinator.login(user: user)
             }.disposed(by: disposeBag)
     }
     

@@ -19,6 +19,8 @@ extension UIImage {
     static let brand = UIImage(color: .brand)
     static let whiteSmoke = UIImage(color: .whiteSmoke)
     static let fog = UIImage(color: .fog)
+    static let firebrick = UIImage(color: .firebrick)
+
 }
 
 extension UIColor {

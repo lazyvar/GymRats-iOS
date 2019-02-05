@@ -8,20 +8,23 @@
 
 import Foundation
 import RxSwift
+import MMDrawerController
 
 class AppCoordinator: Coordinator {
     
     let window: UIWindow
+    
+    var currentUser: User!
+    var drawer: MMDrawerController!
     
     init(window: UIWindow) {
         self.window = window
     }
     
     func start() {
-        
-        if loadCurrentUser() != nil {
+        if let user = loadCurrentUser() {
             // show home
-            window.rootViewController = UINavigationController(rootViewController: UIViewController())
+            login(user: user)
         } else {
             // show login/signup
             let nav = UINavigationController(rootViewController: WelcomeViewController())
@@ -36,14 +39,40 @@ class AppCoordinator: Coordinator {
         NetworkActivityLogger.shared.startLogging()
     }
     
-    func loadCurrentUser() -> User? {
-        switch Keychain.gymRats.retrieveObject(forKey: .currentUser) {
-        case .success(let user):
-            return user
-        case .error(let error):
-            print("Bummer! \(error.description)")
-            return nil
+    func login(user: User) {
+        self.currentUser = user
+        
+        let menu = UIViewController()
+        let center = HomeViewController()
+        let nav = UINavigationController(rootViewController: center)
+        
+        drawer = MMDrawerController(center: nav, leftDrawerViewController: menu)
+        
+        window.rootViewController = drawer
+    }
+    
+    @objc func toggleMenu() {
+        if drawer.openSide == .left {
+            drawer.closeDrawer(animated: true, completion: nil)
+        } else {
+            drawer.open(.left, animated: true, completion: nil)
         }
+    }
+    
+    func logout() {
+        self.currentUser = nil
+    }
+    
+    func loadCurrentUser() -> User? {
+        return User(id: 100, email: "no-active-groups", fullName: "Mack Hasz", proPicUrl: nil, token: nil)
+        
+//        switch Keychain.gymRats.retrieveObject(forKey: .currentUser) {
+//        case .success(let user):
+//            return user
+//        case .error(let error):
+//            print("Bummer! \(error.description)")
+//            return nil
+//        }
     }
     
 }

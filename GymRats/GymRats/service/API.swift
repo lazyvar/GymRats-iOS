@@ -16,8 +16,11 @@ import RxAlamofire
 let gymRatsAPI = GymRatsAPI()
 
 enum APIRequest {
-    case login(_ email: String, _ password: String)
+    case login(email: String, password: String)
     case signup
+    case getAllGroups
+    case joinChallenge(code: String)
+    case createChallenge(startDate: Date, endDate: Date, groupName: String)
     
     var requestProperties: (method: HTTPMethod, path: String, params: Parameters) {
         switch self {
@@ -25,6 +28,16 @@ enum APIRequest {
             return (.post, "login", ["email": email, "password": password])
         case .signup:
             return (.post, "signup", [:])
+        case .getAllGroups:
+            return (.get, "group/all", [:])
+        case .joinChallenge(let code):
+            return (.post, "/group/\(code)", [:])
+        case .createChallenge(startDate: let startDate, endDate: let endDate, groupName: let groupName):
+            return (.post, "/group", [
+                "startDate": startDate,
+                "endDate": endDate,
+                "groupName": groupName
+            ])
         }
     }
 }
@@ -45,20 +58,31 @@ class GymRatsAPI {
                 .map { $0.1 }
     }
     
-    private func request<T: Decodable>(_ apiRequest: APIRequest) -> Observable<T> {
+    private func requestObject<T: Decodable>(_ apiRequest: APIRequest) -> Observable<T> {
         return baseRequest(apiRequest).decodeObject()
     }
     
-    private func request<T: Decodable>(_ apiRequest: APIRequest) -> Observable<[T]> {
+    private func requestArray<T: Decodable>(_ apiRequest: APIRequest) -> Observable<[T]> {
         return baseRequest(apiRequest).decodeArray()
     }
     
     func login(email: String, password: String) -> Observable<User> {
-        return request(.login(email, password))
+        return requestObject(.login(email: email, password: password))
             .do(onNext: { user in
                 // set user in cache
                 print("woo")
             })
     }
     
+    func getAllGroups() -> Observable<[Group]> {
+        return requestArray(.getAllGroups)
+    }
+    
+    func joinChallenge(code: String) -> Observable<Group> {
+        return requestObject(.joinChallenge(code: code))
+    }
+    
+    func createGroup(startDate: Date, endDate: Date, groupName: String) -> Observable<Group> {
+        return requestObject(.createChallenge(startDate: startDate, endDate: endDate, groupName: groupName))
+    }
 }

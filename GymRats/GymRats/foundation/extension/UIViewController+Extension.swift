@@ -22,5 +22,31 @@ extension UIViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 
+    func setupMenuButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem (
+            title: "Menu",
+            style: .plain,
+            target: GymRatsApp.coordinator,
+            action: #selector(AppCoordinator.toggleMenu)
+        )
+    }
+    
+    func presentAlert(title: String, message: String) {
+        DispatchQueue.main.async {
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion:  nil)
+        }
+    }
+    
+    func presentAlert(with error: Error) {
+        presentAlert(title: "Error", message: error.localizedDescription)
+    }
+    
+   @objc func dismissSelf() {
+        self.dismiss(animated: true, completion: nil)
+    }
     
 }
