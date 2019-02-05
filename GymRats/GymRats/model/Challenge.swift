@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Group: Codable {
+struct Challenge: Codable {
     let id: Int
     let name: String
     let code: String
@@ -17,9 +17,9 @@ struct Group: Codable {
     let endDate: Date
 }
 
-extension Array where Element == Group {
+extension Array where Element == Challenge {
     
-    func getActiveGroups() -> [Group] {
+    func getActiveGroups() -> [Challenge] {
         return self.filter { group in
             let today = Date()
             
@@ -27,7 +27,7 @@ extension Array where Element == Group {
         }
     }
     
-    func getInActiveGroups() -> [Group] {
+    func getInActiveGroups() -> [Challenge] {
         return self.filter { Date() > $0.endDate }
     }
     
