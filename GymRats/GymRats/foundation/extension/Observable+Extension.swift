@@ -11,6 +11,29 @@ import RxSwift
 import RxCocoa
 import Kingfisher
 
+extension UIButton {
+    
+    /// life should be this easy
+    func onTouchUpInside(_ action: @escaping () -> Void) -> Disposable {
+        return self.rx.controlEvent(.touchUpInside)
+            .asObservable()
+            .then { _ in
+                action()
+            }
+    }
+    
+}
+
+extension Observable {
+    
+    func then(_ function: @escaping (Element) -> Void) -> Disposable {
+        return subscribe(onNext: { element in
+            function(element)
+        })
+    }
+    
+}
+
 extension Variable where Element == String {
     
     func bind(to label: UILabel) -> Disposable {

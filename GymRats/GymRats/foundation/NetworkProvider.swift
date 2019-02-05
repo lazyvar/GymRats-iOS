@@ -66,6 +66,8 @@ class MockedNetworkProvider: NetworkProvider {
             switch url {
             case "login":
                 return "todo"
+            case "signup":
+                return "todo"
             default:
                 return "path not mockec"
             }

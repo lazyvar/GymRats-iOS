@@ -8,9 +8,8 @@ target 'GymRats' do
     pod 'RxCocoa',    '~> 4.0'
     pod 'RxAlamofire'
     pod 'Kingfisher', '~> 4.0'
-    pod 'AloeStackView'
     pod 'RxOptional'
-    pod 'PureLayout'
-    pod "Bow", "~> 0.3.0"
+    pod 'FlexLayout'
+    pod 'YogaKit'
     pod 'SkyFloatingLabelTextField', '~> 3.0'
 end
