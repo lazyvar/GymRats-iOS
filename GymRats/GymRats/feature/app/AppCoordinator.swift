@@ -24,7 +24,10 @@ class AppCoordinator: Coordinator {
             window.rootViewController = UINavigationController(rootViewController: UIViewController())
         } else {
             // show login/signup
-            window.rootViewController = WelcomeViewController()
+            let nav = UINavigationController(rootViewController: WelcomeViewController())
+            nav.navigationBar.turnBrandColorSlightShadow()
+            
+            window.rootViewController = nav
         }
         
         window.makeKeyAndVisible()

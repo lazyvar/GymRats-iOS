@@ -13,7 +13,7 @@ import Alamofire
 
 protocol NetworkProvider {
     func buildUrl(forPath path: String) -> String
-    func request(method: HTTPMethod, url: String) -> Observable<(HTTPURLResponse, Data)>
+    func request(method: HTTPMethod, url: String, parameters: Parameters) -> Observable<(HTTPURLResponse, Data)>
 }
 
 class ProductionNetworkProvider: NetworkProvider {
@@ -24,11 +24,12 @@ class ProductionNetworkProvider: NetworkProvider {
         return "\(baseUrl)/\(path)"
     }
     
-    func request(method: HTTPMethod, url: String) -> Observable<(HTTPURLResponse, Data)> {
-        return RxAlamofire.request(method, url)
-                .validate(statusCode: 200..<300)
-                .validate(contentType: ["application/json"])
-                .responseData()
+    func request(method: HTTPMethod, url: String, parameters: Parameters) -> Observable<(HTTPURLResponse, Data)> {
+        let request = Alamofire.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default)
+        request.validate(statusCode: 200..<300)
+        request.validate(contentType: ["application/json"])
+        
+        return request.rx.responseData()
     }
     
 }
@@ -51,11 +52,20 @@ class MockedNetworkProvider: NetworkProvider {
         return path
     }
 
-    func request(method: HTTPMethod, url: String) -> Observable<(HTTPURLResponse, Data)> {
+    func request(method: HTTPMethod, url: String, parameters: Parameters) -> Observable<(HTTPURLResponse, Data)> {
         return Observable<(HTTPURLResponse, Data)>.create { subscriber in
             let data = self.mockedResponse(forURL: url)
 
-            subscriber.onNext((.dummy, data))
+            switch url {
+            case "login":
+                if parameters["email"] as! String == "error" {
+                    subscriber.onError(NSError(domain: "Wrong combo.", code: 100, userInfo: nil))
+                } else {
+                    subscriber.onNext((.dummy, data))
+                }
+            default:
+                subscriber.onNext((.dummy, data))
+            }
             
             return Disposables.create()
         }.delay(1, scheduler: MainScheduler.instance)
@@ -65,7 +75,15 @@ class MockedNetworkProvider: NetworkProvider {
         let json: String = {
             switch url {
             case "login":
-                return "todo"
+                return """
+                {
+                    "id": 101,
+                    "email": "mack@hasz.email",
+                    "fullName": "Mack Hasz",
+                    "proPicUrl": "https://s3.amazonaws.com/com.hasz.oh/profile/3312CA11-9241-4B80-A9A1-76CCAC8306E5.jpg",
+                    "token": "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MTAxLCJ1c2VybmFtZSI6Im1hY2sifQ.bWylH53ljxUs9Adl-sNBCNyU7ONi9vOAp-tChlUsOH1IInzzeidoJ-OFZnZlMMTVaRDXFbKj2Wn5aCih3ves9w",
+                }
+                """
             case "signup":
                 return "todo"
             default:

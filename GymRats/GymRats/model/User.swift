@@ -9,7 +9,7 @@
 import Foundation
 
 struct User: Codable {
-    let id: String
+    let id: Int
     let email: String
     let fullName: String
     let proPicUrl: String?

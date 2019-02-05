@@ -12,4 +12,5 @@ target 'GymRats' do
     pod 'FlexLayout'
     pod 'YogaKit'
     pod 'SkyFloatingLabelTextField', '~> 3.0'
+    pod 'PKHUD', '~> 5.0'
 end

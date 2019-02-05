@@ -6,4 +6,14 @@
 //  Copyright © 2019 Mack Hasz. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class SignUpViewController: UIViewController {
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.isTranslucent = false
+    }
+
+}

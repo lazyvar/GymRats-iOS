@@ -60,14 +60,13 @@ class WelcomeViewController: UIViewController {
         
         view.yoga.applyLayout(preservingOrigin: true)
         
-        loginButton.onTouchUpInside {
-            
+        loginButton.onTouchUpInside { [weak self] in
+            self?.push(LoginViewController())
         }.disposed(by: disposeBag)
         
-        signUpButton.onTouchUpInside {
-            
+        signUpButton.onTouchUpInside { [weak self] in
+            self?.push(SignUpViewController())
         }.disposed(by: disposeBag)
-
     }
     
 }

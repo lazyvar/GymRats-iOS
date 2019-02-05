@@ -16,15 +16,15 @@ import RxAlamofire
 let gymRatsAPI = GymRatsAPI()
 
 enum APIRequest {
-    case login
+    case login(_ email: String, _ password: String)
     case signup
     
-    var requestProperties: (method: HTTPMethod, path: String) {
+    var requestProperties: (method: HTTPMethod, path: String, params: Parameters) {
         switch self {
-        case .login:
-            return (.post, "login")
+        case .login(let email, let password):
+            return (.post, "login", ["email": email, "password": password])
         case .signup:
-            return (.post, "signup")
+            return (.post, "signup", [:])
         }
     }
 }
@@ -38,10 +38,10 @@ class GymRatsAPI {
     }
     
     private func baseRequest(_ apiRequest: APIRequest) -> Observable<Data> {
-        let (method, path) = apiRequest.requestProperties
+        let (method, path, params) = apiRequest.requestProperties
         let url = networkProvider.buildUrl(forPath: path)
         
-        return networkProvider.request(method: method, url: url)
+        return networkProvider.request(method: method, url: url, parameters: params)
                 .map { $0.1 }
     }
     
@@ -51,6 +51,14 @@ class GymRatsAPI {
     
     private func request<T: Decodable>(_ apiRequest: APIRequest) -> Observable<[T]> {
         return baseRequest(apiRequest).decodeArray()
+    }
+    
+    func login(email: String, password: String) -> Observable<User> {
+        return request(.login(email, password))
+            .do(onNext: { user in
+                // set user in cache
+                print("woo")
+            })
     }
     
 }

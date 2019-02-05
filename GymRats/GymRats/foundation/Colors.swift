@@ -12,6 +12,7 @@ extension UIColor {
     static let brand: UIColor = .hex("#00B0E1")
     static let whiteSmoke: UIColor = .hex("#f5f5f5")
     static let fog: UIColor = .hex("#9B9B9B")
+    static let firebrick: UIColor = .hex("#b22222")
 }
 
 extension UIImage {

@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 import Kingfisher
+import PKHUD
 
 extension UIButton {
     
@@ -20,6 +21,37 @@ extension UIButton {
             .then { _ in
                 action()
             }
+    }
+    
+}
+
+extension Collection {
+    
+    var isNotEmpty: Bool {
+        return !isEmpty
+    }
+    
+}
+
+extension UITextField {
+    
+    var requiredValidation: Observable<Bool> {
+        return rx.text.map { ($0 ?? "").isNotEmpty }.share(replay: 1)
+    }
+    
+}
+
+extension Observable {
+    
+    func standardServiceResponse(_ onSuccess: @escaping (Element) -> Void) -> Disposable {
+        return self.subscribe(onNext: { element in
+                // ...
+                HUD.hide()
+                onSuccess(element)
+            }, onError: { error in
+                HUD.show(.labeledError(title: "Error", subtitle: error.localizedDescription))
+                HUD.hide(afterDelay: 1.5)
+            })
     }
     
 }
