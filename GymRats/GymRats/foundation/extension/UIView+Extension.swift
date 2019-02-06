@@ -78,4 +78,15 @@ extension UIView {
         return constraint
     }
     
+    func addDivider() {
+        let divider = UIView()
+        divider.backgroundColor = UIColor.rgb(red: 210, green: 210, blue: 210)
+        divider.layer.opacity = 0.85
+
+        addSubview(divider)
+        
+        addConstraintsWithFormat(format: "H:|[v0]|", views: divider)
+        addConstraintsWithFormat(format: "V:[v0(0.4)]|", views: divider)
+    }
+    
 }

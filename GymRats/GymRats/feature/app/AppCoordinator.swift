@@ -64,7 +64,7 @@ class AppCoordinator: Coordinator {
     }
     
     func loadCurrentUser() -> User? {
-        return User(id: 100, email: "no-active-groups", fullName: "Mack Hasz", proPicUrl: nil, token: nil)
+        return User(id: 100, email: "single-active-challenge", fullName: "Mack Hasz", proPicUrl: nil, token: nil)
         
 //        switch Keychain.gymRats.retrieveObject(forKey: .currentUser) {
 //        case .success(let user):

@@ -13,7 +13,7 @@ import RxSwift
 import PKHUD
 
 protocol CreateChallengeDelegate: class {
-    func challengeCreated(group: Group)
+    func challengeCreated(challenge: Challenge)
 }
 
 class CreateChallengeViewController: UIViewController {
@@ -22,7 +22,7 @@ class CreateChallengeViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     
-    let groupName: SkyFloatingLabelTextField = .standardTextField(placeholder: "Group Name")
+    let challengeName: SkyFloatingLabelTextField = .standardTextField(placeholder: "Challenge Name")
     
     let startDateLabel: UILabel = {
         let label = UILabel()
@@ -120,7 +120,7 @@ class CreateChallengeViewController: UIViewController {
             layout.marginTop = 15
         }
 
-        groupName.configureLayout { layout in
+        challengeName.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 15
         }
@@ -135,7 +135,7 @@ class CreateChallengeViewController: UIViewController {
         view.addSubview(endDateLabel)
         view.addSubview(endDate)
         view.addSubview(numberOfDaysLabel)
-        view.addSubview(groupName)
+        view.addSubview(challengeName)
         view.addSubview(createChallengeButton)
 
         view.yoga.applyLayout(preservingOrigin: true)
@@ -152,7 +152,7 @@ class CreateChallengeViewController: UIViewController {
         numberOfDays.bind(to: numberOfDaysLabel.rx.text)
             .disposed(by: disposeBag)
         
-        groupName.requiredValidation
+        challengeName.requiredValidation
             .bind(to: createChallengeButton.rx.isEnabled)
             .disposed(by: disposeBag)
     
@@ -164,10 +164,10 @@ class CreateChallengeViewController: UIViewController {
     func createChallenge() {
         HUD.show(.progress)
         
-        gymRatsAPI.createGroup(startDate: startDate.date, endDate: endDate.date, groupName: groupName.text!)
-            .standardServiceResponse { [weak self] group in
+        gymRatsAPI.createChallenge(startDate: startDate.date, endDate: endDate.date, challengeName: challengeName.text!)
+            .standardServiceResponse { [weak self] challenge in
                 self?.dismissSelf()
-                self?.delegate?.challengeCreated(group: group)
+                self?.delegate?.challengeCreated(challenge: challenge)
             }.disposed(by: disposeBag)
     }
 

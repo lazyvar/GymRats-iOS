@@ -11,8 +11,8 @@ import RxSwift
 
 enum JoinChallenge {
     
-    static func presentJoinChallengeModal(on viewController: UIViewController) -> Observable<Group> {
-        return Observable<Group>.create({ [weak viewController] subscriber -> Disposable in
+    static func presentJoinChallengeModal(on viewController: UIViewController) -> Observable<Challenge> {
+        return Observable<Challenge>.create({ [weak viewController] subscriber -> Disposable in
             guard let viewController = viewController else {
                 
                 return Disposables.create()

@@ -37,15 +37,15 @@ class HomeViewController: UIViewController {
         setupMenuButton()
         
         retryButton.onTouchUpInside { [weak self] in
-            self?.fetchAllGroups()
+            self?.fetchAllChallenges()
         }.disposed(by: disposeBag)
         
         joinChallengeButton.onTouchUpInside { [weak self] in
             guard let self = self else { return }
             
             JoinChallenge.presentJoinChallengeModal(on: self)
-                .subscribe(onNext: { [weak self] group in
-                    self?.fetchAllGroups()
+                .subscribe(onNext: { [weak self] _ in
+                    self?.fetchAllChallenges()
                 }, onError: { [weak self] error in
                     if !(error is SimpleError) {
                         self?.presentAlert(with: error)
@@ -62,28 +62,28 @@ class HomeViewController: UIViewController {
             self?.present(nav, animated: true, completion: nil)
         }.disposed(by: disposeBag)
         
-        fetchAllGroups()
+        fetchAllChallenges()
     }
 
-    func fetchAllGroups() {
+    func fetchAllChallenges() {
         retryButton.isHidden = true
         HUD.show(.progress)
         
-        gymRatsAPI.getAllGroups()
-            .subscribe(onNext: { [weak self] groups in
+        gymRatsAPI.getAllChallenges()
+            .subscribe(onNext: { [weak self] challenges in
                 HUD.hide()
                 
-                let activeGroups = groups.getActiveGroups()
+                let activeChallenges = challenges.getActiveChallenges()
                 
-                if activeGroups.isEmpty {
+                if activeChallenges.isEmpty {
                     self?.showEmptyState()
                 } else {
-                    if activeGroups.count > 1 {
-                        // memeber of multiple active groups
-                        self?.showMulitpleChallenges(groups: activeGroups)
+                    if activeChallenges.count > 1 {
+                        // memeber of multiple active challenges
+                        self?.showMulitpleChallenges(challenges: activeChallenges)
                     } else {
-                        // member on single active group
-                        self?.showSingleChallenge(group: activeGroups[0])
+                        // member on single active challenge
+                        self?.showSingleChallenge(challenge: activeChallenges[0])
                     }
                 }
             }, onError: { [weak self] error in
@@ -123,19 +123,23 @@ class HomeViewController: UIViewController {
         view.yoga.applyLayout(preservingOrigin: true)
     }
     
-    func showSingleChallenge(group: Group) {
+    func showSingleChallenge(challenge: Challenge) {
+        let challengeViewController = ActiveChallengeViewController(challenge: challenge)
+        let nav = UINavigationController(rootViewController: challengeViewController)
+        challengeViewController.setupMenuButton()
         
+        GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: false, completion: nil)
     }
     
-    func showMulitpleChallenges(groups: [Group]) {
+    func showMulitpleChallenges(challenges: [Challenge]) {
         
     }
 }
 
 extension HomeViewController: CreateChallengeDelegate {
     
-    func challengeCreated(group: Group) {
-        self.fetchAllGroups()
+    func challengeCreated(challenge: Challenge) {
+        self.fetchAllChallenges()
     }
     
 }

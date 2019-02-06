@@ -18,9 +18,11 @@ let gymRatsAPI = GymRatsAPI()
 enum APIRequest {
     case login(email: String, password: String)
     case signup
-    case getAllGroups
+    case getAllChallenges
     case joinChallenge(code: String)
-    case createChallenge(startDate: Date, endDate: Date, groupName: String)
+    case createChallenge(startDate: Date, endDate: Date, challengeName: String)
+    case getUsersForChallenge(challenge: Challenge)
+    case getWorkoutsForChallenge(challenge: Challenge)
     
     var requestProperties: (method: HTTPMethod, path: String, params: Parameters) {
         switch self {
@@ -28,16 +30,20 @@ enum APIRequest {
             return (.post, "login", ["email": email, "password": password])
         case .signup:
             return (.post, "signup", [:])
-        case .getAllGroups:
-            return (.get, "group/all", [:])
+        case .getAllChallenges:
+            return (.get, "challenge/all", [:])
         case .joinChallenge(let code):
-            return (.post, "/group/\(code)", [:])
-        case .createChallenge(startDate: let startDate, endDate: let endDate, groupName: let groupName):
-            return (.post, "/group", [
+            return (.post, "challenge/\(code)", [:])
+        case .createChallenge(startDate: let startDate, endDate: let endDate, challengeName: let challengeName):
+            return (.post, "challenge", [
                 "startDate": startDate,
                 "endDate": endDate,
-                "groupName": groupName
+                "challengeName": challengeName
             ])
+        case .getUsersForChallenge(challenge: let challenge):
+            return (.get, "challenge/\(challenge.id)/user", [:])
+        case .getWorkoutsForChallenge(challenge: let challenge):
+            return (.get, "challenge/\(challenge.id)/workout", [:])
         }
     }
 }
@@ -70,19 +76,28 @@ class GymRatsAPI {
         return requestObject(.login(email: email, password: password))
             .do(onNext: { user in
                 // set user in cache
-                print("woo")
+                // TODO
             })
     }
     
-    func getAllGroups() -> Observable<[Group]> {
-        return requestArray(.getAllGroups)
+    func getAllChallenges() -> Observable<[Challenge]> {
+        return requestArray(.getAllChallenges)
     }
     
-    func joinChallenge(code: String) -> Observable<Group> {
+    func joinChallenge(code: String) -> Observable<Challenge> {
         return requestObject(.joinChallenge(code: code))
     }
     
-    func createGroup(startDate: Date, endDate: Date, groupName: String) -> Observable<Group> {
-        return requestObject(.createChallenge(startDate: startDate, endDate: endDate, groupName: groupName))
+    func createChallenge(startDate: Date, endDate: Date, challengeName: String) -> Observable<Challenge> {
+        return requestObject(.createChallenge(startDate: startDate, endDate: endDate, challengeName: challengeName))
     }
+    
+    func getUsers(for challenge:  Challenge) -> Observable<[User]> {
+        return requestArray(.getUsersForChallenge(challenge: challenge))
+    }
+    
+    func getWorkouts(for challenge: Challenge) -> Observable<[Workout]> {
+        return requestArray(.getWorkoutsForChallenge(challenge: challenge))
+    }
+    
 }

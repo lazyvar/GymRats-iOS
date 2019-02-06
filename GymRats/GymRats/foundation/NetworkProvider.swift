@@ -86,13 +86,13 @@ class MockedNetworkProvider: NetworkProvider {
                 """
             case "signup":
                 return "todo"
-            case "group/all":
+            case "challenge/all":
                 switch GymRatsApp.delegate.appCoordinator.currentUser.email {
-                case "no-active-groups":
+                case "no-active-challenges":
                     return """
                     []
                     """
-                case "single-active-groups":
+                case "single-active-challenges":
                     return """
                     [{
                     "id": 101,
@@ -102,7 +102,7 @@ class MockedNetworkProvider: NetworkProvider {
                     "endDate": 1556668800
                     }]
                     """
-                case "many-active-groups":
+                case "many-active-challenges":
                     return """
                     [{
                     "id": 101,
@@ -129,7 +129,7 @@ class MockedNetworkProvider: NetworkProvider {
                     }]
                     """
                 }
-            case "/group/123456":
+            case "/challenge/123456":
                 return """
                 {
                 "id": 101,
@@ -139,7 +139,7 @@ class MockedNetworkProvider: NetworkProvider {
                 "endDate": 1556668800
                 }
                 """
-            case "/group":
+            case "/challenge":
                 return """
                 {
                 "id": 101,
@@ -148,6 +148,31 @@ class MockedNetworkProvider: NetworkProvider {
                 "startDate": 1546300800,
                 "endDate": 1556668800
                 }
+                """
+            case "challenge/101/user":
+                return """
+                [{
+                "id": 101,
+                "email": "mack@hasz.email",
+                "fullName": "Mack Hasz",
+                "proPicUrl": "https://picsum.photos/\(Int.random(in: 100...200))",
+                "token": "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MTAxLCJ1c2VybmFtZSI6Im1hY2sifQ.bWylH53ljxUs9Adl-sNBCNyU7ONi9vOAp-tChlUsOH1IInzzeidoJ-OFZnZlMMTVaRDXFbKj2Wn5aCih3ves9w",
+                },{
+                "id": 102,
+                "email": "mack@hasz.email",
+                "fullName": "Jack Smith",
+                "proPicUrl": "https://picsum.photos/\(Int.random(in: 100...200))",
+                "token": "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MTAxLCJ1c2VybmFtZSI6Im1hY2sifQ.bWylH53ljxUs9Adl-sNBCNyU7ONi9vOAp-tChlUsOH1IInzzeidoJ-OFZnZlMMTVaRDXFbKj2Wn5aCih3ves9w",
+                }]
+                """
+            case "challenge/101/workout":
+                return """
+                [{
+                "id": 101,
+                "userId": 101,
+                "title": "I did it.",
+                "date": 1549411941
+                }]
                 """
             default:
                 return "path not mockec"

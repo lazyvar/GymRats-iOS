@@ -1,5 +1,5 @@
 //
-//  Group.swift
+//  Challenge.swift
 //  GymRats
 //
 //  Created by Mack Hasz on 2/5/19.
@@ -19,15 +19,15 @@ struct Challenge: Codable {
 
 extension Array where Element == Challenge {
     
-    func getActiveGroups() -> [Challenge] {
-        return self.filter { group in
+    func getActiveChallenges() -> [Challenge] {
+        return self.filter { challenge in
             let today = Date()
             
-            return today >= group.startDate && today <= group.endDate
+            return today >= challenge.startDate && today <= challenge.endDate
         }
     }
     
-    func getInActiveGroups() -> [Challenge] {
+    func getInActiveChallenges() -> [Challenge] {
         return self.filter { Date() > $0.endDate }
     }
     

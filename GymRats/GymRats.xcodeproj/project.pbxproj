@@ -32,10 +32,16 @@
 		747D6FE72208ED780062BB39 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FE62208ED780062BB39 /* SignUpViewController.swift */; };
 		747D6FE92208EDAF0062BB39 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FE82208EDAF0062BB39 /* Colors.swift */; };
 		74A01B25220A0AFB00431ABD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B24220A0AFB00431ABD /* HomeViewController.swift */; };
-		74A01B27220A0BBF00431ABD /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B26220A0BBF00431ABD /* Group.swift */; };
+		74A01B27220A0BBF00431ABD /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B26220A0BBF00431ABD /* Challenge.swift */; };
 		74A01B2A220A17EC00431ABD /* JoinChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B29220A17EC00431ABD /* JoinChallenge.swift */; };
 		74A01B2C220A1A5B00431ABD /* SimpleError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B2B220A1A5B00431ABD /* SimpleError.swift */; };
 		74A01B2F220A1CD900431ABD /* CreateChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B2E220A1CD900431ABD /* CreateChallengeViewController.swift */; };
+		74A01B32220A380700431ABD /* ActiveChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B31220A380700431ABD /* ActiveChallengeViewController.swift */; };
+		74A01B34220A3B2000431ABD /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B33220A3B2000431ABD /* Workout.swift */; };
+		74A01B3B220A544F00431ABD /* UserWorkoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B39220A544F00431ABD /* UserWorkoutTableViewCell.swift */; };
+		74A01B3C220A544F00431ABD /* UserWorkoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74A01B3A220A544F00431ABD /* UserWorkoutTableViewCell.xib */; };
+		74A01B3E220A55D000431ABD /* UserImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B3D220A55D000431ABD /* UserImageView.swift */; };
+		74A01B40220A560800431ABD /* RingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B3F220A560800431ABD /* RingView.swift */; };
 		A02F4B0274FC477C5963CDDD /* Pods_GymRats.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45AE0586E2D3E12AB034ED36 /* Pods_GymRats.framework */; };
 /* End PBXBuildFile section */
 
@@ -81,10 +87,16 @@
 		747D6FE62208ED780062BB39 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		747D6FE82208EDAF0062BB39 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		74A01B24220A0AFB00431ABD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		74A01B26220A0BBF00431ABD /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		74A01B26220A0BBF00431ABD /* Challenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
 		74A01B29220A17EC00431ABD /* JoinChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinChallenge.swift; sourceTree = "<group>"; };
 		74A01B2B220A1A5B00431ABD /* SimpleError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleError.swift; sourceTree = "<group>"; };
 		74A01B2E220A1CD900431ABD /* CreateChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChallengeViewController.swift; sourceTree = "<group>"; };
+		74A01B31220A380700431ABD /* ActiveChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveChallengeViewController.swift; sourceTree = "<group>"; };
+		74A01B33220A3B2000431ABD /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
+		74A01B39220A544F00431ABD /* UserWorkoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWorkoutTableViewCell.swift; sourceTree = "<group>"; };
+		74A01B3A220A544F00431ABD /* UserWorkoutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserWorkoutTableViewCell.xib; sourceTree = "<group>"; };
+		74A01B3D220A55D000431ABD /* UserImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImageView.swift; sourceTree = "<group>"; };
+		74A01B3F220A560800431ABD /* RingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingView.swift; sourceTree = "<group>"; };
 		EC58A7A483BCAC310AB5A0EE /* Pods-GymRats.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymRats.release.xcconfig"; path = "Pods/Target Support Files/Pods-GymRats/Pods-GymRats.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -187,6 +199,8 @@
 				747D6FDF2208ECDD0062BB39 /* Styles.swift */,
 				747D6FE82208EDAF0062BB39 /* Colors.swift */,
 				74A01B2B220A1A5B00431ABD /* SimpleError.swift */,
+				74A01B3D220A55D000431ABD /* UserImageView.swift */,
+				74A01B3F220A560800431ABD /* RingView.swift */,
 			);
 			path = foundation;
 			sourceTree = "<group>";
@@ -194,6 +208,7 @@
 		747D6FBA2208DBD70062BB39 /* feature */ = {
 			isa = PBXGroup;
 			children = (
+				74A01B30220A37CD00431ABD /* view-challenge */,
 				74A01B2D220A1CC800431ABD /* create-challenge */,
 				74A01B28220A17DC00431ABD /* join-challenge */,
 				74305072220A067C005D8C52 /* home */,
@@ -235,7 +250,8 @@
 			isa = PBXGroup;
 			children = (
 				747D6FDD2208E85A0062BB39 /* User.swift */,
-				74A01B26220A0BBF00431ABD /* Group.swift */,
+				74A01B26220A0BBF00431ABD /* Challenge.swift */,
+				74A01B33220A3B2000431ABD /* Workout.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -283,6 +299,16 @@
 				74A01B2E220A1CD900431ABD /* CreateChallengeViewController.swift */,
 			);
 			path = "create-challenge";
+			sourceTree = "<group>";
+		};
+		74A01B30220A37CD00431ABD /* view-challenge */ = {
+			isa = PBXGroup;
+			children = (
+				74A01B31220A380700431ABD /* ActiveChallengeViewController.swift */,
+				74A01B39220A544F00431ABD /* UserWorkoutTableViewCell.swift */,
+				74A01B3A220A544F00431ABD /* UserWorkoutTableViewCell.xib */,
+			);
+			path = "view-challenge";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -369,6 +395,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				747D6FA42208DB330062BB39 /* LaunchScreen.storyboard in Resources */,
+				74A01B3C220A544F00431ABD /* UserWorkoutTableViewCell.xib in Resources */,
 				747D6FA12208DB330062BB39 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -393,6 +420,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-GymRats/Pods-GymRats-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AvatarImageView/AvatarImageView.framework",
 				"${BUILT_PRODUCTS_DIR}/FlexLayout/FlexLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MMDrawerController/MMDrawerController.framework",
@@ -412,6 +440,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AvatarImageView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FlexLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MMDrawerController.framework",
@@ -460,14 +489,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74A01B40220A560800431ABD /* RingView.swift in Sources */,
 				74A01B2F220A1CD900431ABD /* CreateChallengeViewController.swift in Sources */,
 				747D6FD82208E8130062BB39 /* KeychainErrors.swift in Sources */,
 				747D6FE92208EDAF0062BB39 /* Colors.swift in Sources */,
+				74A01B32220A380700431ABD /* ActiveChallengeViewController.swift in Sources */,
 				747D6FE02208ECDD0062BB39 /* Styles.swift in Sources */,
 				747D6FDA2208E8130062BB39 /* KeychainResult.swift in Sources */,
 				747D6FC02208DC820062BB39 /* AppCoordinator.swift in Sources */,
 				747D6FBD2208DBFE0062BB39 /* API.swift in Sources */,
 				747D6FE72208ED780062BB39 /* SignUpViewController.swift in Sources */,
+				74A01B3E220A55D000431ABD /* UserImageView.swift in Sources */,
 				74A01B25220A0AFB00431ABD /* HomeViewController.swift in Sources */,
 				747D6FDB2208E8130062BB39 /* Keychain.swift in Sources */,
 				74A01B2A220A17EC00431ABD /* JoinChallenge.swift in Sources */,
@@ -478,10 +510,12 @@
 				747D6FC92208DCE60062BB39 /* AlamofireNetworkActivityLogger.swift in Sources */,
 				743050652209EB9A005D8C52 /* UINavigationBar+Extension.swift in Sources */,
 				747D6FC72208DCC80062BB39 /* Coordinator.swift in Sources */,
+				74A01B3B220A544F00431ABD /* UserWorkoutTableViewCell.swift in Sources */,
 				747D6FC32208DCAB0062BB39 /* Observable+Extension.swift in Sources */,
 				747D6FE52208ED6F0062BB39 /* LoginViewController.swift in Sources */,
 				74305071220A05FC005D8C52 /* GymRatsApp.swift in Sources */,
-				74A01B27220A0BBF00431ABD /* Group.swift in Sources */,
+				74A01B27220A0BBF00431ABD /* Challenge.swift in Sources */,
+				74A01B34220A3B2000431ABD /* Workout.swift in Sources */,
 				747D6FCD2208DE8E0062BB39 /* NetworkProvider.swift in Sources */,
 				747D6FC52208DCB60062BB39 /* UIView+Extension.swift in Sources */,
 				747D6F9A2208DB310062BB39 /* AppDelegate.swift in Sources */,
