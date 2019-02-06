@@ -99,7 +99,8 @@ class MockedNetworkProvider: NetworkProvider {
                     "name": "CapTech Rats",
                     "code": "123456",
                     "startDate": 1546300800,
-                    "endDate": 1556668800
+                    "endDate": 1556668800,
+                    "timeZone": "EST"
                     }]
                     """
                 case "many-active-challenges":
@@ -109,13 +110,22 @@ class MockedNetworkProvider: NetworkProvider {
                     "name": "CapTech Rats",
                     "code": "123456",
                     "startDate": 1546300800,
-                    "endDate": 1556668800
+                    "endDate": 1556668800,
+                    "timeZone": "PST"
                     },{
                     "id": 102,
                     "name": "Hasz Fam",
                     "code": "ABCDEF",
                     "startDate": 1546300800,
-                    "endDate": 1556668800
+                    "endDate": 1556668800,
+                    "timeZone": "EST"
+                    },{
+                    "id": 102,
+                    "name": "Hasz Fam",
+                    "code": "ABCDEF",
+                    "startDate": 1546300800,
+                    "endDate": 1556668800,
+                    "timeZone": "UTC"
                     }]
                     """
                 default:
@@ -125,7 +135,8 @@ class MockedNetworkProvider: NetworkProvider {
                     "name": "CapTech Rats",
                     "code": "123456",
                     "startDate": 1546300800,
-                    "endDate": 1556668800
+                    "endDate": 1556668800,
+                    "timeZone": "EST"
                     }]
                     """
                 }
@@ -136,7 +147,8 @@ class MockedNetworkProvider: NetworkProvider {
                 "name": "CapTech Rats",
                 "code": "123456",
                 "startDate": 1546300800,
-                "endDate": 1556668800
+                "endDate": 1556668800,
+                "timeZone": "EST"
                 }
                 """
             case "challenge":
@@ -146,7 +158,8 @@ class MockedNetworkProvider: NetworkProvider {
                 "name": "CapTech Rats",
                 "code": "123456",
                 "startDate": 1546300800,
-                "endDate": 1556668800
+                "endDate": 1556668800,
+                "timeZone": "EST"
                 }
                 """
             case "challenge/101/user":
@@ -208,6 +221,12 @@ class MockedNetworkProvider: NetworkProvider {
                 "title": "Daily swoll, let's get this bread y'all.",
                 "date": 1549414273,
                 "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
+                },{
+                "id": 103,
+                "userId": 103,
+                "title": "THIS IS ITTTT.",
+                "date": 1549498396,
+                "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
                 }]
                 """
             case "challenge/102/workout":
@@ -217,6 +236,12 @@ class MockedNetworkProvider: NetworkProvider {
                 "userId": 104,
                 "title": "Daily swoll, let's get this bread y'all.",
                 "date": 1549414273,
+                "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
+                },{
+                "id": 103,
+                "userId": 103,
+                "title": "THIS IS ITTTT.",
+                "date": 1549498396,
                 "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
                 }]
                 """

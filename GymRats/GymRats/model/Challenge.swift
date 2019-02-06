@@ -15,6 +15,7 @@ struct Challenge: Codable {
     let pictureUrl: String?
     let startDate: Date
     let endDate: Date
+    let timeZone: String
 }
 
 extension Array where Element == Challenge {

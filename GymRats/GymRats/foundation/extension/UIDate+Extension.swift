@@ -12,7 +12,13 @@ import SwiftDate
 extension Date {
     
     var localTime: String {
-        return self.in(region: .current).toFormat("h:mm a")
+        let region = Region (
+            calendar: Calendar.autoupdatingCurrent,
+            zone: TimeZone(abbreviation: ActiveChallengeViewController.timeZone)!,
+            locale: Locale.autoupdatingCurrent
+        )
+
+        return self.in(region: region).toFormat("h:mm a")
     }
     
 }

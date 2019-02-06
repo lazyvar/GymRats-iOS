@@ -51,6 +51,15 @@ class ProfileViewController: UIViewController {
         return calendar
     }()
     
+    let currentCalendar: Calendar = {
+        let timeZone = TimeZone(identifier: ActiveChallengeViewController.timeZone)!
+        
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = timeZone
+        
+        return calendar
+    }()
+    
     let workoutsContainer: UIView = UIView()
     
     init(user: User) {
@@ -193,7 +202,7 @@ class ProfileViewController: UIViewController {
             
             for (index, workout) in workouts.enumerated() {
                 let row = UIView()
-                row.tag == index
+                row.tag = index
                 
                 let titleDetailsContainer = UIView()
                 
@@ -323,6 +332,7 @@ extension ProfileViewController: CVCalendarViewDelegate, CVCalendarViewAppearanc
     
     func shouldSelectRange() -> Bool { return false }
     
+    func calendar() -> Calendar? { return currentCalendar }
 }
 
 extension Array where Element == Workout {
@@ -333,8 +343,17 @@ extension Array where Element == Workout {
     
     func workouts(on date: Date) -> [Workout] {
         return self.filter({ workout in
-            let daysApart = workout.date.getInterval(toDate: date, component: .day)
+            let region = Region (
+                calendar: Calendar.autoupdatingCurrent,
+                zone: TimeZone(abbreviation: ActiveChallengeViewController.timeZone)!,
+                locale: Locale.autoupdatingCurrent
+            )
+
+            let workoutInRegion = DateInRegion(workout.date, region: region)
+            let dateInRegion = DateInRegion(date, region: region)
             
+            let daysApart = workoutInRegion.daysApartRespectingRegions(from: dateInRegion)
+
             return daysApart == 0
         })
     }
@@ -344,8 +363,32 @@ extension Array where Element == Workout {
 extension DayView {
     
     var swiftDate: Date {
-        return date.convertedDate()!
+        let timeZone = TimeZone(identifier: ActiveChallengeViewController.timeZone)!
+        
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = timeZone
+
+        return date.convertedDate(calendar: calendar)!
     }
     
 }
 
+extension DateInRegion {
+    
+    func daysApartRespectingRegions(from dateRegion: DateInRegion) -> Int {
+        let startCalendar = self.calendar
+        let endCalendar = dateRegion.calendar
+        
+        let startComponents = startCalendar.dateComponents([.month, .day, .year], from: date)
+        let endComponents = endCalendar.dateComponents([.month, .day, .year], from: dateRegion.date)
+        
+        let difference = Calendar.current.dateComponents (
+            [.day],
+            from: startComponents,
+            to: endComponents
+        )
+
+        return difference.day ?? 0
+    }
+    
+}

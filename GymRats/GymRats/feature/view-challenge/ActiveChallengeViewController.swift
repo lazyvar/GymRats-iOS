@@ -16,18 +16,25 @@ struct UserWorkout {
 }
 
 class ActiveChallengeViewController: UITableViewController {
+
+    static var timeZone: String = TimeZone.current.abbreviation()!
     
     let disposeBag = DisposeBag()
     let challenge: Challenge
-    
-    var userWorkouts: [UserWorkout] = []
-    
     let refresher = UIRefreshControl()
+
+    var users: [User] = []
+    var workouts: [Workout] = []
+    var currentDate = Date()
+    
+    var userWorkoutsForCurrentDate: [UserWorkout] = []
     
     init(challenge: Challenge) {
         self.challenge = challenge
         
         super.init(nibName: nil, bundle: nil)
+        
+        ActiveChallengeViewController.timeZone = challenge.timeZone
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -56,21 +63,11 @@ class ActiveChallengeViewController: UITableViewController {
         Observable.zip(users, workouts).subscribe(onNext: { zipped in
             let (users, workouts) = zipped
             
-            self.userWorkouts = users.map({ (user: User) -> UserWorkout in
-                let workout = workouts.first(where: { $0.userId == user.id })
-                
-                return UserWorkout(user: user, workout: workout)
-            }).sorted(by: { a, b in
-                if let aWorkout = a.workout, let bWorkout = b.workout {
-                    return aWorkout.date > bWorkout.date
-                } else if a.workout != nil {
-                    return true
-                } else if b.workout != nil  {
-                    return false
-                } else {
-                    return a.user.fullName < b.user.fullName
-                }
-            })
+            self.users = users
+            self.workouts = workouts
+            
+            self.updateUserWorkoutsForCurrentDate()
+            
             self.refresher.endRefreshing()
             self.tableView.reloadData()
         }, onError: { error in
@@ -79,9 +76,29 @@ class ActiveChallengeViewController: UITableViewController {
         }).disposed(by: disposeBag)
     }
     
+    func updateUserWorkoutsForCurrentDate() {
+        let workoutsForToday = self.workouts.workouts(on: self.currentDate)
+        
+        self.userWorkoutsForCurrentDate = users.map({ (user: User) -> UserWorkout in
+            let workout = workoutsForToday.first(where: { $0.userId == user.id })
+            
+            return UserWorkout(user: user, workout: workout)
+        }).sorted(by: { a, b in
+            if let aWorkout = a.workout, let bWorkout = b.workout {
+                return aWorkout.date > bWorkout.date
+            } else if a.workout != nil {
+                return true
+            } else if b.workout != nil  {
+                return false
+            } else {
+                return a.user.fullName < b.user.fullName
+            }
+        })
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserWorkoutCell") as! UserWorkoutTableViewCell
-        let userWorkout = userWorkouts[indexPath.row]
+        let userWorkout = userWorkoutsForCurrentDate[indexPath.row]
         
         cell.userWorkout = userWorkout
         
@@ -93,13 +110,13 @@ class ActiveChallengeViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userWorkouts.count
+        return userWorkoutsForCurrentDate.count
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let userWorkout = userWorkouts[indexPath.row]
+        let userWorkout = userWorkoutsForCurrentDate[indexPath.row]
         
         if let workout = userWorkout.workout {
             let workoutViewController = WorkoutViewController(user: userWorkout.user, workout: workout)
