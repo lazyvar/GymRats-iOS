@@ -23,6 +23,7 @@ enum APIRequest {
     case createChallenge(startDate: Date, endDate: Date, challengeName: String)
     case getUsersForChallenge(challenge: Challenge)
     case getWorkoutsForChallenge(challenge: Challenge)
+    case getWorkoutsForUser(user: User)
     
     var requestProperties: (method: HTTPMethod, path: String, params: Parameters) {
         switch self {
@@ -44,6 +45,8 @@ enum APIRequest {
             return (.get, "challenge/\(challenge.id)/user", [:])
         case .getWorkoutsForChallenge(challenge: let challenge):
             return (.get, "challenge/\(challenge.id)/workout", [:])
+        case .getWorkoutsForUser(user: let user):
+            return (.get, "workout/user/\(user.id)", [:])
         }
     }
 }
@@ -98,6 +101,10 @@ class GymRatsAPI {
     
     func getWorkouts(for challenge: Challenge) -> Observable<[Workout]> {
         return requestArray(.getWorkoutsForChallenge(challenge: challenge))
+    }
+    
+    func getWorkouts(for user: User) -> Observable<[Workout]> {
+        return requestArray(.getWorkoutsForUser(user: user))
     }
     
 }

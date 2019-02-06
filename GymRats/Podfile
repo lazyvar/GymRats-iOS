@@ -17,4 +17,6 @@ target 'GymRats' do
     pod 'SwiftDate', '~> 5.0'
     pod "AvatarImageView", '~> 2.2.0'
     pod "GooglePlaces"
+    pod 'CVCalendar', '~> 1.6.2'
+
 end

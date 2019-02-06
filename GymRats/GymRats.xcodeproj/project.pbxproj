@@ -10,6 +10,9 @@
 		743050622209EA82005D8C52 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743050612209EA82005D8C52 /* UIViewController+Extension.swift */; };
 		743050652209EB9A005D8C52 /* UINavigationBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743050642209EB9A005D8C52 /* UINavigationBar+Extension.swift */; };
 		74305071220A05FC005D8C52 /* GymRatsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74305070220A05FC005D8C52 /* GymRatsApp.swift */; };
+		746764DF220B4829000CFB1B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764DE220B4829000CFB1B /* ProfileViewController.swift */; };
+		746764E1220B5A93000CFB1B /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E0220B5A93000CFB1B /* Switch.swift */; };
+		746764E3220B6D5C000CFB1B /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E2220B6D5C000CFB1B /* Collection+Extension.swift */; };
 		747D6F9A2208DB310062BB39 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6F992208DB310062BB39 /* AppDelegate.swift */; };
 		747D6FA12208DB330062BB39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 747D6FA02208DB330062BB39 /* Assets.xcassets */; };
 		747D6FA42208DB330062BB39 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 747D6FA22208DB330062BB39 /* LaunchScreen.storyboard */; };
@@ -64,6 +67,9 @@
 		743050612209EA82005D8C52 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		743050642209EB9A005D8C52 /* UINavigationBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Extension.swift"; sourceTree = "<group>"; };
 		74305070220A05FC005D8C52 /* GymRatsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymRatsApp.swift; sourceTree = "<group>"; };
+		746764DE220B4829000CFB1B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		746764E0220B5A93000CFB1B /* Switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
+		746764E2220B6D5C000CFB1B /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 		747D6F962208DB310062BB39 /* GymRats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GymRats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		747D6F992208DB310062BB39 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		747D6FA02208DB330062BB39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -150,6 +156,14 @@
 			path = home;
 			sourceTree = "<group>";
 		};
+		746764DD220B4811000CFB1B /* profile */ = {
+			isa = PBXGroup;
+			children = (
+				746764DE220B4829000CFB1B /* ProfileViewController.swift */,
+			);
+			path = profile;
+			sourceTree = "<group>";
+		};
 		747D6F8D2208DB310062BB39 = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +221,7 @@
 				74A01B2B220A1A5B00431ABD /* SimpleError.swift */,
 				74A01B3D220A55D000431ABD /* UserImageView.swift */,
 				74A01B3F220A560800431ABD /* RingView.swift */,
+				746764E0220B5A93000CFB1B /* Switch.swift */,
 			);
 			path = foundation;
 			sourceTree = "<group>";
@@ -214,6 +229,7 @@
 		747D6FBA2208DBD70062BB39 /* feature */ = {
 			isa = PBXGroup;
 			children = (
+				746764DD220B4811000CFB1B /* profile */,
 				74A01B44220A777D00431ABD /* workout */,
 				74A01B41220A68EA00431ABD /* menu */,
 				74A01B30220A37CD00431ABD /* view-challenge */,
@@ -251,6 +267,7 @@
 				743050612209EA82005D8C52 /* UIViewController+Extension.swift */,
 				743050642209EB9A005D8C52 /* UINavigationBar+Extension.swift */,
 				74A01B4D220A83FD00431ABD /* UIDate+Extension.swift */,
+				746764E2220B6D5C000CFB1B /* Collection+Extension.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -469,6 +486,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-GymRats/Pods-GymRats-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AvatarImageView/AvatarImageView.framework",
+				"${BUILT_PRODUCTS_DIR}/CVCalendar/CVCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/FlexLayout/FlexLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MMDrawerController/MMDrawerController.framework",
@@ -489,6 +507,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AvatarImageView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CVCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FlexLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MMDrawerController.framework",
@@ -558,6 +577,7 @@
 				747D6FDC2208E8130062BB39 /* Keychain+Subscripts.swift in Sources */,
 				747D6FC92208DCE60062BB39 /* AlamofireNetworkActivityLogger.swift in Sources */,
 				743050652209EB9A005D8C52 /* UINavigationBar+Extension.swift in Sources */,
+				746764E1220B5A93000CFB1B /* Switch.swift in Sources */,
 				747D6FC72208DCC80062BB39 /* Coordinator.swift in Sources */,
 				74A01B3B220A544F00431ABD /* UserWorkoutTableViewCell.swift in Sources */,
 				747D6FC32208DCAB0062BB39 /* Observable+Extension.swift in Sources */,
@@ -569,6 +589,8 @@
 				74A01B34220A3B2000431ABD /* Workout.swift in Sources */,
 				747D6FCD2208DE8E0062BB39 /* NetworkProvider.swift in Sources */,
 				747D6FC52208DCB60062BB39 /* UIView+Extension.swift in Sources */,
+				746764DF220B4829000CFB1B /* ProfileViewController.swift in Sources */,
+				746764E3220B6D5C000CFB1B /* Collection+Extension.swift in Sources */,
 				747D6F9A2208DB310062BB39 /* AppDelegate.swift in Sources */,
 				74A01B2C220A1A5B00431ABD /* SimpleError.swift in Sources */,
 			);

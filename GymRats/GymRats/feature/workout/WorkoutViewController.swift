@@ -87,6 +87,12 @@ class WorkoutViewController: UIViewController {
 
         headerView.yoga.applyLayout(preservingOrigin: true)
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(transitionToProfile))
+        tap.numberOfTapsRequired = 1
+        
+        headerView.isUserInteractionEnabled = true
+        headerView.addGestureRecognizer(tap)
+        
         containerView.configureLayout { layout in
             layout.isEnabled = true
             layout.flexDirection = .column
@@ -116,6 +122,17 @@ class WorkoutViewController: UIViewController {
             containerView.addSubview(imageView)
         }
         
+        let titleLabel: UILabel = UILabel()
+        titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        titleLabel.text = workout.title
+        
+        titleLabel.configureLayout { layout in
+            layout.isEnabled = true
+            layout.marginTop = 15
+        }
+        
+        containerView.addSubview(titleLabel)
+        
         if let description = workout.description {
             let descriptionLabel = UILabel()
             descriptionLabel.text = description
@@ -131,6 +148,10 @@ class WorkoutViewController: UIViewController {
 
         containerView.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
         containerView.makeScrolly(in: view)
+    }
+    
+    @objc func transitionToProfile() {
+        self.push(ProfileViewController(user: user))
     }
     
 }

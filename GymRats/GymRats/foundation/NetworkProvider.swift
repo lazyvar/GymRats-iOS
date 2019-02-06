@@ -194,6 +194,35 @@ class MockedNetworkProvider: NetworkProvider {
                 "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
                 }]
                 """
+            case "workout/user/101", "workout/user/102", "workout/user/103", "workout/user/104":
+                return """
+                [{
+                "id": 101,
+                "userId": 101,
+                "title": "I did it.",
+                "date": 1549411941,
+                "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
+                "description": "I really did it now: this is my work out:: - 10 bar berrls - 45 laughsI really did it now: this is my work out:: - 10 bar berrls - 45 laughsI really did it now: this is my work out:: - 10 bar berrls - 45 laughsI really did it now: this is my work out:: - 10 bar berrls - 45 bar berrls - 45 bar berrls - 45 bar berrls - 45 bar berrls - 45bar berrls - 45bar berrls - 45bar berrls - 45bar berrls - 45bar berrls - 45bar berrls - 45"
+                },{
+                "id": 102,
+                "userId": 104,
+                "title": "Another one bites the dust.",
+                "date": 1549414273,
+                "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
+                },{
+                "id": 103,
+                "userId": 104,
+                "title": "Daily swoll, let's get this bread y'all.",
+                "date": 1549212988,
+                "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
+                },{
+                "id": 104,
+                "userId": 104,
+                "title": "Morning vinyayasasaaaa",
+                "date": 1546534588,
+                "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
+                }]
+                """
             default:
                 return "path not mockec"
             }
