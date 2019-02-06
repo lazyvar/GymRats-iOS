@@ -51,6 +51,8 @@ class ActiveChallengeViewController: UITableViewController {
         let users = gymRatsAPI.getUsers(for: challenge)
         let workouts = gymRatsAPI.getWorkouts(for: challenge)
         
+        refresher.beginRefreshing()
+        
         Observable.zip(users, workouts).subscribe(onNext: { zipped in
             let (users, workouts) = zipped
             

@@ -129,7 +129,7 @@ class MockedNetworkProvider: NetworkProvider {
                     }]
                     """
                 }
-            case "/challenge/123456":
+            case "challenge/123456":
                 return """
                 {
                 "id": 101,
@@ -139,7 +139,7 @@ class MockedNetworkProvider: NetworkProvider {
                 "endDate": 1556668800
                 }
                 """
-            case "/challenge":
+            case "challenge":
                 return """
                 {
                 "id": 101,

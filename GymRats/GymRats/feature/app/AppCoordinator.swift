@@ -47,11 +47,13 @@ class AppCoordinator: Coordinator {
     func login(user: User) {
         self.currentUser = user
         
-        let menu = UIViewController()
+        let menu = MenuViewController()
         let center = HomeViewController()
         let nav = UINavigationController(rootViewController: center)
         
         drawer = MMDrawerController(center: nav, leftDrawerViewController: menu)
+        drawer.showsShadow = false
+        drawer.maximumLeftDrawerWidth = MenuViewController.menuWidth
         
         window.rootViewController = drawer
     }
