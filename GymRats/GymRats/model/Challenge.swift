@@ -32,3 +32,11 @@ extension Array where Element == Challenge {
     }
     
 }
+
+extension Challenge: AvatarProtocol {
+    
+    var myName: String? {
+        return name
+    }
+    
+}

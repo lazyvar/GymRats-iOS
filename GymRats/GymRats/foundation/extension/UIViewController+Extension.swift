@@ -31,6 +31,17 @@ extension UIViewController {
         )
     }
     
+    func setupForHome() {
+        setupMenuButton()
+        
+        let logoImageView = UIImageView(image: #imageLiteral(resourceName: "gr-logo"))
+        logoImageView.contentMode = .scaleAspectFit
+        
+        navigationItem.titleView = logoImageView
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Profile", style: .plain, target: nil, action: nil)
+    }
+    
     func presentAlert(title: String, message: String) {
         DispatchQueue.main.async {
             let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)

@@ -32,7 +32,7 @@ class UserWorkoutTableViewCell: UITableViewCell {
         didSet {
             let user = userWorkout.user
 
-            userImageView.load(user: user)
+            userImageView.load(avatarInfo: user)
             
             if let workout = userWorkout.workout {
                 titleLabel.isHidden = false
@@ -60,6 +60,17 @@ class UserWorkoutTableViewCell: UITableViewCell {
                 accessoryView = label
                 contentView.alpha = 0.333
             }
+        }
+    }
+    
+    var challenge: Challenge! {
+        didSet {
+            userImageView.load(avatarInfo: challenge)
+
+            fullNameLabel.isHidden = false
+            fullNameLabel.text = challenge.name
+            
+            accessoryType = .disclosureIndicator
         }
     }
     

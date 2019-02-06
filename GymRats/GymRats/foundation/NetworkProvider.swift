@@ -177,6 +177,22 @@ class MockedNetworkProvider: NetworkProvider {
                 "token": "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MTAxLCJ1c2VybmFtZSI6Im1hY2sifQ.bWylH53ljxUs9Adl-sNBCNyU7ONi9vOAp-tChlUsOH1IInzzeidoJ-OFZnZlMMTVaRDXFbKj2Wn5aCih3ves9w",
                 }]
                 """
+            case "challenge/102/user":
+                return """
+                [{
+                "id": 103,
+                "email": "mack@hasz.email",
+                "fullName": "Yee Haw",
+                "proPicUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
+                "token": "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MTAxLCJ1c2VybmFtZSI6Im1hY2sifQ.bWylH53ljxUs9Adl-sNBCNyU7ONi9vOAp-tChlUsOH1IInzzeidoJ-OFZnZlMMTVaRDXFbKj2Wn5aCih3ves9w",
+                },{
+                "id": 104,
+                "email": "mack@hasz.email",
+                "fullName": "Issa Bell",
+                "proPicUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
+                "token": "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MTAxLCJ1c2VybmFtZSI6Im1hY2sifQ.bWylH53ljxUs9Adl-sNBCNyU7ONi9vOAp-tChlUsOH1IInzzeidoJ-OFZnZlMMTVaRDXFbKj2Wn5aCih3ves9w",
+                }]
+                """
             case "challenge/101/workout":
                 return """
                 [{
@@ -187,6 +203,16 @@ class MockedNetworkProvider: NetworkProvider {
                 "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
                 "description": "I really did it now: this is my work out:: - 10 bar berrls - 45 laughsI really did it now: this is my work out:: - 10 bar berrls - 45 laughsI really did it now: this is my work out:: - 10 bar berrls - 45 laughsI really did it now: this is my work out:: - 10 bar berrls - 45 bar berrls - 45 bar berrls - 45 bar berrls - 45 bar berrls - 45bar berrls - 45bar berrls - 45bar berrls - 45bar berrls - 45bar berrls - 45bar berrls - 45"
                 },{
+                "id": 102,
+                "userId": 104,
+                "title": "Daily swoll, let's get this bread y'all.",
+                "date": 1549414273,
+                "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
+                }]
+                """
+            case "challenge/102/workout":
+                return """
+                [{
                 "id": 102,
                 "userId": 104,
                 "title": "Daily swoll, let's get this bread y'all.",

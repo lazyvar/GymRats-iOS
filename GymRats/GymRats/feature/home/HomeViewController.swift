@@ -128,13 +128,18 @@ class HomeViewController: UIViewController {
         let challengeViewController = ActiveChallengeViewController(challenge: challenge)
         let nav = UINavigationController(rootViewController: challengeViewController)
         nav.navigationBar.turnBrandColorSlightShadow()
-        challengeViewController.setupMenuButton()
+        challengeViewController.setupForHome()
         
         GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: false, completion: nil)
     }
     
     func showMulitpleChallenges(challenges: [Challenge]) {
+        let challengesViewController = MultipleActiveChallengesViewController(challenges: challenges)
+        let nav = UINavigationController(rootViewController: challengesViewController)
+        nav.navigationBar.turnBrandColorSlightShadow()
+        challengesViewController.setupForHome()
         
+        GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: false, completion: nil)
     }
 }
 

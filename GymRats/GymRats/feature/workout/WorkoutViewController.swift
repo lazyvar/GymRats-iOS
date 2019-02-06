@@ -48,7 +48,7 @@ class WorkoutViewController: UIViewController {
         let headerView = UIView()
         
         let userImageView = UserImageView()
-        userImageView.load(user: user)
+        userImageView.load(avatarInfo: user)
         
         let usernameLabel: UILabel = UILabel()
         usernameLabel.font = UIFont.systemFont(ofSize: 16)

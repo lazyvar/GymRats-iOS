@@ -10,10 +10,15 @@ import UIKit
 import AvatarImageView
 import Kingfisher
 
+protocol AvatarProtocol {
+    var pictureUrl: String? { get }
+    var myName: String? { get }
+}
+
 @IBDesignable
 class UserImageView: UIView {
     
-    var user: User?
+    var avatarInfo: AvatarProtocol?
     var userImage: UIImage?
     
     lazy var imageView: AvatarImageView = {
@@ -29,10 +34,10 @@ class UserImageView: UIView {
     
     let ringView = RingView(frame: .zero, ringWidth: 0.5, ringColor: UIColor.black.withAlphaComponent(0.1))
     
-    func load(user: User) {
-        self.user = user
+    func load(avatarInfo: AvatarProtocol) {
+        self.avatarInfo = avatarInfo
         
-        guard let proPicUrl = user.proPicUrl, let url = URL(string: proPicUrl) else {
+        guard let proPicUrl = avatarInfo.pictureUrl, let url = URL(string: proPicUrl) else {
             self.userImage = nil
             self.imageView.refresh()
             
@@ -83,14 +88,12 @@ class UserImageView: UIView {
         setup()
     }
     
-    
-    
 }
 
 extension UserImageView: AvatarImageViewDataSource {
     
     var name: String {
-        return user?.fullName ?? ""
+        return avatarInfo?.myName ?? ""
     }
     
     var avatar: UIImage? {
@@ -101,7 +104,6 @@ extension UserImageView: AvatarImageViewDataSource {
 struct AvatarImageConfig: AvatarImageViewConfiguration {
     let shape: Shape = .circle
 }
-
 
 extension UIView {
     
@@ -117,7 +119,3 @@ extension UIView {
     }
     
 }
-
-
-
-

@@ -15,3 +15,15 @@ struct User: Codable {
     let proPicUrl: String?
     let token: String?
 }
+
+extension User: AvatarProtocol {
+    
+    var myName: String? {
+        return self.fullName
+    }
+    
+    var pictureUrl: String? {
+        return proPicUrl
+    }
+    
+}

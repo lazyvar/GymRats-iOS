@@ -15,7 +15,6 @@ import SwiftDate
 
 class ProfileViewController: UIViewController {
     
-    let autoChangeTrap = Trap()
     let disposeBag = DisposeBag()
     let user: User
     
@@ -81,7 +80,7 @@ class ProfileViewController: UIViewController {
         let headerView = UIView()
         
         let userImageView = UserImageView()
-        userImageView.load(user: user)
+        userImageView.load(avatarInfo: user)
         
         let usernameLabel: UILabel = UILabel()
         usernameLabel.font = UIFont.systemFont(ofSize: 16)

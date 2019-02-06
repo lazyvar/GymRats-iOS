@@ -13,6 +13,7 @@
 		746764DF220B4829000CFB1B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764DE220B4829000CFB1B /* ProfileViewController.swift */; };
 		746764E1220B5A93000CFB1B /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E0220B5A93000CFB1B /* Switch.swift */; };
 		746764E3220B6D5C000CFB1B /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E2220B6D5C000CFB1B /* Collection+Extension.swift */; };
+		746764E5220B7ACE000CFB1B /* MultipleActiveChallengesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E4220B7ACE000CFB1B /* MultipleActiveChallengesViewController.swift */; };
 		747D6F9A2208DB310062BB39 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6F992208DB310062BB39 /* AppDelegate.swift */; };
 		747D6FA12208DB330062BB39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 747D6FA02208DB330062BB39 /* Assets.xcassets */; };
 		747D6FA42208DB330062BB39 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 747D6FA22208DB330062BB39 /* LaunchScreen.storyboard */; };
@@ -70,6 +71,7 @@
 		746764DE220B4829000CFB1B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		746764E0220B5A93000CFB1B /* Switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
 		746764E2220B6D5C000CFB1B /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
+		746764E4220B7ACE000CFB1B /* MultipleActiveChallengesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleActiveChallengesViewController.swift; sourceTree = "<group>"; };
 		747D6F962208DB310062BB39 /* GymRats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GymRats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		747D6F992208DB310062BB39 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		747D6FA02208DB330062BB39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 				74A01B31220A380700431ABD /* ActiveChallengeViewController.swift */,
 				74A01B39220A544F00431ABD /* UserWorkoutTableViewCell.swift */,
 				74A01B3A220A544F00431ABD /* UserWorkoutTableViewCell.xib */,
+				746764E4220B7ACE000CFB1B /* MultipleActiveChallengesViewController.swift */,
 			);
 			path = "view-challenge";
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 			files = (
 				74A01B40220A560800431ABD /* RingView.swift in Sources */,
 				74A01B2F220A1CD900431ABD /* CreateChallengeViewController.swift in Sources */,
+				746764E5220B7ACE000CFB1B /* MultipleActiveChallengesViewController.swift in Sources */,
 				747D6FD82208E8130062BB39 /* KeychainErrors.swift in Sources */,
 				747D6FE92208EDAF0062BB39 /* Colors.swift in Sources */,
 				74A01B32220A380700431ABD /* ActiveChallengeViewController.swift in Sources */,
