@@ -16,4 +16,5 @@ target 'GymRats' do
     pod 'MMDrawerController', '~> 0.5.7'
     pod 'SwiftDate', '~> 5.0'
     pod "AvatarImageView", '~> 2.2.0'
+    pod "GooglePlaces"
 end

@@ -11,7 +11,7 @@ import UIKit
 extension UINavigationBar {
     
     func turnBrandColorSlightShadow() {
-        isTranslucent = true
+        isTranslucent = false
         setBackgroundImage(.brand, for: .default)
     }
     

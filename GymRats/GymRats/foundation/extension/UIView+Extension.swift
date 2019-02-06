@@ -8,9 +8,44 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import RxCocoa
 
 extension UIView {
     
+    func makeScrolly(in view: UIView) {
+        let size = frame.size
+        let width = frame.size.width
+        let height: CGFloat = {
+            if size.height > UIScreen.main.bounds.size.height - 55 {
+                return size.height + 55 // maaaagic
+            } else {
+                return size.height
+            }
+        }()
+        
+        let scrollView = UIScrollView()
+        scrollView.frame = view.frame
+        scrollView.contentSize = CGSize(width: width, height: height)
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.alwaysBounceVertical = true
+        scrollView.alwaysBounceHorizontal = false
+        scrollView.backgroundColor = self.backgroundColor
+        scrollView.addSubview(self)
+        view.addSubview(scrollView)
+        
+        view.backgroundColor = self.backgroundColor
+    }
+    
+    /** Loads instance from nib with the same name. */
+    func loadNib<T>() -> T {
+        let bundle = Bundle(for: type(of: self))
+        let nibName = type(of: self).description().components(separatedBy: ".").last!
+        let nib = UINib(nibName: nibName, bundle: bundle)
+        
+        return nib.instantiate(withOwner: self, options: nil).first as! T
+    }
+
     func center(in view: UIView, x: CGFloat = 0, y: CGFloat = 0) {
         horizontallyCenter(in: view, x: x)
         verticallyCenter(in: view, y: y)

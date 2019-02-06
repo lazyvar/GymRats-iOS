@@ -106,7 +106,15 @@ class ActiveChallengeViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        // TODO
+        let userWorkout = userWorkouts[indexPath.row]
+        
+        if let workout = userWorkout.workout {
+            let workoutViewController = WorkoutViewController(user: userWorkout.user, workout: workout)
+            
+            push(workoutViewController)
+        } else {
+            // TODO
+        }
     }
     
 }

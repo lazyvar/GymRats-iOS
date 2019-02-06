@@ -43,6 +43,8 @@
 		74A01B3E220A55D000431ABD /* UserImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B3D220A55D000431ABD /* UserImageView.swift */; };
 		74A01B40220A560800431ABD /* RingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B3F220A560800431ABD /* RingView.swift */; };
 		74A01B43220A691300431ABD /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B42220A691300431ABD /* MenuViewController.swift */; };
+		74A01B46220A778C00431ABD /* WorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B45220A778C00431ABD /* WorkoutViewController.swift */; };
+		74A01B4E220A83FD00431ABD /* UIDate+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B4D220A83FD00431ABD /* UIDate+Extension.swift */; };
 		A02F4B0274FC477C5963CDDD /* Pods_GymRats.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45AE0586E2D3E12AB034ED36 /* Pods_GymRats.framework */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +101,8 @@
 		74A01B3D220A55D000431ABD /* UserImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImageView.swift; sourceTree = "<group>"; };
 		74A01B3F220A560800431ABD /* RingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingView.swift; sourceTree = "<group>"; };
 		74A01B42220A691300431ABD /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		74A01B45220A778C00431ABD /* WorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewController.swift; sourceTree = "<group>"; };
+		74A01B4D220A83FD00431ABD /* UIDate+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDate+Extension.swift"; sourceTree = "<group>"; };
 		EC58A7A483BCAC310AB5A0EE /* Pods-GymRats.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymRats.release.xcconfig"; path = "Pods/Target Support Files/Pods-GymRats/Pods-GymRats.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -210,6 +214,7 @@
 		747D6FBA2208DBD70062BB39 /* feature */ = {
 			isa = PBXGroup;
 			children = (
+				74A01B44220A777D00431ABD /* workout */,
 				74A01B41220A68EA00431ABD /* menu */,
 				74A01B30220A37CD00431ABD /* view-challenge */,
 				74A01B2D220A1CC800431ABD /* create-challenge */,
@@ -245,6 +250,7 @@
 				747D6FC42208DCB60062BB39 /* UIView+Extension.swift */,
 				743050612209EA82005D8C52 /* UIViewController+Extension.swift */,
 				743050642209EB9A005D8C52 /* UINavigationBar+Extension.swift */,
+				74A01B4D220A83FD00431ABD /* UIDate+Extension.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -322,6 +328,14 @@
 			path = menu;
 			sourceTree = "<group>";
 		};
+		74A01B44220A777D00431ABD /* workout */ = {
+			isa = PBXGroup;
+			children = (
+				74A01B45220A778C00431ABD /* WorkoutViewController.swift */,
+			);
+			path = workout;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -334,6 +348,7 @@
 				747D6F932208DB310062BB39 /* Frameworks */,
 				747D6F942208DB310062BB39 /* Resources */,
 				2B9BAF707FD52821A7508A59 /* [CP] Embed Pods Frameworks */,
+				041906F24F589A1E6F6A4B08 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -421,6 +436,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		041906F24F589A1E6F6A4B08 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-GymRats/Pods-GymRats-resources.sh",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GymRats/Pods-GymRats-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2B9BAF707FD52821A7508A59 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -524,8 +561,10 @@
 				747D6FC72208DCC80062BB39 /* Coordinator.swift in Sources */,
 				74A01B3B220A544F00431ABD /* UserWorkoutTableViewCell.swift in Sources */,
 				747D6FC32208DCAB0062BB39 /* Observable+Extension.swift in Sources */,
+				74A01B46220A778C00431ABD /* WorkoutViewController.swift in Sources */,
 				747D6FE52208ED6F0062BB39 /* LoginViewController.swift in Sources */,
 				74305071220A05FC005D8C52 /* GymRatsApp.swift in Sources */,
+				74A01B4E220A83FD00431ABD /* UIDate+Extension.swift in Sources */,
 				74A01B27220A0BBF00431ABD /* Challenge.swift in Sources */,
 				74A01B34220A3B2000431ABD /* Workout.swift in Sources */,
 				747D6FCD2208DE8E0062BB39 /* NetworkProvider.swift in Sources */,

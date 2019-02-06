@@ -41,7 +41,7 @@ class UserWorkoutTableViewCell: UITableViewCell {
                 detailsLabel.text = user.fullName
                 
                 let label = UILabel()
-                label.text = workout.date.in(region: .current).toFormat("h:mm a")
+                label.text = workout.date.localTime
                 label.font = UIFont.systemFont(ofSize: 12)
                 label.sizeToFit()
                 
