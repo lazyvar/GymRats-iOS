@@ -9,6 +9,8 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import YogaKit
+import SwiftDate
 
 struct UserWorkout {
     let user: User
@@ -25,9 +27,35 @@ class ActiveChallengeViewController: UITableViewController {
 
     var users: [User] = []
     var workouts: [Workout] = []
-    var currentDate = Date()
+
+    var currentDate: Variable<Date> = Variable<Date>(Date())
     
     var userWorkoutsForCurrentDate: [UserWorkout] = []
+    
+    let goBackInTimeButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Back", for: .normal)
+        button.setTitleColor(.brand, for: .normal)
+        
+        return button
+    }()
+
+    let goForwardInTimeButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Forward", for: .normal)
+        button.setTitleColor(.brand, for: .normal)
+        
+        return button
+    }()
+    
+    let dayLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        
+        return label
+    }()
+
+    var tableViewAnimation: UITableView.RowAnimation = .fade
     
     init(challenge: Challenge) {
         self.challenge = challenge
@@ -47,14 +75,140 @@ class ActiveChallengeViewController: UITableViewController {
         tableView.separatorStyle = .none
         tableView.register(UINib(nibName: "UserWorkoutTableViewCell", bundle: nil), forCellReuseIdentifier: "UserWorkoutCell")
 
-        refresher.addTarget(self, action: #selector(reload), for: .valueChanged)
+        refresher.addTarget(self, action: #selector(fetchUserWorkouts), for: .valueChanged)
         
         tableView.addSubview(refresher)
         
-        reload()
+        let container = UIView()
+        
+        let headerView = UIView()
+        headerView.backgroundColor = .hex("#003366")
+        
+        headerView.configureLayout { layout in
+            layout.isEnabled = true
+            layout.padding = 10
+            layout.alignContent = .center
+            layout.justifyContent = .center
+            layout.flexDirection = .column
+            layout.width = YGValue(self.tableView.frame.width)
+        }
+        
+        let challengeName = UILabel()
+        challengeName.font = UIFont.systemFont(ofSize: 17, weight: .light)
+        challengeName.textAlignment = .center
+        challengeName.text = challenge.name
+        challengeName.textColor = .white
+        
+        challengeName.configureLayout { layout in
+            layout.isEnabled = true
+        }
+        
+        let difference = challenge.startDate.getInterval(toDate: challenge.endDate, component: .day)
+        
+        let daysLeft = UILabel()
+        daysLeft.font = UIFont.systemFont(ofSize: 12, weight: .light)
+        daysLeft.textAlignment = .center
+        daysLeft.text =  "\(difference) days remaining"
+        daysLeft.textColor = .white
+        
+        daysLeft.configureLayout { layout in
+            layout.isEnabled = true
+        }
+        
+        headerView.addSubview(challengeName)
+        headerView.addSubview(daysLeft)
+        
+        headerView.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
+
+        container.configureLayout { layout in
+            layout.isEnabled = true
+            layout.flexDirection = .column
+            layout.width = YGValue(self.tableView.frame.width)
+        }
+    
+        let dateContainer = UIView()
+        
+        dateContainer.configureLayout { layout in
+            layout.isEnabled = true
+            layout.flexDirection = .row
+            layout.width = YGValue(self.tableView.frame.width)
+            layout.padding = 10
+        }
+
+        goBackInTimeButton.configureLayout { layout in
+            layout.isEnabled = true
+            layout.flexShrink = 1
+        }
+
+        dayLabel.configureLayout { layout in
+            layout.isEnabled = true
+            layout.flexGrow = 1
+        }
+
+        goForwardInTimeButton.configureLayout { layout in
+            layout.isEnabled = true
+            layout.flexShrink = 1
+        }
+
+        dateContainer.addSubview(goBackInTimeButton)
+        dateContainer.addSubview(dayLabel)
+        dateContainer.addSubview(goForwardInTimeButton)
+        dateContainer.addDivider()
+        
+        dateContainer.yoga.applyLayout(preservingOrigin: true)
+        
+        container.addSubview(headerView)
+        container.addSubview(dateContainer)
+
+        container.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
+
+        tableView.tableHeaderView = container
+        
+        goBackInTimeButton.onTouchUpInside { [weak self] in
+            guard let self = self else { return }
+            
+            self.tableViewAnimation = .right
+            self.currentDate.value = self.currentDate.value - 1.days
+        }.disposed(by: disposeBag)
+        
+        goForwardInTimeButton.onTouchUpInside { [weak self] in
+            guard let self = self else { return }
+            
+            self.tableViewAnimation = .left
+            self.currentDate.value = self.currentDate.value + 1.days
+        }.disposed(by: disposeBag)
+
+        currentDate
+            .asObservable()
+            .map { $0.isToday }
+            .bind(to: goForwardInTimeButton.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        currentDate
+            .asObservable()
+            .map {
+                if $0.isToday {
+                    return "Today"
+                } else {
+                    return $0.toFormat("MMM d")
+                }
+            }
+            .bind(to: dayLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        currentDate
+            .asObservable()
+            .then { date in
+                self.updateUserWorkoutsForCurrentDate()
+                self.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: self.tableViewAnimation)
+            }.disposed(by: disposeBag)
+        
+        currentDate.value = Date()
+        
+        fetchUserWorkouts()
     }
     
-    @objc func reload() {
+    @objc func fetchUserWorkouts() {
         let users = gymRatsAPI.getUsers(for: challenge)
         let workouts = gymRatsAPI.getWorkouts(for: challenge)
         
@@ -77,7 +231,7 @@ class ActiveChallengeViewController: UITableViewController {
     }
     
     func updateUserWorkoutsForCurrentDate() {
-        let workoutsForToday = self.workouts.workouts(on: self.currentDate)
+        let workoutsForToday = self.workouts.workouts(on: self.currentDate.value)
         
         self.userWorkoutsForCurrentDate = users.map({ (user: User) -> UserWorkout in
             let workout = workoutsForToday.first(where: { $0.userId == user.id })
