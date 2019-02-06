@@ -37,6 +37,11 @@ class AppCoordinator: Coordinator {
         
         NetworkActivityLogger.shared.level = .debug
         NetworkActivityLogger.shared.startLogging()
+        
+        UINavigationBar.appearance().tintColor = .whiteSmoke
+        UINavigationBar.appearance().titleTextAttributes =  [
+            NSAttributedString.Key.foregroundColor: UIColor.whiteSmoke
+        ]
     }
     
     func login(user: User) {

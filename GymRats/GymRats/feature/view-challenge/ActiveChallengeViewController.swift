@@ -66,7 +66,7 @@ class ActiveChallengeViewController: UITableViewController {
                 } else if b.workout != nil  {
                     return false
                 } else {
-                    return a.user.fullName > b.user.fullName
+                    return a.user.fullName < b.user.fullName
                 }
             })
             self.refresher.endRefreshing()

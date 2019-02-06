@@ -155,13 +155,25 @@ class MockedNetworkProvider: NetworkProvider {
                 "id": 101,
                 "email": "mack@hasz.email",
                 "fullName": "Mack Hasz",
-                "proPicUrl": "https://picsum.photos/\(Int.random(in: 100...200))",
+                "proPicUrl": "https://picsum.photos/\(Int.random(in: 100...300))",
                 "token": "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MTAxLCJ1c2VybmFtZSI6Im1hY2sifQ.bWylH53ljxUs9Adl-sNBCNyU7ONi9vOAp-tChlUsOH1IInzzeidoJ-OFZnZlMMTVaRDXFbKj2Wn5aCih3ves9w",
                 },{
                 "id": 102,
                 "email": "mack@hasz.email",
                 "fullName": "Jack Smith",
-                "proPicUrl": "https://picsum.photos/\(Int.random(in: 100...200))",
+                "proPicUrl": "https://picsum.photos/\(Int.random(in: 100...300))",
+                "token": "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MTAxLCJ1c2VybmFtZSI6Im1hY2sifQ.bWylH53ljxUs9Adl-sNBCNyU7ONi9vOAp-tChlUsOH1IInzzeidoJ-OFZnZlMMTVaRDXFbKj2Wn5aCih3ves9w",
+                },{
+                "id": 103,
+                "email": "mack@hasz.email",
+                "fullName": "Yee Haw",
+                "proPicUrl": "https://picsum.photos/\(Int.random(in: 100...300))",
+                "token": "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MTAxLCJ1c2VybmFtZSI6Im1hY2sifQ.bWylH53ljxUs9Adl-sNBCNyU7ONi9vOAp-tChlUsOH1IInzzeidoJ-OFZnZlMMTVaRDXFbKj2Wn5aCih3ves9w",
+                },{
+                "id": 104,
+                "email": "mack@hasz.email",
+                "fullName": "Issa Bell",
+                "proPicUrl": "https://picsum.photos/\(Int.random(in: 100...300))",
                 "token": "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MTAxLCJ1c2VybmFtZSI6Im1hY2sifQ.bWylH53ljxUs9Adl-sNBCNyU7ONi9vOAp-tChlUsOH1IInzzeidoJ-OFZnZlMMTVaRDXFbKj2Wn5aCih3ves9w",
                 }]
                 """
@@ -172,6 +184,11 @@ class MockedNetworkProvider: NetworkProvider {
                 "userId": 101,
                 "title": "I did it.",
                 "date": 1549411941
+                },{
+                "id": 102,
+                "userId": 104,
+                "title": "Daily swoll. You already know I'mma beeeasasaassasatttt!! Let's get this bread y'all",
+                "date": 1549414273
                 }]
                 """
             default:

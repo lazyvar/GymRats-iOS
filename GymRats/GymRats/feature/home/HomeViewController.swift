@@ -33,8 +33,8 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .whiteSmoke
-        title = "Home"
         setupMenuButton()
+        navigationController?.navigationBar.turnBrandColorSlightShadow()
         
         retryButton.onTouchUpInside { [weak self] in
             self?.fetchAllChallenges()
@@ -58,6 +58,7 @@ class HomeViewController: UIViewController {
             createChallengeViewController.delegate = self
             
             let nav = UINavigationController(rootViewController: createChallengeViewController)
+            nav.navigationBar.turnBrandColorSlightShadow()
             
             self?.present(nav, animated: true, completion: nil)
         }.disposed(by: disposeBag)
@@ -126,6 +127,7 @@ class HomeViewController: UIViewController {
     func showSingleChallenge(challenge: Challenge) {
         let challengeViewController = ActiveChallengeViewController(challenge: challenge)
         let nav = UINavigationController(rootViewController: challengeViewController)
+        nav.navigationBar.turnBrandColorSlightShadow()
         challengeViewController.setupMenuButton()
         
         GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: false, completion: nil)
