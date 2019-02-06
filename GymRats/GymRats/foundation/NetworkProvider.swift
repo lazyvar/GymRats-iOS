@@ -187,7 +187,7 @@ class MockedNetworkProvider: NetworkProvider {
                 },{
                 "id": 102,
                 "userId": 104,
-                "title": "Daily swoll. You already know I'mma beeeasasaassasatttt!! Let's get this bread y'all",
+                "title": "Daily swoll, let's get this bread y'all.",
                 "date": 1549414273
                 }]
                 """

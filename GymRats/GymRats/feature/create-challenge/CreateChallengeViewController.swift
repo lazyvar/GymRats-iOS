@@ -77,9 +77,9 @@ class CreateChallengeViewController: UIViewController {
         super.viewDidLoad()
 
         title = "Create Challenge"
-        view.backgroundColor = .whiteSmoke
+        view.backgroundColor = .white
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem (
+        navigationItem.rightBarButtonItem = UIBarButtonItem (
             title: "Cancel",
             style: .plain,
             target: self,

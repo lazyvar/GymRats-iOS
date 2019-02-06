@@ -37,6 +37,13 @@ class ActiveChallengeViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let logoImageView = UIImageView(image: #imageLiteral(resourceName: "gr-logo"))
+        logoImageView.contentMode = .scaleAspectFit
+
+        navigationItem.titleView = logoImageView
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Profile", style: .plain, target: nil, action: nil)
+        
         tableView.separatorStyle = .none
         tableView.register(UINib(nibName: "UserWorkoutTableViewCell", bundle: nil), forCellReuseIdentifier: "UserWorkoutCell")
 
