@@ -9,97 +9,86 @@
 import UIKit
 import SkyFloatingLabelTextField
 import RxSwift
+import Eureka
 
-class LoginViewController: UIViewController {
+class LoginViewController: FormViewController {
     
     let disposeBag = DisposeBag()
     
-    let email: SkyFloatingLabelTextField  = {
-        let textField = SkyFloatingLabelTextField()
-        textField.errorColor = .firebrick
-        textField.placeholder = "Email"
-        textField.titleColor = .brand
-        textField.selectedLineColor = .brand
-        textField.lineErrorColor = .brand
-        textField.selectedTitleColor = .brand
-        textField.autocorrectionType = .no
-        textField.autocapitalizationType = .none
-        
-        return textField
-    }()
-
-    let password: SkyFloatingLabelTextField = {
-        let textField = SkyFloatingLabelTextField()
-        textField.errorColor = .firebrick
-        textField.placeholder = "Password"
-        textField.titleColor = .brand
-        textField.selectedLineColor = .brand
-        textField.lineErrorColor = .brand
-        textField.selectedTitleColor = .brand
-        textField.isSecureTextEntry = true
-        textField.returnKeyType = .done
-        
-        return textField
-    }()
-    
     let loginButton: UIButton = .primary(text: "Log In")
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Log In"
-        view.backgroundColor = .white
-     
-        view.configureLayout { layout in
-            layout.isEnabled = true
-            layout.flexDirection = .column
-            layout.alignContent = .center
-            layout.padding = 64
-        }
+        form = form +++ section <<< emailRow <<< passwordRow
         
-        email.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 15
-        }
-        
-        password.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 15
-        }
-        
-        loginButton.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 15
-        }
-        
-        view.addSubview(email)
-        view.addSubview(password)
-        view.addSubview(loginButton)
-        
-        view.yoga.applyLayout(preservingOrigin: true)
+        setupBackButton()
         
         loginButton.onTouchUpInside { [weak self] in
-            self?.tryLogIn()
+            self?.login()
         }.disposed(by: disposeBag)
-        
-        let emailRequired = email.requiredValidation
-        let passwordRequired = password.requiredValidation
-
-        let enableButton = requireAll(emailRequired, passwordRequired)
-
-        enableButton
-            .bind(to: loginButton.rx.isEnabled)
-            .disposed(by: disposeBag)
     }
     
-    func tryLogIn() {
-        resignFirstResponder()
-        // HUD.show(.progress)
+    func login() {
+        let formValues = form.values()
         
-        gymRatsAPI.login(email: email.text!, password: password.text!)
-            .standardServiceResponse { user in
+        guard let email = formValues["email"] as? String,
+            let password = formValues["password"] as? String else { return }
+        
+        self.showLoadingBar(disallowUserInteraction: true)
+        
+        gymRatsAPI.login(email: email, password: password)
+            .subscribe(onNext: { [weak self] user in
+                self?.hideLoadingBar()
                 GymRatsApp.delegate.appCoordinator.login(user: user)
-            }.disposed(by: disposeBag)
+            }, onError: { [weak self] error in
+                print(error)
+                self?.presentAlert(with: error)
+                self?.hideLoadingBar()
+            }).disposed(by: disposeBag)
     }
+    
+    lazy var section: Section = {
+        return Section() { section in
+            section.footer = self.sectionFooter
+        }
+    }()
+    
+    let emailRow: TextRow = {
+        return TextRow() { textRow in
+            textRow.title = "Email"
+            textRow.tag = "email"
+        }.cellSetup({ cell, row in
+            cell.textField.font = .body
+            cell.textLabel?.font = .body
+        })
+    }()
+    
+    let passwordRow: PasswordRow = {
+        return PasswordRow() { passwordRow in
+            passwordRow.title = "Password"
+            passwordRow.tag = "password"
+        }.cellSetup({ (cell, row) in
+            cell.textField.font = .body
+            cell.textLabel?.font = .body
+        })
+    }()
+    
+    lazy var sectionFooter: HeaderFooterView<UIView> = {
+        let footerBuilder = { () -> UIView in
+            let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
+            self.loginButton.layer.cornerRadius = 0
+            self.loginButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40)
+            
+            container.addSubview(self.loginButton)
+            
+            return container
+        }
+        
+        var footer = HeaderFooterView<UIView>(.callback(footerBuilder))
+        footer.height = { 40 }
+        
+        return footer
+    }()
     
 }

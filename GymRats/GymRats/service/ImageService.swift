@@ -16,7 +16,7 @@ class ImageService {
         return Observable.create { subscriber in
             let uuid = UUID().uuidString
             
-            let data: Data = image.jpegData(compressionQuality: 0.7)!
+            let data: Data = image.jpegData(compressionQuality: 0.55)!
             let storage = Storage.storage()
             let storageRef = storage.reference()
             let photoRef = storageRef.child("workout/\(uuid).jpg")
