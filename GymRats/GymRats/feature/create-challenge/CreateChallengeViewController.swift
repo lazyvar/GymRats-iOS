@@ -7,76 +7,29 @@
 //
 
 import UIKit
-import SkyFloatingLabelTextField
 import SwiftDate
 import RxSwift
+import RxCocoa
 import GradientLoadingBar
+import Eureka
+import RxEureka
 
 protocol CreateChallengeDelegate: class {
     func challengeCreated(challenge: Challenge)
 }
 
-class CreateChallengeViewController: UIViewController {
+class CreateChallengeViewController: FormViewController {
 
     weak var delegate: CreateChallengeDelegate?
     
     let disposeBag = DisposeBag()
-    
-    let challengeName: SkyFloatingLabelTextField = .standardTextField(placeholder: "Challenge Name")
-    
-    let startDateLabel: UILabel = {
-        let label = UILabel()
-        label.font = .bold
-        label.text = "Start Date"
-        label.numberOfLines = 0
-        
-        return label
-    }()
 
-    let startDate: UIDatePicker = {
-        let datePicker = UIDatePicker(frame: .zero)
-        datePicker.minimumDate = Date()
-        datePicker.maximumDate = Date() + 60.days
-        datePicker.datePickerMode = .date
-        datePicker.date = Date()
-        datePicker.backgroundColor = UIColor.whiteSmoke.withAlphaComponent(0.5)
-        datePicker.layer.cornerRadius = 3
-        datePicker.tintColor = .fog
-        
-        return datePicker
-    }()
-    
-    let endDateLabel: UILabel = {
-        let label = UILabel()
-        label.font = .bold
-        label.text = "End Date"
-        label.numberOfLines = 0
-        
-        return label
-    }()
+    let name = BehaviorRelay<String?>(value: nil)
+    let startDate = BehaviorRelay<Date?>(value: nil)
+    let endDate = BehaviorRelay<Date?>(value: nil)
+    let photo = BehaviorRelay<UIImage?>(value: nil)
 
-    let endDate: UIDatePicker = {
-        let datePicker = UIDatePicker(frame: .zero)
-        datePicker.minimumDate = Date() + 1.days
-        datePicker.maximumDate = Date() + 180.days
-        datePicker.datePickerMode = .date
-        datePicker.date = Date() + 30.days
-        datePicker.backgroundColor = UIColor.whiteSmoke.withAlphaComponent(0.5)
-        datePicker.layer.cornerRadius = 3
-        datePicker.tintColor = .fog
-        
-        return datePicker
-    }()
-    
-    let numberOfDaysLabel: UILabel = {
-        let label = UILabel()
-        label.font = .bold
-        label.numberOfLines = 0
-
-        return label
-    }()
-    
-    let createChallengeButton: UIButton = .primary(text: "Start Challenge")
+    let submitButton: UIButton = .primary(text: "Submit")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,86 +44,109 @@ class CreateChallengeViewController: UIViewController {
             action: #selector(UIViewController.dismissSelf)
         )
         
-        view.configureLayout { layout in
-            layout.isEnabled = true
-            layout.flexDirection = .column
-            layout.alignContent = .center
-            layout.padding = 50
+        let nameRow = TextRow("name") {
+            $0.title = "Name"
+            $0.placeholder = "Best Rats"
+        }.cellSetup { cell, _ in
+            cell.tintColor = .brand
+            cell.textLabel?.font = .body
+            cell.titleLabel?.font = .body
         }
         
-        startDateLabel.configureLayout { layout in
-            layout.isEnabled = true
-        }
-
-        startDate.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 10
-            layout.height = 100
-        }
-
-        endDateLabel.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 15
+        let pictureRow = ImageRow("photo") {
+            $0.title = "Picture"
+            $0.placeholderImage = UIImage(named: "photo")
+        }.cellSetup { cell, _ in
+            cell.textLabel?.font = .body
         }
         
-        endDate.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 10
-            layout.height = 100
+        let startDateRow = DateRow() {
+            $0.value = Date() + 1.days
+            $0.title = "Start Date"
+            $0.minimumDate = Date() + 1.days
         }
 
-        numberOfDaysLabel.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 15
-        }
-
-        challengeName.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 20
+        let endDateRow = DateRow() {
+            $0.value = Date() + 31.days
+            $0.minimumDate = Date() + 1.days
+            $0.title = "End Date"
         }
         
-        createChallengeButton.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 20
+        let numberOfDayslabel = LabelRow() {
+            $0.title = "Total Days"
+            $0.value = "30"
+        }.cellSetup { cell, _ in
+            cell.textLabel?.font = .body
         }
 
-        view.addSubview(startDateLabel)
-        view.addSubview(startDate)
-        view.addSubview(endDateLabel)
-        view.addSubview(endDate)
-        view.addSubview(numberOfDaysLabel)
-        view.addSubview(challengeName)
-        view.addSubview(createChallengeButton)
-
-        view.yoga.applyLayout(preservingOrigin: true)
-        
-        let startingDate = startDate.rx.date
-        let endingDate = endDate.rx.date
-        
-        let numberOfDays = Observable<String>.combineLatest(startingDate, endingDate) { startDateVal, endDateVal in
-            let difference = startDateVal.getInterval(toDate: endDateVal, component: .day)
+        form +++ Section() {
+            let footerBuilder = { () -> UIView in
+                let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
+                self.submitButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40)
+                self.submitButton.layer.cornerRadius = 0
+                
+                container.addSubview(self.submitButton)
+                
+                return container
+            }
             
-            return "\(difference) day challenge"
+            var footer = HeaderFooterView<UIView>(.callback(footerBuilder))
+            footer.height = { 40 }
+            
+            $0.footer = footer
         }
-        
-        numberOfDays.bind(to: numberOfDaysLabel.rx.text)
+            <<< nameRow
+            <<< startDateRow
+            <<< endDateRow
+            <<< numberOfDayslabel
+            <<< pictureRow
+
+        let startingDate = startDateRow.rx.value
+        let endingDate = endDateRow.rx.value
+
+        let numberOfDays = Observable<String>.combineLatest(startingDate, endingDate) { startDateVal, endDateVal in
+            let difference = startDateVal!.getInterval(toDate: endDateVal!, component: .day)
+
+            return "\(difference)"
+        }
+
+        numberOfDays.subscribe(onNext: { val in
+            numberOfDayslabel.value = val
+            numberOfDayslabel.reload()
+        }).disposed(by: disposeBag)
+
+        nameRow.rx.value.bind(to: self.name).disposed(by: disposeBag)
+        startDateRow.rx.value.bind(to: self.startDate).disposed(by: disposeBag)
+        endDateRow.rx.value.bind(to: self.endDate).disposed(by: disposeBag)
+        pictureRow.rx.value.bind(to: self.photo).disposed(by: disposeBag)
+
+        name.asObservable()
+            .isPresent
+            .bind(to: submitButton.rx.isEnabled)
             .disposed(by: disposeBag)
-        
-        challengeName.requiredValidation
-            .bind(to: createChallengeButton.rx.isEnabled)
-            .disposed(by: disposeBag)
-    
-        createChallengeButton.onTouchUpInside { [weak self] in
+
+        submitButton.onTouchUpInside { [weak self] in
             self?.createChallenge()
         }.disposed(by: disposeBag)
     }
     
     func createChallenge() {
-        gymRatsAPI.createChallenge(startDate: startDate.date, endDate: endDate.date, challengeName: challengeName.text!)
-            .standardServiceResponse { [weak self] challenge in
-                self?.dismissSelf()
-                self?.delegate?.challengeCreated(challenge: challenge)
-            }.disposed(by: disposeBag)
+        showLoadingBar(disallowUserInteraction: true)
+        
+        gymRatsAPI.createChallenge (
+            startDate: startDate.value!,
+            endDate: endDate.value!,
+            challengeName: name.value!,
+            photo: self.photo.value
+        )
+        .subscribe(onNext: { [weak self] challenge in
+            self?.hideLoadingBar()
+            self?.dismissSelf()
+            self?.delegate?.challengeCreated(challenge: challenge)
+        }, onError: { [weak self] error in
+            self?.presentAlert(with: error)
+            self?.hideLoadingBar()
+        }).disposed(by: disposeBag)
     }
 
 }

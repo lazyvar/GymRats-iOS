@@ -18,7 +18,7 @@ enum APIRequest {
     case signup
     case getAllChallenges
     case joinChallenge(code: String)
-    case createChallenge(startDate: Date, endDate: Date, challengeName: String)
+    case createChallenge(startDate: Date, endDate: Date, challengeName: String, photoUrl: String?)
     case getUsersForChallenge(challenge: Challenge)
     case getWorkoutsForChallenge(challenge: Challenge)
     case getWorkoutsForUser(user: User)
@@ -34,12 +34,18 @@ enum APIRequest {
             return (.get, "challenge/all", [:])
         case .joinChallenge(let code):
             return (.post, "challenge/\(code)", [:])
-        case .createChallenge(startDate: let startDate, endDate: let endDate, challengeName: let challengeName):
-            return (.post, "challenge", [
+        case .createChallenge(startDate: let startDate, endDate: let endDate, challengeName: let challengeName, photoUrl: let photoUrl):
+            var params: Parameters =  [
                 "startDate": startDate,
                 "endDate": endDate,
                 "challengeName": challengeName
-            ])
+            ]
+            
+            if let photoUrl = photoUrl {
+                params["photoUrl"] = photoUrl
+            }
+
+            return (.post, "challenge", params)
         case .getUsersForChallenge(challenge: let challenge):
             return (.get, "challenge/\(challenge.id)/user", [:])
         case .getWorkoutsForChallenge(challenge: let challenge):
@@ -106,8 +112,15 @@ class GymRatsAPI {
         return requestObject(.joinChallenge(code: code))
     }
     
-    func createChallenge(startDate: Date, endDate: Date, challengeName: String) -> Observable<Challenge> {
-        return requestObject(.createChallenge(startDate: startDate, endDate: endDate, challengeName: challengeName))
+    func createChallenge(startDate: Date, endDate: Date, challengeName: String, photo: UIImage?) -> Observable<Challenge> {
+        if let photo = photo {
+            return ImageService.uploadImageToFirebase(image: photo)
+                .flatMap { url in
+                    return self.requestObject(.createChallenge(startDate: startDate, endDate: endDate, challengeName: challengeName, photoUrl: url))
+                }
+        } else {
+            return requestObject(.createChallenge(startDate: startDate, endDate: endDate, challengeName: challengeName, photoUrl: nil))
+        }
     }
     
     func getUsers(for challenge:  Challenge) -> Observable<[User]> {
