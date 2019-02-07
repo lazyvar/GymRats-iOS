@@ -14,6 +14,7 @@ import RxCocoa
 extension UIView {
     
     func makeScrolly(in view: UIView) {
+        let scrollView = UIScrollView()
         let size = frame.size
         let width = frame.size.width
         let height: CGFloat = {
@@ -24,7 +25,6 @@ extension UIView {
             }
         }()
         
-        let scrollView = UIScrollView()
         scrollView.frame = view.frame
         scrollView.contentSize = CGSize(width: width, height: height)
         scrollView.showsVerticalScrollIndicator = false
@@ -32,8 +32,8 @@ extension UIView {
         scrollView.alwaysBounceHorizontal = false
         scrollView.backgroundColor = self.backgroundColor
         scrollView.addSubview(self)
-        view.addSubview(scrollView)
         
+        view.addSubview(scrollView)
         view.backgroundColor = self.backgroundColor
     }
     

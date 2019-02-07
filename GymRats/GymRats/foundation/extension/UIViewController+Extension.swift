@@ -39,7 +39,17 @@ extension UIViewController {
         
         navigationItem.titleView = logoImageView
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Profile", style: .plain, target: nil, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Workout", style: .plain, target: self, action: #selector(presentNewWorkoutViewController))
+    }
+    
+    @objc func presentNewWorkoutViewController() {
+        let newWorkoutViewController = NewWorkoutViewController()
+        newWorkoutViewController.delegate = self
+        
+        let nav = UINavigationController(rootViewController: newWorkoutViewController)
+        nav.navigationBar.turnBrandColorSlightShadow()
+        
+        self.present(nav, animated: true, completion: nil)
     }
     
     func presentAlert(title: String, message: String) {
@@ -58,6 +68,14 @@ extension UIViewController {
     
    @objc func dismissSelf() {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+extension UIViewController: NewWorkoutDelegate {
+    
+    func workoutCreated(workout: Workout) {
+        
     }
     
 }

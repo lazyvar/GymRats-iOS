@@ -42,7 +42,6 @@ class WorkoutViewController: UIViewController {
 
         let containerView = UIView()
         containerView.frame = view.frame
-        
         containerView.backgroundColor = .white
         
         let headerView = UIView()

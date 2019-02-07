@@ -28,7 +28,7 @@ class ActiveChallengeViewController: UITableViewController {
     var users: [User] = []
     var workouts: [Workout] = []
 
-    var currentDate: Variable<Date> = Variable<Date>(Date())
+    var currentDate: BehaviorRelay<Date> = BehaviorRelay<Date>(value: Date())
     
     var userWorkoutsForCurrentDate: [UserWorkout] = []
     
@@ -82,7 +82,7 @@ class ActiveChallengeViewController: UITableViewController {
         let container = UIView()
         
         let headerView = UIView()
-        headerView.backgroundColor = .hex("#003366")
+        headerView.backgroundColor = .whiteSmoke
         
         headerView.configureLayout { layout in
             layout.isEnabled = true
@@ -97,7 +97,7 @@ class ActiveChallengeViewController: UITableViewController {
         challengeName.font = UIFont.systemFont(ofSize: 17, weight: .light)
         challengeName.textAlignment = .center
         challengeName.text = challenge.name
-        challengeName.textColor = .white
+        challengeName.textColor = .fog
         
         challengeName.configureLayout { layout in
             layout.isEnabled = true
@@ -109,7 +109,7 @@ class ActiveChallengeViewController: UITableViewController {
         daysLeft.font = UIFont.systemFont(ofSize: 12, weight: .light)
         daysLeft.textAlignment = .center
         daysLeft.text =  "\(difference) days remaining"
-        daysLeft.textColor = .white
+        daysLeft.textColor = .fog
         
         daysLeft.configureLayout { layout in
             layout.isEnabled = true
@@ -168,14 +168,14 @@ class ActiveChallengeViewController: UITableViewController {
             guard let self = self else { return }
             
             self.tableViewAnimation = .right
-            self.currentDate.value = self.currentDate.value - 1.days
+            self.currentDate.accept(self.currentDate.value - 1.days)
         }.disposed(by: disposeBag)
         
         goForwardInTimeButton.onTouchUpInside { [weak self] in
             guard let self = self else { return }
             
             self.tableViewAnimation = .left
-            self.currentDate.value = self.currentDate.value + 1.days
+            self.currentDate.accept(self.currentDate.value + 1.days)
         }.disposed(by: disposeBag)
 
         currentDate
@@ -203,7 +203,7 @@ class ActiveChallengeViewController: UITableViewController {
                 self.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: self.tableViewAnimation)
             }.disposed(by: disposeBag)
         
-        currentDate.value = Date()
+        currentDate.accept(Date())
         
         fetchUserWorkouts()
     }
