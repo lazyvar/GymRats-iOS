@@ -13,12 +13,13 @@ extension UIColor {
     static let whiteSmoke: UIColor = .hex("#f5f5f5")
     static let fog: UIColor = .hex("#9B9B9B")
     static let firebrick: UIColor = .hex("#b22222")
+    static let charcoal: UIColor = .hex("#4A4A4A")
 }
 
 extension UIImage {
     static let brand = UIImage(color: .brand)
     static let whiteSmoke = UIImage(color: .whiteSmoke)
-    static let fog = UIImage(color: .fog)
+    static let charcoal = UIImage(color: .charcoal)
     static let firebrick = UIImage(color: .firebrick)
 }
 

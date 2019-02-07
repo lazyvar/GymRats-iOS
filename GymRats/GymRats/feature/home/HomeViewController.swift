@@ -18,7 +18,7 @@ class HomeViewController: UIViewController {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 24)
+        label.font = .h2
         label.text = "You are not participating in any active challenges."
         label.numberOfLines = 0
         label.textAlignment = .center
@@ -33,8 +33,8 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = .whiteSmoke
-        setupMenuButton()
-        navigationController?.navigationBar.turnBrandColorSlightShadow()
+        
+        setupForHome()
         
         retryButton.onTouchUpInside { [weak self] in
             self?.fetchAllChallenges()
@@ -94,6 +94,8 @@ class HomeViewController: UIViewController {
     }
     
     func showEmptyState() {
+        navigationItem.rightBarButtonItem = nil
+        
         view.configureLayout { layout in
             layout.isEnabled = true
             layout.flexDirection = .column
@@ -130,7 +132,7 @@ class HomeViewController: UIViewController {
         nav.navigationBar.turnBrandColorSlightShadow()
         challengeViewController.setupForHome()
         
-        GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: false, completion: nil)
+        GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
     }
     
     func showMulitpleChallenges(challenges: [Challenge]) {
@@ -139,7 +141,7 @@ class HomeViewController: UIViewController {
         nav.navigationBar.turnBrandColorSlightShadow()
         challengesViewController.setupForHome()
         
-        GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: false, completion: nil)
+        GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
     }
 }
 

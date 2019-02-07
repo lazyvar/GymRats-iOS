@@ -18,11 +18,20 @@ class MenuViewController: UIViewController {
     
     let userImageView = UserImageView()
     
+    let usernameLabel: UILabel = {
+        let label = UILabel()
+        label.font = .body
+        label.textAlignment = .center
+        label.textColor = .charcoal
+        
+        return label
+    }()
+    
     let activeButton: RightAlignedIconButton = {
         let button = RightAlignedIconButton()
         button.setTitle("Active", for: .normal)
         button.setImage(UIImage(named: "activity")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .light)
+        button.titleLabel?.font = .h4
         button.contentHorizontalAlignment = .right
         button.setTitleColor(.brand, for: .normal)
         button.tintColor = .brand
@@ -34,10 +43,10 @@ class MenuViewController: UIViewController {
         let button = RightAlignedIconButton()
         button.setTitle("Join", for: .normal)
         button.setImage(UIImage(named: "plus-circle")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .light)
+        button.titleLabel?.font = .h4
         button.contentHorizontalAlignment = .right
-        button.setTitleColor(.fog, for: .normal)
-        button.tintColor = .fog
+        button.setTitleColor(.charcoal, for: .normal)
+        button.tintColor = .charcoal
 
         return button
     }()
@@ -46,10 +55,10 @@ class MenuViewController: UIViewController {
         let button = RightAlignedIconButton()
         button.setTitle("Start", for: .normal)
         button.setImage(UIImage(named: "play")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .light)
+        button.titleLabel?.font = .h4
         button.contentHorizontalAlignment = .right
-        button.setTitleColor(.fog, for: .normal)
-        button.tintColor = .fog
+        button.setTitleColor(.charcoal, for: .normal)
+        button.tintColor = .charcoal
 
         return button
     }()
@@ -58,10 +67,10 @@ class MenuViewController: UIViewController {
         let button = RightAlignedIconButton()
         button.setTitle("Archived", for: .normal)
         button.setImage(UIImage(named: "archive")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .light)
+        button.titleLabel?.font = .h4
         button.contentHorizontalAlignment = .right
-        button.setTitleColor(.fog, for: .normal)
-        button.tintColor = .fog
+        button.setTitleColor(.charcoal, for: .normal)
+        button.tintColor = .charcoal
 
         return button
     }()
@@ -70,10 +79,10 @@ class MenuViewController: UIViewController {
         let button = RightAlignedIconButton()
         button.setTitle("About", for: .normal)
         button.setImage(UIImage(named: "info")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .light)
+        button.titleLabel?.font = .h4
         button.contentHorizontalAlignment = .right
-        button.setTitleColor(.fog, for: .normal)
-        button.tintColor = .fog
+        button.setTitleColor(.charcoal, for: .normal)
+        button.tintColor = .charcoal
 
         return button
     }()
@@ -90,8 +99,8 @@ class MenuViewController: UIViewController {
             layout.isEnabled = true
             layout.flexDirection = .column
             layout.justifyContent = .flexStart
-            layout.paddingRight = YGValue(self.view.frame.size.width - MenuViewController.menuWidth + 20)
-            layout.paddingTop = 100
+            layout.width = YGValue(MenuViewController.menuWidth)
+            layout.paddingTop = 80
         }
         
         let imageViewContainer = UIView()
@@ -100,7 +109,7 @@ class MenuViewController: UIViewController {
             layout.isEnabled = true
             layout.flexDirection = .row
             layout.alignContent = .center
-            layout.justifyContent = .flexEnd
+            layout.justifyContent = .center
         }
         
         userImageView.configureLayout { layout in
@@ -110,31 +119,42 @@ class MenuViewController: UIViewController {
             layout.margin = 5
         }
         
+        usernameLabel.configureLayout { layout in
+            layout.isEnabled = true
+            layout.marginTop = 5
+        }
+        
         activeButton.configureLayout { layout in
             layout.isEnabled = true
-            layout.marginTop = 25
+            layout.marginTop = 35
+            layout.marginRight = 20
         }
 
         joinChallenge.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 15
+            layout.marginRight = 20
         }
 
         createChallengeButton.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 15
+            layout.marginRight = 20
         }
 
         archivedButton.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 15
+            layout.marginRight = 20
         }
 
         aboutButton.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 15
+            layout.marginRight = 20
         }
 
+        usernameLabel.text = GymRatsApp.coordinator.currentUser.fullName
         userImageView.load(avatarInfo: GymRatsApp.coordinator.currentUser)
         
         imageViewContainer.addSubview(userImageView)
@@ -142,6 +162,7 @@ class MenuViewController: UIViewController {
         imageViewContainer.yoga.applyLayout(preservingOrigin: true)
         
         containerView.addSubview(imageViewContainer)
+        containerView.addSubview(usernameLabel)
         containerView.addSubview(activeButton)
         containerView.addSubview(joinChallenge)
         containerView.addSubview(createChallengeButton)

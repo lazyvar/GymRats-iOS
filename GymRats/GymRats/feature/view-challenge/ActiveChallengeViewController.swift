@@ -106,7 +106,7 @@ class ActiveChallengeViewController: UITableViewController {
         }
         
         let challengeName = UILabel()
-        challengeName.font = UIFont.systemFont(ofSize: 17, weight: .light)
+        challengeName.font = .body
         challengeName.textAlignment = .center
         challengeName.text = challenge.name
         challengeName.textColor = .white
@@ -118,7 +118,7 @@ class ActiveChallengeViewController: UITableViewController {
         let difference = challenge.startDate.getInterval(toDate: challenge.endDate, component: .day)
         
         let daysLeft = UILabel()
-        daysLeft.font = UIFont.systemFont(ofSize: 12, weight: .light)
+        daysLeft.font = .details
         daysLeft.textAlignment = .center
         daysLeft.text =  "\(difference) days remaining"
         daysLeft.textColor = .white
@@ -224,7 +224,10 @@ class ActiveChallengeViewController: UITableViewController {
         let users = gymRatsAPI.getUsers(for: challenge)
         let workouts = gymRatsAPI.getWorkouts(for: challenge)
         
-        refresher.beginRefreshing()
+        DispatchQueue.main.async {
+            self.refresher.beginRefreshing()
+        }
+        
         showLoadingBar()
         
         Observable.zip(users, workouts).subscribe(onNext: { zipped in
@@ -237,7 +240,7 @@ class ActiveChallengeViewController: UITableViewController {
             
             self.hideLoadingBar()
             self.refresher.endRefreshing()
-            self.tableView.reloadData()
+            self.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .fade)
         }, onError: { error in
             self.hideLoadingBar()
             self.refresher.endRefreshing()

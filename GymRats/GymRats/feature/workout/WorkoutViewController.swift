@@ -52,11 +52,11 @@ class WorkoutViewController: UIViewController {
         userImageView.load(avatarInfo: user)
         
         let usernameLabel: UILabel = UILabel()
-        usernameLabel.font = UIFont.systemFont(ofSize: 16)
+        usernameLabel.font = .body
         usernameLabel.text = user.fullName
 
         let timeLabel: UILabel = UILabel()
-        timeLabel.font = UIFont.systemFont(ofSize: 12)
+        timeLabel.font = .details
         timeLabel.text = workout.date.localTime
         timeLabel.textAlignment = .right
         
@@ -124,7 +124,7 @@ class WorkoutViewController: UIViewController {
         }
         
         let titleLabel: UILabel = UILabel()
-        titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        titleLabel.font = .body
         titleLabel.text = workout.title
         
         titleLabel.configureLayout { layout in

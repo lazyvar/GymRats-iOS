@@ -20,6 +20,10 @@ class UserWorkoutTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        titleLabel.font = .body
+        detailsLabel.font = .details
+        fullNameLabel.font = .body
+        
         titleLabel.isHidden = true
         detailsLabel.isHidden = true
         fullNameLabel.isHidden = true
@@ -42,7 +46,7 @@ class UserWorkoutTableViewCell: UITableViewCell {
                 
                 let label = UILabel()
                 label.text = workout.date.localTime
-                label.font = UIFont.systemFont(ofSize: 12)
+                label.font = .details
                 label.sizeToFit()
                 
                 accessoryView = label
@@ -52,7 +56,7 @@ class UserWorkoutTableViewCell: UITableViewCell {
                 
                 let label = UILabel()
                 label.text = "Zzz"
-                label.font = UIFont.systemFont(ofSize: 12)
+                label.font = .details
                 label.sizeToFit()
                 label.alpha = 0.333
                 label.textColor = .fog

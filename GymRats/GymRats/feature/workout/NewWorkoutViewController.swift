@@ -24,9 +24,19 @@ class NewWorkoutViewController: UIViewController {
     weak var delegate: NewWorkoutDelegate?
     
     let disposeBag = DisposeBag()
+    
     let workoutTitle: SkyFloatingLabelTextField = .standardTextField(placeholder: "Title")
-    let descriptionLabel = UILabel()
+    
+    let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = .bold
+        label.text = "Description"
+        
+        return label
+    }()
+    
     let descriptionTextView = UITextView()
+    
     let imagePickerButton: UIButton = .primary(text: "Attach Image")
     let placePickerButton: UIButton = .primary(text: "Attach Place")
     let submitButton: UIButton = .primary(text: "Do The Thing")
@@ -34,7 +44,6 @@ class NewWorkoutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        descriptionLabel.text = "Description"
         descriptionTextView.backgroundColor = .whiteSmoke
         
         title = "Create Workout"
@@ -55,7 +64,7 @@ class NewWorkoutViewController: UIViewController {
             layout.isEnabled = true
             layout.flexDirection = .column
             layout.alignContent = .center
-            layout.padding = 64
+            layout.padding = 15
         }
         
         workoutTitle.configureLayout { layout in
@@ -71,7 +80,7 @@ class NewWorkoutViewController: UIViewController {
         descriptionTextView.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 10
-            layout.height = 60
+            layout.height = 80
         }
 
         imagePickerButton.configureLayout { layout in

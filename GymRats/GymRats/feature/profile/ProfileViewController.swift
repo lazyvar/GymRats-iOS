@@ -21,7 +21,7 @@ class ProfileViewController: UIViewController {
     
     let totalWorkoutsLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16, weight: .light)
+        label.font = .body
         label.text = "Total workouts: -"
         
         return label
@@ -32,7 +32,7 @@ class ProfileViewController: UIViewController {
         label.text = Date().toFormat("MMMM yyyy")
         label.numberOfLines = 1
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 24, weight: .light)
+        label.font = .h2
         
         return label
     }()
@@ -93,7 +93,7 @@ class ProfileViewController: UIViewController {
         userImageView.load(avatarInfo: user)
         
         let usernameLabel: UILabel = UILabel()
-        usernameLabel.font = UIFont.systemFont(ofSize: 16)
+        usernameLabel.font = .body
         usernameLabel.text = user.fullName
         
         headerView.configureLayout { layout in
@@ -209,14 +209,14 @@ class ProfileViewController: UIViewController {
                 
                 let titleLabel = UILabel()
                 titleLabel.text = workout.title
-                titleLabel.font = UIFont.systemFont(ofSize: 16)
+                titleLabel.font = .body
                 
                 let detailsLabel = UILabel()
-                detailsLabel.font = UIFont.systemFont(ofSize: 13)
+                detailsLabel.font = .details
                 detailsLabel.text = "Details"
                 
                 let timeLabel: UILabel = UILabel()
-                timeLabel.font = UIFont.systemFont(ofSize: 12)
+                timeLabel.font = .details
                 timeLabel.text = workout.date.localTime
                 timeLabel.textAlignment = .right
                 

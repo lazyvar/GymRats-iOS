@@ -26,7 +26,7 @@ class CreateChallengeViewController: UIViewController {
     
     let startDateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        label.font = .bold
         label.text = "Start Date"
         label.numberOfLines = 0
         
@@ -45,7 +45,7 @@ class CreateChallengeViewController: UIViewController {
     
     let endDateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        label.font = .bold
         label.text = "End Date"
         label.numberOfLines = 0
         
@@ -64,8 +64,7 @@ class CreateChallengeViewController: UIViewController {
     
     let numberOfDaysLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        label.text = "Start Date"
+        label.font = .bold
         label.numberOfLines = 0
 
         return label
@@ -90,7 +89,7 @@ class CreateChallengeViewController: UIViewController {
             layout.isEnabled = true
             layout.flexDirection = .column
             layout.alignContent = .center
-            layout.padding = 64
+            layout.padding = 15
         }
         
         startDateLabel.configureLayout { layout in
