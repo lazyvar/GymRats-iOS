@@ -9,7 +9,6 @@
 import UIKit
 import SkyFloatingLabelTextField
 import RxSwift
-import PKHUD
 
 class LoginViewController: UIViewController {
     
@@ -95,7 +94,7 @@ class LoginViewController: UIViewController {
     
     func tryLogIn() {
         resignFirstResponder()
-        HUD.show(.progress)
+        // HUD.show(.progress)
         
         gymRatsAPI.login(email: email.text!, password: password.text!)
             .standardServiceResponse { user in

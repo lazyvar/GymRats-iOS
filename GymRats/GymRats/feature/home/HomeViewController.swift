@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import PKHUD
 import RxSwift
+import GradientLoadingBar
 
 class HomeViewController: UIViewController {
 
@@ -57,7 +57,7 @@ class HomeViewController: UIViewController {
             let createChallengeViewController = CreateChallengeViewController()
             createChallengeViewController.delegate = self
             
-            let nav = UINavigationController(rootViewController: createChallengeViewController)
+            let nav = GRNavigationController(rootViewController: createChallengeViewController)
             nav.navigationBar.turnBrandColorSlightShadow()
             
             self?.present(nav, animated: true, completion: nil)
@@ -68,11 +68,11 @@ class HomeViewController: UIViewController {
 
     func fetchAllChallenges() {
         retryButton.isHidden = true
-        HUD.show(.progress)
+        showLoadingBar()
         
         gymRatsAPI.getAllChallenges()
             .subscribe(onNext: { [weak self] challenges in
-                HUD.hide()
+                self?.hideLoadingBar()
                 
                 let activeChallenges = challenges.getActiveChallenges()
                 
@@ -88,7 +88,7 @@ class HomeViewController: UIViewController {
                     }
                 }
             }, onError: { [weak self] error in
-                HUD.hide()
+                self?.hideLoadingBar()
                 self?.retryButton.isHidden = false
             }).disposed(by: disposeBag)
     }
@@ -126,7 +126,7 @@ class HomeViewController: UIViewController {
     
     func showSingleChallenge(challenge: Challenge) {
         let challengeViewController = ActiveChallengeViewController(challenge: challenge)
-        let nav = UINavigationController(rootViewController: challengeViewController)
+        let nav = GRNavigationController(rootViewController: challengeViewController)
         nav.navigationBar.turnBrandColorSlightShadow()
         challengeViewController.setupForHome()
         
@@ -135,7 +135,7 @@ class HomeViewController: UIViewController {
     
     func showMulitpleChallenges(challenges: [Challenge]) {
         let challengesViewController = MultipleActiveChallengesViewController(challenges: challenges)
-        let nav = UINavigationController(rootViewController: challengesViewController)
+        let nav = GRNavigationController(rootViewController: challengesViewController)
         nav.navigationBar.turnBrandColorSlightShadow()
         challengesViewController.setupForHome()
         

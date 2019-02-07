@@ -10,7 +10,6 @@ import Foundation
 import RxSwift
 import RxCocoa
 import Kingfisher
-import PKHUD
 
 func requireAll(_ boolValues: Observable<Bool>...) -> Observable<Bool> {
     return Observable<Bool>.combineLatest(boolValues) { collection in
@@ -54,11 +53,11 @@ extension Observable {
     func standardServiceResponse(_ onSuccess: @escaping (Element) -> Void) -> Disposable {
         return self.subscribe(onNext: { element in
                 // ...
-                HUD.hide()
+                // HUD.hide()
                 onSuccess(element)
             }, onError: { error in
-                HUD.show(.labeledError(title: "Error", subtitle: error.localizedDescription))
-                HUD.hide(afterDelay: 1.5)
+                // HUD.show(.labeledError(title: "Error", subtitle: error.localizedDescription))
+                // HUD.hide(afterDelay: 1.5)
             })
     }
     

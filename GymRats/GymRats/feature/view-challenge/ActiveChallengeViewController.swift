@@ -23,7 +23,12 @@ class ActiveChallengeViewController: UITableViewController {
     
     let disposeBag = DisposeBag()
     let challenge: Challenge
-    let refresher = UIRefreshControl()
+    let refresher: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .white
+
+        return refreshControl
+    }()
 
     var users: [User] = []
     var workouts: [Workout] = []
@@ -34,16 +39,16 @@ class ActiveChallengeViewController: UITableViewController {
     
     let goBackInTimeButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Back", for: .normal)
-        button.setTitleColor(.brand, for: .normal)
+        button.setBackgroundImage(UIImage(named: "left-arrow"), for: .normal)
+        button.setTitleColor(.black, for: .normal)
         
         return button
     }()
 
     let goForwardInTimeButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Forward", for: .normal)
-        button.setTitleColor(.brand, for: .normal)
+        button.setBackgroundImage(UIImage(named: "right-arrow"), for: .normal)
+        button.setTitleColor(.black, for: .normal)
         
         return button
     }()
@@ -72,6 +77,13 @@ class ActiveChallengeViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupBackButton()
+        
+        let bg = UIView(frame: CGRect(x: 0, y: -1000, width: self.tableView.frame.width, height: 1000))
+        bg.backgroundColor = .hex("#4682b4")
+        
+        tableView.addSubview(bg)
+        
         tableView.separatorStyle = .none
         tableView.register(UINib(nibName: "UserWorkoutTableViewCell", bundle: nil), forCellReuseIdentifier: "UserWorkoutCell")
 
@@ -82,7 +94,7 @@ class ActiveChallengeViewController: UITableViewController {
         let container = UIView()
         
         let headerView = UIView()
-        headerView.backgroundColor = .whiteSmoke
+        headerView.backgroundColor = .hex("#4682b4")
         
         headerView.configureLayout { layout in
             layout.isEnabled = true
@@ -97,7 +109,7 @@ class ActiveChallengeViewController: UITableViewController {
         challengeName.font = UIFont.systemFont(ofSize: 17, weight: .light)
         challengeName.textAlignment = .center
         challengeName.text = challenge.name
-        challengeName.textColor = .fog
+        challengeName.textColor = .white
         
         challengeName.configureLayout { layout in
             layout.isEnabled = true
@@ -109,7 +121,7 @@ class ActiveChallengeViewController: UITableViewController {
         daysLeft.font = UIFont.systemFont(ofSize: 12, weight: .light)
         daysLeft.textAlignment = .center
         daysLeft.text =  "\(difference) days remaining"
-        daysLeft.textColor = .fog
+        daysLeft.textColor = .white
         
         daysLeft.configureLayout { layout in
             layout.isEnabled = true
@@ -213,6 +225,7 @@ class ActiveChallengeViewController: UITableViewController {
         let workouts = gymRatsAPI.getWorkouts(for: challenge)
         
         refresher.beginRefreshing()
+        showLoadingBar()
         
         Observable.zip(users, workouts).subscribe(onNext: { zipped in
             let (users, workouts) = zipped
@@ -222,9 +235,11 @@ class ActiveChallengeViewController: UITableViewController {
             
             self.updateUserWorkoutsForCurrentDate()
             
+            self.hideLoadingBar()
             self.refresher.endRefreshing()
             self.tableView.reloadData()
         }, onError: { error in
+            self.hideLoadingBar()
             self.refresher.endRefreshing()
             print(error)
         }).disposed(by: disposeBag)

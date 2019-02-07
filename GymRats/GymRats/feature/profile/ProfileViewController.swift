@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import PKHUD
 import RxSwift
 import CVCalendar
 import YogaKit
@@ -76,6 +75,8 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupBackButton()
         
         calendarMenu.menuViewDelegate = self
         calendarView.calendarAppearanceDelegate = self

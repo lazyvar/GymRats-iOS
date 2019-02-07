@@ -40,6 +40,8 @@ class WorkoutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupBackButton()
+        
         let containerView = UIView()
         containerView.frame = view.frame
         containerView.backgroundColor = .white

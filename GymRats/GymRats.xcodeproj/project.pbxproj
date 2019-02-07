@@ -15,6 +15,9 @@
 		746764E3220B6D5C000CFB1B /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E2220B6D5C000CFB1B /* Collection+Extension.swift */; };
 		746764E5220B7ACE000CFB1B /* MultipleActiveChallengesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E4220B7ACE000CFB1B /* MultipleActiveChallengesViewController.swift */; };
 		746764E7220BAE44000CFB1B /* NewWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E6220BAE44000CFB1B /* NewWorkoutViewController.swift */; };
+		746764EA220BCB5C000CFB1B /* GRNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E8220BCB5C000CFB1B /* GRNavigationController.swift */; };
+		746764EB220BCB5C000CFB1B /* GRNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 746764E9220BCB5C000CFB1B /* GRNavigationController.xib */; };
+		746764ED220BD68D000CFB1B /* RightAlignedconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764EC220BD68D000CFB1B /* RightAlignedconButton.swift */; };
 		747D6F9A2208DB310062BB39 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6F992208DB310062BB39 /* AppDelegate.swift */; };
 		747D6FA12208DB330062BB39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 747D6FA02208DB330062BB39 /* Assets.xcassets */; };
 		747D6FA42208DB330062BB39 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 747D6FA22208DB330062BB39 /* LaunchScreen.storyboard */; };
@@ -74,6 +77,9 @@
 		746764E2220B6D5C000CFB1B /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 		746764E4220B7ACE000CFB1B /* MultipleActiveChallengesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleActiveChallengesViewController.swift; sourceTree = "<group>"; };
 		746764E6220BAE44000CFB1B /* NewWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkoutViewController.swift; sourceTree = "<group>"; };
+		746764E8220BCB5C000CFB1B /* GRNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRNavigationController.swift; sourceTree = "<group>"; };
+		746764E9220BCB5C000CFB1B /* GRNavigationController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GRNavigationController.xib; sourceTree = "<group>"; };
+		746764EC220BD68D000CFB1B /* RightAlignedconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightAlignedconButton.swift; sourceTree = "<group>"; };
 		747D6F962208DB310062BB39 /* GymRats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GymRats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		747D6F992208DB310062BB39 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		747D6FA02208DB330062BB39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -226,6 +232,9 @@
 				74A01B3D220A55D000431ABD /* UserImageView.swift */,
 				74A01B3F220A560800431ABD /* RingView.swift */,
 				746764E0220B5A93000CFB1B /* Switch.swift */,
+				746764E8220BCB5C000CFB1B /* GRNavigationController.swift */,
+				746764E9220BCB5C000CFB1B /* GRNavigationController.xib */,
+				746764EC220BD68D000CFB1B /* RightAlignedconButton.swift */,
 			);
 			path = foundation;
 			sourceTree = "<group>";
@@ -443,6 +452,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				746764EB220BCB5C000CFB1B /* GRNavigationController.xib in Resources */,
 				747D6FA42208DB330062BB39 /* LaunchScreen.storyboard in Resources */,
 				74A01B3C220A544F00431ABD /* UserWorkoutTableViewCell.xib in Resources */,
 				747D6FA12208DB330062BB39 /* Assets.xcassets in Resources */,
@@ -494,9 +504,10 @@
 				"${BUILT_PRODUCTS_DIR}/AvatarImageView/AvatarImageView.framework",
 				"${BUILT_PRODUCTS_DIR}/CVCalendar/CVCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/FlexLayout/FlexLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/GradientLoadingBar/GradientLoadingBar.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MMDrawerController/MMDrawerController.framework",
-				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/Observable/Observable.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
@@ -515,9 +526,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AvatarImageView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CVCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FlexLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GradientLoadingBar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MMDrawerController.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Observable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
@@ -575,6 +587,7 @@
 				747D6FC02208DC820062BB39 /* AppCoordinator.swift in Sources */,
 				747D6FBD2208DBFE0062BB39 /* API.swift in Sources */,
 				747D6FE72208ED780062BB39 /* SignUpViewController.swift in Sources */,
+				746764ED220BD68D000CFB1B /* RightAlignedconButton.swift in Sources */,
 				74A01B3E220A55D000431ABD /* UserImageView.swift in Sources */,
 				74A01B25220A0AFB00431ABD /* HomeViewController.swift in Sources */,
 				747D6FDB2208E8130062BB39 /* Keychain.swift in Sources */,
@@ -590,6 +603,7 @@
 				74A01B3B220A544F00431ABD /* UserWorkoutTableViewCell.swift in Sources */,
 				747D6FC32208DCAB0062BB39 /* Observable+Extension.swift in Sources */,
 				74A01B46220A778C00431ABD /* WorkoutViewController.swift in Sources */,
+				746764EA220BCB5C000CFB1B /* GRNavigationController.swift in Sources */,
 				747D6FE52208ED6F0062BB39 /* LoginViewController.swift in Sources */,
 				74305071220A05FC005D8C52 /* GymRatsApp.swift in Sources */,
 				74A01B4E220A83FD00431ABD /* UIDate+Extension.swift in Sources */,

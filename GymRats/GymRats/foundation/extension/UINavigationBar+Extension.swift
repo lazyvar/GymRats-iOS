@@ -13,7 +13,7 @@ extension UINavigationBar {
     func turnBrandColorSlightShadow() {
         isTranslucent = false
         setBackgroundImage(.brand, for: .default)
+        shadowImage = UIImage()
     }
     
 }
-

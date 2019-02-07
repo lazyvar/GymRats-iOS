@@ -27,7 +27,7 @@ class AppCoordinator: Coordinator {
             login(user: user)
         } else {
             // show login/signup
-            let nav = UINavigationController(rootViewController: WelcomeViewController())
+            let nav = GRNavigationController(rootViewController: WelcomeViewController())
             nav.navigationBar.turnBrandColorSlightShadow()
             
             window.rootViewController = nav
@@ -48,8 +48,8 @@ class AppCoordinator: Coordinator {
         self.currentUser = user
         
         let menu = MenuViewController()
-        let center = HomeViewController()
-        let nav = UINavigationController(rootViewController: center)
+        let home = HomeViewController()
+        let nav = GRNavigationController(rootViewController: home)
         
         drawer = MMDrawerController(center: nav, leftDrawerViewController: menu)
         drawer.showsShadow = false

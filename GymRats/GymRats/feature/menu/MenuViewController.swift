@@ -16,71 +16,103 @@ class MenuViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     
-    let activeButton: UIButton = {
-        let button = UIButton()
+    let userImageView = UserImageView()
+    
+    let activeButton: RightAlignedIconButton = {
+        let button = RightAlignedIconButton()
         button.setTitle("Active", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 28, weight: .light)
+        button.setImage(UIImage(named: "activity")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .light)
         button.contentHorizontalAlignment = .right
         button.setTitleColor(.brand, for: .normal)
+        button.tintColor = .brand
         
         return button
     }()
 
-    let joinChallenge: UIButton = {
-        let button = UIButton()
+    let joinChallenge: RightAlignedIconButton = {
+        let button = RightAlignedIconButton()
         button.setTitle("Join", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 28, weight: .light)
+        button.setImage(UIImage(named: "plus-circle")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .light)
         button.contentHorizontalAlignment = .right
-        button.setTitleColor(.brand, for: .normal)
-        
+        button.setTitleColor(.fog, for: .normal)
+        button.tintColor = .fog
+
         return button
     }()
 
-    let createChallengeButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Create", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 28, weight: .light)
+    let createChallengeButton: RightAlignedIconButton = {
+        let button = RightAlignedIconButton()
+        button.setTitle("Start", for: .normal)
+        button.setImage(UIImage(named: "play")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .light)
         button.contentHorizontalAlignment = .right
-        button.setTitleColor(.brand, for: .normal)
-        
+        button.setTitleColor(.fog, for: .normal)
+        button.tintColor = .fog
+
         return button
     }()
 
-    let archivedButton: UIButton = {
-        let button = UIButton()
+    let archivedButton: RightAlignedIconButton = {
+        let button = RightAlignedIconButton()
         button.setTitle("Archived", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 28, weight: .light)
+        button.setImage(UIImage(named: "archive")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .light)
         button.contentHorizontalAlignment = .right
-        button.setTitleColor(.brand, for: .normal)
-        
+        button.setTitleColor(.fog, for: .normal)
+        button.tintColor = .fog
+
         return button
     }()
 
-    let aboutButton: UIButton = {
-        let button = UIButton()
+    let aboutButton: RightAlignedIconButton = {
+        let button = RightAlignedIconButton()
         button.setTitle("About", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 28, weight: .light)
+        button.setImage(UIImage(named: "info")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 24, weight: .light)
         button.contentHorizontalAlignment = .right
-        button.setTitleColor(.brand, for: .normal)
-        
+        button.setTitleColor(.fog, for: .normal)
+        button.tintColor = .fog
+
         return button
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let containerView = UIView()
+        containerView.frame = view.frame
+        containerView.backgroundColor = .white
 
-        view.backgroundColor = .whiteSmoke
-        view.configureLayout { layout in
+        containerView.backgroundColor = .whiteSmoke
+        containerView.configureLayout { layout in
             layout.isEnabled = true
             layout.flexDirection = .column
-            layout.justifyContent = .center
+            layout.justifyContent = .flexStart
+            layout.paddingRight = YGValue(self.view.frame.size.width - MenuViewController.menuWidth + 20)
+            layout.paddingTop = 100
+        }
+        
+        let imageViewContainer = UIView()
+        
+        imageViewContainer.configureLayout { layout in
+            layout.isEnabled = true
+            layout.flexDirection = .row
             layout.alignContent = .center
-            layout.paddingRight = YGValue(self.view.frame.size.width - MenuViewController.menuWidth + 32)
+            layout.justifyContent = .flexEnd
+        }
+        
+        userImageView.configureLayout { layout in
+            layout.isEnabled = true
+            layout.width = YGValue(MenuViewController.menuWidth / 2)
+            layout.height = YGValue(MenuViewController.menuWidth / 2)
+            layout.margin = 5
         }
         
         activeButton.configureLayout { layout in
             layout.isEnabled = true
-            layout.marginTop = 15
+            layout.marginTop = 25
         }
 
         joinChallenge.configureLayout { layout in
@@ -103,14 +135,22 @@ class MenuViewController: UIViewController {
             layout.marginTop = 15
         }
 
-        view.addSubview(activeButton)
-        view.addSubview(joinChallenge)
-        view.addSubview(createChallengeButton)
-        view.addSubview(archivedButton)
-        view.addSubview(aboutButton)
+        userImageView.load(avatarInfo: GymRatsApp.coordinator.currentUser)
         
-        view.yoga.applyLayout(preservingOrigin: true)
+        imageViewContainer.addSubview(userImageView)
+
+        imageViewContainer.yoga.applyLayout(preservingOrigin: true)
         
+        containerView.addSubview(imageViewContainer)
+        containerView.addSubview(activeButton)
+        containerView.addSubview(joinChallenge)
+        containerView.addSubview(createChallengeButton)
+        containerView.addSubview(archivedButton)
+        containerView.addSubview(aboutButton)
+        
+        containerView.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
+        containerView.makeScrolly(in: view)
+
         joinChallenge.onTouchUpInside { [weak self] in
             guard let self = self else { return }
             
@@ -123,7 +163,7 @@ class MenuViewController: UIViewController {
                             GymRatsApp.coordinator.drawer.closeDrawer(animated: true, completion: nil)
                         } else {
                             let center = HomeViewController()
-                            let nav = UINavigationController(rootViewController: center)
+                            let nav = GRNavigationController(rootViewController: center)
 
                             GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
                         }
@@ -139,7 +179,7 @@ class MenuViewController: UIViewController {
             let createChallengeViewController = CreateChallengeViewController()
             createChallengeViewController.delegate = self
             
-            let nav = UINavigationController(rootViewController: createChallengeViewController)
+            let nav = GRNavigationController(rootViewController: createChallengeViewController)
             nav.navigationBar.turnBrandColorSlightShadow()
             
             self?.present(nav, animated: true, completion: nil)
@@ -147,10 +187,10 @@ class MenuViewController: UIViewController {
         
         activeButton.onTouchUpInside {
             let center = HomeViewController()
-            let nav = UINavigationController(rootViewController: center)
+            let nav = GRNavigationController(rootViewController: center)
             
             GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
-        }
+        }.disposed(by: disposeBag)
     }
     
 }
@@ -165,7 +205,7 @@ extension MenuViewController: CreateChallengeDelegate {
                 GymRatsApp.coordinator.drawer.closeDrawer(animated: true, completion: nil)
             } else {
                 let center = HomeViewController()
-                let nav = UINavigationController(rootViewController: center)
+                let nav = GRNavigationController(rootViewController: center)
                 
                 GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
             }

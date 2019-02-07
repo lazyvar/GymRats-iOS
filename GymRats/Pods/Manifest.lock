@@ -6,6 +6,8 @@ PODS:
   - GoogleMaps/Base (3.0.2)
   - GooglePlaces (3.0.2):
     - GoogleMaps/Base (= 3.0.2)
+  - GradientLoadingBar (1.1.14):
+    - Observable (~> 1.4)
   - Kingfisher (4.10.1)
   - MMDrawerController (0.5.7):
     - MMDrawerController/Core (= 0.5.7)
@@ -19,7 +21,7 @@ PODS:
     - MMDrawerController/Core
   - MMDrawerController/Subclass (0.5.7):
     - MMDrawerController/Core
-  - PKHUD (5.2.1)
+  - Observable (1.4.0)
   - RxAlamofire (4.3.0):
     - RxAlamofire/Core (= 4.3.0)
   - RxAlamofire/Core (4.3.0):
@@ -45,9 +47,9 @@ DEPENDENCIES:
   - CVCalendar (~> 1.6.2)
   - FlexLayout
   - GooglePlaces
+  - GradientLoadingBar (~> 1.0)
   - Kingfisher (~> 4.0)
   - MMDrawerController (~> 0.5.7)
-  - PKHUD (~> 5.0)
   - RxAlamofire
   - RxCocoa (~> 4.0)
   - RxOptional
@@ -64,9 +66,10 @@ SPEC REPOS:
     - FlexLayout
     - GoogleMaps
     - GooglePlaces
+    - GradientLoadingBar
     - Kingfisher
     - MMDrawerController
-    - PKHUD
+    - Observable
     - RxAlamofire
     - RxAtomic
     - RxCocoa
@@ -84,9 +87,10 @@ SPEC CHECKSUMS:
   FlexLayout: b008184d23aae0c56e1c916e803445a13a6f4e5a
   GoogleMaps: 941cd655e009b4d8e42df19a3d749bc3fccec973
   GooglePlaces: c086e0055dc5f0177d7c9d65fc77a1734f9a4825
+  GradientLoadingBar: f8fcc481f121b3ae651c7b27abec540b7be7fe60
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   MMDrawerController: 7a4cf8e25596bf2434e03ce50d22a8608ddee6a1
-  PKHUD: 4e6162c4c39ac367c6934e9855c6b4762ee16256
+  Observable: 4b2ee25de74d007d57acdff801925e39f9613544
   RxAlamofire: 09624d0f2d48ed8b686e4eb4cf68e28cbd2df556
   RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
   RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
@@ -97,6 +101,6 @@ SPEC CHECKSUMS:
   Yoga: aaae8abea68951f60bee05f6277d3eed90bb91bb
   YogaKit: d447a9bb808718e6f58e52a2255a8050081a3ead
 
-PODFILE CHECKSUM: 7b649e752777535e0a244aed60797316f5cd5428
+PODFILE CHECKSUM: c543fb4e6c8344f32a300987f963eb7bb6bf7303
 
 COCOAPODS: 1.5.3

@@ -10,7 +10,7 @@ import UIKit
 import SkyFloatingLabelTextField
 import SwiftDate
 import RxSwift
-import PKHUD
+import GradientLoadingBar
 
 protocol CreateChallengeDelegate: class {
     func challengeCreated(challenge: Challenge)
@@ -162,8 +162,6 @@ class CreateChallengeViewController: UIViewController {
     }
     
     func createChallenge() {
-        HUD.show(.progress)
-        
         gymRatsAPI.createChallenge(startDate: startDate.date, endDate: endDate.date, challengeName: challengeName.text!)
             .standardServiceResponse { [weak self] challenge in
                 self?.dismissSelf()

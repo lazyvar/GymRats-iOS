@@ -15,7 +15,7 @@ extension UIViewController {
     }
     
     func setupBackButton() {
-        let yourBackImage = UIImage(named: "back")
+        let yourBackImage = UIImage(named: "chevron-left")
         
         navigationController?.navigationBar.backIndicatorImage = yourBackImage
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = yourBackImage
@@ -24,13 +24,25 @@ extension UIViewController {
 
     func setupMenuButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem (
-            title: "Menu",
+            image: UIImage(named: "menu"),
             style: .plain,
             target: GymRatsApp.coordinator,
             action: #selector(AppCoordinator.toggleMenu)
         )
     }
     
+    func showLoadingBar() {
+        guard let nav = self.navigationController as? GRNavigationController else { return }
+        
+        nav.showLoadingBarYo()
+    }
+
+    func hideLoadingBar() {
+        guard let nav = self.navigationController as? GRNavigationController else { return }
+        
+        nav.hideLoadingBarYo()
+    }
+
     func setupForHome() {
         setupMenuButton()
         
@@ -39,14 +51,19 @@ extension UIViewController {
         
         navigationItem.titleView = logoImageView
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Workout", style: .plain, target: self, action: #selector(presentNewWorkoutViewController))
+        navigationItem.rightBarButtonItem = UIBarButtonItem (
+            image: UIImage(named: "kettle-bell"),
+            style: .plain,
+            target: self,
+            action: #selector(presentNewWorkoutViewController)
+        )
     }
     
     @objc func presentNewWorkoutViewController() {
         let newWorkoutViewController = NewWorkoutViewController()
         newWorkoutViewController.delegate = self
         
-        let nav = UINavigationController(rootViewController: newWorkoutViewController)
+        let nav = GRNavigationController(rootViewController: newWorkoutViewController)
         nav.navigationBar.turnBrandColorSlightShadow()
         
         self.present(nav, animated: true, completion: nil)
