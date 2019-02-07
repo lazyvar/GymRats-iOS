@@ -18,5 +18,6 @@ target 'GymRats' do
     pod "GooglePlaces"
     pod 'CVCalendar', '~> 1.6.2'
     pod 'GradientLoadingBar', '~> 1.0'
-
+    pod 'Eureka'
+    pod "RxEureka", "~> 0.2"
 end

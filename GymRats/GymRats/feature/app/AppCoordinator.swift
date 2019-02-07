@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import MMDrawerController
+import GooglePlaces
 
 class AppCoordinator: Coordinator {
     
@@ -42,6 +43,8 @@ class AppCoordinator: Coordinator {
         UINavigationBar.appearance().titleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.whiteSmoke
         ]
+        
+        GMSPlacesClient.provideAPIKey("AIzaSyD1X4TH-TneFnDqjiJ2rb2FGgxK8JZyrIo")
     }
     
     func login(user: User) {

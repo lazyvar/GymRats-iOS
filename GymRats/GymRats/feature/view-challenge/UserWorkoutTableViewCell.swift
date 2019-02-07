@@ -45,7 +45,7 @@ class UserWorkoutTableViewCell: UITableViewCell {
                 detailsLabel.text = user.fullName
                 
                 let label = UILabel()
-                label.text = workout.date.localTime
+                label.text = workout.date.challengeTime
                 label.font = .details
                 label.sizeToFit()
                 

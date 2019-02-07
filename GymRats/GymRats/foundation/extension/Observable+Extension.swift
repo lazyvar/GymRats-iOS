@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 import Kingfisher
+import RxOptional
 
 func requireAll(_ boolValues: Observable<Bool>...) -> Observable<Bool> {
     return Observable<Bool>.combineLatest(boolValues) { collection in
@@ -43,9 +44,17 @@ extension Collection {
 extension UITextField {
     
     var requiredValidation: Observable<Bool> {
-        return rx.text.map { ($0 ?? "").isNotEmpty }.share(replay: 1)
+        return rx.text.map { !($0 ?? "").isEmpty }.share(replay: 1)
     }
     
+}
+
+extension Observable where Element: OptionalType {
+
+    var isPresent: Observable<Bool> {
+        return map { $0.value != nil }.share(replay: 1)
+    }
+
 }
 
 extension Observable {

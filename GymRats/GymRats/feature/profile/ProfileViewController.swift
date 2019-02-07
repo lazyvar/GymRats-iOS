@@ -122,7 +122,7 @@ class ProfileViewController: UIViewController {
             layout.isEnabled = true
             layout.flexDirection = .column
             layout.justifyContent = .flexStart
-            layout.padding = 15
+            layout.padding = 50
         }
         
         totalWorkoutsLabel.configureLayout { layout in
@@ -138,7 +138,7 @@ class ProfileViewController: UIViewController {
         calendarMenu.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 10
-            layout.width = YGValue(self.view.frame.width - 30)
+            layout.width = YGValue(self.view.frame.width - 80)
             layout.height = 15
         }
         
@@ -146,9 +146,8 @@ class ProfileViewController: UIViewController {
             layout.isEnabled = true
             layout.flexGrow = 1
             layout.marginTop = 5
-            layout.width = YGValue(self.view.frame.width - 60)
-            layout.height = YGValue(self.view.frame.width - 60)
-            layout.marginLeft = 15
+            layout.width = YGValue(self.view.frame.width - 100)
+            layout.height = YGValue(self.view.frame.width - 100)
         }
         
         workoutsContainer.configureLayout { layout in
@@ -217,7 +216,7 @@ class ProfileViewController: UIViewController {
                 
                 let timeLabel: UILabel = UILabel()
                 timeLabel.font = .details
-                timeLabel.text = workout.date.localTime
+                timeLabel.text = workout.date.challengeTime
                 timeLabel.textAlignment = .right
                 
                 row.configureLayout { layout in
@@ -339,7 +338,7 @@ extension ProfileViewController: CVCalendarViewDelegate, CVCalendarViewAppearanc
 extension Array where Element == Workout {
     
     func workoutsExist(on date: Date) -> Bool {
-        return self.workouts(on: date).isNotEmpty
+        return !self.workouts(on: date).isEmpty
     }
     
     func workouts(on date: Date) -> [Workout] {

@@ -46,5 +46,7 @@
 		<string>Lato-Light.ttf</string>
 		<string>Lato-Hairline.ttf</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>To find gyms near you</string>
 </dict>
 </plist>

@@ -94,7 +94,7 @@ class ActiveChallengeViewController: UITableViewController {
         let container = UIView()
         
         let headerView = UIView()
-        headerView.backgroundColor = .hex("#4682b4")
+        headerView.backgroundColor = .brandDark
         
         headerView.configureLayout { layout in
             layout.isEnabled = true

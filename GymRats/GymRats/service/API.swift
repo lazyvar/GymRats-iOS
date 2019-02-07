@@ -6,9 +6,7 @@
 //  Copyright © 2019 Mack Hasz. All rights reserved.
 //
 
-import Foundation
-
-import Foundation
+import UIKit
 import Alamofire
 import RxSwift
 import RxAlamofire
@@ -24,6 +22,7 @@ enum APIRequest {
     case getUsersForChallenge(challenge: Challenge)
     case getWorkoutsForChallenge(challenge: Challenge)
     case getWorkoutsForUser(user: User)
+    case postWorkout(title: String, description: String?, photoUrl: String?, googlePlaceId: String?)
     
     var requestProperties: (method: HTTPMethod, path: String, params: Parameters) {
         switch self {
@@ -47,6 +46,22 @@ enum APIRequest {
             return (.get, "challenge/\(challenge.id)/workout", [:])
         case .getWorkoutsForUser(user: let user):
             return (.get, "workout/user/\(user.id)", [:])
+        case .postWorkout(title: let title, description: let description, photoUrl: let photoUrl, googlePlaceId: let googlePlaceId):
+            var params: Parameters = ["title": title]
+            
+            if let description = description {
+                params["desription"] = description
+            }
+
+            if let photoUrl = photoUrl {
+                params["photoUrl"] = photoUrl
+            }
+
+            if let googlePlaceId = googlePlaceId {
+                params["googlePlaceId"] = googlePlaceId
+            }
+
+            return (.get, "workout", params)
         }
     }
 }
@@ -105,6 +120,11 @@ class GymRatsAPI {
     
     func getWorkouts(for user: User) -> Observable<[Workout]> {
         return requestArray(.getWorkoutsForUser(user: user))
+    }
+
+    func postWorkout(title: String, description: String?, photo: UIImage?, googlePlaceId: String?) -> Observable<Workout> {
+        // TODO
+        return requestObject(.postWorkout(title: title, description: description, photoUrl: nil, googlePlaceId: googlePlaceId))
     }
     
 }

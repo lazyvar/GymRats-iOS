@@ -57,7 +57,7 @@ class WorkoutViewController: UIViewController {
 
         let timeLabel: UILabel = UILabel()
         timeLabel.font = .details
-        timeLabel.text = workout.date.localTime
+        timeLabel.text = workout.date.challengeTime
         timeLabel.textAlignment = .right
         
         headerView.configureLayout { layout in

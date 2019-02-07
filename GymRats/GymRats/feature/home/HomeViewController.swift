@@ -26,13 +26,13 @@ class HomeViewController: UIViewController {
         return label
     }()
     
-    let joinChallengeButton: UIButton = .primary(text: "Join Challenge")
-    let createChallengeButton: UIButton = .primary(text: "Create Challenge")
+    let joinChallengeButton: UIButton = .secondary(text: "Join Challenge")
+    let createChallengeButton: UIButton = .secondary(text: "Start Challenge")
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .whiteSmoke
+        view.backgroundColor = .white
         
         setupForHome()
         
@@ -99,9 +99,10 @@ class HomeViewController: UIViewController {
         view.configureLayout { layout in
             layout.isEnabled = true
             layout.flexDirection = .column
-            layout.justifyContent = .center
+            layout.justifyContent = .flexStart
             layout.alignContent = .center
-            layout.padding = 64
+            layout.padding = 50
+            layout.paddingTop = 60
         }
         
         titleLabel.configureLayout { layout in

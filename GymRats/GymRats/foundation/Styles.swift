@@ -22,7 +22,7 @@ func roundedStyle(cornerRadius: CGFloat = 4) -> ((UIView) -> UIView) {
 func baseButtonStyle() -> (UIButton) -> (UIButton) {
     return { button in
         _ = roundedStyle()(button)
-        button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        button.contentEdgeInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         button.titleLabel?.font = .h4
         
         return button
@@ -47,12 +47,14 @@ extension UIButton {
     
     static func secondary(text: String) -> UIButton {
         var button = UIButton()
-        button.setTitle(text, for: .normal)
-        button.setTitleColor(.charcoal, for: .normal)
-        button.setTitleColor(.whiteSmoke, for: .highlighted)
-        button.setBackgroundImage(.whiteSmoke, for: .normal)
-        button.setBackgroundImage(.charcoal, for: .highlighted)
         button = baseButtonStyle()(button)
+        button.setTitle(text, for: .normal)
+        button.setTitleColor(.brandDark, for: .normal)
+        button.setTitleColor(.whiteSmoke, for: .highlighted)
+        button.setBackgroundImage(UIImage(color: .white), for: .normal)
+        button.setBackgroundImage(.fog, for: .highlighted)
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.fog.withAlphaComponent(0.5).cgColor
         
         return button
     }

@@ -48,7 +48,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Log In"
-        view.backgroundColor = .whiteSmoke
+        view.backgroundColor = .white
      
         view.configureLayout { layout in
             layout.isEnabled = true

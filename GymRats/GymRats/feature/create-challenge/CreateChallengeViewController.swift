@@ -39,6 +39,9 @@ class CreateChallengeViewController: UIViewController {
         datePicker.maximumDate = Date() + 60.days
         datePicker.datePickerMode = .date
         datePicker.date = Date()
+        datePicker.backgroundColor = UIColor.whiteSmoke.withAlphaComponent(0.5)
+        datePicker.layer.cornerRadius = 3
+        datePicker.tintColor = .fog
         
         return datePicker
     }()
@@ -58,6 +61,9 @@ class CreateChallengeViewController: UIViewController {
         datePicker.maximumDate = Date() + 180.days
         datePicker.datePickerMode = .date
         datePicker.date = Date() + 30.days
+        datePicker.backgroundColor = UIColor.whiteSmoke.withAlphaComponent(0.5)
+        datePicker.layer.cornerRadius = 3
+        datePicker.tintColor = .fog
         
         return datePicker
     }()
@@ -70,12 +76,12 @@ class CreateChallengeViewController: UIViewController {
         return label
     }()
     
-    let createChallengeButton: UIButton = .primary(text: "Create Challenge")
+    let createChallengeButton: UIButton = .primary(text: "Start Challenge")
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Create Challenge"
+        title = "Start Challenge"
         view.backgroundColor = .white
         
         navigationItem.rightBarButtonItem = UIBarButtonItem (
@@ -89,17 +95,16 @@ class CreateChallengeViewController: UIViewController {
             layout.isEnabled = true
             layout.flexDirection = .column
             layout.alignContent = .center
-            layout.padding = 15
+            layout.padding = 50
         }
         
         startDateLabel.configureLayout { layout in
             layout.isEnabled = true
-            layout.marginTop = 60
         }
 
         startDate.configureLayout { layout in
             layout.isEnabled = true
-            layout.marginTop = 5
+            layout.marginTop = 10
             layout.height = 100
         }
 
@@ -110,7 +115,7 @@ class CreateChallengeViewController: UIViewController {
         
         endDate.configureLayout { layout in
             layout.isEnabled = true
-            layout.marginTop = 5
+            layout.marginTop = 10
             layout.height = 100
         }
 
@@ -121,12 +126,12 @@ class CreateChallengeViewController: UIViewController {
 
         challengeName.configureLayout { layout in
             layout.isEnabled = true
-            layout.marginTop = 15
+            layout.marginTop = 20
         }
         
         createChallengeButton.configureLayout { layout in
             layout.isEnabled = true
-            layout.marginTop = 15
+            layout.marginTop = 20
         }
 
         view.addSubview(startDateLabel)

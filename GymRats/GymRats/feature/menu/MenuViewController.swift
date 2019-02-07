@@ -27,63 +27,58 @@ class MenuViewController: UIViewController {
         return label
     }()
     
-    let activeButton: RightAlignedIconButton = {
-        let button = RightAlignedIconButton()
+    let activeButton: LeftAlignedIconButton = {
+        let button = LeftAlignedIconButton()
         button.setTitle("Active", for: .normal)
         button.setImage(UIImage(named: "activity")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
         button.titleLabel?.font = .h4
-        button.contentHorizontalAlignment = .right
         button.setTitleColor(.brand, for: .normal)
         button.tintColor = .brand
         
         return button
     }()
 
-    let joinChallenge: RightAlignedIconButton = {
-        let button = RightAlignedIconButton()
+    let joinChallenge: LeftAlignedIconButton = {
+        let button = LeftAlignedIconButton()
         button.setTitle("Join", for: .normal)
         button.setImage(UIImage(named: "plus-circle")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
         button.titleLabel?.font = .h4
-        button.contentHorizontalAlignment = .right
         button.setTitleColor(.charcoal, for: .normal)
         button.tintColor = .charcoal
 
         return button
     }()
 
-    let createChallengeButton: RightAlignedIconButton = {
-        let button = RightAlignedIconButton()
+    let createChallengeButton: LeftAlignedIconButton = {
+        let button = LeftAlignedIconButton()
         button.setTitle("Start", for: .normal)
         button.setImage(UIImage(named: "play")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
         button.titleLabel?.font = .h4
-        button.contentHorizontalAlignment = .right
         button.setTitleColor(.charcoal, for: .normal)
         button.tintColor = .charcoal
-
+        
         return button
     }()
 
-    let archivedButton: RightAlignedIconButton = {
-        let button = RightAlignedIconButton()
+    let archivedButton: LeftAlignedIconButton = {
+        let button = LeftAlignedIconButton()
         button.setTitle("Archived", for: .normal)
         button.setImage(UIImage(named: "archive")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
         button.titleLabel?.font = .h4
-        button.contentHorizontalAlignment = .right
         button.setTitleColor(.charcoal, for: .normal)
         button.tintColor = .charcoal
 
         return button
     }()
 
-    let aboutButton: RightAlignedIconButton = {
-        let button = RightAlignedIconButton()
+    let aboutButton: LeftAlignedIconButton = {
+        let button = LeftAlignedIconButton()
         button.setTitle("About", for: .normal)
         button.setImage(UIImage(named: "info")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
         button.titleLabel?.font = .h4
-        button.contentHorizontalAlignment = .right
         button.setTitleColor(.charcoal, for: .normal)
         button.tintColor = .charcoal
-
+        
         return button
     }()
 
@@ -99,6 +94,7 @@ class MenuViewController: UIViewController {
             layout.isEnabled = true
             layout.flexDirection = .column
             layout.justifyContent = .flexStart
+            layout.alignContent = .flexStart
             layout.width = YGValue(MenuViewController.menuWidth)
             layout.paddingTop = 80
         }
@@ -127,31 +123,26 @@ class MenuViewController: UIViewController {
         activeButton.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 35
-            layout.marginRight = 20
         }
 
         joinChallenge.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 15
-            layout.marginRight = 20
         }
 
         createChallengeButton.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 15
-            layout.marginRight = 20
         }
 
         archivedButton.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 15
-            layout.marginRight = 20
         }
 
         aboutButton.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 15
-            layout.marginRight = 20
         }
 
         usernameLabel.text = GymRatsApp.coordinator.currentUser.fullName

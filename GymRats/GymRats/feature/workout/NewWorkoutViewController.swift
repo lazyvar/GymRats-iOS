@@ -11,42 +11,58 @@ import SkyFloatingLabelTextField
 import RxSwift
 import RxCocoa
 import GooglePlaces
+import Eureka
+import RxEureka
+
+struct Place: Equatable, CustomStringConvertible {
+    
+    let name: String?
+    let id: String?
+    
+    var description: String {
+        return name ?? "Somewhere"
+    }
+
+}
 
 protocol NewWorkoutDelegate: class {
     func workoutCreated(workout: Workout)
 }
 
-class NewWorkoutViewController: UIViewController {
+class NewWorkoutViewController: FormViewController {
     
-    let image = BehaviorRelay<UIImage?>(value: nil)
-    let place = BehaviorRelay<String?>(value: nil)
-
     weak var delegate: NewWorkoutDelegate?
-    
+
     let disposeBag = DisposeBag()
     
-    let workoutTitle: SkyFloatingLabelTextField = .standardTextField(placeholder: "Title")
-    
-    let descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.font = .bold
-        label.text = "Description"
-        
-        return label
-    }()
-    
-    let descriptionTextView = UITextView()
-    
-    let imagePickerButton: UIButton = .primary(text: "Attach Image")
-    let placePickerButton: UIButton = .primary(text: "Attach Place")
-    let submitButton: UIButton = .primary(text: "Do The Thing")
+    let placeLikelihoods = BehaviorRelay<[Place]>(value: [])
+    let place = BehaviorRelay<Place?>(value: nil)
+    let photo = BehaviorRelay<UIImage?>(value: nil)
+    let workoutDescription = BehaviorRelay<String?>(value: nil)
+    let workoutTitle = BehaviorRelay<String?>(value: nil)
 
+    let submitButton: UIButton = .primary(text: "Submit")
+    
+    let placeRow = PushRow<Place>() {
+        $0.title = "Current Location"
+        $0.selectorTitle = "Where are you?"
+    }.onPresent { _, selector in
+        selector.enableDeselection = false
+    }
+    
+    lazy var placeButtonRow = ButtonRow("place") {
+        $0.title = "Check In Location"
+    }.cellSetup { cell, _ in
+        cell.textLabel?.font = .body
+        cell.tintColor = .brandDark
+    }.onCellSelection { [weak self] _, _ in
+        self?.pickPlace()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        descriptionTextView.backgroundColor = .whiteSmoke
-        
-        title = "Create Workout"
+
+        title = "New Workout"
         view.backgroundColor = .white
         
         navigationItem.rightBarButtonItem = UIBarButtonItem (
@@ -55,118 +71,156 @@ class NewWorkoutViewController: UIViewController {
             target: self,
             action: #selector(UIViewController.dismissSelf)
         )
-        
-        let containerView = UIView()
-        containerView.frame = view.frame
-        containerView.backgroundColor = .white
 
-        containerView.configureLayout { layout in
-            layout.isEnabled = true
-            layout.flexDirection = .column
-            layout.alignContent = .center
-            layout.padding = 15
+        let titleRow = TextRow("name") {
+            $0.title = "Title"
+            $0.placeholder = "Leg day."
+        }.cellSetup { cell, _ in
+            cell.tintColor = .brand
+            cell.textLabel?.font = .body
+            cell.titleLabel?.font = .body
         }
         
-        workoutTitle.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 60
+        let descriptionRow = TextAreaRow("description") {
+            $0.placeholder = "Description...\n3x8 squats\n3x6 deadlifts\n3x4 rows"
+        }.cellSetup { cell, _ in
+            cell.tintColor = .brand
+            cell.textLabel?.font = .body
+            cell.textView.font = .body
         }
-
-        descriptionLabel.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 10
-        }
-
-        descriptionTextView.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 10
-            layout.height = 80
-        }
-
-        imagePickerButton.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 15
-        }
-
-        placePickerButton.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 15
-        }
-
-        submitButton.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 15
-        }
-
-        containerView.addSubview(workoutTitle)
-        containerView.addSubview(descriptionLabel)
-        containerView.addSubview(descriptionTextView)
-        containerView.addSubview(imagePickerButton)
-        containerView.addSubview(placePickerButton)
-        containerView.addSubview(submitButton)
-
-        containerView.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
-        containerView.makeScrolly(in: view)
         
-        imagePickerButton.onTouchUpInside { [weak self] in
-            self?.pickImage()
+        let photoRow = ImageRow("photo") {
+            $0.title = "Take Photo"
+            $0.placeholderImage = UIImage(named: "photo")
+        }.cellSetup { cell, _ in
+            cell.textLabel?.font = .body
+        }
+        
+        form +++ Section() { $0.tag = "the-form" }
+            <<< titleRow
+            <<< descriptionRow
+            <<< photoRow
+            <<< placeButtonRow
+        +++ Section() {
+            let footerBuilder = { () -> UIView in
+                let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
+                self.submitButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40)
+                self.submitButton.layer.cornerRadius = 0
+                
+                container.addSubview(self.submitButton)
+                
+                return container
+            }
+        
+            var footer = HeaderFooterView<UIView>(.callback(footerBuilder))
+            footer.height = { 40 }
+        
+            $0.tag = "submit"
+            $0.footer = footer
+        }
+
+        placeLikelihoods.asObservable().then { val in
+            self.placeRow.options = val
+            self.placeRow.value = val.first
+            self.placeRow.reload()
         }.disposed(by: disposeBag)
         
-        placePickerButton.onTouchUpInside { [weak self] in
-            self?.pickPlace()
+        titleRow.rx.value.bind(to: self.workoutTitle).disposed(by: disposeBag)
+        descriptionRow.rx.value.bind(to: self.workoutDescription).disposed(by: disposeBag)
+        photoRow.rx.value.bind(to: self.photo).disposed(by: disposeBag)
+        placeRow.rx.value.bind(to: self.place).disposed(by: disposeBag)
+        
+        let titlePresent = self.workoutTitle.asObservable().isPresent
+        let photoPresent = self.photo.asObservable().isPresent
+        let placePresent = self.place.asObservable().isPresent
+        
+        Observable<Bool>.combineLatest(titlePresent, photoPresent, placePresent) { titlePresent, photoPresent, placePresent in
+            return titlePresent && (photoPresent || placePresent)
+        }
+        .map { $0.toggled }
+        .bind(to: self.submitButton.rx.isHidden).disposed(by: disposeBag)
+        
+        submitButton.onTouchUpInside { [weak self] in
+            self?.postWorkout()
         }.disposed(by: disposeBag)
     }
     
-    func pickImage() {
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-        let cam = UIAlertAction(title: "Take picture from camera", style: .default) { (alert) in
-            let imagePicker = UIImagePickerController()
-            imagePicker.sourceType = .camera
-            imagePicker.delegate = self
-            imagePicker.cameraCaptureMode = .photo
-            imagePicker.allowsEditing = true
-            
-            self.present(imagePicker, animated: true, completion: nil)
-        }
-        
-        let library = UIAlertAction(title: "Choose from library", style: .default) { (alert) in
-            let imagePicker = UIImagePickerController()
-            imagePicker.sourceType = .photoLibrary
-            imagePicker.delegate = self
-            imagePicker.allowsEditing = true
-            
-            self.present(imagePicker, animated: true, completion: nil)
-        }
-        
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        alertController.addAction(cam)
-        alertController.addAction(library)
-        alertController.addAction(cancel)
-        
-        self.present(alertController, animated: true, completion: nil)
-    }
+    var locationManager: CLLocationManager?
     
     func pickPlace() {
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
         
+        locationManager?.requestWhenInUseAuthorization()
     }
     
-    func createWorkout() {
+    func getPlacesForCurrentLocation() {
+        let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.name.rawValue) |
+            UInt(GMSPlaceField.placeID.rawValue))!
         
+        GMSPlacesClient.shared().findPlaceLikelihoodsFromCurrentLocation(withPlaceFields: fields, callback: { [weak self] placeLikelihoods, error in
+            if let error = error {
+                print("An error occurred: \(error.localizedDescription)")
+                return
+            }
+            
+            guard
+                let self = self,
+                let places = placeLikelihoods?.sorted(by: { $0.likelihood > $1.likelihood }).map({ Place(name: $0.place.name, id: $0.place.placeID) })
+            else { return }
+
+            self.form.sectionBy(tag: "the-form")?.remove(at: 3) // yikes
+            self.form.sectionBy(tag: "the-form")?.append(self.placeRow)
+            
+            self.placeLikelihoods.accept(places)
+        })
+    }
+    
+    func postWorkout() {
+        showLoadingBar()
+        
+        gymRatsAPI.postWorkout (
+            title: workoutTitle.value!,
+            description: workoutDescription.value,
+            photo: photo.value,
+            googlePlaceId: place.value?.id
+        ).subscribe(onNext: { [weak self] workout in
+            self?.dismissSelf()
+            self?.delegate?.workoutCreated(workout: workout)
+        }, onError: { error in
+            // TODO
+        }).disposed(by: disposeBag)
     }
     
 }
 
-extension NewWorkoutViewController: UIImagePickerControllerDelegate {
+extension NewWorkoutViewController: CLLocationManagerDelegate {
     
-    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        self.image.accept(info[.originalImage] as? UIImage)
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedWhenInUse, .authorizedAlways:
+            getPlacesForCurrentLocation()
+        case .denied, .restricted:
+            presentAlert(title: "Location Settings Requires", message: "This feature requires the location settings yada yada")
+        case .notDetermined:
+            break
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        // mt
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        presentAlert(title: "Error Getting Location", message: "Please try again.")
     }
     
 }
 
-extension NewWorkoutViewController: UINavigationControllerDelegate {
+extension Bool {
+    
+    var toggled: Bool {
+        return !self
+    }
     
 }

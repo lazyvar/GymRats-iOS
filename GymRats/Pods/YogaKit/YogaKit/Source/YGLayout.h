@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -31,6 +31,13 @@ typedef NS_OPTIONS(NSInteger, YGDimensionFlexibility) {
  required for the setters and getters of YGLayout's properties to work properly.
 */
 - (instancetype)init
+    __attribute__((unavailable("you are not meant to initialise YGLayout")));
+
+/**
+ Make default init unavailable, as it will not initialise YGNode which is
+ required for the setters and getters of YGLayout's properties to work properly.
+ */
++ (instancetype)new
     __attribute__((unavailable("you are not meant to initialise YGLayout")));
 
 /**
