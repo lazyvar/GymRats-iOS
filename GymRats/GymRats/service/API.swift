@@ -123,8 +123,14 @@ class GymRatsAPI {
     }
 
     func postWorkout(title: String, description: String?, photo: UIImage?, googlePlaceId: String?) -> Observable<Workout> {
-        // TODO
-        return requestObject(.postWorkout(title: title, description: description, photoUrl: nil, googlePlaceId: googlePlaceId))
+        if let photo = photo {
+            return ImageService.uploadImageToFirebase(image: photo)
+                .flatMap { url in
+                    return self.requestObject(.postWorkout(title: title, description: description, photoUrl: url, googlePlaceId: googlePlaceId))
+                }
+        } else {
+            return requestObject(.postWorkout(title: title, description: description, photoUrl: nil, googlePlaceId: googlePlaceId))
+        }
     }
     
 }

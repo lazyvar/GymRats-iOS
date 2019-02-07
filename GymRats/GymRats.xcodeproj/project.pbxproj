@@ -66,6 +66,8 @@
 		74BE97BC220C9F2800D550CA /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BE97B9220C9F2700D550CA /* ImageCell.swift */; };
 		74BE97BD220C9F2800D550CA /* ImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BE97BA220C9F2700D550CA /* ImagePickerController.swift */; };
 		74BE97BE220C9F2800D550CA /* ImageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BE97BB220C9F2800D550CA /* ImageRow.swift */; };
+		74F47887220CEC94005CD4E4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 74F47886220CEC93005CD4E4 /* GoogleService-Info.plist */; };
+		74F47889220CECFE005CD4E4 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F47888220CECFE005CD4E4 /* ImageService.swift */; };
 		A02F4B0274FC477C5963CDDD /* Pods_GymRats.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45AE0586E2D3E12AB034ED36 /* Pods_GymRats.framework */; };
 /* End PBXBuildFile section */
 
@@ -145,6 +147,8 @@
 		74BE97B9220C9F2700D550CA /* ImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		74BE97BA220C9F2700D550CA /* ImagePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerController.swift; sourceTree = "<group>"; };
 		74BE97BB220C9F2800D550CA /* ImageRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRow.swift; sourceTree = "<group>"; };
+		74F47886220CEC93005CD4E4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		74F47888220CECFE005CD4E4 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		EC58A7A483BCAC310AB5A0EE /* Pods-GymRats.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymRats.release.xcconfig"; path = "Pods/Target Support Files/Pods-GymRats/Pods-GymRats.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -257,6 +261,7 @@
 				747D6F992208DB310062BB39 /* AppDelegate.swift */,
 				747D6FA02208DB330062BB39 /* Assets.xcassets */,
 				747D6FA22208DB330062BB39 /* LaunchScreen.storyboard */,
+				74F47886220CEC93005CD4E4 /* GoogleService-Info.plist */,
 				747D6FA52208DB330062BB39 /* Info.plist */,
 			);
 			path = GymRats;
@@ -311,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				747D6FBC2208DBFE0062BB39 /* API.swift */,
+				74F47888220CECFE005CD4E4 /* ImageService.swift */,
 			);
 			path = service;
 			sourceTree = "<group>";
@@ -517,6 +523,7 @@
 			files = (
 				74118061220C58C300EB9D11 /* Lato-Bold.ttf in Resources */,
 				746764EB220BCB5C000CFB1B /* GRNavigationController.xib in Resources */,
+				74F47887220CEC94005CD4E4 /* GoogleService-Info.plist in Resources */,
 				74118064220C58C300EB9D11 /* Lato-HairlineItalic.ttf in Resources */,
 				74118066220C58C300EB9D11 /* Lato-Light.ttf in Resources */,
 				747D6FA42208DB330062BB39 /* LaunchScreen.storyboard in Resources */,
@@ -578,6 +585,8 @@
 				"${BUILT_PRODUCTS_DIR}/CVCalendar/CVCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/FlexLayout/FlexLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/GradientLoadingBar/GradientLoadingBar.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MMDrawerController/MMDrawerController.framework",
@@ -592,6 +601,7 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/Yoga/yoga.framework",
 				"${BUILT_PRODUCTS_DIR}/YogaKit/YogaKit.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -602,6 +612,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CVCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FlexLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GradientLoadingBar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MMDrawerController.framework",
@@ -616,6 +628,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YogaKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -689,6 +702,7 @@
 				74A01B27220A0BBF00431ABD /* Challenge.swift in Sources */,
 				74BE97BE220C9F2800D550CA /* ImageRow.swift in Sources */,
 				74A01B34220A3B2000431ABD /* Workout.swift in Sources */,
+				74F47889220CECFE005CD4E4 /* ImageService.swift in Sources */,
 				747D6FCD2208DE8E0062BB39 /* NetworkProvider.swift in Sources */,
 				747D6FC52208DCB60062BB39 /* UIView+Extension.swift in Sources */,
 				746764DF220B4829000CFB1B /* ProfileViewController.swift in Sources */,

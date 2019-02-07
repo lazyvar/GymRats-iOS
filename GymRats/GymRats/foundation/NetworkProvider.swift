@@ -274,6 +274,16 @@ class MockedNetworkProvider: NetworkProvider {
                 "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
                 }]
                 """
+            case "workout":
+                return """
+                {
+                "id": 107,
+                "userId": 103,
+                "title": "This was the result of an upload",
+                "date": 1549414273,
+                "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
+                }
+                """
             default:
                 return "path not mockec"
             }

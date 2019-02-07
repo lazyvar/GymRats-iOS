@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import MMDrawerController
 import GooglePlaces
+import Firebase
 
 class AppCoordinator: Coordinator {
     
@@ -45,6 +46,7 @@ class AppCoordinator: Coordinator {
         ]
         
         GMSPlacesClient.provideAPIKey("AIzaSyD1X4TH-TneFnDqjiJ2rb2FGgxK8JZyrIo")
+        FirebaseApp.configure()
     }
     
     func login(user: User) {

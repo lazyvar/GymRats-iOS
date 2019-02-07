@@ -31,16 +31,28 @@ extension UIViewController {
         )
     }
     
-    func showLoadingBar() {
+    func showLoadingBar(disallowUserInteraction: Bool = false) {
         guard let nav = self.navigationController as? GRNavigationController else { return }
         
         nav.showLoadingBarYo()
+        
+        if disallowUserInteraction {
+            UIApplication.shared.beginIgnoringInteractionEvents()
+            
+            let dimView = UIView()
+            view.backgroundColor = UIColor.fog.withAlphaComponent(0.3)
+            view.tag = 333
+            
+            UIApplication.shared.keyWindow?.addSubview(dimView)
+        }
     }
 
     func hideLoadingBar() {
         guard let nav = self.navigationController as? GRNavigationController else { return }
         
         nav.hideLoadingBarYo()
+        UIApplication.shared.endIgnoringInteractionEvents()
+        UIApplication.shared.keyWindow?.subviews.first(where: { $0.tag == 333 })?.removeFromSuperview()
     }
 
     func setupForHome() {

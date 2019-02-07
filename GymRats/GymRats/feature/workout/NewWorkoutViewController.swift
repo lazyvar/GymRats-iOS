@@ -57,6 +57,7 @@ class NewWorkoutViewController: FormViewController {
         cell.tintColor = .brandDark
     }.onCellSelection { [weak self] _, _ in
         self?.pickPlace()
+        self?.showLoadingBar()
     }
     
     override func viewDidLoad() {
@@ -159,6 +160,7 @@ class NewWorkoutViewController: FormViewController {
             UInt(GMSPlaceField.placeID.rawValue))!
         
         GMSPlacesClient.shared().findPlaceLikelihoodsFromCurrentLocation(withPlaceFields: fields, callback: { [weak self] placeLikelihoods, error in
+            self?.hideLoadingBar()
             if let error = error {
                 print("An error occurred: \(error.localizedDescription)")
                 return
@@ -177,7 +179,7 @@ class NewWorkoutViewController: FormViewController {
     }
     
     func postWorkout() {
-        showLoadingBar()
+        showLoadingBar(disallowUserInteraction: true)
         
         gymRatsAPI.postWorkout (
             title: workoutTitle.value!,
@@ -185,10 +187,13 @@ class NewWorkoutViewController: FormViewController {
             photo: photo.value,
             googlePlaceId: place.value?.id
         ).subscribe(onNext: { [weak self] workout in
+            self?.hideLoadingBar()
             self?.dismissSelf()
             self?.delegate?.workoutCreated(workout: workout)
-        }, onError: { error in
-            // TODO
+        }, onError: { [weak self] error in
+            print(error)
+            self?.presentAlert(with: error)
+            self?.hideLoadingBar()
         }).disposed(by: disposeBag)
     }
     
@@ -201,6 +206,7 @@ extension NewWorkoutViewController: CLLocationManagerDelegate {
         case .authorizedWhenInUse, .authorizedAlways:
             getPlacesForCurrentLocation()
         case .denied, .restricted:
+            self.hideLoadingBar()
             presentAlert(title: "Location Settings Requires", message: "This feature requires the location settings yada yada")
         case .notDetermined:
             break
