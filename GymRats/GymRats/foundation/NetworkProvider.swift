@@ -212,13 +212,23 @@ class MockedNetworkProvider: NetworkProvider {
                 "title": "I did it.",
                 "date": 1549411941,
                 "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
-                "description": "I really did it now: this is my work out:: - 10 bar berrls - 45 laughsI really did it now: this is my work out:: - 10 bar berrls - 45 laughsI really did it now: this is my work out:: - 10 bar berrls - 45 laughsI really did it now: this is my work out:: - 10 bar berrls - 45 bar berrls - 45 bar berrls - 45 bar berrls - 45 bar berrls - 45bar berrls - 45bar berrls - 45bar berrls - 45bar berrls - 45bar berrls - 45bar berrls - 45"
+                "description": "3x10 squats\\n3x8 deadlifts\\n3x6 cleans",
+                "place": {
+                "name": "Gold's Gym",
+                "latitude": 38.879336,
+                "longitude": -77.106882
+                }
                 },{
                 "id": 102,
                 "userId": 104,
                 "title": "Daily swoll, let's get this bread y'all.",
                 "date": 1549414273,
                 "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
+                "place": {
+                "name": "Evoke Yoga",
+                "latitude": 34.043980,
+                "longitude": -118.253337
+                }
                 },{
                 "id": 103,
                 "userId": 103,
@@ -243,7 +253,7 @@ class MockedNetworkProvider: NetworkProvider {
                 "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
                 }]
                 """
-            case "workout/user/101", "workout/user/102", "workout/user/103", "workout/user/104":
+            case "workout/user/100", "workout/user/101", "workout/user/102", "workout/user/103", "workout/user/104":
                 return """
                 [{
                 "id": 101,
@@ -251,7 +261,7 @@ class MockedNetworkProvider: NetworkProvider {
                 "title": "I did it.",
                 "date": 1549411941,
                 "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
-                "description": "I really did it now: this is my work out:: - 10 bar berrls - 45 laughsI really did it now: this is my work out:: - 10 bar berrls - 45 laughsI really did it now: this is my work out:: - 10 bar berrls - 45 laughsI really did it now: this is my work out:: - 10 bar berrls - 45 bar berrls - 45 bar berrls - 45 bar berrls - 45 bar berrls - 45bar berrls - 45bar berrls - 45bar berrls - 45bar berrls - 45bar berrls - 45bar berrls - 45"
+                "description": "3x10 squats\\n3x8 deadlifts\\n3x6 cleans"
                 },{
                 "id": 102,
                 "userId": 104,

@@ -23,6 +23,7 @@ class ProfileViewController: UIViewController {
         let label = UILabel()
         label.font = .body
         label.text = "Total workouts: -"
+        label.textAlignment = .center
         
         return label
     }()
@@ -59,6 +60,22 @@ class ProfileViewController: UIViewController {
         return calendar
     }()
     
+    let goBackInTimeButton: UIButton = {
+        let button = UIButton()
+        button.setBackgroundImage(UIImage(named: "left-arrow"), for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        
+        return button
+    }()
+    
+    let goForwardInTimeButton: UIButton = {
+        let button = UIButton()
+        button.setBackgroundImage(UIImage(named: "right-arrow"), for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        
+        return button
+    }()
+    
     let workoutsContainer: UIView = UIView()
     
     init(user: User) {
@@ -87,57 +104,79 @@ class ProfileViewController: UIViewController {
         
         containerView.backgroundColor = .white
         
-        let headerView = UIView()
-        
         let userImageView = UserImageView()
         userImageView.load(avatarInfo: user)
         
         let usernameLabel: UILabel = UILabel()
         usernameLabel.font = .body
         usernameLabel.text = user.fullName
-        
-        headerView.configureLayout { layout in
-            layout.isEnabled = true
-            layout.flexDirection = .row
-            layout.justifyContent = .flexStart
-        }
-        
-        userImageView.configureLayout { layout in
-            layout.isEnabled = true
-            layout.width = 44
-            layout.height = 44
-        }
-        
-        usernameLabel.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginLeft = 10
-        }
-        
-        headerView.addSubview(userImageView)
-        headerView.addSubview(usernameLabel)
-        
-        headerView.yoga.applyLayout(preservingOrigin: true)
+        usernameLabel.textAlignment = .center
         
         containerView.configureLayout { layout in
             layout.isEnabled = true
             layout.flexDirection = .column
             layout.justifyContent = .flexStart
-            layout.padding = 50
+            layout.alignContent = .center
+            layout.padding = 15
+        }
+        
+        userImageView.configureLayout { layout in
+            layout.isEnabled = true
+            layout.width = 72
+            layout.height = 72
+            layout.flexGrow = 1
+            layout.marginBottom = 10
+            layout.alignSelf = .center
+        }
+        
+        usernameLabel.configureLayout { layout in
+            layout.isEnabled = true
+            layout.flexGrow = 1
         }
         
         totalWorkoutsLabel.configureLayout { layout in
             layout.isEnabled = true
-            layout.marginTop = 15
+            layout.flexGrow = 1
+        }
+        
+        let monthContainer = UIView()
+        
+        monthContainer.configureLayout { layout in
+            layout.isEnabled = true
+            layout.flexDirection = .row
+            layout.alignContent = .center
+            layout.justifyContent = .spaceBetween
+            layout.width = YGValue(self.view.frame.width - 30)
+            layout.padding = 10
+        }
+        
+        goBackInTimeButton.configureLayout { layout in
+            layout.isEnabled = true
+            layout.alignSelf = .center
+            layout.flexShrink = 1
         }
         
         monthLabel.configureLayout { layout in
             layout.isEnabled = true
-            layout.marginTop = 15
+            layout.alignSelf = .center
+            layout.flexGrow = 1
         }
+        
+        goForwardInTimeButton.configureLayout { layout in
+            layout.isEnabled = true
+            layout.alignSelf = .center
+            layout.flexShrink = 1
+        }
+        
+        monthContainer.addSubview(goBackInTimeButton)
+        monthContainer.addSubview(monthLabel)
+        monthContainer.addSubview(goForwardInTimeButton)
+        
+        monthContainer.yoga.applyLayout(preservingOrigin: true)
         
         calendarMenu.configureLayout { layout in
             layout.isEnabled = true
-            layout.marginTop = 10
+            layout.marginTop = 15
             layout.width = YGValue(self.view.frame.width - 80)
             layout.height = 15
         }
@@ -146,8 +185,8 @@ class ProfileViewController: UIViewController {
             layout.isEnabled = true
             layout.flexGrow = 1
             layout.marginTop = 5
-            layout.width = YGValue(self.view.frame.width - 100)
-            layout.height = YGValue(self.view.frame.width - 100)
+            layout.width = YGValue(self.view.frame.width - 30)
+            layout.height = YGValue(self.view.frame.width - 30)
         }
         
         workoutsContainer.configureLayout { layout in
@@ -157,9 +196,10 @@ class ProfileViewController: UIViewController {
             layout.justifyContent = .flexStart
         }
         
-        containerView.addSubview(headerView)
+        containerView.addSubview(userImageView)
+        containerView.addSubview(usernameLabel)
         containerView.addSubview(totalWorkoutsLabel)
-        containerView.addSubview(monthLabel)
+        containerView.addSubview(monthContainer)
         containerView.addSubview(calendarMenu)
         containerView.addSubview(calendarView)
         containerView.addSubview(workoutsContainer)
@@ -167,7 +207,21 @@ class ProfileViewController: UIViewController {
         containerView.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
         containerView.makeScrolly(in: view)
         
+        goBackInTimeButton.onTouchUpInside { [weak self] in
+            self?.calendarView.loadPreviousView()
+        }.disposed(by: disposeBag)
+        
+        goForwardInTimeButton.onTouchUpInside { [weak self] in
+            self?.calendarView.loadNextView()
+        }.disposed(by: disposeBag)
+        
         loadWorkouts()
+    }
+    
+    @objc func transitionToSettings() {
+        let settings = SettingsViewController()
+        
+        self.push(settings)
     }
     
     override func viewDidLayoutSubviews() {
@@ -181,13 +235,25 @@ class ProfileViewController: UIViewController {
     func loadWorkouts() {
         let workouts = gymRatsAPI.getWorkouts(for: user)
         
+        showLoadingBar()
+        
         workouts.map { "Total workouts: \($0.count)" }
             .bind(to: totalWorkoutsLabel.rx.text)
             .disposed(by: disposeBag)
         
-        workouts.then { [weak self] workouts in
-            self?.refreshScreen(with: workouts)
-            }.disposed(by: disposeBag)
+        workouts.subscribe { [weak self] event in
+            self?.hideLoadingBar()
+            
+            switch event {
+            case .next(let value):
+                self?.refreshScreen(with: value)
+            case .error:
+                // TODO
+                break
+            default:
+                break
+            }
+        }.disposed(by: disposeBag)
     }
     
     func refreshScreen(with workouts: [Workout]) {

@@ -210,9 +210,19 @@ class ActiveChallengeViewController: UITableViewController {
         
         currentDate
             .asObservable()
-            .then { date in
-                self.updateUserWorkoutsForCurrentDate()
-                self.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: self.tableViewAnimation)
+            .subscribe { [weak self] event in
+                guard let self = self else { return }
+                
+                switch event {
+                case .next:
+                    self.updateUserWorkoutsForCurrentDate()
+                    self.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: self.tableViewAnimation)
+                case .error:
+                    // TODO
+                    break
+                default:
+                    break
+                }
             }.disposed(by: disposeBag)
         
         currentDate.accept(Date())

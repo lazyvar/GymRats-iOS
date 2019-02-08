@@ -123,26 +123,31 @@ class MenuViewController: UIViewController {
         activeButton.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 35
+            layout.marginLeft = 20
         }
 
         joinChallenge.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 15
+            layout.marginLeft = 20
         }
 
         createChallengeButton.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 15
+            layout.marginLeft = 20
         }
 
         archivedButton.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 15
+            layout.marginLeft = 20
         }
 
         aboutButton.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 15
+            layout.marginLeft = 20
         }
 
         usernameLabel.text = GymRatsApp.coordinator.currentUser.fullName
@@ -203,6 +208,21 @@ class MenuViewController: UIViewController {
             
             GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
         }.disposed(by: disposeBag)
+    
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.gotoCurrentUserProfile))
+        tap.numberOfTapsRequired = 1
+        
+        userImageView.addGestureRecognizer(tap)
+    }
+    
+    @objc func gotoCurrentUserProfile() {
+        let profile = ProfileViewController(user: GymRatsApp.coordinator.currentUser)
+        let nav = GRNavigationController(rootViewController: profile)
+    
+        profile.setupMenuButton()
+        profile.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "gear"), style: .plain, target: profile, action: #selector(ProfileViewController.transitionToSettings))
+        
+        GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
     }
     
 }

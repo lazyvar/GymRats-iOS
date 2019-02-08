@@ -26,8 +26,16 @@ extension UIButton {
     func onTouchUpInside(_ action: @escaping () -> Void) -> Disposable {
         return self.rx.controlEvent(.touchUpInside)
             .asObservable()
-            .then { _ in
-                action()
+            .subscribe { event in
+                switch event {
+                case .next:
+                    action()
+                case .error:
+                    // TODO
+                    break
+                default:
+                    break
+                }
             }
     }
     
@@ -55,31 +63,6 @@ extension Observable where Element: OptionalType {
         return map { $0.value != nil }.share(replay: 1)
     }
 
-}
-
-extension Observable {
-    
-    func standardServiceResponse(_ onSuccess: @escaping (Element) -> Void) -> Disposable {
-        return self.subscribe(onNext: { element in
-                // ...
-                // HUD.hide()
-                onSuccess(element)
-            }, onError: { error in
-                // HUD.show(.labeledError(title: "Error", subtitle: error.localizedDescription))
-                // HUD.hide(afterDelay: 1.5)
-            })
-    }
-    
-}
-
-extension Observable {
-    
-    func then(_ function: @escaping (Element) -> Void) -> Disposable {
-        return subscribe(onNext: { element in
-            function(element)
-        })
-    }
-    
 }
 
 extension Variable where Element == String {
@@ -119,47 +102,21 @@ extension Observable where Element == Data {
     
     @discardableResult
     func decodeObject<T: Decodable>() -> Observable<T> {
-        return Observable<T>.create { observer in
-            return self.subscribe { event in
-                switch event {
-                case .next(let data):
-                    let decoder = JSONDecoder()
-                    decoder.dateDecodingStrategy = .secondsSince1970
-                    
-                    do {
-                        observer.on(.next(try decoder.decode(T.self, from: data)))
-                    } catch let error {
-                        return observer.on(.error(error))
-                    }
-                case .error(let error):
-                    observer.on(.error(error))
-                case .completed:
-                    observer.on(.completed)
-                }
-            }
+        return map { data in
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .secondsSince1970
+            
+            return try decoder.decode(T.self, from: data)
         }
     }
     
     @discardableResult
     func decodeArray<T: Decodable>() -> Observable<[T]> {
-        return Observable<[T]>.create { observer in
-            return self.subscribe { event in
-                switch event {
-                case .next(let data):
-                    let decoder = JSONDecoder()
-                    decoder.dateDecodingStrategy = .secondsSince1970
-                    
-                    do {
-                        observer.on(.next(try decoder.decode([T].self, from: data)))
-                    } catch let error {
-                        return observer.on(.error(error))
-                    }
-                case .error(let error):
-                    observer.on(.error(error))
-                case .completed:
-                    observer.on(.completed)
-                }
-            }
+        return map { data in
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .secondsSince1970
+            
+            return try decoder.decode([T].self, from: data)
         }
     }
     

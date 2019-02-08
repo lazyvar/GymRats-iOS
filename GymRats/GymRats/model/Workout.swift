@@ -14,6 +14,12 @@ struct Workout: Codable {
     let title: String
     let description: String?
     let pictureUrl: String?
-    let googleLocationId: String?
+    let place: Place?
     let date: Date
+    
+    struct Place: Codable {
+        let name: String
+        let latitude: Double
+        let longitude: Double
+    }
 }

@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import YogaKit
+import MapKit
 
 class WorkoutViewController: UIViewController {
 
@@ -64,12 +65,13 @@ class WorkoutViewController: UIViewController {
             layout.isEnabled = true
             layout.flexDirection = .row
             layout.justifyContent = .flexStart
+            layout.padding = 15
         }
         
         userImageView.configureLayout { layout in
             layout.isEnabled = true
-            layout.width = 44
-            layout.height = 44
+            layout.width = 32
+            layout.height = 32
         }
         
         usernameLabel.configureLayout { layout in
@@ -98,7 +100,6 @@ class WorkoutViewController: UIViewController {
             layout.isEnabled = true
             layout.flexDirection = .column
             layout.justifyContent = .flexStart
-            layout.padding = 15
         }
         
         containerView.addSubview(headerView)
@@ -107,20 +108,48 @@ class WorkoutViewController: UIViewController {
             let imageView = UIImageView()
             imageView.contentMode = .scaleAspectFit
             imageView.clipsToBounds = true
-            imageView.layer.cornerRadius = 2
             imageView.backgroundColor = .whiteSmoke
-            
+
             imageView.configureLayout { layout in
                 layout.isEnabled = true
                 layout.flexGrow = 1
-                layout.marginTop = 15
-                layout.width = YGValue(self.view.frame.width - 30)
-                layout.height = YGValue(self.view.frame.width - 30)
+                layout.width = YGValue(self.view.frame.width)
+                layout.height = YGValue(self.view.frame.width)
+            }
+
+            imageView.kf.setImage(with: url)
+
+            containerView.addSubview(imageView)
+        }
+        
+        if let place = workout.place {
+            let mapView = MKMapView()
+            let initialLocation = CLLocation(latitude: place.latitude, longitude: place.longitude)
+            let coordinateRegion = MKCoordinateRegion (
+                center: initialLocation.coordinate,
+                latitudinalMeters: 500, longitudinalMeters: 500
+            )
+            let annotation = PlaceAnnotation (
+                title: place.name,
+                coordinate: CLLocationCoordinate2D (
+                    latitude: place.latitude,
+                    longitude: place.longitude
+                )
+            )
+
+            mapView.setRegion(coordinateRegion, animated: true)
+            mapView.mapType = .standard
+            mapView.isUserInteractionEnabled = false
+            mapView.addAnnotation(annotation)
+
+            mapView.configureLayout { layout in
+                layout.isEnabled = true
+                layout.width = YGValue(self.view.frame.width)
+                layout.height = 115
+                layout.marginTop = 2
             }
             
-            imageView.kf.setImage(with: url)
-            
-            containerView.addSubview(imageView)
+            containerView.addSubview(mapView)
         }
         
         let titleLabel: UILabel = UILabel()
@@ -129,7 +158,7 @@ class WorkoutViewController: UIViewController {
         
         titleLabel.configureLayout { layout in
             layout.isEnabled = true
-            layout.marginTop = 15
+            layout.margin = 15
         }
         
         containerView.addSubview(titleLabel)
@@ -138,10 +167,11 @@ class WorkoutViewController: UIViewController {
             let descriptionLabel = UILabel()
             descriptionLabel.text = description
             descriptionLabel.numberOfLines = 0
-            
+            descriptionLabel.font = .body
             descriptionLabel.configureLayout { layout in
                 layout.isEnabled = true
-                layout.marginTop = 15
+                layout.margin = 15
+                layout.marginTop = 0
             }
             
             containerView.addSubview(descriptionLabel)
@@ -155,4 +185,21 @@ class WorkoutViewController: UIViewController {
         self.push(ProfileViewController(user: user))
     }
     
+}
+
+class PlaceAnnotation: NSObject, MKAnnotation {
+
+    let title: String?
+    let coordinate: CLLocationCoordinate2D
+    
+    init(title: String, coordinate: CLLocationCoordinate2D) {
+        self.title = title
+        self.coordinate = coordinate
+        
+        super.init()
+    }
+    
+    var subtitle: String? {
+        return nil
+    }
 }

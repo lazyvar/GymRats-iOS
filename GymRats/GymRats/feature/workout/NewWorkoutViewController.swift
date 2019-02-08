@@ -120,11 +120,20 @@ class NewWorkoutViewController: FormViewController {
             $0.footer = footer
         }
 
-        placeLikelihoods.asObservable().then { val in
-            self.placeRow.options = val
-            self.placeRow.value = val.first
-            self.placeRow.reload()
-        }.disposed(by: disposeBag)
+        placeLikelihoods.asObservable()
+            .subscribe { [weak self] event in
+                switch event {
+                case .next(let val):
+                    self?.placeRow.options = val
+                    self?.placeRow.value = val.first
+                    self?.placeRow.reload()
+                case .error:
+                    // TODO
+                    break
+                default:
+                    break
+                }
+            }.disposed(by: disposeBag)
         
         titleRow.rx.value.bind(to: self.workoutTitle).disposed(by: disposeBag)
         descriptionRow.rx.value.bind(to: self.workoutDescription).disposed(by: disposeBag)

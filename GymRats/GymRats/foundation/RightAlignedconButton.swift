@@ -36,6 +36,13 @@ class LeftAlignedIconButton: UIButton {
         let availableSpace = bounds.inset(by: contentEdgeInsets)
         let availableWidth = availableSpace.width - imageEdgeInsets.right - (imageView?.frame.width ?? 0) - (titleLabel?.frame.width ?? 0)
         
+        print("-----")
+        print(titleLabel?.text ?? "")
+        print("availableSpace: \(availableSpace.width)")
+        print("titleLabelFrame: \(titleLabel?.frame.width ?? 0)")
+        print("imageViewFrame: \(imageView?.frame.width ?? 0)")
+        print("------")
+
         titleEdgeInsets = UIEdgeInsets(top: 0, left: availableWidth / 2, bottom: 0, right: 0)
     }
 }
