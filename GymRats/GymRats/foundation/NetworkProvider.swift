@@ -74,7 +74,7 @@ class MockedNetworkProvider: NetworkProvider {
     private func mockedResponse(forURL url: String, and parameters: Parameters) -> Data {
         let json: String = {
             switch url {
-            case "login":
+            case "login", "signup":
                 return """
                 {
                     "id": 101,
@@ -84,8 +84,6 @@ class MockedNetworkProvider: NetworkProvider {
                     "token": "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MTAxLCJ1c2VybmFtZSI6Im1hY2sifQ.bWylH53ljxUs9Adl-sNBCNyU7ONi9vOAp-tChlUsOH1IInzzeidoJ-OFZnZlMMTVaRDXFbKj2Wn5aCih3ves9w",
                 }
                 """
-            case "signup":
-                return "todo"
             case "challenge/all":
                 switch GymRatsApp.delegate.appCoordinator.currentUser.email {
                 case "no-active-challenges":

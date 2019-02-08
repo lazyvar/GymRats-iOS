@@ -15,7 +15,7 @@ let gymRatsAPI = GymRatsAPI()
 
 enum APIRequest {
     case login(email: String, password: String)
-    case signup
+    case signup(email: String, password: String, profilePictureUrl: String?, fullName: String)
     case getAllChallenges
     case joinChallenge(code: String)
     case createChallenge(startDate: Date, endDate: Date, challengeName: String, photoUrl: String?)
@@ -28,8 +28,18 @@ enum APIRequest {
         switch self {
         case .login(let email, let password):
             return (.post, "login", ["email": email, "password": password])
-        case .signup:
-            return (.post, "signup", [:])
+        case .signup(email: let email, password: let password, profilePictureUrl: let url, fullName: let fullName):
+            var params: Parameters =  [
+                "email": email,
+                "password": password,
+                "fullName": fullName
+            ]
+            
+            if let url = url {
+                params["url"] = url
+            }
+
+            return (.post, "signup", params)
         case .getAllChallenges:
             return (.get, "challenge/all", [:])
         case .joinChallenge(let code):
@@ -102,6 +112,17 @@ class GymRatsAPI {
                 // set user in cache
                 // TODO
             })
+    }
+    
+    func signUp(email: String, password: String, profilePicture: UIImage?, fullName: String) -> Observable<User> {
+        if let profilePicture = profilePicture {
+            return ImageService.uploadImageToFirebase(image: profilePicture)
+                .flatMap { url in
+                    return self.requestObject(.signup(email: email, password: password, profilePictureUrl: url, fullName: fullName))
+            }
+        } else {
+            return requestObject(.signup(email: email, password: password, profilePictureUrl: nil, fullName: fullName))
+        }
     }
     
     func getAllChallenges() -> Observable<[Challenge]> {

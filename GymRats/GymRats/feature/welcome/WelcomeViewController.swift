@@ -28,6 +28,8 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupBackButton()
+        
         view.backgroundColor = .brand
         
         view.configureLayout { layout in
