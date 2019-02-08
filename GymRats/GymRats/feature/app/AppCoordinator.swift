@@ -61,6 +61,8 @@ class AppCoordinator: Coordinator {
         drawer.showsShadow = false
         drawer.maximumLeftDrawerWidth = MenuViewController.menuWidth
         drawer.centerHiddenInteractionMode = .full
+        drawer.openDrawerGestureModeMask = [.all]
+        drawer.closeDrawerGestureModeMask = [.all]
         
         window.rootViewController = drawer
     }
