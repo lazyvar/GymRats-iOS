@@ -22,9 +22,11 @@ extension Array where Element == Challenge {
     
     func getActiveChallenges() -> [Challenge] {
         return self.filter { challenge in
-            let today = Date().challengeDate
+            let today = Date().challengeDate()
+            let startDate = challenge.startDate.challengeDate()
+            let endDate = challenge.endDate.challengeDate()
             
-            return today >= challenge.startDate && today <= challenge.endDate
+            return startDate.isToday || endDate.isToday || (today.compare(.isLater(than: startDate)) && today.compare(.isEarlier(than: startDate)))
         }
     }
     

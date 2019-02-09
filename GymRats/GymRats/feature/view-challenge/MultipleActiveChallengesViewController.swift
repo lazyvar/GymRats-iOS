@@ -27,7 +27,9 @@ class MultipleActiveChallengesViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
+        setupForHome()
+        
         tableView.separatorStyle = .none
         tableView.register(UINib(nibName: "UserWorkoutTableViewCell", bundle: nil), forCellReuseIdentifier: "ChallengeCell")
         

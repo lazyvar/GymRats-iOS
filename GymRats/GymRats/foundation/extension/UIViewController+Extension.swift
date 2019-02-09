@@ -57,6 +57,7 @@ extension UIViewController {
 
     func setupForHome() {
         setupMenuButton()
+        setupBackButton()
         
         let logoImageView = UIImageView(image: #imageLiteral(resourceName: "gr-logo"))
         logoImageView.contentMode = .scaleAspectFit
@@ -104,7 +105,7 @@ extension UIViewController {
 extension UIViewController: NewWorkoutDelegate {
     
     func workoutCreated(workout: Workout) {
-        
+        (self as? ActiveChallengeViewController)?.fetchUserWorkouts()
     }
     
 }

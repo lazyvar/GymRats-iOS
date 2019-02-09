@@ -12,17 +12,23 @@ import SwiftDate
 extension Date {
     
     var challengeTime: String {
-        return challengeDate.toFormat("h:mm a")
+        return challengeDate().toFormat("h:mm a")
     }
     
-    var challengeDate: Date {
-        let region = Region (
+    func challengeDate(in timeZone: TimeZone = TimeZone(abbreviation: ActiveChallengeViewController.timeZone)!) -> DateInRegion {
+        return self.in(region: .region(in: timeZone))
+    }
+    
+}
+
+extension Region {
+    
+    static func region(in timeZone: TimeZone = TimeZone(abbreviation: ActiveChallengeViewController.timeZone)!) -> Region {
+        return Region (
             calendar: Calendar.autoupdatingCurrent,
-            zone: TimeZone(abbreviation: ActiveChallengeViewController.timeZone)!,
+            zone: timeZone,
             locale: Locale.autoupdatingCurrent
         )
-        
-        return self.in(region: region).date
     }
     
 }

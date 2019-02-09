@@ -119,8 +119,12 @@ class GymRatsAPI {
     func login(email: String, password: String) -> Observable<User> {
         return requestObject(.login(email: email, password: password))
             .do(onNext: { user in
-                // set user in cache
-                // TODO
+                switch Keychain.gymRats.storeObject(user, forKey: .currentUser) {
+                case .success:
+                    print("Woohoo!")
+                case .error(let error):
+                    print("Bummer! \(error.description)")
+                }
             })
     }
     
@@ -129,9 +133,25 @@ class GymRatsAPI {
             return ImageService.uploadImageToFirebase(image: profilePicture)
                 .flatMap { url in
                     return self.requestObject(.signup(email: email, password: password, profilePictureUrl: url, fullName: fullName))
+                        .do(onNext: { user in
+                            switch Keychain.gymRats.storeObject(user, forKey: .currentUser) {
+                            case .success:
+                                print("Woohoo!")
+                            case .error(let error):
+                                print("Bummer! \(error.description)")
+                            }
+                        })
             }
         } else {
             return requestObject(.signup(email: email, password: password, profilePictureUrl: nil, fullName: fullName))
+                .do(onNext: { user in
+                    switch Keychain.gymRats.storeObject(user, forKey: .currentUser) {
+                    case .success:
+                        print("Woohoo!")
+                    case .error(let error):
+                        print("Bummer! \(error.description)")
+                    }
+                })
         }
     }
     

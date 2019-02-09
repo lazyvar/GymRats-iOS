@@ -18,7 +18,7 @@ protocol NetworkProvider {
 
 class ProductionNetworkProvider: NetworkProvider {
     
-    private let baseUrl: String = "https://api.gymrats.com"
+    private let baseUrl: String = "https://gym-rats-api.herokuapp.com"
     
     func buildUrl(forPath path: String) -> String {
         return "\(baseUrl)/\(path)"

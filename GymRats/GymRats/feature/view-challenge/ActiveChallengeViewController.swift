@@ -79,6 +79,13 @@ class ActiveChallengeViewController: UITableViewController {
         
         setupBackButton()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem (
+            image: UIImage(named: "kettle-bell"),
+            style: .plain,
+            target: self,
+            action: #selector(presentNewWorkoutViewController)
+        )
+        
         let bg = UIView(frame: CGRect(x: 0, y: -1000, width: self.tableView.frame.width, height: 1000))
         bg.backgroundColor = .hex("#4682b4")
         
@@ -261,10 +268,10 @@ class ActiveChallengeViewController: UITableViewController {
     func updateUserWorkoutsForCurrentDate() {
         let workoutsForToday = self.workouts.workouts(on: self.currentDate.value)
         
-        self.userWorkoutsForCurrentDate = users.map({ (user: User) -> UserWorkout in
-            let workout = workoutsForToday.first(where: { $0.gymRatsUserId == user.id })
+        self.userWorkoutsForCurrentDate = users.flatMap({ (user: User) -> [UserWorkout] in
+            let workouts = workoutsForToday.filter { $0.gymRatsUserId == user.id }
             
-            return UserWorkout(user: user, workout: workout)
+            return workouts.map { UserWorkout(user: user, workout: $0) }
         }).sorted(by: { a, b in
             if let aWorkout = a.workout, let bWorkout = b.workout {
                 return aWorkout.createdAt > bWorkout.createdAt

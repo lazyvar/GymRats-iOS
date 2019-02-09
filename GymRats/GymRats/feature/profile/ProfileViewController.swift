@@ -219,9 +219,11 @@ class ProfileViewController: UIViewController {
     }
     
     @objc func transitionToSettings() {
-        let settings = SettingsViewController()
+//        let settings = SettingsViewController()
+//
+//        self.push(settings)
         
-        self.push(settings)
+        GymRatsApp.coordinator.logout()
     }
     
     override func viewDidLayoutSubviews() {
