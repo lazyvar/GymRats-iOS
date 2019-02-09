@@ -10,12 +10,12 @@ import Foundation
 
 struct Workout: Codable {
     let id: Int
-    let userId: Int
+    let gymRatsUserId: Int
     let title: String
     let description: String?
-    let pictureUrl: String?
+    let photoUrl: String?
     let place: Place?
-    let date: Date
+    let createdAt: Date
     
     struct Place: Codable {
         let name: String

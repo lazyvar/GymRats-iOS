@@ -12,7 +12,7 @@ struct Challenge: Codable {
     let id: Int
     let name: String
     let code: String
-    let pictureUrl: String?
+    let profilePictureUrl: String?
     let startDate: Date
     let endDate: Date
     let timeZone: String
@@ -22,7 +22,7 @@ extension Array where Element == Challenge {
     
     func getActiveChallenges() -> [Challenge] {
         return self.filter { challenge in
-            let today = Date()
+            let today = Date().challengeDate
             
             return today >= challenge.startDate && today <= challenge.endDate
         }
@@ -35,6 +35,10 @@ extension Array where Element == Challenge {
 }
 
 extension Challenge: AvatarProtocol {
+    
+    var pictureUrl: String? {
+        return self.profilePictureUrl
+    }
     
     var myName: String? {
         return name

@@ -13,7 +13,7 @@ import Alamofire
 
 protocol NetworkProvider {
     func buildUrl(forPath path: String) -> String
-    func request(method: HTTPMethod, url: String, parameters: Parameters) -> Observable<(HTTPURLResponse, Data)>
+    func request(method: HTTPMethod, url: String, headers: HTTPHeaders, parameters: Parameters?) -> Observable<(HTTPURLResponse, Data)>
 }
 
 class ProductionNetworkProvider: NetworkProvider {
@@ -24,8 +24,14 @@ class ProductionNetworkProvider: NetworkProvider {
         return "\(baseUrl)/\(path)"
     }
     
-    func request(method: HTTPMethod, url: String, parameters: Parameters) -> Observable<(HTTPURLResponse, Data)> {
-        let request = Alamofire.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default)
+    func request(method: HTTPMethod, url: String, headers: HTTPHeaders, parameters: Parameters?) -> Observable<(HTTPURLResponse, Data)> {
+        let request: DataRequest
+        if let parameters = parameters {
+            request = Alamofire.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
+        } else {
+            request = Alamofire.request(url, method: method, parameters: parameters, headers: headers)
+        }
+        
         request.validate(statusCode: 200..<300)
         request.validate(contentType: ["application/json"])
         
@@ -34,17 +40,24 @@ class ProductionNetworkProvider: NetworkProvider {
     
 }
 
-//class DevelopmentNetworkProvider: NetworkProvider {
-//
-//    func buildUrl(forPath path: String) -> String {
-//
-//    }
-//
-//    func request(method: HTTPMethod, url: String) -> Observable<HasHTTPResponse> {
-//
-//    }
-//
-//}
+class DevelopmentNetworkProvider: NetworkProvider {
+
+    func buildUrl(forPath path: String) -> String {
+        return "http://localhost:4567/\(path)"
+    }
+
+    func request(method: HTTPMethod, url: String, headers: HTTPHeaders, parameters: Parameters?) -> Observable<(HTTPURLResponse, Data)> {
+        let request: DataRequest
+        if let parameters = parameters {
+            request = Alamofire.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
+        } else {
+            request = Alamofire.request(url, method: method, parameters: parameters, headers: headers)
+        }
+
+        return request.rx.responseData()
+    }
+
+}
 
 class MockedNetworkProvider: NetworkProvider {
 
@@ -52,13 +65,13 @@ class MockedNetworkProvider: NetworkProvider {
         return path
     }
 
-    func request(method: HTTPMethod, url: String, parameters: Parameters) -> Observable<(HTTPURLResponse, Data)> {
+    func request(method: HTTPMethod, url: String, headers: HTTPHeaders, parameters: Parameters?) -> Observable<(HTTPURLResponse, Data)> {
         return Observable<(HTTPURLResponse, Data)>.create { subscriber in
             let data = self.mockedResponse(forURL: url, and: parameters)
 
             switch url {
             case "login":
-                if parameters["email"] as! String == "error" {
+                if parameters?["email"] as? String == "error" {
                     subscriber.onError(NSError(domain: "Wrong combo.", code: 100, userInfo: nil))
                 } else {
                     subscriber.onNext((.dummy, data))
@@ -71,7 +84,7 @@ class MockedNetworkProvider: NetworkProvider {
         }.delay(1, scheduler: MainScheduler.instance)
     }
     
-    private func mockedResponse(forURL url: String, and parameters: Parameters) -> Data {
+    private func mockedResponse(forURL url: String, and parameters: Parameters?) -> Data {
         let json: String = {
             switch url {
             case "login", "signup":

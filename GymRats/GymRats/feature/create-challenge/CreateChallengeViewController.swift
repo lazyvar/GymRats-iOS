@@ -61,14 +61,14 @@ class CreateChallengeViewController: FormViewController {
         }
         
         let startDateRow = DateRow() {
-            $0.value = Date() + 1.days
+            $0.value = Date()
             $0.title = "Start Date"
-            $0.minimumDate = Date() + 1.days
+            $0.minimumDate = Date()
         }
 
         let endDateRow = DateRow() {
-            $0.value = Date() + 31.days
-            $0.minimumDate = Date() + 1.days
+            $0.value = Date() + 30.days
+            $0.minimumDate = Date()
             $0.title = "End Date"
         }
         

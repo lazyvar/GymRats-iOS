@@ -282,7 +282,7 @@ class ProfileViewController: UIViewController {
                 
                 let timeLabel: UILabel = UILabel()
                 timeLabel.font = .details
-                timeLabel.text = workout.date.challengeTime
+                timeLabel.text = workout.createdAt.challengeTime
                 timeLabel.textAlignment = .right
                 
                 row.configureLayout { layout in
@@ -415,7 +415,7 @@ extension Array where Element == Workout {
                 locale: Locale.autoupdatingCurrent
             )
 
-            let workoutInRegion = DateInRegion(workout.date, region: region)
+            let workoutInRegion = DateInRegion(workout.createdAt, region: region)
             let dateInRegion = DateInRegion(date, region: region)
             
             let daysApart = workoutInRegion.daysApartRespectingRegions(from: dateInRegion)

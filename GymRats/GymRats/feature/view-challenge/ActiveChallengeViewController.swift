@@ -262,12 +262,12 @@ class ActiveChallengeViewController: UITableViewController {
         let workoutsForToday = self.workouts.workouts(on: self.currentDate.value)
         
         self.userWorkoutsForCurrentDate = users.map({ (user: User) -> UserWorkout in
-            let workout = workoutsForToday.first(where: { $0.userId == user.id })
+            let workout = workoutsForToday.first(where: { $0.gymRatsUserId == user.id })
             
             return UserWorkout(user: user, workout: workout)
         }).sorted(by: { a, b in
             if let aWorkout = a.workout, let bWorkout = b.workout {
-                return aWorkout.date > bWorkout.date
+                return aWorkout.createdAt > bWorkout.createdAt
             } else if a.workout != nil {
                 return true
             } else if b.workout != nil  {

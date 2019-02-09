@@ -12,7 +12,7 @@ struct User: Codable {
     let id: Int
     let email: String
     let fullName: String
-    let proPicUrl: String?
+    let profilePictureUrl: String?
     let token: String?
 }
 
@@ -23,7 +23,7 @@ extension User: AvatarProtocol {
     }
     
     var pictureUrl: String? {
-        return proPicUrl
+        return profilePictureUrl
     }
     
 }

@@ -58,7 +58,7 @@ class WorkoutViewController: UIViewController {
 
         let timeLabel: UILabel = UILabel()
         timeLabel.font = .details
-        timeLabel.text = workout.date.challengeTime
+        timeLabel.text = workout.createdAt.challengeTime
         timeLabel.textAlignment = .right
         
         headerView.configureLayout { layout in
@@ -104,7 +104,7 @@ class WorkoutViewController: UIViewController {
         
         containerView.addSubview(headerView)
 
-        if let pictureUrl = workout.pictureUrl, let url = URL(string: pictureUrl) {
+        if let pictureUrl = workout.photoUrl, let url = URL(string: pictureUrl) {
             let imageView = UIImageView()
             imageView.contentMode = .scaleAspectFit
             imageView.clipsToBounds = true

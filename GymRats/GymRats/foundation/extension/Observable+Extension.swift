@@ -103,21 +103,40 @@ extension Observable where Element == Data {
     @discardableResult
     func decodeObject<T: Decodable>() -> Observable<T> {
         return map { data in
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .secondsSince1970
-            
-            return try decoder.decode(T.self, from: data)
+            do {
+                return try JSONDecoder.gymRatsAPIDecoder.decode(T.self, from: data)
+            } catch let error {
+                print(error)
+                throw error
+            }
         }
     }
     
     @discardableResult
     func decodeArray<T: Decodable>() -> Observable<[T]> {
         return map { data in
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .secondsSince1970
-            
-            return try decoder.decode([T].self, from: data)
+            do {
+                return try JSONDecoder.gymRatsAPIDecoder.decode([T].self, from: data)
+            } catch let error {
+                print(error)
+                throw error
+            }
         }
     }
+    
+}
+
+extension JSONDecoder {
+    
+    static let gymRatsAPIDecoder: JSONDecoder = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+        
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        
+        return decoder
+    }()
     
 }

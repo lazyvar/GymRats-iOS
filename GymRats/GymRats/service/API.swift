@@ -24,7 +24,7 @@ enum APIRequest {
     case getWorkoutsForUser(user: User)
     case postWorkout(title: String, description: String?, photoUrl: String?, googlePlaceId: String?)
     
-    var requestProperties: (method: HTTPMethod, path: String, params: Parameters) {
+    var requestProperties: (method: HTTPMethod, path: String, params: Parameters?) {
         switch self {
         case .login(let email, let password):
             return (.post, "login", ["email": email, "password": password])
@@ -32,52 +32,53 @@ enum APIRequest {
             var params: Parameters =  [
                 "email": email,
                 "password": password,
-                "fullName": fullName
+                "full_name": fullName
             ]
             
             if let url = url {
-                params["url"] = url
+                params["profile_picture_url"] = url
             }
 
             return (.post, "signup", params)
         case .getAllChallenges:
-            return (.get, "challenge/all", [:])
+            return (.get, "challenge", nil)
         case .joinChallenge(let code):
-            return (.post, "challenge/\(code)", [:])
+            return (.post, "challenge/code/\(code)", nil)
         case .createChallenge(startDate: let startDate, endDate: let endDate, challengeName: let challengeName, photoUrl: let photoUrl):
             var params: Parameters =  [
-                "startDate": startDate,
-                "endDate": endDate,
-                "challengeName": challengeName
+                "start_date": startDate.toISO(),
+                "end_date": endDate.toISO(),
+                "name": challengeName,
+                "time_zone": TimeZone.current.abbreviation()!
             ]
             
             if let photoUrl = photoUrl {
-                params["photoUrl"] = photoUrl
+                params["profile_picture_url"] = photoUrl
             }
 
             return (.post, "challenge", params)
         case .getUsersForChallenge(challenge: let challenge):
-            return (.get, "challenge/\(challenge.id)/user", [:])
+            return (.get, "challenge/\(challenge.id)/user", nil)
         case .getWorkoutsForChallenge(challenge: let challenge):
-            return (.get, "challenge/\(challenge.id)/workout", [:])
+            return (.get, "challenge/\(challenge.id)/workout", nil)
         case .getWorkoutsForUser(user: let user):
-            return (.get, "workout/user/\(user.id)", [:])
+            return (.get, "workout/user/\(user.id)", nil)
         case .postWorkout(title: let title, description: let description, photoUrl: let photoUrl, googlePlaceId: let googlePlaceId):
             var params: Parameters = ["title": title]
             
             if let description = description {
-                params["desription"] = description
+                params["description"] = description
             }
 
             if let photoUrl = photoUrl {
-                params["photoUrl"] = photoUrl
+                params["photo_url"] = photoUrl
             }
 
             if let googlePlaceId = googlePlaceId {
-                params["googlePlaceId"] = googlePlaceId
+                params["google_place_id"] = googlePlaceId
             }
 
-            return (.get, "workout", params)
+            return (.post, "workout", params)
         }
     }
 }
@@ -86,7 +87,7 @@ class GymRatsAPI {
     
     private let networkProvider: NetworkProvider
     
-    init(networkProvider: NetworkProvider = MockedNetworkProvider()) {
+    init(networkProvider: NetworkProvider = DevelopmentNetworkProvider()) {
         self.networkProvider = networkProvider
     }
     
@@ -94,7 +95,16 @@ class GymRatsAPI {
         let (method, path, params) = apiRequest.requestProperties
         let url = networkProvider.buildUrl(forPath: path)
         
-        return networkProvider.request(method: method, url: url, parameters: params)
+        let headers: HTTPHeaders = {
+            switch apiRequest {
+            case .login, .signup:
+                return [:]
+            default:
+                return ["Authorization": GymRatsApp.coordinator.currentUser.token!]
+            }
+        }()
+        
+        return networkProvider.request(method: method, url: url, headers: headers, parameters: params)
                 .map { $0.1 }
     }
     

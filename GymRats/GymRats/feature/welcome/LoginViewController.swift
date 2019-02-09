@@ -60,6 +60,7 @@ class LoginViewController: FormViewController {
         }.cellSetup({ cell, row in
             cell.textField.font = .body
             cell.textLabel?.font = .body
+            cell.textField.autocapitalizationType = .none
         })
     }()
     
