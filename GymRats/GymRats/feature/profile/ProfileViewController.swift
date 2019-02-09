@@ -240,6 +240,7 @@ class ProfileViewController: UIViewController {
         showLoadingBar()
         
         workouts.map { "Total workouts: \($0.count)" }
+            .catchErrorJustReturn("Total workouts: -")
             .bind(to: totalWorkoutsLabel.rx.text)
             .disposed(by: disposeBag)
         

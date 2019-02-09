@@ -271,7 +271,11 @@ class ActiveChallengeViewController: UITableViewController {
         self.userWorkoutsForCurrentDate = users.flatMap({ (user: User) -> [UserWorkout] in
             let workouts = workoutsForToday.filter { $0.gymRatsUserId == user.id }
             
-            return workouts.map { UserWorkout(user: user, workout: $0) }
+            if workouts.isEmpty {
+                return [UserWorkout(user: user, workout: nil)]
+            } else {
+                return workouts.map { UserWorkout(user: user, workout: $0) }
+            }
         }).sorted(by: { a, b in
             if let aWorkout = a.workout, let bWorkout = b.workout {
                 return aWorkout.createdAt > bWorkout.createdAt

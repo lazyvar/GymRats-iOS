@@ -59,11 +59,8 @@ extension UIViewController {
         setupMenuButton()
         setupBackButton()
         
-        let logoImageView = UIImageView(image: #imageLiteral(resourceName: "gr-logo"))
-        logoImageView.contentMode = .scaleAspectFit
-        
-        navigationItem.titleView = logoImageView
-        
+        title = "Gym Rats"
+                
         navigationItem.rightBarButtonItem = UIBarButtonItem (
             image: UIImage(named: "kettle-bell"),
             style: .plain,
