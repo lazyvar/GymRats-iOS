@@ -9,9 +9,12 @@
 import UIKit
 import AvatarImageView
 import SwiftDate
+import RxSwift
 
 class UserWorkoutTableViewCell: UITableViewCell {
 
+    let disposeBag = DisposeBag()
+    
     @IBOutlet weak var userImageView: UserImageView!
     @IBOutlet weak var fullNameLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
@@ -42,7 +45,25 @@ class UserWorkoutTableViewCell: UITableViewCell {
                 titleLabel.isHidden = false
                 detailsLabel.isHidden = false
                 titleLabel.text = workout.title
-                detailsLabel.text = user.fullName
+                
+                detailsLabel.attributedText = detailsLabeText()
+
+                if let googlePlaceId = workout.googlePlaceId {
+                    GService.getPlaceInformation(forPlaceId: googlePlaceId)
+                        .subscribe {  [weak self] event in
+                            guard let self = self else { return }
+                            
+                            if case let .next(val) = event {
+                                UIView.transition (
+                                    with: self.detailsLabel,
+                                    duration: 0.2,
+                                    options: .transitionCrossDissolve,
+                                    animations: { [weak self] in
+                                        self?.detailsLabel.attributedText = self?.detailsLabeText(including: val)
+                                    }, completion: nil)
+                            }
+                        }.disposed(by: disposeBag)
+                }
                 
                 let label = UILabel()
                 label.text = workout.createdAt.challengeTime
@@ -65,6 +86,27 @@ class UserWorkoutTableViewCell: UITableViewCell {
                 contentView.alpha = 0.333
             }
         }
+    }
+    
+    private func detailsLabeText(including place: Place? = nil) -> NSAttributedString {
+        let details = NSMutableAttributedString()
+        
+        if userWorkout.workout?.photoUrl != nil {
+            let cameraImage = NSTextAttachment()
+            cameraImage.image = UIImage(named: "camera")
+            cameraImage.bounds = CGRect(x: 0, y: -2.5, width: 14, height: 14)
+            
+            details.append(NSAttributedString(attachment: cameraImage))
+            details.append(NSAttributedString(string: "  "))
+        }
+        
+        details.append(NSAttributedString(string: "\(userWorkout.user.fullName)"))
+        
+        if let place = place {
+            details.append(NSAttributedString(string: " @ \(place.name)"))
+        }
+        
+        return details
     }
     
     var challenge: Challenge! {

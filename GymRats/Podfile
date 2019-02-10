@@ -22,4 +22,5 @@ target 'GymRats' do
     pod "RxEureka", "~> 0.2"
     pod 'Firebase/Core'
     pod 'Firebase/Storage'
+    pod 'Cache'
 end

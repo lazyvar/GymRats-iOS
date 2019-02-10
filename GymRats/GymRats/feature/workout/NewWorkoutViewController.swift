@@ -14,17 +14,6 @@ import GooglePlaces
 import Eureka
 import RxEureka
 
-struct Place: Equatable, CustomStringConvertible {
-    
-    let name: String?
-    let id: String?
-    
-    var description: String {
-        return name ?? "Somewhere"
-    }
-
-}
-
 protocol NewWorkoutDelegate: class {
     func workoutCreated(workout: Workout)
 }
@@ -177,13 +166,13 @@ class NewWorkoutViewController: FormViewController {
             
             guard
                 let self = self,
-                let places = placeLikelihoods?.sorted(by: { $0.likelihood > $1.likelihood }).map({ Place(name: $0.place.name, id: $0.place.placeID) })
+                let places = placeLikelihoods?.sorted(by: { $0.likelihood > $1.likelihood }).map({ Place(from: $0.place) })
             else { return }
 
             self.form.sectionBy(tag: "the-form")?.remove(at: 3) // yikes
             self.form.sectionBy(tag: "the-form")?.append(self.placeRow)
-            
-            self.placeLikelihoods.accept(places)
+  
+            self.placeLikelihoods.accept(places.unique())
         })
     }
     
@@ -236,6 +225,15 @@ extension Bool {
     
     var toggled: Bool {
         return !self
+    }
+    
+}
+
+extension Array where Element == Place {
+    
+    func unique() -> [Place] {
+        var seen: [String: Bool] = [:]
+        return self.filter { seen.updateValue(true, forKey: $0.name) == nil }
     }
     
 }

@@ -63,7 +63,7 @@ class AppCoordinator: Coordinator {
         drawer.centerHiddenInteractionMode = .full
         drawer.openDrawerGestureModeMask = [.all]
         drawer.closeDrawerGestureModeMask = [.all]
-        
+        drawer.setDrawerVisualStateBlock(MMDrawerVisualState.parallaxVisualStateBlock(withParallaxFactor: 2))
         window.rootViewController = drawer
     }
     

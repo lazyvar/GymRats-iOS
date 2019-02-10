@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (4.8.1)
   - AvatarImageView (2.2.0)
+  - Cache (5.2.0)
   - CVCalendar (1.6.2)
   - Eureka (4.3.1)
   - Firebase/Core (5.16.0):
@@ -106,6 +107,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.7)
   - AvatarImageView (~> 2.2.0)
+  - Cache
   - CVCalendar (~> 1.6.2)
   - Eureka
   - Firebase/Core
@@ -128,6 +130,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - AvatarImageView
+    - Cache
     - CVCalendar
     - Eureka
     - Firebase
@@ -161,6 +164,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   AvatarImageView: afe8e7eb50181ca3f095e21034f245676b535c55
+  Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
   CVCalendar: 515092247b9c5059855643c2a2220f259bd5417f
   Eureka: 28ea296f06710f6745266b71f17862048941a32d
   Firebase: 749a8ff4962f9d8c79dda1966de20f6f77583d67
@@ -191,6 +195,6 @@ SPEC CHECKSUMS:
   Yoga: aaae8abea68951f60bee05f6277d3eed90bb91bb
   YogaKit: 3107fd5c2c233b540a1c5e376b95ac2c40398d6b
 
-PODFILE CHECKSUM: 16a80d374f931fb527eb7901aa0c0a768e67f649
+PODFILE CHECKSUM: 1970868587fe2322ce93a61322625aba48a49de3
 
 COCOAPODS: 1.5.3

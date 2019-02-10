@@ -106,7 +106,7 @@ class WorkoutViewController: UIViewController {
 
         if let pictureUrl = workout.photoUrl, let url = URL(string: pictureUrl) {
             let imageView = UIImageView()
-            imageView.contentMode = .scaleAspectFit
+            imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true
             imageView.backgroundColor = .whiteSmoke
 
@@ -122,35 +122,35 @@ class WorkoutViewController: UIViewController {
             containerView.addSubview(imageView)
         }
         
-        if let place = workout.place {
-            let mapView = MKMapView()
-            let initialLocation = CLLocation(latitude: place.latitude, longitude: place.longitude)
-            let coordinateRegion = MKCoordinateRegion (
-                center: initialLocation.coordinate,
-                latitudinalMeters: 500, longitudinalMeters: 500
-            )
-            let annotation = PlaceAnnotation (
-                title: place.name,
-                coordinate: CLLocationCoordinate2D (
-                    latitude: place.latitude,
-                    longitude: place.longitude
-                )
-            )
-
-            mapView.setRegion(coordinateRegion, animated: true)
-            mapView.mapType = .standard
-            mapView.isUserInteractionEnabled = false
-            mapView.addAnnotation(annotation)
-
-            mapView.configureLayout { layout in
-                layout.isEnabled = true
-                layout.width = YGValue(self.view.frame.width)
-                layout.height = 115
-                layout.marginTop = 2
-            }
-            
-            containerView.addSubview(mapView)
-        }
+//        if let place = workout.place {
+//            let mapView = MKMapView()
+//            let initialLocation = CLLocation(latitude: place.latitude, longitude: place.longitude)
+//            let coordinateRegion = MKCoordinateRegion (
+//                center: initialLocation.coordinate,
+//                latitudinalMeters: 500, longitudinalMeters: 500
+//            )
+//            let annotation = PlaceAnnotation (
+//                title: place.name,
+//                coordinate: CLLocationCoordinate2D (
+//                    latitude: place.latitude,
+//                    longitude: place.longitude
+//                )
+//            )
+//
+//            mapView.setRegion(coordinateRegion, animated: true)
+//            mapView.mapType = .standard
+//            mapView.isUserInteractionEnabled = false
+//            mapView.addAnnotation(annotation)
+//
+//            mapView.configureLayout { layout in
+//                layout.isEnabled = true
+//                layout.width = YGValue(self.view.frame.width)
+//                layout.height = 115
+//                layout.marginTop = 2
+//            }
+//
+//            containerView.addSubview(mapView)
+//        }
         
         let titleLabel: UILabel = UILabel()
         titleLabel.font = .body

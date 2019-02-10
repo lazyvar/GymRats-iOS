@@ -49,6 +49,8 @@
 		747D6FE52208ED6F0062BB39 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FE42208ED6F0062BB39 /* LoginViewController.swift */; };
 		747D6FE72208ED780062BB39 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FE62208ED780062BB39 /* SignUpViewController.swift */; };
 		747D6FE92208EDAF0062BB39 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FE82208EDAF0062BB39 /* Colors.swift */; };
+		748DFB8C220FD882007220C7 /* GService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748DFB8B220FD882007220C7 /* GService.swift */; };
+		748DFB8E2210B2EA007220C7 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748DFB8D2210B2EA007220C7 /* Place.swift */; };
 		74A01B25220A0AFB00431ABD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B24220A0AFB00431ABD /* HomeViewController.swift */; };
 		74A01B27220A0BBF00431ABD /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B26220A0BBF00431ABD /* Challenge.swift */; };
 		74A01B2A220A17EC00431ABD /* JoinChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B29220A17EC00431ABD /* JoinChallenge.swift */; };
@@ -131,6 +133,8 @@
 		747D6FE42208ED6F0062BB39 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		747D6FE62208ED780062BB39 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		747D6FE82208EDAF0062BB39 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		748DFB8B220FD882007220C7 /* GService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GService.swift; sourceTree = "<group>"; };
+		748DFB8D2210B2EA007220C7 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		74A01B24220A0AFB00431ABD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		74A01B26220A0BBF00431ABD /* Challenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
 		74A01B29220A17EC00431ABD /* JoinChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinChallenge.swift; sourceTree = "<group>"; };
@@ -320,6 +324,7 @@
 			children = (
 				747D6FBC2208DBFE0062BB39 /* API.swift */,
 				74F47888220CECFE005CD4E4 /* ImageService.swift */,
+				748DFB8B220FD882007220C7 /* GService.swift */,
 			);
 			path = service;
 			sourceTree = "<group>";
@@ -352,6 +357,7 @@
 				747D6FDD2208E85A0062BB39 /* User.swift */,
 				74A01B26220A0BBF00431ABD /* Challenge.swift */,
 				74A01B33220A3B2000431ABD /* Workout.swift */,
+				748DFB8D2210B2EA007220C7 /* Place.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -594,6 +600,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AvatarImageView/AvatarImageView.framework",
 				"${BUILT_PRODUCTS_DIR}/CVCalendar/CVCalendar.framework",
+				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/FlexLayout/FlexLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
@@ -621,6 +628,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AvatarImageView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CVCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FlexLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
@@ -702,6 +710,7 @@
 				747D6FC92208DCE60062BB39 /* AlamofireNetworkActivityLogger.swift in Sources */,
 				743050652209EB9A005D8C52 /* UINavigationBar+Extension.swift in Sources */,
 				746764E1220B5A93000CFB1B /* Switch.swift in Sources */,
+				748DFB8E2210B2EA007220C7 /* Place.swift in Sources */,
 				747D6FC72208DCC80062BB39 /* Coordinator.swift in Sources */,
 				74A01B3B220A544F00431ABD /* UserWorkoutTableViewCell.swift in Sources */,
 				747D6FC32208DCAB0062BB39 /* Observable+Extension.swift in Sources */,
@@ -713,6 +722,7 @@
 				74A01B4E220A83FD00431ABD /* UIDate+Extension.swift in Sources */,
 				74A01B27220A0BBF00431ABD /* Challenge.swift in Sources */,
 				74BE97BE220C9F2800D550CA /* ImageRow.swift in Sources */,
+				748DFB8C220FD882007220C7 /* GService.swift in Sources */,
 				74A01B34220A3B2000431ABD /* Workout.swift in Sources */,
 				74F47889220CECFE005CD4E4 /* ImageService.swift in Sources */,
 				747D6FCD2208DE8E0062BB39 /* NetworkProvider.swift in Sources */,
