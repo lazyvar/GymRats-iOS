@@ -389,7 +389,9 @@ extension ProfileViewController: CVCalendarViewDelegate, CVCalendarViewAppearanc
     }
     
     func dotMarker(colorOnDayView dayView: DayView) -> [UIColor] {
-        return .init(repeating: .brand, count: self.workouts.workouts(on: dayView.swiftDate).count)
+        let limitedWorkouts = min(3, self.workouts.workouts(on: dayView.swiftDate).count)
+        
+        return .init(repeating: .brand, count: limitedWorkouts)
     }
     
     func presentedDateUpdated(_ date: CVDate) {

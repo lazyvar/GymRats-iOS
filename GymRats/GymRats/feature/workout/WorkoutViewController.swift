@@ -160,7 +160,6 @@ class WorkoutViewController: UIViewController {
                             }
                             containerView.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
                         }
-                    
                     default: break
                     }
                 }.disposed(by: disposeBag)
