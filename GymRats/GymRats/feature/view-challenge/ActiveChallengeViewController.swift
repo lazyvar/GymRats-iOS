@@ -139,6 +139,12 @@ class ActiveChallengeViewController: UITableViewController {
         
         headerView.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
 
+        let tap = UITapGestureRecognizer(target: self, action: #selector(presentChallengeInfo))
+        tap.numberOfTapsRequired = 1
+        
+        headerView.addGestureRecognizer(tap)
+        headerView.isUserInteractionEnabled = true
+        
         container.configureLayout { layout in
             layout.isEnabled = true
             layout.flexDirection = .column
@@ -259,10 +265,18 @@ class ActiveChallengeViewController: UITableViewController {
             self.refresher.endRefreshing()
             self.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .fade)
         }, onError: { error in
-            // TODO 
+            // TODO
             self.hideLoadingBar()
             self.refresher.endRefreshing()
         }).disposed(by: disposeBag)
+    }
+
+    @objc func presentChallengeInfo() {
+        let challengeInfo = ChallengeInfoViewController(challenge: challenge, workouts: workouts, users: users)
+        let drawer = GymRatsApp.coordinator.drawer
+        
+        drawer?.rightDrawerViewController = challengeInfo
+        drawer?.open(.right, animated: true, completion: nil)
     }
     
     func updateUserWorkoutsForCurrentDate() {

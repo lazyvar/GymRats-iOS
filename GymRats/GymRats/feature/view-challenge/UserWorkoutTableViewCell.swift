@@ -88,6 +88,32 @@ class UserWorkoutTableViewCell: UITableViewCell {
         }
     }
     
+    var challenge: Challenge! {
+        didSet {
+            userImageView.load(avatarInfo: challenge)
+            
+            fullNameLabel.isHidden = false
+            fullNameLabel.text = challenge.name
+            
+            accessoryType = .disclosureIndicator
+        }
+    }
+
+    func configure(for user: User, withNumberOfWorkouts numberOfWorkouts: Int) {
+        userImageView.load(avatarInfo: user)
+        
+        fullNameLabel.isHidden = false
+        fullNameLabel.text = user.fullName
+        
+        let label = UILabel()
+        label.text = "\(numberOfWorkouts)"
+        label.font = .details
+        label.sizeToFit()
+        label.textColor = .black
+        
+        accessoryView = label
+    }
+    
     private func detailsLabeText(including place: Place? = nil) -> NSAttributedString {
         let details = NSMutableAttributedString()
         
@@ -107,17 +133,6 @@ class UserWorkoutTableViewCell: UITableViewCell {
         }
         
         return details
-    }
-    
-    var challenge: Challenge! {
-        didSet {
-            userImageView.load(avatarInfo: challenge)
-
-            fullNameLabel.isHidden = false
-            fullNameLabel.text = challenge.name
-            
-            accessoryType = .disclosureIndicator
-        }
     }
     
     override func prepareForReuse() {

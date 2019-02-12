@@ -21,6 +21,7 @@
 		743050652209EB9A005D8C52 /* UINavigationBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743050642209EB9A005D8C52 /* UINavigationBar+Extension.swift */; };
 		74305071220A05FC005D8C52 /* GymRatsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74305070220A05FC005D8C52 /* GymRatsApp.swift */; };
 		7455AC5E22125296005A558A /* ServiceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7455AC5D22125296005A558A /* ServiceResponse.swift */; };
+		7455AC602212585B005A558A /* ChallengeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7455AC5F2212585B005A558A /* ChallengeInfoViewController.swift */; };
 		746764DF220B4829000CFB1B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764DE220B4829000CFB1B /* ProfileViewController.swift */; };
 		746764E1220B5A93000CFB1B /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E0220B5A93000CFB1B /* Switch.swift */; };
 		746764E3220B6D5C000CFB1B /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E2220B6D5C000CFB1B /* Collection+Extension.swift */; };
@@ -102,6 +103,7 @@
 		743050642209EB9A005D8C52 /* UINavigationBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Extension.swift"; sourceTree = "<group>"; };
 		74305070220A05FC005D8C52 /* GymRatsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymRatsApp.swift; sourceTree = "<group>"; };
 		7455AC5D22125296005A558A /* ServiceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceResponse.swift; sourceTree = "<group>"; };
+		7455AC5F2212585B005A558A /* ChallengeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoViewController.swift; sourceTree = "<group>"; };
 		746764DE220B4829000CFB1B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		746764E0220B5A93000CFB1B /* Switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
 		746764E2220B6D5C000CFB1B /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
@@ -418,6 +420,7 @@
 				74A01B39220A544F00431ABD /* UserWorkoutTableViewCell.swift */,
 				74A01B3A220A544F00431ABD /* UserWorkoutTableViewCell.xib */,
 				746764E4220B7ACE000CFB1B /* MultipleActiveChallengesViewController.swift */,
+				7455AC5F2212585B005A558A /* ChallengeInfoViewController.swift */,
 			);
 			path = "view-challenge";
 			sourceTree = "<group>";
@@ -710,6 +713,7 @@
 				743050622209EA82005D8C52 /* UIViewController+Extension.swift in Sources */,
 				747D6FE32208ED660062BB39 /* WelcomeViewController.swift in Sources */,
 				747D6FDE2208E85A0062BB39 /* User.swift in Sources */,
+				7455AC602212585B005A558A /* ChallengeInfoViewController.swift in Sources */,
 				747D6FDC2208E8130062BB39 /* Keychain+Subscripts.swift in Sources */,
 				747D6FC92208DCE60062BB39 /* AlamofireNetworkActivityLogger.swift in Sources */,
 				743050652209EB9A005D8C52 /* UINavigationBar+Extension.swift in Sources */,

@@ -64,6 +64,14 @@ class AppCoordinator: Coordinator {
         drawer.openDrawerGestureModeMask = [.all]
         drawer.closeDrawerGestureModeMask = [.all]
         drawer.setDrawerVisualStateBlock(MMDrawerVisualState.parallaxVisualStateBlock(withParallaxFactor: 2))
+        drawer.setGestureCompletionBlock { drawer, _ in
+            guard let drawer = drawer else { return }
+            
+            if drawer.openSide == .none {
+                drawer.rightDrawerViewController = nil
+            }
+        }
+        
         window.rootViewController = drawer
     }
     
