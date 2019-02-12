@@ -41,8 +41,7 @@ class LoginViewController: FormViewController {
                 self?.hideLoadingBar()
                 GymRatsApp.delegate.appCoordinator.login(user: user)
             }, onError: { [weak self] error in
-                print(error)
-                self?.presentAlert(with: error)
+                self?.presentAlert(title: "Uh-oh", message: error.localizedDescription)
                 self?.hideLoadingBar()
             }).disposed(by: disposeBag)
     }

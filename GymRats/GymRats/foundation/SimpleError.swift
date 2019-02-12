@@ -8,10 +8,23 @@
 
 import Foundation
 
-struct SimpleError: Error {
+struct SimpleError: Error, LocalizedError {
     let message: String
     
     var localizedDescription: String {
         return message
     }
+    
+    var description: String {
+        get {
+            return message
+        }
+    }
+
+    var errorDescription: String? {
+        get {
+            return message
+        }
+    }
+
 }

@@ -189,7 +189,6 @@ class NewWorkoutViewController: FormViewController {
             self?.dismissSelf()
             self?.delegate?.workoutCreated(workout: workout)
         }, onError: { [weak self] error in
-            print(error)
             self?.presentAlert(with: error)
             self?.hideLoadingBar()
         }).disposed(by: disposeBag)

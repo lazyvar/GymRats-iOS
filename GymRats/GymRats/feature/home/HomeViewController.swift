@@ -46,11 +46,10 @@ class HomeViewController: UIViewController {
             JoinChallenge.presentJoinChallengeModal(on: self)
                 .subscribe(onNext: { [weak self] _ in
                     self?.fetchAllChallenges()
-                }, onError: { [weak self] error in
-                    if !(error is SimpleError) {
-                        self?.presentAlert(with: error)
-                    }
-                }).disposed(by: self.disposeBag)
+            }, onError: { [weak self] error in
+                self?.presentAlert(with: error)
+            }).disposed(by: self.disposeBag)
+
         }.disposed(by: disposeBag)
 
         createChallengeButton.onTouchUpInside { [weak self] in
@@ -88,6 +87,7 @@ class HomeViewController: UIViewController {
                     }
                 }
             }, onError: { [weak self] error in
+                // TODO
                 self?.hideLoadingBar()
                 self?.retryButton.isHidden = false
             }).disposed(by: disposeBag)

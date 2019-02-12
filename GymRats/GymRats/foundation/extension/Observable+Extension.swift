@@ -26,17 +26,9 @@ extension UIButton {
     func onTouchUpInside(_ action: @escaping () -> Void) -> Disposable {
         return self.rx.controlEvent(.touchUpInside)
             .asObservable()
-            .subscribe { event in
-                switch event {
-                case .next:
-                    action()
-                case .error:
-                    // TODO
-                    break
-                default:
-                    break
-                }
-            }
+            .subscribe(onNext: { _ in
+                action()
+            })
     }
     
 }
@@ -104,7 +96,14 @@ extension Observable where Element == Data {
     func decodeObject<T: Decodable>() -> Observable<T> {
         return map { data in
             do {
-                return try JSONDecoder.gymRatsAPIDecoder.decode(T.self, from: data)
+                let serviceResponse = try JSONDecoder.gymRatsAPIDecoder.decode(ServiceResponse<T>.self, from: data)
+                
+                switch serviceResponse.status {
+                case .success:
+                    return serviceResponse.response!
+                case .failure:
+                    throw SimpleError(message: serviceResponse.errorMessage!)
+                }
             } catch let error {
                 print(error)
                 throw error
@@ -116,7 +115,14 @@ extension Observable where Element == Data {
     func decodeArray<T: Decodable>() -> Observable<[T]> {
         return map { data in
             do {
-                return try JSONDecoder.gymRatsAPIDecoder.decode([T].self, from: data)
+                let serviceResponse = try JSONDecoder.gymRatsAPIDecoder.decode(ServiceResponse<[T]>.self, from: data)
+                
+                switch serviceResponse.status {
+                case .success:
+                    return serviceResponse.response!
+                case .failure:
+                    throw SimpleError(message: serviceResponse.errorMessage!)
+                }
             } catch let error {
                 print(error)
                 throw error

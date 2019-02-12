@@ -250,10 +250,9 @@ class ProfileViewController: UIViewController {
             switch event {
             case .next(let value):
                 self?.refreshScreen(with: value)
-            case .error:
-                // TODO
-                break
-            default:
+            case .error(let error):
+                self?.presentAlert(with: error)
+            case .completed:
                 break
             }
         }.disposed(by: disposeBag)

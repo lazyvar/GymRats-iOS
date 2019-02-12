@@ -259,9 +259,9 @@ class ActiveChallengeViewController: UITableViewController {
             self.refresher.endRefreshing()
             self.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .fade)
         }, onError: { error in
+            // TODO 
             self.hideLoadingBar()
             self.refresher.endRefreshing()
-            print(error)
         }).disposed(by: disposeBag)
     }
     

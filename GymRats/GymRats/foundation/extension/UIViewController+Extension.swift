@@ -90,7 +90,7 @@ extension UIViewController {
     }
     
     func presentAlert(with error: Error) {
-        presentAlert(title: "Error", message: error.localizedDescription)
+        presentAlert(title: "Uh-oh", message: error.localizedDescription)
     }
     
    @objc func dismissSelf() {

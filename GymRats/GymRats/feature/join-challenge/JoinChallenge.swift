@@ -35,7 +35,6 @@ enum JoinChallenge {
             })
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { _ in
-                subscriber.onError(SimpleError(message: "User canceled."))
                 subscriber.onCompleted()
             })
             

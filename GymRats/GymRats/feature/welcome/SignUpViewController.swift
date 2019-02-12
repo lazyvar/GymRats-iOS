@@ -59,7 +59,6 @@ class SignUpViewController: FormViewController {
                 self?.hideLoadingBar()
                 GymRatsApp.delegate.appCoordinator.login(user: user)
             }, onError: { [weak self] error in
-                print(error)
                 self?.presentAlert(with: error)
                 self?.hideLoadingBar()
             }).disposed(by: disposeBag)

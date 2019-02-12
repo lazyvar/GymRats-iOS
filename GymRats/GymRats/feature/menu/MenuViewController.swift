@@ -186,9 +186,7 @@ class MenuViewController: UIViewController {
                         }
                     }
                 }, onError: { [weak self] error in
-                    if !(error is SimpleError) {
-                        self?.presentAlert(with: error)
-                    }
+                    self?.presentAlert(with: error)
                 }).disposed(by: self.disposeBag)
         }.disposed(by: disposeBag)
         
