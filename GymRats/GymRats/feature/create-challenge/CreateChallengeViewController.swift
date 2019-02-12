@@ -101,20 +101,6 @@ class CreateChallengeViewController: FormViewController {
             <<< numberOfDayslabel
             <<< pictureRow
 
-        let startingDate = startDateRow.rx.value
-        let endingDate = endDateRow.rx.value
-
-        let numberOfDays = Observable<String>.combineLatest(startingDate, endingDate) { startDateVal, endDateVal in
-            let difference = startDateVal!.getInterval(toDate: endDateVal!, component: .day)
-
-            return "\(difference)"
-        }
-
-        numberOfDays.subscribe(onNext: { val in
-            numberOfDayslabel.value = val
-            numberOfDayslabel.reload()
-        }).disposed(by: disposeBag)
-
         nameRow.rx.value.bind(to: self.name).disposed(by: disposeBag)
         startDateRow.rx.value.bind(to: self.startDate).disposed(by: disposeBag)
         endDateRow.rx.value.bind(to: self.endDate).disposed(by: disposeBag)
@@ -124,6 +110,17 @@ class CreateChallengeViewController: FormViewController {
             .isPresent
             .bind(to: submitButton.rx.isEnabled)
             .disposed(by: disposeBag)
+        
+        let numberOfDays = Observable<String>.combineLatest(startDate, endDate) { startDateVal, endDateVal in
+            let difference = startDateVal!.getInterval(toDate: endDateVal!, component: .day)
+            
+            return "\(difference)"
+        }
+        
+        numberOfDays.subscribe(onNext: { val in
+            numberOfDayslabel.value = val
+            numberOfDayslabel.reload()
+        }).disposed(by: disposeBag)
 
         submitButton.onTouchUpInside { [weak self] in
             self?.createChallenge()
@@ -131,6 +128,14 @@ class CreateChallengeViewController: FormViewController {
     }
     
     func createChallenge() {
+        let difference = startDate.value!.getInterval(toDate: endDate.value!, component: .day)
+
+        guard difference > 0 else {
+            presentAlert(title: "Number of Days Error", message: "The ending date must be further ahead in time than the starting date.")
+            
+            return
+        }
+        
         showLoadingBar(disallowUserInteraction: true)
         
         gymRatsAPI.createChallenge (

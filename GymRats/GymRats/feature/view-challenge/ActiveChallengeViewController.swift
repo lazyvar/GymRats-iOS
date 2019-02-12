@@ -295,6 +295,9 @@ class ActiveChallengeViewController: UITableViewController {
         
         cell.userWorkout = userWorkout
         
+        cell.setNeedsLayout()
+        cell.layoutIfNeeded()
+        
         return cell
     }
     
