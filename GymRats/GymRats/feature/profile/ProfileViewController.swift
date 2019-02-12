@@ -76,8 +76,6 @@ class ProfileViewController: UIViewController {
         return button
     }()
     
-    let workoutsContainer: UIView = UIView()
-    
     init(user: User) {
         self.user = user
         
@@ -177,23 +175,18 @@ class ProfileViewController: UIViewController {
         calendarMenu.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 15
-            layout.width = YGValue(self.view.frame.width - 80)
+            layout.width = YGValue(self.view.frame.width - 70)
             layout.height = 15
+            layout.marginLeft = 20
         }
         
         calendarView.configureLayout { layout in
             layout.isEnabled = true
             layout.flexGrow = 1
             layout.marginTop = 5
-            layout.width = YGValue(self.view.frame.width - 30)
-            layout.height = YGValue(self.view.frame.width - 30)
-        }
-        
-        workoutsContainer.configureLayout { layout in
-            layout.isEnabled = true
-            layout.flexGrow = 1
-            layout.flexDirection = .column
-            layout.justifyContent = .flexStart
+            layout.marginLeft = 20
+            layout.width = YGValue(self.view.frame.width - 70)
+            layout.height = YGValue(self.view.frame.width - 70)
         }
         
         containerView.addSubview(userImageView)
@@ -202,7 +195,6 @@ class ProfileViewController: UIViewController {
         containerView.addSubview(monthContainer)
         containerView.addSubview(calendarMenu)
         containerView.addSubview(calendarView)
-        containerView.addSubview(workoutsContainer)
         
         containerView.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
         containerView.makeScrolly(in: view)
@@ -265,94 +257,133 @@ class ProfileViewController: UIViewController {
     }
     
     func showWorkouts(_ workouts: [Workout]) {
-        UIView.animate(withDuration: 0.25) {
-            self.workoutsContainer.removeAllSubviews()
+        let workoutsContainer = UIView()
+        workoutsContainer.tag = 111
+        
+        workoutsContainer.configureLayout { layout in
+            layout.isEnabled = true
+            layout.flexGrow = 1
+            layout.flexDirection = .column
+            layout.justifyContent = .flexStart
+            layout.paddingLeft = 20
+            layout.paddingRight = 20
+        }
+        
+        for (index, workout) in workouts.enumerated() {
+            let row = UIView()
+            row.tag = index
             
-            for (index, workout) in workouts.enumerated() {
-                let row = UIView()
-                row.tag = index
-                
-                let titleDetailsContainer = UIView()
-                
-                let titleLabel = UILabel()
-                titleLabel.text = workout.title
-                titleLabel.font = .body
-                
-                let detailsLabel = UILabel()
-                detailsLabel.font = .details
-                detailsLabel.text = "Details"
-                
-                let timeLabel: UILabel = UILabel()
-                timeLabel.font = .details
-                timeLabel.text = workout.createdAt.challengeTime
-                timeLabel.textAlignment = .right
-                
-                row.configureLayout { layout in
-                    layout.isEnabled = true
-                    layout.flexDirection = .row
-                    layout.justifyContent = .flexStart
-                    layout.padding = 5
-                }
-                
-                titleDetailsContainer.configureLayout { layout in
-                    layout.isEnabled = true
-                    layout.flexDirection = .column
-                    layout.justifyContent = .flexStart
-                }
-                
-                timeLabel.configureLayout { layout in
-                    layout.isEnabled = true
-                    layout.flexGrow = 1
-                }
-                
-                titleLabel.configureLayout { layout in
-                    layout.isEnabled = true
-                    layout.marginTop = 7
-                    layout.marginRight = 10
-                }
-                
-                detailsLabel.configureLayout { layout in
-                    layout.isEnabled = true
-                    layout.marginTop = 3
-                    layout.marginBottom = 7
-                    layout.marginRight = 10
-                }
-                
-                row.addSubview(titleDetailsContainer)
-                row.addSubview(timeLabel)
-                
-                titleDetailsContainer.addSubview(titleLabel)
-                titleDetailsContainer.addSubview(detailsLabel)
-                
-                titleDetailsContainer.yoga.applyLayout(preservingOrigin: true)
-                row.yoga.applyLayout(preservingOrigin: true)
-                
-                row.addDivider()
-                
-                let tap = UITapGestureRecognizer(target: self, action: #selector(ProfileViewController.transitionToWorkoutScreen(tap:)))
-                tap.numberOfTapsRequired = 1
-                
-                row.addGestureRecognizer(tap)
-                row.isUserInteractionEnabled = true
-                
-                self.workoutsContainer.addSubview(row)
+            let titleDetailsContainer = UIView()
+            
+            let titleLabel = UILabel()
+            titleLabel.text = workout.title
+            titleLabel.font = .body
+            
+            let detailsLabel = UILabel()
+            detailsLabel.font = .details
+            detailsLabel.attributedText = self.detailsLabeText(for: workout)
+            
+            let timeLabel: UILabel = UILabel()
+            timeLabel.font = .details
+            timeLabel.text = workout.createdAt.challengeTime
+            timeLabel.textAlignment = .right
+            
+            row.configureLayout { layout in
+                layout.isEnabled = true
+                layout.flexDirection = .row
+                layout.justifyContent = .flexStart
+                layout.padding = 5
             }
             
-            self.workoutsContainer.configureLayout { layout in
+            titleDetailsContainer.configureLayout { layout in
                 layout.isEnabled = true
-                layout.flexGrow = 1
                 layout.flexDirection = .column
                 layout.justifyContent = .flexStart
             }
             
-            self.workoutsContainer.yoga.applyLayout(preservingOrigin: true)
-            
-            if let containerView = self.containerView {
-                containerView.yoga.applyLayout(preservingOrigin: true)
+            timeLabel.configureLayout { layout in
+                layout.isEnabled = true
+                layout.flexGrow = 1
             }
+            
+            titleLabel.configureLayout { layout in
+                layout.isEnabled = true
+                layout.marginTop = 7
+                layout.marginRight = 10
+            }
+            
+            detailsLabel.configureLayout { layout in
+                layout.isEnabled = true
+                layout.marginTop = 3
+                layout.marginBottom = 7
+                layout.marginRight = 10
+            }
+
+            if let googlePlaceId = workout.googlePlaceId {
+                GService.getPlaceInformation(forPlaceId: googlePlaceId)
+                    .subscribe { event in
+                        if case let .next(val) = event {
+                            UIView.transition (
+                                with: detailsLabel,
+                                duration: 0.2,
+                                options: .transitionCrossDissolve,
+                                animations: { [weak self] in
+                                    detailsLabel.attributedText = self?.detailsLabeText(for: workout, including: val)
+                                }, completion: nil)
+                        }
+                    }.disposed(by: self.disposeBag)
+            }
+            
+            row.addSubview(titleDetailsContainer)
+            row.addSubview(timeLabel)
+            
+            titleDetailsContainer.addSubview(titleLabel)
+            titleDetailsContainer.addSubview(detailsLabel)
+            
+            titleDetailsContainer.yoga.applyLayout(preservingOrigin: true)
+            row.yoga.applyLayout(preservingOrigin: true)
+            
+            row.addDivider()
+            
+            let tap = UITapGestureRecognizer(target: self, action: #selector(ProfileViewController.transitionToWorkoutScreen(tap:)))
+            tap.numberOfTapsRequired = 1
+            
+            row.addGestureRecognizer(tap)
+            row.isUserInteractionEnabled = true
+            
+            workoutsContainer.addSubview(row)
+        }
+        
+        workoutsContainer.yoga.applyLayout(preservingOrigin: true)
+        
+        if let containerView = self.containerView {
+            containerView.subviews.first(where: { $0.tag == 111 })?.removeFromSuperview()
+            containerView.addSubview(workoutsContainer)
+            containerView.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
         }
     }
-    
+
+    private func detailsLabeText(for workout: Workout, including place: Place? = nil) -> NSAttributedString {
+        let details = NSMutableAttributedString()
+        
+        if workout.photoUrl != nil {
+            let cameraImage = NSTextAttachment()
+            cameraImage.image = UIImage(named: "camera")
+            cameraImage.bounds = CGRect(x: 0, y: -2.5, width: 14, height: 14)
+            
+            details.append(NSAttributedString(attachment: cameraImage))
+            details.append(NSAttributedString(string: "  "))
+        }
+        
+        details.append(NSAttributedString(string: "\(user.fullName)"))
+        
+        if let place = place {
+            details.append(NSAttributedString(string: " @ \(place.name)"))
+        }
+        
+        return details
+    }
+
     @objc func transitionToWorkoutScreen(tap: UITapGestureRecognizer) {
         guard let tag = tap.view?.tag else { return }
         
