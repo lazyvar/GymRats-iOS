@@ -26,7 +26,7 @@ extension Array where Element == Challenge {
             let startDate = challenge.startDate
             let endDate = challenge.endDate
             
-            return startDate.isToday || endDate.isToday || (today.compare(.isLater(than: startDate)) && today.compare(.isEarlier(than: startDate)))
+            return startDate.isToday || endDate.isToday || (today.compare(.isLater(than: startDate)) && today.compare(.isEarlier(than: endDate)))
         }
     }
     

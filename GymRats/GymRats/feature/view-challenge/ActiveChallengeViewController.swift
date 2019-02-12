@@ -87,7 +87,7 @@ class ActiveChallengeViewController: UITableViewController {
         )
         
         let bg = UIView(frame: CGRect(x: 0, y: -1000, width: self.tableView.frame.width, height: 1000))
-        bg.backgroundColor = .hex("#4682b4")
+        bg.backgroundColor = .brandDark
         
         tableView.addSubview(bg)
         

@@ -11,9 +11,9 @@ import GooglePlaces
 import Cache
 import RxSwift
 
-class GService {
+enum GService {
     
-    static let placeCache: Storage<Place> = {
+    private static let placeCache: Storage<Place> = {
         let diskConfig = DiskConfig(name: "gr.place.cache", expiry: .seconds(2592000))
         let memoryConfig = MemoryConfig(expiry: .never)
         
