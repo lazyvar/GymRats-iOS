@@ -23,7 +23,8 @@ enum APIRequest {
     case getWorkoutsForChallenge(challenge: Challenge)
     case getWorkoutsForUser(user: User)
     case postWorkout(title: String, description: String?, photoUrl: String?, googlePlaceId: String?)
-    
+    case updateUser(email: String?, name: String?, password: String?, profilePictureUrl: String?)
+        
     var requestProperties: (method: HTTPMethod, path: String, params: Parameters?) {
         switch self {
         case .login(let email, let password):
@@ -79,6 +80,26 @@ enum APIRequest {
             }
 
             return (.post, "workout", params)
+        case .updateUser(email: let email, name: let name, password: let password, profilePictureUrl: let profilePictureUrl):
+            var params: Parameters = [:]
+            
+            if let email = email {
+                params["email"] = email
+            }
+            
+            if let password = password {
+                params["password"] = password
+            }
+            
+            if let profilePictureUrl = profilePictureUrl {
+                params["profile_picture_url"] = profilePictureUrl
+            }
+
+            if let name = name {
+                params["full_name"] = name
+            }
+
+            return (.put, "user", params)
         }
     }
 }
@@ -87,7 +108,7 @@ class GymRatsAPI {
     
     private let networkProvider: NetworkProvider
     
-    init(networkProvider: NetworkProvider = ProductionNetworkProvider()) {
+    init(networkProvider: NetworkProvider = DevelopmentNetworkProvider()) {
         self.networkProvider = networkProvider
     }
     
@@ -194,6 +215,17 @@ class GymRatsAPI {
                 }
         } else {
             return requestObject(.postWorkout(title: title, description: description, photoUrl: nil, googlePlaceId: googlePlaceId))
+        }
+    }
+    
+    func updateUser(email: String?, name: String?, password: String?, profilePicture: UIImage?) -> Observable<User> {
+        if let profilePicture = profilePicture {
+            return ImageService.uploadImageToFirebase(image: profilePicture)
+                .flatMap { url in
+                    return self.requestObject(.updateUser(email: email, name: name, password: password, profilePictureUrl: url))
+            }
+        } else {
+            return self.requestObject(.updateUser(email: email, name: name, password: password, profilePictureUrl: nil))
         }
     }
     

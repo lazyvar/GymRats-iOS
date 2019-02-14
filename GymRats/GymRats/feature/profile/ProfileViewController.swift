@@ -211,11 +211,9 @@ class ProfileViewController: UIViewController {
     }
     
     @objc func transitionToSettings() {
-//        let settings = SettingsViewController()
-//
-//        self.push(settings)
-        
-        GymRatsApp.coordinator.logout()
+        let settings = SettingsViewController()
+
+        self.push(settings)
     }
     
     override func viewDidLayoutSubviews() {
@@ -329,7 +327,8 @@ class ProfileViewController: UIViewController {
                                 options: .transitionCrossDissolve,
                                 animations: { [weak self] in
                                     detailsLabel.attributedText = self?.detailsLabeText(for: workout, including: val)
-                                }, completion: nil)
+                                }, completion: nil
+                            )
                         }
                     }.disposed(by: self.disposeBag)
             }

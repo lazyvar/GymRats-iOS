@@ -24,6 +24,10 @@ enum GService {
         )
     }()
     
+    static func clearCache() {
+        try? placeCache.removeAll()
+    }
+    
     static func getPlaceInformation(forPlaceId placeId: String) -> Observable<Place> {
         return Observable<Place>.create { subscriber  in
             if let place = try? placeCache.entry(forKey: placeId) {

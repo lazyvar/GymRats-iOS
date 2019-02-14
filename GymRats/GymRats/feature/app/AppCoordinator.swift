@@ -83,6 +83,17 @@ class AppCoordinator: Coordinator {
         }
     }
     
+    func updateUser(_ user: User) {
+        self.currentUser = user
+        
+        switch Keychain.gymRats.storeObject(user, forKey: .currentUser) {
+        case .success:
+            print("Woohoo!")
+        case .error(let error):
+            print("Bummer! \(error.description)")
+        }
+    }
+    
     func logout() {
         self.currentUser = nil
         
@@ -120,5 +131,12 @@ extension Keychain.Key where Object == User {
     static var currentUser: Keychain.Key<User> {
         return Keychain.Key<User>(rawValue: "currentUser", synchronize: true)
     }
+    
+}
+
+
+extension NSNotification.Name {
+    
+    static let updatedCurrentUser = NSNotification.Name(rawValue: "GRCurrentUserUpdated")
     
 }

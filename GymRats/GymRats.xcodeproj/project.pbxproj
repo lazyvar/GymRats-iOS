@@ -20,6 +20,8 @@
 		743050622209EA82005D8C52 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743050612209EA82005D8C52 /* UIViewController+Extension.swift */; };
 		743050652209EB9A005D8C52 /* UINavigationBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743050642209EB9A005D8C52 /* UINavigationBar+Extension.swift */; };
 		74305071220A05FC005D8C52 /* GymRatsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74305070220A05FC005D8C52 /* GymRatsApp.swift */; };
+		7432459D2214FAF800A13634 /* ChangeProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7432459C2214FAF800A13634 /* ChangeProfileViewController.swift */; };
+		7432459F2214FE4D00A13634 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7432459E2214FE4D00A13634 /* ChangePasswordViewController.swift */; };
 		7455AC5E22125296005A558A /* ServiceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7455AC5D22125296005A558A /* ServiceResponse.swift */; };
 		7455AC602212585B005A558A /* ChallengeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7455AC5F2212585B005A558A /* ChallengeInfoViewController.swift */; };
 		746764DF220B4829000CFB1B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764DE220B4829000CFB1B /* ProfileViewController.swift */; };
@@ -102,6 +104,8 @@
 		743050612209EA82005D8C52 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		743050642209EB9A005D8C52 /* UINavigationBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Extension.swift"; sourceTree = "<group>"; };
 		74305070220A05FC005D8C52 /* GymRatsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymRatsApp.swift; sourceTree = "<group>"; };
+		7432459C2214FAF800A13634 /* ChangeProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeProfileViewController.swift; sourceTree = "<group>"; };
+		7432459E2214FE4D00A13634 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		7455AC5D22125296005A558A /* ServiceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceResponse.swift; sourceTree = "<group>"; };
 		7455AC5F2212585B005A558A /* ChallengeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoViewController.swift; sourceTree = "<group>"; };
 		746764DE220B4829000CFB1B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -456,6 +460,8 @@
 			isa = PBXGroup;
 			children = (
 				74F4788B220D0A2F005CD4E4 /* SettingsViewController.swift */,
+				7432459C2214FAF800A13634 /* ChangeProfileViewController.swift */,
+				7432459E2214FE4D00A13634 /* ChangePasswordViewController.swift */,
 			);
 			path = settings;
 			sourceTree = "<group>";
@@ -712,6 +718,7 @@
 				74A01B2A220A17EC00431ABD /* JoinChallenge.swift in Sources */,
 				743050622209EA82005D8C52 /* UIViewController+Extension.swift in Sources */,
 				747D6FE32208ED660062BB39 /* WelcomeViewController.swift in Sources */,
+				7432459D2214FAF800A13634 /* ChangeProfileViewController.swift in Sources */,
 				747D6FDE2208E85A0062BB39 /* User.swift in Sources */,
 				7455AC602212585B005A558A /* ChallengeInfoViewController.swift in Sources */,
 				747D6FDC2208E8130062BB39 /* Keychain+Subscripts.swift in Sources */,
@@ -733,6 +740,7 @@
 				748DFB8C220FD882007220C7 /* GService.swift in Sources */,
 				74A01B34220A3B2000431ABD /* Workout.swift in Sources */,
 				74F47889220CECFE005CD4E4 /* ImageService.swift in Sources */,
+				7432459F2214FE4D00A13634 /* ChangePasswordViewController.swift in Sources */,
 				747D6FCD2208DE8E0062BB39 /* NetworkProvider.swift in Sources */,
 				747D6FC52208DCB60062BB39 /* UIView+Extension.swift in Sources */,
 				746764DF220B4829000CFB1B /* ProfileViewController.swift in Sources */,
