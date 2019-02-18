@@ -55,7 +55,7 @@ class NewWorkoutViewController: FormViewController {
         title = "New Workout"
         tableView.backgroundColor = .whiteSmoke
         
-        LabelRow.defaultCellSetup = nil
+        LabelRow.defaultCellUpdate = nil
         setupBackButton()
         
         navigationItem.leftBarButtonItem = UIBarButtonItem (

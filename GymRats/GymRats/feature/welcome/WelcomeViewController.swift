@@ -48,7 +48,6 @@ class WelcomeViewController: UIViewController {
         
         loginButton.configureLayout { layout in
             layout.isEnabled = true
-            layout.marginTop = 15
         }
         
         signUpButton.configureLayout { layout in
@@ -56,7 +55,6 @@ class WelcomeViewController: UIViewController {
             layout.marginTop = 15
         }
 
-        view.addSubview(logoView)
         view.addSubview(loginButton)
         view.addSubview(signUpButton)
         

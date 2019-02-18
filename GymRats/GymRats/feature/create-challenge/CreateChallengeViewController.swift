@@ -37,7 +37,7 @@ class CreateChallengeViewController: FormViewController {
         title = "Start Challenge"
         view.backgroundColor = .white
         
-        LabelRow.defaultCellSetup = nil
+        LabelRow.defaultCellUpdate = nil
         
         navigationItem.leftBarButtonItem = UIBarButtonItem (
             title: "Cancel",
