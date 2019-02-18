@@ -9,13 +9,10 @@ target 'GymRats' do
     pod 'RxAlamofire'
     pod 'Kingfisher', '~> 4.0'
     pod 'RxOptional'
-    pod 'FlexLayout'
     pod 'YogaKit'
-    pod 'SkyFloatingLabelTextField', '~> 3.0'
     pod 'MMDrawerController', '~> 0.5.7'
     pod 'SwiftDate', '~> 5.0'
     pod "AvatarImageView", '~> 2.2.0'
-    pod "GooglePlaces"
     pod 'CVCalendar', '~> 1.6.2'
     pod 'GradientLoadingBar', '~> 1.0'
     pod 'Eureka'
@@ -23,4 +20,7 @@ target 'GymRats' do
     pod 'Firebase/Core'
     pod 'Firebase/Storage'
     pod 'Cache'
+    pod 'Fabric', '~> 1.9.0'
+    pod 'Crashlytics', '~> 3.12.0'
+    pod 'GooglePlaces'
 end

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SkyFloatingLabelTextField
 
 func roundedStyle(cornerRadius: CGFloat = 4) -> ((UIView) -> UIView) {
     return { view in
@@ -70,26 +69,6 @@ extension UIButton {
         return button
     }
 
-}
-
-extension SkyFloatingLabelTextField {
-    
-    static func standardTextField(placeholder: String) -> SkyFloatingLabelTextField {
-        let textField = SkyFloatingLabelTextField()
-        textField.errorColor = .firebrick
-        textField.placeholder = placeholder
-        textField.titleColor = .brand
-        textField.selectedLineColor = .brand
-        textField.lineErrorColor = .brand
-        textField.selectedTitleColor = .brand
-        textField.autocorrectionType = .no
-        textField.autocapitalizationType = .none
-        textField.font = .body
-        textField.titleFont = .bold
-        
-        return textField
-    }
-    
 }
 
 extension UIFont {

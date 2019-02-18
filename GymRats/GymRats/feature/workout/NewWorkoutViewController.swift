@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SkyFloatingLabelTextField
 import RxSwift
 import RxCocoa
 import GooglePlaces

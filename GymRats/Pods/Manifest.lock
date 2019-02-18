@@ -2,8 +2,11 @@ PODS:
   - Alamofire (4.8.1)
   - AvatarImageView (2.2.0)
   - Cache (5.2.0)
+  - Crashlytics (3.12.0):
+    - Fabric (~> 1.9.0)
   - CVCalendar (1.6.2)
   - Eureka (4.3.1)
+  - Fabric (1.9.0)
   - Firebase/Core (5.16.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.5.0)
@@ -32,7 +35,6 @@ PODS:
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 5.2)
     - GTMSessionFetcher/Core (~> 1.1)
-  - FlexLayout (1.3.12)
   - GoogleAppMeasurement (5.5.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
@@ -60,8 +62,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (5.3.7):
     - GoogleUtilities/Logger
-  - GradientLoadingBar (1.1.14):
-    - Observable (~> 1.4)
+  - GradientLoadingBar (1.1.15)
   - GTMSessionFetcher/Core (1.2.1)
   - Kingfisher (4.10.1)
   - MMDrawerController (0.5.7):
@@ -81,14 +82,13 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
-  - Observable (1.4.0)
   - RxAlamofire (4.3.0):
     - RxAlamofire/Core (= 4.3.0)
   - RxAlamofire/Core (4.3.0):
     - Alamofire (~> 4.5)
     - RxSwift (~> 4)
-  - RxAtomic (4.4.0)
-  - RxCocoa (4.4.0):
+  - RxAtomic (4.4.1)
+  - RxCocoa (4.4.1):
     - RxSwift (~> 4.0)
   - RxEureka (0.2.2):
     - Eureka (~> 4.0)
@@ -96,9 +96,8 @@ PODS:
   - RxOptional (3.6.2):
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
-  - RxSwift (4.4.0):
+  - RxSwift (4.4.1):
     - RxAtomic (~> 4.4)
-  - SkyFloatingLabelTextField (3.6.0)
   - SwiftDate (5.1.0)
   - Yoga (1.9.0)
   - YogaKit (1.10.0):
@@ -108,11 +107,12 @@ DEPENDENCIES:
   - Alamofire (~> 4.7)
   - AvatarImageView (~> 2.2.0)
   - Cache
+  - Crashlytics (~> 3.12.0)
   - CVCalendar (~> 1.6.2)
   - Eureka
+  - Fabric (~> 1.9.0)
   - Firebase/Core
   - Firebase/Storage
-  - FlexLayout
   - GooglePlaces
   - GradientLoadingBar (~> 1.0)
   - Kingfisher (~> 4.0)
@@ -122,7 +122,6 @@ DEPENDENCIES:
   - RxEureka (~> 0.2)
   - RxOptional
   - RxSwift (~> 4.0)
-  - SkyFloatingLabelTextField (~> 3.0)
   - SwiftDate (~> 5.0)
   - YogaKit
 
@@ -131,15 +130,16 @@ SPEC REPOS:
     - Alamofire
     - AvatarImageView
     - Cache
+    - Crashlytics
     - CVCalendar
     - Eureka
+    - Fabric
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuthInterop
     - FirebaseCore
     - FirebaseInstanceID
     - FirebaseStorage
-    - FlexLayout
     - GoogleAppMeasurement
     - GoogleMaps
     - GooglePlaces
@@ -149,14 +149,12 @@ SPEC REPOS:
     - Kingfisher
     - MMDrawerController
     - nanopb
-    - Observable
     - RxAlamofire
     - RxAtomic
     - RxCocoa
     - RxEureka
     - RxOptional
     - RxSwift
-    - SkyFloatingLabelTextField
     - SwiftDate
     - Yoga
     - YogaKit
@@ -165,36 +163,35 @@ SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   AvatarImageView: afe8e7eb50181ca3f095e21034f245676b535c55
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
+  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
   CVCalendar: 515092247b9c5059855643c2a2220f259bd5417f
   Eureka: 28ea296f06710f6745266b71f17862048941a32d
+  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   Firebase: 749a8ff4962f9d8c79dda1966de20f6f77583d67
   FirebaseAnalytics: d35d47c03c50c73c14a7fd31463c5775843e78a9
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
   FirebaseCore: ea2d1816723ef21492b8e9113303e1350db5e08c
   FirebaseInstanceID: 97ea7a5dca9afd72c79bfcdddb7a44aa1cbb42a1
   FirebaseStorage: 29075f874c2b3cf61e5221a62c4ceefc809e5412
-  FlexLayout: 7580d328462b39eaa81f5c9ae47f71450870decb
   GoogleAppMeasurement: 621f3bc6211d5ba548debe01fafad30cf5ab6859
   GoogleMaps: 941cd655e009b4d8e42df19a3d749bc3fccec973
   GooglePlaces: c086e0055dc5f0177d7c9d65fc77a1734f9a4825
   GoogleUtilities: 111a012f4c3a29c9e7c954c082fafd6ee3c999c0
-  GradientLoadingBar: f8fcc481f121b3ae651c7b27abec540b7be7fe60
+  GradientLoadingBar: 7d390dbfc3ead827a71a6af39a79533aa432eb37
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   MMDrawerController: 7a4cf8e25596bf2434e03ce50d22a8608ddee6a1
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  Observable: 4b2ee25de74d007d57acdff801925e39f9613544
   RxAlamofire: 09624d0f2d48ed8b686e4eb4cf68e28cbd2df556
-  RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
-  RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
+  RxAtomic: f8d6adc1ccb87a767811269e4875887bc74dbf19
+  RxCocoa: 2f35a76bf8887872e28a1914112395b11b8e0e64
   RxEureka: b8ff9c181316c9cee3c546418c626330f793683f
   RxOptional: 80426a0ddbd092573e4c482d8cc13302078c4d5e
-  RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
-  SkyFloatingLabelTextField: 38164979b79512f9ff9288ad8acfc4bbf5d843e3
+  RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
   SwiftDate: 6329e58969a2de31cea7f1ee1143b247693196e7
   Yoga: aaae8abea68951f60bee05f6277d3eed90bb91bb
   YogaKit: 3107fd5c2c233b540a1c5e376b95ac2c40398d6b
 
-PODFILE CHECKSUM: 1970868587fe2322ce93a61322625aba48a49de3
+PODFILE CHECKSUM: ee2aa87a073b7546c770af5ea5448991b7c91066
 
 COCOAPODS: 1.5.3
