@@ -26,7 +26,6 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         
         tableView.separatorInset = .zero
         tableView.separatorStyle = .none
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: SettingsCellId)
         
         NotificationCenter.default.addObserver(self, selector: #selector(currentUserWasUpdated), name: .updatedCurrentUser, object: nil)
     }
@@ -200,7 +199,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         theCell.isUserInteractionEnabled = true
         
         theCell.textLabel?.font = .body
-        theCell.detailTextLabel?.font = .details
+        theCell.detailTextLabel?.font = .body
         theCell.textLabel?.text = ""
         theCell.detailTextLabel?.text = ""
         theCell.accessoryType = .none
@@ -227,6 +226,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
             case 3:
                 theCell.textLabel?.text = "Password"
                 theCell.accessoryType = .disclosureIndicator
+                theCell.detailTextLabel?.text = "••••••"
             default:
                 break
             }

@@ -58,7 +58,7 @@ class ProfileChangeController: UIViewController, UITextFieldDelegate {
         let keyboardHeight = keyboardRectangle.height
         
         UIView.animate(withDuration: animationDuration, delay: 0.0, options: .curveLinear, animations: {
-            self.saveButton.frame = CGRect(x: 0, y: self.view.frame.height - keyboardHeight - 44, width: self.view.frame.width, height: 44)
+            self.saveButton.frame = CGRect(x: 0, y: self.view.frame.height - keyboardHeight - 44 - 20, width: self.view.frame.width, height: 44)
         }, completion: nil)
     }
     
@@ -83,7 +83,7 @@ class ProfileChangeController: UIViewController, UITextFieldDelegate {
         view.addConstraintsWithFormat(format: "V:|-76-[v0(44)]", views: textField)
         
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: saveButton)
-        view.addConstraintsWithFormat(format: "V:[v0(44)]|", views: saveButton)
+        view.addConstraintsWithFormat(format: "V:[v0(44)]-20-|", views: saveButton)
         
         switch change {
         case .email:
@@ -104,17 +104,23 @@ class ProfileChangeController: UIViewController, UITextFieldDelegate {
     @objc func tappedSave() {
         showLoadingBar()
         
-        if (textField.text ?? "").isEmpty {
-            return
-        }
+        let text = textField.text ?? ""
+        
+        guard !text.isEmpty else { return }
         
         let observable: Observable<User>
         
         switch change {
         case .fullName:
-            observable = gymRatsAPI.updateUser(email: nil, name: textField.text, password: nil, profilePicture: nil)
+            observable = gymRatsAPI.updateUser(email: nil, name: text, password: nil, profilePicture: nil)
         case .email:
-            observable = gymRatsAPI.updateUser(email: textField.text, name: nil, password: nil, profilePicture: nil)
+            guard text.isValidEmail() else {
+                presentAlert(title: "Invalid Email", message: "Please provide a valid email address.")
+                
+                return
+            }
+            
+            observable = gymRatsAPI.updateUser(email: text, name: nil, password: nil, profilePicture: nil)
         }
         
         observable.subscribe { event in
@@ -186,4 +192,15 @@ class OHTextField: UITextField {
         return bounds.insetBy(dx: 10, dy: 10)
     }
     
+}
+
+extension String {
+    
+    func isValidEmail() -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: self)
+    }
+
 }

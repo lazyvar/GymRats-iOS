@@ -58,7 +58,7 @@ class NewWorkoutViewController: FormViewController {
         LabelRow.defaultCellSetup = nil
         setupBackButton()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem (
+        navigationItem.leftBarButtonItem = UIBarButtonItem (
             title: "Cancel",
             style: .plain,
             target: self,

@@ -42,8 +42,8 @@ enum JoinChallenge {
                 textField.placeholder = "Code"
             }
             
-            alert.addAction(ok)
             alert.addAction(cancelAction)
+            alert.addAction(ok)
 
             viewController.present(alert, animated: true, completion: nil)
         

@@ -39,7 +39,7 @@ class CreateChallengeViewController: FormViewController {
         
         LabelRow.defaultCellSetup = nil
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem (
+        navigationItem.leftBarButtonItem = UIBarButtonItem (
             title: "Cancel",
             style: .plain,
             target: self,
