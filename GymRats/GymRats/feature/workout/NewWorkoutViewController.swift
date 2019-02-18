@@ -55,6 +55,8 @@ class NewWorkoutViewController: FormViewController {
         title = "New Workout"
         view.backgroundColor = .white
         
+        LabelRow.defaultCellSetup = nil
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem (
             title: "Cancel",
             style: .plain,
