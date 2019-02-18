@@ -53,9 +53,10 @@ class NewWorkoutViewController: FormViewController {
         super.viewDidLoad()
 
         title = "New Workout"
-        view.backgroundColor = .white
+        tableView.backgroundColor = .whiteSmoke
         
         LabelRow.defaultCellSetup = nil
+        setupBackButton()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem (
             title: "Cancel",
@@ -88,12 +89,7 @@ class NewWorkoutViewController: FormViewController {
             cell.textLabel?.font = .body
         }
         
-        form +++ Section() { $0.tag = "the-form" }
-            <<< titleRow
-            <<< descriptionRow
-            <<< photoRow
-            <<< placeButtonRow
-        +++ Section() {
+        form +++ Section() {
             let footerBuilder = { () -> UIView in
                 let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
                 self.submitButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40)
@@ -101,15 +97,29 @@ class NewWorkoutViewController: FormViewController {
                 
                 container.addSubview(self.submitButton)
                 
+                let textLabel = UILabel()
+                textLabel.font = .details
+                textLabel.textColor = .fog
+                textLabel.numberOfLines = 0
+                textLabel.textAlignment = .center
+                textLabel.text = "Either a photo or a location is required to post a workout."
+                textLabel.frame = CGRect(x: 0, y: 50, width: self.view.frame.width, height: 20)
+                
+                container.addSubview(textLabel)
+                
                 return container
             }
-        
+            
             var footer = HeaderFooterView<UIView>(.callback(footerBuilder))
-            footer.height = { 40 }
-        
-            $0.tag = "submit"
+            footer.height = { 70 }
+            
+            $0.tag = "the-form"
             $0.footer = footer
         }
+            <<< titleRow
+            <<< descriptionRow
+            <<< photoRow
+            <<< placeButtonRow
 
         placeLikelihoods.asObservable()
             .subscribe { [weak self] event in
@@ -138,8 +148,7 @@ class NewWorkoutViewController: FormViewController {
         Observable<Bool>.combineLatest(titlePresent, photoPresent, placePresent) { titlePresent, photoPresent, placePresent in
             return titlePresent && (photoPresent || placePresent)
         }
-        .map { $0.toggled }
-        .bind(to: self.submitButton.rx.isHidden).disposed(by: disposeBag)
+        .bind(to: self.submitButton.rx.isEnabled).disposed(by: disposeBag)
         
         submitButton.onTouchUpInside { [weak self] in
             self?.postWorkout()
