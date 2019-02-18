@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import YogaKit
 
-class MenuViewController: UIViewController {
+class MenuViewController: UITableViewController {
 
     static let menuWidth: CGFloat = 180
     
@@ -22,81 +22,34 @@ class MenuViewController: UIViewController {
         let label = UILabel()
         label.font = .body
         label.textAlignment = .center
-        label.textColor = .charcoal
+        label.textColor = .brand
         
         return label
     }()
     
-    let activeButton: LeftAlignedIconButton = {
-        let button = LeftAlignedIconButton()
-        button.setTitle("Active", for: .normal)
-        button.setImage(UIImage(named: "activity")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
-        button.titleLabel?.font = .h4
-        button.setTitleColor(.brand, for: .normal)
-        button.tintColor = .brand
-        
-        return button
-    }()
-
-    let joinChallenge: LeftAlignedIconButton = {
-        let button = LeftAlignedIconButton()
-        button.setTitle("Join", for: .normal)
-        button.setImage(UIImage(named: "plus-circle")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
-        button.titleLabel?.font = .h4
-        button.setTitleColor(.charcoal, for: .normal)
-        button.tintColor = .charcoal
-
-        return button
-    }()
-
-    let createChallengeButton: LeftAlignedIconButton = {
-        let button = LeftAlignedIconButton()
-        button.setTitle("Start", for: .normal)
-        button.setImage(UIImage(named: "play")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
-        button.titleLabel?.font = .h4
-        button.setTitleColor(.charcoal, for: .normal)
-        button.tintColor = .charcoal
-        
-        return button
-    }()
-
-    let archivedButton: LeftAlignedIconButton = {
-        let button = LeftAlignedIconButton()
-        button.setTitle("Archived", for: .normal)
-        button.setImage(UIImage(named: "archive")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
-        button.titleLabel?.font = .h4
-        button.setTitleColor(.charcoal, for: .normal)
-        button.tintColor = .charcoal
-
-        return button
-    }()
-
-    let aboutButton: LeftAlignedIconButton = {
-        let button = LeftAlignedIconButton()
-        button.setTitle("About", for: .normal)
-        button.setImage(UIImage(named: "info")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
-        button.titleLabel?.font = .h4
-        button.setTitleColor(.charcoal, for: .normal)
-        button.tintColor = .charcoal
-        
-        return button
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let containerView = UIView()
-        containerView.frame = view.frame
-        containerView.backgroundColor = .white
-
-        containerView.backgroundColor = .whiteSmoke
+        
         containerView.configureLayout { layout in
             layout.isEnabled = true
             layout.flexDirection = .column
             layout.justifyContent = .flexStart
             layout.alignContent = .flexStart
             layout.width = YGValue(MenuViewController.menuWidth)
-            layout.paddingTop = 80
+            layout.paddingTop = 60
+            layout.padding = 10
+            layout.paddingBottom = 24
+        }
+        
+        userImageView.load(avatarInfo: GymRatsApp.coordinator.currentUser)
+        
+        userImageView.configureLayout { layout in
+            layout.isEnabled = true
+            layout.width = 80
+            layout.height = 80
+            layout.margin = 5
         }
         
         let imageViewContainer = UIView()
@@ -108,109 +61,32 @@ class MenuViewController: UIViewController {
             layout.justifyContent = .center
         }
         
-        userImageView.configureLayout { layout in
-            layout.isEnabled = true
-            layout.width = YGValue(MenuViewController.menuWidth / 2)
-            layout.height = YGValue(MenuViewController.menuWidth / 2)
-            layout.margin = 5
-        }
+        usernameLabel.text = GymRatsApp.coordinator.currentUser.fullName
         
         usernameLabel.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 5
         }
         
-        activeButton.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 35
-            layout.marginLeft = 20
-        }
-
-        joinChallenge.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 15
-            layout.marginLeft = 20
-        }
-
-        createChallengeButton.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 15
-            layout.marginLeft = 20
-        }
-
-        archivedButton.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 15
-            layout.marginLeft = 20
-        }
-
-        aboutButton.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 15
-            layout.marginLeft = 20
-        }
-
-        usernameLabel.text = GymRatsApp.coordinator.currentUser.fullName
-        userImageView.load(avatarInfo: GymRatsApp.coordinator.currentUser)
-        
         imageViewContainer.addSubview(userImageView)
-
+        
         imageViewContainer.yoga.applyLayout(preservingOrigin: true)
         
         containerView.addSubview(imageViewContainer)
         containerView.addSubview(usernameLabel)
-        containerView.addSubview(activeButton)
-        containerView.addSubview(joinChallenge)
-        containerView.addSubview(createChallengeButton)
-        containerView.addSubview(archivedButton)
-        containerView.addSubview(aboutButton)
         
         containerView.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
-        containerView.makeScrolly(in: view)
 
-        joinChallenge.onTouchUpInside { [weak self] in
-            guard let self = self else { return }
-            
-            JoinChallenge.presentJoinChallengeModal(on: self)
-                .subscribe(onNext: { _ in
-                    if let nav = GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController {
-                        if let home = nav.children.first as? HomeViewController {
-                            home.fetchAllChallenges()
-                            
-                            GymRatsApp.coordinator.drawer.closeDrawer(animated: true, completion: nil)
-                        } else {
-                            let center = HomeViewController()
-                            let nav = GRNavigationController(rootViewController: center)
-
-                            GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
-                        }
-                    }
-                }, onError: { [weak self] error in
-                    self?.presentAlert(with: error)
-                }).disposed(by: self.disposeBag)
-        }.disposed(by: disposeBag)
+        tableView.tableHeaderView = containerView
         
-        createChallengeButton.onTouchUpInside { [weak self] in
-            let createChallengeViewController = CreateChallengeViewController()
-            createChallengeViewController.delegate = self
-            
-            let nav = GRNavigationController(rootViewController: createChallengeViewController)
-            nav.navigationBar.turnBrandColorSlightShadow()
-            
-            self?.present(nav, animated: true, completion: nil)
-        }.disposed(by: disposeBag)
-        
-        activeButton.onTouchUpInside {
-            let center = HomeViewController()
-            let nav = GRNavigationController(rootViewController: center)
-            
-            GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
-        }.disposed(by: disposeBag)
-    
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.gotoCurrentUserProfile))
         tap.numberOfTapsRequired = 1
         
         userImageView.addGestureRecognizer(tap)
+        
+        tableView.separatorStyle = .none
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MenuCell")
+        tableView.backgroundColor = .whiteSmoke
     }
     
     @objc func gotoCurrentUserProfile() {
@@ -223,6 +99,86 @@ class MenuViewController: UIViewController {
         GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
     }
     
+}
+
+extension MenuViewController {
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell")!
+        
+        cell.textLabel?.font = .body
+        cell.backgroundColor = .whiteSmoke
+        cell.imageView?.tintColor = .brand
+        cell.textLabel?.textColor = .brand
+
+        switch indexPath.row {
+        case 0:
+            cell.textLabel?.text = "Active"
+            cell.imageView?.image = UIImage(named: "activity")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        case 1:
+            cell.textLabel?.text = "Join"
+            cell.imageView?.image = UIImage(named: "plus-circle")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        case 2:
+            cell.textLabel?.text = "Start"
+            cell.imageView?.image = UIImage(named: "play")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        case 3:
+            cell.textLabel?.text = "About"
+            cell.imageView?.image = UIImage(named: "archive")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        default:
+            fatalError("Unhandled row")
+        }
+        
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        switch indexPath.row {
+        case 0:
+            let center = HomeViewController()
+            let nav = GRNavigationController(rootViewController: center)
+            
+            GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+        case 1:
+            JoinChallenge.presentJoinChallengeModal(on: self)
+                .subscribe(onNext: { _ in
+                    if let nav = GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController {
+                        if let home = nav.children.first as? HomeViewController {
+                            home.fetchAllChallenges()
+                            
+                            GymRatsApp.coordinator.drawer.closeDrawer(animated: true, completion: nil)
+                        } else {
+                            let center = HomeViewController()
+                            let nav = GRNavigationController(rootViewController: center)
+                            
+                            GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+                        }
+                    }
+                }, onError: { [weak self] error in
+                    self?.presentAlert(with: error)
+                }).disposed(by: self.disposeBag)
+        case 2:
+            let createChallengeViewController = CreateChallengeViewController()
+            createChallengeViewController.delegate = self
+            
+            let nav = GRNavigationController(rootViewController: createChallengeViewController)
+            nav.navigationBar.turnBrandColorSlightShadow()
+            
+            self.present(nav, animated: true, completion: nil)
+        default:
+            break
+        }
+    }
+
 }
 
 extension MenuViewController: CreateChallengeDelegate {
