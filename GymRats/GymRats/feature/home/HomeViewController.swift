@@ -25,7 +25,16 @@ class HomeViewController: UIViewController {
         
         return label
     }()
-    
+
+    let detailsLabel: UILabel = {
+        let label = UILabel()
+        label.font = .body
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        
+        return label
+    }()
+
     let joinChallengeButton: UIButton = .secondary(text: "Join Challenge")
     let createChallengeButton: UIButton = .secondary(text: "Start Challenge")
     
@@ -76,7 +85,7 @@ class HomeViewController: UIViewController {
                 let activeChallenges = challenges.getActiveChallenges()
                 
                 if activeChallenges.isEmpty {
-                    self?.showEmptyState()
+                    self?.showEmptyState(challenges: challenges)
                 } else {
                     if activeChallenges.count > 1 {
                         // memeber of multiple active challenges
@@ -93,7 +102,7 @@ class HomeViewController: UIViewController {
             }).disposed(by: disposeBag)
     }
     
-    func showEmptyState() {
+    func showEmptyState(challenges: [Challenge]) {
         navigationItem.rightBarButtonItem = nil
         
         view.configureLayout { layout in
@@ -110,18 +119,37 @@ class HomeViewController: UIViewController {
             layout.marginTop = 15
         }
         
+        view.addSubview(titleLabel)
+
+        let upcomingChallengeCount = challenges.getUpcomingChallenges().count
+        
+        if upcomingChallengeCount > 0 {
+            if upcomingChallengeCount == 1 {
+                detailsLabel.text = "You have 1 upcoming challenge."
+            } else {
+                detailsLabel.text = "You have \(upcomingChallengeCount) upcoming challenges."
+            }
+            
+            detailsLabel.configureLayout { layout in
+                layout.isEnabled = true
+                layout.marginTop = 15
+            }
+            
+            view.addSubview(detailsLabel)
+        }
+        
         joinChallengeButton.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 15
         }
+        
+        view.addSubview(joinChallengeButton)
         
         createChallengeButton.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 15
         }
         
-        view.addSubview(titleLabel)
-        view.addSubview(joinChallengeButton)
         view.addSubview(createChallengeButton)
         
         view.yoga.applyLayout(preservingOrigin: true)

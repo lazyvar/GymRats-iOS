@@ -122,7 +122,7 @@ class ActiveChallengeViewController: UITableViewController {
             layout.isEnabled = true
         }
         
-        let difference = challenge.startDate.getInterval(toDate: challenge.endDate, component: .day)
+        let difference = Date().getInterval(toDate: challenge.endDate, component: .day)
         
         let daysLeft = UILabel()
         daysLeft.font = .details

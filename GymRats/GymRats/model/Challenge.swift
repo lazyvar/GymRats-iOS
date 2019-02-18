@@ -34,6 +34,10 @@ extension Array where Element == Challenge {
         return self.filter { Date() > $0.endDate }
     }
     
+    func getUpcomingChallenges() -> [Challenge] {
+        return self.filter { Date() < $0.startDate }
+    }
+    
 }
 
 extension Challenge: AvatarProtocol {
