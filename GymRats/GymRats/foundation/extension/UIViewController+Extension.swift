@@ -101,7 +101,7 @@ extension UIViewController {
 
 extension UIViewController: NewWorkoutDelegate {
     
-    func workoutCreated(workout: Workout) {
+    func workoutCreated(workouts: [Workout]) {
         (self as? ActiveChallengeViewController)?.fetchUserWorkouts()
     }
     

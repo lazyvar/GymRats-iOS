@@ -16,6 +16,7 @@ class WorkoutViewController: UIViewController {
     let disposeBag = DisposeBag()
     let user: User
     let workout: Workout
+    let challenge: Challenge?
     
     let refresher = UIRefreshControl()
     
@@ -27,9 +28,10 @@ class WorkoutViewController: UIViewController {
         return label
     }()
     
-    init(user: User, workout: Workout) {
+    init(user: User, workout: Workout, challenge: Challenge?) {
         self.user = user
         self.workout = workout
+        self.challenge = challenge
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -195,7 +197,7 @@ class WorkoutViewController: UIViewController {
     }
     
     @objc func transitionToProfile() {
-        self.push(ProfileViewController(user: user))
+        self.push(ProfileViewController(user: user, challenge: challenge))
     }
     
 }

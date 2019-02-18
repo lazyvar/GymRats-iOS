@@ -214,7 +214,7 @@ class MenuViewController: UIViewController {
     }
     
     @objc func gotoCurrentUserProfile() {
-        let profile = ProfileViewController(user: GymRatsApp.coordinator.currentUser)
+        let profile = ProfileViewController(user: GymRatsApp.coordinator.currentUser, challenge: nil)
         let nav = GRNavigationController(rootViewController: profile)
     
         profile.setupMenuButton()

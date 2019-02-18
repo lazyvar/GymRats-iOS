@@ -21,7 +21,8 @@ enum APIRequest {
     case createChallenge(startDate: Date, endDate: Date, challengeName: String, photoUrl: String?)
     case getUsersForChallenge(challenge: Challenge)
     case getWorkoutsForChallenge(challenge: Challenge)
-    case getWorkoutsForUser(user: User)
+    case getAllWorkoutsForUser(user: User)
+    case getWorkouts(forUser: User, inChallenge: Challenge)
     case postWorkout(title: String, description: String?, photoUrl: String?, googlePlaceId: String?)
     case updateUser(email: String?, name: String?, password: String?, profilePictureUrl: String?)
         
@@ -62,8 +63,10 @@ enum APIRequest {
             return (.get, "challenge/\(challenge.id)/user", nil)
         case .getWorkoutsForChallenge(challenge: let challenge):
             return (.get, "challenge/\(challenge.id)/workout", nil)
-        case .getWorkoutsForUser(user: let user):
+        case .getAllWorkoutsForUser(user: let user):
             return (.get, "workout/user/\(user.id)", nil)
+        case .getWorkouts(forUser: let user, inChallenge: let challenge):
+            return (.get, "challenge/\(challenge.id)/workout/user/\(user.id)", nil)
         case .postWorkout(title: let title, description: let description, photoUrl: let photoUrl, googlePlaceId: let googlePlaceId):
             var params: Parameters = ["title": title]
             
@@ -203,11 +206,15 @@ class GymRatsAPI {
         return requestArray(.getWorkoutsForChallenge(challenge: challenge))
     }
     
-    func getWorkouts(for user: User) -> Observable<[Workout]> {
-        return requestArray(.getWorkoutsForUser(user: user))
+    func getAllWorkouts(for user: User) -> Observable<[Workout]> {
+        return requestArray(.getAllWorkoutsForUser(user: user))
     }
 
-    func postWorkout(title: String, description: String?, photo: UIImage?, googlePlaceId: String?) -> Observable<Workout> {
+    func getWorkouts(for user: User, in challenge: Challenge) -> Observable<[Workout]> {
+        return requestArray(.getWorkouts(forUser: user, inChallenge: challenge))
+    }
+
+    func postWorkout(title: String, description: String?, photo: UIImage?, googlePlaceId: String?) -> Observable<[Workout]> {
         if let photo = photo {
             return ImageService.uploadImageToFirebase(image: photo)
                 .flatMap { url in

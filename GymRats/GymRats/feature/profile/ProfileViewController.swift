@@ -16,6 +16,7 @@ class ProfileViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     let user: User
+    let challenge: Challenge?
     
     var workouts: [Workout] = []
     
@@ -76,8 +77,9 @@ class ProfileViewController: UIViewController {
         return button
     }()
     
-    init(user: User) {
+    init(user: User, challenge: Challenge?) {
         self.user = user
+        self.challenge = challenge
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -225,16 +227,35 @@ class ProfileViewController: UIViewController {
     }
     
     func loadWorkouts() {
-        let workouts = gymRatsAPI.getWorkouts(for: user)
+        let workouts: Observable<[Workout]>
+        
+        if let challenge = challenge {
+            workouts = gymRatsAPI.getWorkouts(for: user, in: challenge)
+        } else {
+            workouts = gymRatsAPI.getAllWorkouts(for: user)
+        }
         
         showLoadingBar()
         
-        workouts.map { "Total workouts: \($0.count)" }
+        let mappedWorkouts = workouts.map { workouts in
+            return workouts.reduce([], { (workouts, workout) -> [Workout] in
+                if workouts.contains(where: { anotherWorkout in
+                    workout.challengeId != anotherWorkout.challengeId &&
+                    workout.createdAt.compareCloseTo(anotherWorkout.createdAt, precision: 3600)
+                }) {
+                    return workouts
+                } else {
+                    return workouts + [workout]
+                }
+            })
+        }
+        
+        mappedWorkouts.map { "Total workouts: \($0.count)" }
             .catchErrorJustReturn("Total workouts: -")
             .bind(to: totalWorkoutsLabel.rx.text)
             .disposed(by: disposeBag)
         
-        workouts.subscribe { [weak self] event in
+        mappedWorkouts.subscribe { [weak self] event in
             self?.hideLoadingBar()
             
             switch event {
@@ -279,6 +300,7 @@ class ProfileViewController: UIViewController {
             
             let detailsLabel = UILabel()
             detailsLabel.font = .details
+            detailsLabel.numberOfLines = 0
             detailsLabel.attributedText = self.detailsLabeText(for: workout)
             
             let timeLabel: UILabel = UILabel()
@@ -314,7 +336,7 @@ class ProfileViewController: UIViewController {
                 layout.isEnabled = true
                 layout.marginTop = 3
                 layout.marginBottom = 7
-                layout.marginRight = 10
+                layout.paddingRight = 10
             }
 
             if let googlePlaceId = workout.googlePlaceId {
@@ -339,7 +361,7 @@ class ProfileViewController: UIViewController {
             titleDetailsContainer.addSubview(titleLabel)
             titleDetailsContainer.addSubview(detailsLabel)
             
-            titleDetailsContainer.yoga.applyLayout(preservingOrigin: true)
+            titleDetailsContainer.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
             row.yoga.applyLayout(preservingOrigin: true)
             
             row.addDivider()
@@ -389,7 +411,7 @@ class ProfileViewController: UIViewController {
         let date = self.calendarView.presentedDate.convertedDate()!
         
         if let workout = self.workouts.workouts(on: date)[safe: tag] {
-            self.push(WorkoutViewController(user: user, workout: workout))
+            self.push(WorkoutViewController(user: user, workout: workout, challenge: challenge))
         }
     }
 

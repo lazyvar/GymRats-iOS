@@ -329,11 +329,11 @@ class ActiveChallengeViewController: UITableViewController {
         let userWorkout = userWorkoutsForCurrentDate[indexPath.row]
         
         if let workout = userWorkout.workout {
-            let workoutViewController = WorkoutViewController(user: userWorkout.user, workout: workout)
+            let workoutViewController = WorkoutViewController(user: userWorkout.user, workout: workout, challenge: challenge)
             
             push(workoutViewController)
         } else {
-            let profileViewController = ProfileViewController(user: userWorkout.user)
+            let profileViewController = ProfileViewController(user: userWorkout.user, challenge: challenge)
             
             push(profileViewController)
         }

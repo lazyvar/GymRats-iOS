@@ -15,7 +15,7 @@ import Eureka
 import RxEureka
 
 protocol NewWorkoutDelegate: class {
-    func workoutCreated(workout: Workout)
+    func workoutCreated(workouts: [Workout])
 }
 
 class NewWorkoutViewController: FormViewController {
@@ -184,10 +184,10 @@ class NewWorkoutViewController: FormViewController {
             description: workoutDescription.value,
             photo: photo.value,
             googlePlaceId: place.value?.id
-        ).subscribe(onNext: { [weak self] workout in
+        ).subscribe(onNext: { [weak self] workouts in
             self?.hideLoadingBar()
             self?.dismissSelf()
-            self?.delegate?.workoutCreated(workout: workout)
+            self?.delegate?.workoutCreated(workouts: workouts)
         }, onError: { [weak self] error in
             self?.presentAlert(with: error)
             self?.hideLoadingBar()
