@@ -396,10 +396,8 @@ class ProfileViewController: UIViewController {
             details.append(NSAttributedString(string: "  "))
         }
         
-        details.append(NSAttributedString(string: "\(user.fullName)"))
-        
         if let place = place {
-            details.append(NSAttributedString(string: " @ \(place.name)"))
+            details.append(NSAttributedString(string: " \(place.name)"))
         }
         
         return details

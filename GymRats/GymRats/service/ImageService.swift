@@ -19,7 +19,7 @@ class ImageService {
             let data: Data = image.jpegData(compressionQuality: 0.55)!
             let storage = Storage.storage()
             let storageRef = storage.reference()
-            let photoRef = storageRef.child("workout/\(uuid).jpg")
+            let photoRef = storageRef.child("\(uuid).jpg")
             
             // Create file metadata including the content type
             let metadata = StorageMetadata()
