@@ -98,6 +98,10 @@ class ActiveChallengeViewController: UITableViewController {
         
         tableView.addSubview(refresher)
         
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.init("WorkoutDeleted"), object: nil, queue: nil) { notification in
+            self.fetchUserWorkouts()
+        }
+        
         let container = UIView()
         
         let headerView = UIView()
@@ -127,8 +131,13 @@ class ActiveChallengeViewController: UITableViewController {
         let daysLeft = UILabel()
         daysLeft.font = .details
         daysLeft.textAlignment = .center
-        daysLeft.text =  "\(difference) days remaining"
         daysLeft.textColor = .white
+
+        if difference == 0 {
+            daysLeft.text =  "Last day"
+        } else {
+            daysLeft.text =  "\(difference) days remaining"
+        }
         
         daysLeft.configureLayout { layout in
             layout.isEnabled = true

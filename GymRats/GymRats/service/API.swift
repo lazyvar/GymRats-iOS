@@ -25,7 +25,8 @@ enum APIRequest {
     case getWorkouts(forUser: User, inChallenge: Challenge)
     case postWorkout(title: String, description: String?, photoUrl: String?, googlePlaceId: String?)
     case updateUser(email: String?, name: String?, password: String?, profilePictureUrl: String?)
-        
+    case deleteWorkout(_ workout: Workout)
+    
     var requestProperties: (method: HTTPMethod, path: String, params: Parameters?) {
         switch self {
         case .login(let email, let password):
@@ -103,6 +104,8 @@ enum APIRequest {
             }
 
             return (.put, "user", params)
+        case .deleteWorkout(let workout):
+            return (.delete, "workout/\(workout.id)", nil)
         }
     }
 }
@@ -234,6 +237,10 @@ class GymRatsAPI {
         } else {
             return self.requestObject(.updateUser(email: email, name: name, password: password, profilePictureUrl: nil))
         }
+    }
+    
+    func deleteWorkout(_ workout: Workout) -> Observable<Workout> {
+        return requestObject(.deleteWorkout(workout))
     }
     
 }

@@ -42,6 +42,13 @@ class WorkoutViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem (
+            image: UIImage(named: "more-vertical"),
+            style: .plain,
+            target: self,
+            action: #selector(showMenu)
+        )
 
         setupBackButton()
         
@@ -198,6 +205,31 @@ class WorkoutViewController: UIViewController {
     
     @objc func transitionToProfile() {
         self.push(ProfileViewController(user: user, challenge: challenge))
+    }
+    
+    @objc func showMenu() {
+        let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "Remove workout", style: .destructive) { _ in
+            self.showLoadingBar()
+            gymRatsAPI.deleteWorkout(self.workout)
+                .subscribe({ event in
+                    self.hideLoadingBar()
+                    
+                    switch event {
+                    case .error(let error):
+                        self.presentAlert(with: error)
+                    case .next:
+                        self.navigationController?.popViewController(animated: true)
+                        NotificationCenter.default.post(name: NSNotification.Name.init("WorkoutDeleted"), object: self.workout)
+                    case .completed:
+                        break
+                    }
+                }).disposed(by: self.disposeBag)
+        }
+        
+        alertViewController.addAction(deleteAction)
+        
+        self.present(alertViewController, animated: true, completion: nil)
     }
     
 }

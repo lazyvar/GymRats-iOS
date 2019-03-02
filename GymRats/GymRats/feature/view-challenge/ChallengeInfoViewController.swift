@@ -93,7 +93,12 @@ class ChallengeInfoViewController: UITableViewController {
         let daysLeft = UILabel()
         daysLeft.font = .details
         daysLeft.textAlignment = .center
-        daysLeft.text =  "\(difference) days remaining (\(challenge.endDate.toFormat("MMM d")))"
+        
+        if difference == 0 {
+            daysLeft.text =  "Last day (\(challenge.endDate.toFormat("MMM d")))"
+        } else {
+            daysLeft.text =  "\(difference) days remaining (\(challenge.endDate.toFormat("MMM d")))"
+        }
         
         daysLeft.configureLayout { layout in
             layout.isEnabled = true

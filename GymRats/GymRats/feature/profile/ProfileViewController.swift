@@ -210,6 +210,10 @@ class ProfileViewController: UIViewController {
         }.disposed(by: disposeBag)
         
         loadWorkouts()
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.init("WorkoutDeleted"), object: nil, queue: nil) { notification in
+            self.loadWorkouts()
+        }
     }
     
     @objc func transitionToSettings() {
