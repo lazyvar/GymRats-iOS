@@ -90,12 +90,25 @@ class UserWorkoutTableViewCell: UITableViewCell {
     
     var challenge: Challenge! {
         didSet {
+            titleLabel.isHidden = false
+            detailsLabel.isHidden = false
             userImageView.load(avatarInfo: challenge)
-            
-            fullNameLabel.isHidden = false
-            fullNameLabel.text = challenge.name
-            
-            accessoryType = .disclosureIndicator
+            titleLabel.text = challenge.name
+
+            if challenge.isActive {
+                let difference = Date().getInterval(toDate: challenge.endDate, component: .day)
+                
+                if difference == 0 {
+                    detailsLabel.text = "Last day"
+                } else {
+                    detailsLabel.text = "\(difference) days remaining"
+                }
+                
+                accessoryType = .disclosureIndicator
+            } else {
+                detailsLabel.text = "Starts \(challenge.endDate.toFormat("MMMM d")) - Join using \(challenge.code)"
+                contentView.alpha = 0.333
+            }
         }
     }
 

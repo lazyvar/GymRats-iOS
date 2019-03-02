@@ -18,16 +18,27 @@ struct Challenge: Codable {
     let timeZone: String
 }
 
+extension Challenge {
+    
+    var isActive: Bool {
+        let today = Date().challengeDate()
+
+         return startDate.isToday || endDate.isToday || (today.compare(.isLater(than: startDate)) && today.compare(.isEarlier(than: endDate)))
+    }
+    
+}
+
 extension Array where Element == Challenge {
     
-    func getActiveChallenges() -> [Challenge] {
+    func getActiveAndUpcomingChallenges() -> [Challenge] {
+        let today = Date().challengeDate()
+
         return self.filter { challenge in
-            let today = Date().challengeDate()
             let startDate = challenge.startDate
             let endDate = challenge.endDate
             
-            return startDate.isToday || endDate.isToday || (today.compare(.isLater(than: startDate)) && today.compare(.isEarlier(than: endDate)))
-        }
+            return startDate.isToday || endDate.isToday || today.compare(.isEarlier(than: endDate))
+        }.sorted(by: { $0.isActive && !$1.isActive })
     }
     
     func getInActiveChallenges() -> [Challenge] {

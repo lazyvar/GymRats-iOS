@@ -92,17 +92,17 @@ class HomeViewController: UITableViewController {
                 self?.hideLoadingBar()
                 self?.refresher.endRefreshing()
                 
-                let activeChallenges = challenges.getActiveChallenges()
+                let activeAndUpcomingChallenges = challenges.getActiveAndUpcomingChallenges()
                 
-                if activeChallenges.isEmpty {
+                if activeAndUpcomingChallenges.isEmpty {
                     self?.showEmptyState(challenges: challenges)
                 } else {
-                    if activeChallenges.count > 1 {
+                    if activeAndUpcomingChallenges.count > 1 {
                         // memeber of multiple active challenges
-                        self?.showMulitpleChallenges(challenges: activeChallenges)
+                        self?.showMulitpleChallenges(challenges: activeAndUpcomingChallenges)
                     } else {
                         // member on single active challenge
-                        self?.showSingleChallenge(challenge: activeChallenges[0])
+                        self?.showSingleChallenge(challenge: activeAndUpcomingChallenges[0])
                     }
                 }
             }, onError: { [weak self] error in
@@ -201,7 +201,9 @@ class HomeViewController: UITableViewController {
         
         let challenge = challenges[indexPath.row]
         
-        push(ActiveChallengeViewController(challenge: challenge))
+        if challenge.isActive {
+            push(ActiveChallengeViewController(challenge: challenge))
+        }
     }
 
 }
