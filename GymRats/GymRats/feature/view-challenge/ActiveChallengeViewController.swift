@@ -145,6 +145,14 @@ class ActiveChallengeViewController: UITableViewController {
         headerView.addGestureRecognizer(tap)
         headerView.isUserInteractionEnabled = true
         
+        let chevronImageView = UIImageView(image: UIImage(named: "chevron-right"))
+        chevronImageView.contentMode = .center
+        
+        headerView.addSubview(chevronImageView)
+        
+        headerView.addConstraintsWithFormat(format: "H:[v0]-10-|", views: chevronImageView)
+        headerView.addConstraintsWithFormat(format: "V:|[v0]|", views: chevronImageView)
+
         container.configureLayout { layout in
             layout.isEnabled = true
             layout.flexDirection = .column

@@ -59,8 +59,6 @@ extension UIViewController {
         setupMenuButton()
         setupBackButton()
         
-        title = "Gym Rats"
-                
         navigationItem.rightBarButtonItem = UIBarButtonItem (
             image: UIImage(named: "kettle-bell"),
             style: .plain,

@@ -111,7 +111,7 @@ class GymRatsAPI {
     
     private let networkProvider: NetworkProvider
     
-    init(networkProvider: NetworkProvider = ProductionNetworkProvider()) {
+    init(networkProvider: NetworkProvider = DevelopmentNetworkProvider()) {
         self.networkProvider = networkProvider
     }
     

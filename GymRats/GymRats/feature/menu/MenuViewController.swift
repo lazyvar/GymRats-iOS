@@ -131,7 +131,7 @@ extension MenuViewController {
             cell.imageView?.image = UIImage(named: "play")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         case 3:
             cell.textLabel?.text = "About"
-            cell.imageView?.image = UIImage(named: "archive")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+            cell.imageView?.image = UIImage(named: "info")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         default:
             fatalError("Unhandled row")
         }

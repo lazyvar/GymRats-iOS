@@ -27,7 +27,6 @@
 		746764DF220B4829000CFB1B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764DE220B4829000CFB1B /* ProfileViewController.swift */; };
 		746764E1220B5A93000CFB1B /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E0220B5A93000CFB1B /* Switch.swift */; };
 		746764E3220B6D5C000CFB1B /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E2220B6D5C000CFB1B /* Collection+Extension.swift */; };
-		746764E5220B7ACE000CFB1B /* MultipleActiveChallengesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E4220B7ACE000CFB1B /* MultipleActiveChallengesViewController.swift */; };
 		746764E7220BAE44000CFB1B /* NewWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E6220BAE44000CFB1B /* NewWorkoutViewController.swift */; };
 		746764EA220BCB5C000CFB1B /* GRNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E8220BCB5C000CFB1B /* GRNavigationController.swift */; };
 		746764EB220BCB5C000CFB1B /* GRNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 746764E9220BCB5C000CFB1B /* GRNavigationController.xib */; };
@@ -111,7 +110,6 @@
 		746764DE220B4829000CFB1B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		746764E0220B5A93000CFB1B /* Switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
 		746764E2220B6D5C000CFB1B /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
-		746764E4220B7ACE000CFB1B /* MultipleActiveChallengesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleActiveChallengesViewController.swift; sourceTree = "<group>"; };
 		746764E6220BAE44000CFB1B /* NewWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkoutViewController.swift; sourceTree = "<group>"; };
 		746764E8220BCB5C000CFB1B /* GRNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRNavigationController.swift; sourceTree = "<group>"; };
 		746764E9220BCB5C000CFB1B /* GRNavigationController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GRNavigationController.xib; sourceTree = "<group>"; };
@@ -423,7 +421,6 @@
 				74A01B31220A380700431ABD /* ActiveChallengeViewController.swift */,
 				74A01B39220A544F00431ABD /* UserWorkoutTableViewCell.swift */,
 				74A01B3A220A544F00431ABD /* UserWorkoutTableViewCell.xib */,
-				746764E4220B7ACE000CFB1B /* MultipleActiveChallengesViewController.swift */,
 				7455AC5F2212585B005A558A /* ChallengeInfoViewController.swift */,
 			);
 			path = "view-challenge";
@@ -711,7 +708,6 @@
 			files = (
 				74A01B40220A560800431ABD /* RingView.swift in Sources */,
 				74A01B2F220A1CD900431ABD /* CreateChallengeViewController.swift in Sources */,
-				746764E5220B7ACE000CFB1B /* MultipleActiveChallengesViewController.swift in Sources */,
 				746764E7220BAE44000CFB1B /* NewWorkoutViewController.swift in Sources */,
 				7455AC5E22125296005A558A /* ServiceResponse.swift in Sources */,
 				747D6FD82208E8130062BB39 /* KeychainErrors.swift in Sources */,
