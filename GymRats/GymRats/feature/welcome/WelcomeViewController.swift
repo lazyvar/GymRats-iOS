@@ -29,7 +29,7 @@ class WelcomeViewController: UIViewController {
         
         setupBackButton()
         
-        view.backgroundColor = .brand
+        view.backgroundColor = .whiteSmoke
         
         view.configureLayout { layout in
             layout.isEnabled = true
@@ -54,6 +54,7 @@ class WelcomeViewController: UIViewController {
             layout.marginTop = 15
         }
 
+        view.addSubview(logoView)
         view.addSubview(loginButton)
         view.addSubview(signUpButton)
         

@@ -50,3 +50,19 @@ open class ImagePickerController: UIImagePickerController, TypedRowControllerTyp
     }
     
 }
+
+//if let meta = info[UIImagePickerController.InfoKey.mediaMetadata] {
+//    print(meta)
+//} else {
+//    if let url = info[UIImagePickerController.InfoKey.referenceURL] as? URL { // Its possible that there will not be a date present
+//        let assetsLibrary = ALAssetsLibrary()
+//        assetsLibrary.asset(for: url, resultBlock: { (asset: ALAsset!) -> Void in
+//            if let date = asset.value(forProperty: ALAssetPropertyDate) as? Date {
+//                print("\(date)\n")
+//            }
+//
+//        }) { (error: Error?) -> Void in
+//            // Handle error
+//        }
+//    }
+//}
