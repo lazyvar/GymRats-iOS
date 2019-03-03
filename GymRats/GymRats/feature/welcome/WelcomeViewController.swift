@@ -14,7 +14,7 @@ class WelcomeViewController: UIViewController {
     let disposeBag = DisposeBag()
     
     let logoView: UIImageView = {
-        let imageView = UIImageView(image: #imageLiteral(resourceName: "gr-logo"))
+        let imageView = UIImageView(image: UIImage(named: "mr-rat"))
         imageView.contentMode = .scaleAspectFit
         
         return imageView
@@ -31,35 +31,31 @@ class WelcomeViewController: UIViewController {
         
         view.backgroundColor = .whiteSmoke
         
-        view.configureLayout { layout in
-            layout.isEnabled = true
-            layout.flexDirection = .column
-            layout.justifyContent = .center
-            layout.alignContent = .center
-            layout.padding = 64
-        }
+        let logoBackground = UIView()
+        logoBackground.backgroundColor = .brandDark
         
-        logoView.configureLayout { layout in
-            layout.isEnabled = true
-            layout.alignContent = .center
-            layout.justifyContent = .center
-        }
+        let text = UILabel()
+        text.textColor = .brand
+        text.font = .h2
+        text.text = "Welcome to GymRats."
+        text.textAlignment = .center
         
-        loginButton.configureLayout { layout in
-            layout.isEnabled = true
-        }
+        logoBackground.addSubview(logoView)
+        logoBackground.addConstraintsWithFormat(format: "V:|[v0]|", views: logoView)
+        logoBackground.addConstraintsWithFormat(format: "H:|[v0]|", views: logoView)
         
-        signUpButton.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 15
-        }
-
-        view.addSubview(logoView)
+        view.addSubview(logoBackground)
+        view.addSubview(text)
         view.addSubview(loginButton)
         view.addSubview(signUpButton)
         
-        view.yoga.applyLayout(preservingOrigin: true)
+        view.addConstraintsWithFormat(format: "V:|[v0(144)]-20-[v1]-20-[v2]-15-[v3]", views: logoBackground, text, loginButton, signUpButton)
         
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: logoBackground)
+        view.addConstraintsWithFormat(format: "H:|[v0]|", views: text)
+        view.addConstraintsWithFormat(format: "H:|-64-[v0]-64-|", views: loginButton)
+        view.addConstraintsWithFormat(format: "H:|-64-[v0]-64-|", views: signUpButton)
+
         loginButton.onTouchUpInside { [weak self] in
             self?.push(LoginViewController())
         }.disposed(by: disposeBag)
