@@ -58,6 +58,7 @@ class CreateChallengeViewController: FormViewController {
         let pictureRow = ImageRow("photo") {
             $0.title = "Picture"
             $0.placeholderImage = UIImage(named: "photo")
+            $0.sourceTypes = [.Camera, .PhotoLibrary]
         }.cellSetup { cell, _ in
             cell.textLabel?.font = .body
         }

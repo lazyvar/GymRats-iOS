@@ -69,6 +69,7 @@ class SignUpViewController: FormViewController {
             imageRow.title = "Profile Picture"
             imageRow.tag = "proPic"
             imageRow.placeholderImage = UIImage(named: "photo")
+            imageRow.sourceTypes = [.Camera, .PhotoLibrary]
         }
     }()
     
