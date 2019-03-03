@@ -16,6 +16,11 @@ class GRNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationBar.tintColor = .whiteSmoke
+        navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.whiteSmoke
+        ]
+        
         navigationBar.turnBrandColorSlightShadow()
 
         let gradientColorList = [

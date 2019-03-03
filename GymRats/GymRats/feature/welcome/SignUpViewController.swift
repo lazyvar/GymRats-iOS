@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import Eureka
+import TTTAttributedLabel
 
 class SignUpViewController: FormViewController {
     
@@ -79,17 +80,38 @@ class SignUpViewController: FormViewController {
     
     lazy var sectionFooter: HeaderFooterView<UIView> = {
         let footerBuilder = { () -> UIView in
-            let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
+            let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 100))
+            
+            let label = TTTAttributedLabel(frame: CGRect(x: 24, y: 56, width: self.view.frame.width-48, height: 50))
+            label.font = .body
+            label.numberOfLines = 0
+            label.textAlignment = .center
+            label.isUserInteractionEnabled = true
+            label.delegate = self
+            
+            let disclosure = "By signing up you are agreeing to the\nTerms of Service and Privacy Policy"
+            
+            label.text = disclosure
+            
+            let termsRange = (disclosure as NSString).range(of: "Terms of Service")
+            let privacyRange = (disclosure as NSString).range(of: "Privacy Policy")
+            let termsUrl = URL(string: "https://gym-rats-api.herokuapp.com/terms.html")!
+            let privacyUrl = URL(string: "https://gym-rats-api.herokuapp.com/privacy.html")!
+            
+            label.addLink(to: termsUrl, with: termsRange)
+            label.addLink(to: privacyUrl, with: privacyRange)
+            
             self.signUpButton.layer.cornerRadius = 0
             self.signUpButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40)
-            
+
             container.addSubview(self.signUpButton)
+            container.addSubview(label)
             
             return container
         }
         
         var footer = HeaderFooterView<UIView>(.callback(footerBuilder))
-        footer.height = { 40 }
+        footer.height = { 222 }
         
         return footer
     }()
@@ -219,6 +241,17 @@ extension SignUpViewController {
                 section.insert(labelRow, at: validationLabelRowNumber + index)
             }
         }
+    }
+    
+}
+
+extension SignUpViewController: TTTAttributedLabelDelegate {
+    
+    func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
+        let webView = WebViewController(url: url)
+        let nav = UINavigationController(rootViewController: webView)
+        
+        self.present(nav, animated: true, completion: nil)
     }
     
 }

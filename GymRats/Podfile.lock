@@ -99,6 +99,7 @@ PODS:
   - RxSwift (4.4.1):
     - RxAtomic (~> 4.4)
   - SwiftDate (5.1.0)
+  - TTTAttributedLabel (2.0.0)
   - Yoga (1.9.0)
   - YogaKit (1.10.0):
     - Yoga (~> 1.9)
@@ -123,6 +124,7 @@ DEPENDENCIES:
   - RxOptional
   - RxSwift (~> 4.0)
   - SwiftDate (~> 5.0)
+  - TTTAttributedLabel
   - YogaKit
 
 SPEC REPOS:
@@ -156,6 +158,7 @@ SPEC REPOS:
     - RxOptional
     - RxSwift
     - SwiftDate
+    - TTTAttributedLabel
     - Yoga
     - YogaKit
 
@@ -189,9 +192,10 @@ SPEC CHECKSUMS:
   RxOptional: 80426a0ddbd092573e4c482d8cc13302078c4d5e
   RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
   SwiftDate: 6329e58969a2de31cea7f1ee1143b247693196e7
+  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   Yoga: aaae8abea68951f60bee05f6277d3eed90bb91bb
   YogaKit: 3107fd5c2c233b540a1c5e376b95ac2c40398d6b
 
-PODFILE CHECKSUM: ee2aa87a073b7546c770af5ea5448991b7c91066
+PODFILE CHECKSUM: 84b5053ac0b1aae467a8447c3b350c584bfce69a
 
 COCOAPODS: 1.5.3

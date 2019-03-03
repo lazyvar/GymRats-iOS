@@ -10,6 +10,7 @@ import UIKit
 import Cache
 import Kingfisher
 import RxSwift
+import SafariServices
 
 private let SettingsCellId = "SettingsCell"
 
@@ -47,7 +48,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
             label.text = "PROFILE"
             break
         case 1:
-            label.text = "INFO"
+            label.text = "APP INFO"
             break
         case 2:
             label.text = "STORAGE"
@@ -162,16 +163,26 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
                 break
             }
         case 1:
-            // TODO
             switch indexPath.row {
             case 0:
-                UIApplication.shared.openURL(URL(string: "http://outhere.social")!)
+                if let reviewURL = URL(string: "itms-apps://itunes.apple.com/us/app/apple-store/1453444814?mt=8"), UIApplication.shared.canOpenURL(reviewURL) {
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(reviewURL, options: [:], completionHandler: nil)
+                    } else {
+                        UIApplication.shared.openURL(reviewURL)
+                    }
+                }
             case 1:
-                UIApplication.shared.openURL(URL(string: "http://outhere.social/terms")!)
+                self.openURLInAppBrowser(url: "https://gym-rats-api.herokuapp.com/terms.html")
             case 2:
-                UIApplication.shared.openURL(URL(string: "http://outhere.social/privacy")!)
+                self.openURLInAppBrowser(url: "https://gym-rats-api.herokuapp.com/privacy.html")
             case 3:
-                UIApplication.shared.openURL(URL(string: "mailto:support@outhere.social")!)
+                let url = URL(string: "mailto:gymratsapp@gmail.com")!
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
             default:
                 break
             }
@@ -186,6 +197,13 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         default:
             break
         }
+    }
+    
+    func openURLInAppBrowser(url: String) {
+        let webView = WebViewController(string: url)
+        let nav = UINavigationController(rootViewController: webView)
+        
+        self.present(nav, animated: true, completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -233,7 +251,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         case 1:
             switch indexPath.row {
             case 0:
-                theCell.textLabel?.text = "gymrats.app/"
+                theCell.textLabel?.text = "App Store"
             case 1:
                 theCell.textLabel?.text = "Terms of Service"
             case 2:

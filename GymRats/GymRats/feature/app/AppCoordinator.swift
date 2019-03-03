@@ -39,12 +39,7 @@ class AppCoordinator: Coordinator {
         
         NetworkActivityLogger.shared.level = .debug
         NetworkActivityLogger.shared.startLogging()
-        
-        UINavigationBar.appearance().tintColor = .whiteSmoke
-        UINavigationBar.appearance().titleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.whiteSmoke
-        ]
-        
+                
         GMSPlacesClient.provideAPIKey("AIzaSyD1X4TH-TneFnDqjiJ2rb2FGgxK8JZyrIo")
         FirebaseApp.configure()
         UIApplication.shared.statusBarStyle = .lightContent
