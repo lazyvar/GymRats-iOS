@@ -106,7 +106,7 @@ class UserWorkoutTableViewCell: UITableViewCell {
                 
                 accessoryType = .disclosureIndicator
             } else {
-                detailsLabel.text = "Starts \(challenge.endDate.toFormat("MMMM d")) - Join using \(challenge.code)"
+                detailsLabel.text = "Starts \(challenge.startDate.toFormat("MMMM d")) - Join using \(challenge.code)"
                 contentView.alpha = 0.333
             }
         }
