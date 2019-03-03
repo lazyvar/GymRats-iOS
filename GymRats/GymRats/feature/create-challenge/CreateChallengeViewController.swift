@@ -48,7 +48,7 @@ class CreateChallengeViewController: FormViewController {
         
         let nameRow = TextRow("name") {
             $0.title = "Name"
-            $0.placeholder = "Best Rats"
+            $0.placeholder = "Beast Rats"
         }.cellSetup { cell, _ in
             cell.tintColor = .brand
             cell.textLabel?.font = .body

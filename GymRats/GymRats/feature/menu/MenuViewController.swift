@@ -174,6 +174,11 @@ extension MenuViewController {
             nav.navigationBar.turnBrandColorSlightShadow()
             
             self.present(nav, animated: true, completion: nil)
+        case 3:
+            let center = AboutViewController()
+            let nav = GRNavigationController(rootViewController: center)
+            
+            GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
         default:
             break
         }
