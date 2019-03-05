@@ -208,27 +208,41 @@ class WorkoutViewController: UIViewController {
     }
     
     @objc func showMenu() {
-        let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let deleteAction = UIAlertAction(title: "Remove workout", style: .destructive) { _ in
-            self.showLoadingBar()
-            gymRatsAPI.deleteWorkout(self.workout)
-                .subscribe({ event in
-                    self.hideLoadingBar()
-                    
-                    switch event {
-                    case .error(let error):
-                        self.presentAlert(with: error)
-                    case .next:
-                        self.navigationController?.popViewController(animated: true)
-                        NotificationCenter.default.post(name: NSNotification.Name.init("WorkoutDeleted"), object: self.workout)
-                    case .completed:
-                        break
-                    }
-                }).disposed(by: self.disposeBag)
+            let areYouSureAlert = UIAlertController(title: "Are you sure?", message: "You will not be able to recover a workout once it has been removed.", preferredStyle: .alert)
+            
+            let deleteAction = UIAlertAction(title: "Remove", style: .destructive) { _ in
+                self.showLoadingBar()
+                gymRatsAPI.deleteWorkout(self.workout)
+                    .subscribe({ event in
+                        self.hideLoadingBar()
+                        
+                        switch event {
+                        case .error(let error):
+                            self.presentAlert(with: error)
+                        case .next:
+                            self.navigationController?.popViewController(animated: true)
+                            NotificationCenter.default.post(name: NSNotification.Name.init("WorkoutDeleted"), object: self.workout)
+                        case .completed:
+                            break
+                        }
+                    }).disposed(by: self.disposeBag)
+            }
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            areYouSureAlert.addAction(deleteAction)
+            areYouSureAlert.addAction(cancelAction)
+            
+            self.present(areYouSureAlert, animated: true, completion: nil)
         }
         
-        alertViewController.addAction(deleteAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
+        let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertViewController.addAction(deleteAction)
+        alertViewController.addAction(cancelAction)
+
         self.present(alertViewController, animated: true, completion: nil)
     }
     
