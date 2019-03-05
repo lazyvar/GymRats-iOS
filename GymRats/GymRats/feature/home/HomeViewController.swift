@@ -101,8 +101,15 @@ class HomeViewController: UITableViewController {
                         // memeber of multiple active challenges
                         self?.showMulitpleChallenges(challenges: activeAndUpcomingChallenges)
                     } else {
-                        // member on single active challenge
-                        self?.showSingleChallenge(challenge: activeAndUpcomingChallenges[0])
+                        let challenge = activeAndUpcomingChallenges[0]
+                        
+                        if challenge.isActive {
+                            // member on single active challenge
+                            self?.showSingleChallenge(challenge: activeAndUpcomingChallenges[0])
+                        } else {
+                            // inactive, show multiple screen
+                            self?.showMulitpleChallenges(challenges: activeAndUpcomingChallenges)
+                        }
                     }
                 }
             }, onError: { [weak self] error in
