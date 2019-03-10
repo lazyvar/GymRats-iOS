@@ -19,7 +19,7 @@ struct UserWorkout {
 
 class ActiveChallengeViewController: UITableViewController {
 
-    static var timeZone: String = TimeZone.current.abbreviation()!
+    static let timeZone: String = "EST"
     
     let disposeBag = DisposeBag()
     let challenge: Challenge
@@ -67,7 +67,7 @@ class ActiveChallengeViewController: UITableViewController {
         
         super.init(nibName: nil, bundle: nil)
         
-        ActiveChallengeViewController.timeZone = challenge.timeZone
+        // ActiveChallengeViewController.timeZone = challenge.timeZone
     }
     
     required init?(coder aDecoder: NSCoder) {
