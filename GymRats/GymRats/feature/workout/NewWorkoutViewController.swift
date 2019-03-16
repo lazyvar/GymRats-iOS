@@ -85,6 +85,7 @@ class NewWorkoutViewController: FormViewController {
             $0.title = "Take Photo"
             $0.placeholderImage = UIImage(named: "photo")
             $0.sourceTypes = [.Camera, .SavedPhotosAlbum]
+            $0.validatePhotoWasTakenToday = true
         }.cellSetup { cell, _ in
             cell.textLabel?.font = .body
         }

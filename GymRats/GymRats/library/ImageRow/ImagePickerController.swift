@@ -24,6 +24,7 @@
 
 import Eureka
 import Foundation
+import AssetsLibrary
 
 /// Selector Controller used to pick an image
 open class ImagePickerController: UIImagePickerController, TypedRowControllerType, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -39,10 +40,36 @@ open class ImagePickerController: UIImagePickerController, TypedRowControllerTyp
         delegate = self
     }
     
+    public var validatePhotoWasTakenToday: Bool = false
+    
     open func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        (row as? ImageRow)?.imageURL = info[.referenceURL] as? URL
-        row.value = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage
-        onDismissCallback?(self)
+        
+        if validatePhotoWasTakenToday {
+            if let meta = info[.mediaMetadata] {
+                print(meta)
+            } else {
+                if let url = info[UIImagePickerController.InfoKey.referenceURL] as? URL {
+                    let assetsLibrary = ALAssetsLibrary()
+                    assetsLibrary.asset(for: url, resultBlock: { (asset: ALAsset!) -> Void in
+                        if let date = asset.value(forProperty: ALAssetPropertyDate) as? Date {
+                            if date.isToday {
+                                (self.row as? ImageRow)?.imageURL = info[.referenceURL] as? URL
+                                self.row.value = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage
+                                self.onDismissCallback?(self)
+                            } else {
+                                self.presentAlert(title: "Photo Not Taken Today", message: "A photo can only be posted for a workout if it was taken today.")
+                            }
+                        }
+                    }) { (error: Error?) -> Void in
+                        self.presentAlert(title: "Permission Required", message: "Permission was be given for photos blah blah blah.")
+                    }
+                }
+            }
+        } else {
+            (row as? ImageRow)?.imageURL = info[.referenceURL] as? URL
+            row.value = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage
+            onDismissCallback?(self)
+        }
     }
 
     open func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
@@ -51,18 +78,3 @@ open class ImagePickerController: UIImagePickerController, TypedRowControllerTyp
     
 }
 
-//if let meta = info[UIImagePickerController.InfoKey.mediaMetadata] {
-//    print(meta)
-//} else {
-//    if let url = info[UIImagePickerController.InfoKey.referenceURL] as? URL { // Its possible that there will not be a date present
-//        let assetsLibrary = ALAssetsLibrary()
-//        assetsLibrary.asset(for: url, resultBlock: { (asset: ALAsset!) -> Void in
-//            if let date = asset.value(forProperty: ALAssetPropertyDate) as? Date {
-//                print("\(date)\n")
-//            }
-//
-//        }) { (error: Error?) -> Void in
-//            // Handle error
-//        }
-//    }
-//}

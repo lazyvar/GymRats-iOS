@@ -78,13 +78,20 @@ open class _ImageRow<Cell: CellType>: OptionsRow<Cell>, PresenterRowType, ImageR
   open var clearAction = ImageClearAction.yes(style: .destructive)
   open var placeholderImage: UIImage?
 
-    private var _sourceType: UIImagePickerController.SourceType = .camera
+  open var validatePhotoWasTakenToday: Bool = false
+    
+  private var _sourceType: UIImagePickerController.SourceType = .camera
 
   public required init(tag: String?) {
     sourceTypes = .All
     super.init(tag: tag)
 
-    presentationMode = .presentModally(controllerProvider: ControllerProvider.callback { return ImagePickerController() }, onDismiss: { [weak self] vc in
+    presentationMode = .presentModally(controllerProvider: ControllerProvider.callback {
+        let imagePickerController = ImagePickerController()
+        imagePickerController.validatePhotoWasTakenToday = self.validatePhotoWasTakenToday
+        
+        return imagePickerController
+    }, onDismiss: { [weak self] vc in
       self?.select()
       vc.dismiss(animated: true)
     })
