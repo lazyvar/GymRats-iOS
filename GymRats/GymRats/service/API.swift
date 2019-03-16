@@ -26,6 +26,8 @@ enum APIRequest {
     case postWorkout(title: String, description: String?, photoUrl: String?, googlePlaceId: String?)
     case updateUser(email: String?, name: String?, password: String?, profilePictureUrl: String?)
     case deleteWorkout(_ workout: Workout)
+    case getCommentsForWorkout(_ workout: Workout)
+    case postComment(comment: String, workout: Workout)
     
     var requestProperties: (method: HTTPMethod, path: String, params: Parameters?) {
         switch self {
@@ -106,6 +108,14 @@ enum APIRequest {
             return (.put, "user", params)
         case .deleteWorkout(let workout):
             return (.delete, "workout/\(workout.id)", nil)
+        case .getCommentsForWorkout(let workout):
+            return (.get, "workout/\(workout.id)/comment", nil)
+        case .postComment(comment: let comment, workout: let workout):
+            let params: Parameters = [
+                "content": comment,
+            ]
+            
+            return (.post, "workout/\(workout.id)/comment", params)
         }
     }
 }
@@ -114,7 +124,7 @@ class GymRatsAPI {
     
     private let networkProvider: NetworkProvider
     
-    init(networkProvider: NetworkProvider = ProductionNetworkProvider()) {
+    init(networkProvider: NetworkProvider = DevelopmentNetworkProvider()) {
         self.networkProvider = networkProvider
     }
     
@@ -241,6 +251,14 @@ class GymRatsAPI {
     
     func deleteWorkout(_ workout: Workout) -> Observable<Workout> {
         return requestObject(.deleteWorkout(workout))
+    }
+    
+    func getComments(for workout: Workout) -> Observable<[Comment]> {
+        return requestArray(.getCommentsForWorkout(workout))
+    }
+    
+    func post(comment: String, on workout: Workout) -> Observable<[Comment]> {
+        return requestArray(.postComment(comment: comment, workout: workout))
     }
     
 }

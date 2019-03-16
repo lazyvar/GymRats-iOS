@@ -11,12 +11,14 @@ import RxSwift
 import YogaKit
 import MapKit
 
-class WorkoutViewController: UIViewController {
+class WorkoutViewController: UITableViewController {
 
     let disposeBag = DisposeBag()
     let user: User
     let workout: Workout
     let challenge: Challenge?
+    
+    var comments: [Comment] = []
     
     let refresher = UIRefreshControl()
     
@@ -200,7 +202,71 @@ class WorkoutViewController: UIViewController {
         }
 
         containerView.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
-        containerView.makeScrolly(in: view)
+
+        let footerView = UIView()
+        
+        let imageView = UserImageView()
+        imageView.load(avatarInfo: GymRatsApp.coordinator.currentUser)
+        
+        let textField = UITextField()
+        textField.borderStyle = .roundedRect
+        textField.placeholder = "Enter comment"
+        textField.delegate = self
+        textField.returnKeyType = .send
+        textField.isUserInteractionEnabled = true
+        textField.font = .details
+        
+        footerView.isUserInteractionEnabled = true
+        footerView.addSubview(imageView)
+        footerView.addSubview(textField)
+        
+        footerView.addConstraintsWithFormat(format: "V:|-10-[v0(30)]-4-|", views: imageView)
+        footerView.addConstraintsWithFormat(format: "V:|-10-[v0(30)]-4-|", views: textField)
+        footerView.addConstraintsWithFormat(format: "H:|-15-[v0(30)]-10-[v1]-15-|", views: imageView, textField)
+
+        tableView.tableHeaderView = containerView
+        tableView.tableFooterView = footerView
+        tableView.separatorStyle = .none
+        tableView.addSubview(refresher)
+        tableView.register(UINib(nibName: "CommentTableViewCell", bundle: nil), forCellReuseIdentifier: "CommentTableViewCell")
+
+        refresher.addTarget(self, action: #selector(fetchComments), for: .valueChanged)
+        
+        fetchComments()
+    }
+    
+    @objc func fetchComments() {
+        refresher.beginRefreshing()
+        
+        gymRatsAPI.getComments(for: workout)
+            .subscribe { event in
+                self.refresher.endRefreshing()
+                
+                switch event {
+                case .next(let comments):
+                    self.comments = comments
+                    self.tableView.reloadData()
+                default: break
+                }
+            }.disposed(by: disposeBag)
+    }
+    
+    func postComment(_ comment: String) {
+        self.showLoadingBar()
+        
+        gymRatsAPI.post(comment: comment, on: workout)
+            .subscribe { event in
+                self.hideLoadingBar()
+                
+                switch event {
+                case .next(let comments):
+                    self.comments = comments
+                    self.tableView.reloadData()
+                case .error(let error):
+                    self.presentAlert(with: error)
+                default: break
+                }
+            }.disposed(by: disposeBag)
     }
     
     @objc func transitionToProfile() {
@@ -244,6 +310,57 @@ class WorkoutViewController: UIViewController {
         alertViewController.addAction(cancelAction)
 
         self.present(alertViewController, animated: true, completion: nil)
+    }
+    
+}
+
+extension WorkoutViewController {
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return comments.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell") as! CommentTableViewCell
+        let comment = comments[indexPath.row]
+        let user: User = Cache.users[comment.gymRatsUserId] ?? GymRatsApp.coordinator.currentUser
+        
+        cell.userImageView.load(avatarInfo: user)
+        cell.nameLabel.text = user.fullName
+        cell.commentLabel.text = comment.content
+        
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let comment = comments[indexPath.row]
+        let user: User = Cache.users[comment.gymRatsUserId] ?? GymRatsApp.coordinator.currentUser
+
+        push(ProfileViewController(user: user, challenge: challenge))
+    }
+    
+}
+
+extension WorkoutViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let text = textField.text ?? ""
+        
+        guard !text.isEmpty else { return true }
+        
+        postComment(text)
+        
+        return true
     }
     
 }

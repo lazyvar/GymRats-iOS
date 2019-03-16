@@ -74,6 +74,7 @@ extension UIButton {
 extension UIFont {
     static let body = UIFont(name: "Lato-Regular", size: 16)!
     static let details = UIFont(name: "Lato-Regular", size: 13)!
+    static let detailsBold = UIFont(name: "Lato-Bold", size: 13)!
     static let h1 = UIFont(name: "Lato-Regular", size: 28)!
     static let h2 = UIFont(name: "Lato-Regular", size: 24)!
     static let h3 = UIFont(name: "Lato-Regular", size: 20)!

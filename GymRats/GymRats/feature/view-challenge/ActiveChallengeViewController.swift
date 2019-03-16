@@ -286,6 +286,16 @@ class ActiveChallengeViewController: UITableViewController {
             self.hideLoadingBar()
             self.refresher.endRefreshing()
         }).disposed(by: disposeBag)
+        
+        users.subscribe { event in
+            switch event {
+            case .next(let users):
+                for user in users {
+                    Cache.users[user.id] = user
+                }
+            default: break
+            }
+        }.disposed(by: disposeBag)
     }
 
     @objc func presentChallengeInfo() {
