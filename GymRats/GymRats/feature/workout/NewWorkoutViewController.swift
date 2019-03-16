@@ -102,7 +102,7 @@ class NewWorkoutViewController: FormViewController {
                 textLabel.textColor = .fog
                 textLabel.numberOfLines = 0
                 textLabel.textAlignment = .center
-                textLabel.text = "Either a photo or a location is required to post a workout."
+                textLabel.text = "A photo is required to post a workout."
                 textLabel.frame = CGRect(x: 0, y: 50, width: self.view.frame.width, height: 20)
                 
                 container.addSubview(textLabel)
@@ -143,10 +143,9 @@ class NewWorkoutViewController: FormViewController {
         
         let titlePresent = self.workoutTitle.asObservable().isPresent
         let photoPresent = self.photo.asObservable().isPresent
-        let placePresent = self.place.asObservable().isPresent
         
-        Observable<Bool>.combineLatest(titlePresent, photoPresent, placePresent) { titlePresent, photoPresent, placePresent in
-            return titlePresent && (photoPresent || placePresent)
+        Observable<Bool>.combineLatest(titlePresent, photoPresent) { titlePresent, photoPresent in
+            return titlePresent && photoPresent
         }
         .bind(to: self.submitButton.rx.isEnabled).disposed(by: disposeBag)
         
