@@ -21,7 +21,7 @@ class WorkoutViewController: UITableViewController {
     var comments: [Comment] = []
     
     let refresher = UIRefreshControl()
-    
+    weak var textField: UITextField?
     let userImageView: UserImageView = UserImageView()
     
     let usernameLabel: UILabel = {
@@ -201,31 +201,9 @@ class WorkoutViewController: UITableViewController {
             containerView.addSubview(descriptionLabel)
         }
 
-        containerView.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
-
-        let footerView = UIView()
-        
-        let imageView = UserImageView()
-        imageView.load(avatarInfo: GymRatsApp.coordinator.currentUser)
-        
-        let textField = UITextField()
-        textField.borderStyle = .roundedRect
-        textField.placeholder = "Enter comment"
-        textField.delegate = self
-        textField.returnKeyType = .send
-        textField.isUserInteractionEnabled = true
-        textField.font = .details
-        
-        footerView.isUserInteractionEnabled = true
-        footerView.addSubview(imageView)
-        footerView.addSubview(textField)
-        
-        footerView.addConstraintsWithFormat(format: "V:|-10-[v0(30)]-4-|", views: imageView)
-        footerView.addConstraintsWithFormat(format: "V:|-10-[v0(30)]-4-|", views: textField)
-        footerView.addConstraintsWithFormat(format: "H:|-15-[v0(30)]-10-[v1]-15-|", views: imageView, textField)
+        containerView.yoga.applyLayout(preservingOrigin: true)
 
         tableView.tableHeaderView = containerView
-        tableView.tableFooterView = footerView
         tableView.separatorStyle = .none
         tableView.addSubview(refresher)
         tableView.register(UINib(nibName: "CommentTableViewCell", bundle: nil), forCellReuseIdentifier: "CommentTableViewCell")
@@ -233,11 +211,19 @@ class WorkoutViewController: UITableViewController {
         refresher.addTarget(self, action: #selector(fetchComments), for: .valueChanged)
         
         fetchComments()
+        
+        let tapToHideKeyboard = UITapGestureRecognizer()
+        tap.numberOfTapsRequired = 1
+        tapToHideKeyboard.addTarget(self, action: #selector(hideKeyboard))
+        
+        view.addGestureRecognizer(tapToHideKeyboard)
+    }
+    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
     }
     
     @objc func fetchComments() {
-        refresher.beginRefreshing()
-        
         gymRatsAPI.getComments(for: workout)
             .subscribe { event in
                 self.refresher.endRefreshing()
@@ -252,7 +238,7 @@ class WorkoutViewController: UITableViewController {
     }
     
     func postComment(_ comment: String) {
-        self.showLoadingBar()
+        self.showLoadingBar(disallowUserInteraction: true)
         
         gymRatsAPI.post(comment: comment, on: workout)
             .subscribe { event in
@@ -260,6 +246,8 @@ class WorkoutViewController: UITableViewController {
                 
                 switch event {
                 case .next(let comments):
+                    self.textField?.text = nil
+                    self.resignFirstResponder()
                     self.comments = comments
                     self.tableView.reloadData()
                 case .error(let error):
@@ -315,33 +303,75 @@ class WorkoutViewController: UITableViewController {
 }
 
 extension WorkoutViewController {
-    
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return comments.count
+        return comments.count + 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell") as! CommentTableViewCell
-        let comment = comments[indexPath.row]
-        let user: User = Cache.users[comment.gymRatsUserId] ?? GymRatsApp.coordinator.currentUser
-        
-        cell.userImageView.load(avatarInfo: user)
-        cell.nameLabel.text = user.fullName
-        cell.commentLabel.text = comment.content
-        
-        return cell
+        if indexPath.row < comments.count {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell") as! CommentTableViewCell
+            let comment = comments[indexPath.row]
+            let user: User = Cache.users[comment.gymRatsUserId] ?? GymRatsApp.coordinator.currentUser
+            
+            cell.userImageView.load(avatarInfo: user)
+            cell.nameLabel.text = user.fullName
+            cell.commentLabel.text = comment.content
+            
+            return cell
+        } else {
+            let cell = UITableViewCell()
+            
+            let imageView = UserImageView()
+            imageView.load(avatarInfo: GymRatsApp.coordinator.currentUser)
+            
+            let textField = UITextField()
+            textField.borderStyle = .roundedRect
+            textField.placeholder = "Enter comment"
+            textField.delegate = self
+            textField.returnKeyType = .send
+            textField.isUserInteractionEnabled = true
+            textField.font = .details
+            
+            self.textField = textField
+            
+            cell.addSubview(imageView)
+            cell.addSubview(textField)
+            
+            cell.addConstraintsWithFormat(format: "V:|-10-[v0(30)]", views: imageView)
+            cell.addConstraintsWithFormat(format: "V:|-10-[v0(30)]", views: textField)
+            cell.addConstraintsWithFormat(format: "H:|-15-[v0(30)]-10-[v1]-15-|", views: imageView, textField)
+            
+            cell.selectionStyle = .none
+            
+            return cell
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        return 500
+    }
+    
+    override func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
+        return 60
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        if indexPath.row < comments.count {
+            return UITableView.automaticDimension
+        } else {
+            return 60
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard indexPath.row < comments.count else { return }
         
         let comment = comments[indexPath.row]
         let user: User = Cache.users[comment.gymRatsUserId] ?? GymRatsApp.coordinator.currentUser
@@ -356,11 +386,14 @@ extension WorkoutViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let text = textField.text ?? ""
         
-        guard !text.isEmpty else { return true }
+        guard !text.isEmpty else {
+            view.endEditing(true)
+            return false
+        }
         
         postComment(text)
         
-        return true
+        return false
     }
     
 }

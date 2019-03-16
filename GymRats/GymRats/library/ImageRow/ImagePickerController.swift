@@ -43,7 +43,6 @@ open class ImagePickerController: UIImagePickerController, TypedRowControllerTyp
     public var validatePhotoWasTakenToday: Bool = false
     
     open func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
         if validatePhotoWasTakenToday {
             if let meta = info[.mediaMetadata] {
                 print(meta)
@@ -77,4 +76,3 @@ open class ImagePickerController: UIImagePickerController, TypedRowControllerTyp
     }
     
 }
-

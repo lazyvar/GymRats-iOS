@@ -264,10 +264,6 @@ class ActiveChallengeViewController: UITableViewController {
         let users = gymRatsAPI.getUsers(for: challenge)
         let workouts = gymRatsAPI.getWorkouts(for: challenge)
         
-        DispatchQueue.main.async {
-            self.refresher.beginRefreshing()
-        }
-        
         showLoadingBar()
         
         Observable.zip(users, workouts).subscribe(onNext: { zipped in
