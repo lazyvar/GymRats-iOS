@@ -15,6 +15,7 @@ extension UIColor {
     static let fog: UIColor = .hex("#9B9B9B")
     static let firebrick: UIColor = .hex("#b22222")
     static let charcoal: UIColor = .hex("#4A4A4A")
+    static let incomingGray = UIColor(red: 230/255, green: 230/255, blue: 235/255, alpha: 1.0)
 }
 
 extension UIImage {

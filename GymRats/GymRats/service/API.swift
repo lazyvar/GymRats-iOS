@@ -28,6 +28,10 @@ enum APIRequest {
     case deleteWorkout(_ workout: Workout)
     case getCommentsForWorkout(_ workout: Workout)
     case postComment(comment: String, workout: Workout)
+    case getChat(_ challenge: Challenge)
+    case postChatMessage(message: String, challenge: Challenge)
+    case getUnreadChats(_ challenge: Challenge)
+    case markChatRead(_ challenge: Challenge)
     
     var requestProperties: (method: HTTPMethod, path: String, params: Parameters?) {
         switch self {
@@ -116,15 +120,28 @@ enum APIRequest {
             ]
             
             return (.post, "workout/\(workout.id)/comment", params)
+        case .getChat(let challenge):
+            return (.get, "challenge/\(challenge.id)/chat", nil)
+        case .postChatMessage(message: let message, challenge: let challenge):
+            let params: Parameters = [
+                "content": message,
+            ]
+            
+            return (.post, "challenge/\(challenge.id)/chat", params)
+        case .getUnreadChats(let challenge):
+            return (.get, "challenge/\(challenge.id)/chat/unread", nil)
+        case .markChatRead(let challenge):
+            return (.post, "challenge/\(challenge.id)/chat/read", nil)
         }
     }
+
 }
 
 class GymRatsAPI {
     
     private let networkProvider: NetworkProvider
     
-    init(networkProvider: NetworkProvider = ProductionNetworkProvider()) {
+    init(networkProvider: NetworkProvider = DevelopmentNetworkProvider()) {
         self.networkProvider = networkProvider
     }
     
@@ -261,4 +278,22 @@ class GymRatsAPI {
         return requestArray(.postComment(comment: comment, workout: workout))
     }
     
+    func getUnreadChats(for challenge: Challenge) -> Observable<[ChatMessage]> {
+        return requestArray(.getUnreadChats(challenge))
+    }
+    
+    func getAllChats(for challenge: Challenge) -> Observable<[ChatMessage]> {
+        return requestArray(.getChat(challenge))
+    }
+    
+    func postChatMessage(_ message: String, for challenge: Challenge) -> Observable<[ChatMessage]> {
+        return requestArray(.postChatMessage(message: message, challenge: challenge))
+    }
+    
+    func markChatRead(for challenge: Challenge) -> Observable<EmptyJSON> {
+        return requestObject(.markChatRead(challenge))
+    }
+    
 }
+
+struct EmptyJSON: Codable { }

@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import YogaKit
 import SwiftDate
+import EasyNotificationBadge
 
 struct UserWorkout {
     let user: User
@@ -59,6 +60,20 @@ class ActiveChallengeViewController: UITableViewController {
         
         return label
     }()
+    
+    lazy var newWorkoutItem = UIBarButtonItem (
+        image: UIImage(named: "kettle-bell"),
+        style: .plain,
+        target: self,
+        action: #selector(presentNewWorkoutViewController)
+    )
+    
+    lazy var chatItem = UIBarButtonItem (
+        image: UIImage(named: "chat")?.withRenderingMode(.alwaysOriginal),
+        style: .plain,
+        target: self,
+        action: #selector(openChat)
+    )
 
     var tableViewAnimation: UITableView.RowAnimation = .fade
     
@@ -79,12 +94,7 @@ class ActiveChallengeViewController: UITableViewController {
         
         setupBackButton()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem (
-            image: UIImage(named: "kettle-bell"),
-            style: .plain,
-            target: self,
-            action: #selector(presentNewWorkoutViewController)
-        )
+        navigationItem.rightBarButtonItems = [newWorkoutItem, chatItem]
         
         let bg = UIView(frame: CGRect(x: 0, y: -1000, width: self.tableView.frame.width, height: 1000))
         bg.backgroundColor = .brandDark
@@ -300,6 +310,31 @@ class ActiveChallengeViewController: UITableViewController {
         
         drawer?.rightDrawerViewController = challengeInfo
         drawer?.open(.right, animated: true, completion: nil)
+    }
+    
+    @objc func openChat() {
+        push(ChatViewController(challenge: challenge))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        refreshChatIcon()
+    }
+    
+    func refreshChatIcon() {
+        gymRatsAPI.getUnreadChats(for: challenge)
+            .subscribe { event in
+                switch event {
+                case .next(let chats):
+                    if chats.isEmpty {
+                        self.chatItem.image = UIImage(named: "chat")
+                    } else {
+                        self.chatItem.image = UIImage(named: "chat-unread")?.withRenderingMode(.alwaysOriginal)
+                    }
+                default: break
+                }
+            }.disposed(by: disposeBag)
     }
     
     func updateUserWorkoutsForCurrentDate() {

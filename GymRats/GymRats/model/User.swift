@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MessageKit
 
 struct User: Codable {
     let id: Int
@@ -24,6 +25,14 @@ extension User: AvatarProtocol {
     
     var pictureUrl: String? {
         return profilePictureUrl
+    }
+    
+}
+
+extension User {
+    
+    var asSender: Sender {
+        return Sender(id: "\(id)", displayName: fullName)
     }
     
 }

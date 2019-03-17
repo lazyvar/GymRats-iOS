@@ -24,4 +24,6 @@ target 'GymRats' do
     pod 'Crashlytics', '~> 3.12.0'
     pod 'GooglePlaces'
     pod 'TTTAttributedLabel'
+    pod 'EasyNotificationBadge'
+    pod 'MessageKit'
 end

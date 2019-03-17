@@ -12,6 +12,9 @@
 		01BFF8FC223D425C0044F802 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF8FA223D425C0044F802 /* CommentTableViewCell.swift */; };
 		01BFF8FD223D425C0044F802 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01BFF8FB223D425C0044F802 /* CommentTableViewCell.xib */; };
 		01BFF8FF223D44D90044F802 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF8FE223D44D90044F802 /* Cache.swift */; };
+		01BFF907223DAFD90044F802 /* UIBarButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF906223DAFD90044F802 /* UIBarButton+Extension.swift */; };
+		01BFF909223DB1C30044F802 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF908223DB1C30044F802 /* ChatMessage.swift */; };
+		01BFF90B223DC43E0044F802 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF90A223DC43E0044F802 /* ChatViewController.swift */; };
 		7405FE93222C249B0054F029 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7405FE92222C249B0054F029 /* WebViewController.swift */; };
 		7411805F220C58C300EB9D11 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7411805C220C55B600EB9D11 /* Lato-Black.ttf */; };
 		74118060220C58C300EB9D11 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7411805E220C55B600EB9D11 /* Lato-BlackItalic.ttf */; };
@@ -99,6 +102,9 @@
 		01BFF8FA223D425C0044F802 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		01BFF8FB223D425C0044F802 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
 		01BFF8FE223D44D90044F802 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		01BFF906223DAFD90044F802 /* UIBarButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButton+Extension.swift"; sourceTree = "<group>"; };
+		01BFF908223DB1C30044F802 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		01BFF90A223DC43E0044F802 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		0BDF2A3E7AA6DB6E35BFDD57 /* Pods-GymRats.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymRats.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GymRats/Pods-GymRats.debug.xcconfig"; sourceTree = "<group>"; };
 		45AE0586E2D3E12AB034ED36 /* Pods_GymRats.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GymRats.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7405FE92222C249B0054F029 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
@@ -368,6 +374,7 @@
 				743050642209EB9A005D8C52 /* UINavigationBar+Extension.swift */,
 				74A01B4D220A83FD00431ABD /* UIDate+Extension.swift */,
 				746764E2220B6D5C000CFB1B /* Collection+Extension.swift */,
+				01BFF906223DAFD90044F802 /* UIBarButton+Extension.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -381,6 +388,7 @@
 				748DFB8D2210B2EA007220C7 /* Place.swift */,
 				7455AC5D22125296005A558A /* ServiceResponse.swift */,
 				01BFF8F8223B30750044F802 /* Comment.swift */,
+				01BFF908223DB1C30044F802 /* ChatMessage.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -438,6 +446,7 @@
 				74A01B39220A544F00431ABD /* UserWorkoutTableViewCell.swift */,
 				74A01B3A220A544F00431ABD /* UserWorkoutTableViewCell.xib */,
 				7455AC5F2212585B005A558A /* ChallengeInfoViewController.swift */,
+				01BFF90A223DC43E0044F802 /* ChatViewController.swift */,
 			);
 			path = "view-challenge";
 			sourceTree = "<group>";
@@ -611,17 +620,20 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-GymRats/Pods-GymRats-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-GymRats/Pods-GymRats-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AvatarImageView/AvatarImageView.framework",
 				"${BUILT_PRODUCTS_DIR}/CVCalendar/CVCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
+				"${BUILT_PRODUCTS_DIR}/EasyNotificationBadge/EasyNotificationBadge.framework",
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/GradientLoadingBar/GradientLoadingBar.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MMDrawerController/MMDrawerController.framework",
+				"${BUILT_PRODUCTS_DIR}/MessageInputBar/MessageInputBar.framework",
+				"${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
@@ -642,12 +654,15 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AvatarImageView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CVCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EasyNotificationBadge.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GradientLoadingBar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MMDrawerController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageInputBar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
@@ -662,7 +677,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GymRats/Pods-GymRats-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GymRats/Pods-GymRats-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		749194F9221B62460051CFE0 /* Fabric */ = {
@@ -692,7 +707,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-GymRats/Pods-GymRats-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-GymRats/Pods-GymRats-resources.sh",
 				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -703,7 +718,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GymRats/Pods-GymRats-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GymRats/Pods-GymRats-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8DD4422FC73F0F28B5B33D37 /* [CP] Check Pods Manifest.lock */ = {
@@ -750,6 +765,7 @@
 				747D6FC02208DC820062BB39 /* AppCoordinator.swift in Sources */,
 				747D6FBD2208DBFE0062BB39 /* API.swift in Sources */,
 				747D6FE72208ED780062BB39 /* SignUpViewController.swift in Sources */,
+				01BFF90B223DC43E0044F802 /* ChatViewController.swift in Sources */,
 				746764ED220BD68D000CFB1B /* RightAlignedconButton.swift in Sources */,
 				74F4788C220D0A2F005CD4E4 /* SettingsViewController.swift in Sources */,
 				74A01B3E220A55D000431ABD /* UserImageView.swift in Sources */,
@@ -777,6 +793,7 @@
 				74BE97BD220C9F2800D550CA /* ImagePickerController.swift in Sources */,
 				747D6FE52208ED6F0062BB39 /* LoginViewController.swift in Sources */,
 				74305071220A05FC005D8C52 /* GymRatsApp.swift in Sources */,
+				01BFF909223DB1C30044F802 /* ChatMessage.swift in Sources */,
 				74A01B4E220A83FD00431ABD /* UIDate+Extension.swift in Sources */,
 				74A01B27220A0BBF00431ABD /* Challenge.swift in Sources */,
 				74BE97BE220C9F2800D550CA /* ImageRow.swift in Sources */,
@@ -789,6 +806,7 @@
 				74C2D84E222C3D1A00FF0DE2 /* AboutViewController.swift in Sources */,
 				746764DF220B4829000CFB1B /* ProfileViewController.swift in Sources */,
 				746764E3220B6D5C000CFB1B /* Collection+Extension.swift in Sources */,
+				01BFF907223DAFD90044F802 /* UIBarButton+Extension.swift in Sources */,
 				747D6F9A2208DB310062BB39 /* AppDelegate.swift in Sources */,
 				74A01B2C220A1A5B00431ABD /* SimpleError.swift in Sources */,
 			);
