@@ -15,6 +15,7 @@
 		01BFF907223DAFD90044F802 /* UIBarButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF906223DAFD90044F802 /* UIBarButton+Extension.swift */; };
 		01BFF909223DB1C30044F802 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF908223DB1C30044F802 /* ChatMessage.swift */; };
 		01BFF90B223DC43E0044F802 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF90A223DC43E0044F802 /* ChatViewController.swift */; };
+		01BFF90E223DE26C0044F802 /* APS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF90D223DE26C0044F802 /* APS.swift */; };
 		7405FE93222C249B0054F029 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7405FE92222C249B0054F029 /* WebViewController.swift */; };
 		7411805F220C58C300EB9D11 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7411805C220C55B600EB9D11 /* Lato-Black.ttf */; };
 		74118060220C58C300EB9D11 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7411805E220C55B600EB9D11 /* Lato-BlackItalic.ttf */; };
@@ -105,6 +106,8 @@
 		01BFF906223DAFD90044F802 /* UIBarButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButton+Extension.swift"; sourceTree = "<group>"; };
 		01BFF908223DB1C30044F802 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		01BFF90A223DC43E0044F802 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		01BFF90C223DE1B60044F802 /* GymRats.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GymRats.entitlements; sourceTree = "<group>"; };
+		01BFF90D223DE26C0044F802 /* APS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APS.swift; sourceTree = "<group>"; };
 		0BDF2A3E7AA6DB6E35BFDD57 /* Pods-GymRats.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymRats.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GymRats/Pods-GymRats.debug.xcconfig"; sourceTree = "<group>"; };
 		45AE0586E2D3E12AB034ED36 /* Pods_GymRats.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GymRats.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7405FE92222C249B0054F029 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
@@ -282,6 +285,7 @@
 		747D6F982208DB310062BB39 /* GymRats */ = {
 			isa = PBXGroup;
 			children = (
+				01BFF90C223DE1B60044F802 /* GymRats.entitlements */,
 				74118053220C558E00EB9D11 /* resource */,
 				747D6FD12208E7FF0062BB39 /* library */,
 				747D6FCF2208E7EF0062BB39 /* model */,
@@ -389,6 +393,7 @@
 				7455AC5D22125296005A558A /* ServiceResponse.swift */,
 				01BFF8F8223B30750044F802 /* Comment.swift */,
 				01BFF908223DB1C30044F802 /* ChatMessage.swift */,
+				01BFF90D223DE26C0044F802 /* APS.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -552,6 +557,11 @@
 				TargetAttributes = {
 					747D6F952208DB310062BB39 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					747D6FA92208DB330062BB39 = {
 						CreatedOnToolsVersion = 10.1;
@@ -754,6 +764,7 @@
 				74A01B2F220A1CD900431ABD /* CreateChallengeViewController.swift in Sources */,
 				746764E7220BAE44000CFB1B /* NewWorkoutViewController.swift in Sources */,
 				7455AC5E22125296005A558A /* ServiceResponse.swift in Sources */,
+				01BFF90E223DE26C0044F802 /* APS.swift in Sources */,
 				747D6FD82208E8130062BB39 /* KeychainErrors.swift in Sources */,
 				74BE97BC220C9F2800D550CA /* ImageCell.swift in Sources */,
 				747D6FE92208EDAF0062BB39 /* Colors.swift in Sources */,
@@ -963,6 +974,7 @@
 			baseConfigurationReference = 0BDF2A3E7AA6DB6E35BFDD57 /* Pods-GymRats.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = GymRats/GymRats.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 24MV8D7ZU8;
 				INFOPLIST_FILE = GymRats/Info.plist;
@@ -983,6 +995,7 @@
 			baseConfigurationReference = EC58A7A483BCAC310AB5A0EE /* Pods-GymRats.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = GymRats/GymRats.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 24MV8D7ZU8;
 				INFOPLIST_FILE = GymRats/Info.plist;

@@ -11,22 +11,26 @@ import RxSwift
 import MMDrawerController
 import GooglePlaces
 import Firebase
+import UserNotifications
 
-class AppCoordinator: Coordinator {
+class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     
     let window: UIWindow
+    let application: UIApplication
     
     var currentUser: User!
     var drawer: MMDrawerController!
     
-    init(window: UIWindow) {
+    init(window: UIWindow, application: UIApplication) {
         self.window = window
+        self.application = application
     }
     
     func start() {
         if let user = loadCurrentUser() {
             // show home
             login(user: user)
+            registerForNotifications(on: application)
         } else {
             // show login/signup
             let nav = GRNavigationController(rootViewController: WelcomeViewController())
@@ -45,6 +49,50 @@ class AppCoordinator: Coordinator {
         UIApplication.shared.statusBarStyle = .lightContent
     }
     
+    func userNotificationCenter (
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions
+    ) -> Void) {
+        if true {
+            completionHandler(.sound)
+            handleNotification(userInfo: notification.request.content.userInfo)
+        } else {
+            completionHandler(.alert)
+        }
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        handleNotification(userInfo: response.notification.request.content.userInfo)
+    }
+    
+    private func registerForNotifications(on application: UIApplication) {
+        // check device notifications
+        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {
+            (granted, error) in
+            
+            if granted {
+                DispatchQueue.main.async {
+                    application.registerForRemoteNotifications()
+                }
+            }
+        }
+    }
+    
+    func handleNotification(userInfo: [AnyHashable: Any]) {
+        guard let aps = try? ApplePushServiceObject(from: userInfo) else { return }
+        
+        switch aps.gr.notificationType {
+        case .comment:
+            NotificationCenter.default.post(name: .commentNotification, object: aps.gr.comment)
+        case .chatMessage:
+            NotificationCenter.default.post(name: .chatNotification, object: aps.gr.chatMessage)
+        }
+    }
+    
+    var chatIsOpen: Bool = false
+
     func login(user: User) {
         self.currentUser = user
         

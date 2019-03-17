@@ -32,6 +32,7 @@ enum APIRequest {
     case postChatMessage(message: String, challenge: Challenge)
     case getUnreadChats(_ challenge: Challenge)
     case markChatRead(_ challenge: Challenge)
+    case registerDevice(deviceToken: String)
     
     var requestProperties: (method: HTTPMethod, path: String, params: Parameters?) {
         switch self {
@@ -132,6 +133,12 @@ enum APIRequest {
             return (.get, "challenge/\(challenge.id)/chat/unread", nil)
         case .markChatRead(let challenge):
             return (.post, "challenge/\(challenge.id)/chat/read", nil)
+        case .registerDevice(deviceToken: let deviceToken):
+            let params: Parameters = [
+                "deviceToken": deviceToken
+            ]
+            
+            return (.post, "device", params)
         }
     }
 
@@ -141,7 +148,7 @@ class GymRatsAPI {
     
     private let networkProvider: NetworkProvider
     
-    init(networkProvider: NetworkProvider = DevelopmentNetworkProvider()) {
+    init(networkProvider: NetworkProvider = ProductionNetworkProvider()) {
         self.networkProvider = networkProvider
     }
     
@@ -292,6 +299,10 @@ class GymRatsAPI {
     
     func markChatRead(for challenge: Challenge) -> Observable<EmptyJSON> {
         return requestObject(.markChatRead(challenge))
+    }
+    
+    func registerDevice(deviceToken: String) -> Observable<EmptyJSON> {
+        return requestObject(.registerDevice(deviceToken: deviceToken))
     }
     
 }
