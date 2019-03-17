@@ -11,7 +11,6 @@
 		01BFF8F9223B30750044F802 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF8F8223B30750044F802 /* Comment.swift */; };
 		01BFF8FC223D425C0044F802 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF8FA223D425C0044F802 /* CommentTableViewCell.swift */; };
 		01BFF8FD223D425C0044F802 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01BFF8FB223D425C0044F802 /* CommentTableViewCell.xib */; };
-		01BFF8FF223D44D90044F802 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF8FE223D44D90044F802 /* Cache.swift */; };
 		01BFF907223DAFD90044F802 /* UIBarButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF906223DAFD90044F802 /* UIBarButton+Extension.swift */; };
 		01BFF909223DB1C30044F802 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF908223DB1C30044F802 /* ChatMessage.swift */; };
 		01BFF90B223DC43E0044F802 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF90A223DC43E0044F802 /* ChatViewController.swift */; };
@@ -102,7 +101,6 @@
 		01BFF8F8223B30750044F802 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		01BFF8FA223D425C0044F802 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		01BFF8FB223D425C0044F802 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
-		01BFF8FE223D44D90044F802 /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		01BFF906223DAFD90044F802 /* UIBarButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButton+Extension.swift"; sourceTree = "<group>"; };
 		01BFF908223DB1C30044F802 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		01BFF90A223DC43E0044F802 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -355,7 +353,6 @@
 				747D6FBC2208DBFE0062BB39 /* API.swift */,
 				74F47888220CECFE005CD4E4 /* ImageService.swift */,
 				748DFB8B220FD882007220C7 /* GService.swift */,
-				01BFF8FE223D44D90044F802 /* Cache.swift */,
 			);
 			path = service;
 			sourceTree = "<group>";
@@ -791,7 +788,6 @@
 				01BFF8F9223B30750044F802 /* Comment.swift in Sources */,
 				7455AC602212585B005A558A /* ChallengeInfoViewController.swift in Sources */,
 				747D6FDC2208E8130062BB39 /* Keychain+Subscripts.swift in Sources */,
-				01BFF8FF223D44D90044F802 /* Cache.swift in Sources */,
 				747D6FC92208DCE60062BB39 /* AlamofireNetworkActivityLogger.swift in Sources */,
 				743050652209EB9A005D8C52 /* UINavigationBar+Extension.swift in Sources */,
 				746764E1220B5A93000CFB1B /* Switch.swift in Sources */,

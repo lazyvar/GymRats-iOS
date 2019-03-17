@@ -14,13 +14,13 @@ struct ChatMessage: Codable {
     let challengeId: Int
     let content: String
     let createdAt: Date
-    let gymRatsUserId: Int
+    let gymRatsUser: User
 }
 
 extension ChatMessage: MessageType {
     
     var sender: Sender {
-        return (Cache.users[gymRatsUserId] ?? GymRatsApp.coordinator.currentUser)!.asSender
+        return gymRatsUser.asSender
     }
     
     var messageId: String {

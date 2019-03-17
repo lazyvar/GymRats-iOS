@@ -335,7 +335,7 @@ extension WorkoutViewController {
         if indexPath.row < comments.count {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell") as! CommentTableViewCell
             let comment = comments[indexPath.row]
-            let user: User = Cache.users[comment.gymRatsUserId] ?? GymRatsApp.coordinator.currentUser
+            let user: User = comment.gymRatsUser
             
             cell.userImageView.load(avatarInfo: user)
             cell.nameLabel.text = user.fullName
@@ -372,10 +372,6 @@ extension WorkoutViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        return 500
-    }
-    
     override func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
         return 60
     }
@@ -394,9 +390,8 @@ extension WorkoutViewController {
         guard indexPath.row < comments.count else { return }
         
         let comment = comments[indexPath.row]
-        let user: User = Cache.users[comment.gymRatsUserId] ?? GymRatsApp.coordinator.currentUser
 
-        push(ProfileViewController(user: user, challenge: challenge))
+        push(ProfileViewController(user: comment.gymRatsUser, challenge: challenge))
     }
     
 }
