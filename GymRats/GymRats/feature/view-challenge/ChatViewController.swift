@@ -30,6 +30,8 @@ class ChatViewController: MessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = challenge.name
+        
         setupBackButton()
         
         scrollsToBottomOnKeyboardBeginsEditing = true

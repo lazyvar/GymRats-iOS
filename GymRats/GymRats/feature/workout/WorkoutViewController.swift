@@ -340,6 +340,7 @@ extension WorkoutViewController {
             cell.userImageView.load(avatarInfo: user)
             cell.nameLabel.text = user.fullName
             cell.commentLabel.text = comment.content
+            cell.selectionStyle = .blue
             
             return cell
         } else {

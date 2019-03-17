@@ -84,6 +84,8 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
             return
         }
         
+        guard GymRatsApp.coordinator.currentUser != nil else { return }
+        
         switch aps.gr.notificationType {
         case .comment:
             guard let comment = aps.gr.comment else { return }
@@ -95,7 +97,11 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
                 if let completionHandler = completionHandler {
                     completionHandler(.alert)
                 } else {
-                    // navigate to
+                    guard let user = aps.gr.user, let challenge = aps.gr.challenge, let workout = aps.gr.workout else { return }
+                    
+                    let workoutViewController = WorkoutViewController(user: user, workout: workout, challenge: challenge)
+
+                    (GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController)?.pushViewController(workoutViewController, animated: true)
                 }
             }
         case .chatMessage:
@@ -108,7 +114,11 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
                 if let completionHandler = completionHandler {
                     completionHandler(.alert)
                 } else {
-                    // navigate to
+                    guard let challenge = aps.gr.challenge else { return }
+                    
+                    let chatViewController = ChatViewController(challenge: challenge)
+                    
+                    (GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController)?.pushViewController(chatViewController, animated: true)
                 }
             }
         }
