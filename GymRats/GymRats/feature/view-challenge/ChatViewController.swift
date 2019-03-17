@@ -30,10 +30,13 @@ class ChatViewController: MessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupBackButton()
+        
         scrollsToBottomOnKeyboardBeginsEditing = true
         messageInputBar.delegate = self
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
+        messagesCollectionView.messageCellDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         
         gymRatsAPI.getAllChats(for: challenge)
@@ -97,9 +100,19 @@ extension ChatViewController: MessagesDataSource {
     
 }
 
-extension ChatViewController: MessagesLayoutDelegate {
+extension ChatViewController: MessageCellDelegate {
     
+    func didTapAvatar(in cell: MessageCollectionViewCell) {
+        guard let indexPath = messagesCollectionView.indexPath(for: cell) else { return }
+        guard let chat = chats[safe: indexPath.section] else { return }
+        guard let user = Cache.users[chat.gymRatsUserId] else { return }
+        
+        push(ProfileViewController(user: user, challenge: challenge))
+    }
+
 }
+
+extension ChatViewController: MessagesLayoutDelegate { }
 
 extension ChatViewController: MessagesDisplayDelegate {
     
