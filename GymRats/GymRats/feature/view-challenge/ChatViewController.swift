@@ -39,6 +39,17 @@ class ChatViewController: MessagesViewController {
         messagesCollectionView.messageCellDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         
+        NotificationCenter.default.addObserver (
+            self,
+            selector: #selector(getAllChats),
+            name: .chatNotification,
+            object: nil
+        )
+        
+        getAllChats()
+    }
+    
+    @objc func getAllChats() {
         gymRatsAPI.getAllChats(for: challenge)
             .subscribe { event in
                 switch event {
@@ -56,6 +67,18 @@ class ChatViewController: MessagesViewController {
             .subscribe { _ in
                 // ...
             }.disposed(by: disposeBag)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        GymRatsApp.coordinator.openChallengeChatId = challenge.id
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        GymRatsApp.coordinator.openChallengeChatId = nil
     }
     
 }

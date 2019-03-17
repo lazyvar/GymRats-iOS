@@ -217,8 +217,27 @@ class WorkoutViewController: UITableViewController {
         tapToHideKeyboard.addTarget(self, action: #selector(hideKeyboard))
         
         view.addGestureRecognizer(tapToHideKeyboard)
+        
+        NotificationCenter.default.addObserver (
+            self,
+            selector: #selector(fetchComments),
+            name: .commentNotification,
+            object: nil
+        )
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        GymRatsApp.coordinator.openWorkoutId = workout.id
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        GymRatsApp.coordinator.openWorkoutId = nil
+    }
+
     @objc func hideKeyboard() {
         view.endEditing(true)
     }

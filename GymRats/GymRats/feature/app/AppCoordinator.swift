@@ -52,14 +52,9 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     func userNotificationCenter (
         _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification,
-        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions
-    ) -> Void) {
-        if true {
-            completionHandler(.sound)
-            handleNotification(userInfo: notification.request.content.userInfo)
-        } else {
-            completionHandler(.alert)
-        }
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        handleNotification(userInfo: notification.request.content.userInfo, completionHandler: completionHandler)
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -80,18 +75,47 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         }
     }
     
-    func handleNotification(userInfo: [AnyHashable: Any]) {
-        guard let aps = try? ApplePushServiceObject(from: userInfo) else { return }
+    func handleNotification(userInfo: [AnyHashable: Any], completionHandler: ((UNNotificationPresentationOptions) -> Void)? = nil) {
+        let aps: ApplePushServiceObject
+        do {
+            aps = try ApplePushServiceObject(from: userInfo)
+        } catch let error {
+            print(error)
+            return
+        }
         
         switch aps.gr.notificationType {
         case .comment:
-            NotificationCenter.default.post(name: .commentNotification, object: aps.gr.comment)
+            guard let comment = aps.gr.comment else { return }
+            
+            if let openWorkoutId = openWorkoutId, openWorkoutId == comment.workoutId {
+                NotificationCenter.default.post(name: .commentNotification, object: aps.gr.comment)
+                completionHandler?(.sound)
+            } else {
+                if let completionHandler = completionHandler {
+                    completionHandler(.alert)
+                } else {
+                    // navigate to
+                }
+            }
         case .chatMessage:
-            NotificationCenter.default.post(name: .chatNotification, object: aps.gr.chatMessage)
+            guard let chatMessage = aps.gr.chatMessage else { return }
+
+            if let openChallengeChatId = openChallengeChatId, openChallengeChatId == chatMessage.challengeId {
+                NotificationCenter.default.post(name: .chatNotification, object: aps.gr.chatMessage)
+                completionHandler?(.sound)
+            } else {
+                if let completionHandler = completionHandler {
+                    completionHandler(.alert)
+                } else {
+                    // navigate to
+                }
+            }
         }
     }
     
-    var chatIsOpen: Bool = false
+    var openWorkoutId: Int?
+    var openChallengeChatId: Int?
 
     func login(user: User) {
         self.currentUser = user
