@@ -112,6 +112,11 @@ class HomeViewController: UITableViewController {
                         }
                     }
                 }
+                
+                if let notif = GymRatsApp.coordinator.coldStartNotification {
+                    GymRatsApp.coordinator.handleNotification(userInfo: notif)
+                    GymRatsApp.coordinator.coldStartNotification = nil
+                }
             }, onError: { [weak self] error in
                 self?.refresher.endRefreshing()
                 self?.hideLoadingBar()

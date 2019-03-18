@@ -163,8 +163,8 @@ extension ChatViewController: MessageInputBarDelegate {
                 self.hideLoadingBar()
                 
                 switch event {
-                case .next(let messages):
-                    self.chats = messages
+                case .next(let message):
+                    self.chats.append(message)
                     self.messagesCollectionView.reloadData()
                     self.messageInputBar.inputTextView.text = nil
                     self.messagesCollectionView.scrollToBottom(animated: true)

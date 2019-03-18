@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         appCoordinator.start()
         
         if let userInfo = launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] as? [AnyHashable: Any] {
-            appCoordinator.handleNotification(userInfo: userInfo)
+            appCoordinator.coldStartNotification = userInfo
         }
         
         return true
@@ -47,11 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // ...
             }.disposed(by: disposeBag)
     }
-        
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
-        appCoordinator.handleNotification(userInfo: userInfo)
-    }
-    
+
     func applicationWillResignActive(_ application: UIApplication) { }
     
     func applicationDidEnterBackground(_ application: UIApplication) { }
@@ -69,6 +65,14 @@ extension Decodable {
     
     init(from anything: Any) throws {
         let data = try JSONSerialization.data(withJSONObject: anything, options: .prettyPrinted)
+        
+        print(String(data: data, encoding: .utf8) ?? "")
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+        
+        let decoder: JSONDecoder = .gymRatsAPIDecoder
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
         
         self = try JSONDecoder.gymRatsAPIDecoder.decode(Self.self, from: data)
     }

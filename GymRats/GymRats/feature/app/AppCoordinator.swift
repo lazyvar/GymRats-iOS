@@ -21,6 +21,8 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     var currentUser: User!
     var drawer: MMDrawerController!
     
+    var coldStartNotification: [AnyHashable: Any]?
+    
     init(window: UIWindow, application: UIApplication) {
         self.window = window
         self.application = application
@@ -58,7 +60,9 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        handleNotification(userInfo: response.notification.request.content.userInfo)
+        if GymRatsApp.coordinator.coldStartNotification == nil {
+            handleNotification(userInfo: response.notification.request.content.userInfo)
+        }
     }
     
     private func registerForNotifications(on application: UIApplication) {
