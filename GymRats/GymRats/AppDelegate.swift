@@ -75,7 +75,7 @@ extension Decodable {
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
         decoder.keyDecodingStrategy = .convertFromSnakeCase
 
-        self = try JSONDecoder.gymRatsAPIDecoder.decode(Self.self, from: data)
+        self = try decoder.decode(Self.self, from: data)
     }
     
 }

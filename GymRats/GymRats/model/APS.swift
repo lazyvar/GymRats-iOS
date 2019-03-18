@@ -9,7 +9,6 @@
 import Foundation
 
 struct ApplePushServiceObject: Codable {
-    let aps: APS
     let gr: GymRatsNotification
     
     struct GymRatsNotification: Codable {
@@ -24,10 +23,5 @@ struct ApplePushServiceObject: Codable {
             case comment
             case chatMessage = "chat_message"
         }
-    }
-    
-    struct APS: Codable {
-        let alert: String
-        let badge: Int
     }
 }
