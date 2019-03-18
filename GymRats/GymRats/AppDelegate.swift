@@ -71,9 +71,10 @@ extension Decodable {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
         
-        let decoder: JSONDecoder = .gymRatsAPIDecoder
+        let decoder: JSONDecoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
-        
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+
         self = try JSONDecoder.gymRatsAPIDecoder.decode(Self.self, from: data)
     }
     
