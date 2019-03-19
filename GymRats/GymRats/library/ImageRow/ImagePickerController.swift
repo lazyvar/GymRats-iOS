@@ -44,14 +44,16 @@ open class ImagePickerController: UIImagePickerController, TypedRowControllerTyp
     
     open func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if validatePhotoWasTakenToday {
-            if let meta = info[.mediaMetadata] {
-                print(meta)
+            if info[.mediaMetadata] != nil { // user took pic
+                (row as? ImageRow)?.imageURL = info[.referenceURL] as? URL
+                row.value = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage
+                onDismissCallback?(self)
             } else {
                 if let url = info[UIImagePickerController.InfoKey.referenceURL] as? URL {
                     let assetsLibrary = ALAssetsLibrary()
                     assetsLibrary.asset(for: url, resultBlock: { (asset: ALAsset!) -> Void in
                         if let date = asset.value(forProperty: ALAssetPropertyDate) as? Date {
-                            if date.isToday {
+                            if date.challengeDate().isToday {
                                 (self.row as? ImageRow)?.imageURL = info[.referenceURL] as? URL
                                 self.row.value = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage
                                 self.onDismissCallback?(self)
