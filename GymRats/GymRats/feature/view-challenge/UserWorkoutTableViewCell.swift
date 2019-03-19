@@ -129,16 +129,7 @@ class UserWorkoutTableViewCell: UITableViewCell {
     
     private func detailsLabeText(including place: Place? = nil) -> NSAttributedString {
         let details = NSMutableAttributedString()
-        
-        if userWorkout.workout?.photoUrl != nil {
-            let cameraImage = NSTextAttachment()
-            cameraImage.image = UIImage(named: "camera")
-            cameraImage.bounds = CGRect(x: 0, y: -2.5, width: 14, height: 14)
-            
-            details.append(NSAttributedString(attachment: cameraImage))
-            details.append(NSAttributedString(string: "  "))
-        }
-        
+
         details.append(NSAttributedString(string: "\(userWorkout.user.fullName)"))
         
         if let place = place {
