@@ -32,6 +32,7 @@ enum APIRequest {
     case postChatMessage(message: String, challenge: Challenge)
     case getUnreadChats(_ challenge: Challenge)
     case registerDevice(deviceToken: String)
+    case deleteDevice
     
     var requestProperties: (method: HTTPMethod, path: String, params: Parameters?) {
         switch self {
@@ -136,6 +137,8 @@ enum APIRequest {
             ]
             
             return (.post, "device", params)
+        case .deleteDevice:
+            return (.delete, "device", nil)
         }
     }
 
@@ -296,6 +299,10 @@ class GymRatsAPI {
     
     func registerDevice(deviceToken: String) -> Observable<EmptyJSON> {
         return requestObject(.registerDevice(deviceToken: deviceToken))
+    }
+    
+    func deleteDevice() -> Observable<String> {
+        return requestObject(.deleteDevice)
     }
     
 }

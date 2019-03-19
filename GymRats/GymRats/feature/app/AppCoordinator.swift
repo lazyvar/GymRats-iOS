@@ -23,6 +23,8 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     
     var coldStartNotification: [AnyHashable: Any]?
     
+    let disposeBag = DisposeBag()
+    
     init(window: UIWindow, application: UIApplication) {
         self.window = window
         self.application = application
@@ -176,19 +178,21 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     }
     
     func logout() {
-        self.currentUser = nil
-        
-        let nav = GRNavigationController(rootViewController: WelcomeViewController())
-        nav.navigationBar.turnBrandColorSlightShadow()
-        
-        window.rootViewController = nav
-        
-        switch Keychain.gymRats.deleteObject(withKey: .currentUser) {
-        case .success:
-            print("Woohoo!")
-        case .error(let error):
-            print("Bummer! \(error.description)")
-        }
+        gymRatsAPI.deleteDevice()
+            .subscribe { _ in
+                let nav = GRNavigationController(rootViewController: WelcomeViewController())
+                nav.navigationBar.turnBrandColorSlightShadow()
+                
+                self.window.rootViewController = nav
+                self.currentUser = nil
+
+                switch Keychain.gymRats.deleteObject(withKey: .currentUser) {
+                case .success:
+                    print("Woohoo!")
+                case .error(let error):
+                    print("Bummer! \(error.description)")
+                }
+            }.disposed(by: disposeBag)
     }
     
     func loadCurrentUser() -> User? {
