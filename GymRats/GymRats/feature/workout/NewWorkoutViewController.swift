@@ -177,7 +177,7 @@ class NewWorkoutViewController: FormViewController {
             
             guard
                 let self = self,
-                let places = placeLikelihoods?.sorted(by: { $0.likelihood > $1.likelihood }).map({ Place(from: $0.place) })
+                let places = placeLikelihoods?.sorted(by: { $0.likelihood > $1.likelihood }).map({ Place(from: $0.place) }).compacted()
             else { return }
 
             self.form.sectionBy(tag: "the-form")?.remove(at: 3) // yikes
@@ -246,4 +246,26 @@ extension Array where Element == Place {
         return self.filter { seen.updateValue(true, forKey: $0.name) == nil }
     }
     
+}
+
+protocol OptionalParasite {
+    associatedtype WrappedParasite
+    
+    func toArray() -> [WrappedParasite]
+}
+
+extension Optional: OptionalParasite {
+    typealias WrappedParasite = Wrapped
+    
+    func toArray() -> [WrappedParasite] {
+        return flatMap { [$0] } ?? []
+    }
+}
+
+extension Sequence where Iterator.Element: OptionalParasite {
+    func compacted() -> [Iterator.Element.WrappedParasite] {
+        return flatMap { element in
+            return element.toArray()
+        }
+    }
 }

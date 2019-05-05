@@ -20,9 +20,11 @@ struct Place: Codable, Equatable, CustomStringConvertible {
         return name
     }
     
-    init(from gPlace: GMSPlace) {
-        self.name = gPlace.name!
-        self.id = gPlace.placeID!
+    init?(from gPlace: GMSPlace) {
+        guard let name = gPlace.name, let id = gPlace.placeID else { return nil }
+        
+        self.name = name
+        self.id = id
         self.latitude = gPlace.coordinate.latitude
         self.longitude = gPlace.coordinate.longitude
     }

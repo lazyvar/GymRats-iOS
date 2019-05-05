@@ -43,9 +43,7 @@ enum GService {
                         subscriber.onCompleted()
                     }
                     
-                    if let gPlace = gPlace {
-                        let place = Place(from: gPlace)
-                        
+                    if let gPlace = gPlace, let place = Place(from: gPlace) {
                         try? placeCache.setObject(place, forKey: placeId)
                         subscriber.onNext(place)
                         subscriber.onCompleted()
