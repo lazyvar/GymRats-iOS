@@ -28,7 +28,8 @@ class UserImageView: UIView {
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
-        
+        imageView.backgroundColor = .gray
+
         return imageView
     }()
     
