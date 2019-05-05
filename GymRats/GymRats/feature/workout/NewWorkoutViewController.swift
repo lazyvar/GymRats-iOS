@@ -42,7 +42,7 @@ class NewWorkoutViewController: FormViewController {
         $0.title = "Check In Location"
     }.cellSetup { cell, _ in
         cell.textLabel?.font = .body
-        cell.tintColor = .brandDark
+        cell.tintColor = .dark
     }.onCellSelection { [weak self] _, _ in
         self?.pickPlace()
         self?.showLoadingBar()
@@ -68,7 +68,7 @@ class NewWorkoutViewController: FormViewController {
             $0.title = "Title"
             $0.placeholder = "Leg day."
         }.cellSetup { cell, _ in
-            cell.tintColor = .brand
+            cell.tintColor = .primary
             cell.textLabel?.font = .body
             cell.titleLabel?.font = .body
         }
@@ -76,7 +76,7 @@ class NewWorkoutViewController: FormViewController {
         let descriptionRow = TextAreaRow("description") {
             $0.placeholder = "Description...\n3x8 squats\n3x6 deadlifts\n3x4 rows"
         }.cellSetup { cell, _ in
-            cell.tintColor = .brand
+            cell.tintColor = .primary
             cell.textLabel?.font = .body
             cell.textView.font = .body
         }

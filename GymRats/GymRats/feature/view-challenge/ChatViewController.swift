@@ -228,7 +228,7 @@ extension ChatViewController: MessagesDisplayDelegate {
             return .clear
         default:
             guard let dataSource = messagesCollectionView.messagesDataSource else { return .white }
-            return dataSource.isFromCurrentSender(message: message) ? .brand : .incomingGray
+            return dataSource.isFromCurrentSender(message: message) ? .primary : .incomingGray
         }
     }
 

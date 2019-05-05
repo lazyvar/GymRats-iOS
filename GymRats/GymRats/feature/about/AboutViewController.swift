@@ -25,7 +25,7 @@ class AboutViewController: UIViewController {
         let url = URL(string: "mailto:gymratsapp@gmail.com")!
         
         label.font = .body
-        label.textColor = .brand
+        label.textColor = .dark
         label.numberOfLines = 0
         label.textAlignment = .center
         label.isUserInteractionEnabled = true

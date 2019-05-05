@@ -54,7 +54,7 @@ class ChangePasswordController: FormViewController {
                     signUpButton.titleLabel?.font = .body
                     signUpButton.setTitle("Save", for: .normal)
                     signUpButton.setTitleColor(UIColor.white, for: .normal)
-                    signUpButton.backgroundColor = .brand
+                    signUpButton.backgroundColor = .primary
                     signUpButton.addTarget(self, action: #selector(self.doSave), for: .touchUpInside)
                     
                     container.addSubview(signUpButton)
