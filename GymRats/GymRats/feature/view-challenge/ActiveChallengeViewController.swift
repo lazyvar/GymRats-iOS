@@ -97,7 +97,7 @@ class ActiveChallengeViewController: UITableViewController {
         navigationItem.rightBarButtonItems = [newWorkoutItem, chatItem]
         
         let bg = UIView(frame: CGRect(x: 0, y: -1000, width: self.tableView.frame.width, height: 1000))
-        bg.backgroundColor = .brandDark
+        bg.backgroundColor = .eeeeee
         
         tableView.addSubview(bg)
         
@@ -115,7 +115,7 @@ class ActiveChallengeViewController: UITableViewController {
         let container = UIView()
         
         let headerView = UIView()
-        headerView.backgroundColor = .brandDark
+        headerView.backgroundColor = .eeeeee
         
         headerView.configureLayout { layout in
             layout.isEnabled = true
@@ -130,7 +130,7 @@ class ActiveChallengeViewController: UITableViewController {
         challengeName.font = .body
         challengeName.textAlignment = .center
         challengeName.text = challenge.name
-        challengeName.textColor = .white
+        challengeName.textColor = .dark
         
         challengeName.configureLayout { layout in
             layout.isEnabled = true
@@ -141,7 +141,7 @@ class ActiveChallengeViewController: UITableViewController {
         let daysLeft = UILabel()
         daysLeft.font = .details
         daysLeft.textAlignment = .center
-        daysLeft.textColor = .white
+        daysLeft.textColor = .dark
 
         if difference == 0 {
             daysLeft.text =  "Last day"
@@ -164,7 +164,9 @@ class ActiveChallengeViewController: UITableViewController {
         headerView.addGestureRecognizer(tap)
         headerView.isUserInteractionEnabled = true
         
-        let chevronImageView = UIImageView(image: UIImage(named: "chevron-right"))
+        let chevronImage = UIImage(named: "chevron-right")!.withRenderingMode(.alwaysTemplate)
+        let chevronImageView = UIImageView(image: chevronImage)
+        chevronImageView.tintColor = .dark
         chevronImageView.contentMode = .center
         
         headerView.addSubview(chevronImageView)

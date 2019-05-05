@@ -10,8 +10,11 @@ import UIKit
 
 extension UIColor {
     static let brand: UIColor = .hex("#b22222")
+    static let brandSecondary: UIColor = .hex("#FF5050")
     static let dark: UIColor = .hex("#111111")
-    static let brandDark: UIColor = .hex("#292929")
+    static let primary: UIColor = .hex("#337ab7")
+    static let eeeeee: UIColor = .hex("#EEEEEE")
+    // static let brandDark: UIColor = .hex("#292929")
     static let whiteSmoke: UIColor = .hex("#f5f5f5")
     static let fog: UIColor = .hex("#9B9B9B")
     static let firebrick: UIColor = .hex("#b22222")
@@ -21,6 +24,7 @@ extension UIColor {
 
 extension UIImage {
     static let brand = UIImage(color: .brand)
+    static let primary = UIImage(color: .primary)
     static let whiteSmoke = UIImage(color: .whiteSmoke)
     static let charcoal = UIImage(color: .charcoal)
     static let fog = UIImage(color: .fog)

@@ -50,7 +50,7 @@ class CreateChallengeViewController: FormViewController {
             $0.title = "Name"
             $0.placeholder = "Beast Rats"
         }.cellSetup { cell, _ in
-            cell.tintColor = .brand
+            cell.tintColor = .primary
             cell.textLabel?.font = .body
             cell.titleLabel?.font = .body
         }
