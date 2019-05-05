@@ -25,27 +25,27 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sze-Mu-s4L" customClass="UserImageView" customModule="GymRats" customModuleProvider="target">
-                        <rect key="frame" x="16" y="7.5" width="56" height="56"/>
+                        <rect key="frame" x="16" y="7.5" width="52" height="52"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="56" id="DKy-8W-J3B"/>
-                            <constraint firstAttribute="height" constant="56" id="NoT-R0-Bl6"/>
+                            <constraint firstAttribute="width" constant="52" id="DKy-8W-J3B"/>
+                            <constraint firstAttribute="height" constant="52" id="NoT-R0-Bl6"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tsU-bP-03d">
-                        <rect key="frame" x="82" y="25" width="42" height="21"/>
+                        <rect key="frame" x="78" y="23" width="42" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bWF-yu-O0d">
-                        <rect key="frame" x="82" y="12.5" width="233" height="20.5"/>
+                        <rect key="frame" x="78" y="12.5" width="237" height="20.5"/>
                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EHQ-u4-Q5a">
-                        <rect key="frame" x="82" y="38" width="233" height="17"/>
+                        <rect key="frame" x="78" y="38" width="237" height="17"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
