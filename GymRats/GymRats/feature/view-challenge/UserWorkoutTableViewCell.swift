@@ -39,9 +39,13 @@ class UserWorkoutTableViewCell: UITableViewCell {
         didSet {
             let user = userWorkout.user
 
-            userImageView.load(avatarInfo: user)
-            
             if let workout = userWorkout.workout {
+                if workout.pictureUrl != nil {
+                    userImageView.load(avatarInfo: workout)
+                } else {
+                    userImageView.load(avatarInfo: user)
+                }
+                
                 titleLabel.isHidden = false
                 detailsLabel.isHidden = false
                 titleLabel.text = workout.title
@@ -72,6 +76,7 @@ class UserWorkoutTableViewCell: UITableViewCell {
                 
                 accessoryView = label
             } else {
+                userImageView.load(avatarInfo: user)
                 fullNameLabel.isHidden = false
                 fullNameLabel.text = userWorkout.user.fullName
                 
@@ -142,6 +147,7 @@ class UserWorkoutTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        userImageView.imageView.image = nil
         titleLabel.isHidden = true
         detailsLabel.isHidden = true
         fullNameLabel.isHidden = true

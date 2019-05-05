@@ -22,7 +22,7 @@ class MenuViewController: UITableViewController {
         let label = UILabel()
         label.font = .body
         label.textAlignment = .center
-        label.textColor = .brand
+        label.textColor = .dark
         
         return label
     }()
@@ -116,8 +116,8 @@ extension MenuViewController {
         
         cell.textLabel?.font = .body
         cell.backgroundColor = .whiteSmoke
-        cell.imageView?.tintColor = .brand
-        cell.textLabel?.textColor = .brand
+        cell.imageView?.tintColor = .dark
+        cell.textLabel?.textColor = .dark
 
         switch indexPath.row {
         case 0:

@@ -18,3 +18,15 @@ struct Workout: Codable {
     let createdAt: Date
     let googlePlaceId: String?
 }
+
+extension Workout: AvatarProtocol {
+    
+    var pictureUrl: String? {
+        return photoUrl
+    }
+    
+    var myName: String? {
+        return title
+    }
+    
+}
