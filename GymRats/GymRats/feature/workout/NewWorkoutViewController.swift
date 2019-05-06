@@ -51,7 +51,7 @@ class NewWorkoutViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "New Workout"
+        title = "Log Workout"
         tableView.backgroundColor = .whiteSmoke
         
         LabelRow.defaultCellUpdate = nil

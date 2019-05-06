@@ -24,7 +24,6 @@ class ActiveChallengeViewController: UITableViewController {
     let challenge: Challenge
     let refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .white
 
         return refreshControl
     }()
@@ -110,6 +109,13 @@ class ActiveChallengeViewController: UITableViewController {
             self.fetchUserWorkouts()
         }
         
+        let imageView = UserImageView()
+        imageView.load(avatarInfo: challenge)
+        imageView.constrainWidth(34)
+        imageView.constrainHeight(34)
+
+        navigationItem.titleView = imageView
+
         let container = UIView()
         
         let headerView = UIView()
