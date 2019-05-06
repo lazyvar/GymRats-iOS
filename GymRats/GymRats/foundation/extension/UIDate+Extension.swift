@@ -15,7 +15,7 @@ extension Date {
         return challengeDate().toFormat("h:mm a")
     }
     
-    func challengeDate(in timeZone: TimeZone = TimeZone(abbreviation: ActiveChallengeViewController.timeZone)!) -> DateInRegion {
+    func challengeDate(in timeZone: TimeZone = .current) -> DateInRegion {
         return self.in(region: .region(in: timeZone))
     }
     
@@ -23,7 +23,7 @@ extension Date {
 
 extension Region {
     
-    static func region(in timeZone: TimeZone = TimeZone(abbreviation: ActiveChallengeViewController.timeZone)!) -> Region {
+    static func region(in timeZone: TimeZone = .current) -> Region {
         return Region (
             calendar: Calendar.autoupdatingCurrent,
             zone: timeZone,

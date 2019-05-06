@@ -53,7 +53,7 @@ class ProfileViewController: UIViewController {
     }()
     
     let currentCalendar: Calendar = {
-        let timeZone = TimeZone(identifier: ActiveChallengeViewController.timeZone)!
+        let timeZone = TimeZone.current
         
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = timeZone
@@ -469,7 +469,7 @@ extension Array where Element == Workout {
         return self.filter({ workout in
             let region = Region (
                 calendar: Calendar.autoupdatingCurrent,
-                zone: TimeZone(abbreviation: ActiveChallengeViewController.timeZone)!,
+                zone: TimeZone.current,
                 locale: Locale.autoupdatingCurrent
             )
 
@@ -487,7 +487,7 @@ extension Array where Element == Workout {
 extension DayView {
     
     var swiftDate: Date {
-        let timeZone = TimeZone(identifier: ActiveChallengeViewController.timeZone)!
+        let timeZone = TimeZone.current
         
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = timeZone

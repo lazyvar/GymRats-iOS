@@ -20,8 +20,6 @@ struct UserWorkout {
 
 class ActiveChallengeViewController: UITableViewController {
 
-    static let timeZone: String = "EST"
-    
     let disposeBag = DisposeBag()
     let challenge: Challenge
     let refresher: UIRefreshControl = {
