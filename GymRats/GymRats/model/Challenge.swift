@@ -23,7 +23,7 @@ extension Challenge {
     var isActive: Bool {
         let today = Date().challengeDate()
 
-         return startDate.isToday || endDate.isToday || (today.compare(.isLater(than: startDate)) && today.compare(.isEarlier(than: endDate)))
+         return startDate.challengeDate().isToday || endDate.challengeDate().isToday || (today.compare(.isLater(than: startDate)) && today.compare(.isEarlier(than: endDate)))
     }
     
 }
