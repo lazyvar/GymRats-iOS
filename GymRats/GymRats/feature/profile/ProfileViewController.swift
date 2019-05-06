@@ -12,7 +12,7 @@ import CVCalendar
 import YogaKit
 import SwiftDate
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UITableViewController {
     
     let disposeBag = DisposeBag()
     let user: User
@@ -94,6 +94,10 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         setupBackButton()
+        
+        tableView.separatorStyle = .none
+        tableView.allowsSelection = false
+        tableView.showsVerticalScrollIndicator = false
         
         calendarMenu.menuViewDelegate = self
         calendarView.calendarAppearanceDelegate = self
@@ -199,7 +203,8 @@ class ProfileViewController: UIViewController {
         containerView.addSubview(calendarView)
         
         containerView.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
-        containerView.makeScrolly(in: view)
+
+        tableView.tableHeaderView = containerView
         
         goBackInTimeButton.onTouchUpInside { [weak self] in
             self?.calendarView.loadPreviousView()
@@ -214,6 +219,22 @@ class ProfileViewController: UIViewController {
         NotificationCenter.default.addObserver(forName: NSNotification.Name.init("WorkoutDeleted"), object: nil, queue: nil) { notification in
             self.loadWorkouts()
         }
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 130
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
     }
     
     @objc func transitionToSettings() {

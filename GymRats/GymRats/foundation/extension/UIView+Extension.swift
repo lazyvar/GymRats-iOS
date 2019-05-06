@@ -12,30 +12,7 @@ import RxSwift
 import RxCocoa
 
 extension UIView {
-    
-    func makeScrolly(in view: UIView) {
-        if let previousScrollView = view.subviews.first(where: { $0.tag == 666 }) {
-            previousScrollView.removeFromSuperview()
-        }
-        
-        let scrollView = UIScrollView()
-        let size = frame.size
-        let width = frame.size.width
-        let height: CGFloat = size.height + 55 // maaaagic
-        
-        scrollView.tag = 666
-        scrollView.frame = view.frame
-        scrollView.contentSize = CGSize(width: width, height: height)
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.alwaysBounceVertical = true
-        scrollView.alwaysBounceHorizontal = false
-        scrollView.backgroundColor = self.backgroundColor
-        scrollView.addSubview(self)
-        
-        view.addSubview(scrollView)
-        view.backgroundColor = self.backgroundColor
-    }
-    
+
     /** Loads instance from nib with the same name. */
     func loadNib<T>() -> T {
         let bundle = Bundle(for: type(of: self))
