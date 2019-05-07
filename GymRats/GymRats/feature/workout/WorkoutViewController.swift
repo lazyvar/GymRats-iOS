@@ -342,6 +342,9 @@ extension WorkoutViewController {
             cell.commentLabel.text = comment.content
             cell.selectionStyle = .blue
             
+            cell.setNeedsLayout()
+            cell.layoutIfNeeded()
+            
             return cell
         } else {
             let cell = UITableViewCell()
