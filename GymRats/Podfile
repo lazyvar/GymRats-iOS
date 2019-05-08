@@ -27,3 +27,16 @@ target 'GymRats' do
     pod 'EasyNotificationBadge'
     pod 'MessageKit'
 end
+
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            if target.name == 'Cache'
+                config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-Onone'
+            end
+	    if target.name == "YogaKit"
+		config.build_settings['SWIFT_VERSION'] = '4.0'
+	    end
+        end
+    end
+end
