@@ -26,6 +26,7 @@ target 'GymRats' do
     pod 'TTTAttributedLabel'
     pod 'EasyNotificationBadge'
     pod 'MessageKit'
+    pod 'Pageboy', '~> 3.2'
 end
 
 post_install do |installer|

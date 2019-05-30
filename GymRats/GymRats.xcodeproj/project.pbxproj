@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		01338DAC223B230E0019B67E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01338DAB223B230E0019B67E /* GoogleService-Info.plist */; };
+		018E9F4D229F7D7E008AB016 /* Challenge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E9F4C229F7D7E008AB016 /* Challenge.storyboard */; };
+		018E9F4F229F7DB1008AB016 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */; };
+		018E9F51229F7E3D008AB016 /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E9F50229F7E3D008AB016 /* ChallengeViewController.swift */; };
 		01BFF8F9223B30750044F802 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF8F8223B30750044F802 /* Comment.swift */; };
 		01BFF8FC223D425C0044F802 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF8FA223D425C0044F802 /* CommentTableViewCell.swift */; };
 		01BFF8FD223D425C0044F802 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01BFF8FB223D425C0044F802 /* CommentTableViewCell.xib */; };
@@ -98,6 +101,9 @@
 
 /* Begin PBXFileReference section */
 		01338DAB223B230E0019B67E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		018E9F4C229F7D7E008AB016 /* Challenge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Challenge.storyboard; sourceTree = "<group>"; };
+		018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
+		018E9F50229F7E3D008AB016 /* ChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
 		01BFF8F8223B30750044F802 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		01BFF8FA223D425C0044F802 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		01BFF8FB223D425C0044F802 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
@@ -376,6 +382,7 @@
 				74A01B4D220A83FD00431ABD /* UIDate+Extension.swift */,
 				746764E2220B6D5C000CFB1B /* Collection+Extension.swift */,
 				01BFF906223DAFD90044F802 /* UIBarButton+Extension.swift */,
+				018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -449,6 +456,8 @@
 				74A01B3A220A544F00431ABD /* UserWorkoutTableViewCell.xib */,
 				7455AC5F2212585B005A558A /* ChallengeInfoViewController.swift */,
 				01BFF90A223DC43E0044F802 /* ChatViewController.swift */,
+				018E9F4C229F7D7E008AB016 /* Challenge.storyboard */,
+				018E9F50229F7E3D008AB016 /* ChallengeViewController.swift */,
 			);
 			path = "view-challenge";
 			sourceTree = "<group>";
@@ -598,6 +607,7 @@
 				747D6FA42208DB330062BB39 /* LaunchScreen.storyboard in Resources */,
 				74118065220C58C300EB9D11 /* Lato-Italic.ttf in Resources */,
 				74118062220C58C300EB9D11 /* Lato-BoldItalic.ttf in Resources */,
+				018E9F4D229F7D7E008AB016 /* Challenge.storyboard in Resources */,
 				74118060220C58C300EB9D11 /* Lato-BlackItalic.ttf in Resources */,
 				74118063220C58C300EB9D11 /* Lato-Hairline.ttf in Resources */,
 				74A01B3C220A544F00431ABD /* UserWorkoutTableViewCell.xib in Resources */,
@@ -641,6 +651,7 @@
 				"${BUILT_PRODUCTS_DIR}/MMDrawerController/MMDrawerController.framework",
 				"${BUILT_PRODUCTS_DIR}/MessageInputBar/MessageInputBar.framework",
 				"${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Pageboy/Pageboy.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
@@ -670,6 +681,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MMDrawerController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageInputBar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Pageboy.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
@@ -771,6 +783,7 @@
 				74A01B43220A691300431ABD /* MenuViewController.swift in Sources */,
 				7405FE93222C249B0054F029 /* WebViewController.swift in Sources */,
 				747D6FC02208DC820062BB39 /* AppCoordinator.swift in Sources */,
+				018E9F4F229F7DB1008AB016 /* UIStoryboard+Extension.swift in Sources */,
 				747D6FBD2208DBFE0062BB39 /* API.swift in Sources */,
 				747D6FE72208ED780062BB39 /* SignUpViewController.swift in Sources */,
 				01BFF90B223DC43E0044F802 /* ChatViewController.swift in Sources */,
@@ -797,6 +810,7 @@
 				747D6FC32208DCAB0062BB39 /* Observable+Extension.swift in Sources */,
 				74A01B46220A778C00431ABD /* WorkoutViewController.swift in Sources */,
 				746764EA220BCB5C000CFB1B /* GRNavigationController.swift in Sources */,
+				018E9F51229F7E3D008AB016 /* ChallengeViewController.swift in Sources */,
 				74BE97BD220C9F2800D550CA /* ImagePickerController.swift in Sources */,
 				747D6FE52208ED6F0062BB39 /* LoginViewController.swift in Sources */,
 				74305071220A05FC005D8C52 /* GymRatsApp.swift in Sources */,

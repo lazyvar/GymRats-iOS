@@ -15,5 +15,11 @@ extension UINavigationBar {
         setBackgroundImage(.brand, for: .default)
         shadowImage = UIImage()
     }
-    
+
+    func turnSolidWhiteSlightShadow() {
+        isTranslucent = false
+        setBackgroundImage(UIImage(color: .white), for: .default)
+        shadowImage = UIImage()
+    }
+
 }

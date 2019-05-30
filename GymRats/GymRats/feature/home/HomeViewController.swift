@@ -46,10 +46,6 @@ class HomeViewController: UITableViewController {
         view.backgroundColor = .white
         
         setupForHome()
-        
-        let mr_rat = UIImageView(image: UIImage(named: "woah"))
-        mr_rat.contentMode = .scaleAspectFit
-        navigationItem.titleView = mr_rat
 
         tableView.separatorStyle = .none
         tableView.register(UINib(nibName: "UserWorkoutTableViewCell", bundle: nil), forCellReuseIdentifier: "ChallengeCell")
@@ -218,7 +214,7 @@ class HomeViewController: UITableViewController {
         let challenge = challenges[indexPath.row]
         
         if challenge.isActive {
-            push(ActiveChallengeViewController(challenge: challenge))
+            push(ChallengeViewController.create(for: challenge))
         }
     }
 
