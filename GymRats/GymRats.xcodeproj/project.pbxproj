@@ -11,6 +11,7 @@
 		018E9F4D229F7D7E008AB016 /* Challenge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E9F4C229F7D7E008AB016 /* Challenge.storyboard */; };
 		018E9F4F229F7DB1008AB016 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */; };
 		018E9F51229F7E3D008AB016 /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E9F50229F7E3D008AB016 /* ChallengeViewController.swift */; };
+		018E9F53229F8787008AB016 /* ChallengeSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E9F52229F8787008AB016 /* ChallengeSliderViewController.swift */; };
 		01BFF8F9223B30750044F802 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF8F8223B30750044F802 /* Comment.swift */; };
 		01BFF8FC223D425C0044F802 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF8FA223D425C0044F802 /* CommentTableViewCell.swift */; };
 		01BFF8FD223D425C0044F802 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01BFF8FB223D425C0044F802 /* CommentTableViewCell.xib */; };
@@ -104,6 +105,7 @@
 		018E9F4C229F7D7E008AB016 /* Challenge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Challenge.storyboard; sourceTree = "<group>"; };
 		018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
 		018E9F50229F7E3D008AB016 /* ChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
+		018E9F52229F8787008AB016 /* ChallengeSliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeSliderViewController.swift; sourceTree = "<group>"; };
 		01BFF8F8223B30750044F802 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		01BFF8FA223D425C0044F802 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		01BFF8FB223D425C0044F802 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
@@ -458,6 +460,7 @@
 				01BFF90A223DC43E0044F802 /* ChatViewController.swift */,
 				018E9F4C229F7D7E008AB016 /* Challenge.storyboard */,
 				018E9F50229F7E3D008AB016 /* ChallengeViewController.swift */,
+				018E9F52229F8787008AB016 /* ChallengeSliderViewController.swift */,
 			);
 			path = "view-challenge";
 			sourceTree = "<group>";
@@ -790,6 +793,7 @@
 				746764ED220BD68D000CFB1B /* RightAlignedconButton.swift in Sources */,
 				74F4788C220D0A2F005CD4E4 /* SettingsViewController.swift in Sources */,
 				74A01B3E220A55D000431ABD /* UserImageView.swift in Sources */,
+				018E9F53229F8787008AB016 /* ChallengeSliderViewController.swift in Sources */,
 				74A01B25220A0AFB00431ABD /* HomeViewController.swift in Sources */,
 				747D6FDB2208E8130062BB39 /* Keychain.swift in Sources */,
 				74A01B2A220A17EC00431ABD /* JoinChallenge.swift in Sources */,
