@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftDate
 
 struct Challenge: Codable {
     let id: Int
@@ -19,6 +20,18 @@ struct Challenge: Codable {
 }
 
 extension Challenge {
+
+    var days: [Date] {
+        let daysGone = startDate.getInterval(toDate: Date(), component: .day)
+        
+        var dates: [Date] = []
+        
+        for i in 0..<daysGone {
+            dates.append(startDate + Int(i).days)
+        }
+        
+        return dates
+    }
     
     var daysLeft: String {
         let difference = Date().getInterval(toDate: endDate, component: .day)

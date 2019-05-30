@@ -58,12 +58,20 @@
                                     <constraint firstAttribute="trailing" secondItem="WZJ-2W-3ks" secondAttribute="trailing" constant="19" id="zld-Nt-oum"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tjF-IV-uEp">
+                                <rect key="frame" x="0.0" y="112" width="414" height="750"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="9D7-Zx-n7t" firstAttribute="leading" secondItem="LIE-eW-VLh" secondAttribute="leading" id="ErO-nm-bfZ"/>
+                            <constraint firstItem="tjF-IV-uEp" firstAttribute="leading" secondItem="LIE-eW-VLh" secondAttribute="leading" id="Lag-xt-Fi8"/>
                             <constraint firstItem="9D7-Zx-n7t" firstAttribute="top" secondItem="LIE-eW-VLh" secondAttribute="top" id="Phg-dI-f4x"/>
                             <constraint firstItem="9D7-Zx-n7t" firstAttribute="trailing" secondItem="LIE-eW-VLh" secondAttribute="trailing" id="RDz-12-evx"/>
+                            <constraint firstItem="LIE-eW-VLh" firstAttribute="bottom" secondItem="tjF-IV-uEp" secondAttribute="bottom" id="d95-wI-KO8"/>
+                            <constraint firstItem="tjF-IV-uEp" firstAttribute="top" secondItem="9D7-Zx-n7t" secondAttribute="bottom" id="uPU-mA-iod"/>
+                            <constraint firstItem="LIE-eW-VLh" firstAttribute="trailing" secondItem="tjF-IV-uEp" secondAttribute="trailing" id="v90-gf-gpZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LIE-eW-VLh"/>
                     </view>
@@ -72,6 +80,7 @@
                         <outlet property="challengeImageView" destination="BqU-iq-WaN" id="bNP-ym-sDw"/>
                         <outlet property="challengeTitleLabel" destination="dZI-2k-IB9" id="u7j-NL-quu"/>
                         <outlet property="headerView" destination="9D7-Zx-n7t" id="bp3-uA-Yba"/>
+                        <outlet property="sliderContainer" destination="tjF-IV-uEp" id="LLK-X7-3rZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D0f-C5-OtQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
