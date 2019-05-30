@@ -86,6 +86,7 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - Pageboy (3.2.2)
   - RxAlamofire (4.3.0):
     - RxAlamofire/Core (= 4.3.0)
   - RxAlamofire/Core (4.3.0):
@@ -124,6 +125,7 @@ DEPENDENCIES:
   - Kingfisher (~> 4.0)
   - MessageKit
   - MMDrawerController (~> 0.5.7)
+  - Pageboy (~> 3.2)
   - RxAlamofire
   - RxCocoa (~> 4.0)
   - RxEureka (~> 0.2)
@@ -160,6 +162,7 @@ SPEC REPOS:
     - MessageKit
     - MMDrawerController
     - nanopb
+    - Pageboy
     - RxAlamofire
     - RxAtomic
     - RxCocoa
@@ -197,6 +200,7 @@ SPEC CHECKSUMS:
   MessageKit: 29c1c87e5a396d2ca7a3f712e5171dc9aba42a1e
   MMDrawerController: 7a4cf8e25596bf2434e03ce50d22a8608ddee6a1
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  Pageboy: b6e8f5082c23ef2490ddf21339fb6e19673d1453
   RxAlamofire: 09624d0f2d48ed8b686e4eb4cf68e28cbd2df556
   RxAtomic: f8d6adc1ccb87a767811269e4875887bc74dbf19
   RxCocoa: 2f35a76bf8887872e28a1914112395b11b8e0e64
@@ -208,6 +212,6 @@ SPEC CHECKSUMS:
   Yoga: aaae8abea68951f60bee05f6277d3eed90bb91bb
   YogaKit: 3107fd5c2c233b540a1c5e376b95ac2c40398d6b
 
-PODFILE CHECKSUM: bffd1720c684c8f16b7e7e0f12b2aece9474c2a0
+PODFILE CHECKSUM: 8a8e756744c0a0471eb77fde7e9ce98f09d2da3d
 
 COCOAPODS: 1.6.1

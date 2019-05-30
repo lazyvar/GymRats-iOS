@@ -20,6 +20,20 @@ struct Challenge: Codable {
 
 extension Challenge {
     
+    var daysLeft: String {
+        let difference = Date().getInterval(toDate: endDate, component: .day)
+        
+        if difference == 0 {
+            return "Last day"
+        } else {
+            return "\(difference) days remaining"
+        }
+    }
+
+}
+
+extension Challenge {
+    
     var isActive: Bool {
         let today = Date().challengeDate()
 
