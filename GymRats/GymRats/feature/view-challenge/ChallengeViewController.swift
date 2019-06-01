@@ -46,21 +46,11 @@ class ChallengeViewController: UIViewController {
         }
     }
     
-    lazy var pageboyViewController: PageboyViewController = {
-        let pageboyViewController = PageboyViewController()
-        pageboyViewController.dataSource = self
-        pageboyViewController.delegate = self
-
-        return pageboyViewController
-    }()
-    
-    @IBOutlet weak var sliderContainer: UIView! {
-        didSet {
-            addChild(pageboyViewController)
-            sliderContainer.addSubview(pageboyViewController.view)
-            pageboyViewController.didMove(toParent: self)
-        }
+    var pageboyViewController: PageboyViewController {
+        return children.first as! PageboyViewController
     }
+    
+    private var cachedDayViewControllers: [Int: ChallengeDayViewController] = [:]
     
     lazy var chatItem = UIBarButtonItem (
         image: UIImage(named: "chat")?.withRenderingMode(.alwaysOriginal),
@@ -74,7 +64,9 @@ class ChallengeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        pageboyViewController.delegate = self
+        pageboyViewController.dataSource = self
         setupMenuButton()
         setupBackButton()
         
@@ -136,26 +128,15 @@ class ChallengeViewController: UIViewController {
 
 extension ChallengeViewController: PageboyViewControllerDelegate {
     
-    func pageboyViewController(_ pageboyViewController: PageboyViewController, willScrollToPageAt index: PageboyViewController.PageIndex, direction: PageboyViewController.NavigationDirection, animated: Bool) {
-        
-    }
-    
-    func pageboyViewController(_ pageboyViewController: PageboyViewController, didScrollTo position: CGPoint, direction: PageboyViewController.NavigationDirection, animated: Bool) {
-        
-    }
-    
     func pageboyViewController(_ pageboyViewController: PageboyViewController, didScrollToPageAt index: PageboyViewController.PageIndex, direction: PageboyViewController.NavigationDirection, animated: Bool) {
-
         guard let vc = pageboyViewController.currentViewController as? ChallengeDayViewController else { return }
         
         vc.loadData()
     }
-    
-    func pageboyViewController(_ pageboyViewController: PageboyViewController, didReloadWith currentViewController: UIViewController, currentPageIndex: PageboyViewController.PageIndex) {
-        print("WHAT")
-    }
-    
-    
+
+    func pageboyViewController(_ pageboyViewController: PageboyViewController, didReloadWith currentViewController: UIViewController, currentPageIndex: PageboyViewController.PageIndex) { }
+    func pageboyViewController(_ pageboyViewController: PageboyViewController, willScrollToPageAt index: PageboyViewController.PageIndex, direction: PageboyViewController.NavigationDirection, animated: Bool) { }
+    func pageboyViewController(_ pageboyViewController: PageboyViewController, didScrollTo position: CGPoint, direction: PageboyViewController.NavigationDirection, animated: Bool) { }
 }
 
 extension ChallengeViewController: PageboyViewControllerDataSource {
@@ -168,9 +149,21 @@ extension ChallengeViewController: PageboyViewControllerDataSource {
         for pageboyViewController: PageboyViewController,
         at index: PageboyViewController.PageIndex
     ) -> UIViewController? {
+        if let viewController = cachedDayViewControllers[index] {
+            return viewController
+        }
+        
         let date = challenge.days[index]
         let userWorkouts = self.userWorkouts(for: date)
         let challengeDayViewController = ChallengeDayViewController(date: date, userWorkouts: userWorkouts, challenge: challenge)
+        
+        if index == challenge.days.endIndex - 1 {
+            challengeDayViewController.loadData()
+        }
+        
+        if !users.isEmpty {
+            cachedDayViewControllers[index] = challengeDayViewController
+        }
         
         return challengeDayViewController
     }

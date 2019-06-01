@@ -37,6 +37,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
             registerForNotifications(on: application)
         } else {
             // show login/signup
+            // TODO
             let nav = GRNavigationController(rootViewController: WelcomeViewController())
             nav.navigationBar.turnBrandColorSlightShadow()
             
@@ -50,7 +51,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
                 
         GMSPlacesClient.provideAPIKey("AIzaSyD1X4TH-TneFnDqjiJ2rb2FGgxK8JZyrIo")
         FirebaseApp.configure()
-        UIApplication.shared.statusBarStyle = .lightContent
+        UIApplication.shared.statusBarStyle = .default
     }
     
     func userNotificationCenter (

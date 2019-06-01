@@ -487,20 +487,9 @@ extension Array where Element == Workout {
     }
     
     func workouts(on date: Date) -> [Workout] {
-        return self.filter({ workout in
-            let region = Region (
-                calendar: Calendar.autoupdatingCurrent,
-                zone: TimeZone.current,
-                locale: Locale.autoupdatingCurrent
-            )
-
-            let workoutInRegion = DateInRegion(workout.createdAt, region: region)
-            let dateInRegion = DateInRegion(date, region: region)
-            
-            let daysApart = workoutInRegion.daysApartRespectingRegions(from: dateInRegion)
-
-            return daysApart == 0
-        })
+        return filter { workout in
+            return date.year == workout.createdAt.year && date.dayOfYear == workout.createdAt.dayOfYear
+        }
     }
     
 }
