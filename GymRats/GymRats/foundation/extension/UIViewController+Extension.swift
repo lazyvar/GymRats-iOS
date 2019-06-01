@@ -69,10 +69,10 @@ extension UIViewController {
     
     @objc func presentNewWorkoutViewController() {
         let newWorkoutViewController = NewWorkoutViewController()
-        newWorkoutViewController.delegate = self
+        // TODO: newWorkoutViewController.delegate = self
         
         let nav = GRNavigationController(rootViewController: newWorkoutViewController)
-        nav.navigationBar.turnBrandColorSlightShadow()
+        nav.navigationBar.turnSolidWhiteSlightShadow()
         
         self.present(nav, animated: true, completion: nil)
     }
@@ -93,14 +93,6 @@ extension UIViewController {
     
    @objc func dismissSelf() {
         self.dismiss(animated: true, completion: nil)
-    }
-    
-}
-
-extension UIViewController: NewWorkoutDelegate {
-    
-    func workoutCreated(workouts: [Workout]) {
-        (self as? ActiveChallengeViewController)?.fetchUserWorkouts()
     }
     
 }

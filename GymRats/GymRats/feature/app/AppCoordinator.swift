@@ -39,7 +39,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
             // show login/signup
             // TODO
             let nav = GRNavigationController(rootViewController: WelcomeViewController())
-            nav.navigationBar.turnBrandColorSlightShadow()
+            nav.navigationBar.turnSolidWhiteSlightShadow()
             
             window.rootViewController = nav
         }
@@ -134,10 +134,12 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     var openWorkoutId: Int?
     var openChallengeChatId: Int?
 
+    var menu: MenuViewController!
+    
     func login(user: User) {
         self.currentUser = user
         
-        let menu = MenuViewController()
+        menu = MenuViewController()
         let home = HomeViewController()
         let nav = GRNavigationController(rootViewController: home)
         
@@ -182,7 +184,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         gymRatsAPI.deleteDevice()
             .subscribe { _ in
                 let nav = GRNavigationController(rootViewController: WelcomeViewController())
-                nav.navigationBar.turnBrandColorSlightShadow()
+                nav.navigationBar.turnSolidWhiteSlightShadow()
                 
                 self.window.rootViewController = nav
                 self.currentUser = nil
