@@ -9,6 +9,7 @@
 import UIKit
 import AvatarImageView
 import Kingfisher
+import SkeletonView
 
 protocol AvatarProtocol {
     var pictureUrl: String? { get }
@@ -29,11 +30,47 @@ class UserImageView: UIView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
         imageView.backgroundColor = .gray
-
+        
         return imageView
     }()
     
+    lazy var skeletonView: UIView = {
+        let view = UIView()
+        view.alpha = 0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.clipsToBounds = true
+        view.backgroundColor = .clear
+        
+        return view
+    }()
+    
     let ringView = RingView(frame: .zero, ringWidth: 0.5, ringColor: UIColor.black.withAlphaComponent(0.1))
+    
+    func skeletonLoad(avatarInfo: AvatarProtocol) {
+        self.avatarInfo = avatarInfo
+
+        guard let proPicUrl = avatarInfo.pictureUrl, let url = URL(string: proPicUrl) else {
+            self.userImage = nil
+            self.imageView.refresh()
+
+            return
+        }
+
+        self.skeletonView.alpha = 1
+
+        KingfisherManager.shared.retrieveImage(with: url, options: nil, progressBlock: nil) { image, error, _, _ in
+            UIView.animate(withDuration: 0.15, animations: {
+                self.skeletonView.alpha = 0
+            })
+
+            if let image = image {
+                self.userImage = image
+            } else {
+                self.userImage = nil
+            }
+            self.imageView.refresh()
+        }
+    }
     
     func load(avatarInfo: AvatarProtocol) {
         self.avatarInfo = avatarInfo
@@ -58,9 +95,12 @@ class UserImageView: UIView {
     func setup() {
         addSubview(imageView)
         addSubview(ringView)
-        
+        addSubview(skeletonView)
+
         addConstraintsWithFormat(format: "H:|[v0]|", views: imageView)
         addConstraintsWithFormat(format: "V:|[v0]|", views: imageView)
+        addConstraintsWithFormat(format: "H:|[v0]|", views: skeletonView)
+        addConstraintsWithFormat(format: "V:|[v0]|", views: skeletonView)
     }
     
     override func layoutSubviews() {
@@ -69,6 +109,9 @@ class UserImageView: UIView {
         imageView.layer.cornerRadius = frame.width / 2
         imageView.refresh()
         
+        skeletonView.layer.cornerRadius = frame.width / 2
+        skeletonView.showAnimatedSkeleton()
+
         let scale: CGFloat = 1.16
         let newWidth = frame.width * scale
         let newHeight = frame.height * scale

@@ -41,7 +41,7 @@ class UserWorkoutTableViewCell: UITableViewCell {
 
             if let workout = userWorkout.workout {
                 if workout.pictureUrl != nil {
-                    userImageView.load(avatarInfo: workout)
+                    userImageView.skeletonLoad(avatarInfo: workout)
                 } else {
                     userImageView.load(avatarInfo: user)
                 }
