@@ -11,7 +11,7 @@ import UIKit
 class ChallengeDayViewController: UITableViewController {
     
     let date: Date
-    let userWorkouts: [UserWorkout]
+    var userWorkouts: [UserWorkout]
     let challenge: Challenge
     
     private var showRows = false

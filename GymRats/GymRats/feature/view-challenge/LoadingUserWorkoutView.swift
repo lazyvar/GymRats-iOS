@@ -43,7 +43,7 @@ class LoadingUserWorkoutView: UIView {
 
         let zzz = UILabel()
         zzz.font = .details
-        zzz.text = "Zzz"
+        zzz.text = String.genRandom(minLength: 3, maxLength: 6)
         zzz.sizeToFit()
         zzz.translatesAutoresizingMaskIntoConstraints = false
         zzz.isSkeletonable = true
@@ -61,8 +61,9 @@ class LoadingUserWorkoutView: UIView {
         addConstraint(NSLayoutConstraint(item: detailsLabel, attribute: .leading, relatedBy: .equal, toItem: circleView, attribute: .trailing, multiplier: 1, constant: 10))
         addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .top, relatedBy: .equal, toItem: circleView, attribute: .top, multiplier: 1, constant: 2))
         addConstraint(NSLayoutConstraint(item: detailsLabel, attribute: .bottom, relatedBy: .equal, toItem: circleView, attribute: .bottom, multiplier: 1, constant: -3.5))
-        addConstraint(NSLayoutConstraint(item: zzz, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: 10))
+        addConstraint(NSLayoutConstraint(item: zzz, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: -zzz.frame.width - 10))
 
+        addDivider()
     }
     
     required init?(coder aDecoder: NSCoder) {
