@@ -22,7 +22,7 @@ class UserWorkoutTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         titleLabel.font = .body
         detailsLabel.font = .details
         fullNameLabel.font = .body

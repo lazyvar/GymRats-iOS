@@ -27,6 +27,7 @@ target 'GymRats' do
     pod 'EasyNotificationBadge'
     pod 'MessageKit'
     pod 'Pageboy', '~> 3.2'
+    pod 'SkeletonView'
 end
 
 post_install do |installer|

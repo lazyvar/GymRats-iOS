@@ -26,7 +26,7 @@ extension Challenge {
         
         var dates: [Date] = []
         
-        for i in 0..<daysGone {
+        for i in 0...daysGone {
             dates.append(startDate + Int(i).days)
         }
         
