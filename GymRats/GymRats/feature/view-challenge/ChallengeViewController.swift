@@ -67,6 +67,7 @@ class ChallengeViewController: UIViewController {
         
         pageboyViewController.delegate = self
         pageboyViewController.dataSource = self
+        pageboyViewController.reloadData()
         setupMenuButton()
         setupBackButton()
         
@@ -91,6 +92,8 @@ class ChallengeViewController: UIViewController {
             
             self.users = users
             self.workouts = workouts
+            
+            UserDefaults.standard.set(users.count, forKey: "\(self.challenge.id)_user_count")
             
             self.hideLoadingBar()
             self.pageboyViewController.reloadData()
@@ -131,7 +134,9 @@ extension ChallengeViewController: PageboyViewControllerDelegate {
     func pageboyViewController(_ pageboyViewController: PageboyViewController, didScrollToPageAt index: PageboyViewController.PageIndex, direction: PageboyViewController.NavigationDirection, animated: Bool) {
         guard let vc = pageboyViewController.currentViewController as? ChallengeDayViewController else { return }
         
-        vc.loadData()
+        if !users.isEmpty {
+            vc.loadData()
+        }
     }
 
     func pageboyViewController(_ pageboyViewController: PageboyViewController, didReloadWith currentViewController: UIViewController, currentPageIndex: PageboyViewController.PageIndex) { }
@@ -153,14 +158,33 @@ extension ChallengeViewController: PageboyViewControllerDataSource {
             return viewController
         }
         
-        let date = challenge.days[index]
-        let userWorkouts = self.userWorkouts(for: date)
-        let challengeDayViewController = ChallengeDayViewController(date: date, userWorkouts: userWorkouts, challenge: challenge)
         
-        if index == challenge.days.endIndex - 1 {
-            challengeDayViewController.loadData()
+        let date = challenge.days[index]
+        var userWorkouts = self.userWorkouts(for: date)
+        let withWorkouts = userWorkouts.filter { $0.workout != nil }
+        
+        if withWorkouts.isEmpty {
+            var cachedUserCount = UserDefaults.standard.integer(forKey: "\(challenge.id)_user_count")
+            if cachedUserCount == 0 { cachedUserCount = 5 }
+            
+            let dummyUsers = (1...cachedUserCount).map { _ in
+                return User(id: 0, email: "", fullName: String.genRandom(minLength: 5, maxLength: 20), profilePictureUrl: nil, token: nil)
+            }
+            
+            userWorkouts = dummyUsers.map { user in
+                let workout = Workout(id: 0, gymRatsUserId: 0, challengeId: 0, title: String.genRandom(minLength: 5, maxLength: 20), description: nil, photoUrl: nil, createdAt: Date(), googlePlaceId: nil)
+                
+                return UserWorkout(user: user, workout: workout)
+            }
         }
         
+        let challengeDayViewController = ChallengeDayViewController(date: date, userWorkouts: userWorkouts, challenge: challenge)
+        challengeDayViewController.showSkeletonView()
+        
+        if index == challenge.days.endIndex - 1 && !users.isEmpty {
+            challengeDayViewController.loadData()
+        }
+
         if !users.isEmpty {
             cachedDayViewControllers[index] = challengeDayViewController
         }
@@ -181,4 +205,14 @@ extension ChallengeViewController {
         
         return challengeViewController
     }
+}
+
+extension String {
+    
+    static func genRandom(minLength: Int, maxLength: Int) -> String {
+        let letters = "abcdefghijklmnopqrstuvwxyz"
+        
+        return String((minLength..<maxLength).map{ _ in letters.randomElement()! })
+    }
+    
 }
