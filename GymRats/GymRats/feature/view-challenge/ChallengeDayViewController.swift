@@ -30,7 +30,7 @@ class ChallengeDayViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tableView.showsVerticalScrollIndicator = false
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
@@ -41,7 +41,48 @@ class ChallengeDayViewController: UITableViewController {
         guard !showRows else { return }
         
         self.showRows = true
-        self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        self.tableView.reloadData()
+
+        let randomDuration = Double.random(in: 0.05...0.225)
+        let randomDelay = Double.random(in: 0.05...0.225)
+
+        UIView.animate(withDuration: randomDuration, delay: randomDelay, animations: { [weak self] in
+            self?.skeletonView?.alpha = 0
+            self?.coverView?.backgroundColor = UIColor.clear
+        }, completion: { [weak self] _ in
+            guard let self = self else { return }
+            
+            self.coverView?.removeFromSuperview()
+            self.skeletonView?.removeFromSuperview()
+        })
+    }
+    
+    weak var skeletonView: UIView?
+    weak var coverView: UIView?
+    
+    func showSkeletonView() {
+        guard skeletonView == nil else { return }
+        
+        let cover = UIView()
+        cover.backgroundColor = UIColor.white
+        cover.frame = tableView.frame
+        
+        let container = UIView()
+        container.frame = CGRect(x: 0, y: 40, width: self.view.frame.width, height: CGFloat(58 * userWorkouts.count))
+        
+        for data in userWorkouts.enumerated() {
+            let frame = CGRect(x: 0, y: CGFloat(data.offset * 58), width: self.view.frame.width, height: 58)
+            let fakeView = LoadingUserWorkoutView(frame: frame, userWorkout: data.element)
+            
+            container.addSubview(fakeView)
+        }
+        
+        tableView.addSubview(cover)
+        tableView.addSubview(container)
+        
+        coverView = cover
+        
+        skeletonView = container
     }
 
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		011FB62822A31E65004D5B8E /* LoadingUserWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB62722A31E65004D5B8E /* LoadingUserWorkoutView.swift */; };
 		01338DAC223B230E0019B67E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01338DAB223B230E0019B67E /* GoogleService-Info.plist */; };
 		018E9F4D229F7D7E008AB016 /* Challenge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E9F4C229F7D7E008AB016 /* Challenge.storyboard */; };
 		018E9F4F229F7DB1008AB016 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */; };
@@ -101,6 +102,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		011FB62722A31E65004D5B8E /* LoadingUserWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingUserWorkoutView.swift; sourceTree = "<group>"; };
 		01338DAB223B230E0019B67E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		018E9F4C229F7D7E008AB016 /* Challenge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Challenge.storyboard; sourceTree = "<group>"; };
 		018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
@@ -461,6 +463,7 @@
 				018E9F4C229F7D7E008AB016 /* Challenge.storyboard */,
 				018E9F50229F7E3D008AB016 /* ChallengeViewController.swift */,
 				018E9F52229F8787008AB016 /* ChallengeDayViewController.swift */,
+				011FB62722A31E65004D5B8E /* LoadingUserWorkoutView.swift */,
 			);
 			path = "view-challenge";
 			sourceTree = "<group>";
@@ -777,6 +780,7 @@
 				74A01B40220A560800431ABD /* RingView.swift in Sources */,
 				74A01B2F220A1CD900431ABD /* CreateChallengeViewController.swift in Sources */,
 				746764E7220BAE44000CFB1B /* NewWorkoutViewController.swift in Sources */,
+				011FB62822A31E65004D5B8E /* LoadingUserWorkoutView.swift in Sources */,
 				7455AC5E22125296005A558A /* ServiceResponse.swift in Sources */,
 				01BFF90E223DE26C0044F802 /* APS.swift in Sources */,
 				747D6FD82208E8130062BB39 /* KeychainErrors.swift in Sources */,
