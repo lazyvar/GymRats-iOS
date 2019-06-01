@@ -154,16 +154,10 @@ extension ChallengeViewController: PageboyViewControllerDataSource {
         for pageboyViewController: PageboyViewController,
         at index: PageboyViewController.PageIndex
     ) -> UIViewController? {
-        if let viewController = cachedDayViewControllers[index] {
-            return viewController
-        }
-        
-        
         let date = challenge.days[index]
         var userWorkouts = self.userWorkouts(for: date)
-        let withWorkouts = userWorkouts.filter { $0.workout != nil }
         
-        if withWorkouts.isEmpty {
+        if users.isEmpty {
             var cachedUserCount = UserDefaults.standard.integer(forKey: "\(challenge.id)_user_count")
             if cachedUserCount == 0 { cachedUserCount = 5 }
             
@@ -178,6 +172,12 @@ extension ChallengeViewController: PageboyViewControllerDataSource {
             }
         }
         
+        if let viewController = cachedDayViewControllers[index] {
+            viewController.userWorkouts = userWorkouts
+            
+            return viewController
+        }
+        
         let challengeDayViewController = ChallengeDayViewController(date: date, userWorkouts: userWorkouts, challenge: challenge)
         challengeDayViewController.showSkeletonView()
         
@@ -185,9 +185,7 @@ extension ChallengeViewController: PageboyViewControllerDataSource {
             challengeDayViewController.loadData()
         }
 
-        if !users.isEmpty {
-            cachedDayViewControllers[index] = challengeDayViewController
-        }
+        cachedDayViewControllers[index] = challengeDayViewController
         
         return challengeDayViewController
     }
