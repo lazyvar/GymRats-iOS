@@ -57,6 +57,17 @@ extension Challenge {
 
 extension Array where Element == Challenge {
     
+    func getActiveChallenges() -> [Challenge] {
+        let today = Date().challengeDate()
+        
+        return self.filter { challenge in
+            let startDate = challenge.startDate
+            let endDate = challenge.endDate
+            
+            return startDate.isToday || endDate.isToday || (today.compare(.isEarlier(than: endDate)) && startDate.compare(.isEarlier(than: today)))
+        }.sorted(by: { $0.startDate < $1.startDate })
+    }
+    
     func getActiveAndUpcomingChallenges() -> [Challenge] {
         let today = Date().challengeDate()
 

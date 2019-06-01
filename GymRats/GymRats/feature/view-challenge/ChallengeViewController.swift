@@ -11,6 +11,11 @@ import Pageboy
 import RxSwift
 import RxCocoa
 
+struct UserWorkout {
+    let user: User
+    let workout: Workout?
+}
+
 class ChallengeViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
@@ -43,6 +48,10 @@ class ChallengeViewController: UIViewController {
     @IBOutlet weak var headerView: UIView! {
         didSet {
             headerView.backgroundColor = .firebrick
+            
+            let tap = UITapGestureRecognizer(target: self, action: #selector(presentChallengeInfo))
+            
+            headerView.addGestureRecognizer(tap)
         }
     }
     
@@ -79,6 +88,35 @@ class ChallengeViewController: UIViewController {
     
     @objc func openChat() {
         push(ChatViewController(challenge: challenge))
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        refreshChatIcon()
+    }
+    
+    @objc func presentChallengeInfo() {
+        let challengeInfo = ChallengeInfoViewController(challenge: challenge, workouts: workouts, users: users)
+        let drawer = GymRatsApp.coordinator.drawer
+        
+        drawer?.rightDrawerViewController = challengeInfo
+        drawer?.open(.right, animated: true, completion: nil)
+    }
+
+    func refreshChatIcon() {
+        gymRatsAPI.getUnreadChats(for: challenge)
+            .subscribe { event in
+                switch event {
+                case .next(let chats):
+                    if chats.isEmpty {
+                        self.chatItem.image = UIImage(named: "chat")
+                    } else {
+                        self.chatItem.image = UIImage(named: "chat-unread")?.withRenderingMode(.alwaysOriginal)
+                    }
+                default: break
+                }
+            }.disposed(by: disposeBag)
     }
 
     @objc func fetchUserWorkouts() {

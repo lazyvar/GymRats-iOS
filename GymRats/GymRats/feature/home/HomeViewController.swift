@@ -75,7 +75,7 @@ class HomeViewController: UITableViewController {
             createChallengeViewController.delegate = self
             
             let nav = GRNavigationController(rootViewController: createChallengeViewController)
-            nav.navigationBar.turnBrandColorSlightShadow()
+            nav.navigationBar.turnSolidWhiteSlightShadow()
             
             self?.present(nav, animated: true, completion: nil)
         }.disposed(by: disposeBag)
@@ -92,25 +92,26 @@ class HomeViewController: UITableViewController {
                 self?.hideLoadingBar()
                 self?.refresher.endRefreshing()
                 
-                let activeAndUpcomingChallenges = challenges.getActiveAndUpcomingChallenges()
+                let activeChallenges = challenges.getActiveChallenges()
                 
-                if activeAndUpcomingChallenges.isEmpty {
+                GymRatsApp.coordinator.menu.activeChallenges = activeChallenges
+                GymRatsApp.coordinator.menu.tableView.reloadData()
+
+                if activeChallenges.isEmpty {
                     self?.showEmptyState(challenges: challenges)
                 } else {
-                    if activeAndUpcomingChallenges.count > 1 {
-                        // memeber of multiple active challenges
-                        self?.showMulitpleChallenges(challenges: activeAndUpcomingChallenges)
+                    let challengeId = UserDefaults.standard.integer(forKey: "last_opened_challenge")
+                    let challenge: Challenge
+                    if challengeId != 0 {
+                        challenge = activeChallenges.first(where: { $0.id == challengeId }) ?? activeChallenges[0]
                     } else {
-                        let challenge = activeAndUpcomingChallenges[0]
-                        
-                        if challenge.isActive {
-                            // member on single active challenge
-                            self?.showSingleChallenge(challenge: activeAndUpcomingChallenges[0])
-                        } else {
-                            // inactive, show multiple screen
-                            self?.showMulitpleChallenges(challenges: activeAndUpcomingChallenges)
-                        }
+                        challenge = activeChallenges[0]
                     }
+
+                    let challengeViewController = ChallengeViewController.create(for: challenge)
+                    let nav = GRNavigationController(rootViewController: challengeViewController)
+                    nav.navigationBar.turnSolidWhiteSlightShadow()
+                    GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
                 }
                 
                 if let notif = GymRatsApp.coordinator.coldStartNotification {
@@ -178,12 +179,14 @@ class HomeViewController: UITableViewController {
     }
     
     func showSingleChallenge(challenge: Challenge) {
-        let challengeViewController = ActiveChallengeViewController(challenge: challenge)
-        let nav = GRNavigationController(rootViewController: challengeViewController)
-        nav.navigationBar.turnBrandColorSlightShadow()
-        challengeViewController.setupForHome()
+//        let challengeViewController = ActiveChallengeViewController(challenge: challenge)
+//        let nav = GRNavigationController(rootViewController: challengeViewController)
+//        nav.navigationBar.turnBrandColorSlightShadow()
+//        challengeViewController.setupForHome()
+
+        // TODO
         
-        GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+       // GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
     }
     
     func showMulitpleChallenges(challenges: [Challenge]) {

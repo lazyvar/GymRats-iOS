@@ -77,6 +77,7 @@ extension UIFont {
     static let details = UIFont(name: "Lato-Regular", size: 12)!
     static let detailsBold = UIFont(name: "Lato-Bold", size: 12)!
     static let bigAndBlack = UIFont(name: "Lato-Black", size: 16)!
+    static let menu = UIFont(name: "Lato-Black", size: 18)!
     static let h1 = UIFont(name: "Lato-Regular", size: 28)!
     static let h2 = UIFont(name: "Lato-Regular", size: 24)!
     static let h3 = UIFont(name: "Lato-Regular", size: 20)!
