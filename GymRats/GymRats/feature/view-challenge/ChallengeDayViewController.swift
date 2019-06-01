@@ -43,8 +43,8 @@ class ChallengeDayViewController: UITableViewController {
         self.showRows = true
         self.tableView.reloadData()
 
-        let randomDuration = Double.random(in: 0.05...0.225)
-        let randomDelay = Double.random(in: 0.05...0.225)
+        let randomDuration = Double.random(in: 0.05...0.175)
+        let randomDelay = Double.random(in: 0.05...0.175)
 
         UIView.animate(withDuration: randomDuration, delay: randomDelay, animations: { [weak self] in
             self?.skeletonView?.alpha = 0
