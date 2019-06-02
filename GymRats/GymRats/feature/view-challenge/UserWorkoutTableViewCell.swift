@@ -87,18 +87,10 @@ class UserWorkoutTableViewCell: UITableViewCell {
             titleLabel.text = challenge.name
 
             if challenge.isActive {
-                let difference = Date().getInterval(toDate: challenge.endDate, component: .day)
-                
-                if difference == 0 {
-                    detailsLabel.text = "Last day"
-                } else {
-                    detailsLabel.text = "\(difference) days remaining"
-                }
-                
+                detailsLabel.text = challenge.daysLeft
                 accessoryType = .disclosureIndicator
             } else if challenge.isPast {
-                let difference = abs(Date().getInterval(toDate: challenge.endDate, component: .day))
-                detailsLabel.text = "Completed \(difference) days ago"
+                detailsLabel.text = challenge.daysLeft
                 accessoryType = .disclosureIndicator
             } else {
                 detailsLabel.text = "Starts \(challenge.startDate.toFormat("MMMM d")) - Join using \(challenge.code)"

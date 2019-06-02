@@ -22,9 +22,9 @@ class ArchivedChallengesTableViewController: UITableViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
         title = "Past Challenges"
         
+        setupMenuButton()
         setupBackButton()
         
         tableView.separatorStyle = .none

@@ -22,24 +22,28 @@ struct Challenge: Codable {
 extension Challenge {
 
     var days: [Date] {
-        let daysGone = startDate.getInterval(toDate: Date(), component: .day)
+        let endingDate: Date
         
-        var dates: [Date] = []
-        
-        for i in 0...daysGone {
-            dates.append(startDate + Int(i).days)
+        if Date() < endDate {
+            endingDate = Date()
+        } else {
+            endingDate = endDate
         }
         
-        return dates
+        let daysGone = startDate.getInterval(toDate: endingDate, component: .day)
+        
+        return (0...daysGone).map { startDate + Int($0).days }
     }
-    
+
     var daysLeft: String {
         let difference = Date().getInterval(toDate: endDate, component: .day)
         
-        if difference == 0 {
-            return "Last day"
-        } else {
+        if difference < 0 {
+            return "Completed on \(endDate.toFormat("MMM d, yyyy"))"
+        } else if difference > 0 {
             return "\(difference) days remaining"
+        } else {
+            return "Last day"
         }
     }
 
