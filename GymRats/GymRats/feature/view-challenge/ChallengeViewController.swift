@@ -95,7 +95,11 @@ class ChallengeViewController: UIViewController {
         pageboyViewController.delegate = self
         pageboyViewController.dataSource = self
         pageboyViewController.reloadData()
-        setupMenuButton()
+        
+        if challenge.isActive {
+            setupMenuButton()
+        }
+        
         setupBackButton()
         
         title = "💪"

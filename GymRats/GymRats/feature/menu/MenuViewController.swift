@@ -59,6 +59,26 @@ extension MenuViewController {
         return 3
     }
     
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.backgroundColor = .firebrick
+        
+        if section == 2 {
+            view.constrainHeight(20)
+        } else {
+            view.constrainHeight(0)
+        }
+        
+        return view
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard section == 2 else { return 0 }
+        
+        return 20
+    }
+    
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
