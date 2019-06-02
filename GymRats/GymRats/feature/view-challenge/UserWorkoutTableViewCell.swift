@@ -96,6 +96,10 @@ class UserWorkoutTableViewCell: UITableViewCell {
                 }
                 
                 accessoryType = .disclosureIndicator
+            } else if challenge.isPast {
+                let difference = abs(Date().getInterval(toDate: challenge.endDate, component: .day))
+                detailsLabel.text = "Completed \(difference) days ago"
+                accessoryType = .disclosureIndicator
             } else {
                 detailsLabel.text = "Starts \(challenge.startDate.toFormat("MMMM d")) - Join using \(challenge.code)"
                 contentView.alpha = 0.333

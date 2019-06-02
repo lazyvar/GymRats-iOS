@@ -53,6 +53,10 @@ extension Challenge {
          return startDate.challengeDate().isToday || endDate.challengeDate().isToday || (today.compare(.isLater(than: startDate)) && today.compare(.isEarlier(than: endDate)))
     }
     
+    var isPast: Bool {
+        return Date() > endDate
+    }
+    
 }
 
 extension Array where Element == Challenge {
