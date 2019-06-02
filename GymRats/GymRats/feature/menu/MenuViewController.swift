@@ -135,13 +135,14 @@ extension MenuViewController {
             
             let challengeViewController = ChallengeViewController.create(for: challenge)
             let nav = GRNavigationController(rootViewController: challengeViewController)
-            nav.navigationBar.turnSolidWhiteSlightShadow()
             GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
         } else if indexPath.section == 2 {
             switch indexPath.row {
             case 0:
-                // TODO
-                break
+                let archived = ArchivedChallengesTableViewController()
+                
+                let nav = GRNavigationController(rootViewController: archived)
+                GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
             case 1:
                 JoinChallenge.presentJoinChallengeModal(on: self)
                     .subscribe(onNext: { _ in
