@@ -76,7 +76,7 @@ class WorkoutViewController: UITableViewController {
             layout.isEnabled = true
             layout.flexDirection = .row
             layout.justifyContent = .flexStart
-            layout.padding = 15
+            layout.padding = 10
         }
         
         userImageView.configureLayout { layout in
@@ -113,8 +113,6 @@ class WorkoutViewController: UITableViewController {
             layout.justifyContent = .flexStart
         }
         
-        containerView.addSubview(headerView)
-
         if let pictureUrl = workout.photoUrl, let url = URL(string: pictureUrl) {
             let imageView = UIImageView()
             imageView.contentMode = .scaleAspectFill
@@ -165,9 +163,9 @@ class WorkoutViewController: UITableViewController {
                         }
                         DispatchQueue.main.async { [weak self] in
                             if self?.workout.photoUrl == nil {
-                                containerView.insertSubview(mapView, at: 1)
+                                containerView.insertSubview(mapView, at: 0)
                             } else {
-                                containerView.insertSubview(mapView, at: 2)
+                                containerView.insertSubview(mapView, at: 1)
                             }
                             containerView.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
                         }
@@ -176,13 +174,16 @@ class WorkoutViewController: UITableViewController {
                 }.disposed(by: disposeBag)
         }
         
+        containerView.addSubview(headerView)
+        
         let titleLabel: UILabel = UILabel()
         titleLabel.font = .body
         titleLabel.text = workout.title
         
         titleLabel.configureLayout { layout in
             layout.isEnabled = true
-            layout.margin = 15
+            layout.margin = 10
+            layout.marginTop = 5
         }
         
         containerView.addSubview(titleLabel)
@@ -194,7 +195,7 @@ class WorkoutViewController: UITableViewController {
             descriptionLabel.font = .body
             descriptionLabel.configureLayout { layout in
                 layout.isEnabled = true
-                layout.margin = 15
+                layout.margin = 10
                 layout.marginTop = 0
             }
             
@@ -367,7 +368,7 @@ extension WorkoutViewController {
             
             cell.addConstraintsWithFormat(format: "V:|-10-[v0(30)]", views: imageView)
             cell.addConstraintsWithFormat(format: "V:|-10-[v0(30)]", views: textField)
-            cell.addConstraintsWithFormat(format: "H:|-15-[v0(30)]-10-[v1]-15-|", views: imageView, textField)
+            cell.addConstraintsWithFormat(format: "H:|-10-[v0(30)]-10-[v1]-10-|", views: imageView, textField)
             
             cell.selectionStyle = .none
             
