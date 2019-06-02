@@ -248,11 +248,12 @@ extension ChallengeViewController: PageboyViewControllerDataSource {
         
         if let viewController = cachedDayViewControllers[index] {
             viewController.userWorkouts = userWorkouts
+            viewController.allWorkouts = workouts
             
             return viewController
         }
         
-        let challengeDayViewController = ChallengeDayViewController(date: date, userWorkouts: userWorkouts, challenge: challenge)
+        let challengeDayViewController = ChallengeDayViewController(date: date, userWorkouts: userWorkouts, allWorkouts: workouts, challenge: challenge)
         challengeDayViewController.showSkeletonView()
         
         if index == challenge.days.endIndex - 1 && !users.isEmpty {
