@@ -105,7 +105,7 @@ extension ChallengeDayViewController {
         
         container.addSubview(label)
         
-        container.addConstraint(NSLayoutConstraint(item: label, attribute: .leading, relatedBy: .equal, toItem: container, attribute: .leading, multiplier: 1, constant: 8))
+        container.addConstraint(NSLayoutConstraint(item: label, attribute: .leading, relatedBy: .equal, toItem: container, attribute: .leading, multiplier: 1, constant: 10))
         label.verticallyCenter(in: container)
         
         container.constrainHeight(40)

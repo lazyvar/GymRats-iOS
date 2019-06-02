@@ -59,22 +59,18 @@ extension UIViewController {
         setupMenuButton()
         setupBackButton()
         
+        title = "💪"
+
         navigationItem.rightBarButtonItem = UIBarButtonItem (
-            image: UIImage(named: "kettle-bell"),
+            image: UIImage(named: "chat"),
             style: .plain,
             target: self,
-            action: #selector(presentNewWorkoutViewController)
+            action: #selector(doNothing)
         )
     }
     
-    @objc func presentNewWorkoutViewController() {
-        let newWorkoutViewController = NewWorkoutViewController()
-        // TODO: newWorkoutViewController.delegate = self
+    @objc func doNothing() {
         
-        let nav = GRNavigationController(rootViewController: newWorkoutViewController)
-        nav.navigationBar.turnSolidWhiteSlightShadow()
-        
-        self.present(nav, animated: true, completion: nil)
     }
     
     func presentAlert(title: String, message: String) {
