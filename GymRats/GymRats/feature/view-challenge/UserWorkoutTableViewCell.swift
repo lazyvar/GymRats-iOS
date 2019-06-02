@@ -75,20 +75,6 @@ class UserWorkoutTableViewCell: UITableViewCell {
                 label.sizeToFit()
                 
                 accessoryView = label
-            } else {
-                userImageView.load(avatarInfo: user)
-                fullNameLabel.isHidden = false
-                fullNameLabel.text = userWorkout.user.fullName
-                
-                let label = UILabel()
-                label.text = "Zzz"
-                label.font = .details
-                label.sizeToFit()
-                label.alpha = 0.333
-                label.textColor = .fog
-                
-                accessoryView = label
-                contentView.alpha = 0.333
             }
         }
     }
@@ -117,6 +103,33 @@ class UserWorkoutTableViewCell: UITableViewCell {
         }
     }
 
+    func configureForSleeping(user: User, placement: Int, day: Date) {
+        userImageView.load(avatarInfo: user)
+
+        titleLabel.isHidden = false
+        detailsLabel.isHidden = false
+        titleLabel.text = user.fullName
+        
+        detailsLabel.text = funnyMessage(placement: placement, day: day)
+
+        let label = UILabel()
+        label.text = "Zzz"
+        label.font = .details
+        label.sizeToFit()
+        label.alpha = 0.333
+        label.textColor = .fog
+        
+        accessoryView = label
+        contentView.alpha = 0.333
+    }
+    
+    func funnyMessage(placement: Int, day: Date) -> String {
+        var randomNumberGenerator = SeededRandomNumberGenerator(seed: Int(day.julianDay) + 3339612)
+        let randomize = hilarious.shuffled(using: &randomNumberGenerator)
+        
+        return randomize[placement % randomize.count]
+    }
+    
     func configure(for user: User, withNumberOfWorkouts numberOfWorkouts: Int) {
         userImageView.load(avatarInfo: user)
         
@@ -155,4 +168,50 @@ class UserWorkoutTableViewCell: UITableViewCell {
         accessoryView = nil
     }
     
+    private let hilarious: [String] = [
+        "Is eating apple pie",
+        "Coming up with an excuse",
+        "Did someone say pizza?",
+        "Considers sitting in the sauna a workout",
+        "Sleeping in... until \(Date().toFormat("ha"))",
+        "Is in love with calories",
+        "Wants everyone else to win",
+        "Is too busy giving up",
+        "Replacing the batteries",
+        "Is uninspired by Arnold Schwarzenegger",
+        "Will workout \"tomorrow\"",
+        "Is eating a whole tub of nutella",
+        "Can't wait to sweat later",
+        "Working twards their goals",
+        "Is looking forward to working out today",
+        "Has not worked out yet today, but just might",
+        "Worked out today, but forgot to post",
+        "Is too busy playing super smash bros",
+        "Just can't find the time",
+        "Wants Wall·E to become true",
+        "Needs some motiviation!",
+        "Believes the earth is flat",
+        "Is watching TV",
+        "Charging up",
+        "Stretching",
+        "Watching vidoes on how to workout better",
+        "What's a kettlebell?",
+        "Putting on workout clothes",
+        "Will 100% workout later",
+        "Curating a workout playlist",
+        "Coach potato",
+        "Stole the cookie out the cooke jar",
+        "Needs a boost",
+    ]
+    
+}
+
+struct SeededRandomNumberGenerator: RandomNumberGenerator {
+    init(seed: Int) {
+        srand48(seed)
+    }
+    
+    func next() -> UInt64 {
+        return UInt64(drand48() * Double(UInt64.max))
+    }
 }

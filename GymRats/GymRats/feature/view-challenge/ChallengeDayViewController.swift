@@ -81,7 +81,6 @@ class ChallengeDayViewController: UITableViewController {
         tableView.addSubview(container)
         
         coverView = cover
-        
         skeletonView = container
     }
 
@@ -117,7 +116,11 @@ extension ChallengeDayViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserWorkoutCell") as! UserWorkoutTableViewCell
         let userWorkout = userWorkouts[indexPath.row]
         
-        cell.userWorkout = userWorkout
+        if userWorkout.workout != nil {
+            cell.userWorkout = userWorkout
+        } else {
+            cell.configureForSleeping(user: userWorkout.user, placement: indexPath.row, day: date)
+        }
         
         cell.setNeedsLayout()
         cell.layoutIfNeeded()
