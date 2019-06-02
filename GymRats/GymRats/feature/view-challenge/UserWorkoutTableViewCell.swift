@@ -10,6 +10,7 @@ import UIKit
 import AvatarImageView
 import SwiftDate
 import RxSwift
+import Kingfisher
 
 class UserWorkoutTableViewCell: UITableViewCell {
 
@@ -143,6 +144,23 @@ class UserWorkoutTableViewCell: UITableViewCell {
     
     private func detailsLabeText(including place: Place? = nil) -> NSAttributedString {
         let details = NSMutableAttributedString()
+        
+        if let profilePic = userWorkout.user.profilePictureUrl, let image = KingfisherManager.shared.cache.retrieveImageInMemoryCache(forKey: profilePic) ?? KingfisherManager.shared.cache.retrieveImageInDiskCache(forKey: profilePic) {
+            let imageView = UIImageView(image: image)
+            imageView.frame = CGRect(x: 0, y: 0, width: 14, height: 14)
+            imageView.layer.cornerRadius = 7
+            imageView.clipsToBounds = true
+            imageView.contentMode = .scaleAspectFill
+            
+            let image = imageView.imageFromContext()
+            
+            let attachment = NSTextAttachment()
+            attachment.image = image
+            attachment.bounds = CGRect(x: 0, y: -3, width: 14, height: 14)
+            
+            details.append(NSAttributedString(attachment: attachment))
+            details.append(NSAttributedString(string: "  "))
+        }
 
         details.append(NSAttributedString(string: "\(userWorkout.user.fullName)"))
         
@@ -210,4 +228,19 @@ struct SeededRandomNumberGenerator: RandomNumberGenerator {
     func next() -> UInt64 {
         return UInt64(drand48() * Double(UInt64.max))
     }
+}
+
+extension UIImageView {
+    
+    func imageFromContext() -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque, 0.0)
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return image!
+    }
+
 }
