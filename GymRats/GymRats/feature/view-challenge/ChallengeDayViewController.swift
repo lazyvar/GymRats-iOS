@@ -12,14 +12,16 @@ class ChallengeDayViewController: UITableViewController {
     
     let date: Date
     var userWorkouts: [UserWorkout]
+    var allWorkouts: [Workout]
     let challenge: Challenge
     
     private var showRows = false
     
-    init(date: Date, userWorkouts: [UserWorkout], challenge: Challenge) {
+    init(date: Date, userWorkouts: [UserWorkout], allWorkouts: [Workout], challenge: Challenge) {
         self.date = date
         self.userWorkouts = userWorkouts
         self.challenge = challenge
+        self.allWorkouts = allWorkouts
         
         super.init(style: .grouped)
     }
@@ -43,8 +45,8 @@ class ChallengeDayViewController: UITableViewController {
         self.showRows = true
         self.tableView.reloadData()
 
-        let randomDuration = Double.random(in: 0.05...0.175)
-        let randomDelay = Double.random(in: 0.05...0.175)
+        let randomDuration = Double.random(in: 0.05...0.125)
+        let randomDelay = Double.random(in: 0.05...0.125)
 
         UIView.animate(withDuration: randomDuration, delay: randomDelay, animations: { [weak self] in
             self?.skeletonView?.alpha = 0
@@ -119,7 +121,7 @@ extension ChallengeDayViewController {
         if userWorkout.workout != nil {
             cell.userWorkout = userWorkout
         } else {
-            cell.configureForSleeping(user: userWorkout.user, placement: indexPath.row, day: date)
+            cell.configureForSleeping(user: userWorkout.user, day: date, allWorkouts: allWorkouts)
         }
         
         cell.setNeedsLayout()

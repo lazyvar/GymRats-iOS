@@ -100,15 +100,29 @@ class UserWorkoutTableViewCell: UITableViewCell {
         }
     }
 
-    func configureForSleeping(user: User, placement: Int, day: Date) {
+    func configureForSleeping(user: User, day: Date, allWorkouts: [Workout]) {
         userImageView.load(avatarInfo: user)
 
         titleLabel.isHidden = false
         detailsLabel.isHidden = false
         titleLabel.text = user.fullName
-        
-        detailsLabel.text = funnyMessage(placement: placement, day: day)
 
+        let myWorkouts = allWorkouts.filter { $0.gymRatsUserId == user.id }
+        let workoutsBeforeToday = myWorkouts.filter { $0.createdAt < day }
+        let sorted = workoutsBeforeToday.sorted(by: { $0.createdAt < $1.createdAt })
+        
+        if let last = sorted.last {
+            let differnece = abs(day.getInterval(toDate: last.createdAt, component: .day))
+            
+            if differnece == 1 {
+                detailsLabel.text = "Active yesterday"
+            } else {
+                detailsLabel.text = "Active \(differnece) days ago"
+            }
+        } else {
+            detailsLabel.text = "Has yet to workout"
+        }
+        
         let label = UILabel()
         label.text = "Zzz"
         label.font = .details
@@ -120,12 +134,12 @@ class UserWorkoutTableViewCell: UITableViewCell {
         contentView.alpha = 0.333
     }
     
-    func funnyMessage(placement: Int, day: Date) -> String {
-        var randomNumberGenerator = SeededRandomNumberGenerator(seed: Int(day.julianDay) + 3339612)
-        let randomize = hilarious.shuffled(using: &randomNumberGenerator)
-        
-        return randomize[placement % randomize.count]
-    }
+//    func funnyMessage(placement: Int, day: Date) -> String {
+//        var randomNumberGenerator = SeededRandomNumberGenerator(seed: Int(day.julianDay) + 3339612)
+//        let randomize = hilarious.shuffled(using: &randomNumberGenerator)
+//
+//        return randomize[placement % randomize.count]
+//    }
     
     func configure(for user: User, withNumberOfWorkouts numberOfWorkouts: Int) {
         userImageView.load(avatarInfo: user)
@@ -182,41 +196,41 @@ class UserWorkoutTableViewCell: UITableViewCell {
         accessoryView = nil
     }
     
-    private let hilarious: [String] = [
-        "Is eating apple pie",
-        "Coming up with an excuse",
-        "Did someone say pizza?",
-        "Considers sitting in the sauna a workout",
-        "Sleeping in... until \(Date().toFormat("ha"))",
-        "Is in love with calories",
-        "Wants everyone else to win",
-        "Is too busy giving up",
-        "Replacing the batteries",
-        "Is uninspired by Arnold Schwarzenegger",
-        "Will workout \"tomorrow\"",
-        "Is eating a whole tub of nutella",
-        "Can't wait to sweat later",
-        "Working twards their goals",
-        "Is looking forward to working out today",
-        "Has not worked out yet today, but just might",
-        "Worked out today, but forgot to post",
-        "Is too busy playing super smash bros",
-        "Just can't find the time",
-        "Wants Wall·E to become true",
-        "Needs some motiviation!",
-        "Believes the earth is flat",
-        "Is watching TV",
-        "Charging up",
-        "Stretching",
-        "Watching vidoes on how to workout better",
-        "What's a kettlebell?",
-        "Putting on workout clothes",
-        "Will 100% workout later",
-        "Curating a workout playlist",
-        "Coach potato",
-        "Stole the cookie out the cooke jar",
-        "Needs a boost",
-    ]
+//    private let hilarious: [String] = [
+//        "Is eating apple pie",
+//        "Coming up with an excuse",
+//        "Did someone say pizza?",
+//        "Considers sitting in the sauna a workout",
+//        "Sleeping in... until \(Date().toFormat("ha"))",
+//        "Is in love with calories",
+//        "Wants everyone else to win",
+//        "Is too busy giving up",
+//        "Replacing the batteries",
+//        "Is uninspired by Arnold Schwarzenegger",
+//        "Will workout \"tomorrow\"",
+//        "Is eating a whole tub of nutella",
+//        "Can't wait to sweat later",
+//        "Working twards their goals",
+//        "Is looking forward to working out today",
+//        "Has not worked out yet today, but just might",
+//        "Worked out today, but forgot to post",
+//        "Is too busy playing super smash bros",
+//        "Just can't find the time",
+//        "Wants Wall·E to become true",
+//        "Needs some motiviation!",
+//        "Believes the earth is flat",
+//        "Is watching TV",
+//        "Charging up",
+//        "Stretching",
+//        "Watching vidoes on how to workout better",
+//        "What's a kettlebell?",
+//        "Putting on workout clothes",
+//        "Will 100% workout later",
+//        "Curating a workout playlist",
+//        "Coach potato",
+//        "Stole the cookie out the cooke jar",
+//        "Needs a boost",
+//    ]
     
 }
 
