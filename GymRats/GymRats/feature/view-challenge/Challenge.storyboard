@@ -22,16 +22,16 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="68"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron-right" translatesAutoresizingMaskIntoConstraints="NO" id="WZJ-2W-3ks">
-                                        <rect key="frame" x="370" y="21.5" width="25" height="25"/>
+                                        <rect key="frame" x="379" y="21.5" width="25" height="25"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZI-2k-IB9">
-                                        <rect key="frame" x="68" y="17" width="42" height="20.5"/>
+                                        <rect key="frame" x="62" y="17" width="42" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BqU-iq-WaN" customClass="UserImageView" customModule="GymRats" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="12" width="44" height="44"/>
+                                        <rect key="frame" x="10" y="12" width="44" height="44"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="DL8-7J-Pb0"/>
@@ -39,7 +39,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cpy-L4-9nJ">
-                                        <rect key="frame" x="68" y="30.5" width="42" height="20.5"/>
+                                        <rect key="frame" x="62" y="30.5" width="42" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -51,11 +51,11 @@
                                     <constraint firstItem="dZI-2k-IB9" firstAttribute="top" secondItem="BqU-iq-WaN" secondAttribute="top" constant="5" id="Dme-I8-Uvh"/>
                                     <constraint firstItem="cpy-L4-9nJ" firstAttribute="leading" secondItem="dZI-2k-IB9" secondAttribute="leading" id="HvT-yN-Jyh"/>
                                     <constraint firstItem="BqU-iq-WaN" firstAttribute="centerY" secondItem="9D7-Zx-n7t" secondAttribute="centerY" id="JPA-tl-zFs"/>
-                                    <constraint firstItem="BqU-iq-WaN" firstAttribute="leading" secondItem="9D7-Zx-n7t" secondAttribute="leading" constant="16" id="MNz-GZ-r1F"/>
+                                    <constraint firstItem="BqU-iq-WaN" firstAttribute="leading" secondItem="9D7-Zx-n7t" secondAttribute="leading" constant="10" id="MNz-GZ-r1F"/>
                                     <constraint firstAttribute="height" constant="68" id="OnM-xc-Pby"/>
                                     <constraint firstItem="dZI-2k-IB9" firstAttribute="leading" secondItem="BqU-iq-WaN" secondAttribute="trailing" constant="8" id="dIq-YG-Gdy"/>
                                     <constraint firstItem="WZJ-2W-3ks" firstAttribute="centerY" secondItem="9D7-Zx-n7t" secondAttribute="centerY" id="irG-jL-ANN"/>
-                                    <constraint firstAttribute="trailing" secondItem="WZJ-2W-3ks" secondAttribute="trailing" constant="19" id="zld-Nt-oum"/>
+                                    <constraint firstAttribute="trailing" secondItem="WZJ-2W-3ks" secondAttribute="trailing" constant="10" id="zld-Nt-oum"/>
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AWb-fN-gWn">
@@ -64,6 +64,15 @@
                                     <segue destination="Hu3-oF-ZNm" kind="embed" id="vFS-Dg-x29"/>
                                 </connections>
                             </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hq9-1R-Gqb">
+                                <rect key="frame" x="318" y="782" width="64" height="64"/>
+                                <color key="backgroundColor" red="0.69803921570000005" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="6hX-xo-9qZ"/>
+                                    <constraint firstAttribute="height" constant="64" id="93u-CD-dJy"/>
+                                </constraints>
+                                <state key="normal" image="kettle-bell"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -71,8 +80,10 @@
                             <constraint firstItem="9D7-Zx-n7t" firstAttribute="leading" secondItem="LIE-eW-VLh" secondAttribute="leading" id="ErO-nm-bfZ"/>
                             <constraint firstItem="LIE-eW-VLh" firstAttribute="trailing" secondItem="AWb-fN-gWn" secondAttribute="trailing" id="IIm-Gc-VTG"/>
                             <constraint firstItem="9D7-Zx-n7t" firstAttribute="top" secondItem="LIE-eW-VLh" secondAttribute="top" id="Phg-dI-f4x"/>
+                            <constraint firstItem="LIE-eW-VLh" firstAttribute="bottom" secondItem="hq9-1R-Gqb" secondAttribute="bottom" constant="16" id="QKj-Zt-ekc"/>
                             <constraint firstItem="9D7-Zx-n7t" firstAttribute="trailing" secondItem="LIE-eW-VLh" secondAttribute="trailing" id="RDz-12-evx"/>
                             <constraint firstItem="AWb-fN-gWn" firstAttribute="top" secondItem="9D7-Zx-n7t" secondAttribute="bottom" id="XjM-AJ-4Xb"/>
+                            <constraint firstItem="LIE-eW-VLh" firstAttribute="trailing" secondItem="hq9-1R-Gqb" secondAttribute="trailing" constant="32" id="qkC-Je-VJo"/>
                             <constraint firstItem="AWb-fN-gWn" firstAttribute="leading" secondItem="LIE-eW-VLh" secondAttribute="leading" id="wbO-nE-CLL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LIE-eW-VLh"/>
@@ -82,6 +93,7 @@
                         <outlet property="challengeImageView" destination="BqU-iq-WaN" id="bNP-ym-sDw"/>
                         <outlet property="challengeTitleLabel" destination="dZI-2k-IB9" id="u7j-NL-quu"/>
                         <outlet property="headerView" destination="9D7-Zx-n7t" id="bp3-uA-Yba"/>
+                        <outlet property="logWorkoutButton" destination="hq9-1R-Gqb" id="dLH-EL-hR9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D0f-C5-OtQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -105,5 +117,6 @@
     </scenes>
     <resources>
         <image name="chevron-right" width="25" height="25"/>
+        <image name="kettle-bell" width="25" height="25"/>
     </resources>
 </document>

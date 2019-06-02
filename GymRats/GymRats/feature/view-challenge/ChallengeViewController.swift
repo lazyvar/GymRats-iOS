@@ -45,6 +45,24 @@ class ChallengeViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var logWorkoutButton: UIButton! {
+        didSet {
+            logWorkoutButton.layer.shadowColor = UIColor.black.cgColor
+            logWorkoutButton.layer.shadowRadius = 3
+            logWorkoutButton.layer.shadowOpacity = 0.3
+            logWorkoutButton.layer.cornerRadius = 32
+            logWorkoutButton.layer.shadowOffset = CGSize(width: 0, height: 0)
+            logWorkoutButton.rx.tap
+                .subscribe(onNext: { _ in
+                    let newWorkoutViewController = NewWorkoutViewController()
+                    newWorkoutViewController.delegate = self
+                    
+                    self.push(newWorkoutViewController)
+                })
+                .disposed(by: disposeBag)
+        }
+    }
+    
     @IBOutlet weak var headerView: UIView! {
         didSet {
             headerView.backgroundColor = .firebrick
@@ -84,6 +102,11 @@ class ChallengeViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = chatItem
         fetchUserWorkouts()
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.init("WorkoutDeleted"), object: nil, queue: nil) { notification in
+            self.cachedDayViewControllers.removeAll()
+            self.fetchUserWorkouts()
+        }
     }
     
     @objc func openChat() {
@@ -165,6 +188,15 @@ class ChallengeViewController: UIViewController {
         })
     }
 
+}
+
+extension ChallengeViewController: NewWorkoutDelegate {
+    
+    func workoutCreated(workouts: [Workout]) {
+        self.cachedDayViewControllers.removeAll()
+        self.fetchUserWorkouts()
+    }
+    
 }
 
 extension ChallengeViewController: PageboyViewControllerDelegate {

@@ -56,13 +56,6 @@ class NewWorkoutViewController: FormViewController {
         
         LabelRow.defaultCellUpdate = nil
         setupBackButton()
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem (
-            title: "Cancel",
-            style: .plain,
-            target: self,
-            action: #selector(UIViewController.dismissSelf)
-        )
 
         let titleRow = TextRow("name") {
             $0.title = "Title"
