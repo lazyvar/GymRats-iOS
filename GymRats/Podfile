@@ -28,6 +28,10 @@ target 'GymRats' do
     pod 'MessageKit'
     pod 'Pageboy', '~> 3.2'
     pod 'SkeletonView'
+
+     target 'GymRatsTests' do
+        inherit! :search_paths
+    end
 end
 
 post_install do |installer|

@@ -26,6 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         appCoordinator = AppCoordinator(window: window!, application: application)
         
+        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
+           return true
+        }
+        
         appCoordinator.start()
         
         if let userInfo = launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] as? [AnyHashable: Any] {
