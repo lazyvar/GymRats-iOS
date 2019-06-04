@@ -22,21 +22,19 @@ struct Challenge: Codable {
 extension Challenge {
 
     var days: [Date] {
-        let endingDate: Date
+        let daysGone: Int
         
-        if Date() < endDate {
-            endingDate = Date()
+        if Date().localDateIsLessThanUTCDate(endDate) {
+            daysGone = abs(startDate.utcDateIsDaysApartFromLocalDate(Date()))
         } else {
-            endingDate = endDate
+            daysGone = abs(startDate.utcDateIsDaysApartFromUtcDate(endDate))
         }
         
-        let daysGone = startDate.getInterval(toDate: endingDate, component: .day)
-        
-        return (0...daysGone).map { startDate + Int($0).days }
+        return (0..<(daysGone + 1)).map { startDate + Int($0).days }
     }
 
     var daysLeft: String {
-        let difference = Date().getInterval(toDate: endDate, component: .day)
+        let difference = Date().localDateIsDaysApartFromUTCDate(endDate)
         
         if difference < 0 {
             return "Completed on \(endDate.toFormat("MMM d, yyyy"))"
@@ -52,47 +50,40 @@ extension Challenge {
 extension Challenge {
     
     var isActive: Bool {
-        let today = Date().challengeDate()
+        let today = Date()
 
-         return startDate.challengeDate().isToday || endDate.challengeDate().isToday || (today.compare(.isLater(than: startDate)) && today.compare(.isEarlier(than: endDate)))
+        return today.localDateIsGreaterThanOrEqualToUTCDate(startDate) && today.localDateIsLessThanOrEqualToUTCDate(endDate)
     }
     
     var isPast: Bool {
-        return Date() > endDate
+        return Date().localDateIsGreaterThanUTCDate(endDate)
     }
     
+    var isUpcoming: Bool {
+        let today = Date()
+
+        return today.localDateIsLessThanUTCDate(startDate)
+    }
 }
 
 extension Array where Element == Challenge {
     
     func getActiveChallenges() -> [Challenge] {
-        let today = Date().challengeDate()
-        
-        return self.filter { challenge in
-            let startDate = challenge.startDate
-            let endDate = challenge.endDate
-            
-            return startDate.isToday || endDate.isToday || (today.compare(.isEarlier(than: endDate)) && startDate.compare(.isEarlier(than: today)))
-        }.sorted(by: { $0.startDate < $1.startDate })
+        return self.filter { $0.isActive }
+            .sorted(by: { $0.startDate < $1.startDate })
     }
     
     func getActiveAndUpcomingChallenges() -> [Challenge] {
-        let today = Date().challengeDate()
-
-        return self.filter { challenge in
-            let startDate = challenge.startDate
-            let endDate = challenge.endDate
-            
-            return startDate.isToday || endDate.isToday || today.compare(.isEarlier(than: endDate))
-        }.sorted(by: { $0.isActive && !$1.isActive })
+        return self.filter { $0.isActive || $0.isUpcoming }
+             .sorted(by: { $0.isActive && !$1.isActive })
     }
     
     func getInActiveChallenges() -> [Challenge] {
-        return self.filter { Date() > $0.endDate }
+        return self.filter { !$0.isActive }
     }
     
     func getUpcomingChallenges() -> [Challenge] {
-        return self.filter { Date() < $0.startDate }
+        return self.filter { $0.isUpcoming }
     }
     
 }

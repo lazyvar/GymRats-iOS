@@ -53,7 +53,7 @@ open class ImagePickerController: UIImagePickerController, TypedRowControllerTyp
                     let assetsLibrary = ALAssetsLibrary()
                     assetsLibrary.asset(for: url, resultBlock: { (asset: ALAsset!) -> Void in
                         if let date = asset.value(forProperty: ALAssetPropertyDate) as? Date {
-                            if date.challengeDate().isToday {
+                            if date.isToday {
                                 (self.row as? ImageRow)?.imageURL = info[.referenceURL] as? URL
                                 self.row.value = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage
                                 self.onDismissCallback?(self)

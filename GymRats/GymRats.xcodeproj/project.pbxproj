@@ -18,6 +18,8 @@
 		018E9F4F229F7DB1008AB016 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */; };
 		018E9F51229F7E3D008AB016 /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E9F50229F7E3D008AB016 /* ChallengeViewController.swift */; };
 		018E9F53229F8787008AB016 /* ChallengeDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E9F52229F8787008AB016 /* ChallengeDayViewController.swift */; };
+		01AE59E222A60E6800F3FB07 /* MackAttack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AE59E122A60E6800F3FB07 /* MackAttack.swift */; };
+		01AE59E422A60FE400F3FB07 /* MackAttackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AE59E322A60FE400F3FB07 /* MackAttackTests.swift */; };
 		01BFF8F9223B30750044F802 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF8F8223B30750044F802 /* Comment.swift */; };
 		01BFF8FC223D425C0044F802 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF8FA223D425C0044F802 /* CommentTableViewCell.swift */; };
 		01BFF8FD223D425C0044F802 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01BFF8FB223D425C0044F802 /* CommentTableViewCell.xib */; };
@@ -53,7 +55,6 @@
 		747D6F9A2208DB310062BB39 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6F992208DB310062BB39 /* AppDelegate.swift */; };
 		747D6FA12208DB330062BB39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 747D6FA02208DB330062BB39 /* Assets.xcassets */; };
 		747D6FA42208DB330062BB39 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 747D6FA22208DB330062BB39 /* LaunchScreen.storyboard */; };
-		747D6FAF2208DB330062BB39 /* GymRatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FAE2208DB330062BB39 /* GymRatsTests.swift */; };
 		747D6FBD2208DBFE0062BB39 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FBC2208DBFE0062BB39 /* API.swift */; };
 		747D6FC02208DC820062BB39 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FBF2208DC820062BB39 /* AppCoordinator.swift */; };
 		747D6FC32208DCAB0062BB39 /* Observable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FC22208DCAB0062BB39 /* Observable+Extension.swift */; };
@@ -92,6 +93,7 @@
 		74C2D84E222C3D1A00FF0DE2 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2D84D222C3D1A00FF0DE2 /* AboutViewController.swift */; };
 		74F47889220CECFE005CD4E4 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F47888220CECFE005CD4E4 /* ImageService.swift */; };
 		74F4788C220D0A2F005CD4E4 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F4788B220D0A2F005CD4E4 /* SettingsViewController.swift */; };
+		8856B0022C76427851DDDB77 /* Pods_GymRatsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C09C458F3D0EC49A95802E /* Pods_GymRatsTests.framework */; };
 		A02F4B0274FC477C5963CDDD /* Pods_GymRats.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45AE0586E2D3E12AB034ED36 /* Pods_GymRats.framework */; };
 /* End PBXBuildFile section */
 
@@ -117,6 +119,8 @@
 		018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
 		018E9F50229F7E3D008AB016 /* ChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
 		018E9F52229F8787008AB016 /* ChallengeDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDayViewController.swift; sourceTree = "<group>"; };
+		01AE59E122A60E6800F3FB07 /* MackAttack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MackAttack.swift; sourceTree = "<group>"; };
+		01AE59E322A60FE400F3FB07 /* MackAttackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MackAttackTests.swift; sourceTree = "<group>"; };
 		01BFF8F8223B30750044F802 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		01BFF8FA223D425C0044F802 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		01BFF8FB223D425C0044F802 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
@@ -126,7 +130,9 @@
 		01BFF90C223DE1B60044F802 /* GymRats.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GymRats.entitlements; sourceTree = "<group>"; };
 		01BFF90D223DE26C0044F802 /* APS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APS.swift; sourceTree = "<group>"; };
 		0BDF2A3E7AA6DB6E35BFDD57 /* Pods-GymRats.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymRats.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GymRats/Pods-GymRats.debug.xcconfig"; sourceTree = "<group>"; };
+		1D049B34A7CBE955CE338AA6 /* Pods-GymRatsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymRatsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GymRatsTests/Pods-GymRatsTests.release.xcconfig"; sourceTree = "<group>"; };
 		45AE0586E2D3E12AB034ED36 /* Pods_GymRats.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GymRats.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		66C09C458F3D0EC49A95802E /* Pods_GymRatsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GymRatsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7405FE92222C249B0054F029 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		74118055220C55B500EB9D11 /* Lato-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BoldItalic.ttf"; sourceTree = "<group>"; };
 		74118056220C55B500EB9D11 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
@@ -158,7 +164,6 @@
 		747D6FA32208DB330062BB39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		747D6FA52208DB330062BB39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		747D6FAA2208DB330062BB39 /* GymRatsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GymRatsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		747D6FAE2208DB330062BB39 /* GymRatsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymRatsTests.swift; sourceTree = "<group>"; };
 		747D6FB02208DB330062BB39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		747D6FBC2208DBFE0062BB39 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		747D6FBF2208DC820062BB39 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -198,6 +203,7 @@
 		74C2D84D222C3D1A00FF0DE2 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		74F47888220CECFE005CD4E4 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		74F4788B220D0A2F005CD4E4 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		DA1B9B38DC9FF0C9036AFCCB /* Pods-GymRatsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymRatsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GymRatsTests/Pods-GymRatsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EC58A7A483BCAC310AB5A0EE /* Pods-GymRats.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymRats.release.xcconfig"; path = "Pods/Target Support Files/Pods-GymRats/Pods-GymRats.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -214,6 +220,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8856B0022C76427851DDDB77 /* Pods_GymRatsTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				45AE0586E2D3E12AB034ED36 /* Pods_GymRats.framework */,
+				66C09C458F3D0EC49A95802E /* Pods_GymRatsTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -241,6 +249,8 @@
 			children = (
 				0BDF2A3E7AA6DB6E35BFDD57 /* Pods-GymRats.debug.xcconfig */,
 				EC58A7A483BCAC310AB5A0EE /* Pods-GymRats.release.xcconfig */,
+				DA1B9B38DC9FF0C9036AFCCB /* Pods-GymRatsTests.debug.xcconfig */,
+				1D049B34A7CBE955CE338AA6 /* Pods-GymRatsTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -328,7 +338,6 @@
 		747D6FAD2208DB330062BB39 /* GymRatsTests */ = {
 			isa = PBXGroup;
 			children = (
-				747D6FAE2208DB330062BB39 /* GymRatsTests.swift */,
 				747D6FB02208DB330062BB39 /* Info.plist */,
 			);
 			path = GymRatsTests;
@@ -380,6 +389,8 @@
 				747D6FBC2208DBFE0062BB39 /* API.swift */,
 				74F47888220CECFE005CD4E4 /* ImageService.swift */,
 				748DFB8B220FD882007220C7 /* GService.swift */,
+				01AE59E122A60E6800F3FB07 /* MackAttack.swift */,
+				01AE59E322A60FE400F3FB07 /* MackAttackTests.swift */,
 			);
 			path = service;
 			sourceTree = "<group>";
@@ -563,6 +574,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 747D6FB62208DB330062BB39 /* Build configuration list for PBXNativeTarget "GymRatsTests" */;
 			buildPhases = (
+				FB896713C9420AF00F390A69 /* [CP] Check Pods Manifest.lock */,
 				747D6FA62208DB330062BB39 /* Sources */,
 				747D6FA72208DB330062BB39 /* Frameworks */,
 				747D6FA82208DB330062BB39 /* Resources */,
@@ -792,6 +804,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FB896713C9420AF00F390A69 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GymRatsTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -812,6 +846,7 @@
 				011FB62F22A33C14004D5B8E /* MenuTableViewCell.swift in Sources */,
 				747D6FDA2208E8130062BB39 /* KeychainResult.swift in Sources */,
 				74A01B43220A691300431ABD /* MenuViewController.swift in Sources */,
+				01AE59E222A60E6800F3FB07 /* MackAttack.swift in Sources */,
 				7405FE93222C249B0054F029 /* WebViewController.swift in Sources */,
 				747D6FC02208DC820062BB39 /* AppCoordinator.swift in Sources */,
 				018E9F4F229F7DB1008AB016 /* UIStoryboard+Extension.swift in Sources */,
@@ -871,7 +906,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				747D6FAF2208DB330062BB39 /* GymRatsTests.swift in Sources */,
+				01AE59E422A60FE400F3FB07 /* MackAttackTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1057,6 +1092,7 @@
 		};
 		747D6FB72208DB330062BB39 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA1B9B38DC9FF0C9036AFCCB /* Pods-GymRatsTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1078,6 +1114,7 @@
 		};
 		747D6FB82208DB330062BB39 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D049B34A7CBE955CE338AA6 /* Pods-GymRatsTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
