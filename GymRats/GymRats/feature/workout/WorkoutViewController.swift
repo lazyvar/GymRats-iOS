@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import YogaKit
 import MapKit
+import SkeletonView
 
 class WorkoutViewController: UITableViewController {
 
@@ -115,6 +116,8 @@ class WorkoutViewController: UITableViewController {
         
         if let pictureUrl = workout.photoUrl, let url = URL(string: pictureUrl) {
             let imageView = UIImageView()
+            imageView.isSkeletonable = true
+            imageView.showAnimatedSkeleton()
             imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true
             imageView.backgroundColor = .whiteSmoke
@@ -126,7 +129,9 @@ class WorkoutViewController: UITableViewController {
                 layout.height = YGValue(self.view.frame.width)
             }
 
-            imageView.kf.setImage(with: url)
+            imageView.kf.setImage(with: url) { _, _, _, _ in
+                imageView.hideSkeleton()
+            }
 
             containerView.addSubview(imageView)
         }
