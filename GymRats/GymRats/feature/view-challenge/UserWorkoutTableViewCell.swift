@@ -8,7 +8,6 @@
 
 import UIKit
 import AvatarImageView
-import SwiftDate
 import RxSwift
 import Kingfisher
 

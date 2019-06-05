@@ -10,7 +10,6 @@ import UIKit
 import RxSwift
 import CVCalendar
 import YogaKit
-import SwiftDate
 
 class ProfileViewController: UITableViewController {
     
@@ -487,8 +486,12 @@ extension Array where Element == Workout {
     }
     
     func workouts(on date: Date) -> [Workout] {
+        if let workout = self.first(where: { $0.id == 1444 }) {
+            print(workout)
+        }
+        
         return filter { workout in
-            return date.year == workout.createdAt.year && date.dayOfYear == workout.createdAt.dayOfYear
+            return date.inTimeZone(.utc, isSameDayAs: workout.createdAt, inTimeZone: .current)
         }
     }
     
@@ -497,32 +500,12 @@ extension Array where Element == Workout {
 extension DayView {
     
     var swiftDate: Date {
-        let timeZone = TimeZone.current
+        let timeZone = TimeZone.utc
         
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = timeZone
 
         return date.convertedDate(calendar: calendar)!
-    }
-    
-}
-
-extension DateInRegion {
-    
-    func daysApartRespectingRegions(from dateRegion: DateInRegion) -> Int {
-        let startCalendar = self.calendar
-        let endCalendar = dateRegion.calendar
-        
-        let startComponents = startCalendar.dateComponents([.month, .day, .year], from: date)
-        let endComponents = endCalendar.dateComponents([.month, .day, .year], from: dateRegion.date)
-        
-        let difference = Calendar.current.dateComponents (
-            [.day],
-            from: startComponents,
-            to: endComponents
-        )
-
-        return difference.day ?? 0
     }
     
 }

@@ -36,10 +36,16 @@ extension Challenge {
     var daysLeft: String {
         let difference = Date().localDateIsDaysApartFromUTCDate(endDate)
         
-        if difference < 0 {
+        if difference > 0 {
             return "Completed on \(endDate.toFormat("MMM d, yyyy"))"
-        } else if difference > 0 {
-            return "\(difference) days remaining"
+        } else if difference < 0 {
+            let diff = abs(difference)
+            
+            if diff == 1 {
+                return "1 day remaining"
+            } else {
+                return "\(diff) days remaining"
+            }
         } else {
             return "Last day"
         }
