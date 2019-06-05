@@ -7,12 +7,16 @@
 //
 
 import Foundation
-import SwiftDate
 
 extension Date {
     
+    static let formatter = DateFormatter()
+    
     var challengeTime: String {
-        return toFormat("h:mm a")
+        Date.formatter.timeZone = TimeZone.current
+        Date.formatter.dateFormat = "h:mm a"
+        
+        return Date.formatter.string(from: self)
     }
     
 }

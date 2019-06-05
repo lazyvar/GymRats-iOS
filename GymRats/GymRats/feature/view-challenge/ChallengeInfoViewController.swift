@@ -87,17 +87,25 @@ class ChallengeInfoViewController: UITableViewController {
         imageViewContainer.addSubview(imageView)
         
         imageViewContainer.yoga.applyLayout(preservingOrigin: true)
-
-        let difference = Date().getInterval(toDate: challenge.endDate, component: .day)
         
         let daysLeft = UILabel()
         daysLeft.font = .details
         daysLeft.textAlignment = .center
         
-        if difference == 0 {
-            daysLeft.text =  "Last day (\(challenge.endDate.toFormat("MMM d")))"
+        let difference = Date().localDateIsDaysApartFromUTCDate(challenge.endDate)
+        
+        if difference > 0 {
+            daysLeft.text = "Completed on \(challenge.endDate.toFormat("MMM d, yyyy"))"
+        } else if difference < 0 {
+            let diff = abs(difference)
+            
+            if diff == 1 {
+                daysLeft.text = "1 day remaining (\(challenge.endDate.toFormat("MMM d")))"
+            } else {
+                daysLeft.text = "\(diff) days remaining (\(challenge.endDate.toFormat("MMM d")))"
+            }
         } else {
-            daysLeft.text =  "\(difference) days remaining (\(challenge.endDate.toFormat("MMM d")))"
+            daysLeft.text = "Last day (\(challenge.endDate.toFormat("MMM d")))"
         }
         
         daysLeft.configureLayout { layout in
