@@ -153,9 +153,15 @@ extension MenuViewController {
             
             UserDefaults.standard.set(challenge.id, forKey: "last_opened_challenge")
             
-            let challengeViewController = ChallengeViewController.create(for: challenge)
-            let nav = GRNavigationController(rootViewController: challengeViewController)
-            GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+            if challenge.isActive {
+                let challengeViewController = ChallengeViewController.create(for: challenge)
+                let nav = GRNavigationController(rootViewController: challengeViewController)
+                GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+            } else if challenge.isUpcoming {
+                let challengeViewController = UpcomingChallengeViewController(challenge: challenge)
+                let nav = GRNavigationController(rootViewController: challengeViewController)
+                GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+            }
         } else if indexPath.section == 2 {
             switch indexPath.row {
             case 0:

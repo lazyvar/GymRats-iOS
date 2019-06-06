@@ -50,10 +50,10 @@ class ArchivedChallengesTableViewController: UITableViewController {
                 self?.hideLoadingBar()
                 self?.refresher.endRefreshing()
                 
-                let inactive = challenges.getInActiveChallenges()
-                self?.challenges = inactive
+                let past = challenges.getPastChallenges()
+                self?.challenges = past
                 
-                if inactive.isEmpty {
+                if past.isEmpty {
                     // TODO
                 } else {
                     self?.tableView.reloadData()
