@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="UpcomingCollectionViewCell" customModule="GymRats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="203" height="169"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="203" height="169"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTh-aK-OyP">
+                        <rect key="frame" x="0.0" y="116.5" width="203" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LTW-TY-8B1" customClass="UserImageView" customModule="GymRats" customModuleProvider="target">
+                        <rect key="frame" x="74.5" y="46.5" width="54" height="54"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="54" id="qud-zh-v4B"/>
+                            <constraint firstAttribute="height" constant="54" id="uaZ-Do-md1"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="RTh-aK-OyP" secondAttribute="trailing" id="4OE-tf-k91"/>
+                <constraint firstItem="RTh-aK-OyP" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" id="8Sd-TB-EPC"/>
+                <constraint firstItem="LTW-TY-8B1" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="Vzi-mr-250"/>
+                <constraint firstItem="RTh-aK-OyP" firstAttribute="centerX" secondItem="LTW-TY-8B1" secondAttribute="centerX" id="cCM-k8-7qL"/>
+                <constraint firstItem="RTh-aK-OyP" firstAttribute="top" secondItem="LTW-TY-8B1" secondAttribute="bottom" constant="16" id="oOk-sK-CI4"/>
+                <constraint firstItem="LTW-TY-8B1" firstAttribute="centerY" secondItem="ZTg-uK-7eu" secondAttribute="centerY" constant="-16" id="rpX-OV-gzD"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="203" height="169"/>
+            <connections>
+                <outlet property="someText" destination="RTh-aK-OyP" id="rhu-em-Fqs"/>
+                <outlet property="userImageView" destination="LTW-TY-8B1" id="3xi-ju-f4Y"/>
+            </connections>
+            <point key="canvasLocation" x="248.55072463768118" y="112.83482142857142"/>
+        </collectionViewCell>
+    </objects>
+</document>

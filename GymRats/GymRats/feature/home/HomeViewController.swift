@@ -92,7 +92,7 @@ class HomeViewController: UITableViewController {
                 self?.hideLoadingBar()
                 self?.refresher.endRefreshing()
                 
-                let activeChallenges = challenges.getActiveChallenges()
+                let activeChallenges = challenges.getActiveAndUpcomingChallenges()
                 
                 GymRatsApp.coordinator.menu.activeChallenges = activeChallenges
                 GymRatsApp.coordinator.menu.tableView.reloadData()
@@ -108,10 +108,17 @@ class HomeViewController: UITableViewController {
                         challenge = activeChallenges[0]
                     }
 
-                    let challengeViewController = ChallengeViewController.create(for: challenge)
-                    let nav = GRNavigationController(rootViewController: challengeViewController)
-                    nav.navigationBar.turnSolidWhiteSlightShadow()
-                    GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+                    if challenge.isActive {
+                        let challengeViewController = ChallengeViewController.create(for: challenge)
+                        let nav = GRNavigationController(rootViewController: challengeViewController)
+                        nav.navigationBar.turnSolidWhiteSlightShadow()
+                        GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+                    } else if challenge.isUpcoming {
+                        let challengeViewController = UpcomingChallengeViewController(challenge: challenge)
+                        let nav = GRNavigationController(rootViewController: challengeViewController)
+                        nav.navigationBar.turnSolidWhiteSlightShadow()
+                        GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+                    }
                 }
                 
                 if let notif = GymRatsApp.coordinator.coldStartNotification {

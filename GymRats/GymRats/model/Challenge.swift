@@ -84,8 +84,8 @@ extension Array where Element == Challenge {
              .sorted(by: { $0.isActive && !$1.isActive })
     }
     
-    func getInActiveChallenges() -> [Challenge] {
-        return self.filter { !$0.isActive }
+    func getPastChallenges() -> [Challenge] {
+        return self.filter { !$0.isPast }
     }
     
     func getUpcomingChallenges() -> [Challenge] {

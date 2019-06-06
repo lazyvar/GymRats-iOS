@@ -190,7 +190,7 @@ class NewWorkoutViewController: FormViewController {
             googlePlaceId: place.value?.id
         ).subscribe(onNext: { [weak self] workouts in
             self?.hideLoadingBar()
-            self?.dismissSelf()
+            self?.navigationController?.popViewController(animated: true)
             self?.delegate?.workoutCreated(workouts: workouts)
         }, onError: { [weak self] error in
             self?.presentAlert(with: error)
