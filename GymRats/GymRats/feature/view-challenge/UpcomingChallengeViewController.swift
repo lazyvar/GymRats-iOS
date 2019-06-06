@@ -53,7 +53,7 @@ class UpcomingChallengeViewController: UICollectionViewController {
         layout.itemSize = CGSize(width: width, height: width)
         layout.minimumLineSpacing = spacing
         layout.minimumInteritemSpacing = spacing
-        layout.headerReferenceSize = CGSize(width: view.frame.width, height: 172)
+        layout.headerReferenceSize = CGSize(width: view.frame.width, height: 188)
         
         collectionView.setCollectionViewLayout(layout, animated: false)
         collectionView.bounces = true

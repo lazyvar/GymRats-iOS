@@ -13,7 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="UpcomingChallengeCollectionReusableView" customModule="GymRats" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="240"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="255"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJ4-iY-slX">
@@ -42,30 +42,40 @@
                         <constraint firstAttribute="height" constant="72" id="qJb-sJ-yeE"/>
                     </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dmb-sM-upG">
+                    <rect key="frame" x="10" y="215" width="300" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <constraints>
                 <constraint firstItem="TYS-qA-v7v" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="10" id="2h7-cw-QPd"/>
                 <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="TYS-qA-v7v" secondAttribute="trailing" constant="10" id="4gZ-Tu-eRf"/>
                 <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="FJ4-iY-slX" secondAttribute="trailing" constant="10" id="86U-RJ-bPB"/>
                 <constraint firstItem="VXr-Tz-HHm" firstAttribute="top" secondItem="GlC-Kh-Lc9" secondAttribute="top" constant="-16" id="CXX-QI-zqY"/>
+                <constraint firstItem="dmb-sM-upG" firstAttribute="top" secondItem="TYS-qA-v7v" secondAttribute="bottom" constant="4" id="ELV-NN-ewX"/>
                 <constraint firstItem="S1H-wJ-OLl" firstAttribute="top" secondItem="FJ4-iY-slX" secondAttribute="bottom" constant="4" id="Moc-z5-wvE"/>
                 <constraint firstItem="FJ4-iY-slX" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="10" id="Nn4-NE-jIB"/>
                 <constraint firstItem="TYS-qA-v7v" firstAttribute="centerX" secondItem="S1H-wJ-OLl" secondAttribute="centerX" id="PWL-A4-xbx"/>
+                <constraint firstItem="dmb-sM-upG" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="10" id="Yem-kM-kXr"/>
                 <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="S1H-wJ-OLl" secondAttribute="trailing" constant="10" id="aKB-bB-6Mw"/>
                 <constraint firstItem="S1H-wJ-OLl" firstAttribute="centerX" secondItem="FJ4-iY-slX" secondAttribute="centerX" id="etU-9w-OI2"/>
                 <constraint firstItem="TYS-qA-v7v" firstAttribute="top" secondItem="S1H-wJ-OLl" secondAttribute="bottom" constant="4" id="hBI-Ri-Yjf"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="dmb-sM-upG" secondAttribute="trailing" constant="10" id="jS4-nj-Mi4"/>
                 <constraint firstItem="S1H-wJ-OLl" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="10" id="jXP-2x-nvh"/>
                 <constraint firstItem="GlC-Kh-Lc9" firstAttribute="centerX" secondItem="VXr-Tz-HHm" secondAttribute="centerX" id="vBi-Di-F7k"/>
                 <constraint firstItem="FJ4-iY-slX" firstAttribute="top" secondItem="GlC-Kh-Lc9" secondAttribute="bottom" constant="8" id="ynn-gG-TWn"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
             <connections>
-                <outlet property="dateLabel" destination="S1H-wJ-OLl" id="Zpg-1b-V7S"/>
+                <outlet property="dateLabel" destination="TYS-qA-v7v" id="Geo-cK-Peb"/>
                 <outlet property="imageView" destination="GlC-Kh-Lc9" id="ekH-lL-2Yh"/>
-                <outlet property="memberLabel" destination="TYS-qA-v7v" id="nDW-a8-WBP"/>
-                <outlet property="titleLabel" destination="FJ4-iY-slX" id="pM3-WV-EWH"/>
+                <outlet property="joinLabel" destination="dmb-sM-upG" id="fJE-El-QsG"/>
+                <outlet property="memberLabel" destination="S1H-wJ-OLl" id="jZU-H6-w21"/>
+                <outlet property="titleLabel" destination="FJ4-iY-slX" id="uDi-MT-ASh"/>
             </connections>
-            <point key="canvasLocation" x="137.68115942028987" y="146.65178571428569"/>
+            <point key="canvasLocation" x="137.68115942028987" y="151.00446428571428"/>
         </collectionReusableView>
     </objects>
 </document>
