@@ -85,7 +85,7 @@ extension Array where Element == Challenge {
     }
     
     func getPastChallenges() -> [Challenge] {
-        return self.filter { !$0.isPast }
+        return self.filter { $0.isPast }
     }
     
     func getUpcomingChallenges() -> [Challenge] {
