@@ -14,12 +14,14 @@ class UpcomingChallengeCollectionReusableView: UICollectionReusableView {
     @IBOutlet weak var memberLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var joinLabel: UILabel!
     
     var challenge: Challenge! {
         didSet {
             imageView.skeletonLoad(avatarInfo: challenge)
             titleLabel.text = challenge.name
             dateLabel.text = "Starts \(challenge.startDate.toFormat("MMMM d"))"
+            joinLabel.text = "Join code: \(challenge.code)"
         }
     }
     
@@ -30,6 +32,7 @@ class UpcomingChallengeCollectionReusableView: UICollectionReusableView {
         memberLabel.font = .body
         titleLabel.font = .bigAndBlack
         dateLabel.font = .body
+        joinLabel.font = .body
         backgroundColor = .firebrick
     }
     
