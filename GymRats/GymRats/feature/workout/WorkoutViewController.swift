@@ -116,23 +116,28 @@ class WorkoutViewController: UITableViewController {
         
         if let pictureUrl = workout.photoUrl, let url = URL(string: pictureUrl) {
             let imageView = UIImageView()
-            imageView.isSkeletonable = true
-            imageView.showAnimatedSkeleton()
             imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true
             imageView.backgroundColor = .whiteSmoke
 
             imageView.configureLayout { layout in
                 layout.isEnabled = true
-                layout.flexGrow = 1
                 layout.width = YGValue(self.view.frame.width)
-                layout.height = YGValue(self.view.frame.width)
+                layout.aspectRatio = 1
             }
 
-            imageView.kf.setImage(with: url) { _, _, _, _ in
-                imageView.hideSkeleton()
+            imageView.kf.setImage(with: url) { image, _, _, _ in
+                guard let image = image else { return }
+                
+                let width = image.size.width
+                let height = image.size.height
+                
+                imageView.configureLayout { layout in
+                    layout.isEnabled = true
+                    layout.aspectRatio = width / height
+                }
+                containerView.yoga.applyLayout(preservingOrigin: true)
             }
-
             containerView.addSubview(imageView)
         }
         

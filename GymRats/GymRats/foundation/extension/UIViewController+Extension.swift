@@ -58,8 +58,6 @@ extension UIViewController {
     func setupForHome() {
         setupMenuButton()
         setupBackButton()
-        
-        title = "💪"
 
         navigationItem.rightBarButtonItem = UIBarButtonItem (
             image: UIImage(named: "chat"),

@@ -101,9 +101,6 @@ class ChallengeViewController: UIViewController {
         }
         
         setupBackButton()
-        
-        title = "💪"
-        
         navigationItem.rightBarButtonItem = chatItem
         fetchUserWorkouts()
         

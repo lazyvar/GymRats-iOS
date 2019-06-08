@@ -69,7 +69,6 @@ class UpcomingChallengeViewController: UICollectionViewController {
 
         setupMenuButton()
         setupBackButton()
-        title = "💪"
 
         navigationItem.rightBarButtonItem = chatItem
         
