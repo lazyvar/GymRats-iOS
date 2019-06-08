@@ -96,7 +96,6 @@ class NewWorkoutViewController: FormViewController {
                 textLabel.textColor = .fog
                 textLabel.numberOfLines = 0
                 textLabel.textAlignment = .center
-                textLabel.text = "A photo is required to post a workout."
                 textLabel.frame = CGRect(x: 0, y: 50, width: self.view.frame.width, height: 20)
                 
                 container.addSubview(textLabel)
