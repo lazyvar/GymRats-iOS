@@ -63,6 +63,7 @@ class ChallengeViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var headerViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var headerView: UIView! {
         didSet {
             headerView.backgroundColor = .firebrick
@@ -191,6 +192,16 @@ class ChallengeViewController: UIViewController {
 
 }
 
+extension ChallengeViewController: ChallengeDayViewControllerDelegate {
+ 
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        DispatchQueue.main.async {
+            self.headerViewTopConstraint.constant = (-scrollView.contentOffset.y) - 68
+        }
+    }
+    
+}
+
 extension ChallengeViewController: NewWorkoutDelegate {
     
     func workoutCreated(workouts: [Workout]) {
@@ -251,6 +262,7 @@ extension ChallengeViewController: PageboyViewControllerDataSource {
         }
         
         let challengeDayViewController = ChallengeDayViewController(date: date, userWorkouts: userWorkouts, allWorkouts: workouts, challenge: challenge)
+        challengeDayViewController.delegate = self
         challengeDayViewController.showSkeletonView()
         
         if index == challenge.days.endIndex - 1 && !users.isEmpty {
