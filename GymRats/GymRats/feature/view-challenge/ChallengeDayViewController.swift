@@ -8,12 +8,18 @@
 
 import UIKit
 
+protocol ChallengeDayViewControllerDelegate: class {
+    func scrollViewDidScroll(_ scrollView: UIScrollView)
+}
+
 class ChallengeDayViewController: UITableViewController {
     
     let date: Date
     var userWorkouts: [UserWorkout]
     var allWorkouts: [Workout]
     let challenge: Challenge
+    
+    weak var delegate: ChallengeDayViewControllerDelegate?
     
     private var showRows = false
     
@@ -33,6 +39,12 @@ class ChallengeDayViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let dummyView = UIView(frame: CGRect(x: 0, y: -view.frame.height, width: view.frame.width, height: view.frame.height))
+        dummyView.backgroundColor = .firebrick
+
+        tableView.addSubview(dummyView)
+        
+        tableView.contentInset = .init(top: 68, left: 0, bottom: 0, right: 0)
         tableView.showsVerticalScrollIndicator = false
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
@@ -89,6 +101,10 @@ class ChallengeDayViewController: UITableViewController {
 }
 
 extension ChallengeDayViewController {
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        delegate?.scrollViewDidScroll(scrollView)
+    }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let container = UIView()
