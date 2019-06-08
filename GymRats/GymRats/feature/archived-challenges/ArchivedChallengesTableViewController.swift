@@ -91,12 +91,3 @@ class ArchivedChallengesTableViewController: UITableViewController {
     }
     
 }
-
-extension ArchivedChallengesTableViewController: CreateChallengeDelegate {
-    
-    func challengeCreated(challenge: Challenge) {
-        self.fetchAllChallenges()
-    }
-    
-}
-
