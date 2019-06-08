@@ -56,7 +56,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidEnterBackground(_ application: UIApplication) { }
     
-    func applicationWillEnterForeground(_ application: UIApplication) { }
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        if let challenge = (GymRatsApp.coordinator.drawer?.centerViewController as? UINavigationController)?.viewControllers.first as? ChallengeViewController {
+            challenge.reload()
+        }
+    }
     
     func applicationDidBecomeActive(_ application: UIApplication) { }
     

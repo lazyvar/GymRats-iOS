@@ -106,8 +106,7 @@ class ChallengeViewController: UIViewController {
         fetchUserWorkouts()
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name.init("WorkoutDeleted"), object: nil, queue: nil) { notification in
-            self.cachedDayViewControllers.removeAll()
-            self.fetchUserWorkouts()
+            self.reload()
         }
     }
     
@@ -115,6 +114,12 @@ class ChallengeViewController: UIViewController {
         push(ChatViewController(challenge: challenge))
     }
 
+    func reload() {
+        self.cachedDayViewControllers.removeAll()
+        self.fetchUserWorkouts()
+        self.refreshChatIcon()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -205,8 +210,7 @@ extension ChallengeViewController: ChallengeDayViewControllerDelegate {
 extension ChallengeViewController: NewWorkoutDelegate {
     
     func workoutCreated(workouts: [Workout]) {
-        self.cachedDayViewControllers.removeAll()
-        self.fetchUserWorkouts()
+        self.reload()
     }
     
 }
