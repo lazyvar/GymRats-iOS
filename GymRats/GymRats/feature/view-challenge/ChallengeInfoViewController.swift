@@ -9,8 +9,11 @@
 import UIKit
 import MMDrawerController
 import YogaKit
+import RxSwift
 
 class ChallengeInfoViewController: UITableViewController {
+    
+    private let disposeBag = DisposeBag()
     
     let challenge: Challenge
     let workouts: [Workout]
@@ -113,14 +116,73 @@ class ChallengeInfoViewController: UITableViewController {
             layout.marginTop = 5
         }
 
+        let leaveChallengeButton = UIButton()
+        leaveChallengeButton.backgroundColor = .firebrick
+        leaveChallengeButton.setTitle("Leave Challenge", for: .normal)
+        leaveChallengeButton.setTitleColor(.white, for: .normal)
+        leaveChallengeButton.titleLabel?.font = .body
+        leaveChallengeButton.layer.cornerRadius = 8
+        leaveChallengeButton.clipsToBounds = true
+        
+        leaveChallengeButton.onTouchUpInside { [weak self] in
+            self?.showAlert()
+        }.disposed(by: disposeBag)
+        
+        leaveChallengeButton.configureLayout { layout in
+            layout.isEnabled = true
+            layout.marginTop = 10
+            layout.marginBottom = 5
+            layout.marginLeft = 30
+            layout.marginRight = 30
+            layout.height = YGValue(30)
+        }
+
         containerView.addSubview(imageViewContainer)
         containerView.addSubview(challengeNameLabel)
         containerView.addSubview(codeLabel)
         containerView.addSubview(daysLeft)
+        containerView.addSubview(leaveChallengeButton)
 
         containerView.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
 
         tableView.tableHeaderView = containerView
+    }
+    
+    private func showAlert() {
+        let alert = UIAlertController(title: "Are you sure you want to leave \(challenge.name)?", message: nil, preferredStyle: .actionSheet)
+        let leave = UIAlertAction(title: "Leave", style: .destructive) { _ in
+            self.showLoadingBar()
+            gymRatsAPI.leaveChallenge(self.challenge)
+                .subscribe({ e in
+                    self.hideLoadingBar()
+                    switch e {
+                    case .next:
+                        if let nav = GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController {
+                            if let home = nav.children.first as? HomeViewController {
+                                home.fetchAllChallenges()
+                                
+                                GymRatsApp.coordinator.drawer.closeDrawer(animated: true, completion: nil)
+                            } else {
+                                let center = HomeViewController()
+                                let nav = GRNavigationController(rootViewController: center)
+                                
+                                GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+                            }
+                        }
+                    case .error(let error):
+                        self.presentAlert(with: error)
+                    case .completed:
+                        break
+                    }
+                }).disposed(by: self.disposeBag)
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alert.addAction(leave)
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
