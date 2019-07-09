@@ -141,9 +141,12 @@ class CreateChallengeViewController: FormViewController {
         
         showLoadingBar(disallowUserInteraction: true)
         
+        let start = DateInRegion(startDate.value!, region: .current).dateAtStartOf(.day).date
+        let end = DateInRegion(endDate.value!, region: .current).dateAtStartOf(.day).date
+            
         gymRatsAPI.createChallenge (
-            startDate: startDate.value!.dateAtStartOf(.day),
-            endDate: endDate.value!.dateAtStartOf(.day),
+            startDate: start.dateAtStartOf(.day),
+            endDate: end.dateAtStartOf(.day),
             challengeName: name.value!,
             photo: self.photo.value
         )

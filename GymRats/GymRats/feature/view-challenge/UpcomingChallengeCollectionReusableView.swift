@@ -15,7 +15,16 @@ class UpcomingChallengeCollectionReusableView: UICollectionReusableView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var joinLabel: UILabel!
-    
+    @IBOutlet weak var leaveChallenge: UIButton! {
+        didSet {
+            leaveChallenge.backgroundColor = .white
+            leaveChallenge.setTitle("Leave Challenge", for: .normal)
+            leaveChallenge.setTitleColor(.black, for: .normal)
+            leaveChallenge.titleLabel?.font = .body
+            leaveChallenge.layer.cornerRadius = 8
+            leaveChallenge.clipsToBounds = true
+        }
+    }
     var challenge: Challenge! {
         didSet {
             imageView.skeletonLoad(avatarInfo: challenge)

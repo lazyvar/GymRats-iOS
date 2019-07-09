@@ -53,7 +53,7 @@ class UpcomingChallengeViewController: UICollectionViewController {
         layout.itemSize = CGSize(width: width, height: width)
         layout.minimumLineSpacing = spacing
         layout.minimumInteritemSpacing = spacing
-        layout.headerReferenceSize = CGSize(width: view.frame.width, height: 188)
+        layout.headerReferenceSize = CGSize(width: view.frame.width, height: 230)
         
         collectionView.setCollectionViewLayout(layout, animated: false)
         collectionView.bounces = true
@@ -93,6 +93,43 @@ class UpcomingChallengeViewController: UICollectionViewController {
         }.disposed(by: disposeBag)
     }
 
+    private func showAlert() {
+        let alert = UIAlertController(title: "Are you sure you want to leave \(challenge.name)?", message: nil, preferredStyle: .actionSheet)
+        let leave = UIAlertAction(title: "Leave", style: .destructive) { _ in
+            self.showLoadingBar()
+            gymRatsAPI.leaveChallenge(self.challenge)
+                .subscribe({ e in
+                    self.hideLoadingBar()
+                    switch e {
+                    case .next:
+                        if let nav = GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController {
+                            if let home = nav.children.first as? HomeViewController {
+                                home.fetchAllChallenges()
+                                
+                                GymRatsApp.coordinator.drawer.closeDrawer(animated: true, completion: nil)
+                            } else {
+                                let center = HomeViewController()
+                                let nav = GRNavigationController(rootViewController: center)
+                                
+                                GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+                            }
+                        }
+                    case .error(let error):
+                        self.presentAlert(with: error)
+                    case .completed:
+                        break
+                    }
+                }).disposed(by: self.disposeBag)
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alert.addAction(leave)
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     @objc func openChat() {
         push(ChatViewController(challenge: challenge))
     }
@@ -122,6 +159,10 @@ class UpcomingChallengeViewController: UICollectionViewController {
             view.memberLabel.text = "\(users.count) members"
         }
         
+        view.leaveChallenge.onTouchUpInside { [weak self] in
+            self?.showAlert()
+        }.disposed(by: disposeBag)
+
         return view
     }
     

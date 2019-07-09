@@ -16,11 +16,11 @@ extension TimeZone {
 extension Date {
 
     var serverDateIsToday: Bool {
-        return utcDateIsDaysApartFromUtcDate(Date()) == 0
+        return utcDateIsDaysApartFromLocalDate(Date()) == 0
     }
     
     var serverDateIsYesterday: Bool {
-        return utcDateIsDaysApartFromUtcDate(Date()) == -1
+        return utcDateIsDaysApartFromLocalDate(Date()) == -1
     }
     
     func utcDateIsDaysApartFromUtcDate(_ date: Date) -> Int {
