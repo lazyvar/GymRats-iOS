@@ -29,6 +29,8 @@ class NewWorkoutViewController: FormViewController {
     let workoutDescription = BehaviorRelay<String?>(value: nil)
     let workoutTitle = BehaviorRelay<String?>(value: nil)
 
+    var challenges: [Int: BehaviorRelay<Bool>] = [:]
+    
     let submitButton: UIButton = .primary(text: "Submit")
     
     let placeRow = PushRow<Place>() {
@@ -83,10 +85,13 @@ class NewWorkoutViewController: FormViewController {
             cell.textLabel?.font = .body
         }
         
-        form +++ Section() {
+        let activeChallenges = GymRatsApp.coordinator.menu.activeChallenges
+        let challengeSection = Section("Challenges")
+        
+        let last = Section() {
             let footerBuilder = { () -> UIView in
-                let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
-                self.submitButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40)
+                let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 48))
+                self.submitButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 48)
                 self.submitButton.layer.cornerRadius = 0
                 
                 container.addSubview(self.submitButton)
@@ -105,16 +110,35 @@ class NewWorkoutViewController: FormViewController {
             }
             
             var footer = HeaderFooterView<UIView>(.callback(footerBuilder))
-            footer.height = { 70 }
+            footer.height = { 80 }
             
-            $0.tag = "the-form"
             $0.footer = footer
+        }
+        
+        form +++ Section() {
+            $0.tag = "the-form"
         }
             <<< titleRow
             <<< descriptionRow
             <<< photoRow
             <<< placeButtonRow
-
+        
+        activeChallenges.forEach { challenge in
+            let row = SwitchRow("challenge_\(challenge.id)") {
+                $0.title = "\(challenge.name)"
+                $0.value = true
+            }
+            
+            let relay = BehaviorRelay(value: true)
+            row.rx.value.map { $0 ?? true }.bind(to: relay).disposed(by: disposeBag)
+            self.challenges[challenge.id] = relay
+            
+            challengeSection <<< row
+        }
+        
+        form +++ challengeSection
+        form +++ last
+        
         placeLikelihoods.asObservable()
             .subscribe { [weak self] event in
                 switch event {
@@ -138,8 +162,12 @@ class NewWorkoutViewController: FormViewController {
         let titlePresent = self.workoutTitle.asObservable().isPresent
         let photoPresent = self.photo.asObservable().isPresent
         
-        Observable<Bool>.combineLatest(titlePresent, photoPresent) { titlePresent, photoPresent in
-            return titlePresent && photoPresent
+        let atLeastOneChallenge = Observable<Bool>.combineLatest(self.challenges.values) { vals in
+            return vals.reduce(false) { $0 || $1 }
+        }
+        
+        Observable<Bool>.combineLatest(titlePresent, photoPresent, atLeastOneChallenge) { titlePresent, photoPresent, atLeastOneChallenge in
+            return titlePresent && photoPresent && atLeastOneChallenge
         }
         .bind(to: self.submitButton.rx.isEnabled).disposed(by: disposeBag)
         
@@ -174,7 +202,8 @@ class NewWorkoutViewController: FormViewController {
             else { return }
 
             self.form.sectionBy(tag: "the-form")?.remove(at: 3) // yikes
-            self.form.sectionBy(tag: "the-form")?.append(self.placeRow)
+            var section = self.form.sectionBy(tag: "the-form")
+            section?.insert(self.placeRow, at: 3)
   
             self.placeLikelihoods.accept(places.unique())
         })
@@ -183,11 +212,16 @@ class NewWorkoutViewController: FormViewController {
     func postWorkout() {
         showLoadingBar(disallowUserInteraction: true)
         
+        let challenges = self.challenges
+            .filter { $0.value.value }
+            .map { $0.key }
+        
         gymRatsAPI.postWorkout (
             title: workoutTitle.value!,
             description: workoutDescription.value,
             photo: photo.value,
-            googlePlaceId: place.value?.id
+            googlePlaceId: place.value?.id,
+            challenges: challenges
         ).subscribe(onNext: { [weak self] workouts in
             self?.hideLoadingBar()
             self?.navigationController?.popViewController(animated: true)
