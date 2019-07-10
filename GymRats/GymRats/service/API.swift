@@ -141,7 +141,7 @@ enum APIRequest {
         case .deleteDevice:
             return (.delete, "device", nil)
         case .leaveChallenge(let challenge):
-            return (.delete, "challenge/\(challenge.id)", nil)
+            return (.delete, "challenge/\(challenge.id)/membership", nil)
         }
     }
 
