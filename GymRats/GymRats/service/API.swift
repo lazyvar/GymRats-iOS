@@ -23,7 +23,7 @@ enum APIRequest {
     case getWorkoutsForChallenge(challenge: Challenge)
     case getAllWorkoutsForUser(user: User)
     case getWorkouts(forUser: User, inChallenge: Challenge)
-    case postWorkout(title: String, description: String?, photoUrl: String?, googlePlaceId: String?)
+    case postWorkout(title: String, description: String?, photoUrl: String?, googlePlaceId: String?, challenges: [Int])
     case updateUser(email: String?, name: String?, password: String?, profilePictureUrl: String?)
     case deleteWorkout(_ workout: Workout)
     case getCommentsForWorkout(_ workout: Workout)
@@ -76,8 +76,11 @@ enum APIRequest {
             return (.get, "workout/user/\(user.id)", nil)
         case .getWorkouts(forUser: let user, inChallenge: let challenge):
             return (.get, "challenge/\(challenge.id)/workout/user/\(user.id)", nil)
-        case .postWorkout(title: let title, description: let description, photoUrl: let photoUrl, googlePlaceId: let googlePlaceId):
-            var params: Parameters = ["title": title]
+        case .postWorkout(title: let title, description: let description, photoUrl: let photoUrl, googlePlaceId: let googlePlaceId, let challenges):
+            var params: Parameters = [
+                "title": title,
+                "challenges": challenges
+            ]
             
             if let description = description {
                 params["description"] = description
@@ -254,14 +257,14 @@ class GymRatsAPI {
         return requestArray(.getWorkouts(forUser: user, inChallenge: challenge))
     }
 
-    func postWorkout(title: String, description: String?, photo: UIImage?, googlePlaceId: String?) -> Observable<[Workout]> {
+    func postWorkout(title: String, description: String?, photo: UIImage?, googlePlaceId: String?, challenges: [Int]) -> Observable<[Workout]> {
         if let photo = photo {
             return ImageService.uploadImageToFirebase(image: photo)
                 .flatMap { url in
-                    return self.requestObject(.postWorkout(title: title, description: description, photoUrl: url, googlePlaceId: googlePlaceId))
+                    return self.requestObject(.postWorkout(title: title, description: description, photoUrl: url, googlePlaceId: googlePlaceId, challenges: challenges))
                 }
         } else {
-            return requestObject(.postWorkout(title: title, description: description, photoUrl: nil, googlePlaceId: googlePlaceId))
+            return requestObject(.postWorkout(title: title, description: description, photoUrl: nil, googlePlaceId: googlePlaceId, challenges: challenges))
         }
     }
     
