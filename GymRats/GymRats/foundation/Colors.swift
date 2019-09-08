@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIColor {
-    static let brand: UIColor = .hex("#b22222")
+    static let brand: UIColor = .hex("#D33A2C")
     static let brandSecondary: UIColor = .hex("#FF5050")
     static let dark: UIColor = .hex("#111111")
     static let primary: UIColor = .hex("#337ab7")

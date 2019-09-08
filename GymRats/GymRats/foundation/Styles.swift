@@ -48,7 +48,7 @@ extension UIButton {
         var button = UIButton()
         button = baseButtonStyle()(button)
         button.setTitle(text, for: .normal)
-        button.setTitleColor(.fog, for: .normal)
+        button.setTitleColor(.black, for: .normal)
         button.setTitleColor(.whiteSmoke, for: .highlighted)
         button.setBackgroundImage(UIImage(color: .white), for: .normal)
         button.setBackgroundImage(.fog, for: .highlighted)

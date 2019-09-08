@@ -109,10 +109,15 @@ class HomeViewController: UITableViewController {
                     }
 
                     if challenge.isActive {
-                        let challengeViewController = ChallengeViewController.create(for: challenge)
-                        let nav = GRNavigationController(rootViewController: challengeViewController)
-                        nav.navigationBar.turnSolidWhiteSlightShadow()
-                        GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+                        let a = ArtistViewController(challenge: challenge)
+                        let na = GRNavigationController(rootViewController: a)
+                        // na.navigationBar.turnSolidWhiteSlightShadow()
+                        GymRatsApp.coordinator.drawer.setCenterView(na, withCloseAnimation: true, completion: nil)
+
+//                        let challengeViewController = ChallengeViewController.create(for: challenge)
+//                        let nav = GRNavigationController(rootViewController: challengeViewController)
+//                        nav.navigationBar.turnSolidWhiteSlightShadow()
+//                        GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
                     } else if challenge.isUpcoming {
                         let challengeViewController = UpcomingChallengeViewController(challenge: challenge)
                         let nav = GRNavigationController(rootViewController: challengeViewController)
