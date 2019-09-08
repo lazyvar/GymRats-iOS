@@ -42,9 +42,9 @@ extension Challenge {
             let diff = abs(difference)
             
             if diff == 1 {
-                return "1 day remaining"
+                return "1 day left"
             } else {
-                return "\(diff) days remaining"
+                return "\(diff) days left"
             }
         } else {
             return "Last day"
