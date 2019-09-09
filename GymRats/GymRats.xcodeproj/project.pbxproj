@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0107AE2E2325CD5D00944D11 /* LeaderboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0107AE2C2325CD5D00944D11 /* LeaderboardCell.swift */; };
+		0107AE2F2325CD5D00944D11 /* LeaderboardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0107AE2D2325CD5D00944D11 /* LeaderboardCell.xib */; };
+		0107AE322325CDD200944D11 /* HumanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0107AE302325CDD200944D11 /* HumanCell.swift */; };
+		0107AE332325CDD200944D11 /* HumanCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0107AE312325CDD200944D11 /* HumanCell.xib */; };
 		011FB62822A31E65004D5B8E /* LoadingUserWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB62722A31E65004D5B8E /* LoadingUserWorkoutView.swift */; };
 		011FB62B22A33AAA004D5B8E /* UserProfileMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB62922A33AAA004D5B8E /* UserProfileMenuTableViewCell.swift */; };
 		011FB62C22A33AAA004D5B8E /* UserProfileMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011FB62A22A33AAA004D5B8E /* UserProfileMenuTableViewCell.xib */; };
@@ -118,6 +122,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0107AE2C2325CD5D00944D11 /* LeaderboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardCell.swift; sourceTree = "<group>"; };
+		0107AE2D2325CD5D00944D11 /* LeaderboardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeaderboardCell.xib; sourceTree = "<group>"; };
+		0107AE302325CDD200944D11 /* HumanCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanCell.swift; sourceTree = "<group>"; };
+		0107AE312325CDD200944D11 /* HumanCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HumanCell.xib; sourceTree = "<group>"; };
 		011FB62722A31E65004D5B8E /* LoadingUserWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingUserWorkoutView.swift; sourceTree = "<group>"; };
 		011FB62922A33AAA004D5B8E /* UserProfileMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileMenuTableViewCell.swift; sourceTree = "<group>"; };
 		011FB62A22A33AAA004D5B8E /* UserProfileMenuTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserProfileMenuTableViewCell.xib; sourceTree = "<group>"; };
@@ -519,6 +527,10 @@
 				01E833E02325AA0400C66C72 /* ArtistViewController.swift */,
 				01E833E22325BF7300C66C72 /* GoatCell.swift */,
 				01E833E32325BF7300C66C72 /* GoatCell.xib */,
+				0107AE2C2325CD5D00944D11 /* LeaderboardCell.swift */,
+				0107AE2D2325CD5D00944D11 /* LeaderboardCell.xib */,
+				0107AE302325CDD200944D11 /* HumanCell.swift */,
+				0107AE312325CDD200944D11 /* HumanCell.xib */,
 			);
 			path = "view-challenge";
 			sourceTree = "<group>";
@@ -683,7 +695,9 @@
 				74118063220C58C300EB9D11 /* Lato-Hairline.ttf in Resources */,
 				74A01B3C220A544F00431ABD /* UserWorkoutTableViewCell.xib in Resources */,
 				7411805F220C58C300EB9D11 /* Lato-Black.ttf in Resources */,
+				0107AE332325CDD200944D11 /* HumanCell.xib in Resources */,
 				011FB63022A33C14004D5B8E /* MenuTableViewCell.xib in Resources */,
+				0107AE2F2325CD5D00944D11 /* LeaderboardCell.xib in Resources */,
 				74118068220C58C300EB9D11 /* Lato-Regular.ttf in Resources */,
 				011FB62C22A33AAA004D5B8E /* UserProfileMenuTableViewCell.xib in Resources */,
 				747D6FA12208DB330062BB39 /* Assets.xcassets in Resources */,
@@ -878,8 +892,10 @@
 				0137A6FF22A766E3001A1148 /* UpcomingChallengeViewController.swift in Sources */,
 				74BE97BC220C9F2800D550CA /* ImageCell.swift in Sources */,
 				747D6FE92208EDAF0062BB39 /* Colors.swift in Sources */,
+				0107AE322325CDD200944D11 /* HumanCell.swift in Sources */,
 				747D6FE02208ECDD0062BB39 /* Styles.swift in Sources */,
 				011FB62F22A33C14004D5B8E /* MenuTableViewCell.swift in Sources */,
+				0107AE2E2325CD5D00944D11 /* LeaderboardCell.swift in Sources */,
 				747D6FDA2208E8130062BB39 /* KeychainResult.swift in Sources */,
 				74A01B43220A691300431ABD /* MenuViewController.swift in Sources */,
 				01AE59E222A60E6800F3FB07 /* MackAttack.swift in Sources */,

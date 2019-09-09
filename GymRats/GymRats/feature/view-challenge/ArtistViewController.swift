@@ -41,7 +41,8 @@ class ArtistViewController: UITableViewController {
         navigationController?.view.backgroundColor = UIColor.white
         
         tableView.register(UINib(nibName: "GoatCell", bundle: nil), forCellReuseIdentifier: "goat")
-        
+        tableView.register(UINib(nibName: "LeaderboardCell", bundle: nil), forCellReuseIdentifier: "ld")
+
         setupBackButton()
         fetchUserWorkouts()
         
@@ -81,7 +82,7 @@ class ArtistViewController: UITableViewController {
         case 0:
             return 1
         case 1:
-            return 0
+            return 1
         case 2:
             return 0 // workouts.count
         default:
@@ -90,22 +91,31 @@ class ArtistViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "goat") as! GoatCell
-        
-        cell.picture.kf.setImage(with: URL(string: challenge.pictureUrl!)!)
-        cell.selectionStyle = .none
-        cell.usersLabel.text = "\(users.count)\nmembers"
-        cell.activityLabel.text = "\(workouts.count)\nworkouts"
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "goat") as! GoatCell
+            
+            cell.picture.kf.setImage(with: URL(string: challenge.pictureUrl!)!)
+            cell.selectionStyle = .none
+            cell.usersLabel.text = "\(users.count)\nmembers"
+            cell.activityLabel.text = "\(workouts.count)\nworkouts"
+            
+            let daysLeft = challenge.daysLeft.split(separator: " ")
+            let new = daysLeft[0]
+            let left = daysLeft[daysLeft.startIndex+1..<daysLeft.endIndex]
+            let left2 = left.joined(separator: " ")
+            let ok = new + "\n" + left2
+            
+            cell.calLabel.text = ok
+            
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ld") as! LeaderboardCell
 
-        let daysLeft = challenge.daysLeft.split(separator: " ")
-        let new = daysLeft[0]
-        let left = daysLeft[daysLeft.startIndex+1..<daysLeft.endIndex]
-        let left2 = left.joined(separator: " ")
-        let ok = new + "\n" + left2
-        
-        cell.calLabel.text = ok
-        
-        return cell
+            cell.workouts = workouts
+            cell.users = users
+            
+            return cell
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

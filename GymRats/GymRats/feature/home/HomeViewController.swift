@@ -92,7 +92,7 @@ class HomeViewController: UITableViewController {
                 self?.hideLoadingBar()
                 self?.refresher.endRefreshing()
                 
-                let activeChallenges = challenges.getActiveAndUpcomingChallenges()
+                let activeChallenges = challenges
                 
                 GymRatsApp.coordinator.menu.activeChallenges = activeChallenges
                 GymRatsApp.coordinator.menu.tableView.reloadData()
@@ -101,12 +101,16 @@ class HomeViewController: UITableViewController {
                     self?.showEmptyState(challenges: challenges)
                 } else {
                     let challengeId = UserDefaults.standard.integer(forKey: "last_opened_challenge")
-                    let challenge: Challenge
-                    if challengeId != 0 {
-                        challenge = activeChallenges.first(where: { $0.id == challengeId }) ?? activeChallenges[0]
-                    } else {
-                        challenge = activeChallenges[0]
-                    }
+                    let challenge: Challenge = activeChallenges[0]
+//                    if challengeId != 0 {
+//                        challenge = activeChallenges.first(where: { $0.id == challengeId }) ?? activeChallenges[0]
+//                    } else {
+//                        challenge = activeChallenges[0]
+//                    }
+                    let a = ArtistViewController(challenge: challenge)
+                    let na = GRNavigationController(rootViewController: a)
+                    // na.navigationBar.turnSolidWhiteSlightShadow()
+                    GymRatsApp.coordinator.drawer.setCenterView(na, withCloseAnimation: true, completion: nil)
 
                     if challenge.isActive {
                         let a = ArtistViewController(challenge: challenge)
