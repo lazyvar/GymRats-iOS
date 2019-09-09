@@ -11,7 +11,7 @@ import RxSwift
 
 class MenuViewController: UITableViewController {
 
-    static var menuWidth: CGFloat { return UIScreen.main.bounds.width - 80 }
+    static var menuWidth: CGFloat { return UIScreen.main.bounds.width - 133 }
     
     var activeChallenges: [Challenge] = []
     
@@ -153,15 +153,20 @@ extension MenuViewController {
             
             UserDefaults.standard.set(challenge.id, forKey: "last_opened_challenge")
             
-            if challenge.isActive {
-                let challengeViewController = ChallengeViewController.create(for: challenge)
-                let nav = GRNavigationController(rootViewController: challengeViewController)
-                GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
-            } else if challenge.isUpcoming {
-                let challengeViewController = UpcomingChallengeViewController(challenge: challenge)
-                let nav = GRNavigationController(rootViewController: challengeViewController)
-                GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
-            }
+            let a = ArtistViewController(challenge: challenge)
+            let na = GRNavigationController(rootViewController: a)
+            // na.navigationBar.turnSolidWhiteSlightShadow()
+            GymRatsApp.coordinator.drawer.setCenterView(na, withCloseAnimation: true, completion: nil)
+
+//            if challenge.isActive {
+//                let challengeViewController = ChallengeViewController.create(for: challenge)
+//                let nav = GRNavigationController(rootViewController: challengeViewController)
+//                GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+//            } else if challenge.isUpcoming {
+//                let challengeViewController = UpcomingChallengeViewController(challenge: challenge)
+//                let nav = GRNavigationController(rootViewController: challengeViewController)
+//                GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+//            }
         } else if indexPath.section == 2 {
             switch indexPath.row {
             case 0:

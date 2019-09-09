@@ -61,8 +61,14 @@ class ArtistViewController: UITableViewController {
         Observable.zip(users, workouts).subscribe(onNext: { zipped in
             let (users, workouts) = zipped
             
-            self.users = users
-            self.workouts = workouts
+            self.users = users.sorted(by: { a, b -> Bool in
+                let workoutsA = self.workouts.filter { $0.gymRatsUserId == a.id }.count
+                let workoutsB = self.workouts.filter { $0.gymRatsUserId == b.id }.count
+                
+                return workoutsA > workoutsB
+            })
+            
+            self.workouts = workouts.sorted(by: { $0.createdAt > $1.createdAt })
             
             UserDefaults.standard.set(users.count, forKey: "\(self.challenge.id)_user_count")
             
@@ -114,15 +120,22 @@ class ArtistViewController: UITableViewController {
             cell.onTap = { user in
                 self.navigationController?.pushViewController(ProfileViewController(user: user, challenge: self.challenge), animated: true)
             }
+            cell.selectionStyle = .none
             cell.workouts = workouts
-            cell.users = users
+            cell.users = users.sorted(by: { a, b -> Bool in
+                let workoutsA = self.workouts.filter { $0.gymRatsUserId == a.id }.count
+                let workoutsB = self.workouts.filter { $0.gymRatsUserId == b.id }.count
+                
+                return workoutsA > workoutsB
+            })
             
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "twer") as! TwerkoutCell
             let workout = workouts[indexPath.row]
             let user = users.first(where: { $0.id == workout.gymRatsUserId })!
-            
+            cell.selectionStyle = .default
+
             cell.twerk.kf.setImage(with: URL(string: workout.photoUrl ?? ""))
             cell.tit.text = workout.title
             cell.det.isHidden = workout.description == nil
@@ -164,5 +177,12 @@ class ArtistViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard indexPath.section > 1 else { return }
+        
+        let workout = workouts[indexPath.row]
+        let user = users.first(where: { $0.id == workout.gymRatsUserId })!
+        
+        self.push(WorkoutViewController(user: user, workout: workout, challenge: challenge))
     }
 }
