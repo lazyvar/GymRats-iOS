@@ -18,6 +18,8 @@ class LeaderboardCell: UITableViewCell {
     
     var workouts: [Workout] = []
     
+    var onTap: ((User) -> ())?
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func awakeFromNib() {
@@ -35,7 +37,9 @@ extension LeaderboardCell: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        
+        let usa = users[indexPath.row]
+
+        onTap?(usa)
     }
     
 }

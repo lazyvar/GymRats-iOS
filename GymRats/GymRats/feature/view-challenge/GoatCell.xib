@@ -12,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="194" id="KGk-i7-Jjw" customClass="GoatCell" customModule="GymRats" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="300" id="KGk-i7-Jjw" customClass="GoatCell" customModule="GymRats" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="480" height="194"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -25,17 +25,23 @@
                             <constraint firstAttribute="height" constant="134" id="Y7S-dD-kNg"/>
                         </constraints>
                     </imageView>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="KXn-vf-IKq">
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KXn-vf-IKq">
                         <rect key="frame" x="88.5" y="160" width="303" height="23.5"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="-5" translatesAutoresizingMaskIntoConstraints="NO" id="YQs-qi-n9G">
-                                <rect key="frame" x="0.0" y="0.0" width="85" height="23.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YQs-qi-n9G">
+                                <rect key="frame" x="0.0" y="0.0" width="101" height="23.5"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="users" translatesAutoresizingMaskIntoConstraints="NO" id="4In-H6-IIg">
-                                        <rect key="frame" x="0.0" y="0.0" width="45" height="23.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="24" height="23.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="vnm-QC-PaW"/>
+                                        </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0X2-X3-Le7">
-                                        <rect key="frame" x="40" y="0.0" width="45" height="23.5"/>
+                                        <rect key="frame" x="29" y="0.0" width="72" height="23.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="72" id="xJ5-ut-qgx"/>
+                                        </constraints>
                                         <string key="text">3
 members</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
@@ -44,14 +50,20 @@ members</string>
                                     </label>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="-5" translatesAutoresizingMaskIntoConstraints="NO" id="T8Y-aH-3Cs">
-                                <rect key="frame" x="109" y="0.0" width="85" height="23.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="T8Y-aH-3Cs">
+                                <rect key="frame" x="101" y="0.0" width="101" height="23.5"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="activity" translatesAutoresizingMaskIntoConstraints="NO" id="D0i-7O-bVa">
-                                        <rect key="frame" x="0.0" y="0.0" width="45" height="23.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="24" height="23.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="944-kX-bZN"/>
+                                        </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tdi-91-COX">
-                                        <rect key="frame" x="40" y="0.0" width="45" height="23.5"/>
+                                        <rect key="frame" x="29" y="0.0" width="72" height="23.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="72" id="0LE-yX-LVN"/>
+                                        </constraints>
                                         <string key="text">10
 workouts</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
@@ -60,14 +72,20 @@ workouts</string>
                                     </label>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="-5" translatesAutoresizingMaskIntoConstraints="NO" id="eFP-HO-iSE">
-                                <rect key="frame" x="218" y="0.0" width="85" height="23.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="eFP-HO-iSE">
+                                <rect key="frame" x="202" y="0.0" width="101" height="23.5"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cal" translatesAutoresizingMaskIntoConstraints="NO" id="dmL-91-N7H">
-                                        <rect key="frame" x="0.0" y="0.0" width="45" height="23.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="24" height="23.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="GEq-aR-QxE"/>
+                                        </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4bk-Xq-9Zy">
-                                        <rect key="frame" x="40" y="0.0" width="45" height="23.5"/>
+                                        <rect key="frame" x="29" y="0.0" width="72" height="23.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="72" id="Ppd-sg-BgO"/>
+                                        </constraints>
                                         <string key="text">1512
 days left</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
@@ -95,7 +113,7 @@ days left</string>
                 <outlet property="picture" destination="PYE-vo-RpP" id="NNg-KF-ulc"/>
                 <outlet property="usersLabel" destination="0X2-X3-Le7" id="Rni-sT-W4E"/>
             </connections>
-            <point key="canvasLocation" x="153.62318840579712" y="85.044642857142847"/>
+            <point key="canvasLocation" x="223" y="84"/>
         </tableViewCell>
     </objects>
     <resources>

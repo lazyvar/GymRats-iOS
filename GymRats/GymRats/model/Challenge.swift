@@ -37,7 +37,7 @@ extension Challenge {
         let difference = Date().localDateIsDaysApartFromUTCDate(endDate)
         
         if difference > 0 {
-            return "Completed on \(endDate.toFormat("MMM d, yyyy"))"
+            return "Completed \(endDate.toFormat("MMM d, yyyy"))"
         } else if difference < 0 {
             let diff = abs(difference)
             

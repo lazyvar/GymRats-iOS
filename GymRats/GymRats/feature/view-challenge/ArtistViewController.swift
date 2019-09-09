@@ -41,6 +41,7 @@ class ArtistViewController: UITableViewController {
         navigationController?.view.backgroundColor = UIColor.white
         
         tableView.register(UINib(nibName: "GoatCell", bundle: nil), forCellReuseIdentifier: "goat")
+        tableView.register(UINib(nibName: "TwerkoutCell", bundle: nil), forCellReuseIdentifier: "twer")
         tableView.register(UINib(nibName: "LeaderboardCell", bundle: nil), forCellReuseIdentifier: "ld")
 
         setupBackButton()
@@ -84,7 +85,7 @@ class ArtistViewController: UITableViewController {
         case 1:
             return 1
         case 2:
-            return 0 // workouts.count
+            return workouts.count
         default:
             fatalError()
         }
@@ -108,11 +109,26 @@ class ArtistViewController: UITableViewController {
             cell.calLabel.text = ok
             
             return cell
-        } else {
+        } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ld") as! LeaderboardCell
-
+            cell.onTap = { user in
+                self.navigationController?.pushViewController(ProfileViewController(user: user, challenge: self.challenge), animated: true)
+            }
             cell.workouts = workouts
             cell.users = users
+            
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "twer") as! TwerkoutCell
+            let workout = workouts[indexPath.row]
+            let user = users.first(where: { $0.id == workout.gymRatsUserId })!
+            
+            cell.twerk.kf.setImage(with: URL(string: workout.photoUrl ?? ""))
+            cell.tit.text = workout.title
+            cell.det.isHidden = workout.description == nil
+            cell.det.text = workout.description
+
+            cell.little.text = "\(user.fullName) \(workout.createdAt.challengeTime)"
             
             return cell
         }
