@@ -37,6 +37,8 @@ class ChatViewController: MessagesViewController {
         
         // title = challenge.name
         
+        navigationItem.largeTitleDisplayMode = .never
+        
         setupBackButton()
         
         scrollsToBottomOnKeyboardBeginsEditing = true
