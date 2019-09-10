@@ -136,7 +136,7 @@ class WorkoutHeaderView: UIView {
                             )
                         )
 
-                        self.mapView.setRegion(coordinateRegion, animated: true)
+                        self.mapView.setRegion(coordinateRegion, animated: false)
                         self.mapView.mapType = .standard
                         self.mapView.isUserInteractionEnabled = false
                         self.mapView.addAnnotation(annotation)

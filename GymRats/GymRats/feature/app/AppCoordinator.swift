@@ -228,11 +228,12 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     }
     
     func openNewWorkout() {
-        let newWorkoutViewController = NewWorkoutViewController().inNav()
+        let newWorkoutViewController = NewWorkoutViewController()
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
 
-        tabBarViewController.present(newWorkoutViewController, animated: true, completion: nil)
+        newWorkoutViewController.delegate = self
+        tabBarViewController.present(newWorkoutViewController.inNav(), animated: true, completion: nil)
     }
     
     func openChat() {
@@ -284,6 +285,14 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
             print("Bummer! \(error.description)")
             return nil
         }
+    }
+    
+}
+
+extension AppCoordinator: NewWorkoutDelegate {
+    
+    func newWorkoutController(_ newWorkoutController: NewWorkoutViewController, created workouts: [Workout]) {
+        newWorkoutController.dismissSelf()
     }
     
 }

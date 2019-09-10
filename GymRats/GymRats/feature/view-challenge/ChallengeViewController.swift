@@ -209,7 +209,7 @@ extension ChallengeViewController: ChallengeDayViewControllerDelegate {
 
 extension ChallengeViewController: NewWorkoutDelegate {
     
-    func workoutCreated(workouts: [Workout]) {
+    func newWorkoutController(_ newWorkoutController: NewWorkoutViewController, created workouts: [Workout]) {
         self.reload()
     }
     

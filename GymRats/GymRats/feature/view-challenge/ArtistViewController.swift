@@ -24,6 +24,8 @@ class ArtistViewController: UITableViewController {
     
     var useMe: [Date] = []
     
+    var userImageRequests: [Int: Int] = [:]
+    
     init(challenge: Challenge) {
         self.challenge = challenge
         
@@ -200,7 +202,7 @@ class ArtistViewController: UITableViewController {
             
             let user = users.first(where: { $0.id == workout.gymRatsUserId })!
             cell.selectionStyle = .default
-
+            
             cell.twerk.kf.setImage(with: URL(string: workout.photoUrl ?? ""))
             cell.tit.text = workout.title
             cell.det.isHidden = workout.description == nil
@@ -280,10 +282,34 @@ class ArtistViewController: UITableViewController {
         let date = useMe[indexPath.section-3]
         let workouts = self.userWorkouts(for: date).filter { $0.workout != nil }
         let workout = workouts[indexPath.row].workout!
-        
-        
         let user = users.first(where: { $0.id == workout.gymRatsUserId })!
         
         self.push(WorkoutViewController(user: user, workout: workout, challenge: challenge))
     }
 }
+
+struct SkeletonIndicator: Indicator {
+    
+    let skeletonView: UIView = {
+        let view = UIView()
+        view.isSkeletonable = true
+        view.frame = CGRect(x: 0, y: 0, width: 70, height: 70)
+        
+        return view
+    }()
+    
+    func startAnimatingView() {
+        skeletonView.startSkeletonAnimation()
+    }
+    
+    func stopAnimatingView() {
+        skeletonView.stopSkeletonAnimation()
+    }
+    
+    var view: IndicatorView {
+        return skeletonView
+    }
+    
+}
+
+extension UIView: Placeholder { }
