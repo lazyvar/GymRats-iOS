@@ -57,6 +57,8 @@ class WorkoutViewController: UITableViewController {
 
         setupBackButton()
         
+        navigationItem.largeTitleDisplayMode = .never
+        
         self.headerView = WorkoutHeaderView.instanceFromNib()
         headerView.configure(user: user, workout: workout, challenge: challenge, width: tableView.frame.width)
         headerView.delegate = self

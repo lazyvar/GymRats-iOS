@@ -109,8 +109,9 @@ class HomeViewController: UITableViewController {
 //                    }
                     let a = ArtistViewController(challenge: challenge)
                     let na = GRNavigationController(rootViewController: a)
+                    
                     // na.navigationBar.turnSolidWhiteSlightShadow()
-                    GymRatsApp.coordinator.drawer.setCenterView(na, withCloseAnimation: true, completion: nil)
+                    GymRatsApp.coordinator.drawer.setCenterView(TabBarController.doIt(viewController: a), withCloseAnimation: true, completion: nil)
 
                     if challenge.isActive {
                         let a = ArtistViewController(challenge: challenge)
