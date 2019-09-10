@@ -15,6 +15,7 @@ extension UIColor {
     static let primary: UIColor = .hex("#337ab7")
     static let eeeeee: UIColor = .hex("#EEEEEE")
     // static let brandDark: UIColor = .hex("#292929")
+    static let perfect: UIColor = .hex("#6dcafd")
     static let whiteSmoke: UIColor = .hex("#f5f5f5")
     static let fog: UIColor = .hex("#9B9B9B")
     static let firebrick: UIColor = .hex("#D33A2C")

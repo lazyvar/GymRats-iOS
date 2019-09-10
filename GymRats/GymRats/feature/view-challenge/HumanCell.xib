@@ -27,8 +27,8 @@
                             <constraint firstAttribute="height" constant="52" id="d5k-mZ-s39"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IKC-g0-llF">
-                        <rect key="frame" x="23" y="67" width="26" height="30"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="clip" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IKC-g0-llF">
+                        <rect key="frame" x="1" y="67" width="70" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="Mzs-fB-0L5"/>
                         </constraints>
@@ -42,10 +42,12 @@
             </view>
             <constraints>
                 <constraint firstItem="IKC-g0-llF" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="1qT-jf-gM5"/>
+                <constraint firstItem="IKC-g0-llF" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="1" id="Kih-UX-xuN"/>
                 <constraint firstItem="ne4-ZC-aaZ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="Oug-Nx-F3g"/>
                 <constraint firstItem="ne4-ZC-aaZ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="fEC-Cd-i9X"/>
                 <constraint firstItem="IKC-g0-llF" firstAttribute="top" secondItem="ne4-ZC-aaZ" secondAttribute="bottom" constant="5" id="fiQ-1G-LEy"/>
                 <constraint firstAttribute="trailing" secondItem="ne4-ZC-aaZ" secondAttribute="trailing" constant="10" id="mle-W7-LnB"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="IKC-g0-llF" secondAttribute="trailing" constant="1" id="omA-DS-Jfg"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="70" height="108"/>

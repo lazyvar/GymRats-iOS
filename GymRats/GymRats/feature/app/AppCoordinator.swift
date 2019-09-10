@@ -12,6 +12,7 @@ import MMDrawerController
 import GooglePlaces
 import Firebase
 import UserNotifications
+import ESTabBarController_swift
 
 class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     
@@ -135,15 +136,16 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     var openChallengeChatId: Int?
 
     var menu: MenuViewController!
+    var tabBarViewController: ESTabBarController!
     
     func login(user: User) {
-        self.currentUser = user
-        
+        currentUser = user
         menu = MenuViewController()
-        let home = HomeViewController()
-        let nav = GRNavigationController(rootViewController: home)
         
-        drawer = MMDrawerController(center: nav, leftDrawerViewController: menu)
+        let home = HomeViewController()
+        let centerViewController = center(with: home)
+        
+        drawer = MMDrawerController(center: centerViewController, leftDrawerViewController: menu)
         drawer.showsShadow = false
         drawer.maximumLeftDrawerWidth = MenuViewController.menuWidth
         drawer.centerHiddenInteractionMode = .full
@@ -167,6 +169,82 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         } else {
             drawer.open(.left, animated: true, completion: nil)
         }
+    }
+    
+    func replaceCenterInTab(with viewController: UIViewController) {
+        let centerViewController = center(with: viewController)
+
+        drawer.setCenterView(centerViewController, withCloseAnimation: true, completion: { _ in
+            self.tabBarViewController.didHijackHandler = { a, b, index in
+                if index == 0 {
+                    GymRatsApp.coordinator.toggleMenu()
+                } else if index == 1 {
+                    self.openNewWorkout()
+                } else if index == 2 {
+                    self.openChat()
+                }
+            }
+        })
+    }
+    
+    func center(with viewController: UIViewController) -> UIViewController {        
+        let tabBarController = ESTabBarController()
+        tabBarController.shouldHijackHandler = { _, _, _ in return true }
+        tabBarController.tabBar.isTranslucent = false
+        tabBarController.tabBar.shadowImage = UIImage()
+        tabBarController.tabBar.backgroundImage = UIImage()
+        
+        let v1 = UIViewController()
+        let v2 = viewController.inNav()
+        let v3 = UIViewController()
+        
+        let menu = UIImage(named: "menu")!.withRenderingMode(.alwaysOriginal)
+        let chat = UIImage(named: "chat")!.withRenderingMode(.alwaysOriginal)
+        let plus = UIImage(named: "activity-large-white")!
+        
+        v1.tabBarItem = UITabBarItem(title: nil, image: menu, selectedImage: menu)
+        v2.tabBarItem = ESTabBarItem.init(BigContentView(), title: nil, image: plus, selectedImage: plus)
+        v3.tabBarItem = UITabBarItem(title: nil, image: chat, selectedImage: chat)
+        
+        tabBarController.viewControllers = [v1, v2, v3]
+        tabBarController.selectedIndex = 1
+        tabBarController.tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
+        tabBarController.tabBar.layer.shadowRadius = 8
+        tabBarController.tabBar.layer.shadowColor = UIColor.gray.withAlphaComponent(0.7).cgColor
+        tabBarController.tabBar.layer.shadowOpacity = 0.5
+        
+        self.tabBarViewController = tabBarController
+        
+        return tabBarController
+    }
+    
+    func centerActiveOrUpcomingChallenge(_ challenge: Challenge) {
+        if challenge.isActive {
+            replaceCenterInTab(with: ArtistViewController(challenge: challenge))
+        } else if challenge.isUpcoming {
+            let upcomingViewController = UpcomingChallengeViewController(challenge: challenge).inNav()
+            GymRatsApp.coordinator.drawer.setCenterView(upcomingViewController, withCloseAnimation: true, completion: nil)
+        }
+    }
+    
+    func openNewWorkout() {
+        let newWorkoutViewController = NewWorkoutViewController().inNav()
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
+
+        tabBarViewController.present(newWorkoutViewController, animated: true, completion: nil)
+    }
+    
+    func openChat() {
+        guard let nav = tabBarViewController.viewControllers?[safe: 1] as? GRNavigationController else {
+            return
+        }
+        
+        guard let artist = nav.viewControllers.last as? ArtistViewController else { return }
+        
+        let chat = ChatViewController(challenge: artist.challenge)
+        
+        artist.push(chat)
     }
     
     func updateUser(_ user: User) {

@@ -31,8 +31,9 @@ class NewWorkoutViewController: FormViewController {
 
     var challenges: [Int: BehaviorRelay<Bool>] = [:]
     
-    let submitButton: UIButton = .primary(text: "Submit")
-    
+    lazy var submitButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(postWorkout))
+    lazy var cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissSelf))
+
     let placeRow = PushRow<Place>() {
         $0.title = "Current Location"
         $0.selectorTitle = "Where are you?"
@@ -53,8 +54,11 @@ class NewWorkoutViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.rightBarButtonItem = .init(barButtonSystemItem: .action, target: nil, action: nil)
+        submitButton.tintColor = .perfect
         
+        navigationItem.rightBarButtonItem = submitButton
+        navigationItem.leftBarButtonItem = cancelButton
+
         title = "Log Workout"
         tableView.backgroundColor = .whiteSmoke
         
@@ -93,18 +97,13 @@ class NewWorkoutViewController: FormViewController {
         let last = Section() {
             let footerBuilder = { () -> UIView in
                 let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 48))
-                self.submitButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 48)
-                self.submitButton.layer.cornerRadius = 0
-                
-                container.addSubview(self.submitButton)
-                
                 let textLabel = UILabel()
                 textLabel.font = .details
                 textLabel.textColor = .fog
                 textLabel.numberOfLines = 0
                 textLabel.textAlignment = .center
                 textLabel.text = "A photo is required to post a workout."
-                textLabel.frame = CGRect(x: 0, y: 50, width: self.view.frame.width, height: 20)
+                textLabel.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 20)
                 
                 container.addSubview(textLabel)
                 
@@ -112,7 +111,7 @@ class NewWorkoutViewController: FormViewController {
             }
             
             var footer = HeaderFooterView<UIView>(.callback(footerBuilder))
-            footer.height = { 80 }
+            footer.height = { 30 }
             
             $0.footer = footer
         }
@@ -172,10 +171,6 @@ class NewWorkoutViewController: FormViewController {
             return titlePresent && photoPresent && atLeastOneChallenge
         }
         .bind(to: self.submitButton.rx.isEnabled).disposed(by: disposeBag)
-        
-        submitButton.onTouchUpInside { [weak self] in
-            self?.postWorkout()
-        }.disposed(by: disposeBag)
     }
     
     var locationManager: CLLocationManager?
@@ -211,7 +206,7 @@ class NewWorkoutViewController: FormViewController {
         })
     }
     
-    func postWorkout() {
+    @objc func postWorkout() {
         showLoadingBar(disallowUserInteraction: true)
         
         let challenges = self.challenges

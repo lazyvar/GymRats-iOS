@@ -232,7 +232,7 @@ class ChallengeInfoViewController: UITableViewController {
             let profile = ProfileViewController(user: user, challenge: self.challenge)
             
             if let center = center as? GRNavigationController {
-                center.pushViewController(profile, animated: true)
+                center.push(profile, animated: true)
             }
         }
     }

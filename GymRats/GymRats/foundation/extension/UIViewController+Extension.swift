@@ -11,7 +11,13 @@ import UIKit
 extension UIViewController {
     
     func push(_ viewController: UIViewController, animated: Bool = true) {
+        viewController.hidesBottomBarWhenPushed = true
+
         navigationController?.pushViewController(viewController, animated: animated)
+    }
+    
+    func inNav() -> UINavigationController {
+        return GRNavigationController(rootViewController: self)
     }
     
     func setupBackButton() {

@@ -94,6 +94,8 @@ class ProfileViewController: UITableViewController {
         
         setupBackButton()
         
+        navigationItem.largeTitleDisplayMode = .never
+        
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         tableView.showsVerticalScrollIndicator = false

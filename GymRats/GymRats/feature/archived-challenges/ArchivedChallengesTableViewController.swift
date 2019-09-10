@@ -21,8 +21,15 @@ class ArchivedChallengesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .white
-        title = "Past Challenges"
+        navigationController?.navigationBar.backgroundColor = .white
+        tableView.separatorStyle = .none
+        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.view.backgroundColor = UIColor.white
+        
+        view.backgroundColor = .white
+        navigationItem.title = "Completed"
         
         setupMenuButton()
         setupBackButton()
@@ -71,6 +78,11 @@ class ArchivedChallengesTableViewController: UITableViewController {
         
         cell.challenge = challenge
         
+        let thing = cell.detailsLabel.text?.split(separator: " ") ?? []
+        let word = thing[thing.startIndex+1..<thing.endIndex].joined(separator: " ")
+        
+        cell.detailsLabel.text = word
+        
         return cell
     }
     
@@ -87,7 +99,7 @@ class ArchivedChallengesTableViewController: UITableViewController {
         
         let challenge = challenges[indexPath.row]
         
-        push(ChallengeViewController.create(for: challenge))
+        push(ArtistViewController(challenge: challenge))
     }
     
 }

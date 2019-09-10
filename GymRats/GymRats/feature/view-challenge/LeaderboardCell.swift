@@ -52,7 +52,10 @@ extension LeaderboardCell: UICollectionViewDataSource {
         let workoutsForUser = workouts.filter { $0.gymRatsUserId == usa.id }.count
 
         cell.userImageView.load(avatarInfo: usa)
-        cell.humanLabel.text = "\(usa.fullName)\n\(workoutsForUser)"
+        
+        let name = usa.fullName.split(separator: " ").first ?? ""
+        
+        cell.humanLabel.text = "\(name)\n\(workoutsForUser)"
         
         return cell
     }
