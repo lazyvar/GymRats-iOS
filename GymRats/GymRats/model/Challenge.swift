@@ -34,7 +34,7 @@ extension Challenge {
     }
     
     func daysWithWorkouts(workouts: [Workout]) -> [Date] {
-        return days.filter({ date -> Bool in
+        return days.reversed().filter({ date -> Bool in
             return workouts.workoutsExist(on: date)
         })
     }
