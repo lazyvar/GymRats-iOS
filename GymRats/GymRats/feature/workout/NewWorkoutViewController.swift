@@ -53,6 +53,8 @@ class NewWorkoutViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.rightBarButtonItem = .init(barButtonSystemItem: .action, target: nil, action: nil)
+        
         title = "Log Workout"
         tableView.backgroundColor = .whiteSmoke
         

@@ -33,12 +33,17 @@ class ArtistViewController: UITableViewController {
 
     override func viewDidLoad() {
         navigationController?.navigationBar.prefersLargeTitles = true
-        title = challenge.name
+        navigationItem.title = challenge.name
         view.backgroundColor = .white
         navigationController?.navigationBar.backgroundColor = .white
         tableView.separatorStyle = .none
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.view.backgroundColor = UIColor.white
+        
+        let more = UIImage(named: "more-vertical")?.withRenderingMode(.alwaysTemplate)
+        let menu = UIBarButtonItem(image: more, landscapeImagePhone: nil, style: .plain, target: nil, action: nil)
+        
+        navigationItem.rightBarButtonItem = menu
         
         tableView.register(UINib(nibName: "GoatCell", bundle: nil), forCellReuseIdentifier: "goat")
         tableView.register(UINib(nibName: "TwerkoutCell", bundle: nil), forCellReuseIdentifier: "twer")

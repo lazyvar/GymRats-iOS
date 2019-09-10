@@ -29,6 +29,7 @@
 		018E9F4F229F7DB1008AB016 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */; };
 		018E9F51229F7E3D008AB016 /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E9F50229F7E3D008AB016 /* ChallengeViewController.swift */; };
 		018E9F53229F8787008AB016 /* ChallengeDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E9F52229F8787008AB016 /* ChallengeDayViewController.swift */; };
+		019CF1F92326DBCF00D884DA /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019CF1F82326DBCF00D884DA /* TabBarController.swift */; };
 		01AE59E222A60E6800F3FB07 /* MackAttack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AE59E122A60E6800F3FB07 /* MackAttack.swift */; };
 		01AE59E422A60FE400F3FB07 /* MackAttackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AE59E322A60FE400F3FB07 /* MackAttackTests.swift */; };
 		01BFF8F9223B30750044F802 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF8F8223B30750044F802 /* Comment.swift */; };
@@ -146,6 +147,7 @@
 		018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
 		018E9F50229F7E3D008AB016 /* ChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
 		018E9F52229F8787008AB016 /* ChallengeDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDayViewController.swift; sourceTree = "<group>"; };
+		019CF1F82326DBCF00D884DA /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		01AE59E122A60E6800F3FB07 /* MackAttack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MackAttack.swift; sourceTree = "<group>"; };
 		01AE59E322A60FE400F3FB07 /* MackAttackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MackAttackTests.swift; sourceTree = "<group>"; };
 		01BFF8F8223B30750044F802 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -537,6 +539,7 @@
 				0107AE312325CDD200944D11 /* HumanCell.xib */,
 				0107AE342325E3D300944D11 /* TwerkoutCell.swift */,
 				0107AE352325E3D300944D11 /* TwerkoutCell.xib */,
+				019CF1F82326DBCF00D884DA /* TabBarController.swift */,
 			);
 			path = "view-challenge";
 			sourceTree = "<group>";
@@ -730,66 +733,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GymRats/Pods-GymRats-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/AvatarImageView/AvatarImageView.framework",
-				"${BUILT_PRODUCTS_DIR}/CVCalendar/CVCalendar.framework",
-				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
-				"${BUILT_PRODUCTS_DIR}/EasyNotificationBadge/EasyNotificationBadge.framework",
-				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/GradientLoadingBar/GradientLoadingBar.framework",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/MMDrawerController/MMDrawerController.framework",
-				"${BUILT_PRODUCTS_DIR}/MessageInputBar/MessageInputBar.framework",
-				"${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework",
-				"${BUILT_PRODUCTS_DIR}/Pageboy/Pageboy.framework",
-				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxEureka/RxEureka.framework",
-				"${BUILT_PRODUCTS_DIR}/RxOptional/RxOptional.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
-				"${BUILT_PRODUCTS_DIR}/TTTAttributedLabel/TTTAttributedLabel.framework",
-				"${BUILT_PRODUCTS_DIR}/Yoga/yoga.framework",
-				"${BUILT_PRODUCTS_DIR}/YogaKit/YogaKit.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-GymRats/Pods-GymRats-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AvatarImageView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CVCalendar.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EasyNotificationBadge.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GradientLoadingBar.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MMDrawerController.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageInputBar.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Pageboy.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxEureka.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxOptional.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TTTAttributedLabel.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YogaKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-GymRats/Pods-GymRats-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -821,16 +769,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GymRats/Pods-GymRats-resources.sh",
-				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-GymRats/Pods-GymRats-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-GymRats/Pods-GymRats-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -917,6 +860,7 @@
 				74F4788C220D0A2F005CD4E4 /* SettingsViewController.swift in Sources */,
 				74A01B3E220A55D000431ABD /* UserImageView.swift in Sources */,
 				018E9F53229F8787008AB016 /* ChallengeDayViewController.swift in Sources */,
+				019CF1F92326DBCF00D884DA /* TabBarController.swift in Sources */,
 				74A01B25220A0AFB00431ABD /* HomeViewController.swift in Sources */,
 				747D6FDB2208E8130062BB39 /* Keychain.swift in Sources */,
 				01E833E42325BF7300C66C72 /* GoatCell.swift in Sources */,
