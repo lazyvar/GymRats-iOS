@@ -277,7 +277,11 @@ class ArtistViewController: UITableViewController {
         
         guard indexPath.section > 1 else { return }
         
-        let workout = workouts[indexPath.row]
+        let date = useMe[indexPath.section-3]
+        let workouts = self.userWorkouts(for: date).filter { $0.workout != nil }
+        let workout = workouts[indexPath.row].workout!
+        
+        
         let user = users.first(where: { $0.id == workout.gymRatsUserId })!
         
         self.push(WorkoutViewController(user: user, workout: workout, challenge: challenge))
