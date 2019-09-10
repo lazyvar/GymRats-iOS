@@ -32,6 +32,12 @@ extension Challenge {
         
         return (0..<(daysGone + 1)).map { startDate + Int($0).days }
     }
+    
+    func daysWithWorkouts(workouts: [Workout]) -> [Date] {
+        return days.filter({ date -> Bool in
+            return workouts.workoutsExist(on: date)
+        })
+    }
 
     var daysLeft: String {
         let difference = Date().localDateIsDaysApartFromUTCDate(endDate)

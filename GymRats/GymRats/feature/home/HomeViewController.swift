@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import GradientLoadingBar
 
-class HomeViewController: UITableViewController {
+class HomeViewController: UIViewController {
 
     var challenges: [Challenge] = []
     
@@ -45,14 +45,9 @@ class HomeViewController: UITableViewController {
 
         view.backgroundColor = .white
         
-        setupForHome()
-
-        tableView.separatorStyle = .none
-        tableView.register(UINib(nibName: "UserWorkoutTableViewCell", bundle: nil), forCellReuseIdentifier: "ChallengeCell")
+        setupBackButton()
         
         refresher.addTarget(self, action: #selector(fetchAllChallenges), for: .valueChanged)
-        
-        tableView.addSubview(refresher)
         
         retryButton.onTouchUpInside { [weak self] in
             self?.fetchAllChallenges()
@@ -67,7 +62,6 @@ class HomeViewController: UITableViewController {
             }, onError: { [weak self] error in
                 self?.presentAlert(with: error)
             }).disposed(by: self.disposeBag)
-
         }.disposed(by: disposeBag)
 
         createChallengeButton.onTouchUpInside { [weak self] in
@@ -92,7 +86,7 @@ class HomeViewController: UITableViewController {
                 self?.hideLoadingBar()
                 self?.refresher.endRefreshing()
                 
-                let activeChallenges = challenges
+                let activeChallenges = challenges.getActiveAndUpcomingChallenges()
                 
                 GymRatsApp.coordinator.menu.activeChallenges = activeChallenges
                 GymRatsApp.coordinator.menu.tableView.reloadData()
@@ -101,34 +95,15 @@ class HomeViewController: UITableViewController {
                     self?.showEmptyState(challenges: challenges)
                 } else {
                     let challengeId = UserDefaults.standard.integer(forKey: "last_opened_challenge")
-                    let challenge: Challenge = activeChallenges[0]
-//                    if challengeId != 0 {
-//                        challenge = activeChallenges.first(where: { $0.id == challengeId }) ?? activeChallenges[0]
-//                    } else {
-//                        challenge = activeChallenges[0]
-//                    }
-                    let a = ArtistViewController(challenge: challenge)
-                    let na = GRNavigationController(rootViewController: a)
+                    let challenge: Challenge
                     
-                    // na.navigationBar.turnSolidWhiteSlightShadow()
-                    GymRatsApp.coordinator.drawer.setCenterView(TabBarController.doIt(viewController: a), withCloseAnimation: true, completion: nil)
-
-                    if challenge.isActive {
-                        let a = ArtistViewController(challenge: challenge)
-                        let na = GRNavigationController(rootViewController: a)
-                        // na.navigationBar.turnSolidWhiteSlightShadow()
-                        GymRatsApp.coordinator.drawer.setCenterView(na, withCloseAnimation: true, completion: nil)
-
-//                        let challengeViewController = ChallengeViewController.create(for: challenge)
-//                        let nav = GRNavigationController(rootViewController: challengeViewController)
-//                        nav.navigationBar.turnSolidWhiteSlightShadow()
-//                        GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
-                    } else if challenge.isUpcoming {
-                        let challengeViewController = UpcomingChallengeViewController(challenge: challenge)
-                        let nav = GRNavigationController(rootViewController: challengeViewController)
-                        nav.navigationBar.turnSolidWhiteSlightShadow()
-                        GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+                    if challengeId != 0 {
+                        challenge = activeChallenges.first(where: { $0.id == challengeId }) ?? activeChallenges[0]
+                    } else {
+                        challenge = activeChallenges[0]
                     }
+
+                    GymRatsApp.coordinator.centerActiveOrUpcomingChallenge(challenge)
                 }
                 
                 if let notif = GymRatsApp.coordinator.coldStartNotification {
@@ -193,49 +168,6 @@ class HomeViewController: UITableViewController {
         view.addSubview(createChallengeButton)
         
         view.yoga.applyLayout(preservingOrigin: true)
-    }
-    
-    func showSingleChallenge(challenge: Challenge) {
-//        let challengeViewController = ActiveChallengeViewController(challenge: challenge)
-//        let nav = GRNavigationController(rootViewController: challengeViewController)
-//        nav.navigationBar.turnBrandColorSlightShadow()
-//        challengeViewController.setupForHome()
-
-        // TODO
-        
-       // GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
-    }
-    
-    func showMulitpleChallenges(challenges: [Challenge]) {
-        self.challenges = challenges
-        self.tableView.reloadData()
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ChallengeCell") as! UserWorkoutTableViewCell
-        let challenge = challenges[indexPath.row]
-        
-        cell.challenge = challenge
-        
-        return cell
-    }
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return challenges.count
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        let challenge = challenges[indexPath.row]
-        
-        if challenge.isActive {
-            push(ChallengeViewController.create(for: challenge))
-        }
     }
 
 }

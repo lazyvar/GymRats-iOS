@@ -10,8 +10,8 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Lato-Black.ttf">
-            <string>Lato-Black</string>
+        <array key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
         </array>
     </customFonts>
     <objects>
@@ -25,24 +25,24 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dDy-Fk-2lW">
-                        <rect key="frame" x="64" y="53" width="54.5" height="26.5"/>
-                        <fontDescription key="fontDescription" name="Lato-Black" family="Lato" pointSize="22"/>
+                        <rect key="frame" x="84" y="58" width="53.5" height="26.5"/>
+                        <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="22"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GfU-rF-dEC" customClass="UserImageView" customModule="GymRats" customModuleProvider="target">
-                        <rect key="frame" x="10" y="44" width="44" height="44"/>
+                        <rect key="frame" x="15" y="44.5" width="54" height="54"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="44" id="HYV-cg-ja7"/>
-                            <constraint firstAttribute="width" constant="44" id="Ia0-ZJ-7JE"/>
+                            <constraint firstAttribute="height" constant="54" id="HYV-cg-ja7"/>
+                            <constraint firstAttribute="width" constant="54" id="Ia0-ZJ-7JE"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="dDy-Fk-2lW" firstAttribute="leading" secondItem="GfU-rF-dEC" secondAttribute="trailing" constant="10" id="Bae-gM-6HK"/>
+                    <constraint firstItem="dDy-Fk-2lW" firstAttribute="leading" secondItem="GfU-rF-dEC" secondAttribute="trailing" constant="15" id="Bae-gM-6HK"/>
                     <constraint firstItem="dDy-Fk-2lW" firstAttribute="centerY" secondItem="GfU-rF-dEC" secondAttribute="centerY" id="H79-jH-37i"/>
-                    <constraint firstItem="GfU-rF-dEC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Ku8-5h-Ncq"/>
+                    <constraint firstItem="GfU-rF-dEC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Ku8-5h-Ncq"/>
                     <constraint firstAttribute="bottom" secondItem="GfU-rF-dEC" secondAttribute="bottom" constant="44" id="WDY-oU-PkP"/>
                     <constraint firstItem="GfU-rF-dEC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="44" id="rgJ-Ra-0Ps"/>
                 </constraints>

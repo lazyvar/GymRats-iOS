@@ -14,14 +14,20 @@ class TwerkoutCell: UITableViewCell {
     @IBOutlet weak var little: UILabel!
     @IBOutlet weak var det: UILabel!
     @IBOutlet weak var tit: UILabel!
-
+    @IBOutlet weak var shadowView: UIView!
+    @IBOutlet weak var lil: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        twerk.layer.shadowRadius = 7
-        twerk.layer.shadowColor = UIColor.black.cgColor
-        twerk.layer.shadowOffset = CGSize(width: 0, height: 0)
+        shadowView.layer.shadowRadius = 5
+        shadowView.layer.shadowColor = UIColor.gray.withAlphaComponent(0.7).cgColor
+        shadowView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        shadowView.layer.shadowOpacity = 0.5
+        
         twerk.contentMode = .scaleAspectFill
         twerk.layer.cornerRadius = 4
+        accessoryType = .disclosureIndicator
+        clipsToBounds = false
     }
 }

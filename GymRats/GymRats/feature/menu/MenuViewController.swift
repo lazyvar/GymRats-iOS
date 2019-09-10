@@ -119,7 +119,7 @@ extension MenuViewController {
 
         switch indexPath.row {
         case 0:
-            cell.textLabel?.text = "Archived"
+            cell.textLabel?.text = "Completed"
             cell.imageView?.image = UIImage(named: "archive")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         case 1:
             cell.textLabel?.text = "Join"
@@ -152,21 +152,8 @@ extension MenuViewController {
             let challenge = activeChallenges[indexPath.row]
             
             UserDefaults.standard.set(challenge.id, forKey: "last_opened_challenge")
-            
-            let a = ArtistViewController(challenge: challenge)
-            let na = GRNavigationController(rootViewController: a)
-            // na.navigationBar.turnSolidWhiteSlightShadow()
-            GymRatsApp.coordinator.drawer.setCenterView(na, withCloseAnimation: true, completion: nil)
 
-//            if challenge.isActive {
-//                let challengeViewController = ChallengeViewController.create(for: challenge)
-//                let nav = GRNavigationController(rootViewController: challengeViewController)
-//                GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
-//            } else if challenge.isUpcoming {
-//                let challengeViewController = UpcomingChallengeViewController(challenge: challenge)
-//                let nav = GRNavigationController(rootViewController: challengeViewController)
-//                GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
-//            }
+            GymRatsApp.coordinator.centerActiveOrUpcomingChallenge(challenge)
         } else if indexPath.section == 2 {
             switch indexPath.row {
             case 0:

@@ -32,7 +32,6 @@ class UserWorkoutTableViewCell: UITableViewCell {
         fullNameLabel.isHidden = true
         contentView.alpha = 1.0
         accessoryView = nil
-        addDivider()
     }
     
     var userWorkout: UserWorkout! {
