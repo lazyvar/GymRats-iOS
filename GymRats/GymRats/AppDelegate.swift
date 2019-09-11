@@ -26,9 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         appCoordinator = AppCoordinator(window: window!, application: application)
         
-        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
-           return true
-        }
+        guard ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil else { return true }
         
         appCoordinator.start()
         
@@ -57,8 +55,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) { }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-        if let challenge = (GymRatsApp.coordinator.drawer?.centerViewController as? UINavigationController)?.viewControllers.first as? ChallengeViewController {
-            challenge.reload()
+        if let vc = (GymRatsApp.coordinator.drawer?.centerViewController as? UITabBarController)?.viewControllers?[safe: 1] as? UINavigationController {
+            if let vc = vc.viewControllers[safe: 0] as? ArtistViewController {
+                vc.fetchUserWorkouts()
+            }
         }
     }
     
