@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 import Kingfisher
 
-class ArtistViewController: UITableViewController {
+class ArtistViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     let challenge: Challenge
@@ -24,7 +24,16 @@ class ArtistViewController: UITableViewController {
     
     var useMe: [Date] = []
     
-    var userImageRequests: [Int: Int] = [:]
+    lazy var tableView: UITableView! = {
+        let tb = UITableView(frame: view.frame, style: .grouped)
+        tb.delegate = self
+        tb.dataSource = self
+        tb.backgroundColor = .white
+        
+        view.addSubview(tb)
+    
+        return tb
+    }()
     
     init(challenge: Challenge) {
         self.challenge = challenge
@@ -35,7 +44,7 @@ class ArtistViewController: UITableViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = challenge.name
@@ -44,7 +53,6 @@ class ArtistViewController: UITableViewController {
         tableView.separatorStyle = .none
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.view.backgroundColor = UIColor.white
-        
         
         let more = UIImage(named: "more-vertical")?.withRenderingMode(.alwaysTemplate)
         let menu = UIBarButtonItem(image: more, landscapeImagePhone: nil, style: .plain, target: nil, action: nil)
@@ -103,10 +111,6 @@ class ArtistViewController: UITableViewController {
             self.hideLoadingBar()
         }).disposed(by: disposeBag)
     }
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3 + useMe.count
-    }
     
     func userWorkouts(for date: Date) -> [UserWorkout] {
         let workoutsForToday = self.workouts.workouts(on: date)
@@ -131,91 +135,7 @@ class ArtistViewController: UITableViewController {
             }
         })
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 1
-        case 1:
-            return 1
-        case 2:
-            return 0
-        default:
-            let date = useMe[section-3]
-            return self.userWorkouts(for: date).filter { $0.workout != nil }.count
-        }
-    }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "goat") as! GoatCell
-            
-            cell.picture.kf.setImage(with: URL(string: challenge.pictureUrl!)!)
-            cell.selectionStyle = .none
-            
-            if users.count == 0 {
-                cell.usersLabel.text = "-\nmembers"
-            } else if users.count == 1 {
-                cell.usersLabel.text = "solo\nchallenge"
-            } else {
-                cell.usersLabel.text = "\(users.count)\nmembers"
-            }
-            
-            if workouts.count == 0 {
-                cell.activityLabel.text = "-\nworkouts"
-            } else if workouts.count == 1 {
-                cell.activityLabel.text = "1\nworkout"
-            } else {
-                cell.activityLabel.text = "\(workouts.count)\nworkouts"
-            }
-            
-            let daysLeft = challenge.daysLeft.split(separator: " ")
-            let new = daysLeft[0]
-            let left = daysLeft[daysLeft.startIndex+1..<daysLeft.endIndex]
-            let left2 = left.joined(separator: " ")
-            let ok = new + "\n" + left2
-            
-            cell.calLabel.text = ok
-            
-            return cell
-        } else if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ld") as! LeaderboardCell
-            cell.onTap = { user in
-                self.push(ProfileViewController(user: user, challenge: self.challenge), animated: true)
-            }
-            cell.selectionStyle = .none
-            cell.workouts = workouts
-            cell.users = users.sorted(by: { a, b -> Bool in
-                let workoutsA = self.workouts.filter { $0.gymRatsUserId == a.id }.count
-                let workoutsB = self.workouts.filter { $0.gymRatsUserId == b.id }.count
-                
-                return workoutsA > workoutsB
-            })
-            
-            return cell
-        } else if indexPath.section > 2 {
-            let date = useMe[indexPath.section-3]
-            let workouts = userWorkouts(for: date).filter { $0.workout != nil }
-
-            let cell = tableView.dequeueReusableCell(withIdentifier: "twer") as! TwerkoutCell
-            let workout = workouts[indexPath.row].workout!
-            
-            let user = users.first(where: { $0.id == workout.gymRatsUserId })!
-            cell.selectionStyle = .default
-            
-            cell.twerk.kf.setImage(with: URL(string: workout.photoUrl ?? ""))
-            cell.tit.text = workout.title
-            cell.det.isHidden = workout.description == nil
-            cell.det.text = workout.description
-            
-            cell.little.attributedText = detailsLabelText(user: user)
-            cell.lil.text = "\(workout.createdAt.challengeTime)"
-            
-            return cell
-        } else {
-            return UITableViewCell()
-        }
-    }
     
     private func detailsLabelText(user: User) -> NSAttributedString {
         let details = NSMutableAttributedString()
@@ -242,13 +162,17 @@ class ArtistViewController: UITableViewController {
         return details
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard section > 0 else { return 0 }
+}
 
+extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
+    
+     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard section > 0 else { return 0 }
+        
         return 30
     }
     
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard section > 0 else { return nil }
         
         let label = UILabel()
@@ -258,14 +182,20 @@ class ArtistViewController: UITableViewController {
         
         switch section {
         case 1:
-            label.text = "Leaderboard"
-        case 2:
-            label.text = "Workouts"
+            if isSoloChallenge {
+                label.text = "Workouts"
+            } else {
+                label.text = "Leaderboard"
+            }
         default:
-            let date = useMe[section-3]
-
-            label.font = .systemFont(ofSize: 16, weight: .bold)
-            label.text = date.toFormat("EEEE, MMM d")
+            if !isSoloChallenge && section == 2 {
+                label.text = "Workouts"
+            } else {
+                let date = useMe[section-fluffCount]
+                
+                label.font = .systemFont(ofSize: 16, weight: .bold)
+                label.text = date.toFormat("EEEE, MMM d")
+            }
         }
         
         let headerView = UIView()
@@ -273,43 +203,167 @@ class ArtistViewController: UITableViewController {
         
         return headerView
     }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard indexPath.section > 1 else { return }
+        if isSoloChallenge {
+            guard indexPath.section > 0 else { return }
+        } else {
+            guard indexPath.section > 1 else { return }
+        }
         
-        let date = useMe[indexPath.section-3]
+        let date = useMe[indexPath.section-fluffCount]
         let workouts = self.userWorkouts(for: date).filter { $0.workout != nil }
         let workout = workouts[indexPath.row].workout!
         let user = users.first(where: { $0.id == workout.gymRatsUserId })!
         
         self.push(WorkoutViewController(user: user, workout: workout, challenge: challenge))
     }
-}
 
-struct SkeletonIndicator: Indicator {
+    var isSoloChallenge: Bool {
+        return users.count == 1
+    }
     
-    let skeletonView: UIView = {
-        let view = UIView()
-        view.isSkeletonable = true
-        view.frame = CGRect(x: 0, y: 0, width: 70, height: 70)
+    var fluffCount: Int {
+        if isSoloChallenge {
+            return 2
+        } else {
+            return 3
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return fluffCount + useMe.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isSoloChallenge {
+            switch section {
+            case 0:
+                return 1
+            case 1:
+                return 0
+            default:
+                let date = useMe[section-fluffCount]
+                return self.userWorkouts(for: date).filter { $0.workout != nil }.count
+            }
+        } else {
+            switch section {
+            case 0:
+                return 1
+            case 1:
+                return 1
+            case 2:
+                return 0
+            default:
+                let date = useMe[section-fluffCount]
+                return self.userWorkouts(for: date).filter { $0.workout != nil }.count
+            }
+        }
         
-        return view
-    }()
-    
-    func startAnimatingView() {
-        skeletonView.startSkeletonAnimation()
     }
     
-    func stopAnimatingView() {
-        skeletonView.stopSkeletonAnimation()
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let section = indexPath.section
+        
+        if isSoloChallenge {
+            switch section {
+            case 0:
+                return goatCell(tableView)
+            case 1:
+                return UITableViewCell()
+            default:
+                let date = useMe[section-fluffCount]
+                return twerkoutCell(tableView, date: date, row: indexPath.row)
+            }
+        } else {
+            switch section {
+            case 0:
+                return goatCell(tableView)
+            case 1:
+                return leaderboardCell(tableView)
+            case 2:
+                return UITableViewCell()
+            default:
+                let date = useMe[section-fluffCount]
+                return twerkoutCell(tableView, date: date, row: indexPath.row)
+            }
+        }
     }
     
-    var view: IndicatorView {
-        return skeletonView
+    func goatCell(_ tableView: UITableView) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "goat") as! GoatCell
+        
+        let skeletonView = UIView()
+        skeletonView.isSkeletonable = true
+        skeletonView.showAnimatedSkeleton()
+        skeletonView.showSkeleton()
+        
+        cell.picture.kf.setImage(with: URL(string: challenge.pictureUrl!)!, placeholder: skeletonView, options: [.transition(.fade(0.2))])
+        cell.selectionStyle = .none
+        
+        if users.count == 0 {
+            cell.usersLabel.text = "-\nmembers"
+        } else if users.count == 1 {
+            cell.usersLabel.text = "solo\nchallenge"
+        } else {
+            cell.usersLabel.text = "\(users.count)\nmembers"
+        }
+        
+        if workouts.count == 0 {
+            cell.activityLabel.text = "-\nworkouts"
+        } else if workouts.count == 1 {
+            cell.activityLabel.text = "1\nworkout"
+        } else {
+            cell.activityLabel.text = "\(workouts.count)\nworkouts"
+        }
+        
+        let daysLeft = challenge.daysLeft.split(separator: " ")
+        let new = daysLeft[0]
+        let left = daysLeft[daysLeft.startIndex+1..<daysLeft.endIndex]
+        let left2 = left.joined(separator: " ")
+        let ok = new + "\n" + left2
+        
+        cell.calLabel.text = ok
+        
+        return cell
     }
     
+    func leaderboardCell(_ tableView: UITableView) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ld") as! LeaderboardCell
+        cell.onTap = { user in
+            self.push(ProfileViewController(user: user, challenge: self.challenge), animated: true)
+        }
+        cell.selectionStyle = .none
+        cell.workouts = workouts
+        cell.users = users.sorted(by: { a, b -> Bool in
+            let workoutsA = self.workouts.filter { $0.gymRatsUserId == a.id }.count
+            let workoutsB = self.workouts.filter { $0.gymRatsUserId == b.id }.count
+            
+            return workoutsA > workoutsB
+        })
+        
+        return cell
+    }
+    
+    func twerkoutCell(_ tableView: UITableView, date: Date, row: Int) -> UITableViewCell {
+        let workouts = userWorkouts(for: date).filter { $0.workout != nil }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "twer") as! TwerkoutCell
+        let workout = workouts[row].workout!
+        let user = users.first(where: { $0.id == workout.gymRatsUserId })!
+        
+        cell.selectionStyle = .default
+        cell.twerk.kf.setImage(with: URL(string: workout.photoUrl ?? ""), options: [.transition(.fade(0.2))])
+        cell.tit.text = workout.title
+        cell.det.isHidden = workout.description == nil
+        cell.det.text = workout.description
+        cell.little.attributedText = detailsLabelText(user: user)
+        cell.lil.text = "\(workout.createdAt.challengeTime)"
+        
+        return cell
+    }
+
 }
 
 extension UIView: Placeholder { }
