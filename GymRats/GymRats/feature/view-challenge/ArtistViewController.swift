@@ -105,8 +105,10 @@ class ArtistViewController: UIViewController {
             UserDefaults.standard.set(users.count, forKey: "\(self.challenge.id)_user_count")
             
             self.hideLoadingBar()
-            self.tableView.reloadData()
-        }, onError: { error in
+            UIView.transition(with: self.tableView,
+                              duration: 0.222,
+                              options: .transitionCrossDissolve,
+                              animations: { self.tableView.reloadData() })
             // TODO
             self.hideLoadingBar()
         }).disposed(by: disposeBag)
@@ -135,7 +137,6 @@ class ArtistViewController: UIViewController {
             }
         })
     }
-    
     
     private func detailsLabelText(user: User) -> NSAttributedString {
         let details = NSMutableAttributedString()
