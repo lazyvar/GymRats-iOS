@@ -29,12 +29,15 @@ extension UIViewController {
     }
 
     func setupMenuButton() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem (
-            image: UIImage(named: "menu"),
+        let menu = UIBarButtonItem (
+            image: UIImage(named: "menu")?.withRenderingMode(.alwaysTemplate),
             style: .plain,
             target: GymRatsApp.coordinator,
             action: #selector(AppCoordinator.toggleMenu)
         )
+        menu.tintColor = .lightGray
+        
+        navigationItem.leftBarButtonItem = menu
     }
     
     func showLoadingBar(disallowUserInteraction: Bool = false) {
