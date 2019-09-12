@@ -17,21 +17,26 @@ class ArtistViewController: UIViewController {
     let challenge: Challenge
     
     var userWorkouts: [UserWorkout] = []
-    var members: [User] = []
-
     var users: [User] = []
     var workouts: [Workout] = []
-    
     var useMe: [Date] = []
     
     lazy var tableView: UITableView! = {
-        let tb = UITableView(frame: view.frame, style: .grouped)
+        let tb = UITableView(frame: .zero, style: .grouped)
+        tb.translatesAutoresizingMaskIntoConstraints = false
         tb.delegate = self
         tb.dataSource = self
         tb.backgroundColor = .white
         
         view.addSubview(tb)
     
+        NSLayoutConstraint.activate([
+            NSLayoutConstraint(item: tb, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: tb, attribute: .centerY, relatedBy: .equal, toItem: view, attribute: .centerY, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: tb, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: tb, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0)
+        ])
+
         return tb
     }()
     
@@ -45,17 +50,22 @@ class ArtistViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    let refresher = UIRefreshControl()
+    
     override func viewDidLoad() {
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = challenge.name
         view.backgroundColor = .white
         navigationController?.navigationBar.backgroundColor = .white
         tableView.separatorStyle = .none
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.view.backgroundColor = UIColor.white
+        navigationItem.largeTitleDisplayMode = .never
+        
+        refresher.addTarget(self, action: #selector(fetchUserWorkouts), for: .valueChanged)
+        tableView.addSubview(refresher)
         
         let more = UIImage(named: "more-vertical")?.withRenderingMode(.alwaysTemplate)
         let menu = UIBarButtonItem(image: more, landscapeImagePhone: nil, style: .plain, target: nil, action: nil)
+        menu.tintColor = .lightGray
         
         var rightItems = [menu]
         
@@ -68,7 +78,9 @@ class ArtistViewController: UIViewController {
         setupBackButton()
 
         if challenge.isPast {
-            rightItems.append(UIBarButtonItem(image: UIImage(named: "chat"), style: .plain, target: self, action: #selector(openChat)))
+            rightItems.append(UIBarButtonItem(image: UIImage(named: "chat-gray"), style: .plain, target: self, action: #selector(openChat)))
+        } else {
+            // setupMenuButton()
         }
         
         navigationItem.rightBarButtonItems = rightItems
@@ -105,11 +117,14 @@ class ArtistViewController: UIViewController {
             UserDefaults.standard.set(users.count, forKey: "\(self.challenge.id)_user_count")
             
             self.hideLoadingBar()
+            self.refresher.endRefreshing()
+
             UIView.transition(with: self.tableView,
                               duration: 0.222,
                               options: .transitionCrossDissolve,
                               animations: { self.tableView.reloadData() })
-            // TODO
+        }, onError: { _ in
+            self.refresher.endRefreshing()
             self.hideLoadingBar()
         }).disposed(by: disposeBag)
     }
@@ -173,11 +188,27 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
         return 30
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if users.isEmpty && indexPath.section > 0 {
+            return 0
+        } else {
+            return UITableView.automaticDimension
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return .leastNormalMagnitude
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard section > 0 else { return nil }
         
         let label = UILabel()
-        label.frame = CGRect(x: 20, y: 0, width: view.frame.width, height: 28)
+        label.frame = CGRect(x: 20, y: 0, width: view.frame.width, height: 30)
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.backgroundColor = .white
         
@@ -209,9 +240,9 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if isSoloChallenge {
-            guard indexPath.section > 0 else { return }
-        } else {
             guard indexPath.section > 1 else { return }
+        } else {
+            guard indexPath.section > 2 else { return }
         }
         
         let date = useMe[indexPath.section-fluffCount]
@@ -234,6 +265,10 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    var noWorkouts: Bool {
+        return workouts.isEmpty && !users.isEmpty
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return fluffCount + useMe.count
     }
@@ -244,7 +279,11 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
             case 0:
                 return 1
             case 1:
-                return 0
+                if noWorkouts {
+                    return 1
+                } else {
+                    return 0
+                }
             default:
                 let date = useMe[section-fluffCount]
                 return self.userWorkouts(for: date).filter { $0.workout != nil }.count
@@ -256,7 +295,11 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
             case 1:
                 return 1
             case 2:
-                return 0
+                if noWorkouts {
+                    return 1
+                } else {
+                    return 0
+                }
             default:
                 let date = useMe[section-fluffCount]
                 return self.userWorkouts(for: date).filter { $0.workout != nil }.count
@@ -273,7 +316,11 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
             case 0:
                 return goatCell(tableView)
             case 1:
-                return UITableViewCell()
+                if noWorkouts {
+                    return noWorkoutsCell()
+                } else {
+                    return UITableViewCell()
+                }
             default:
                 let date = useMe[section-fluffCount]
                 return twerkoutCell(tableView, date: date, row: indexPath.row)
@@ -285,7 +332,11 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
             case 1:
                 return leaderboardCell(tableView)
             case 2:
-                return UITableViewCell()
+                if noWorkouts {
+                    return noWorkoutsCell()
+                } else {
+                    return UITableViewCell()
+                }
             default:
                 let date = useMe[section-fluffCount]
                 return twerkoutCell(tableView, date: date, row: indexPath.row)
@@ -293,6 +344,14 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func noWorkoutsCell() -> UITableViewCell {
+        let cell = UITableViewCell()
+        cell.textLabel?.text = "  None posted yet. "
+        cell.selectionStyle = .none
+        
+        return cell
+    }
+
     func goatCell(_ tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "goat") as! GoatCell
         
@@ -301,13 +360,14 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
         skeletonView.showAnimatedSkeleton()
         skeletonView.showSkeleton()
         
+        cell.titleLabel.text = challenge.name
         cell.picture.kf.setImage(with: URL(string: challenge.pictureUrl!)!, placeholder: skeletonView, options: [.transition(.fade(0.2))])
         cell.selectionStyle = .none
         
         if users.count == 0 {
             cell.usersLabel.text = "-\nmembers"
         } else if users.count == 1 {
-            cell.usersLabel.text = "solo\nchallenge"
+            cell.usersLabel.text = "Solo\nchallenge"
         } else {
             cell.usersLabel.text = "\(users.count)\nmembers"
         }

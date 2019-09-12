@@ -21,6 +21,9 @@ class TwerkoutCell: UITableViewCell {
         super.awakeFromNib()
         
         shadowView.isSkeletonable = true
+        shadowView.startSkeletonAnimation()
+        shadowView.showSkeleton()
+
         shadowView.layer.shadowRadius = 5
         shadowView.layer.shadowColor = UIColor.gray.withAlphaComponent(0.7).cgColor
         shadowView.layer.shadowOffset = CGSize(width: 0, height: 0)

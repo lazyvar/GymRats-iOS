@@ -198,13 +198,15 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         let v2 = viewController.inNav()
         let v3 = UIViewController()
         
-        let menu = UIImage(named: "menu")!.withRenderingMode(.alwaysOriginal)
-        let chat = UIImage(named: "chat")!.withRenderingMode(.alwaysOriginal)
+        let menu = UIImage(named: "menu-gray")!.withRenderingMode(.alwaysOriginal)
+        let chat = UIImage(named: "chat-gray")!.withRenderingMode(.alwaysOriginal)
         let plus = UIImage(named: "activity-large-white")!
         
         v1.tabBarItem = UITabBarItem(title: nil, image: menu, selectedImage: menu)
         v2.tabBarItem = ESTabBarItem.init(BigContentView(), title: nil, image: plus, selectedImage: plus)
         v3.tabBarItem = UITabBarItem(title: nil, image: chat, selectedImage: chat)
+        
+        UITabBar.appearance().tintColor = .lightGray
         
         tabBarController.viewControllers = [v1, v2, v3]
         tabBarController.selectedIndex = 1
