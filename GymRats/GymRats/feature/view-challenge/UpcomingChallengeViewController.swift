@@ -17,7 +17,7 @@ class UpcomingChallengeViewController: UICollectionViewController {
     private let disposeBag = DisposeBag()
     
     lazy var chatItem = UIBarButtonItem (
-        image: UIImage(named: "chat")?.withRenderingMode(.alwaysOriginal),
+        image: UIImage(named: "chat")?.withRenderingMode(.alwaysTemplate),
         style: .plain,
         target: self,
         action: #selector(openChat)
@@ -38,6 +38,7 @@ class UpcomingChallengeViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        chatItem.tintColor = .lightGray
         let dummyView = UIView(frame: CGRect(x: 0, y: -view.frame.height, width: view.frame.width, height: view.frame.height))
         dummyView.backgroundColor = .firebrick
         
@@ -103,6 +104,7 @@ class UpcomingChallengeViewController: UICollectionViewController {
                     switch e {
                     case .next:
                         if let nav = GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController {
+                            // MACK
                             if let home = nav.children.first as? HomeViewController {
                                 home.fetchAllChallenges()
                                 

@@ -158,6 +158,7 @@ class ChallengeInfoViewController: UITableViewController {
                     switch e {
                     case .next:
                         if let nav = GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController {
+                            // MACK
                             if let home = nav.children.first as? HomeViewController {
                                 home.fetchAllChallenges()
                                 

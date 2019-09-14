@@ -46,6 +46,7 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .white
         
         setupBackButton()
+        setupMenuButton()
         
         refresher.addTarget(self, action: #selector(fetchAllChallenges), for: .valueChanged)
         

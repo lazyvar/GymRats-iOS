@@ -17,7 +17,7 @@ protocol NewWorkoutDelegate: class {
     func newWorkoutController(_ newWorkoutController: NewWorkoutViewController, created workouts: [Workout])
 }
 
-class NewWorkoutViewController: FormViewController {
+class NewWorkoutViewController: FormViewController, Special {
     
     weak var delegate: NewWorkoutDelegate?
 

@@ -21,6 +21,8 @@ class ArchivedChallengesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SFProRounded-Bold", size: 30)!]
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .white
         navigationController?.navigationBar.backgroundColor = .white

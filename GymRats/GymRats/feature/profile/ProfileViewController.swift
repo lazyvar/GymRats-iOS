@@ -104,6 +104,10 @@ class ProfileViewController: UITableViewController {
         calendarView.calendarAppearanceDelegate = self
         calendarView.calendarDelegate = self
         
+        if let challenge = challenge, challenge.isPast {
+            calendarView.toggleViewWithDate(challenge.endDate)
+        }
+        
         containerView = UIView()
         containerView.frame = view.frame
         
