@@ -13,6 +13,7 @@ import GooglePlaces
 import Firebase
 import UserNotifications
 import ESTabBarController_swift
+import MessageUI
 
 class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     
@@ -172,13 +173,13 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         }
     }
     
-    func replaceCenterInTab(with viewController: UIViewController) {
-        let centerViewController = center(with: viewController)
+    func replaceCenterInTab(with viewController: UIViewController, challenge: Challenge) {
+        let centerViewController = center(with: viewController, challenge: challenge)
 
         drawer.setCenterView(centerViewController, withCloseAnimation: true, completion: { _ in
             self.tabBarViewController.didHijackHandler = { a, b, index in
                 if index == 0 {
-                    GymRatsApp.coordinator.toggleMenu()
+                    self.inviteTo(challenge)
                 } else if index == 1 {
                     self.openNewWorkout()
                 } else if index == 2 {
@@ -188,7 +189,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         })
     }
     
-    func center(with viewController: UIViewController) -> UIViewController {        
+    func center(with viewController: UIViewController, challenge: Challenge) -> UIViewController {
         let tabBarController = ESTabBarController()
         tabBarController.shouldHijackHandler = { _, _, _ in return true }
         tabBarController.tabBar.isTranslucent = false
@@ -223,7 +224,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     
     func centerActiveOrUpcomingChallenge(_ challenge: Challenge) {
         if challenge.isActive {
-            replaceCenterInTab(with: ArtistViewController(challenge: challenge))
+            replaceCenterInTab(with: ArtistViewController(challenge: challenge), challenge: challenge)
         } else if challenge.isUpcoming {
             let upcomingViewController = UpcomingChallengeViewController(challenge: challenge).inNav()
             GymRatsApp.coordinator.drawer.setCenterView(upcomingViewController, withCloseAnimation: true, completion: nil)
@@ -237,6 +238,16 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
 
         newWorkoutViewController.delegate = self
         tabBarViewController.present(newWorkoutViewController.inNav(), animated: true, completion: nil)
+    }
+    
+    func inviteTo(_ challenge: Challenge) {
+        DispatchQueue.main.async {
+            let messageViewController = MFMessageComposeViewController()
+            messageViewController.body = "Let's workout together! Join my GymRats challenge using invite code \"\(challenge.code)\" https://apps.apple.com/us/app/gymrats-group-challenge/id1453444814"
+            messageViewController.messageComposeDelegate = self
+            
+            self.tabBarViewController.present(messageViewController, animated: true, completion: nil)
+        }
     }
     
     func openChat() {
@@ -315,16 +326,18 @@ extension Keychain {
 }
 
 extension Keychain.Key where Object == User {
-    
     static var currentUser: Keychain.Key<User> {
         return Keychain.Key<User>(rawValue: "currentUser", synchronize: true)
     }
-    
 }
 
 
 extension NSNotification.Name {
-    
     static let updatedCurrentUser = NSNotification.Name(rawValue: "GRCurrentUserUpdated")
-    
+}
+
+extension AppCoordinator: MFMessageComposeViewControllerDelegate {
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        controller.dismissSelf()
+    }
 }

@@ -393,6 +393,8 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
             cell.activityLabel.text = "\(workouts.count)\nworkouts"
         }
         
+        cell.joinCodeLabel.text = "\(challenge.code)\njoin code"
+        
         let daysLeft = challenge.daysLeft.split(separator: " ")
         let new = daysLeft[0]
         let left = daysLeft[daysLeft.startIndex+1..<daysLeft.endIndex]

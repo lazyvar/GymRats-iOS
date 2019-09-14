@@ -63,7 +63,6 @@ class NewWorkoutViewController: FormViewController, Special {
         tableView.backgroundColor = .whiteSmoke
         
         LabelRow.defaultCellUpdate = nil
-        setupBackButton()
 
         let titleRow = TextRow("name") {
             $0.title = "Title"
