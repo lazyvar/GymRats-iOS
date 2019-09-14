@@ -9,7 +9,7 @@
 import UIKit
 import RxSwift
 
-class UpcomingChallengeViewController: UICollectionViewController {
+class UpcomingChallengeViewController: UICollectionViewController, Special {
 
     let challenge: Challenge
     var users: [User] = []

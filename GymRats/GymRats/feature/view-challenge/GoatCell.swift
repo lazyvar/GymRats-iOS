@@ -21,5 +21,7 @@ class GoatCell: UITableViewCell {
     @IBOutlet weak var calLabel: UILabel!
     @IBOutlet weak var activityLabel: UILabel!
     
+    @IBOutlet weak var joinCodeLabel: UILabel!
     @IBOutlet weak var pictureHeight: NSLayoutConstraint!
+
 }

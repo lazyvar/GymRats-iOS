@@ -33,11 +33,11 @@
                             <constraint firstAttribute="height" constant="200" id="Y7S-dD-kNg"/>
                         </constraints>
                     </imageView>
-                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="KXn-vf-IKq">
-                        <rect key="frame" x="105.5" y="251.5" width="289" height="25"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KXn-vf-IKq">
+                        <rect key="frame" x="73" y="251.5" width="354" height="25"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YQs-qi-n9G">
-                                <rect key="frame" x="0.0" y="0.0" width="93" height="25"/>
+                                <rect key="frame" x="0.0" y="0.0" width="79" height="25"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="users" translatesAutoresizingMaskIntoConstraints="NO" id="4In-H6-IIg">
                                         <rect key="frame" x="0.0" y="0.0" width="24" height="25"/>
@@ -46,9 +46,9 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0X2-X3-Le7">
-                                        <rect key="frame" x="29" y="0.0" width="64" height="25"/>
+                                        <rect key="frame" x="29" y="0.0" width="50" height="25"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="64" id="xJ5-ut-qgx"/>
+                                            <constraint firstAttribute="width" constant="50" id="xJ5-ut-qgx"/>
                                         </constraints>
                                         <string key="text">3
 members</string>
@@ -59,7 +59,7 @@ members</string>
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="T8Y-aH-3Cs">
-                                <rect key="frame" x="98" y="0.0" width="93" height="25"/>
+                                <rect key="frame" x="79" y="0.0" width="89" height="25"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="activity" translatesAutoresizingMaskIntoConstraints="NO" id="D0i-7O-bVa">
                                         <rect key="frame" x="0.0" y="0.0" width="24" height="25"/>
@@ -68,9 +68,9 @@ members</string>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tdi-91-COX">
-                                        <rect key="frame" x="29" y="0.0" width="64" height="25"/>
+                                        <rect key="frame" x="29" y="0.0" width="60" height="25"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="64" id="0LE-yX-LVN"/>
+                                            <constraint firstAttribute="width" constant="60" id="0LE-yX-LVN"/>
                                         </constraints>
                                         <string key="text">10
 workouts</string>
@@ -81,7 +81,7 @@ workouts</string>
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="eFP-HO-iSE">
-                                <rect key="frame" x="196" y="0.0" width="93" height="25"/>
+                                <rect key="frame" x="168" y="0.0" width="93" height="25"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cal" translatesAutoresizingMaskIntoConstraints="NO" id="dmL-91-N7H">
                                         <rect key="frame" x="0.0" y="0.0" width="24" height="25"/>
@@ -96,6 +96,26 @@ workouts</string>
                                         </constraints>
                                         <string key="text">1512
 days left</string>
+                                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="10"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="wQR-f4-ces">
+                                <rect key="frame" x="261" y="0.0" width="93" height="25"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user-plus" translatesAutoresizingMaskIntoConstraints="NO" id="Tgf-98-4sQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="24" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="j1J-Z6-xfN"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ABC123 join code" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M5l-u9-3OA">
+                                        <rect key="frame" x="29" y="0.0" width="64" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="64" id="NLV-an-kpe"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="10"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -126,6 +146,7 @@ days left</string>
             <connections>
                 <outlet property="activityLabel" destination="Tdi-91-COX" id="0LK-Q8-A2s"/>
                 <outlet property="calLabel" destination="4bk-Xq-9Zy" id="3pi-kQ-bfG"/>
+                <outlet property="joinCodeLabel" destination="M5l-u9-3OA" id="Ful-tg-lyU"/>
                 <outlet property="picture" destination="PYE-vo-RpP" id="NNg-KF-ulc"/>
                 <outlet property="pictureHeight" destination="Y7S-dD-kNg" id="KYr-tb-yrO"/>
                 <outlet property="titleLabel" destination="BoT-qf-wEn" id="ZyH-r0-64D"/>
@@ -137,6 +158,7 @@ days left</string>
     <resources>
         <image name="activity" width="25" height="25"/>
         <image name="cal" width="25" height="25"/>
+        <image name="user-plus" width="25" height="25"/>
         <image name="users" width="25" height="25"/>
     </resources>
 </document>
