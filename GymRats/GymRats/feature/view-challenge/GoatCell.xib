@@ -34,10 +34,10 @@
                         </constraints>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="KXn-vf-IKq">
-                        <rect key="frame" x="73" y="251.5" width="354" height="25"/>
+                        <rect key="frame" x="72.5" y="251.5" width="355" height="25"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YQs-qi-n9G">
-                                <rect key="frame" x="0.0" y="0.0" width="79" height="25"/>
+                                <rect key="frame" x="0.0" y="0.0" width="84" height="25"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="users" translatesAutoresizingMaskIntoConstraints="NO" id="4In-H6-IIg">
                                         <rect key="frame" x="0.0" y="0.0" width="24" height="25"/>
@@ -46,9 +46,9 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0X2-X3-Le7">
-                                        <rect key="frame" x="29" y="0.0" width="50" height="25"/>
+                                        <rect key="frame" x="29" y="0.0" width="55" height="25"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="xJ5-ut-qgx"/>
+                                            <constraint firstAttribute="width" constant="55" id="xJ5-ut-qgx"/>
                                         </constraints>
                                         <string key="text">3
 members</string>
@@ -59,7 +59,7 @@ members</string>
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="T8Y-aH-3Cs">
-                                <rect key="frame" x="79" y="0.0" width="89" height="25"/>
+                                <rect key="frame" x="84" y="0.0" width="89" height="25"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="activity" translatesAutoresizingMaskIntoConstraints="NO" id="D0i-7O-bVa">
                                         <rect key="frame" x="0.0" y="0.0" width="24" height="25"/>
@@ -81,7 +81,7 @@ workouts</string>
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="eFP-HO-iSE">
-                                <rect key="frame" x="168" y="0.0" width="93" height="25"/>
+                                <rect key="frame" x="173" y="0.0" width="89" height="25"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cal" translatesAutoresizingMaskIntoConstraints="NO" id="dmL-91-N7H">
                                         <rect key="frame" x="0.0" y="0.0" width="24" height="25"/>
@@ -90,9 +90,9 @@ workouts</string>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4bk-Xq-9Zy">
-                                        <rect key="frame" x="29" y="0.0" width="64" height="25"/>
+                                        <rect key="frame" x="29" y="0.0" width="60" height="25"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="64" id="Ppd-sg-BgO"/>
+                                            <constraint firstAttribute="width" constant="60" id="Ppd-sg-BgO"/>
                                         </constraints>
                                         <string key="text">1512
 days left</string>
@@ -103,7 +103,7 @@ days left</string>
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="wQR-f4-ces">
-                                <rect key="frame" x="261" y="0.0" width="93" height="25"/>
+                                <rect key="frame" x="262" y="0.0" width="93" height="25"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user-plus" translatesAutoresizingMaskIntoConstraints="NO" id="Tgf-98-4sQ">
                                         <rect key="frame" x="0.0" y="0.0" width="24" height="25"/>

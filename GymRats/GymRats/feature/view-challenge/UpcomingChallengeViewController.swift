@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import MessageUI
 
 class UpcomingChallengeViewController: UICollectionViewController, Special {
 
@@ -71,9 +72,20 @@ class UpcomingChallengeViewController: UICollectionViewController, Special {
         setupMenuButton()
         setupBackButton()
 
-        navigationItem.rightBarButtonItem = chatItem
+        let add = UIImage(named: "user-plus")!.withRenderingMode(.alwaysTemplate)
+        let button = UIBarButtonItem(image: add, style: .plain, target: self, action: #selector(addFriend))
+        
+        navigationItem.rightBarButtonItems = [chatItem, button]
         
         fetchUsers()
+    }
+    
+    @objc func addFriend() {
+        let messageViewController = MFMessageComposeViewController()
+        messageViewController.body = "Let's workout together! Join my GymRats challenge using invite code \"\(challenge.code)\" https://apps.apple.com/us/app/gymrats-group-challenge/id1453444814"
+        messageViewController.messageComposeDelegate = self
+        
+        self.present(messageViewController, animated: true, completion: nil)
     }
     
     @objc func fetchUsers() {
@@ -170,5 +182,11 @@ class UpcomingChallengeViewController: UICollectionViewController, Special {
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+    }
+}
+
+extension UpcomingChallengeViewController: MFMessageComposeViewControllerDelegate {
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        controller.dismissSelf()
     }
 }
