@@ -29,6 +29,7 @@ target 'GymRats' do
     pod 'Pageboy', '~> 3.2'
     pod 'SkeletonView'
     pod 'ESTabBarController-swift'
+    pod 'NVActivityIndicatorView/AppExtension'
 
      target 'GymRatsTests' do
         inherit! :search_paths
@@ -41,7 +42,7 @@ post_install do |installer|
             if target.name == 'Cache'
                 config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-Onone'
             end
-	    if target.name == "MessageKit"
+	    if target.name == "MessageKit" || target.name == "YogaKit"
 		config.build_settings['SWIFT_VERSION'] = '4.2'
 	    end
         end

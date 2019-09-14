@@ -14,4 +14,8 @@ extension Array {
         return index < count ? self[index] : nil
     }
     
+    func first<T>(ofType: T.Type) -> T? {
+        return first(where: { $0 is T }) as? T
+    }
+    
 }

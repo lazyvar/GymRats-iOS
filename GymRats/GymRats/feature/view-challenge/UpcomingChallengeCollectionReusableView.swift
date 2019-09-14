@@ -29,7 +29,7 @@ class UpcomingChallengeCollectionReusableView: UICollectionReusableView {
         didSet {
             imageView.skeletonLoad(avatarInfo: challenge)
             titleLabel.text = challenge.name
-            dateLabel.text = "Starts \(challenge.startDate.toFormat("MMMM d"))"
+            dateLabel.text = "Goes from \(challenge.startDate.toFormat("MMMM d")) to \(challenge.endDate.toFormat("MMMM d"))"
             joinLabel.text = "Join code: \(challenge.code)"
         }
     }

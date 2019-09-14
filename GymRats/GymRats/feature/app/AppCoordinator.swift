@@ -143,7 +143,8 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         menu = MenuViewController()
         
         let home = HomeViewController()
-        let centerViewController = center(with: home)
+        let centerViewController = GRNavigationController(rootViewController: home)
+        home.view.backgroundColor = .whiteSmoke
         
         drawer = MMDrawerController(center: centerViewController, leftDrawerViewController: menu)
         drawer.showsShadow = false
@@ -198,7 +199,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         let v2 = viewController.inNav()
         let v3 = UIViewController()
         
-        let menu = UIImage(named: "menu-gray")!.withRenderingMode(.alwaysOriginal)
+        let menu = UIImage(named: "user-plus-gray")!.withRenderingMode(.alwaysOriginal)
         let chat = UIImage(named: "chat-gray")!.withRenderingMode(.alwaysOriginal)
         let plus = UIImage(named: "activity-large-white")!
         
@@ -289,12 +290,22 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         }
     }
     
+    var artistVc: ArtistViewController? {
+        if let vc = (GymRatsApp.coordinator.drawer?.centerViewController as? UITabBarController)?.viewControllers?[safe: 1] as? UINavigationController {
+            if let vc = vc.viewControllers[safe: 0] as? ArtistViewController {
+                return vc
+            }
+        }
+        
+        return nil
+    }
 }
 
 extension AppCoordinator: NewWorkoutDelegate {
     
     func newWorkoutController(_ newWorkoutController: NewWorkoutViewController, created workouts: [Workout]) {
         newWorkoutController.dismissSelf()
+        self.artistVc?.fetchUserWorkouts()
     }
     
 }

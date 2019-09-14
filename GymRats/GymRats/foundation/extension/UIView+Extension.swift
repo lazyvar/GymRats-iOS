@@ -100,4 +100,7 @@ extension UIView {
         addConstraintsWithFormat(format: "V:[v0(0.45)]|", views: divider)
     }
     
+    func allSubviews() -> [UIView] {
+        return subviews + subviews.flatMap { $0.allSubviews() }
+    }
 }

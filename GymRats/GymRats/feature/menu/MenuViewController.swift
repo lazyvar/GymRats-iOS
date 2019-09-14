@@ -46,7 +46,11 @@ class MenuViewController: UITableViewController {
         let nav = GRNavigationController(rootViewController: profile)
     
         profile.setupMenuButton()
-        profile.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "gear"), style: .plain, target: profile, action: #selector(ProfileViewController.transitionToSettings))
+        let gear = UIImage(named: "gear")!.withRenderingMode(.alwaysTemplate)
+        let gearItem = UIBarButtonItem(image: gear, style: .plain, target: profile, action: #selector(ProfileViewController.transitionToSettings))
+        gearItem.tintColor = .lightGray
+        
+        profile.navigationItem.rightBarButtonItem = gearItem
         
         GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
     }
@@ -175,6 +179,11 @@ extension MenuViewController {
                                 
                                 GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
                             }
+                        } else {
+                            let center = HomeViewController()
+                            let nav = GRNavigationController(rootViewController: center)
+                            
+                            GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
                         }
                     }, onError: { [weak self] error in
                         self?.presentAlert(with: error)
@@ -195,7 +204,6 @@ extension MenuViewController {
             default:
                 break
             }
-
         }
     }
 
@@ -215,6 +223,11 @@ extension MenuViewController: CreateChallengeDelegate {
                 
                 GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
             }
+        } else {
+            let center = HomeViewController()
+            let nav = GRNavigationController(rootViewController: center)
+            
+            GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
         }
     }
     

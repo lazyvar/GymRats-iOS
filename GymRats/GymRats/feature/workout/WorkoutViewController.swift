@@ -48,12 +48,16 @@ class WorkoutViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem (
-            image: UIImage(named: "more-vertical"),
+        let moreVert = UIImage(named: "more-vertical")!.withRenderingMode(.alwaysTemplate)
+        let button = UIBarButtonItem (
+            image: moreVert,
             style: .plain,
             target: self,
             action: #selector(showMenu)
         )
+        button.tintColor = .lightGray
+        
+        navigationItem.rightBarButtonItem = button
 
         setupBackButton()
         

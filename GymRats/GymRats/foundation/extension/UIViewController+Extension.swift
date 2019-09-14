@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 extension UIViewController {
     
@@ -21,8 +22,9 @@ extension UIViewController {
     }
     
     func setupBackButton() {
-        let yourBackImage = UIImage(named: "chevron-left")
+        let yourBackImage = UIImage(named: "chevron-left")!.withRenderingMode(.alwaysTemplate)
         
+        navigationController?.navigationBar.tintColor = .lightGray
         navigationController?.navigationBar.backIndicatorImage = yourBackImage
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = yourBackImage
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
@@ -43,6 +45,21 @@ extension UIViewController {
     func showLoadingBar(disallowUserInteraction: Bool = false) {
         guard let nav = self.navigationController as? GRNavigationController else { return }
         
+        if self is Special {
+            let center = view.center
+            let thing = NVActivityIndicatorView(frame: CGRect(x: center.x-50, y: center.y-100, width: 100, height: 100), type: .ballPulseSync, color: .brand, padding: 20)
+            thing.backgroundColor = UIColor.white
+            thing.layer.cornerRadius = 10
+            thing.layer.shadowRadius = 7
+            thing.layer.shadowColor = UIColor.gray.withAlphaComponent(0.7).cgColor
+            thing.layer.shadowOffset = CGSize(width: 0, height: 0)
+            thing.layer.shadowOpacity = 0.5
+
+            view.addSubview(thing)
+            
+            thing.startAnimating()
+        }
+        
         nav.showLoadingBarYo()
         
         if disallowUserInteraction {
@@ -62,6 +79,11 @@ extension UIViewController {
         nav.hideLoadingBarYo()
         UIApplication.shared.endIgnoringInteractionEvents()
         UIApplication.shared.keyWindow?.subviews.first(where: { $0.tag == 333 })?.removeFromSuperview()
+        
+        if let view = view.allSubviews().first(ofType: NVActivityIndicatorView.self) {
+            view.stopAnimating()
+            view.removeFromSuperview()
+        }
     }
 
     func setupForHome() {
@@ -99,3 +121,5 @@ extension UIViewController {
     }
     
 }
+
+protocol Special { }

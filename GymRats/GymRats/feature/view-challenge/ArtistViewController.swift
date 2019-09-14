@@ -10,8 +10,9 @@ import UIKit
 import RxSwift
 import RxCocoa
 import Kingfisher
+import NVActivityIndicatorView
 
-class ArtistViewController: UIViewController {
+class ArtistViewController: UIViewController, Special {
     
     let disposeBag = DisposeBag()
     let challenge: Challenge
@@ -53,11 +54,7 @@ class ArtistViewController: UIViewController {
     let refresher = UIRefreshControl()
     
     override func viewDidLoad() {
-        view.backgroundColor = .white
-        navigationController?.navigationBar.backgroundColor = .white
         tableView.separatorStyle = .none
-        navigationController?.navigationBar.barTintColor = .white
-        navigationController?.view.backgroundColor = UIColor.white
         navigationItem.largeTitleDisplayMode = .never
         
         refresher.addTarget(self, action: #selector(fetchUserWorkouts), for: .valueChanged)
@@ -80,7 +77,7 @@ class ArtistViewController: UIViewController {
         if challenge.isPast {
             rightItems.append(UIBarButtonItem(image: UIImage(named: "chat-gray"), style: .plain, target: self, action: #selector(openChat)))
         } else {
-            // setupMenuButton()
+            setupMenuButton()
         }
         
         navigationItem.rightBarButtonItems = rightItems
@@ -116,13 +113,22 @@ class ArtistViewController: UIViewController {
             
             UserDefaults.standard.set(users.count, forKey: "\(self.challenge.id)_user_count")
             
-            self.hideLoadingBar()
-            self.refresher.endRefreshing()
-
-            UIView.transition(with: self.tableView,
-                              duration: 0.222,
-                              options: .transitionCrossDissolve,
-                              animations: { self.tableView.reloadData() })
+            DispatchQueue.main.async {
+                self.hideLoadingBar()
+            }
+            
+            if self.refresher.isRefreshing {
+                self.refresher.endRefreshing()
+            }
+            
+            UIView.transition(
+                with: self.tableView,
+                duration: 0.222,
+                options: .transitionCrossDissolve,
+                animations: {
+                    self.tableView.reloadData()
+                }
+            )
         }, onError: { _ in
             self.refresher.endRefreshing()
             self.hideLoadingBar()
@@ -183,7 +189,7 @@ class ArtistViewController: UIViewController {
 extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
     
      func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard section > 0 else { return 0 }
+        guard section > 0 && !users.isEmpty else { return 0 }
         
         return 30
     }
@@ -205,11 +211,11 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard section > 0 else { return nil }
+        guard section > 0 && !users.isEmpty else { return nil }
         
         let label = UILabel()
         label.frame = CGRect(x: 20, y: 0, width: view.frame.width, height: 30)
-        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.font = .proRoundedBold(size: 20)
         label.backgroundColor = .white
         
         switch section {
@@ -225,7 +231,7 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
             } else {
                 let date = useMe[section-fluffCount]
                 
-                label.font = .systemFont(ofSize: 16, weight: .bold)
+                label.font = .proRoundedBold(size: 16)
                 label.text = date.toFormat("EEEE, MMM d")
             }
         }
@@ -361,7 +367,14 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
         skeletonView.showSkeleton()
         
         cell.titleLabel.text = challenge.name
-        cell.picture.kf.setImage(with: URL(string: challenge.pictureUrl!)!, placeholder: skeletonView, options: [.transition(.fade(0.2))])
+        
+        if let pic = challenge.pictureUrl {
+            cell.picture.kf.setImage(with: URL(string: pic)!, placeholder: skeletonView, options: [.transition(.fade(0.2))])
+            cell.pictureHeight.constant = 200
+        } else {
+            cell.pictureHeight.constant = 0
+        }
+        
         cell.selectionStyle = .none
         
         if users.count == 0 {

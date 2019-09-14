@@ -72,15 +72,22 @@ extension UIButton {
 }
 
 extension UIFont {
-    static let body = UIFont(name: "Lato-Regular", size: 14)!
-    static let bodyBold = UIFont(name: "Lato-Bold", size: 14)!
-    static let details = UIFont(name: "Lato-Regular", size: 12)!
-    static let detailsBold = UIFont(name: "Lato-Bold", size: 12)!
+    static let body = UIFont(name: "SFProRounded-Regular", size: 14)!
+    static let bodyBold = UIFont(name: "SFProRounded-Bold", size: 14)!
+    static let details = UIFont(name: "SFProRounded-Regular", size: 12)!
+    static let detailsBold = UIFont(name: "SFProRounded-Bold", size: 12)!
     static let bigAndBlack = UIFont(name: "Lato-Black", size: 16)!
     static let menu = UIFont(name: "Lato-Black", size: 18)!
-    static let h1 = UIFont(name: "Lato-Regular", size: 28)!
-    static let h2 = UIFont(name: "Lato-Regular", size: 24)!
-    static let h3 = UIFont(name: "Lato-Regular", size: 20)!
-    static let h4 = UIFont(name: "Lato-Regular", size: 18)!
-    static let bold = UIFont(name: "Lato-Bold", size: 14)!
+    static let h1 = UIFont(name: "SFProRounded-Regular", size: 28)!
+    static let h2 = UIFont(name: "SFProRounded-Regular", size: 24)!
+    static let h3 = UIFont(name: "SFProRounded-Regular", size: 20)!
+    static let h4 = UIFont(name: "SFProRounded-Regular", size: 18)!
+    static let bold = UIFont(name: "SFProRounded-Bold", size: 14)!
+    
+    static func proRoundedRegular(size: CGFloat) -> UIFont {
+        return UIFont(name: "SFProRounded-Regular", size: size)!
+    }
+    static func proRoundedBold(size: CGFloat) -> UIFont {
+        return UIFont(name: "SFProRounded-Bold", size: size)!
+    }
 }
