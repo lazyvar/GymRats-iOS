@@ -35,7 +35,7 @@ class ChatViewController: MessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // title = challenge.name
+        title = challenge.name
         
         navigationItem.largeTitleDisplayMode = .never
         

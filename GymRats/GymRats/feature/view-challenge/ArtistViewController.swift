@@ -53,6 +53,13 @@ class ArtistViewController: UIViewController, Special {
     
     let refresher = UIRefreshControl()
     
+    lazy var chatItem = UIBarButtonItem (
+        image: UIImage(named: "chat-gray")?.withRenderingMode(.alwaysOriginal),
+        style: .plain,
+        target: self,
+        action: #selector(openChat)
+    )
+    
     override func viewDidLoad() {
         tableView.separatorStyle = .none
         navigationItem.largeTitleDisplayMode = .never
@@ -61,7 +68,7 @@ class ArtistViewController: UIViewController, Special {
         tableView.addSubview(refresher)
         
         let more = UIImage(named: "more-vertical")?.withRenderingMode(.alwaysTemplate)
-        let menu = UIBarButtonItem(image: more, landscapeImagePhone: nil, style: .plain, target: nil, action: nil)
+        let menu = UIBarButtonItem(image: more, landscapeImagePhone: nil, style: .plain, target: self, action: #selector(showMenu))
         menu.tintColor = .lightGray
         
         var rightItems = [menu]
@@ -75,7 +82,7 @@ class ArtistViewController: UIViewController, Special {
         setupBackButton()
 
         if challenge.isPast {
-            rightItems.append(UIBarButtonItem(image: UIImage(named: "chat-gray"), style: .plain, target: self, action: #selector(openChat)))
+            rightItems.append(chatItem)
         } else {
             setupMenuButton()
         }
@@ -85,6 +92,87 @@ class ArtistViewController: UIViewController, Special {
         NotificationCenter.default.addObserver(forName: NSNotification.Name.init("WorkoutDeleted"), object: nil, queue: nil) { notification in
             self.fetchUserWorkouts()
         }
+    }
+    
+    @objc func showMenu() {
+        let deleteAction = UIAlertAction(title: "Leave challenge", style: .destructive) { _ in
+            self.leaveChallenge()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertViewController.addAction(deleteAction)
+        alertViewController.addAction(cancelAction)
+        
+        self.present(alertViewController, animated: true, completion: nil)
+    }
+    
+    @objc func leaveChallenge() {
+        let alert = UIAlertController(title: "Are you sure you want to leave \(challenge.name)?", message: nil, preferredStyle: .actionSheet)
+        let leave = UIAlertAction(title: "Leave", style: .destructive) { _ in
+            self.showLoadingBar()
+            gymRatsAPI.leaveChallenge(self.challenge)
+                .subscribe({ e in
+                    self.hideLoadingBar()
+                    switch e {
+                    case .next:
+                        if let nav = GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController {
+                            if let home = nav.children.first as? HomeViewController {
+                                home.fetchAllChallenges()
+                                
+                                GymRatsApp.coordinator.drawer.closeDrawer(animated: true, completion: nil)
+                            } else {
+                                let center = HomeViewController()
+                                let nav = GRNavigationController(rootViewController: center)
+                                
+                                GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+                            }
+                        } else {
+                            let center = HomeViewController()
+                            let nav = GRNavigationController(rootViewController: center)
+                            
+                            GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+                        }
+                    case .error(let error):
+                        self.presentAlert(with: error)
+                    case .completed:
+                        break
+                    }
+                }).disposed(by: self.disposeBag)
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alert.addAction(leave)
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if challenge.isActive {
+            GymRatsApp.coordinator.refreshChatIcon()
+        } else {
+            refreshChatIcon()
+        }
+    }
+    
+    func refreshChatIcon() {
+        gymRatsAPI.getUnreadChats(for: challenge)
+            .subscribe { event in
+                switch event {
+                case .next(let chats):
+                    if chats.isEmpty {
+                        self.chatItem.image = UIImage(named: "chat-gray")
+                    } else {
+                        self.chatItem.image = UIImage(named: "chat-unread-gray")?.withRenderingMode(.alwaysOriginal)
+                    }
+                default: break
+                }
+            }.disposed(by: disposeBag)
     }
     
     @objc func openChat() {
