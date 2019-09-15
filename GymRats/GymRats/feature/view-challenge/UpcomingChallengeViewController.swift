@@ -80,6 +80,27 @@ class UpcomingChallengeViewController: UICollectionViewController, Special {
         fetchUsers()
     }
     
+    func refreshChatIcon() {
+        gymRatsAPI.getUnreadChats(for: challenge)
+            .subscribe { event in
+                switch event {
+                case .next(let chats):
+                    if chats.isEmpty {
+                        self.chatItem.image = UIImage(named: "chat-gray")
+                    } else {
+                        self.chatItem.image = UIImage(named: "chat-unread-gray")?.withRenderingMode(.alwaysOriginal)
+                    }
+                default: break
+                }
+            }.disposed(by: disposeBag)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        refreshChatIcon()
+    }
+
     @objc func addFriend() {
         let messageViewController = MFMessageComposeViewController()
         messageViewController.body = "Let's workout together! Join my GymRats challenge using invite code \"\(challenge.code)\" https://apps.apple.com/us/app/gymrats-group-challenge/id1453444814"

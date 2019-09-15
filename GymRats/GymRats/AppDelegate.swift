@@ -22,6 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
+        application.applicationIconBadgeNumber = 1
+        application.applicationIconBadgeNumber = 0
+
         window = UIWindow(frame: UIScreen.main.bounds)
         appCoordinator = AppCoordinator(window: window!, application: application)
         
@@ -54,6 +57,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) { }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
+        application.applicationIconBadgeNumber = 1
+        application.applicationIconBadgeNumber = 0
+
         if let vc = (GymRatsApp.coordinator.drawer?.centerViewController as? UITabBarController)?.viewControllers?[safe: 1] as? UINavigationController {
             if let vc = vc.viewControllers[safe: 0] as? ArtistViewController {
                 vc.fetchUserWorkouts()

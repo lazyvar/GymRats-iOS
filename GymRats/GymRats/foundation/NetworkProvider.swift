@@ -40,6 +40,31 @@ class ProductionNetworkProvider: NetworkProvider {
     
 }
 
+class NgrokNetworkProvider: NetworkProvider {
+    
+    let url: String
+    
+    init(_ url: String) {
+        self.url = url
+    }
+    
+    func buildUrl(forPath path: String) -> String {
+        return "\(url)/\(path)"
+    }
+    
+    func request(method: HTTPMethod, url: String, headers: HTTPHeaders, parameters: Parameters?) -> Observable<(HTTPURLResponse, Data)> {
+        let request: DataRequest
+        if let parameters = parameters {
+            request = Alamofire.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
+        } else {
+            request = Alamofire.request(url, method: method, parameters: parameters, headers: headers)
+        }
+        
+        return request.rx.responseData()
+    }
+
+}
+
 class DevelopmentNetworkProvider: NetworkProvider {
 
     func buildUrl(forPath path: String) -> String {

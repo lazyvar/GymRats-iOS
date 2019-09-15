@@ -47,7 +47,7 @@ extension UIViewController {
         
         if self is Special {
             let center = view.center
-            let thing = NVActivityIndicatorView(frame: CGRect(x: center.x-50, y: center.y-100, width: 100, height: 100), type: .ballPulseSync, color: .brand, padding: 20)
+            let thing = NVActivityIndicatorView(frame: CGRect(x: center.x-50, y: center.y-150, width: 100, height: 100), type: .ballPulseSync, color: .brand, padding: 20)
             thing.backgroundColor = UIColor.white
             thing.layer.cornerRadius = 10
             thing.layer.shadowRadius = 7

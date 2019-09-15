@@ -109,8 +109,15 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
                     guard let user = aps.gr.user, let challenge = aps.gr.challenge, let workout = aps.gr.workout else { return }
                     
                     let workoutViewController = WorkoutViewController(user: user, workout: workout, challenge: challenge)
+                    workoutViewController.hidesBottomBarWhenPushed = true
 
-                    (GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController)?.pushViewController(workoutViewController, animated: true)
+                    if let nav = GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController {
+                        nav.pushViewController(workoutViewController, animated: true)
+                    } else if let tabBar = tabBarViewController {
+                        if let nav = tabBar.viewControllers?[safe: 1] as? UINavigationController {
+                            nav.pushViewController(workoutViewController, animated: true)
+                        }
+                    }
                 }
             }
         case .chatMessage:
@@ -126,8 +133,15 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
                     guard let challenge = aps.gr.challenge else { return }
                     
                     let chatViewController = ChatViewController(challenge: challenge)
+                    chatViewController.hidesBottomBarWhenPushed = true
                     
-                    (GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController)?.pushViewController(chatViewController, animated: true)
+                    if let nav = GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController {
+                        nav.pushViewController(chatViewController, animated: true)
+                    } else if let tabBar = tabBarViewController {
+                        if let nav = tabBar.viewControllers?[safe: 1] as? UINavigationController {
+                            nav.pushViewController(chatViewController, animated: true)
+                        }
+                    }
                 }
             }
         }
@@ -137,7 +151,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     var openChallengeChatId: Int?
 
     var menu: MenuViewController!
-    var tabBarViewController: ESTabBarController!
+    weak var tabBarViewController: ESTabBarController?
     
     func login(user: User) {
         currentUser = user
@@ -173,11 +187,11 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         }
     }
     
-    func replaceCenterInTab(with viewController: UIViewController, challenge: Challenge) {
+    func replaceCenterInTab(with viewController: ArtistViewController, challenge: Challenge) {
         let centerViewController = center(with: viewController, challenge: challenge)
 
         drawer.setCenterView(centerViewController, withCloseAnimation: true, completion: { _ in
-            self.tabBarViewController.didHijackHandler = { a, b, index in
+            self.tabBarViewController?.didHijackHandler = { a, b, index in
                 if index == 0 {
                     self.inviteTo(challenge)
                 } else if index == 1 {
@@ -187,9 +201,13 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
                 }
             }
         })
+        
+        self.artistViewController = viewController
     }
     
-    func center(with viewController: UIViewController, challenge: Challenge) -> UIViewController {
+    var artistViewController: ArtistViewController?
+    
+    func center(with artistViewController: UIViewController, challenge: Challenge) -> UIViewController {
         let tabBarController = ESTabBarController()
         tabBarController.shouldHijackHandler = { _, _, _ in return true }
         tabBarController.tabBar.isTranslucent = false
@@ -197,17 +215,19 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         tabBarController.tabBar.backgroundImage = UIImage()
         
         let v1 = UIViewController()
-        let v2 = viewController.inNav()
+        let v2 = artistViewController.inNav()
         let v3 = UIViewController()
+        v3.view.backgroundColor = .peterRiver
         
         let menu = UIImage(named: "user-plus-gray")!.withRenderingMode(.alwaysOriginal)
         let chat = UIImage(named: "chat-gray")!.withRenderingMode(.alwaysOriginal)
         let plus = UIImage(named: "activity-large-white")!
-        
+
         v1.tabBarItem = UITabBarItem(title: nil, image: menu, selectedImage: menu)
         v2.tabBarItem = ESTabBarItem.init(BigContentView(), title: nil, image: plus, selectedImage: plus)
         v3.tabBarItem = UITabBarItem(title: nil, image: chat, selectedImage: chat)
-        
+        v3.tabBarItem?.badgeColor = .brand
+
         UITabBar.appearance().tintColor = .lightGray
         
         tabBarController.viewControllers = [v1, v2, v3]
@@ -237,7 +257,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         generator.impactOccurred()
 
         newWorkoutViewController.delegate = self
-        tabBarViewController.present(newWorkoutViewController.inNav(), animated: true, completion: nil)
+        tabBarViewController?.present(newWorkoutViewController.inNav(), animated: true, completion: nil)
     }
     
     func inviteTo(_ challenge: Challenge) {
@@ -246,12 +266,33 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
             messageViewController.body = "Let's workout together! Join my GymRats challenge using invite code \"\(challenge.code)\" https://apps.apple.com/us/app/gymrats-group-challenge/id1453444814"
             messageViewController.messageComposeDelegate = self
             
-            self.tabBarViewController.present(messageViewController, animated: true, completion: nil)
+            self.tabBarViewController?.present(messageViewController, animated: true, completion: nil)
         }
     }
     
+    var chatItem: UITabBarItem? {
+        return tabBarViewController?.tabBar.items?[safe: 2]
+    }
+    
+    @objc func refreshChatIcon() {
+        guard let challenge = artistViewController?.challenge else { return }
+        
+        gymRatsAPI.getUnreadChats(for: challenge)
+            .subscribe { event in
+                switch event {
+                case .next(let chats):
+                    if chats.isEmpty {
+                        self.chatItem?.badgeValue = nil
+                    } else {
+                        self.chatItem?.badgeValue = String(chats.count)
+                    }
+                default: break
+                }
+            }.disposed(by: disposeBag)
+    }
+    
     func openChat() {
-        guard let nav = tabBarViewController.viewControllers?[safe: 1] as? GRNavigationController else {
+        guard let nav = tabBarViewController?.viewControllers?[safe: 1] as? GRNavigationController else {
             return
         }
         
