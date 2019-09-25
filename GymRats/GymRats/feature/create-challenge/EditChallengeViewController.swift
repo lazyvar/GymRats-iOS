@@ -88,7 +88,6 @@ class EditChallengeViewController: FormViewController, Special {
         let startDateRow = DateRow() {
             $0.value = challenge.startDate
             $0.title = "Start Date"
-            $0.minimumDate = Date() - 1.days
             $0.dateFormatter = dateFormatter
         }.cellSetup { cell, row in
             cell.datePicker.timeZone = .utc
@@ -96,12 +95,11 @@ class EditChallengeViewController: FormViewController, Special {
         
         let endDateRow = DateRow() {
             $0.value = Date() + 30.days
-            $0.minimumDate = Date()
             $0.title = "End Date"
             $0.value = challenge.endDate
             $0.dateFormatter = dateFormatter
         }.cellSetup { cell, row in
-                cell.datePicker.timeZone = .utc
+            cell.datePicker.timeZone = .utc
         }
         
         let numberOfDayslabel = LabelRow() {
