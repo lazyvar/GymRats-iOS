@@ -73,9 +73,11 @@ class UpcomingChallengeViewController: UICollectionViewController, Special {
         setupBackButton()
 
         let add = UIImage(named: "user-plus")!.withRenderingMode(.alwaysTemplate)
+        let edit = UIImage(named: "edit")!.withRenderingMode(.alwaysTemplate)
         let button = UIBarButtonItem(image: add, style: .plain, target: self, action: #selector(addFriend))
+        let editButton = UIBarButtonItem(image: edit, style: .plain, target: self, action: #selector(editChallenge))
         
-        navigationItem.rightBarButtonItems = [chatItem, button]
+        navigationItem.rightBarButtonItems = [chatItem, editButton, button]
         
         fetchUsers()
     }
@@ -101,7 +103,19 @@ class UpcomingChallengeViewController: UICollectionViewController, Special {
         refreshChatIcon()
     }
 
+    @objc func editChallenge() {
+        let editViewController = EditChallengeViewController(challenge: self.challenge)
+        editViewController.delegate = self
+        
+        self.present(editViewController.inNav(), animated: true, completion: nil)
+    }
+    
     @objc func addFriend() {
+        guard MFMessageComposeViewController.canSendText() else {
+            presentAlert(title: "Uh-oh", message: "This device cannot send text message.")
+            return
+        }
+        
         let messageViewController = MFMessageComposeViewController()
         messageViewController.body = "Let's workout together! Join my GymRats challenge using invite code \"\(challenge.code)\" https://apps.apple.com/us/app/gymrats-group-challenge/id1453444814"
         messageViewController.messageComposeDelegate = self
@@ -210,4 +224,15 @@ extension UpcomingChallengeViewController: MFMessageComposeViewControllerDelegat
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         controller.dismissSelf()
     }
+}
+
+extension UpcomingChallengeViewController: EditChallengeDelegate {
+    
+    func challengeEdited(challenge: Challenge) {
+        let center = HomeViewController()
+        let nav = GRNavigationController(rootViewController: center)
+        
+        GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+    }
+    
 }

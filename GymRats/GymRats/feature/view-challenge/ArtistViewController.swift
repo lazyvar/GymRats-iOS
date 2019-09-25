@@ -95,13 +95,22 @@ class ArtistViewController: UIViewController, Special {
     }
     
     @objc func showMenu() {
-        let deleteAction = UIAlertAction(title: "Leave challenge", style: .destructive) { _ in
+        let editAction = UIAlertAction(title: "Edit", style: .default) { _ in
+            let editViewController = EditChallengeViewController(challenge: self.challenge)
+            editViewController.delegate = self
+            
+            self.present(editViewController.inNav(), animated: true, completion: nil)
+        }
+        
+        let deleteAction = UIAlertAction(title: "Leave", style: .destructive) { _ in
             self.leaveChallenge()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        alertViewController.addAction(editAction)
         alertViewController.addAction(deleteAction)
         alertViewController.addAction(cancelAction)
         
@@ -531,3 +540,14 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension UIView: Placeholder { }
+
+extension ArtistViewController: EditChallengeDelegate {
+    
+    func challengeEdited(challenge: Challenge) {
+        let center = HomeViewController()
+        let nav = GRNavigationController(rootViewController: center)
+        
+        GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+    }
+
+}

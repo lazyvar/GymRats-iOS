@@ -17,9 +17,9 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>10</string>
+	<string>12</string>
 	<key>CFBundleVersion</key>
-	<string>10</string>
+	<string>12</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -42,7 +42,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>For taking picture of workout.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>To find gyms near you</string>
+	<string>To find gyms near you.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>For posting workout pictures.</string>
 	<key>UIAppFonts</key>

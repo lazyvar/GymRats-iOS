@@ -34,6 +34,7 @@ enum APIRequest {
     case registerDevice(deviceToken: String)
     case deleteDevice
     case leaveChallenge(_ challenge: Challenge)
+    case editChallenge(id: Int, startDate: Date, endDate: Date, challengeName: String, photoUrl: String?)
     
     var requestProperties: (method: HTTPMethod, path: String, params: Parameters?) {
         switch self {
@@ -66,8 +67,20 @@ enum APIRequest {
             if let photoUrl = photoUrl {
                 params["profile_picture_url"] = photoUrl
             }
-
+            
             return (.post, "challenge", params)
+        case .editChallenge(id: let id, startDate: let startDate, endDate: let endDate, challengeName: let challengeName, photoUrl: let photoUrl):
+            var params: Parameters =  [
+                "start_date": startDate.toISO(),
+                "end_date": endDate.toISO(),
+                "name": challengeName
+            ]
+            
+            if let photoUrl = photoUrl {
+                params["profile_picture_url"] = photoUrl
+            }
+            
+            return (.put, "challenge/\(id)", params)
         case .getUsersForChallenge(challenge: let challenge):
             return (.get, "challenge/\(challenge.id)/user", nil)
         case .getWorkoutsForChallenge(challenge: let challenge):
@@ -154,7 +167,7 @@ class GymRatsAPI {
     
     private let networkProvider: NetworkProvider
     
-    init(networkProvider: NetworkProvider = ProductionNetworkProvider()) {
+    init(networkProvider: NetworkProvider = DevelopmentNetworkProvider()) {
         self.networkProvider = networkProvider
     }
     
@@ -235,12 +248,23 @@ class GymRatsAPI {
             return ImageService.uploadImageToFirebase(image: photo)
                 .flatMap { url in
                     return self.requestObject(.createChallenge(startDate: startDate, endDate: endDate, challengeName: challengeName, photoUrl: url))
-                }
+            }
         } else {
             return requestObject(.createChallenge(startDate: startDate, endDate: endDate, challengeName: challengeName, photoUrl: nil))
         }
     }
-    
+
+    func editChallenge(id: Int, startDate: Date, endDate: Date, challengeName: String, photo: UIImage?) -> Observable<Challenge> {
+        if let photo = photo {
+            return ImageService.uploadImageToFirebase(image: photo)
+                .flatMap { url in
+                    return self.requestObject(.editChallenge(id: id, startDate: startDate, endDate: endDate, challengeName: challengeName, photoUrl: url))
+            }
+        } else {
+            return requestObject(.editChallenge(id: id, startDate: startDate, endDate: endDate, challengeName: challengeName, photoUrl: nil))
+        }
+    }
+
     func getUsers(for challenge:  Challenge) -> Observable<[User]> {
         return requestArray(.getUsersForChallenge(challenge: challenge))
     }
