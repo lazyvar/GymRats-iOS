@@ -240,7 +240,7 @@ extension NewWorkoutViewController: CLLocationManagerDelegate {
             getPlacesForCurrentLocation()
         case .denied, .restricted:
             self.hideLoadingBar()
-            presentAlert(title: "Location Settings Requires", message: "This feature requires the location settings yada yada")
+            presentAlert(title: "Location Permission Required", message: "To check in a location, please enabled the permission in settings.")
         case .notDetermined:
             break
         }
