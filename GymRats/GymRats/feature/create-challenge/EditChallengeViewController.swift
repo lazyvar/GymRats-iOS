@@ -86,9 +86,9 @@ class EditChallengeViewController: FormViewController, Special {
         dateFormatter.dateFormat = "MMM d, yyyy"
         
         let startDateRow = DateRow() {
-            $0.value = Date()
+            $0.value = challenge.startDate
             $0.title = "Start Date"
-            $0.minimumDate = Date()
+            $0.minimumDate = Date() - 1.days
             $0.dateFormatter = dateFormatter
         }.cellSetup { cell, row in
             cell.datePicker.timeZone = .utc
