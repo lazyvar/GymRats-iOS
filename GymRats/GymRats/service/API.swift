@@ -16,6 +16,7 @@ let gymRatsAPI = GymRatsAPI()
 enum APIRequest {
     case login(email: String, password: String)
     case signup(email: String, password: String, profilePictureUrl: String?, fullName: String)
+    case resetPassword(email: String)
     case getAllChallenges
     case joinChallenge(code: String)
     case createChallenge(startDate: Date, endDate: Date, challengeName: String, photoUrl: String?)
@@ -52,6 +53,8 @@ enum APIRequest {
             }
 
             return (.post, "signup", params)
+        case .resetPassword(let email):
+            return (.post, "reset-password", ["email": email])
         case .getAllChallenges:
             return (.get, "challenge", nil)
         case .joinChallenge(let code):
@@ -167,7 +170,7 @@ class GymRatsAPI {
     
     private let networkProvider: NetworkProvider
     
-    init(networkProvider: NetworkProvider = ProductionNetworkProvider()) {
+    init(networkProvider: NetworkProvider = DevelopmentNetworkProvider()) {
         self.networkProvider = networkProvider
     }
     
@@ -177,7 +180,7 @@ class GymRatsAPI {
         
         let headers: HTTPHeaders = {
             switch apiRequest {
-            case .login, .signup:
+            case .login, .signup, .resetPassword:
                 return [:]
             default:
                 return ["Authorization": GymRatsApp.coordinator.currentUser.token!]
@@ -233,6 +236,10 @@ class GymRatsAPI {
                     }
                 })
         }
+    }
+    
+    func resetPassword(email: String) -> Observable<EmptyJSON> {
+        return requestObject(.resetPassword(email: email))
     }
     
     func getAllChallenges() -> Observable<[Challenge]> {
