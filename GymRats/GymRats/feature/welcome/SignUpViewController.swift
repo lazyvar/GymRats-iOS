@@ -141,7 +141,7 @@ class SignUpViewController: FormViewController, Special {
         return TextRow() { textRow in
             textRow.title = "Full Name"
             textRow.tag = "full_name"
-            textRow.placeholder = "Cindy Lou"
+            textRow.placeholder = "Master Splinter"
             textRow.add(rule: RuleRequired())
         }.cellSetup(self.standardCellSetup)
         .onRowValidationChanged(self.handleRowValidationChange)
