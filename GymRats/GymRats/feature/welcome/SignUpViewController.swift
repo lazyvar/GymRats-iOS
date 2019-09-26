@@ -11,7 +11,7 @@ import RxSwift
 import Eureka
 import TTTAttributedLabel
 
-class SignUpViewController: FormViewController {
+class SignUpViewController: FormViewController, Special {
     
     let disposeBag = DisposeBag()
     
