@@ -113,7 +113,7 @@ class LoginViewController: FormViewController, Special {
     
     lazy var sectionFooter: HeaderFooterView<UIView> = {
         let footerBuilder = { () -> UIView in
-            let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 80))
+            let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 96))
             self.loginButton.layer.cornerRadius = 0
             self.loginButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 48)
             self.resetPasswordButton.layer.cornerRadius = 0
