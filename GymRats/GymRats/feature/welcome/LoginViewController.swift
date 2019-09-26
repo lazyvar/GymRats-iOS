@@ -10,12 +10,13 @@ import UIKit
 import RxSwift
 import Eureka
 
-class LoginViewController: FormViewController {
+class LoginViewController: FormViewController, Special {
     
     let disposeBag = DisposeBag()
     
-    let loginButton: UIButton = .primary(text: "Log In")
-    
+    let loginButton: UIButton = .primary(text: "Log in")
+    let resetPasswordButton: UIButton = .secondary(text: "Reset password")
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,6 +26,25 @@ class LoginViewController: FormViewController {
         
         loginButton.onTouchUpInside { [weak self] in
             self?.login()
+        }.disposed(by: disposeBag)
+        
+        resetPasswordButton.onTouchUpInside {
+            let alertController = UIAlertController(title: "Reset Password", message: nil, preferredStyle: .alert)
+            
+            let resetPassword = UIAlertAction(title: "Send", style: .default, handler: { _ in
+                self.resetPassword(email: alertController.textFields?.first?.text)
+            })
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            alertController.addTextField { (textField: UITextField!) -> Void in
+                textField.placeholder = "Email"
+            }
+            
+            alertController.addAction(resetPassword)
+            alertController.addAction(cancelAction)
+            
+            self.present(alertController, animated: true, completion: nil)
         }.disposed(by: disposeBag)
     }
     
@@ -44,6 +64,24 @@ class LoginViewController: FormViewController {
                 self?.presentAlert(title: "Uh-oh", message: error.localizedDescription)
                 self?.hideLoadingBar()
             }).disposed(by: disposeBag)
+    }
+    
+    func resetPassword(email: String?) {
+        guard let email = email else { return }
+        
+        showLoadingBar()
+        gymRatsAPI.resetPassword(email: email)
+            .subscribe { event in
+                self.hideLoadingBar()
+                
+                switch event {
+                case .next:
+                    self.presentAlert(title: "Email sent", message: "Check your inbox!")
+                case .error(let error):
+                    self.presentAlert(with: error)
+                case .completed: break
+                }
+            }.disposed(by: disposeBag)
     }
     
     lazy var section: Section = {
@@ -75,17 +113,20 @@ class LoginViewController: FormViewController {
     
     lazy var sectionFooter: HeaderFooterView<UIView> = {
         let footerBuilder = { () -> UIView in
-            let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
+            let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 80))
             self.loginButton.layer.cornerRadius = 0
-            self.loginButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40)
-            
+            self.loginButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 48)
+            self.resetPasswordButton.layer.cornerRadius = 0
+            self.resetPasswordButton.frame = CGRect(x: 0, y: 48, width: self.view.frame.width, height: 48)
+
+            container.addSubview(self.resetPasswordButton)
             container.addSubview(self.loginButton)
-            
+
             return container
         }
         
         var footer = HeaderFooterView<UIView>(.callback(footerBuilder))
-        footer.height = { 40 }
+        footer.height = { 96 }
         
         return footer
     }()

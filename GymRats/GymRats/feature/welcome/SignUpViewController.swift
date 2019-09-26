@@ -103,7 +103,7 @@ class SignUpViewController: FormViewController {
             label.addLink(to: privacyUrl, with: privacyRange)
             
             self.signUpButton.layer.cornerRadius = 0
-            self.signUpButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40)
+            self.signUpButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 48)
 
             container.addSubview(self.signUpButton)
             container.addSubview(label)
@@ -112,7 +112,7 @@ class SignUpViewController: FormViewController {
         }
         
         var footer = HeaderFooterView<UIView>(.callback(footerBuilder))
-        footer.height = { 222 }
+        footer.height = { 230 }
         
         return footer
     }()
@@ -141,7 +141,7 @@ class SignUpViewController: FormViewController {
         return TextRow() { textRow in
             textRow.title = "Full Name"
             textRow.tag = "full_name"
-            textRow.placeholder = "John Smith"
+            textRow.placeholder = "Cindy Lou"
             textRow.add(rule: RuleRequired())
         }.cellSetup(self.standardCellSetup)
         .onRowValidationChanged(self.handleRowValidationChange)
