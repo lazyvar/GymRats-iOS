@@ -124,8 +124,8 @@ days left</string>
                             </stackView>
                         </subviews>
                     </stackView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BoT-qf-wEn">
-                        <rect key="frame" x="15" y="5" width="75" height="21.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BoT-qf-wEn">
+                        <rect key="frame" x="15" y="5" width="450" height="21.5"/>
                         <fontDescription key="fontDescription" name="SFProRounded-Bold" family="SF Pro Rounded" pointSize="30"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -134,6 +134,7 @@ days left</string>
                 <constraints>
                     <constraint firstItem="BoT-qf-wEn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="5xn-gQ-eH8"/>
                     <constraint firstItem="BoT-qf-wEn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="8XX-Uf-pfD"/>
+                    <constraint firstAttribute="trailing" secondItem="BoT-qf-wEn" secondAttribute="trailing" constant="15" id="I2S-my-PaD"/>
                     <constraint firstItem="PYE-vo-RpP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="SOd-Rl-DjO"/>
                     <constraint firstAttribute="bottom" secondItem="KXn-vf-IKq" secondAttribute="bottom" constant="10" id="duE-vV-KEc"/>
                     <constraint firstItem="KXn-vf-IKq" firstAttribute="top" secondItem="PYE-vo-RpP" secondAttribute="bottom" constant="20" id="exw-Q7-RGP"/>

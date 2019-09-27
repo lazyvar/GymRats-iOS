@@ -262,6 +262,11 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     
     func inviteTo(_ challenge: Challenge) {
         DispatchQueue.main.async {
+            guard MFMessageComposeViewController.canSendText() else {
+                self.tabBarViewController?.presentAlert(title: "Uh-oh", message: "This device cannot send text message.")
+                return
+            }
+            
             let messageViewController = MFMessageComposeViewController()
             messageViewController.body = "Let's workout together! Join my GymRats challenge using invite code \"\(challenge.code)\" https://apps.apple.com/us/app/gymrats-group-challenge/id1453444814"
             messageViewController.messageComposeDelegate = self
