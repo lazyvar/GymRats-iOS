@@ -159,7 +159,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         
         let home = HomeViewController()
         let centerViewController = GRNavigationController(rootViewController: home)
-        home.view.backgroundColor = .whiteSmoke
+        home.view.backgroundColor = .white
         
         drawer = MMDrawerController(center: centerViewController, leftDrawerViewController: menu)
         drawer.showsShadow = false

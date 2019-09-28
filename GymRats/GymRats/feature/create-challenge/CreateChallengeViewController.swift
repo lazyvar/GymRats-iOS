@@ -53,6 +53,7 @@ class CreateChallengeViewController: FormViewController, Special {
             cell.tintColor = .primary
             cell.textLabel?.font = .body
             cell.titleLabel?.font = .body
+            cell.height = { return 48 }
         }
         
         let pictureRow = ImageRow("photo") {
@@ -61,18 +62,23 @@ class CreateChallengeViewController: FormViewController, Special {
             $0.sourceTypes = [.Camera, .PhotoLibrary]
         }.cellSetup { cell, _ in
             cell.textLabel?.font = .body
+            cell.height = { return 48 }
         }
         
         let startDateRow = DateRow() {
             $0.value = Date()
             $0.title = "Start Date"
             $0.minimumDate = Date()
+        }.cellSetup { cell, _ in
+            cell.height = { return 48 }
         }
 
         let endDateRow = DateRow() {
             $0.value = Date() + 30.days
             $0.minimumDate = Date()
             $0.title = "End Date"
+        }.cellSetup { cell, _ in
+            cell.height = { return 48 }
         }
         
         let numberOfDayslabel = LabelRow() {
@@ -80,12 +86,13 @@ class CreateChallengeViewController: FormViewController, Special {
             $0.value = "30"
         }.cellSetup { cell, _ in
             cell.textLabel?.font = .body
+            cell.height = { return 48 }
         }
 
         form +++ Section() {
             let footerBuilder = { () -> UIView in
-                let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
-                self.submitButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40)
+                let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 48))
+                self.submitButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 48)
                 self.submitButton.layer.cornerRadius = 0
                 
                 container.addSubview(self.submitButton)
@@ -94,7 +101,7 @@ class CreateChallengeViewController: FormViewController, Special {
             }
             
             var footer = HeaderFooterView<UIView>(.callback(footerBuilder))
-            footer.height = { 40 }
+            footer.height = { 48 }
             
             $0.footer = footer
         }

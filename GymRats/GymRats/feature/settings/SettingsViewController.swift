@@ -177,7 +177,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
             case 2:
                 self.openURLInAppBrowser(url: "https://gym-rats-api.herokuapp.com/privacy.html")
             case 3:
-                let url = URL(string: "mailto:gymratsapp@gmail.com")!
+                let url = URL(string: "mailto:help@gymrats.app")!
                 if #available(iOS 10.0, *) {
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 } else {

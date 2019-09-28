@@ -15,37 +15,45 @@ class AboutViewController: UIViewController {
         super.viewDidLoad()
         
         setupMenuButton()
-        view.backgroundColor = .whiteSmoke
+        view.backgroundColor = .white
         title = "About"
         
-        let text = "Hello there! Thank you for using GymRats group challenge workout app. Hopefully you are finding it useful. The app is undergoing active development and welcomes any changes you feel necessary. Feel free to reach out to gymratsapp@gmail.com for any feedback."
-        let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 150))
-        let label = TTTAttributedLabel(frame: CGRect(x: 24, y: 24, width: self.view.frame.width-48, height: 150))
-        let range = (text as NSString).range(of: "gymratsapp@gmail.com")
-        let url = URL(string: "mailto:gymratsapp@gmail.com")!
+        let text = """
+        Hi!
+
+        GymRats aim is to act as  . I hope you are finding it useful. If you have any ideas on how to improve the app, please send me an email. If you are interested in following the development process you can check out the public trello board. This board tracks the status of new features and bug fixes.
         
+        Happy ratting,
+
+        Mack
+        """
+        let label = TTTAttributedLabel(frame: CGRect(x: 15, y: 15, width: self.view.frame.width-30, height: 500))
+        let range = (text as NSString).range(of: "email")
+        let url = URL(string: "mailto:suggestion@gymrats.app")!
+        let range2 = (text as NSString).range(of: "trello board")
+        let url2 = URL(string: "https://trello.com/b/P5ibjXHs/development")!
+            
         label.font = .body
+        label.textAlignment = .left
         label.textColor = .dark
+        label.lineSpacing = 2
         label.numberOfLines = 0
-        label.textAlignment = .center
         label.isUserInteractionEnabled = true
         label.delegate = self
         label.text = text
         label.addLink(to: url, with: range)
+        label.addLink(to: url2, with: range2)
+        label.sizeToFit()
         
-        container.isUserInteractionEnabled = true
         view.isUserInteractionEnabled = true
         
-        container.addSubview(label)
-        view.addSubview(container)
+        view.addSubview(label)
     }
     
 }
 
 extension AboutViewController: TTTAttributedLabelDelegate {
-    
     func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
         UIApplication.shared.openURL(url)
     }
-    
 }
