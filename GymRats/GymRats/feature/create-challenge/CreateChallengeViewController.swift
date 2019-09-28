@@ -29,7 +29,7 @@ class CreateChallengeViewController: FormViewController, Special {
     let endDate = BehaviorRelay<Date?>(value: nil)
     let photo = BehaviorRelay<UIImage?>(value: nil)
 
-    let submitButton: UIButton = .primary(text: "Submit")
+    let submitButton: UIButton = .primary(text: "Start")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,16 +48,19 @@ class CreateChallengeViewController: FormViewController, Special {
         
         let nameRow = TextRow("name") {
             $0.title = "Name"
-            $0.placeholder = "Beast Rats"
+            $0.placeholder = "Super Rats"
         }.cellSetup { cell, _ in
             cell.tintColor = .primary
             cell.textLabel?.font = .body
             cell.titleLabel?.font = .body
             cell.height = { return 48 }
+            DispatchQueue.main.async {
+                cell.textField.becomeFirstResponder()
+            }
         }
         
         let pictureRow = ImageRow("photo") {
-            $0.title = "Picture"
+            $0.title = "Banner photo"
             $0.placeholderImage = UIImage(named: "photo")
             $0.sourceTypes = [.Camera, .PhotoLibrary]
         }.cellSetup { cell, _ in
@@ -159,8 +162,12 @@ class CreateChallengeViewController: FormViewController, Special {
         )
         .subscribe(onNext: { [weak self] challenge in
             self?.hideLoadingBar()
-            self?.dismissSelf()
-            self?.delegate?.challengeCreated(challenge: challenge)
+            
+            let share = ShareCodeViewController.loadFromNib(from: .challenge)
+            share.challenge = challenge
+            share.delegate = self?.delegate
+            
+            self?.navigationController?.setViewControllers([share], animated: true)
         }, onError: { [weak self] error in
             self?.presentAlert(with: error)
             self?.hideLoadingBar()

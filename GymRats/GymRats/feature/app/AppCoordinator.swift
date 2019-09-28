@@ -14,6 +14,7 @@ import Firebase
 import UserNotifications
 import ESTabBarController_swift
 import MessageUI
+import Kingfisher
 
 class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     
@@ -193,7 +194,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         drawer.setCenterView(centerViewController, withCloseAnimation: true, completion: { _ in
             self.tabBarViewController?.didHijackHandler = { a, b, index in
                 if index == 0 {
-                    self.inviteTo(challenge)
+                    self.pushUserProfile()
                 } else if index == 1 {
                     self.openNewWorkout()
                 } else if index == 2 {
@@ -219,16 +220,42 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         let v3 = UIViewController()
         v3.view.backgroundColor = .peterRiver
         
-        let menu = UIImage(named: "user-plus-gray")!.withRenderingMode(.alwaysOriginal)
         let chat = UIImage(named: "chat-gray")!.withRenderingMode(.alwaysOriginal)
         let plus = UIImage(named: "activity-large-white")!
 
-        v1.tabBarItem = UITabBarItem(title: nil, image: menu, selectedImage: menu)
+        let proPic: UIImage? = {
+            if let pic = currentUser.profilePictureUrl, let image = KingfisherManager.shared.cache.retrieveImageInMemoryCache(forKey: pic) ??  KingfisherManager.shared.cache.retrieveImageInDiskCache(forKey: pic) {
+                
+                let imageView = UIImageView(frame: .init(x: 0, y: 0, width: 27, height: 27))
+                imageView.layer.cornerRadius = 13.5
+                imageView.image = image
+                imageView.clipsToBounds = true
+                imageView.contentMode = .scaleAspectFill
+                
+                let ringView = RingView(frame: .zero, ringWidth: 0.5, ringColor: UIColor.black.withAlphaComponent(0.1))
+                
+                imageView.addSubview(ringView)
+                
+                let frame = imageView.frame
+                let scale: CGFloat = 1.16
+                let newWidth = frame.width * scale
+                let newHeight = frame.height * scale
+                
+                let diffY = newWidth - frame.width
+                let diffX = newHeight - frame.height
+                
+                ringView.frame = CGRect(x: -diffX/2, y: -diffY/2, width: newWidth, height: newHeight)
+                
+                return imageView.imageFromContext().withRenderingMode(.alwaysOriginal)
+            } else {
+                return UIImage(named: "user")
+            }
+        }()
+        
+        v1.tabBarItem = UITabBarItem(title: nil, image: proPic, selectedImage: proPic)
         v2.tabBarItem = ESTabBarItem.init(BigContentView(), title: nil, image: plus, selectedImage: plus)
         v3.tabBarItem = UITabBarItem(title: nil, image: chat, selectedImage: chat)
         v3.tabBarItem?.badgeColor = .brand
-
-        UITabBar.appearance().tintColor = .lightGray
         
         tabBarController.viewControllers = [v1, v2, v3]
         tabBarController.selectedIndex = 1
@@ -258,6 +285,12 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
 
         newWorkoutViewController.delegate = self
         tabBarViewController?.present(newWorkoutViewController.inNav(), animated: true, completion: nil)
+    }
+    
+    func pushUserProfile() {
+        let profile = ProfileViewController(user: GymRatsApp.coordinator.currentUser, challenge: nil)
+
+        artistViewController?.push(profile)
     }
     
     func inviteTo(_ challenge: Challenge) {

@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxGesture
 import Kingfisher
 import NVActivityIndicatorView
 
@@ -95,6 +96,10 @@ class ArtistViewController: UIViewController, Special {
     }
     
     @objc func showMenu() {
+        let inviteAction = UIAlertAction(title: "Invite", style: .default) { _ in
+            GymRatsApp.coordinator.inviteTo(self.challenge)
+        }
+        
         let editAction = UIAlertAction(title: "Edit", style: .default) { _ in
             let editViewController = EditChallengeViewController(challenge: self.challenge)
             editViewController.delegate = self
@@ -110,6 +115,7 @@ class ArtistViewController: UIViewController, Special {
         
         let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
+        alertViewController.addAction(inviteAction)
         alertViewController.addAction(editAction)
         alertViewController.addAction(deleteAction)
         alertViewController.addAction(cancelAction)
@@ -465,6 +471,24 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
     func goatCell(_ tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "goat") as! GoatCell
         
+        cell.calStack.rx.tapGesture()
+            .when(.recognized)
+            .subscribe { [weak self] e in
+            guard let self = self else { return }
+            
+            if case .next = e {
+                self.presentAlert(title: "End Date", message: self.challenge.endDate.toFormat("EEEE, MMM d, yyyy"))
+            }
+        }.disposed(by: self.disposeBag)
+
+        cell.inviteStack.rx.tapGesture()
+            .when(.recognized)
+            .subscribe { [weak self] e in
+            guard let self = self else { return }
+            
+            GymRatsApp.coordinator.inviteTo(self.challenge)
+        }.disposed(by: self.disposeBag)
+
         let skeletonView = UIView()
         skeletonView.isSkeletonable = true
         skeletonView.showAnimatedSkeleton()

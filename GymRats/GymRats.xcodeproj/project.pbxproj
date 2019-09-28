@@ -58,6 +58,7 @@
 		01BFF909223DB1C30044F802 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF908223DB1C30044F802 /* ChatMessage.swift */; };
 		01BFF90B223DC43E0044F802 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF90A223DC43E0044F802 /* ChatViewController.swift */; };
 		01BFF90E223DE26C0044F802 /* APS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF90D223DE26C0044F802 /* APS.swift */; };
+		01C926E8233FB96E00C1C128 /* ShareCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C926E7233FB96E00C1C128 /* ShareCodeViewController.swift */; };
 		01E68FD422D29ACC004E1218 /* WorkoutHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E68FD322D29ACC004E1218 /* WorkoutHeaderView.swift */; };
 		01E68FD622D29AEA004E1218 /* WorkoutHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01E68FD522D29AEA004E1218 /* WorkoutHeaderView.xib */; };
 		01E833E12325AA0400C66C72 /* ArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E833E02325AA0400C66C72 /* ArtistViewController.swift */; };
@@ -196,6 +197,7 @@
 		01BFF90A223DC43E0044F802 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		01BFF90C223DE1B60044F802 /* GymRats.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GymRats.entitlements; sourceTree = "<group>"; };
 		01BFF90D223DE26C0044F802 /* APS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APS.swift; sourceTree = "<group>"; };
+		01C926E7233FB96E00C1C128 /* ShareCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCodeViewController.swift; sourceTree = "<group>"; };
 		01E68FD322D29ACC004E1218 /* WorkoutHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHeaderView.swift; sourceTree = "<group>"; };
 		01E68FD522D29AEA004E1218 /* WorkoutHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutHeaderView.xib; sourceTree = "<group>"; };
 		01E833E02325AA0400C66C72 /* ArtistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistViewController.swift; sourceTree = "<group>"; };
@@ -584,6 +586,7 @@
 			children = (
 				74A01B2E220A1CD900431ABD /* CreateChallengeViewController.swift */,
 				01A1CD23233AF6B8005871F4 /* EditChallengeViewController.swift */,
+				01C926E7233FB96E00C1C128 /* ShareCodeViewController.swift */,
 			);
 			path = "create-challenge";
 			sourceTree = "<group>";
@@ -925,6 +928,7 @@
 				74A01B40220A560800431ABD /* RingView.swift in Sources */,
 				01E68FD422D29ACC004E1218 /* WorkoutHeaderView.swift in Sources */,
 				74A01B2F220A1CD900431ABD /* CreateChallengeViewController.swift in Sources */,
+				01C926E8233FB96E00C1C128 /* ShareCodeViewController.swift in Sources */,
 				746764E7220BAE44000CFB1B /* NewWorkoutViewController.swift in Sources */,
 				011FB62822A31E65004D5B8E /* LoadingUserWorkoutView.swift in Sources */,
 				7455AC5E22125296005A558A /* ServiceResponse.swift in Sources */,

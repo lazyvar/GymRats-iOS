@@ -100,6 +100,9 @@ PODS:
   - RxEureka (0.2.2):
     - Eureka (~> 4.0)
     - RxCocoa (~> 4.0)
+  - RxGesture (2.1.0):
+    - RxCocoa (~> 4.4.0)
+    - RxSwift (~> 4.4.0)
   - RxOptional (3.6.2):
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
@@ -134,6 +137,7 @@ DEPENDENCIES:
   - RxAlamofire
   - RxCocoa (~> 4.0)
   - RxEureka (~> 0.2)
+  - RxGesture
   - RxOptional
   - RxSwift (~> 4.0)
   - SkeletonView
@@ -175,6 +179,7 @@ SPEC REPOS:
     - RxAtomic
     - RxCocoa
     - RxEureka
+    - RxGesture
     - RxOptional
     - RxSwift
     - SkeletonView
@@ -216,6 +221,7 @@ SPEC CHECKSUMS:
   RxAtomic: f8d6adc1ccb87a767811269e4875887bc74dbf19
   RxCocoa: 2f35a76bf8887872e28a1914112395b11b8e0e64
   RxEureka: b8ff9c181316c9cee3c546418c626330f793683f
+  RxGesture: 7f6dfb45dbde06e618c24442d38493e3144f2c95
   RxOptional: 80426a0ddbd092573e4c482d8cc13302078c4d5e
   RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
   SkeletonView: 6cbb80f82f8bdee3f9093e2fa03b84819b4bd826
@@ -224,6 +230,6 @@ SPEC CHECKSUMS:
   Yoga: aaae8abea68951f60bee05f6277d3eed90bb91bb
   YogaKit: 3107fd5c2c233b540a1c5e376b95ac2c40398d6b
 
-PODFILE CHECKSUM: bb5a2ef17092c9522199d31b265d777bbc05e92d
+PODFILE CHECKSUM: 22eef6d5a57509cb955de4804f0624a896a3ce06
 
 COCOAPODS: 1.7.5

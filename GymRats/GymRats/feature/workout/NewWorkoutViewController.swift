@@ -77,6 +77,9 @@ class NewWorkoutViewController: FormViewController, Special {
             cell.textLabel?.font = .body
             cell.titleLabel?.font = .body
             cell.height = { return 48 }
+            DispatchQueue.main.async {
+                cell.textField.becomeFirstResponder()
+            }
         }
         
         let descriptionRow = TextAreaRow("description") {

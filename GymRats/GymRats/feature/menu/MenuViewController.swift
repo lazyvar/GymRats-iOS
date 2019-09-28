@@ -220,6 +220,8 @@ extension MenuViewController {
 extension MenuViewController: CreateChallengeDelegate {
     
     func challengeCreated(challenge: Challenge) {
+        UserDefaults.standard.set(challenge.id, forKey: "last_opened_challenge")
+        
         if let nav = GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController {
             if let home = nav.children.first as? HomeViewController {
                 home.fetchAllChallenges()

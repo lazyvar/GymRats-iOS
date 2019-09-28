@@ -27,6 +27,13 @@ extension UIView {
         verticallyCenter(in: view, y: y)
     }
     
+    func fill(in view: UIView, top: CGFloat = 0, bottom: CGFloat = 0, left: CGFloat = 0, right: CGFloat = 0) {
+        self.leftAnchor.constraint(equalTo: view.leftAnchor)
+        self.rightAnchor.constraint(equalTo: view.rightAnchor)
+        self.topAnchor.constraint(equalTo: view.topAnchor)
+        self.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+    }
+    
     @discardableResult func horizontallyCenter(in view: UIView, x: CGFloat = 0) -> NSLayoutConstraint {
         let constraint = NSLayoutConstraint (
             item: self,
