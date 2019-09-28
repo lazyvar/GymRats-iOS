@@ -328,8 +328,15 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
             } else {
                 let date = useMe[section-fluffCount]
                 
+                if date.serverDateIsToday {
+                    label.text = "Today"
+                } else if date.serverDateIsYesterday {
+                    label.text = "Yesterday"
+                } else {
+                    label.text = date.toFormat("EEEE, MMM d")
+                }
+                
                 label.font = .proRoundedBold(size: 16)
-                label.text = date.toFormat("EEEE, MMM d")
             }
         }
         
