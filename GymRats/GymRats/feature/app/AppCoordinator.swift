@@ -49,9 +49,11 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         
         window.makeKeyAndVisible()
         
+        #if DEBUG
         NetworkActivityLogger.shared.level = .debug
         NetworkActivityLogger.shared.startLogging()
-                
+        #endif
+        
         GMSPlacesClient.provideAPIKey("AIzaSyD1X4TH-TneFnDqjiJ2rb2FGgxK8JZyrIo")
         FirebaseApp.configure()
         UIApplication.shared.statusBarStyle = .default
