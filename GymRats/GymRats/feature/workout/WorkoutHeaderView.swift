@@ -55,7 +55,7 @@ class WorkoutHeaderView: UIView {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var titleLabel: UILabel! {
         didSet {
-            titleLabel.font = .body
+            titleLabel.font = .bodyBold
         }
     }
     

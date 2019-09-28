@@ -37,7 +37,11 @@ class NewWorkoutViewController: FormViewController, Special {
     let placeRow = PushRow<Place>() {
         $0.title = "Current Location"
         $0.selectorTitle = "Where are you?"
-    }.onPresent { _, selector in
+    }
+    .cellSetup { cell, _ in
+        cell.height = { return 48 }
+    }
+    .onPresent { _, selector in
         selector.enableDeselection = false
     }
     
@@ -46,6 +50,7 @@ class NewWorkoutViewController: FormViewController, Special {
     }.cellSetup { cell, _ in
         cell.textLabel?.font = .body
         cell.tintColor = .dark
+        cell.height = { return 48 }
     }.onCellSelection { [weak self] _, _ in
         self?.pickPlace()
         self?.showLoadingBar()
@@ -71,6 +76,7 @@ class NewWorkoutViewController: FormViewController, Special {
             cell.tintColor = .primary
             cell.textLabel?.font = .body
             cell.titleLabel?.font = .body
+            cell.height = { return 48 }
         }
         
         let descriptionRow = TextAreaRow("description") {
@@ -87,6 +93,7 @@ class NewWorkoutViewController: FormViewController, Special {
             $0.sourceTypes = [.Camera, .SavedPhotosAlbum]
             $0.validatePhotoWasTakenToday = false
         }.cellSetup { cell, _ in
+            cell.height = { return 48 }
             cell.textLabel?.font = .body
         }
         
@@ -95,13 +102,13 @@ class NewWorkoutViewController: FormViewController, Special {
         
         let last = Section() {
             let footerBuilder = { () -> UIView in
-                let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 48))
+                let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 30))
                 let textLabel = UILabel()
                 textLabel.font = .details
                 textLabel.textColor = .fog
                 textLabel.numberOfLines = 0
                 textLabel.textAlignment = .center
-                textLabel.text = "A photo is required to post a workout."
+                textLabel.text = "Title and photo are required to post a workout."
                 textLabel.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 20)
                 
                 container.addSubview(textLabel)
@@ -127,6 +134,8 @@ class NewWorkoutViewController: FormViewController, Special {
             let row = SwitchRow("challenge_\(challenge.id)") {
                 $0.title = "\(challenge.name)"
                 $0.value = true
+            }.cellSetup { cell, _ in
+                cell.height = { return 48 }
             }
             
             let relay = BehaviorRelay(value: true)
