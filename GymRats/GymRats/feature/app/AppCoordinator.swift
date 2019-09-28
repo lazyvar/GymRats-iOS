@@ -290,6 +290,12 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     func pushUserProfile() {
         let profile = ProfileViewController(user: GymRatsApp.coordinator.currentUser, challenge: nil)
 
+        let gear = UIImage(named: "gear")!.withRenderingMode(.alwaysTemplate)
+        let gearItem = UIBarButtonItem(image: gear, style: .plain, target: profile, action: #selector(ProfileViewController.transitionToSettings))
+        gearItem.tintColor = .lightGray
+        
+        profile.navigationItem.rightBarButtonItem = gearItem
+        
         artistViewController?.push(profile)
     }
     
