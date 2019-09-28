@@ -170,7 +170,7 @@ class GymRatsAPI {
     
     private let networkProvider: NetworkProvider
     
-    init(networkProvider: NetworkProvider = NgrokNetworkProvider("https://544f95b6.ngrok.io")) {
+    init(networkProvider: NetworkProvider = ProductionNetworkProvider()) {
         self.networkProvider = networkProvider
     }
     

@@ -37,8 +37,8 @@ class HomeViewController: UIViewController, Special {
         return label
     }()
 
-    let joinChallengeButton: UIButton = .secondary(text: "Join Challenge")
-    let createChallengeButton: UIButton = .secondary(text: "Start Challenge")
+    let joinChallengeButton: UIButton = .secondary(text: "Join")
+    let createChallengeButton: UIButton = .secondary(text: "Start")
     
     override func viewDidLoad() {
         super.viewDidLoad()
