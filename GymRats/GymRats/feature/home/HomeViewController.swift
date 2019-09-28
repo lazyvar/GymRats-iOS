@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import GradientLoadingBar
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, Special {
 
     var challenges: [Challenge] = []
     
@@ -176,6 +176,7 @@ class HomeViewController: UIViewController {
 extension HomeViewController: CreateChallengeDelegate {
     
     func challengeCreated(challenge: Challenge) {
+        UserDefaults.standard.set(challenge.id, forKey: "last_opened_challenge")
         self.fetchAllChallenges()
     }
     

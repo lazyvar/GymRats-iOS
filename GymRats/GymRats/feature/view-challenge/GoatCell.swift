@@ -16,6 +16,9 @@ class GoatCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var calStack: UIStackView!
+    @IBOutlet weak var inviteStack: UIStackView!
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var usersLabel: UILabel!
     @IBOutlet weak var calLabel: UILabel!

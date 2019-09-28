@@ -30,6 +30,7 @@ target 'GymRats' do
     pod 'SkeletonView'
     pod 'ESTabBarController-swift'
     pod 'NVActivityIndicatorView/AppExtension'
+    pod "RxGesture"
 
      target 'GymRatsTests' do
         inherit! :search_paths
