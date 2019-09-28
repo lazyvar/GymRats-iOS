@@ -90,7 +90,7 @@ extension MenuViewController {
         case 1:
             return activeChallenges.count
         case 2:
-            return 4
+            return 5
         default: return 0
         }
     }
@@ -132,6 +132,9 @@ extension MenuViewController {
             cell.textLabel?.text = "Start"
             cell.imageView?.image = UIImage(named: "play")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         case 3:
+            cell.textLabel?.text = "Settings"
+            cell.imageView?.image = UIImage(named: "gear")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        case 4:
             cell.textLabel?.text = "About"
             cell.imageView?.image = UIImage(named: "info")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         default:
@@ -197,6 +200,11 @@ extension MenuViewController {
                 
                 self.present(nav, animated: true, completion: nil)
             case 3:
+                let settings = SettingsViewController()
+                settings.setupMenuButton()
+                
+                GymRatsApp.coordinator.drawer.setCenterView(settings.inNav(), withCloseAnimation: true, completion: nil)
+            case 4:
                 let center = AboutViewController()
                 let nav = GRNavigationController(rootViewController: center)
                 
