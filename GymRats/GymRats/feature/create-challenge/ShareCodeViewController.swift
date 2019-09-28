@@ -45,6 +45,7 @@ class ShareCodeViewController: UIViewController {
             
             if case .next = e {
                 self.textView.selectAll(nil)
+                UIMenuController.shared.isMenuVisible = true
             }
         }.disposed(by: disposeBag)
         
