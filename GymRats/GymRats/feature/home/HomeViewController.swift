@@ -157,6 +157,8 @@ class HomeViewController: UIViewController, Special {
         joinChallengeButton.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 15
+            layout.marginLeft = 30
+            layout.marginRight = 30
         }
         
         view.addSubview(joinChallengeButton)
@@ -164,6 +166,8 @@ class HomeViewController: UIViewController, Special {
         createChallengeButton.configureLayout { layout in
             layout.isEnabled = true
             layout.marginTop = 15
+            layout.marginLeft = 30
+            layout.marginRight = 30
         }
         
         view.addSubview(createChallengeButton)
