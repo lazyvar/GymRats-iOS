@@ -19,13 +19,14 @@ class AboutViewController: UIViewController {
         title = "About"
         
         let text = """
-        Hi!
-
-        GymRats aim is to act as  . I hope you are finding it useful. If you have any ideas on how to improve the app, please send me an email. If you are interested in following the development process you can check out the public trello board. This board tracks the status of new features and bug fixes.
+        Hello!
+        
+        This app's goal is to act as a social motivator for fitness and health. Whether it's a personal or group challenge, it is important to track workouts and hold yourself accountable. I hope it is finding use. If you have any ideas on how to improve the app, please send me an email. Also, if you are interested in following the development process you can check out the public trello board.
         
         Happy ratting,
 
         Mack
+        CPO (Chief Protein Officer)
         """
         let label = TTTAttributedLabel(frame: CGRect(x: 15, y: 15, width: self.view.frame.width-30, height: 500))
         let range = (text as NSString).range(of: "email")
