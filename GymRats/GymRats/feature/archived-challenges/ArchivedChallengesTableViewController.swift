@@ -62,11 +62,7 @@ class ArchivedChallengesTableViewController: UITableViewController {
                 let past = challenges.getPastChallenges()
                 self?.challenges = past
                 
-                if past.isEmpty {
-                    // TODO
-                } else {
-                    self?.tableView.reloadData()
-                }
+                self?.tableView.reloadData()
             }, onError: { [weak self] error in
                 self?.refresher.endRefreshing()
                 self?.hideLoadingBar()
@@ -75,6 +71,14 @@ class ArchivedChallengesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if challenges.isEmpty {
+            let cell = UITableViewCell()
+            cell.textLabel?.text = "No challenges completed yet."
+            cell.selectionStyle = .none
+            
+            return cell
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChallengeCell") as! UserWorkoutTableViewCell
         let challenge = challenges[indexPath.row]
         
@@ -93,11 +97,17 @@ class ArchivedChallengesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return challenges.count
+        if challenges.count == 0 {
+           return 1
+        } else {
+            return challenges.count
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        if challenges.count == 0 { return }
         
         let challenge = challenges[indexPath.row]
         
