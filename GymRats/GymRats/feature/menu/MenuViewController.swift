@@ -88,7 +88,11 @@ extension MenuViewController {
         case 0:
             return 1
         case 1:
-            return activeChallenges.count
+            if activeChallenges.count == 0 {
+                return 1
+            } else {
+                return activeChallenges.count
+            }
         case 2:
             return 5
         default: return 0
@@ -106,6 +110,20 @@ extension MenuViewController {
         }
         
         if indexPath.section == 1 {
+            if activeChallenges.count == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "NormalCell")!
+                
+                cell.textLabel?.font = .bodyBold
+                cell.backgroundColor = .clear
+                cell.imageView?.tintColor = .white
+                cell.textLabel?.textColor = .white
+                
+                cell.textLabel?.text = "Home"
+                cell.imageView?.image = UIImage(named: "activity")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+                
+                return cell
+            }
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChallengeCell") as! MenuTableViewCell
 
             cell.userImageView.skeletonLoad(avatarInfo: activeChallenges[indexPath.row])
@@ -156,6 +174,14 @@ extension MenuViewController {
             
             GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
         } else if indexPath.section == 1 {
+            if activeChallenges.count == 0 {
+                let center = HomeViewController()
+                let nav = GRNavigationController(rootViewController: center)
+                
+                GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+                
+                return
+            }
             let challenge = activeChallenges[indexPath.row]
             
             UserDefaults.standard.set(challenge.id, forKey: "last_opened_challenge")
