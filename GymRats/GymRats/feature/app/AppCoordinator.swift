@@ -161,6 +161,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         let centerViewController = GRNavigationController(rootViewController: home)
         
         drawer = MMDrawerController(center: centerViewController, leftDrawerViewController: menu)
+        drawer.view.backgroundColor = .background
         drawer.showsShadow = false
         drawer.maximumLeftDrawerWidth = MenuViewController.menuWidth
         drawer.centerHiddenInteractionMode = .full

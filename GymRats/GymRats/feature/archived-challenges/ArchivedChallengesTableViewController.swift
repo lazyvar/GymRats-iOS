@@ -26,6 +26,7 @@ class ArchivedChallengesTableViewController: UITableViewController {
         navigationController?.navigationBar.largeTitleTextAttributes = [
             NSAttributedString.Key.font: UIFont(name: "SFProRounded-Bold", size: 30)!
         ]
+        navigationController?.navigationBar.backgroundColor = .background
         navigationController?.navigationBar.barTintColor = .background
         navigationController?.navigationBar.prefersLargeTitles = true
         tableView.separatorStyle = .none
