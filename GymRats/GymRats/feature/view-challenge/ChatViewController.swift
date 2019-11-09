@@ -35,6 +35,8 @@ class ChatViewController: MessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .background
+        messagesCollectionView.backgroundColor = .background
         title = challenge.name
         
         navigationItem.largeTitleDisplayMode = .never
@@ -43,6 +45,12 @@ class ChatViewController: MessagesViewController {
         
         scrollsToBottomOnKeyboardBeginsEditing = true
         messageInputBar.delegate = self
+        
+        messageInputBar.tintColor = .brand
+        messageInputBar.backgroundView.backgroundColor = .background
+        messageInputBar.sendButton.setTitleColor(.brand, for: .normal)
+        messageInputBar.sendButton.setTitleColor(.brand, for: .highlighted)
+
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messageCellDelegate = self
@@ -210,6 +218,7 @@ extension ChatViewController: MessagesLayoutDelegate { }
 
 extension ChatViewController: MessagesDisplayDelegate {
     
+    
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
         let userImageView = UserImageView()
         userImageView.tag = 888
@@ -229,9 +238,20 @@ extension ChatViewController: MessagesDisplayDelegate {
         case .emoji:
             return .clear
         default:
-            guard let dataSource = messagesCollectionView.messagesDataSource else { return .white }
+            guard let dataSource = messagesCollectionView.messagesDataSource else { return .foreground }
             
-            return dataSource.isFromCurrentSender(message: message) ? .primaryText : .gray
+            return dataSource.isFromCurrentSender(message: message) ? .brand : .foreground
+        }
+    }
+    
+    func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        switch message.kind {
+        case .emoji:
+            return .clear
+        default:
+            guard let dataSource = messagesCollectionView.messagesDataSource else { return .newWhite }
+            
+            return dataSource.isFromCurrentSender(message: message) ? .newWhite : .primaryText
         }
     }
 
