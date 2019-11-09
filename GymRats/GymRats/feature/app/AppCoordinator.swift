@@ -263,8 +263,10 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         tabBarController.selectedIndex = 1
         tabBarController.tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
         tabBarController.tabBar.layer.shadowRadius = 8
-        tabBarController.tabBar.layer.shadowColor = UIColor.gray.withAlphaComponent(0.7).cgColor
+        tabBarController.tabBar.layer.shadowColor = UIColor.gray.withAlphaComponent(0.5).cgColor
         tabBarController.tabBar.layer.shadowOpacity = 0.5
+        tabBarController.tabBar.layer.borderWidth = 0
+        tabBarController.tabBar.layer.borderColor = UIColor.clear.cgColor
         tabBarController.tabBar.barTintColor = .background
         
         self.tabBarViewController = tabBarController
