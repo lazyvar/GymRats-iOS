@@ -43,7 +43,7 @@ class HomeViewController: UIViewController, Special {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.backgroundColor = .background
         
         setupBackButton()
         setupMenuButton()

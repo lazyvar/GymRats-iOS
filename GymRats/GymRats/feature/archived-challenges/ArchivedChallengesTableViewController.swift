@@ -24,13 +24,8 @@ class ArchivedChallengesTableViewController: UITableViewController {
         navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SFProRounded-Bold", size: 30)!]
         
         navigationController?.navigationBar.prefersLargeTitles = true
-        view.backgroundColor = .white
-        navigationController?.navigationBar.backgroundColor = .white
         tableView.separatorStyle = .none
-        navigationController?.navigationBar.barTintColor = .white
-        navigationController?.view.backgroundColor = UIColor.white
         
-        view.backgroundColor = .white
         navigationItem.title = "Completed"
         
         setupMenuButton()
@@ -78,6 +73,8 @@ class ArchivedChallengesTableViewController: UITableViewController {
             
             return cell
         }
+      
+      
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChallengeCell") as! UserWorkoutTableViewCell
         let challenge = challenges[indexPath.row]

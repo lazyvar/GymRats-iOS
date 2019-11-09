@@ -20,9 +20,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .whiteSmoke
-        
+
         setupBackButton()
         
         tableView.separatorInset = .zero
@@ -37,7 +35,6 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 36))
-        view.backgroundColor = .whiteSmoke
         
         let label = UILabel(frame: CGRect(x: 10, y: 8, width: tableView.frame.width, height: 18))
         label.font = .details

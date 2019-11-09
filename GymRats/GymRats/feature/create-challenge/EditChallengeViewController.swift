@@ -48,7 +48,7 @@ class EditChallengeViewController: FormViewController, Special {
         super.viewDidLoad()
         
         title = "Edit Challenge"
-        view.backgroundColor = .white
+//        view.backgroundColor = .white
         
         LabelRow.defaultCellUpdate = nil
         
@@ -64,7 +64,7 @@ class EditChallengeViewController: FormViewController, Special {
             $0.placeholder = "Beast Rats"
             $0.value = challenge.name
         }.cellSetup { cell, _ in
-            cell.tintColor = .primary
+            cell.tintColor = .primaryText
             cell.textLabel?.font = .body
             cell.titleLabel?.font = .body
         }

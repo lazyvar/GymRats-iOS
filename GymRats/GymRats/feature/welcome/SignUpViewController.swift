@@ -23,8 +23,8 @@ class SignUpViewController: FormViewController, Special {
         setupBackButton()
         
         LabelRow.defaultCellUpdate = { cell, row in
-            cell.contentView.backgroundColor = .firebrick
-            cell.textLabel?.textColor = .white
+            cell.contentView.backgroundColor = .brand
+//            cell.textLabel?.textColor = .white
             cell.textLabel?.font = .details
             cell.textLabel?.textAlignment = .right
         }

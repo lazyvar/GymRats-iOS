@@ -19,8 +19,8 @@ class ChangePasswordController: FormViewController {
         navigationItem.title = "Password"
         
         LabelRow.defaultCellUpdate = { cell, row in
-            cell.contentView.backgroundColor = .firebrick
-            cell.textLabel?.textColor = .white
+            cell.contentView.backgroundColor = .brand
+//            cell.textLabel?.textColor = .white
             cell.textLabel?.font = .body
             cell.textLabel?.textAlignment = .right
         }
@@ -54,7 +54,7 @@ class ChangePasswordController: FormViewController {
                     signUpButton.titleLabel?.font = .body
                     signUpButton.setTitle("Save", for: .normal)
                     signUpButton.setTitleColor(UIColor.white, for: .normal)
-                    signUpButton.backgroundColor = .primary
+//                    signUpButton.backgroundColor = .primary
                     signUpButton.addTarget(self, action: #selector(self.doSave), for: .touchUpInside)
                     
                     container.addSubview(signUpButton)

@@ -46,7 +46,7 @@ class ProfileViewController: UITableViewController {
     
     let calendarView: CVCalendarView = {
         let calendar = CVCalendarView()
-        calendar.backgroundColor = .whiteSmoke
+//        calendar.backgroundColor = .whiteSmoke
         
         return calendar
     }()
@@ -92,6 +92,8 @@ class ProfileViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .background
+        
         setupBackButton()
         
         navigationItem.largeTitleDisplayMode = .never
@@ -110,9 +112,7 @@ class ProfileViewController: UITableViewController {
         
         containerView = UIView()
         containerView.frame = view.frame
-        
-        containerView.backgroundColor = .white
-        
+                
         let userImageView = UserImageView()
         userImageView.load(avatarInfo: user)
         

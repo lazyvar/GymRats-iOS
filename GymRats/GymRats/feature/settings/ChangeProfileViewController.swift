@@ -68,8 +68,6 @@ class ProfileChangeController: UIViewController, UITextFieldDelegate {
     }
     
     func setup() {
-        view.backgroundColor = .whiteSmoke
-        
         textField.delegate = self
         
         view.addSubview(detailLabel)
@@ -149,10 +147,9 @@ class ProfileChangeController: UIViewController, UITextFieldDelegate {
     
     let saveButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .primary
         button.setTitle("Save", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.setTitleColor(UIColor.black, for: .highlighted)
+//        button.setTitleColor(UIColor.white, for: .normal)
+//        button.setTitleColor(UIColor.black, for: .highlighted)
         
         return button
     }()
@@ -160,8 +157,6 @@ class ProfileChangeController: UIViewController, UITextFieldDelegate {
     let textField: OHTextField = {
         let text = OHTextField()
         text.font = .body
-        text.textColor = UIColor.black
-        text.backgroundColor = UIColor.white
         text.autocorrectionType = .no
         text.returnKeyType = .done
         

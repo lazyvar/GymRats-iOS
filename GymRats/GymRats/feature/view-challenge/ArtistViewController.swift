@@ -28,7 +28,7 @@ class ArtistViewController: UIViewController, Special {
         tb.translatesAutoresizingMaskIntoConstraints = false
         tb.delegate = self
         tb.dataSource = self
-        tb.backgroundColor = .white
+        tb.backgroundColor = .background
         
         view.addSubview(tb)
     
@@ -319,7 +319,7 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
         let label = UILabel()
         label.frame = CGRect(x: 20, y: 0, width: view.frame.width, height: 30)
         label.font = .proRoundedBold(size: 20)
-        label.backgroundColor = .white
+        label.backgroundColor = .background
         
         switch section {
         case 1:

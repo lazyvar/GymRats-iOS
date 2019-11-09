@@ -35,7 +35,7 @@ class CreateChallengeViewController: FormViewController, Special {
         super.viewDidLoad()
 
         title = "Start Challenge"
-        view.backgroundColor = .white
+//        view.backgroundColor = .white
         
         LabelRow.defaultCellUpdate = nil
         
@@ -50,7 +50,6 @@ class CreateChallengeViewController: FormViewController, Special {
             $0.title = "Name"
             $0.placeholder = "Super Rats"
         }.cellSetup { cell, _ in
-            cell.tintColor = .primary
             cell.textLabel?.font = .body
             cell.titleLabel?.font = .body
             cell.height = { return 48 }

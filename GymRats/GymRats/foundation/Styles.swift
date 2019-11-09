@@ -34,12 +34,12 @@ extension UIButton {
         var button = UIButton()
         button.setTitle(text, for: .normal)
         button = baseButtonStyle()(button)
-        button.setTitleColor(.whiteSmoke, for: .normal)
-        button.setTitleColor(.charcoal, for: .highlighted)
-        button.setBackgroundImage(.primary, for: .normal)
-        button.setBackgroundImage(.primary, for: .highlighted)
-        button.setTitleColor(.whiteSmoke, for: .disabled)
-        button.setBackgroundImage(.charcoal, for: .disabled)
+//        button.setTitleColor(.whiteSmoke, for: .normal)
+//        button.setTitleColor(.charcoal, for: .highlighted)
+//        button.setBackgroundImage(.primary, for: .normal)
+//        button.setBackgroundImage(.primary, for: .highlighted)
+//        button.setTitleColor(.whiteSmoke, for: .disabled)
+//        button.setBackgroundImage(.charcoal, for: .disabled)
         
         return button
     }
@@ -49,11 +49,11 @@ extension UIButton {
         button = baseButtonStyle()(button)
         button.setTitle(text, for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.setTitleColor(.whiteSmoke, for: .highlighted)
+//        button.setTitleColor(.whiteSmoke, for: .highlighted)
         button.setBackgroundImage(UIImage(color: .white), for: .normal)
-        button.setBackgroundImage(.fog, for: .highlighted)
+//        button.setBackgroundImage(.fog, for: .highlighted)
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.fog.withAlphaComponent(0.5).cgColor
+//        button.layer.borderColor = UIColor.fog.withAlphaComponent(0.5).cgColor
         
         return button
     }
@@ -61,9 +61,9 @@ extension UIButton {
     static func danger(text: String) -> UIButton {
         var button = UIButton()
         button.setTitle(text, for: .normal)
-        button.setTitleColor(.charcoal, for: .normal)
-        button.setTitleColor(.whiteSmoke, for: .highlighted)
-        button.setBackgroundImage(.firebrick, for: .normal)
+//        button.setTitleColor(.charcoal, for: .normal)
+//        button.setTitleColor(.whiteSmoke, for: .highlighted)
+        button.setBackgroundImage(.brand, for: .normal)
         button = baseButtonStyle()(button)
         
         return button

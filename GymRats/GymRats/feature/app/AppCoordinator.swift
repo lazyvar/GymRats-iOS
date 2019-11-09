@@ -162,7 +162,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         
         let home = HomeViewController()
         let centerViewController = GRNavigationController(rootViewController: home)
-        home.view.backgroundColor = .white
+//        home.view.backgroundColor = .white
         
         drawer = MMDrawerController(center: centerViewController, leftDrawerViewController: menu)
         drawer.showsShadow = false
@@ -265,6 +265,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         tabBarController.tabBar.layer.shadowRadius = 8
         tabBarController.tabBar.layer.shadowColor = UIColor.gray.withAlphaComponent(0.7).cgColor
         tabBarController.tabBar.layer.shadowOpacity = 0.5
+        tabBarController.tabBar.barTintColor = .background
         
         self.tabBarViewController = tabBarController
         

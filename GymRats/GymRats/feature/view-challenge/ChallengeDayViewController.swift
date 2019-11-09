@@ -40,13 +40,13 @@ class ChallengeDayViewController: UITableViewController {
         super.viewDidLoad()
 
         let dummyView = UIView(frame: CGRect(x: 0, y: -view.frame.height, width: view.frame.width, height: view.frame.height))
-        dummyView.backgroundColor = .firebrick
+        dummyView.backgroundColor = .brand
 
         tableView.addSubview(dummyView)
         
         tableView.contentInset = .init(top: 68, left: 0, bottom: 0, right: 0)
         tableView.showsVerticalScrollIndicator = false
-        tableView.backgroundColor = .white
+//        tableView.backgroundColor = .white
         tableView.separatorStyle = .none
         tableView.register(UINib(nibName: "UserWorkoutTableViewCell", bundle: nil), forCellReuseIdentifier: "UserWorkoutCell")
     }
@@ -78,7 +78,7 @@ class ChallengeDayViewController: UITableViewController {
         guard skeletonView == nil else { return }
         
         let cover = UIView()
-        cover.backgroundColor = UIColor.white
+//        cover.backgroundColor = UIColor.white
         cover.frame = tableView.frame
         
         let container = UIView()

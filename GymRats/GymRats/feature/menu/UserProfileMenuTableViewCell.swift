@@ -17,6 +17,6 @@ class UserProfileMenuTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         userImageView.backgroundColor = .clear
-        self.backgroundColor = .firebrick
+        self.backgroundColor = .brand
     }
 }

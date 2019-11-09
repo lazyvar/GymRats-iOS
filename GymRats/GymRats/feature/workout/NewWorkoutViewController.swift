@@ -49,7 +49,6 @@ class NewWorkoutViewController: FormViewController, Special {
         $0.title = "Check In Location"
     }.cellSetup { cell, _ in
         cell.textLabel?.font = .body
-        cell.tintColor = .dark
         cell.height = { return 48 }
     }.onCellSelection { [weak self] _, _ in
         self?.pickPlace()
@@ -58,14 +57,11 @@ class NewWorkoutViewController: FormViewController, Special {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        submitButton.tintColor = .perfect
         
         navigationItem.rightBarButtonItem = submitButton
         navigationItem.leftBarButtonItem = cancelButton
 
         title = "Log Workout"
-        tableView.backgroundColor = .whiteSmoke
         
         LabelRow.defaultCellUpdate = nil
 
@@ -73,7 +69,6 @@ class NewWorkoutViewController: FormViewController, Special {
             $0.title = "Title"
             $0.placeholder = "Leg day."
         }.cellSetup { cell, _ in
-            cell.tintColor = .primary
             cell.textLabel?.font = .body
             cell.titleLabel?.font = .body
             cell.height = { return 48 }
@@ -85,7 +80,6 @@ class NewWorkoutViewController: FormViewController, Special {
         let descriptionRow = TextAreaRow("description") {
             $0.placeholder = "Description...\n3x8 squats\n3x6 deadlifts\n3x4 rows"
         }.cellSetup { cell, _ in
-            cell.tintColor = .primary
             cell.textLabel?.font = .body
             cell.textView.font = .body
         }
@@ -108,7 +102,6 @@ class NewWorkoutViewController: FormViewController, Special {
                 let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 30))
                 let textLabel = UILabel()
                 textLabel.font = .details
-                textLabel.textColor = .fog
                 textLabel.numberOfLines = 0
                 textLabel.textAlignment = .center
                 textLabel.text = "Title and photo are required to post a workout."

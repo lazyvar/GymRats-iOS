@@ -28,14 +28,11 @@ class WelcomeViewController: UIViewController {
         super.viewDidLoad()
         
         setupBackButton()
-        
-        view.backgroundColor = .whiteSmoke
-        
+                
         let logoBackground = UIView()
         logoBackground.backgroundColor = .brand
         
         let text = UILabel()
-        text.textColor = .dark
         text.font = .h2
         text.text = "Welcome to GymRats."
         text.textAlignment = .center

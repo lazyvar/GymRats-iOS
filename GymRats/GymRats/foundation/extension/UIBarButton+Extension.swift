@@ -10,7 +10,7 @@ import UIKit
 
 extension CAShapeLayer {
     func drawCircleAtLocation(location: CGPoint, withRadius radius: CGFloat, andColor color: UIColor, filled: Bool) {
-        fillColor = filled ? color.cgColor : UIColor.white.cgColor
+//        fillColor = filled ? color.cgColor : UIColor.white.cgColor
         strokeColor = color.cgColor
         let origin = CGPoint(x: location.x - radius, y: location.y - radius)
         path = UIBezierPath(ovalIn: CGRect(origin: origin, size: CGSize(width: radius * 2, height: radius * 2))).cgPath
@@ -54,7 +54,7 @@ extension UIBarButtonItem {
         label.alignmentMode = CATextLayerAlignmentMode.center
         label.fontSize = 11
         label.frame = CGRect(origin: CGPoint(x: location.x - CGFloat(numberOffset), y: offset.y), size: CGSize(width: badgeWidth, height: 16))
-        label.foregroundColor = filled ? UIColor.white.cgColor : color.cgColor
+//        label.foregroundColor = filled ? UIColor.white.cgColor : color.cgColor
         label.backgroundColor = UIColor.clear.cgColor
         label.contentsScale = UIScreen.main.scale
         badge.addSublayer(label)
