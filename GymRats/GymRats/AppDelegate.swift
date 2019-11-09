@@ -78,8 +78,6 @@ extension Decodable {
     
     init(from anything: Any) throws {
         let data = try JSONSerialization.data(withJSONObject: anything, options: .prettyPrinted)
-        
-        print(String(data: data, encoding: .utf8) ?? "")
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"

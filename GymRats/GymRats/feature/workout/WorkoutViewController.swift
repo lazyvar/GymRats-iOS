@@ -48,6 +48,8 @@ class WorkoutViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .background
+        
         let moreVert = UIImage(named: "more-vertical")!.withRenderingMode(.alwaysTemplate)
         let button = UIBarButtonItem (
             image: moreVert,
@@ -225,6 +227,7 @@ extension WorkoutViewController {
             return cell
         } else {
             let cell = UITableViewCell()
+            cell.backgroundColor = .clear
             
             let imageView = UserImageView()
             imageView.load(avatarInfo: GymRatsApp.coordinator.currentUser)

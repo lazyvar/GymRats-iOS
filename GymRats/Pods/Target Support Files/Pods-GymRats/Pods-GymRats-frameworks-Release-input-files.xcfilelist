@@ -1,7 +1,6 @@
 ${PODS_ROOT}/Target Support Files/Pods-GymRats/Pods-GymRats-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
 ${BUILT_PRODUCTS_DIR}/AvatarImageView/AvatarImageView.framework
-${BUILT_PRODUCTS_DIR}/CVCalendar/CVCalendar.framework
 ${BUILT_PRODUCTS_DIR}/Cache/Cache.framework
 ${BUILT_PRODUCTS_DIR}/ESTabBarController-swift/ESTabBarController_swift.framework
 ${BUILT_PRODUCTS_DIR}/EasyNotificationBadge/EasyNotificationBadge.framework
@@ -18,7 +17,6 @@ ${BUILT_PRODUCTS_DIR}/Pageboy/Pageboy.framework
 ${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework
 ${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework
 ${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework
-${BUILT_PRODUCTS_DIR}/RxEureka/RxEureka.framework
 ${BUILT_PRODUCTS_DIR}/RxGesture/RxGesture.framework
 ${BUILT_PRODUCTS_DIR}/RxOptional/RxOptional.framework
 ${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework

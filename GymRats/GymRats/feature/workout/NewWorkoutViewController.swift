@@ -11,13 +11,12 @@ import RxSwift
 import RxCocoa
 import GooglePlaces
 import Eureka
-import RxEureka
 
 protocol NewWorkoutDelegate: class {
     func newWorkoutController(_ newWorkoutController: NewWorkoutViewController, created workouts: [Workout])
 }
 
-class NewWorkoutViewController: FormViewController, Special {
+class NewWorkoutViewController: GRFormViewController, Special {
     
     weak var delegate: NewWorkoutDelegate?
 
@@ -39,6 +38,7 @@ class NewWorkoutViewController: FormViewController, Special {
         $0.selectorTitle = "Where are you?"
     }
     .cellSetup { cell, _ in
+        cell.tintColor = .primaryText
         cell.height = { return 48 }
     }
     .onPresent { _, selector in
@@ -49,6 +49,7 @@ class NewWorkoutViewController: FormViewController, Special {
         $0.title = "Check In Location"
     }.cellSetup { cell, _ in
         cell.textLabel?.font = .body
+        cell.tintColor = .primaryText
         cell.height = { return 48 }
     }.onCellSelection { [weak self] _, _ in
         self?.pickPlace()
@@ -57,7 +58,8 @@ class NewWorkoutViewController: FormViewController, Special {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        submitButton.tintColor = .brand
         navigationItem.rightBarButtonItem = submitButton
         navigationItem.leftBarButtonItem = cancelButton
 
@@ -72,6 +74,7 @@ class NewWorkoutViewController: FormViewController, Special {
             cell.textLabel?.font = .body
             cell.titleLabel?.font = .body
             cell.height = { return 48 }
+            cell.tintColor = .brand
             DispatchQueue.main.async {
                 cell.textField.becomeFirstResponder()
             }
@@ -82,15 +85,17 @@ class NewWorkoutViewController: FormViewController, Special {
         }.cellSetup { cell, _ in
             cell.textLabel?.font = .body
             cell.textView.font = .body
+            cell.tintColor = .primaryText
         }
         
         let photoRow = ImageRow("photo") {
             $0.title = "Take Photo"
-            $0.placeholderImage = UIImage(named: "photo")
+            $0.placeholderImage = UIImage(named: "photo")?.withRenderingMode(.alwaysTemplate)
             $0.sourceTypes = [.Camera, .SavedPhotosAlbum]
             $0.validatePhotoWasTakenToday = false
         }.cellSetup { cell, _ in
             cell.height = { return 48 }
+            cell.tintColor = .primaryText
             cell.textLabel?.font = .body
         }
         

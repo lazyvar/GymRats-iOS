@@ -16,7 +16,7 @@ class HomeViewController: UIViewController, Special {
     
     let disposeBag = DisposeBag()
     let refresher = UIRefreshControl()
-    let retryButton: UIButton = .danger(text: "Retry")
+    let retryButton: UIButton = .secondary(text: "Retry")
     
     let titleLabel: UILabel = {
         let label = UILabel()

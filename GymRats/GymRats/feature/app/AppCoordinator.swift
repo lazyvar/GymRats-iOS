@@ -34,6 +34,14 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     }
     
     func start() {
+        UINavigationBar.appearance().barTintColor = .primaryText
+        UINavigationBar.appearance().tintColor = .background
+//        UINavigationBar.appearance().titleTextAttributes = [
+//            NSAttributedString.Key.backgroundColor: UIColor.background,
+//            NSAttributedString.Key.foregroundColor: UIColor.primaryText,
+//            NSAttributedString.Key.font: UIFont(name: "SFProRounded-Bold", size: 30)!
+//        ]
+
         if let user = loadCurrentUser() {
             // show home
             login(user: user)
@@ -262,12 +270,15 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         tabBarController.viewControllers = [v1, v2, v3]
         tabBarController.selectedIndex = 1
         tabBarController.tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
-        tabBarController.tabBar.layer.shadowRadius = 8
-        tabBarController.tabBar.layer.shadowColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+        tabBarController.tabBar.layer.shadowRadius = 10
+        tabBarController.tabBar.layer.shadowColor = UIColor.shadow.cgColor
         tabBarController.tabBar.layer.shadowOpacity = 0.5
-        tabBarController.tabBar.layer.borderWidth = 0
-        tabBarController.tabBar.layer.borderColor = UIColor.clear.cgColor
         tabBarController.tabBar.barTintColor = .background
+        
+        let pxwhiteThing = UIView(frame: CGRect(x: 0, y: -1, width: tabBarController.tabBar.frame.width, height: 1))
+        pxwhiteThing.backgroundColor = .background
+        tabBarController.tabBar.addSubview(pxwhiteThing)
+        tabBarController.tabBar.sendSubviewToBack(pxwhiteThing)
         
         self.tabBarViewController = tabBarController
         

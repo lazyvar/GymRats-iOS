@@ -49,7 +49,7 @@ class WorkoutHeaderView: UIView {
         didSet {
             imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true
-            imageView.backgroundColor = .gray
+            imageView.backgroundColor = .background
         }
     }
     @IBOutlet weak var mapView: MKMapView!

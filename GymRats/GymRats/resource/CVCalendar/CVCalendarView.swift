@@ -15,7 +15,7 @@ public typealias Manager = CVCalendarManager
 public typealias DayView = CVCalendarDayView
 public typealias ContentController = CVCalendarContentViewController
 public typealias Appearance = CVCalendarViewAppearance
-public typealias Coordinator = CVCalendarDayViewControlCoordinator
+public typealias CalendarCoordinator = CVCalendarDayViewControlCoordinator
 public typealias CalendarMode = CVCalendarViewPresentationMode
 public typealias Weekday = CVCalendarWeekday
 public typealias Animator = CVCalendarViewAnimator
@@ -34,7 +34,7 @@ public final class CVCalendarView: UIView {
     public var manager: Manager!
     public var appearance: Appearance!
     public var touchController: TouchController!
-    public var coordinator: Coordinator!
+    public var coordinator: CalendarCoordinator!
     public var animator: Animator!
     public var contentController: ContentViewController!
     public var calendarMode: CalendarMode!
@@ -183,7 +183,7 @@ public final class CVCalendarView: UIView {
             }
 
             if coordinator == nil {
-                coordinator = Coordinator(calendarView: self)
+                coordinator = CalendarCoordinator(calendarView: self)
             }
 
             if animator == nil {

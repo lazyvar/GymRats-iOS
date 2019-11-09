@@ -8,7 +8,6 @@
 
 import UIKit
 import RxSwift
-import CVCalendar
 import YogaKit
 
 class ProfileViewController: UITableViewController {
@@ -46,7 +45,7 @@ class ProfileViewController: UITableViewController {
     
     let calendarView: CVCalendarView = {
         let calendar = CVCalendarView()
-//        calendar.backgroundColor = .whiteSmoke
+        calendar.backgroundColor = .background
         
         return calendar
     }()
@@ -63,7 +62,7 @@ class ProfileViewController: UITableViewController {
     let goBackInTimeButton: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(named: "left-arrow"), for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.primaryText, for: .normal)
         
         return button
     }()
@@ -71,7 +70,7 @@ class ProfileViewController: UITableViewController {
     let goForwardInTimeButton: UIButton = {
         let button = UIButton()
         button.setBackgroundImage(UIImage(named: "right-arrow"), for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.primaryText, for: .normal)
         
         return button
     }()
@@ -93,6 +92,7 @@ class ProfileViewController: UITableViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .background
+        tableView.backgroundColor = .background
         
         setupBackButton()
         
@@ -111,6 +111,7 @@ class ProfileViewController: UITableViewController {
         }
         
         containerView = UIView()
+        containerView.backgroundColor = .clear
         containerView.frame = view.frame
                 
         let userImageView = UserImageView()
@@ -239,7 +240,10 @@ class ProfileViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = UITableViewCell()
+        cell.backgroundColor = .clear
+        
+        return cell
     }
     
     @objc func transitionToSettings() {
@@ -308,6 +312,7 @@ class ProfileViewController: UITableViewController {
     func showWorkouts(_ workouts: [Workout]) {
         let workoutsContainer = UIView()
         workoutsContainer.tag = 111
+        workoutsContainer.backgroundColor = .clear
         
         workoutsContainer.configureLayout { layout in
             layout.isEnabled = true
@@ -321,6 +326,7 @@ class ProfileViewController: UITableViewController {
         for (index, workout) in workouts.enumerated() {
             let row = UIView()
             row.tag = index
+            row.backgroundColor = .clear
             
             let titleDetailsContainer = UIView()
             
@@ -368,22 +374,6 @@ class ProfileViewController: UITableViewController {
                 layout.marginBottom = 7
                 layout.paddingRight = 10
             }
-
-            if let googlePlaceId = workout.googlePlaceId {
-                GService.getPlaceInformation(forPlaceId: googlePlaceId)
-                    .subscribe { event in
-                        if case let .next(val) = event {
-                            UIView.transition (
-                                with: detailsLabel,
-                                duration: 0.2,
-                                options: .transitionCrossDissolve,
-                                animations: { [weak self] in
-                                    detailsLabel.attributedText = self?.detailsLabeText(for: workout, including: val)
-                                }, completion: nil
-                            )
-                        }
-                    }.disposed(by: self.disposeBag)
-            }
             
             row.addSubview(titleDetailsContainer)
             row.addSubview(timeLabel)
@@ -417,17 +407,8 @@ class ProfileViewController: UITableViewController {
     private func detailsLabeText(for workout: Workout, including place: Place? = nil) -> NSAttributedString {
         let details = NSMutableAttributedString()
         
-        if workout.photoUrl != nil {
-            let cameraImage = NSTextAttachment()
-            cameraImage.image = UIImage(named: "camera")
-            cameraImage.bounds = CGRect(x: 0, y: -2.5, width: 14, height: 14)
-            
-            details.append(NSAttributedString(attachment: cameraImage))
-            details.append(NSAttributedString(string: "  "))
-        }
-        
-        if let place = place {
-            details.append(NSAttributedString(string: " \(place.name)"))
+        if let desc = workout.description {
+            details.append(.init(string: desc))
         }
         
         return details
@@ -491,11 +472,7 @@ extension Array where Element == Workout {
         return !self.workouts(on: date).isEmpty
     }
     
-    func workouts(on date: Date) -> [Workout] {
-        if let workout = self.first(where: { $0.id == 1444 }) {
-            print(workout)
-        }
-        
+    func workouts(on date: Date) -> [Workout] {        
         return filter { workout in
             return date.inTimeZone(.utc, isSameDayAs: workout.createdAt, inTimeZone: .current)
         }

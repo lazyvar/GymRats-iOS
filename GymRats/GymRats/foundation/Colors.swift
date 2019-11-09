@@ -10,12 +10,13 @@ import UIKit
 
 extension UIColor {
     static let brand: UIColor = .hex("#D33A2C")
+    static let newWhite: UIColor = UIColor.init(red: 242.0/256.0, green: 242.0/256.0, blue: 247.0/256.0, alpha: 1.0)
     
     static var primaryText: UIColor {
        if #available(iOS 13.0, *) {
             return .label
         } else {
-            return .hex("#337ab7")
+            return .black
         }
     }
     
@@ -23,7 +24,31 @@ extension UIColor {
         if #available(iOS 13.0, *) {
             return .systemGray6
         } else {
+            return UIColor.init(red: 242.0/256.0, green: 242.0/256.0, blue: 247.0/256.0, alpha: 1.0)
+        }
+    }
+
+    static var foreground: UIColor {
+        if #available(iOS 13.0, *) {
+            if UIViewController().traitCollection.userInterfaceStyle == .dark {
+                return .systemGray5
+            } else {
+                return .white
+            }
+        } else {
             return .white
+        }
+    }
+    
+    static var shadow: UIColor {
+        if #available(iOS 13.0, *) {
+            if UIViewController().traitCollection.userInterfaceStyle == .dark {
+                return UIColor.black.withAlphaComponent(0.7)
+            } else {
+                return UIColor.gray.withAlphaComponent(0.7)
+            }
+        } else {
+            return UIColor.gray.withAlphaComponent(0.7)
         }
     }
 }

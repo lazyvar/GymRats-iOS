@@ -20,6 +20,8 @@ class TwerkoutCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        shadowView.layer.cornerRadius = 4
+        shadowView.clipsToBounds = true
         shadowView.isSkeletonable = true
         shadowView.startSkeletonAnimation()
         shadowView.showSkeleton()

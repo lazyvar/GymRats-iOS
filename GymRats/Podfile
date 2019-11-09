@@ -13,10 +13,7 @@ target 'GymRats' do
     pod 'MMDrawerController', '~> 0.5.7'
     pod 'SwiftDate', '~> 5.0'
     pod "AvatarImageView", '~> 2.2.0'
-    pod 'CVCalendar', '~> 1.6.2'
     pod 'GradientLoadingBar', '~> 1.0'
-    pod 'Eureka'
-    pod "RxEureka", "~> 0.2"
     pod 'Firebase/Core'
     pod 'Firebase/Storage'
     pod 'Cache'
@@ -31,6 +28,7 @@ target 'GymRats' do
     pod 'ESTabBarController-swift'
     pod 'NVActivityIndicatorView/AppExtension'
     pod "RxGesture"
+    pod 'Eureka'
 
      target 'GymRatsTests' do
         inherit! :search_paths

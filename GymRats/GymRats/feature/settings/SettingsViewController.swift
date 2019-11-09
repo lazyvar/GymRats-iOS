@@ -21,6 +21,8 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .background
+        
         setupBackButton()
         
         tableView.separatorInset = .zero
@@ -35,10 +37,12 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 36))
+        view.backgroundColor = .background
         
         let label = UILabel(frame: CGRect(x: 10, y: 8, width: tableView.frame.width, height: 18))
         label.font = .details
         label.textColor = .brand
+        label.backgroundColor = .clear
         
         switch section {
         case 0:
@@ -211,6 +215,9 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         }
         
         let theCell = cell!
+
+        theCell.backgroundColor = .foreground
+        
         theCell.isUserInteractionEnabled = true
         
         theCell.textLabel?.font = .body
