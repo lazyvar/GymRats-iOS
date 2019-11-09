@@ -31,7 +31,7 @@ class ChallengeViewController: UIViewController {
     @IBOutlet weak var challengeTitleLabel: UILabel! {
         didSet {
             challengeTitleLabel.font = .body
-            challengeTitleLabel.textColor = .white
+//            challengeTitleLabel.textColor = .white
             challengeTitleLabel.text = challenge.name
         }
     }
@@ -40,7 +40,7 @@ class ChallengeViewController: UIViewController {
         didSet {
             challengeDetailsLabel
                 .font = .details
-            challengeDetailsLabel.textColor = .white
+//            challengeDetailsLabel.textColor = .white
             challengeDetailsLabel.text = challenge.daysLeft
         }
     }
@@ -66,7 +66,7 @@ class ChallengeViewController: UIViewController {
     @IBOutlet weak var headerViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var headerView: UIView! {
         didSet {
-            headerView.backgroundColor = .firebrick
+            headerView.backgroundColor = .brand
             
             let tap = UITapGestureRecognizer(target: self, action: #selector(presentChallengeInfo))
             

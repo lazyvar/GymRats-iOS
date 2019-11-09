@@ -12,13 +12,12 @@ import RxSwift
 import RxCocoa
 import GradientLoadingBar
 import Eureka
-import RxEureka
 
 protocol CreateChallengeDelegate: class {
     func challengeCreated(challenge: Challenge)
 }
 
-class CreateChallengeViewController: FormViewController, Special {
+class CreateChallengeViewController: GRFormViewController, Special {
 
     weak var delegate: CreateChallengeDelegate?
     
@@ -29,16 +28,16 @@ class CreateChallengeViewController: FormViewController, Special {
     let endDate = BehaviorRelay<Date?>(value: nil)
     let photo = BehaviorRelay<UIImage?>(value: nil)
 
-    let submitButton: UIButton = .primary(text: "Start")
+    lazy var submitButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(createChallenge))
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = "Start Challenge"
-        view.backgroundColor = .white
-        
+        submitButton.tintColor = .brand
         LabelRow.defaultCellUpdate = nil
         
+        navigationItem.rightBarButtonItem = submitButton
         navigationItem.leftBarButtonItem = UIBarButtonItem (
             title: "Cancel",
             style: .plain,
@@ -50,10 +49,10 @@ class CreateChallengeViewController: FormViewController, Special {
             $0.title = "Name"
             $0.placeholder = "Super Rats"
         }.cellSetup { cell, _ in
-            cell.tintColor = .primary
             cell.textLabel?.font = .body
             cell.titleLabel?.font = .body
             cell.height = { return 48 }
+            cell.tintColor = .brand
             DispatchQueue.main.async {
                 cell.textField.becomeFirstResponder()
             }
@@ -61,10 +60,11 @@ class CreateChallengeViewController: FormViewController, Special {
         
         let pictureRow = ImageRow("photo") {
             $0.title = "Banner photo"
-            $0.placeholderImage = UIImage(named: "photo")
+            $0.placeholderImage = UIImage(named: "photo")?.withRenderingMode(.alwaysTemplate)
             $0.sourceTypes = [.Camera, .PhotoLibrary]
         }.cellSetup { cell, _ in
             cell.textLabel?.font = .body
+            cell.tintColor = .primaryText
             cell.height = { return 48 }
         }
         
@@ -73,6 +73,7 @@ class CreateChallengeViewController: FormViewController, Special {
             $0.title = "Start Date"
             $0.minimumDate = Date()
         }.cellSetup { cell, _ in
+            cell.tintColor = .brand
             cell.height = { return 48 }
         }
 
@@ -81,6 +82,7 @@ class CreateChallengeViewController: FormViewController, Special {
             $0.minimumDate = Date()
             $0.title = "End Date"
         }.cellSetup { cell, _ in
+            cell.tintColor = .brand
             cell.height = { return 48 }
         }
         
@@ -92,22 +94,7 @@ class CreateChallengeViewController: FormViewController, Special {
             cell.height = { return 48 }
         }
 
-        form +++ Section() {
-            let footerBuilder = { () -> UIView in
-                let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 48))
-                self.submitButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 48)
-                self.submitButton.layer.cornerRadius = 0
-                
-                container.addSubview(self.submitButton)
-                
-                return container
-            }
-            
-            var footer = HeaderFooterView<UIView>(.callback(footerBuilder))
-            footer.height = { 48 }
-            
-            $0.footer = footer
-        }
+        form +++ Section()
             <<< nameRow
             <<< startDateRow
             <<< endDateRow
@@ -134,13 +121,9 @@ class CreateChallengeViewController: FormViewController, Special {
             numberOfDayslabel.value = val
             numberOfDayslabel.reload()
         }).disposed(by: disposeBag)
-
-        submitButton.onTouchUpInside { [weak self] in
-            self?.createChallenge()
-        }.disposed(by: disposeBag)
     }
     
-    func createChallenge() {
+    @objc func createChallenge() {
         let difference = startDate.value!.getInterval(toDate: endDate.value!, component: .day)
 
         guard difference > 0 else {

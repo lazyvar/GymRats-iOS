@@ -12,7 +12,7 @@ public final class CVCalendarTouchController {
     fileprivate unowned let calendarView: CalendarView
     
     // MARK: - Properties
-    public var coordinator: Coordinator {
+    public var coordinator: CalendarCoordinator {
         return calendarView.coordinator
     }
     

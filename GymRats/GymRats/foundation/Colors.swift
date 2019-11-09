@@ -10,26 +10,52 @@ import UIKit
 
 extension UIColor {
     static let brand: UIColor = .hex("#D33A2C")
-    static let brandSecondary: UIColor = .hex("#FF5050")
-    static let dark: UIColor = .hex("#111111")
-    static let primary: UIColor = .hex("#337ab7")
-    static let eeeeee: UIColor = .hex("#EEEEEE")
-    // static let brandDark: UIColor = .hex("#292929")
-    static let perfect: UIColor = .hex("#6dcafd")
-    static let whiteSmoke: UIColor = .hex("#f5f5f5")
-    static let fog: UIColor = .hex("#9B9B9B")
-    static let firebrick: UIColor = .hex("#D33A2C")
-    static let charcoal: UIColor = .hex("#4A4A4A")
-    static let incomingGray = UIColor(red: 230/255, green: 230/255, blue: 235/255, alpha: 1.0)
+    static let newWhite: UIColor = UIColor.init(red: 242.0/256.0, green: 242.0/256.0, blue: 247.0/256.0, alpha: 1.0)
+    
+    static var primaryText: UIColor {
+       if #available(iOS 13.0, *) {
+            return .label
+        } else {
+            return .black
+        }
+    }
+    
+    static var background: UIColor {
+        if #available(iOS 13.0, *) {
+            return .systemGray6
+        } else {
+            return UIColor.init(red: 242.0/256.0, green: 242.0/256.0, blue: 247.0/256.0, alpha: 1.0)
+        }
+    }
+
+    static var foreground: UIColor {
+        if #available(iOS 13.0, *) {
+            if UIViewController().traitCollection.userInterfaceStyle == .dark {
+                return .systemGray5
+            } else {
+                return .white
+            }
+        } else {
+            return .white
+        }
+    }
+    
+    static var shadow: UIColor {
+        if #available(iOS 13.0, *) {
+            if UIViewController().traitCollection.userInterfaceStyle == .dark {
+                return UIColor.black.withAlphaComponent(0.7)
+            } else {
+                return UIColor.gray.withAlphaComponent(0.7)
+            }
+        } else {
+            return UIColor.gray.withAlphaComponent(0.7)
+        }
+    }
 }
 
 extension UIImage {
     static let brand = UIImage(color: .brand)
-    static let primary = UIImage(color: .primary)
-    static let whiteSmoke = UIImage(color: .whiteSmoke)
-    static let charcoal = UIImage(color: .charcoal)
-    static let fog = UIImage(color: .fog)
-    static let firebrick = UIImage(color: .firebrick)
+    static let primaryText = UIImage(color: .primaryText)
 }
 
 extension UIColor {

@@ -28,10 +28,8 @@ class ProfileChangeController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .background
         edgesForExtendedLayout = .bottom
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardToggled(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardToggled(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapp))
         tap.numberOfTapsRequired = 1
@@ -39,27 +37,8 @@ class ProfileChangeController: UIViewController, UITextFieldDelegate {
         view.addGestureRecognizer(tap)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
     @objc func tapp() {
         view.endEditing(true)
-    }
-    
-    @objc func keyboardToggled(notification: Notification) {
-        let userInfo = notification.userInfo!
-        let animationDuration = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-        let keyboardFrame = userInfo[(UIResponder.keyboardFrameEndUserInfoKey)] as! NSValue
-        let keyboardRectangle = keyboardFrame.cgRectValue
-        let keyboardHeight = keyboardRectangle.height
-        
-        UIView.animate(withDuration: animationDuration, delay: 0.0, options: .curveLinear, animations: {
-            self.saveButton.frame = CGRect(x: 0, y: self.view.frame.height - keyboardHeight - 44 - 20, width: self.view.frame.width, height: 44)
-        }, completion: nil)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -68,8 +47,6 @@ class ProfileChangeController: UIViewController, UITextFieldDelegate {
     }
     
     func setup() {
-        view.backgroundColor = .whiteSmoke
-        
         textField.delegate = self
         
         view.addSubview(detailLabel)
@@ -80,14 +57,13 @@ class ProfileChangeController: UIViewController, UITextFieldDelegate {
         view.addConstraintsWithFormat(format: "V:|-8-[v0(60)]", views: detailLabel)
         
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: textField)
-        view.addConstraintsWithFormat(format: "V:|-76-[v0(44)]", views: textField)
+        view.addConstraintsWithFormat(format: "V:|-76-[v0(44)][v1(48)]", views: textField, saveButton)
         
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: saveButton)
-        view.addConstraintsWithFormat(format: "V:[v0(44)]-20-|", views: saveButton)
         
         switch change {
         case .email:
-            detailLabel.text = "Your email can be used for password recovery"
+            detailLabel.text = "Your email can be used for password recovery."
             textField.text = GymRatsApp.coordinator.currentUser.email
             textField.placeholder = "Enter email"
             navigationItem.title = "Email"
@@ -142,28 +118,27 @@ class ProfileChangeController: UIViewController, UITextFieldDelegate {
         label.font = .body
         label.textAlignment = .center
         label.numberOfLines = 3
-        label.textColor = UIColor.black
         
         return label
     }()
     
     let saveButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .primary
-        button.setTitle("Save", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.setTitleColor(UIColor.black, for: .highlighted)
-        
+        button.setTitle("SAVE", for: .normal)
+        button.setTitleColor(UIColor.newWhite, for: .normal)
+        button.setTitleColor(UIColor.newWhite, for: .highlighted)
+        button.setBackgroundImage(.init(color: .greenSea), for: .normal)
+        button.setBackgroundImage(.init(color: UIColor.greenSea.darker), for: .highlighted)
+
         return button
     }()
     
     let textField: OHTextField = {
         let text = OHTextField()
         text.font = .body
-        text.textColor = UIColor.black
-        text.backgroundColor = UIColor.white
         text.autocorrectionType = .no
         text.returnKeyType = .done
+        text.backgroundColor = .foreground
         
         return text
     }()

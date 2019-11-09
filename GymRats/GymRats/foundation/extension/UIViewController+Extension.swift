@@ -48,10 +48,10 @@ extension UIViewController {
         if self is Special {
             let center = view.center
             let thing = NVActivityIndicatorView(frame: CGRect(x: center.x-50, y: center.y-150, width: 100, height: 100), type: .ballPulseSync, color: .brand, padding: 20)
-            thing.backgroundColor = UIColor.white
+            thing.backgroundColor = UIColor.init(red: 229.0/256.0, green: 229.0/256.0, blue: 234.0/256.0, alpha: 1.0)
             thing.layer.cornerRadius = 10
             thing.layer.shadowRadius = 7
-            thing.layer.shadowColor = UIColor.gray.withAlphaComponent(0.7).cgColor
+            thing.layer.shadowColor = UIColor.shadow.cgColor
             thing.layer.shadowOffset = CGSize(width: 0, height: 0)
             thing.layer.shadowOpacity = 0.5
 
@@ -66,7 +66,7 @@ extension UIViewController {
             UIApplication.shared.beginIgnoringInteractionEvents()
             
             let dimView = UIView()
-            view.backgroundColor = UIColor.fog.withAlphaComponent(0.3)
+            //view.backgroundColor = UIColor.fog.withAlphaComponent(0.3)
             view.tag = 333
             
             UIApplication.shared.keyWindow?.addSubview(dimView)

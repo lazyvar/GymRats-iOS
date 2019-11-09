@@ -18,7 +18,7 @@ class MenuTableViewCell: UITableViewCell {
         
         userImageView.backgroundColor = .clear
         titleLabel.font = .bodyBold
-        self.backgroundColor = .firebrick
+        self.backgroundColor = .brand
         titleLabel.textColor = .white
     }
     

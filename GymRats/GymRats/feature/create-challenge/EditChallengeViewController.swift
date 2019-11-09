@@ -12,14 +12,13 @@ import RxSwift
 import RxCocoa
 import GradientLoadingBar
 import Eureka
-import RxEureka
 import Kingfisher
 
 protocol EditChallengeDelegate: class {
     func challengeEdited(challenge: Challenge)
 }
 
-class EditChallengeViewController: FormViewController, Special {
+class EditChallengeViewController: GRFormViewController, Special {
     
     let challenge: Challenge
     
@@ -42,16 +41,17 @@ class EditChallengeViewController: FormViewController, Special {
     let endDate = BehaviorRelay<Date?>(value: nil)
     let photo = BehaviorRelay<UIImage?>(value: nil)
     
-    let submitButton: UIButton = .primary(text: "Submit")
-    
+    lazy var submitButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(editChallenge))
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Edit Challenge"
-        view.backgroundColor = .white
+        view.backgroundColor = .background
         
         LabelRow.defaultCellUpdate = nil
         
+        navigationItem.rightBarButtonItem = submitButton
         navigationItem.leftBarButtonItem = UIBarButtonItem (
             title: "Cancel",
             style: .plain,
@@ -64,14 +64,19 @@ class EditChallengeViewController: FormViewController, Special {
             $0.placeholder = "Beast Rats"
             $0.value = challenge.name
         }.cellSetup { cell, _ in
-            cell.tintColor = .primary
+            cell.tintColor = .primaryText
             cell.textLabel?.font = .body
             cell.titleLabel?.font = .body
+            cell.height = { return 48 }
+            cell.tintColor = .brand
+            DispatchQueue.main.async {
+                cell.textField.becomeFirstResponder()
+            }
         }
         
         let pictureRow = ImageRow("photo") {
             $0.title = "Picture"
-            $0.placeholderImage = UIImage(named: "photo")
+            $0.placeholderImage = UIImage(named: "photo")?.withRenderingMode(.alwaysTemplate)
             $0.sourceTypes = [.Camera, .PhotoLibrary]
             
             if let pic = challenge.profilePictureUrl {
@@ -79,6 +84,8 @@ class EditChallengeViewController: FormViewController, Special {
             }
         }.cellSetup { cell, _ in
             cell.textLabel?.font = .body
+            cell.tintColor = .primaryText
+            cell.height = { return 48 }
         }
         
         let dateFormatter = DateFormatter()
@@ -91,6 +98,8 @@ class EditChallengeViewController: FormViewController, Special {
             $0.dateFormatter = dateFormatter
         }.cellSetup { cell, row in
             cell.datePicker.timeZone = .utc
+            cell.tintColor = .brand
+            cell.height = { return 48 }
         }
         
         let endDateRow = DateRow() {
@@ -100,6 +109,8 @@ class EditChallengeViewController: FormViewController, Special {
             $0.dateFormatter = dateFormatter
         }.cellSetup { cell, row in
             cell.datePicker.timeZone = .utc
+            cell.tintColor = .brand
+            cell.height = { return 48 }
         }
         
         let numberOfDayslabel = LabelRow() {
@@ -107,24 +118,10 @@ class EditChallengeViewController: FormViewController, Special {
             $0.value = "30"
         }.cellSetup { cell, _ in
             cell.textLabel?.font = .body
+            cell.height = { return 48 }
         }
         
-        form +++ Section() {
-            let footerBuilder = { () -> UIView in
-                let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
-                self.submitButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40)
-                self.submitButton.layer.cornerRadius = 0
-                
-                container.addSubview(self.submitButton)
-                
-                return container
-            }
-            
-            var footer = HeaderFooterView<UIView>(.callback(footerBuilder))
-                footer.height = { 40 }
-            
-                $0.footer = footer
-            }
+        form +++ Section()
             <<< nameRow
             <<< startDateRow
             <<< endDateRow
@@ -151,13 +148,9 @@ class EditChallengeViewController: FormViewController, Special {
             numberOfDayslabel.value = val
             numberOfDayslabel.reload()
         }).disposed(by: disposeBag)
-        
-        submitButton.onTouchUpInside { [weak self] in
-            self?.createChallenge()
-        }.disposed(by: disposeBag)
     }
 
-    func createChallenge() {
+    @objc func editChallenge() {
         let difference = startDate.value!.getInterval(toDate: endDate.value!, component: .day)
         
         guard difference > 0 else {

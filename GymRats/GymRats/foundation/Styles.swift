@@ -13,6 +13,7 @@ func roundedStyle(cornerRadius: CGFloat = 4) -> ((UIView) -> UIView) {
         view.clipsToBounds = true
         view.layer.masksToBounds = true
         view.layer.cornerRadius = cornerRadius
+        view.layer.borderWidth = 0
         
         return view
     }
@@ -34,12 +35,12 @@ extension UIButton {
         var button = UIButton()
         button.setTitle(text, for: .normal)
         button = baseButtonStyle()(button)
-        button.setTitleColor(.whiteSmoke, for: .normal)
-        button.setTitleColor(.charcoal, for: .highlighted)
-        button.setBackgroundImage(.primary, for: .normal)
-        button.setBackgroundImage(.primary, for: .highlighted)
-        button.setTitleColor(.whiteSmoke, for: .disabled)
-        button.setBackgroundImage(.charcoal, for: .disabled)
+        button.setTitleColor(UIColor.newWhite, for: .normal)
+        button.setTitleColor(UIColor.newWhite, for: .highlighted)
+        button.setTitleColor(UIColor.gray, for: .disabled)
+        button.setBackgroundImage(.init(color: .greenSea), for: .normal)
+        button.setBackgroundImage(.init(color: UIColor.greenSea.darker), for: .highlighted)
+        button.setBackgroundImage(.init(color: UIColor.greenSea.darker), for: .disabled)
         
         return button
     }
@@ -48,24 +49,11 @@ extension UIButton {
         var button = UIButton()
         button = baseButtonStyle()(button)
         button.setTitle(text, for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.setTitleColor(.whiteSmoke, for: .highlighted)
-        button.setBackgroundImage(UIImage(color: .white), for: .normal)
-        button.setBackgroundImage(.fog, for: .highlighted)
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.fog.withAlphaComponent(0.5).cgColor
-        
-        return button
-    }
+        button.setTitleColor(UIColor.primaryText, for: .normal)
+        button.setTitleColor(UIColor.primaryText.darker, for: .highlighted)
+        button.setBackgroundImage(.init(color: .foreground), for: .normal)
+        button.setBackgroundImage(.init(color: UIColor.foreground.darker), for: .highlighted)
 
-    static func danger(text: String) -> UIButton {
-        var button = UIButton()
-        button.setTitle(text, for: .normal)
-        button.setTitleColor(.charcoal, for: .normal)
-        button.setTitleColor(.whiteSmoke, for: .highlighted)
-        button.setBackgroundImage(.firebrick, for: .normal)
-        button = baseButtonStyle()(button)
-        
         return button
     }
 

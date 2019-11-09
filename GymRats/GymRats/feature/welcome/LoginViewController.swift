@@ -10,19 +10,29 @@ import UIKit
 import RxSwift
 import Eureka
 
-class LoginViewController: FormViewController, Special {
+class LoginViewController: GRFormViewController, Special {
     
     let disposeBag = DisposeBag()
     
     let loginButton: UIButton = .primary(text: "Log in")
     let resetPasswordButton: UIButton = .secondary(text: "Reset password")
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Login"
+        
         form = form +++ section <<< emailRow <<< passwordRow
         
+        tableView.backgroundColor = .background
         setupBackButton()
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem (
+            title: "Back",
+            style: .plain,
+            target: self,
+            action: #selector(UIViewController.dismissSelf)
+        )
         
         loginButton.onTouchUpInside { [weak self] in
             self?.login()
@@ -98,6 +108,11 @@ class LoginViewController: FormViewController, Special {
             cell.textField.font = .body
             cell.textLabel?.font = .body
             cell.textField.autocapitalizationType = .none
+            cell.tintColor = .brand
+            cell.height = { return 48 }
+            DispatchQueue.main.async {
+                cell.textField.becomeFirstResponder()
+            }
         })
     }()
     
@@ -108,6 +123,8 @@ class LoginViewController: FormViewController, Special {
         }.cellSetup({ (cell, row) in
             cell.textField.font = .body
             cell.textLabel?.font = .body
+            cell.tintColor = .brand
+            cell.height = { return 48 }
         })
     }()
     

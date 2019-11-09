@@ -34,17 +34,14 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     }
     
     func start() {
+        UINavigationBar.appearance().barTintColor = .primaryText
+        UINavigationBar.appearance().tintColor = .background
+
         if let user = loadCurrentUser() {
-            // show home
             login(user: user)
             registerForNotifications(on: application)
         } else {
-            // show login/signup
-            // TODO
-            let nav = GRNavigationController(rootViewController: WelcomeViewController())
-            nav.navigationBar.turnSolidWhiteSlightShadow()
-            
-            window.rootViewController = nav
+            window.rootViewController = WelcomeViewController().inNav()
         }
         
         window.makeKeyAndVisible()
@@ -162,7 +159,6 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         
         let home = HomeViewController()
         let centerViewController = GRNavigationController(rootViewController: home)
-        home.view.backgroundColor = .white
         
         drawer = MMDrawerController(center: centerViewController, leftDrawerViewController: menu)
         drawer.showsShadow = false
@@ -262,9 +258,15 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         tabBarController.viewControllers = [v1, v2, v3]
         tabBarController.selectedIndex = 1
         tabBarController.tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
-        tabBarController.tabBar.layer.shadowRadius = 8
-        tabBarController.tabBar.layer.shadowColor = UIColor.gray.withAlphaComponent(0.7).cgColor
+        tabBarController.tabBar.layer.shadowRadius = 10
+        tabBarController.tabBar.layer.shadowColor = UIColor.shadow.cgColor
         tabBarController.tabBar.layer.shadowOpacity = 0.5
+        tabBarController.tabBar.barTintColor = .background
+        
+        let pxwhiteThing = UIView(frame: CGRect(x: 0, y: -1, width: tabBarController.tabBar.frame.width, height: 1))
+        pxwhiteThing.backgroundColor = .background
+        tabBarController.tabBar.addSubview(pxwhiteThing)
+        tabBarController.tabBar.sendSubviewToBack(pxwhiteThing)
         
         self.tabBarViewController = tabBarController
         

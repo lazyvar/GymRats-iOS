@@ -41,12 +41,12 @@ class UpcomingChallengeViewController: UICollectionViewController, Special {
 
         chatItem.tintColor = .lightGray
         let dummyView = UIView(frame: CGRect(x: 0, y: -view.frame.height, width: view.frame.width, height: view.frame.height))
-        dummyView.backgroundColor = .firebrick
+        dummyView.backgroundColor = .brand
         
         collectionView.addSubview(dummyView)
         
-        view.backgroundColor = .white
-        collectionView.backgroundColor = .white
+//        view.backgroundColor = .white
+//        collectionView.backgroundColor = .white
 
         let layout = UICollectionViewFlowLayout()
         let spacing: CGFloat = 10
@@ -62,7 +62,7 @@ class UpcomingChallengeViewController: UICollectionViewController, Special {
         collectionView.isScrollEnabled = true
         collectionView.alwaysBounceVertical = true
         
-        refreshControl.tintColor = .white
+//        refreshControl.tintColor = .white
         refreshControl.addTarget(self, action: #selector(fetchUsers), for: .valueChanged)
 
         collectionView.register(UINib(nibName: "UpcomingCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "UpcomingCell")

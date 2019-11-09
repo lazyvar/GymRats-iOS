@@ -28,14 +28,13 @@ class WelcomeViewController: UIViewController {
         super.viewDidLoad()
         
         setupBackButton()
-        
-        view.backgroundColor = .whiteSmoke
+                
+        view.backgroundColor = .background
         
         let logoBackground = UIView()
         logoBackground.backgroundColor = .brand
         
         let text = UILabel()
-        text.textColor = .dark
         text.font = .h2
         text.text = "Welcome to GymRats."
         text.textAlignment = .center
@@ -57,11 +56,11 @@ class WelcomeViewController: UIViewController {
         view.addConstraintsWithFormat(format: "H:|-64-[v0]-64-|", views: signUpButton)
 
         loginButton.onTouchUpInside { [weak self] in
-            self?.push(LoginViewController())
+            self?.present(LoginViewController().inNav(), animated: true, completion: nil)
         }.disposed(by: disposeBag)
         
         signUpButton.onTouchUpInside { [weak self] in
-            self?.push(SignUpViewController())
+            self?.present(SignUpViewController().inNav(), animated: true, completion: nil)
         }.disposed(by: disposeBag)
     }
     

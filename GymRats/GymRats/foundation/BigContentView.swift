@@ -15,8 +15,8 @@ class BigContentView: ESTabBarItemContentView {
         super.init(frame: frame)
         
         self.imageView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        self.imageView.layer.shadowRadius = 8
-        self.imageView.layer.shadowColor = UIColor.gray.withAlphaComponent(0.7).cgColor
+        self.imageView.layer.shadowRadius = 10
+        self.imageView.layer.shadowColor = UIColor.shadow.cgColor
         self.imageView.layer.shadowOpacity = 0.5
         
         self.imageView.backgroundColor = .brand

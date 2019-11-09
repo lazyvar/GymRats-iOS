@@ -14,8 +14,9 @@ class AboutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .background
+        
         setupMenuButton()
-        view.backgroundColor = .white
         title = "About"
         
         let text = """
@@ -36,7 +37,7 @@ class AboutViewController: UIViewController {
             
         label.font = .body
         label.textAlignment = .left
-        label.textColor = .dark
+        label.textColor = .primaryText
         label.lineSpacing = 2
         label.numberOfLines = 0
         label.isUserInteractionEnabled = true

@@ -17,7 +17,7 @@ class UpcomingChallengeCollectionReusableView: UICollectionReusableView {
     @IBOutlet weak var joinLabel: UILabel!
     @IBOutlet weak var leaveChallenge: UIButton! {
         didSet {
-            leaveChallenge.backgroundColor = .white
+//            leaveChallenge.backgroundColor = .white
             leaveChallenge.setTitle("Leave Challenge", for: .normal)
             leaveChallenge.setTitleColor(.black, for: .normal)
             leaveChallenge.titleLabel?.font = .body
@@ -42,7 +42,7 @@ class UpcomingChallengeCollectionReusableView: UICollectionReusableView {
         titleLabel.font = .bigAndBlack
         dateLabel.font = .body
         joinLabel.font = .body
-        backgroundColor = .firebrick
+        backgroundColor = .brand
     }
     
 }

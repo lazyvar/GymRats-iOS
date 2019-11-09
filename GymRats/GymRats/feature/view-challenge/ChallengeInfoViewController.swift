@@ -117,9 +117,9 @@ class ChallengeInfoViewController: UITableViewController {
         }
 
         let leaveChallengeButton = UIButton()
-        leaveChallengeButton.backgroundColor = .firebrick
+        leaveChallengeButton.backgroundColor = .brand
         leaveChallengeButton.setTitle("Leave Challenge", for: .normal)
-        leaveChallengeButton.setTitleColor(.white, for: .normal)
+//        leaveChallengeButton.setTitleColor(.white, for: .normal)
         leaveChallengeButton.titleLabel?.font = .body
         leaveChallengeButton.layer.cornerRadius = 8
         leaveChallengeButton.clipsToBounds = true

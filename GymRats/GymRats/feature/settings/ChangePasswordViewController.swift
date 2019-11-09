@@ -10,17 +10,18 @@ import UIKit
 import Eureka
 import RxSwift
 
-class ChangePasswordController: FormViewController {
+class ChangePasswordController: GRFormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView?.backgroundColor = .background
+        view.backgroundColor = .background
         tableView?.separatorStyle = .none
         navigationItem.title = "Password"
         
         LabelRow.defaultCellUpdate = { cell, row in
-            cell.contentView.backgroundColor = .firebrick
-            cell.textLabel?.textColor = .white
+            cell.contentView.backgroundColor = .brand
             cell.textLabel?.font = .body
             cell.textLabel?.textAlignment = .right
         }
@@ -33,7 +34,6 @@ class ChangePasswordController: FormViewController {
                     label.font = .body
                     label.textAlignment = .center
                     label.numberOfLines = 3
-                    label.textColor = UIColor.black
                     label.text = "Password must be between 6 and 16 characters long."
                     
                     container.addSubview(label)
@@ -52,9 +52,11 @@ class ChangePasswordController: FormViewController {
                     
                     let signUpButton = UIButton(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 44))
                     signUpButton.titleLabel?.font = .body
-                    signUpButton.setTitle("Save", for: .normal)
-                    signUpButton.setTitleColor(UIColor.white, for: .normal)
-                    signUpButton.backgroundColor = .primary
+                    signUpButton.setTitle("SAVE", for: .normal)
+                    signUpButton.setTitleColor(UIColor.newWhite, for: .normal)
+                    signUpButton.setTitleColor(UIColor.newWhite, for: .highlighted)
+                    signUpButton.setBackgroundImage(.init(color: .greenSea), for: .normal)
+                    signUpButton.setBackgroundImage(.init(color: UIColor.greenSea.darker), for: .highlighted)
                     signUpButton.addTarget(self, action: #selector(self.doSave), for: .touchUpInside)
                     
                     container.addSubview(signUpButton)
@@ -74,22 +76,11 @@ class ChangePasswordController: FormViewController {
                 }.cellSetup({ (cell, row) in
                     cell.textField.font = .body
                     cell.textLabel?.font = .body
+                    cell.backgroundColor = .foreground
+                    cell.tintColor = .brand
                 })
-                .onRowValidationChanged { cell, row in
-                    let rowIndex = row.indexPath!.row
-                    while row.section!.count > rowIndex + 1 && row.section?[rowIndex  + 1] is LabelRow {
-                        row.section?.remove(at: rowIndex + 1)
-                    }
-                    if !row.isValid {
-                        for (index, validationMsg) in row.validationErrors.map({ $0.msg }).enumerated() {
-                            let labelRow = LabelRow() {
-                                $0.title = validationMsg
-                                $0.cell.height = { 30 }
-                            }
-                            row.section?.insert(labelRow, at: row.indexPath!.row + index + 1)
-                        }
-                    }
-            }
+                .onRowValidationChanged(self.handleRowValidationChange)
+
             
             <<< PasswordRow() {
                 $0.title = "New password"
@@ -101,22 +92,11 @@ class ChangePasswordController: FormViewController {
                 }.cellSetup({ (cell, row) in
                     cell.textField.font = .body
                     cell.textLabel?.font = .body
+                    cell.backgroundColor = .foreground
+                    cell.tintColor = .brand
                 })
-                .onRowValidationChanged { cell, row in
-                    let rowIndex = row.indexPath!.row
-                    while row.section!.count > rowIndex + 1 && row.section?[rowIndex  + 1] is LabelRow {
-                        row.section?.remove(at: rowIndex + 1)
-                    }
-                    if !row.isValid {
-                        for (index, validationMsg) in row.validationErrors.map({ $0.msg }).enumerated() {
-                            let labelRow = LabelRow() {
-                                $0.title = validationMsg
-                                $0.cell.height = { 30 }
-                            }
-                            row.section?.insert(labelRow, at: row.indexPath!.row + index + 1)
-                        }
-                    }
-            }
+                .onRowValidationChanged(self.handleRowValidationChange)
+
             
             <<< PasswordRow() {
                 $0.title = "Confirm new password"
@@ -126,25 +106,37 @@ class ChangePasswordController: FormViewController {
                 }.cellSetup({ (cell, row) in
                     cell.textField.font = .body
                     cell.textLabel?.font = .body
+                    cell.backgroundColor = .foreground
+                    cell.tintColor = .brand
                 })
-                .onRowValidationChanged { cell, row in
-                    let rowIndex = row.indexPath!.row
-                    while row.section!.count > rowIndex + 1 && row.section?[rowIndex  + 1] is LabelRow {
-                        row.section?.remove(at: rowIndex + 1)
-                    }
-                    if !row.isValid {
-                        for (index, validationMsg) in row.validationErrors.map({ $0.msg }).enumerated() {
-                            let labelRow = LabelRow() {
-                                $0.title = validationMsg
-                                $0.cell.height = { 30 }
-                            }
-                            row.section?.insert(labelRow, at: row.indexPath!.row + index + 1)
-                        }
-                    }
-        }
+                .onRowValidationChanged(self.handleRowValidationChange)
+
     }
     
     let disposeBag = DisposeBag()
+    
+    func handleRowValidationChange(cell: UITableViewCell, passwordRow: PasswordRow) {
+        guard let textRowNumber = passwordRow.indexPath?.row, var section = passwordRow.section else { return }
+        
+        // remove existing validations labels
+        let validationLabelRowNumber = textRowNumber + 1
+        while validationLabelRowNumber < section.count && section[validationLabelRowNumber] is LabelRow {
+            section.remove(at: validationLabelRowNumber)
+        }
+        
+        // show label row for every validation message
+        if !passwordRow.isValid {
+            for (index, validationMessage) in passwordRow.validationErrors.map({ $0.msg }).enumerated() {
+                let labelRow = LabelRow() {
+                    $0.title = validationMessage
+                    $0.cell.height = { 30 }
+                }
+                
+                section.insert(labelRow, at: validationLabelRowNumber + index)
+            }
+        }
+    }
+
     
     @objc func doSave() {
         guard form.validate().count == 0 else {

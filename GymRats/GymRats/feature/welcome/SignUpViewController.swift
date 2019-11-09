@@ -11,7 +11,7 @@ import RxSwift
 import Eureka
 import TTTAttributedLabel
 
-class SignUpViewController: FormViewController, Special {
+class SignUpViewController: GRFormViewController, Special {
     
     let disposeBag = DisposeBag()
     
@@ -20,11 +20,21 @@ class SignUpViewController: FormViewController, Special {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Signup"
+        
+        tableView.backgroundColor = .background
         setupBackButton()
         
+        navigationItem.leftBarButtonItem = UIBarButtonItem (
+            title: "Back",
+            style: .plain,
+            target: self,
+            action: #selector(UIViewController.dismissSelf)
+        )
+        
         LabelRow.defaultCellUpdate = { cell, row in
-            cell.contentView.backgroundColor = .firebrick
-            cell.textLabel?.textColor = .white
+            cell.contentView.backgroundColor = .brand
+            cell.textLabel?.textColor = .newWhite
             cell.textLabel?.font = .details
             cell.textLabel?.textAlignment = .right
         }
@@ -68,8 +78,11 @@ class SignUpViewController: FormViewController, Special {
         return ImageRow() { imageRow in
             imageRow.title = "Profile Picture"
             imageRow.tag = "proPic"
-            imageRow.placeholderImage = UIImage(named: "photo")
+            imageRow.placeholderImage = UIImage(named: "photo")?.withRenderingMode(.alwaysTemplate)
             imageRow.sourceTypes = [.Camera, .PhotoLibrary]
+        }.cellSetup { cell, _ in
+            cell.tintColor = .primaryText
+            cell.height = { return 48 }
         }
     }()
     
@@ -166,16 +179,25 @@ extension SignUpViewController {
     func standardCellSetup(textCell: TextCell, textRow: TextRow) {
         textCell.textField.font = .body
         textCell.textLabel?.font = .body
+        textCell.tintColor = .brand
+        textCell.height = { return 48 }
     }
     
     func standardCellSetup(passwordCell: PasswordCell, passwordRow: PasswordRow) {
         passwordCell.textField.font = .body
         passwordCell.textLabel?.font = .body
+        passwordCell.tintColor = .brand
+        passwordCell.height = { return 48 }
     }
     
     func standardCellSetup(emailCell: EmailCell, emailRow: EmailRow) {
         emailCell.textField.font = .body
         emailCell.textLabel?.font = .body
+        emailCell.tintColor = .brand
+        emailCell.height = { return 48 }
+        DispatchQueue.main.async {
+            emailCell.textField.becomeFirstResponder()
+        }
     }
     
     func handleRowValidationChange(cell: UITableViewCell, textRow: TextRow) {

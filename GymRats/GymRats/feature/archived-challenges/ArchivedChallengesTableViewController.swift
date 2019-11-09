@@ -16,21 +16,20 @@ class ArchivedChallengesTableViewController: UITableViewController {
     
     let disposeBag = DisposeBag()
     let refresher = UIRefreshControl()
-    let retryButton: UIButton = .danger(text: "Retry")
+    let retryButton: UIButton = .secondary(text: "Retry")
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SFProRounded-Bold", size: 30)!]
+        view.backgroundColor = .background
         
+        navigationController?.navigationBar.largeTitleTextAttributes = [
+            NSAttributedString.Key.font: UIFont(name: "SFProRounded-Bold", size: 30)!
+        ]
+        navigationController?.navigationBar.barTintColor = .background
         navigationController?.navigationBar.prefersLargeTitles = true
-        view.backgroundColor = .white
-        navigationController?.navigationBar.backgroundColor = .white
         tableView.separatorStyle = .none
-        navigationController?.navigationBar.barTintColor = .white
-        navigationController?.view.backgroundColor = UIColor.white
         
-        view.backgroundColor = .white
         navigationItem.title = "Completed"
         
         setupMenuButton()
@@ -75,11 +74,15 @@ class ArchivedChallengesTableViewController: UITableViewController {
             let cell = UITableViewCell()
             cell.textLabel?.text = "No challenges completed yet."
             cell.selectionStyle = .none
+            cell.backgroundColor = .clear
             
             return cell
         }
+      
+      
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChallengeCell") as! UserWorkoutTableViewCell
+        cell.backgroundColor = .clear
         let challenge = challenges[indexPath.row]
         
         cell.challenge = challenge

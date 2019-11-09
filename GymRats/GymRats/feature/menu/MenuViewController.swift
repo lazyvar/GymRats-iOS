@@ -23,7 +23,6 @@ class MenuViewController: UITableViewController {
         let label = UILabel()
         label.font = .body
         label.textAlignment = .center
-        label.textColor = .dark
         
         return label
     }()
@@ -38,7 +37,7 @@ class MenuViewController: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "NormalCell")
         tableView.register(UINib(nibName: "UserProfileMenuTableViewCell", bundle: nil), forCellReuseIdentifier: "UserProfile")
         tableView.register(UINib(nibName: "MenuTableViewCell", bundle: nil), forCellReuseIdentifier: "ChallengeCell")
-        tableView.backgroundColor = .firebrick
+        tableView.backgroundColor = .brand
     }
     
     @objc func gotoCurrentUserProfile() {
@@ -65,7 +64,7 @@ extension MenuViewController {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
-        view.backgroundColor = .firebrick
+        view.backgroundColor = .brand
         
         if section == 2 {
             view.constrainHeight(20)
@@ -190,10 +189,9 @@ extension MenuViewController {
         } else if indexPath.section == 2 {
             switch indexPath.row {
             case 0:
-                let archived = ArchivedChallengesTableViewController()
+                let archived = ArchivedChallengesTableViewController().inNav()
                 
-                let nav = GRNavigationController(rootViewController: archived)
-                GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+                GymRatsApp.coordinator.drawer.setCenterView(archived, withCloseAnimation: true, completion: nil)
             case 1:
                 JoinChallenge.presentJoinChallengeModal(on: self)
                     .subscribe(onNext: { _ in
