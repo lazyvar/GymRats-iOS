@@ -27,7 +27,7 @@ class ShareCodeViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Invite"
-        
+        view.backgroundColor = .background
         let closeButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(close))
         
         navigationItem.rightBarButtonItem = closeButton
@@ -58,12 +58,10 @@ class ShareCodeViewController: UIViewController {
         button.layer.cornerRadius = 4
         button.contentEdgeInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         button.titleLabel?.font = .h4
-//        button.setTitleColor(.whiteSmoke, for: .normal)
-//        button.setTitleColor(.charcoal, for: .highlighted)
-//        button.setBackgroundImage(.primary, for: .normal)
-//        button.setBackgroundImage(.primary, for: .highlighted)
-//        button.setTitleColor(.whiteSmoke, for: .disabled)
-//        button.setBackgroundImage(.charcoal, for: .disabled)
+        button.setTitleColor(UIColor.primaryText, for: .normal)
+        button.setTitleColor(UIColor.primaryText.darker, for: .highlighted)
+        button.setBackgroundImage(.init(color: .foreground), for: .normal)
+        button.setBackgroundImage(.init(color: UIColor.foreground.darker), for: .highlighted)
     }
 
     @objc func close() {

@@ -464,7 +464,7 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = UITableViewCell()
         cell.textLabel?.text = "  None posted yet. "
         cell.selectionStyle = .none
-        
+        cell.backgroundColor = .clear
         return cell
     }
 

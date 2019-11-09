@@ -76,7 +76,7 @@ class EditChallengeViewController: GRFormViewController, Special {
         
         let pictureRow = ImageRow("photo") {
             $0.title = "Picture"
-            $0.placeholderImage = UIImage(named: "photo")
+            $0.placeholderImage = UIImage(named: "photo")?.withRenderingMode(.alwaysTemplate)
             $0.sourceTypes = [.Camera, .PhotoLibrary]
             
             if let pic = challenge.profilePictureUrl {

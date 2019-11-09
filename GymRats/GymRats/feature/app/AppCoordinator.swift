@@ -36,23 +36,12 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     func start() {
         UINavigationBar.appearance().barTintColor = .primaryText
         UINavigationBar.appearance().tintColor = .background
-//        UINavigationBar.appearance().titleTextAttributes = [
-//            NSAttributedString.Key.backgroundColor: UIColor.background,
-//            NSAttributedString.Key.foregroundColor: UIColor.primaryText,
-//            NSAttributedString.Key.font: UIFont(name: "SFProRounded-Bold", size: 30)!
-//        ]
 
         if let user = loadCurrentUser() {
-            // show home
             login(user: user)
             registerForNotifications(on: application)
         } else {
-            // show login/signup
-            // TODO
-            let nav = GRNavigationController(rootViewController: WelcomeViewController())
-            nav.navigationBar.turnSolidWhiteSlightShadow()
-            
-            window.rootViewController = nav
+            window.rootViewController = WelcomeViewController().inNav()
         }
         
         window.makeKeyAndVisible()
@@ -170,7 +159,6 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         
         let home = HomeViewController()
         let centerViewController = GRNavigationController(rootViewController: home)
-//        home.view.backgroundColor = .white
         
         drawer = MMDrawerController(center: centerViewController, leftDrawerViewController: menu)
         drawer.showsShadow = false
