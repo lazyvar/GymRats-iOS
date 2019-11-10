@@ -101,8 +101,19 @@ class UserImageView: UIView {
         addConstraintsWithFormat(format: "V:|[v0]|", views: imageView)
         addConstraintsWithFormat(format: "H:|[v0]|", views: skeletonView)
         addConstraintsWithFormat(format: "V:|[v0]|", views: skeletonView)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(currentUserWasUpdated), name: .updatedCurrentUserPic, object: nil)
     }
     
+    @objc func currentUserWasUpdated(notification: Notification) {
+        guard let thisUser = avatarInfo as? User else { return }
+        guard thisUser.id == GymRatsApp.coordinator.currentUser.id else { return }
+        guard let image = notification.object as? UIImage else { return }
+        
+        self.userImage = image
+        self.imageView.refresh()
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
         
