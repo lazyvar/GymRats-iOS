@@ -25,6 +25,8 @@ class WorkoutViewController: UITableViewController {
     weak var textField: UITextField?
     let userImageView: UserImageView = UserImageView()
     
+    var postingComment = false
+    
     let usernameLabel: UILabel = {
         let label = UILabel()
         
@@ -125,10 +127,13 @@ class WorkoutViewController: UITableViewController {
     }
     
     func postComment(_ comment: String) {
-        self.showLoadingBar(disallowUserInteraction: true)
+        guard !postingComment else { return }
         
+        self.showLoadingBar(disallowUserInteraction: true, special: true)
+        self.postingComment = true
         gymRatsAPI.post(comment: comment, on: workout)
             .subscribe { event in
+                self.postingComment = false
                 self.hideLoadingBar()
                 
                 switch event {
@@ -153,7 +158,7 @@ class WorkoutViewController: UITableViewController {
             let areYouSureAlert = UIAlertController(title: "Are you sure?", message: "You will not be able to recover a workout once it has been removed.", preferredStyle: .alert)
             
             let deleteAction = UIAlertAction(title: "Remove", style: .destructive) { _ in
-                self.showLoadingBar()
+                self.showLoadingBar(special: true)
                 gymRatsAPI.deleteWorkout(self.workout)
                     .subscribe({ event in
                         self.hideLoadingBar()
@@ -215,11 +220,52 @@ extension WorkoutViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell") as! CommentTableViewCell
             let comment = comments[indexPath.row]
             let user: User = comment.gymRatsUser
+            let currentUser = GymRatsApp.coordinator.currentUser!
             
             cell.userImageView.load(avatarInfo: user)
             cell.nameLabel.text = user.fullName
             cell.commentLabel.text = comment.content
             cell.selectionStyle = .blue
+            
+            cell.menu.isHidden = comment.gymRatsUser.id != currentUser.id
+            
+            cell.menuTappedBlock = { [weak self] in
+                guard let self = self else { return }
+                let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+                let delete = UIAlertAction(title: "Delete comment", style: .destructive) { [weak self] _ in
+                    let areYouSureAlert = UIAlertController(title: "Are you sure?", message: "This will permanently remove the comment.", preferredStyle: .alert)
+                    
+                    let delete = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+                        guard let self = self else { return }
+                        self.showLoadingBar(special: true)
+                        gymRatsAPI.deleteComment(id: comment.id)
+                            .subscribe { e in
+                                self.hideLoadingBar()
+
+                                switch e {
+                                case .next:
+                                    self.fetchComments()
+                                case .error(let error):
+                                    self.presentAlert(with: error)
+                                default: break
+                                }
+                        }.disposed(by: self.disposeBag)
+                    }
+                    
+                    let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    
+                    areYouSureAlert.addAction(delete)
+                    areYouSureAlert.addAction(cancel)
+                    
+                    self?.present(areYouSureAlert, animated: true, completion: nil)
+                }
+                let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                
+                alert.addAction(delete)
+                alert.addAction(cancel)
+                
+                self.present(alert, animated: true, completion: nil)
+            }
             
             cell.setNeedsLayout()
             cell.layoutIfNeeded()
@@ -254,6 +300,8 @@ extension WorkoutViewController {
             return cell
         }
     }
+    
+    
     
     override func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
         return 60
