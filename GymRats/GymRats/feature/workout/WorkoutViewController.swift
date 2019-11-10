@@ -231,22 +231,33 @@ extension WorkoutViewController {
             
             cell.menuTappedBlock = { [weak self] in
                 guard let self = self else { return }
-                let alert = UIAlertController(title: "Delete comment", message: "Are you sure you want to delete the comment?", preferredStyle: .actionSheet)
-                let delete = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
-                    guard let self = self else { return }
-                    self.showLoadingBar(special: true)
-                    gymRatsAPI.deleteComment(id: comment.id)
-                        .subscribe { e in
-                            self.hideLoadingBar()
+                let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+                let delete = UIAlertAction(title: "Delete comment", style: .destructive) { [weak self] _ in
+                    let areYouSureAlert = UIAlertController(title: "Are you sure?", message: "This will permanently remove the comment.", preferredStyle: .alert)
+                    
+                    let delete = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+                        guard let self = self else { return }
+                        self.showLoadingBar(special: true)
+                        gymRatsAPI.deleteComment(id: comment.id)
+                            .subscribe { e in
+                                self.hideLoadingBar()
 
-                            switch e {
-                            case .next:
-                                self.fetchComments()
-                            case .error(let error):
-                                self.presentAlert(with: error)
-                            default: break
-                            }
-                    }.disposed(by: self.disposeBag)
+                                switch e {
+                                case .next:
+                                    self.fetchComments()
+                                case .error(let error):
+                                    self.presentAlert(with: error)
+                                default: break
+                                }
+                        }.disposed(by: self.disposeBag)
+                    }
+                    
+                    let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    
+                    areYouSureAlert.addAction(delete)
+                    areYouSureAlert.addAction(cancel)
+                    
+                    self?.present(areYouSureAlert, animated: true, completion: nil)
                 }
                 let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                 
