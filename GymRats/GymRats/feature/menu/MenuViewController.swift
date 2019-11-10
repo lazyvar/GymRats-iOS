@@ -38,8 +38,14 @@ class MenuViewController: UITableViewController {
         tableView.register(UINib(nibName: "UserProfileMenuTableViewCell", bundle: nil), forCellReuseIdentifier: "UserProfile")
         tableView.register(UINib(nibName: "MenuTableViewCell", bundle: nil), forCellReuseIdentifier: "ChallengeCell")
         tableView.backgroundColor = .brand
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(currentUserWasUpdated), name: .updatedCurrentUser, object: nil)
     }
-    
+        
+    @objc func currentUserWasUpdated() {
+        self.tableView.reloadData()
+    }
+
     @objc func gotoCurrentUserProfile() {
         let profile = ProfileViewController(user: GymRatsApp.coordinator.currentUser, challenge: nil)
         let nav = GRNavigationController(rootViewController: profile)
