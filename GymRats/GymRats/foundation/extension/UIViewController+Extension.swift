@@ -42,10 +42,10 @@ extension UIViewController {
         navigationItem.leftBarButtonItem = menu
     }
     
-    func showLoadingBar(disallowUserInteraction: Bool = false) {
+    func showLoadingBar(disallowUserInteraction: Bool = false, special: Bool = false) {
         guard let nav = self.navigationController as? GRNavigationController else { return }
         
-        if self is Special {
+        if self is Special || special {
             let center = view.center
             let thing = NVActivityIndicatorView(frame: CGRect(x: center.x-50, y: center.y-150, width: 100, height: 100), type: .ballPulseSync, color: .brand, padding: 20)
             thing.backgroundColor = UIColor.init(red: 229.0/256.0, green: 229.0/256.0, blue: 234.0/256.0, alpha: 1.0)

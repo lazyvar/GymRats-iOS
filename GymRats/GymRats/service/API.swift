@@ -36,6 +36,7 @@ enum APIRequest {
     case deleteDevice
     case leaveChallenge(_ challenge: Challenge)
     case editChallenge(id: Int, startDate: Date, endDate: Date, challengeName: String, photoUrl: String?)
+    case deleteComment(id: Int)
     
     var requestProperties: (method: HTTPMethod, path: String, params: Parameters?) {
         switch self {
@@ -59,6 +60,8 @@ enum APIRequest {
             return (.get, "challenge", nil)
         case .joinChallenge(let code):
             return (.post, "challenge/code/\(code)", nil)
+        case .deleteComment(id: let id):
+            return (.delete, "comment/\(id)", nil)
         case .createChallenge(startDate: let startDate, endDate: let endDate, challengeName: let challengeName, photoUrl: let photoUrl):
             var params: Parameters =  [
                 "start_date": startDate.toISO(),
@@ -274,6 +277,10 @@ class GymRatsAPI {
 
     func getUsers(for challenge:  Challenge) -> Observable<[User]> {
         return requestArray(.getUsersForChallenge(challenge: challenge))
+    }
+    
+    func deleteComment(id: Int) -> Observable<EmptyJSON> {
+        return requestObject(.deleteComment(id: id))
     }
     
     func getWorkouts(for challenge: Challenge) -> Observable<[Workout]> {
