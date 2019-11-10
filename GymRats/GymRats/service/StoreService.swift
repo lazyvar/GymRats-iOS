@@ -15,17 +15,11 @@ class StoreService {
         var count = UserDefaults.standard.integer(forKey: UserDefaultsKeys.processCompletedCountKey)
         count += 1
         UserDefaults.standard.set(count, forKey: UserDefaultsKeys.processCompletedCountKey)
-
-        let infoDictionaryKey = kCFBundleVersionKey as String
         
-        guard let currentVersion = Bundle.main.object(forInfoDictionaryKey: infoDictionaryKey) as? String else { fatalError("Expected to find a bundle version in the info dictionary") }
-        
-        let lastVersionPromptedForReview = UserDefaults.standard.string(forKey: UserDefaultsKeys.lastVersionPromptedForReviewKey)
-        
-        if count >= 10 && currentVersion != lastVersionPromptedForReview {
+        if count >= 8 && !UserDefaults.standard.bool(forKey: UserDefaultsKeys.requestReview) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                 SKStoreReviewController.requestReview()
-                UserDefaults.standard.set(currentVersion, forKey: UserDefaultsKeys.lastVersionPromptedForReviewKey)
+                UserDefaults.standard.set(true, forKey: UserDefaultsKeys.requestReview)
             }
         }
     }
@@ -34,5 +28,5 @@ class StoreService {
 
 class UserDefaultsKeys {
   class var processCompletedCountKey: String { return "processCompletedCount" }
-  class var lastVersionPromptedForReviewKey: String { return "lastVersionPromptedForReview" }
+  class var requestReview: String { return "requestReview" }
 }
