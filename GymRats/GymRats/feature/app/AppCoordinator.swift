@@ -285,7 +285,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     
     func openNewWorkout() {
         let newWorkoutViewController = NewWorkoutViewController()
-        let generator = UIImpactFeedbackGenerator(style: .medium)
+        let generator = UIImpactFeedbackGenerator(style: .heavy)
         generator.impactOccurred()
 
         newWorkoutViewController.delegate = self

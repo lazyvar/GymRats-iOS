@@ -286,7 +286,7 @@ class ArtistViewController: UIViewController, Special {
         
         return details
     }
-    
+
 }
 
 extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {

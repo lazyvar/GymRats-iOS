@@ -233,6 +233,7 @@ class NewWorkoutViewController: GRFormViewController, Special {
             
             self.hideLoadingBar()
             self.navigationController?.popViewController(animated: true)
+            StoreService.requestReview()
             self.delegate?.newWorkoutController(self, created: workouts)
         }, onError: { [weak self] error in
             self?.presentAlert(with: error)
