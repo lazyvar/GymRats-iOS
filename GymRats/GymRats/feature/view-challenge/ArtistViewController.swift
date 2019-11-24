@@ -276,7 +276,7 @@ class ArtistViewController: UIViewController, Special {
             
             let attachment = NSTextAttachment()
             attachment.image = image
-            attachment.bounds = CGRect(x: 0, y: -3, width: 14, height: 14)
+            attachment.bounds = CGRect(x: 0, y: -5, width: 18, height: 18)
             
             details.append(NSAttributedString(attachment: attachment))
             details.append(NSAttributedString(string: " "))
@@ -317,9 +317,9 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
         guard section > 0 && !users.isEmpty else { return nil }
         
         let label = UILabel()
-        label.frame = CGRect(x: 20, y: 0, width: view.frame.width, height: 30)
+        label.frame = CGRect(x: 15, y: 0, width: view.frame.width, height: 30)
         label.font = .proRoundedBold(size: 20)
-        label.backgroundColor = .background
+        label.backgroundColor = .clear
         
         switch section {
         case 1:
@@ -332,7 +332,7 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
             if !isSoloChallenge && section == 2 {
                 label.text = "Workouts"
             } else {
-                let date = useMe[section-fluffCount]
+                let date = useMe[section - fluffCount]
                 
                 if date.serverDateIsToday {
                     label.text = "Today"
@@ -348,29 +348,13 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
         
         let headerView = UIView()
         headerView.addSubview(label)
+        headerView.backgroundColor = .clear
         
         return headerView
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        if isSoloChallenge {
-            guard indexPath.section > 1 else { return }
-        } else {
-            guard indexPath.section > 2 else { return }
-        }
-        
-        let date = useMe[indexPath.section-fluffCount]
-        let workouts = self.userWorkouts(for: date).filter { $0.workout != nil }
-        let workout = workouts[indexPath.row].workout!
-        let user = users.first(where: { $0.id == workout.gymRatsUserId })!
-        
-        self.push(WorkoutViewController(user: user, workout: workout, challenge: challenge))
-    }
-
     var isSoloChallenge: Bool {
-        return users.count == 1
+        return true // 😂
     }
     
     var fluffCount: Int {
@@ -481,14 +465,6 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }.disposed(by: self.disposeBag)
 
-        cell.inviteStack.rx.tapGesture()
-            .when(.recognized)
-            .subscribe { [weak self] e in
-            guard let self = self else { return }
-            
-            GymRatsApp.coordinator.inviteTo(self.challenge)
-        }.disposed(by: self.disposeBag)
-
         let skeletonView = UIView()
         skeletonView.isSkeletonable = true
         skeletonView.showAnimatedSkeleton()
@@ -498,7 +474,7 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
         
         if let pic = challenge.pictureUrl {
             cell.picture.kf.setImage(with: URL(string: pic)!, placeholder: skeletonView, options: [.transition(.fade(0.2))])
-            cell.pictureHeight.constant = 200
+            cell.pictureHeight.constant = 150
         } else {
             cell.pictureHeight.constant = 0
         }
@@ -520,9 +496,7 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             cell.activityLabel.text = "\(workouts.count)\nworkouts"
         }
-        
-        cell.joinCodeLabel.text = "\(challenge.code)\njoin code"
-        
+                
         let daysLeft = challenge.daysLeft.split(separator: " ")
         let new = daysLeft[0]
         let left = daysLeft[daysLeft.startIndex+1..<daysLeft.endIndex]
@@ -557,15 +531,27 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
         let workout = workouts[row].workout!
         let user = users.first(where: { $0.id == workout.gymRatsUserId })!
         
-        cell.selectionStyle = .default
+        cell.pressBlock = { [weak self] in
+            self?.push(WorkoutViewController(user: user, workout: workout, challenge: self?.challenge))
+        }
+        
+        cell.selectionStyle = .none
+        cell.desc.text = workout.description
         cell.twerk.kf.setImage(with: URL(string: workout.photoUrl ?? ""), options: [.transition(.fade(0.2))])
         cell.tit.text = workout.title
-        cell.det.isHidden = workout.description == nil
-        cell.det.text = workout.description
-        cell.little.attributedText = detailsLabelText(user: user)
-        cell.lil.text = "\(workout.createdAt.challengeTime)"
+        cell.det.text = user.fullName
+        cell.userImage.load(avatarInfo: user)
+        cell.timeLabel.text = "\(workout.createdAt.challengeTime)"
         
         return cell
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "disable_press"), object: nil)
+    }
+    
+   func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "enable_press"), object: nil)
     }
 
 }

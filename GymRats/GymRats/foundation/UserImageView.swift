@@ -93,6 +93,8 @@ class UserImageView: UIView {
     }
     
     func setup() {
+        backgroundColor = .clear
+        
         addSubview(imageView)
         addSubview(ringView)
         addSubview(skeletonView)

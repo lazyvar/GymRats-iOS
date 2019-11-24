@@ -84,7 +84,7 @@ extension MenuViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         guard section == 2 else { return 0 }
         
-        return 20
+        return 25
     }
     
     

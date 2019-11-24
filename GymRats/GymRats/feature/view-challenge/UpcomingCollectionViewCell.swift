@@ -23,7 +23,7 @@ class UpcomingCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        someText.textColor = .black
+        clipsToBounds = false
         someText.font = .bigAndBlack
     }
 }

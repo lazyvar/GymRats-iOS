@@ -43,12 +43,9 @@ extension UIViewController {
     }
     
     func showLoadingBar(disallowUserInteraction: Bool = false, special: Bool = false) {
-        guard let nav = self.navigationController as? GRNavigationController else { return }
-        
-        if self is Special || special {
             let center = view.center
             let thing = NVActivityIndicatorView(frame: CGRect(x: center.x-50, y: center.y-150, width: 100, height: 100), type: .ballPulseSync, color: .brand, padding: 20)
-            thing.backgroundColor = UIColor.init(red: 229.0/256.0, green: 229.0/256.0, blue: 234.0/256.0, alpha: 1.0)
+            thing.backgroundColor = .foreground
             thing.layer.cornerRadius = 10
             thing.layer.shadowRadius = 7
             thing.layer.shadowColor = UIColor.shadow.cgColor
@@ -58,9 +55,6 @@ extension UIViewController {
             view.addSubview(thing)
             
             thing.startAnimating()
-        }
-        
-        nav.showLoadingBarYo()
         
         if disallowUserInteraction {
             UIApplication.shared.beginIgnoringInteractionEvents()

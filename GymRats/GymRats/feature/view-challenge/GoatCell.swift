@@ -17,14 +17,21 @@ class GoatCell: UITableViewCell {
     }
     
     @IBOutlet weak var calStack: UIStackView!
-    @IBOutlet weak var inviteStack: UIStackView!
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var usersLabel: UILabel!
     @IBOutlet weak var calLabel: UILabel!
     @IBOutlet weak var activityLabel: UILabel!
     
-    @IBOutlet weak var joinCodeLabel: UILabel!
     @IBOutlet weak var pictureHeight: NSLayoutConstraint!
+    @IBOutlet weak var bg: UIView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        bg.backgroundColor = .foreground
+        bg.layer.cornerRadius = 4
+        bg.clipsToBounds = true
+    }
 
 }
