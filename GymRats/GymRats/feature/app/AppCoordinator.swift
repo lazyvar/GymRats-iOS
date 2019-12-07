@@ -250,7 +250,9 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         guard let nav = tabBarViewController?.viewControllers?[safe: 1] as? GRNavigationController else { return }
         guard let artist = nav.viewControllers.last as? ArtistViewController else { return }
         
-        // ...
+        let stats = ChallengeStatsViewController(challenge: artist.challenge, users: artist.users, workouts: artist.workouts)
+        
+        UIViewController.topmost().present(stats.inNav(), animated: true, completion: nil)
     }
     
     func centerActiveOrUpcomingChallenge(_ challenge: Challenge) {
