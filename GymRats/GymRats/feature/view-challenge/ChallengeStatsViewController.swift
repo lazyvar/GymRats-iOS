@@ -15,9 +15,12 @@ class ChallengeStatsViewController: UITableViewController {
     let workouts: [Workout]
     
     init(challenge: Challenge, users: [User], workouts: [Workout]) {
-        self.challenge = challenge
-        self.users = users
         self.workouts = workouts
+        self.challenge = challenge
+        self.users = users.map { user -> (User, [Workout]) in
+            return (user, workouts.filter { $0.gymRatsUserId == user.id })
+        }.sorted(by: { $0.1.count > $1.1.count })
+        .map { $0.0 }
         
         super.init(style: .grouped)
     }
@@ -29,6 +32,9 @@ class ChallengeStatsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupBackButton()
+        
+        tableView.register(UINib(nibName: "RatsCell", bundle: nil), forCellReuseIdentifier: "rat")
         tableView.register(UINib(nibName: "DateProgressCell", bundle: nil), forCellReuseIdentifier: "date")
         tableView.register(UINib(nibName: "StatsBabyCell", bundle: nil), forCellReuseIdentifier: "baby")
         tableView.separatorStyle = .none
@@ -54,6 +60,14 @@ class ChallengeStatsViewController: UITableViewController {
         default:
             fatalError("Whooop!")
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let profile = ProfileViewController(user: users[indexPath.row], challenge: challenge)
+        
+        push(profile)
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -112,6 +126,11 @@ class ChallengeStatsViewController: UITableViewController {
     }
     
     func userCell(row: Int) -> UITableViewCell {
-        return UITableViewCell()
+        let user = users[row]
+        let workouts = self.workouts.filter { $0.gymRatsUserId == user.id }.count
+        let cell = tableView.dequeueReusableCell(withIdentifier: "rat") as! RatsCell
+        cell.configure(withHuman: user, workouts: workouts)
+        
+        return cell
     }
 }

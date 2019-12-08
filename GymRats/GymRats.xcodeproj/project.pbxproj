@@ -13,6 +13,8 @@
 		0107AE332325CDD200944D11 /* HumanCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0107AE312325CDD200944D11 /* HumanCell.xib */; };
 		0107AE362325E3D300944D11 /* TwerkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0107AE342325E3D300944D11 /* TwerkoutCell.swift */; };
 		0107AE372325E3D300944D11 /* TwerkoutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0107AE352325E3D300944D11 /* TwerkoutCell.xib */; };
+		0118A28B239DA7F9006A8A7A /* RatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0118A289239DA7F9006A8A7A /* RatsCell.swift */; };
+		0118A28C239DA7F9006A8A7A /* RatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0118A28A239DA7F9006A8A7A /* RatsCell.xib */; };
 		011FB62822A31E65004D5B8E /* LoadingUserWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB62722A31E65004D5B8E /* LoadingUserWorkoutView.swift */; };
 		011FB62B22A33AAA004D5B8E /* UserProfileMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB62922A33AAA004D5B8E /* UserProfileMenuTableViewCell.swift */; };
 		011FB62C22A33AAA004D5B8E /* UserProfileMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011FB62A22A33AAA004D5B8E /* UserProfileMenuTableViewCell.xib */; };
@@ -190,6 +192,8 @@
 		0107AE312325CDD200944D11 /* HumanCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HumanCell.xib; sourceTree = "<group>"; };
 		0107AE342325E3D300944D11 /* TwerkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwerkoutCell.swift; sourceTree = "<group>"; };
 		0107AE352325E3D300944D11 /* TwerkoutCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TwerkoutCell.xib; sourceTree = "<group>"; };
+		0118A289239DA7F9006A8A7A /* RatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatsCell.swift; sourceTree = "<group>"; };
+		0118A28A239DA7F9006A8A7A /* RatsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RatsCell.xib; sourceTree = "<group>"; };
 		011FB62722A31E65004D5B8E /* LoadingUserWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingUserWorkoutView.swift; sourceTree = "<group>"; };
 		011FB62922A33AAA004D5B8E /* UserProfileMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileMenuTableViewCell.swift; sourceTree = "<group>"; };
 		011FB62A22A33AAA004D5B8E /* UserProfileMenuTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserProfileMenuTableViewCell.xib; sourceTree = "<group>"; };
@@ -749,6 +753,8 @@
 				0166083B239C61B800FCFD26 /* DateProgressCell.xib */,
 				0166083E239C8CA700FCFD26 /* StatsBabyCell.swift */,
 				0166083F239C8CA700FCFD26 /* StatsBabyCell.xib */,
+				0118A289239DA7F9006A8A7A /* RatsCell.swift */,
+				0118A28A239DA7F9006A8A7A /* RatsCell.xib */,
 			);
 			path = "view-challenge";
 			sourceTree = "<group>";
@@ -903,6 +909,7 @@
 				01297D8E2329E79000CA9E41 /* SF-Pro-Rounded-Semibold.otf in Resources */,
 				01297D882329E79000CA9E41 /* SF-Compact-Rounded-Ultralight.otf in Resources */,
 				74118061220C58C300EB9D11 /* Lato-Bold.ttf in Resources */,
+				0118A28C239DA7F9006A8A7A /* RatsCell.xib in Resources */,
 				746764EB220BCB5C000CFB1B /* GRNavigationController.xib in Resources */,
 				01338DAC223B230E0019B67E /* GoogleService-Info.plist in Resources */,
 				74118064220C58C300EB9D11 /* Lato-HairlineItalic.ttf in Resources */,
@@ -1099,6 +1106,7 @@
 				01A3EB2A237747D30097FC2A /* CVShape.swift in Sources */,
 				018E9F4F229F7DB1008AB016 /* UIStoryboard+Extension.swift in Sources */,
 				747D6FBD2208DBFE0062BB39 /* API.swift in Sources */,
+				0118A28B239DA7F9006A8A7A /* RatsCell.swift in Sources */,
 				01A3EB1E237747D30097FC2A /* CVCalendarMenuView.swift in Sources */,
 				0166083C239C61B800FCFD26 /* DateProgressCell.swift in Sources */,
 				01A3EB28237747D30097FC2A /* CVCalendarWeekday.swift in Sources */,
