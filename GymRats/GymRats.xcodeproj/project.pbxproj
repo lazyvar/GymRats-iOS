@@ -48,6 +48,8 @@
 		01660839239C5EAF00FCFD26 /* ChallengeStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01660838239C5EAF00FCFD26 /* ChallengeStatsViewController.swift */; };
 		0166083C239C61B800FCFD26 /* DateProgressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0166083A239C61B800FCFD26 /* DateProgressCell.swift */; };
 		0166083D239C61B800FCFD26 /* DateProgressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0166083B239C61B800FCFD26 /* DateProgressCell.xib */; };
+		01660840239C8CA700FCFD26 /* StatsBabyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0166083E239C8CA700FCFD26 /* StatsBabyCell.swift */; };
+		01660841239C8CA700FCFD26 /* StatsBabyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0166083F239C8CA700FCFD26 /* StatsBabyCell.xib */; };
 		018E9F4D229F7D7E008AB016 /* Challenge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E9F4C229F7D7E008AB016 /* Challenge.storyboard */; };
 		018E9F4F229F7DB1008AB016 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */; };
 		018E9F51229F7E3D008AB016 /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E9F50229F7E3D008AB016 /* ChallengeViewController.swift */; };
@@ -223,6 +225,8 @@
 		01660838239C5EAF00FCFD26 /* ChallengeStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeStatsViewController.swift; sourceTree = "<group>"; };
 		0166083A239C61B800FCFD26 /* DateProgressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateProgressCell.swift; sourceTree = "<group>"; };
 		0166083B239C61B800FCFD26 /* DateProgressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateProgressCell.xib; sourceTree = "<group>"; };
+		0166083E239C8CA700FCFD26 /* StatsBabyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsBabyCell.swift; sourceTree = "<group>"; };
+		0166083F239C8CA700FCFD26 /* StatsBabyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatsBabyCell.xib; sourceTree = "<group>"; };
 		018E9F4C229F7D7E008AB016 /* Challenge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Challenge.storyboard; sourceTree = "<group>"; };
 		018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
 		018E9F50229F7E3D008AB016 /* ChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
@@ -743,6 +747,8 @@
 				01660838239C5EAF00FCFD26 /* ChallengeStatsViewController.swift */,
 				0166083A239C61B800FCFD26 /* DateProgressCell.swift */,
 				0166083B239C61B800FCFD26 /* DateProgressCell.xib */,
+				0166083E239C8CA700FCFD26 /* StatsBabyCell.swift */,
+				0166083F239C8CA700FCFD26 /* StatsBabyCell.xib */,
 			);
 			path = "view-challenge";
 			sourceTree = "<group>";
@@ -936,6 +942,7 @@
 				01297D8B2329E79000CA9E41 /* SF-Compact-Rounded-Black.otf in Resources */,
 				01297D972329E79000CA9E41 /* SF-Pro-Rounded-Bold.otf in Resources */,
 				01BFF8FD223D425C0044F802 /* CommentTableViewCell.xib in Resources */,
+				01660841239C8CA700FCFD26 /* StatsBabyCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1132,6 +1139,7 @@
 				74A01B3B220A544F00431ABD /* UserWorkoutTableViewCell.swift in Sources */,
 				0163A2382377AF19006FDDA2 /* StoreService.swift in Sources */,
 				747D6FC32208DCAB0062BB39 /* Observable+Extension.swift in Sources */,
+				01660840239C8CA700FCFD26 /* StatsBabyCell.swift in Sources */,
 				74A01B46220A778C00431ABD /* WorkoutViewController.swift in Sources */,
 				01A3EB14237747D30097FC2A /* CVCalendarViewAppearanceDelegate.swift in Sources */,
 				01A3EB10237747D30097FC2A /* CVRange.swift in Sources */,

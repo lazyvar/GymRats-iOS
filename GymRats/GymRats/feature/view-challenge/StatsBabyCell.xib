@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Rounded-Regular.otf">
+            <string>SFProRounded-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="362" id="KGk-i7-Jjw" customClass="StatsBabyCell" customModule="GymRats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="448" height="362"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="448" height="362"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="fnK-AV-bXP">
+                        <rect key="frame" x="48" y="5" width="352" height="220"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="DvC-ua-TaY">
+                                <rect key="frame" x="0.0" y="0.0" width="171" height="220"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="tX2-rS-evK">
+                                        <rect key="frame" x="0.0" y="0.0" width="171" height="40"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⌛" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k3d-kp-orZ">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="Itm-IG-mZF"/>
+                                                    <constraint firstAttribute="width" constant="40" id="sqK-Ne-mwB"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="5Bg-zz-4NY">
+                                                <rect key="frame" x="45" y="2.5" width="126" height="35"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9qd-6S-SwK">
+                                                        <rect key="frame" x="0.0" y="0.0" width="126" height="20.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="days complete" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HiH-iQ-rlR">
+                                                        <rect key="frame" x="0.0" y="20.5" width="126" height="14.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="12"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="TfZ-4x-3JH">
+                                        <rect key="frame" x="0.0" y="45" width="171" height="40"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="co3-v2-13p">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Kd-7B-dm2" customClass="UserImageView" customModule="GymRats" customModuleProvider="target">
+                                                        <rect key="frame" x="5" y="5" width="30" height="30"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="6Kd-7B-dm2" secondAttribute="bottom" constant="5" id="5sq-qp-pBV"/>
+                                                    <constraint firstItem="6Kd-7B-dm2" firstAttribute="leading" secondItem="co3-v2-13p" secondAttribute="leading" constant="5" id="9Qj-c5-7vt"/>
+                                                    <constraint firstItem="6Kd-7B-dm2" firstAttribute="top" secondItem="co3-v2-13p" secondAttribute="top" constant="5" id="Kah-yk-2W4"/>
+                                                    <constraint firstAttribute="width" constant="40" id="QMs-by-lKx"/>
+                                                    <constraint firstAttribute="height" constant="40" id="Qv9-Bk-h9f"/>
+                                                    <constraint firstAttribute="trailing" secondItem="6Kd-7B-dm2" secondAttribute="trailing" constant="5" id="WRo-bn-ReO"/>
+                                                </constraints>
+                                            </view>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1Sx-Dj-DfE">
+                                                <rect key="frame" x="45" y="2.5" width="126" height="35"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MlO-3C-8uV">
+                                                        <rect key="frame" x="0.0" y="0.0" width="126" height="20.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="most workouts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lSO-Ba-NRn">
+                                                        <rect key="frame" x="0.0" y="20.5" width="126" height="14.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="12"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="81p-Ba-Nye">
+                                        <rect key="frame" x="0.0" y="90" width="171" height="40"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bjs-qt-J3o" customClass="UserImageVie">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U1G-2b-no1" customClass="UserImageView" customModule="GymRats" customModuleProvider="target">
+                                                        <rect key="frame" x="5" y="5" width="30" height="30"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="U1G-2b-no1" firstAttribute="top" secondItem="bjs-qt-J3o" secondAttribute="top" constant="5" id="M4d-nN-qhO"/>
+                                                    <constraint firstAttribute="width" constant="40" id="Waz-qU-fCz"/>
+                                                    <constraint firstAttribute="trailing" secondItem="U1G-2b-no1" secondAttribute="trailing" constant="5" id="Xfr-QY-Yst"/>
+                                                    <constraint firstAttribute="height" constant="40" id="XvO-VO-LaZ"/>
+                                                    <constraint firstAttribute="bottom" secondItem="U1G-2b-no1" secondAttribute="bottom" constant="5" id="ecl-fp-6gi"/>
+                                                    <constraint firstItem="U1G-2b-no1" firstAttribute="leading" secondItem="bjs-qt-J3o" secondAttribute="leading" constant="5" id="vYD-gU-pG1"/>
+                                                </constraints>
+                                            </view>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Ymj-dO-5v0">
+                                                <rect key="frame" x="45" y="2.5" width="126" height="35"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l7T-ek-mSb">
+                                                        <rect key="frame" x="0.0" y="0.0" width="126" height="20.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="longest individual streak" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DV2-p3-Mkg">
+                                                        <rect key="frame" x="0.0" y="20.5" width="126" height="14.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="12"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Ia2-7O-JUO">
+                                        <rect key="frame" x="0.0" y="135" width="171" height="40"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JNy-y9-vce">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="toh-dN-8xq" customClass="UserImageView" customModule="GymRats" customModuleProvider="target">
+                                                        <rect key="frame" x="5" y="5" width="30" height="30"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="toh-dN-8xq" secondAttribute="bottom" constant="5" id="CKy-ZC-I4n"/>
+                                                    <constraint firstItem="toh-dN-8xq" firstAttribute="leading" secondItem="JNy-y9-vce" secondAttribute="leading" constant="5" id="JvO-J5-PDc"/>
+                                                    <constraint firstItem="toh-dN-8xq" firstAttribute="top" secondItem="JNy-y9-vce" secondAttribute="top" constant="5" id="Koe-yN-mM0"/>
+                                                    <constraint firstAttribute="height" constant="40" id="Pqf-mU-Lxx"/>
+                                                    <constraint firstAttribute="trailing" secondItem="toh-dN-8xq" secondAttribute="trailing" constant="5" id="c4k-Wb-Ae8"/>
+                                                    <constraint firstAttribute="width" constant="40" id="fVR-L3-YWR"/>
+                                                </constraints>
+                                            </view>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BQw-Xw-7We">
+                                                <rect key="frame" x="45" y="2.5" width="126" height="35"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fD3-15-N8q">
+                                                        <rect key="frame" x="0.0" y="0.0" width="126" height="20.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="most workouts in a day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uw2-K6-kTJ">
+                                                        <rect key="frame" x="0.0" y="20.5" width="126" height="14.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="12"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="wKj-iw-BmC">
+                                        <rect key="frame" x="0.0" y="180" width="171" height="40"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="we1-aA-ncu">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GFY-XW-ZSr" customClass="UserImageView" customModule="GymRats" customModuleProvider="target">
+                                                        <rect key="frame" x="5" y="5" width="30" height="30"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="GFY-XW-ZSr" firstAttribute="leading" secondItem="we1-aA-ncu" secondAttribute="leading" constant="5" id="8qL-l9-kzE"/>
+                                                    <constraint firstAttribute="trailing" secondItem="GFY-XW-ZSr" secondAttribute="trailing" constant="5" id="Vnb-0e-kfg"/>
+                                                    <constraint firstAttribute="width" constant="40" id="XuI-cu-uxH"/>
+                                                    <constraint firstAttribute="bottom" secondItem="GFY-XW-ZSr" secondAttribute="bottom" constant="5" id="aLb-yK-OQO"/>
+                                                    <constraint firstItem="GFY-XW-ZSr" firstAttribute="top" secondItem="we1-aA-ncu" secondAttribute="top" constant="5" id="xVP-cx-w3I"/>
+                                                    <constraint firstAttribute="height" constant="40" id="yR4-yg-gRX"/>
+                                                </constraints>
+                                            </view>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Y9l-XY-D35">
+                                                <rect key="frame" x="45" y="2.5" width="126" height="35"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ySY-Vy-QSe">
+                                                        <rect key="frame" x="0.0" y="0.0" width="126" height="20.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="most days spent relaxing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kXn-WB-wjl">
+                                                        <rect key="frame" x="0.0" y="20.5" width="126" height="14.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="12"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="qiY-WT-V8M">
+                                <rect key="frame" x="181" y="0.0" width="171" height="220"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="YKn-Rj-37d">
+                                        <rect key="frame" x="0.0" y="0.0" width="171" height="40"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⏳" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lqx-wm-NXn">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="NGa-53-Va0"/>
+                                                    <constraint firstAttribute="height" constant="40" id="odJ-0E-QIQ"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="UqZ-PR-lpC">
+                                                <rect key="frame" x="40" y="2.5" width="131" height="35"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4NI-Rx-nO2">
+                                                        <rect key="frame" x="0.0" y="0.0" width="131" height="20.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="days remaining" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEe-cg-Ztc">
+                                                        <rect key="frame" x="0.0" y="20.5" width="131" height="14.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="12"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8PU-U9-Kkc">
+                                        <rect key="frame" x="0.0" y="45" width="171" height="40"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="💪" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wsf-49-isn">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="Qyz-cL-1iE"/>
+                                                    <constraint firstAttribute="height" constant="40" id="m0z-jO-PBi"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Btz-VF-OQv">
+                                                <rect key="frame" x="40" y="2.5" width="131" height="35"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b6Y-7n-SCN">
+                                                        <rect key="frame" x="0.0" y="0.0" width="131" height="20.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="total workouts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jvL-Ik-p34">
+                                                        <rect key="frame" x="0.0" y="20.5" width="131" height="14.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="12"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="eed-is-Pba">
+                                        <rect key="frame" x="0.0" y="90" width="171" height="40"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🏃‍♀️" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSL-UM-6DK">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="Ceh-W0-lLD"/>
+                                                    <constraint firstAttribute="width" constant="40" id="yGb-i9-1td"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="EQr-DS-TGW">
+                                                <rect key="frame" x="40" y="2.5" width="131" height="35"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXe-ve-Ki5">
+                                                        <rect key="frame" x="0.0" y="0.0" width="131" height="20.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="workouts per day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lKM-b6-ceQ">
+                                                        <rect key="frame" x="0.0" y="20.5" width="131" height="14.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="12"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="TNo-BX-XqG">
+                                        <rect key="frame" x="0.0" y="135" width="171" height="40"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="😄" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qxq-a1-0No">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="Dlq-4z-LwH"/>
+                                                    <constraint firstAttribute="width" constant="40" id="Vmx-t2-EOO"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Xjy-3Y-Dif">
+                                                <rect key="frame" x="40" y="2.5" width="131" height="35"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Mb-Oq-91b">
+                                                        <rect key="frame" x="0.0" y="0.0" width="131" height="20.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="days everyone worked out" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yev-XU-Odv">
+                                                        <rect key="frame" x="0.0" y="20.5" width="131" height="14.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="12"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="3kY-8a-OYV">
+                                        <rect key="frame" x="0.0" y="180" width="171" height="40"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="😴" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTi-aI-lhv">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="Wkl-ZY-jPL"/>
+                                                    <constraint firstAttribute="height" constant="40" id="fyz-Wh-5AP"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iHk-R2-pAp">
+                                                <rect key="frame" x="40" y="2.5" width="131" height="35"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QAb-4m-c2v">
+                                                        <rect key="frame" x="0.0" y="0.0" width="131" height="20.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="days no one worked out" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2C4-yX-3E5">
+                                                        <rect key="frame" x="0.0" y="20.5" width="131" height="14.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="12"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="fnK-AV-bXP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="78v-A4-IIm"/>
+                    <constraint firstItem="fnK-AV-bXP" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="7KG-2v-gnV"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fnK-AV-bXP" secondAttribute="bottom" constant="5" id="AVk-As-0Ha"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="daysAllWorkedOutLabel" destination="8Mb-Oq-91b" id="V9K-Y1-ktS"/>
+                <outlet property="daysCompleteLabel" destination="9qd-6S-SwK" id="BrV-y4-CLa"/>
+                <outlet property="daysNoOneWorkedOutLabel" destination="QAb-4m-c2v" id="HEB-OK-SQ7"/>
+                <outlet property="daysRemainingLabel" destination="4NI-Rx-nO2" id="bcI-bx-BgL"/>
+                <outlet property="mostWorkoutsDayLabel" destination="fD3-15-N8q" id="I6T-ER-GN5"/>
+                <outlet property="mostWorkoutsDayView" destination="toh-dN-8xq" id="2uU-qa-tVl"/>
+                <outlet property="mostWorkoutsLabel" destination="MlO-3C-8uV" id="xpL-zs-zl1"/>
+                <outlet property="mostWorkoutsView" destination="6Kd-7B-dm2" id="nuV-oZ-srn"/>
+                <outlet property="relaxingLabel" destination="ySY-Vy-QSe" id="ptv-C2-Sfe"/>
+                <outlet property="relaxingView" destination="GFY-XW-ZSr" id="6xy-mm-Uum"/>
+                <outlet property="streakLabel" destination="l7T-ek-mSb" id="IbM-q1-dbh"/>
+                <outlet property="streakView" destination="U1G-2b-no1" id="KFh-64-XFh"/>
+                <outlet property="totalWorkoutsLabel" destination="b6Y-7n-SCN" id="1XP-xL-pwS"/>
+                <outlet property="workoutsPerDayLabel" destination="WXe-ve-Ki5" id="0Zh-wf-hiY"/>
+            </connections>
+            <point key="canvasLocation" x="-1.4492753623188408" y="179.46428571428569"/>
+        </tableViewCell>
+    </objects>
+</document>

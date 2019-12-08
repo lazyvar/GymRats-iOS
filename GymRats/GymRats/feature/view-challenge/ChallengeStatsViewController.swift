@@ -12,10 +12,12 @@ class ChallengeStatsViewController: UITableViewController {
     
     let challenge: Challenge
     let users: [User]
+    let workouts: [Workout]
     
     init(challenge: Challenge, users: [User], workouts: [Workout]) {
         self.challenge = challenge
         self.users = users
+        self.workouts = workouts
         
         super.init(style: .grouped)
     }
@@ -28,6 +30,7 @@ class ChallengeStatsViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.register(UINib(nibName: "DateProgressCell", bundle: nil), forCellReuseIdentifier: "date")
+        tableView.register(UINib(nibName: "StatsBabyCell", bundle: nil), forCellReuseIdentifier: "baby")
         tableView.separatorStyle = .none
         tableView.backgroundColor = .background
         
@@ -63,7 +66,7 @@ class ChallengeStatsViewController: UITableViewController {
         case 0:
             label.text = "Stats"
         case 1:
-            label.text = "Leaderboard"
+            label.text = "Rats"
         default:
             fatalError("5 minutes")
         }
@@ -95,14 +98,17 @@ class ChallengeStatsViewController: UITableViewController {
     
     func dateCell(tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "date") as! DateProgressCell
-        cell.doTheThing(start: challenge.startDate, end: challenge.endDate)
+        cell.doTheThing(challenge: challenge)
         cell.selectionStyle = .none
         
         return cell
     }
     
     func statsCell() -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "baby") as! StatsBabyCell
+        cell.wow(challenge, workouts, users)
+        
+        return cell
     }
     
     func userCell(row: Int) -> UITableViewCell {

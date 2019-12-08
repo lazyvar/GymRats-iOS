@@ -9,12 +9,14 @@
 import Foundation
 import MessageKit
 
-struct User: Codable {
+struct User: Codable, Hashable {
     let id: Int
     let email: String
     let fullName: String
     let profilePictureUrl: String?
     let token: String?
+    
+    var hashValue: Int { return id }
 }
 
 extension User: AvatarProtocol {

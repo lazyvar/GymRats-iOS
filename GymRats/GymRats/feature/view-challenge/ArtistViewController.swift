@@ -455,15 +455,11 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
     func goatCell(_ tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "goat") as! GoatCell
         
-        cell.calStack.rx.tapGesture()
-            .when(.recognized)
-            .subscribe { [weak self] e in
-            guard let self = self else { return }
+        cell.pressBlock = { [unowned self] in
+            let stats = ChallengeStatsViewController(challenge: self.challenge, users: self.users, workouts: self.workouts)
             
-            if case .next = e {
-                self.presentAlert(title: "End Date", message: self.challenge.endDate.toFormat("EEEE, MMM d, yyyy"))
-            }
-        }.disposed(by: self.disposeBag)
+            self.present(stats.inNav(), animated: true, completion: nil)
+        }        
 
         let skeletonView = UIView()
         skeletonView.isSkeletonable = true

@@ -25,10 +25,19 @@ class DateProgressCell: UITableViewCell {
         progressBackgroundView.layer.cornerRadius = 4
     }
 
-    func doTheThing(start: Date, end: Date) {
+    func doTheThing(challenge: Challenge) {
+        let start = challenge.startDate
+        let end = challenge.endDate
         let totalDays = abs(start.utcDateIsDaysApartFromUtcDate(end))
         let daysLeft = abs(Date().localDateIsDaysApartFromUTCDate(end))
-        let percent = max(0.01, min(1, (CGFloat(1) - CGFloat(daysLeft) / CGFloat(totalDays))))
+        let percent: CGFloat
+        
+        if challenge.isPast {
+            percent = 1
+        } else {
+            percent = max(0.01, min(1, (CGFloat(1) - CGFloat(daysLeft) / CGFloat(totalDays))))
+        }
+        
         let width = progressBackgroundView.frame.width * percent
         let progressIndicatorView: UIView = UIView(frame: CGRect(x: 7, y: 7, width: width, height: progressBackgroundView.frame.height-14))
         
