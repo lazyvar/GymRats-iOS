@@ -43,11 +43,13 @@ class ChallengeStatsViewController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(UIViewController.dismissSelf))
    
         if users.isEmpty {
+            self.showLoadingBar()
             NotificationCenter.default.addObserver(self, selector: #selector(hereIsTheData), name: .init("hereIsTheDatam"), object: nil)
         }
     }
     
     @objc func hereIsTheData(notification: Notification) {
+        self.hideLoadingBar()
         guard let obj = notification.object as? ([User], [Workout]) else { return }
         let (users, workouts) = obj
         self.users = users.map { user -> (User, [Workout]) in
@@ -80,7 +82,7 @@ class ChallengeStatsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard indexPath.section == 2 else { return }
+        guard indexPath.section == 1 else { return }
         
         let profile = ProfileViewController(user: users[indexPath.row], challenge: challenge)
         

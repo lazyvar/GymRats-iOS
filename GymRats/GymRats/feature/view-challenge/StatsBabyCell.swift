@@ -51,7 +51,7 @@ class StatsBabyCell: UITableViewCell {
 
         DispatchQueue.global().async {
             let daysWorkoutsBase = days.reduce([:]) { hash, day -> [Date: [Workout]] in
-                return hash.merging([day.respecting([.day, .month, .year]): []], uniquingKeysWith: { _, new in new })
+                return hash.merging([day: []], uniquingKeysWith: { _, new in new })
             }
             let workoutsPerDay = Dictionary(grouping: workouts, by: { $0.createdAt.respecting([.day, .month, .year]) })
             let bucketed = workoutsPerDay.merging(daysWorkoutsBase, uniquingKeysWith: { old, _ in old }).sorted { (a, b) -> Bool in
@@ -84,7 +84,7 @@ class StatsBabyCell: UITableViewCell {
                 userToCurrentStreak[user] = 0
             }
             
-            for (_, workouts) in bucketed {
+            for (day, workouts) in bucketed {
                 if workouts.isEmpty {
                     daysNoPeepsTwerked += 1
                 } else if users.allSatisfy({ user -> Bool in
@@ -162,7 +162,9 @@ class StatsBabyCell: UITableViewCell {
 extension Date {
     func respecting(_ dateComponents: Set<Calendar.Component>) -> Date {
         let components = Calendar.current.dateComponents(dateComponents, from: self)
-
-        return Calendar.current.date(from: components)!
+        var calendar = Calendar(identifier: .iso8601)
+        calendar.timeZone = .utc
+        
+        return calendar.date(from: components)!
     }
 }
