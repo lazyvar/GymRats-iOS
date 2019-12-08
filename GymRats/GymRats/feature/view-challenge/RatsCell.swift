@@ -24,4 +24,10 @@ class RatsCell: UITableViewCell {
         descLabel.text = "\(workouts) workouts"
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        userImageView.operation?.cancel()
+    }
+    
 }

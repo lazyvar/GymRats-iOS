@@ -37,6 +37,8 @@ class StatsBabyCell: UITableViewCell {
     }
     
     func wow(_ challenge: Challenge, _ workouts: [Workout], _ users: [User]) {
+        guard !users.isEmpty else { return }
+        
         let days = challenge.days
 
         if challenge.isPast {

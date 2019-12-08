@@ -203,6 +203,8 @@ class ArtistViewController: UIViewController, Special {
         Observable.zip(users, workouts).subscribe(onNext: { zipped in
             let (users, workouts) = zipped
             
+            NotificationCenter.default.post(name: .init("hereIsTheDatam"), object: zipped)
+            
             self.users = users.sorted(by: { a, b -> Bool in
                 let workoutsA = self.workouts.filter { $0.gymRatsUserId == a.id }.count
                 let workoutsB = self.workouts.filter { $0.gymRatsUserId == b.id }.count

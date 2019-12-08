@@ -26,27 +26,29 @@ class DateProgressCell: UITableViewCell {
     }
 
     func doTheThing(challenge: Challenge) {
-        let start = challenge.startDate
-        let end = challenge.endDate
-        let totalDays = abs(start.utcDateIsDaysApartFromUtcDate(end))
-        let daysLeft = abs(Date().localDateIsDaysApartFromUTCDate(end))
-        let percent: CGFloat
-        
-        if challenge.isPast {
-            percent = 1
-        } else {
-            percent = max(0.01, min(1, (CGFloat(1) - CGFloat(daysLeft) / CGFloat(totalDays))))
+        DispatchQueue.main.async {
+            let start = challenge.startDate
+            let end = challenge.endDate
+            let totalDays = abs(start.utcDateIsDaysApartFromUtcDate(end))
+            let daysLeft = abs(Date().localDateIsDaysApartFromUTCDate(end))
+            let percent: CGFloat
+            
+            if challenge.isPast {
+                percent = 1
+            } else {
+                percent = max(0.01, min(1, (CGFloat(1) - CGFloat(daysLeft) / CGFloat(totalDays))))
+            }
+            
+            let width = (self.progressBackgroundView.frame.width-14) * percent
+            let progressIndicatorView: UIView = UIView(frame: CGRect(x: 7, y: 7, width: width, height: self.progressBackgroundView.frame.height-14))
+            
+            progressIndicatorView.backgroundColor = .brand
+            progressIndicatorView.layer.cornerRadius = 4
+            
+            self.progressBackgroundView.addSubview(progressIndicatorView)
+            
+            self.startDateLabel.text = start.toFormat("MMM d")
+            self.endDateLabel.text = end.toFormat("MMM d")
         }
-        
-        let width = progressBackgroundView.frame.width * percent
-        let progressIndicatorView: UIView = UIView(frame: CGRect(x: 7, y: 7, width: width, height: progressBackgroundView.frame.height-14))
-        
-        progressIndicatorView.backgroundColor = .brand
-        progressIndicatorView.layer.cornerRadius = 4
-        
-        progressBackgroundView.addSubview(progressIndicatorView)
-        
-        startDateLabel.text = start.toFormat("MMM d")
-        endDateLabel.text = end.toFormat("MMM d")
     }
 }

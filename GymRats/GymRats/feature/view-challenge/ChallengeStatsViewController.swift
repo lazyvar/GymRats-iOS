@@ -11,8 +11,8 @@ import UIKit
 class ChallengeStatsViewController: UITableViewController {
     
     let challenge: Challenge
-    let users: [User]
-    let workouts: [Workout]
+    var users: [User]
+    var workouts: [Workout]
     
     init(challenge: Challenge, users: [User], workouts: [Workout]) {
         self.workouts = workouts
@@ -41,6 +41,21 @@ class ChallengeStatsViewController: UITableViewController {
         tableView.backgroundColor = .background
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(UIViewController.dismissSelf))
+   
+        if users.isEmpty {
+            NotificationCenter.default.addObserver(self, selector: #selector(hereIsTheData), name: .init("hereIsTheDatam"), object: nil)
+        }
+    }
+    
+    @objc func hereIsTheData(notification: Notification) {
+        guard let obj = notification.object as? ([User], [Workout]) else { return }
+        let (users, workouts) = obj
+        self.users = users.map { user -> (User, [Workout]) in
+            return (user, workouts.filter { $0.gymRatsUserId == user.id })
+        }.sorted(by: { $0.1.count > $1.1.count })
+        .map { $0.0 }
+        self.workouts = workouts
+        self.tableView.reloadData()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -64,6 +79,8 @@ class ChallengeStatsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard indexPath.section == 2 else { return }
         
         let profile = ProfileViewController(user: users[indexPath.row], challenge: challenge)
         
