@@ -35,16 +35,8 @@ class WorkoutHeaderView: UIView {
     
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var userImageView: UserImageView!
-    @IBOutlet weak var usernameLabel: UILabel! {
-        didSet {
-            usernameLabel.font = .body
-        }
-    }
-    @IBOutlet weak var timeLabel: UILabel! {
-        didSet {
-            timeLabel.font = .details
-        }
-    }
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView! {
         didSet {
             imageView.contentMode = .scaleAspectFill
@@ -53,17 +45,8 @@ class WorkoutHeaderView: UIView {
         }
     }
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var titleLabel: UILabel! {
-        didSet {
-            titleLabel.font = .bodyBold
-        }
-    }
-    
-    @IBOutlet weak var descriptionLabel: UILabel! {
-        didSet {
-            descriptionLabel.font = .body
-        }
-    }
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     
     @IBOutlet weak var imageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var headerStackView: UIStackView!

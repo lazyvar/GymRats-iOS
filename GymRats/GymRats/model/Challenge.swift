@@ -57,6 +57,15 @@ extension Challenge {
         }
     }
 
+    var daysCompletePure: Int {
+       return abs(Date().localDateIsDaysApartFromUTCDate(startDate))
+    }
+
+    
+    var daysLeftPure: Int {
+       return abs(Date().localDateIsDaysApartFromUTCDate(endDate))
+    }
+
 }
 
 extension Challenge {

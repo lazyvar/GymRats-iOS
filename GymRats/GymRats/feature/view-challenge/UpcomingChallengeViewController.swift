@@ -45,8 +45,8 @@ class UpcomingChallengeViewController: UICollectionViewController, Special {
         
         collectionView.addSubview(dummyView)
         
-//        view.backgroundColor = .white
-//        collectionView.backgroundColor = .white
+        view.backgroundColor = .background
+        collectionView.backgroundColor = .background
 
         let layout = UICollectionViewFlowLayout()
         let spacing: CGFloat = 10

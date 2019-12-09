@@ -46,6 +46,8 @@ class UserImageView: UIView {
     
     let ringView = RingView(frame: .zero, ringWidth: 0.5, ringColor: UIColor.black.withAlphaComponent(0.1))
     
+    var operation: RetrieveImageTask?
+    
     func skeletonLoad(avatarInfo: AvatarProtocol) {
         self.avatarInfo = avatarInfo
 
@@ -58,7 +60,7 @@ class UserImageView: UIView {
 
         self.skeletonView.alpha = 1
 
-        KingfisherManager.shared.retrieveImage(with: url, options: nil, progressBlock: nil) { image, error, _, _ in
+        operation = KingfisherManager.shared.retrieveImage(with: url, options: nil, progressBlock: nil) { image, error, _, _ in
             UIView.animate(withDuration: 0.15, animations: {
                 self.skeletonView.alpha = 0
             })
@@ -82,7 +84,7 @@ class UserImageView: UIView {
             return
         }
         
-        KingfisherManager.shared.retrieveImage(with: url, options: nil, progressBlock: nil) { image, error, _, _ in
+        operation = KingfisherManager.shared.retrieveImage(with: url, options: nil, progressBlock: nil) { image, error, _, _ in
             if let image = image {
                 self.userImage = image
             } else {
@@ -93,6 +95,8 @@ class UserImageView: UIView {
     }
     
     func setup() {
+        backgroundColor = .clear
+        
         addSubview(imageView)
         addSubview(ringView)
         addSubview(skeletonView)

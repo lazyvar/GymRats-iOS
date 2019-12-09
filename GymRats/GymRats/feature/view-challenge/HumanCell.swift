@@ -15,7 +15,12 @@ class HumanCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        userImageView.userImage = nil
     }
 
 }

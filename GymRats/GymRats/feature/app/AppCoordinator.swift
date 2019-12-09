@@ -193,7 +193,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         drawer.setCenterView(centerViewController, withCloseAnimation: true, completion: { _ in
             self.tabBarViewController?.didHijackHandler = { a, b, index in
                 if index == 0 {
-                    self.pushUserProfile()
+                    self.presentStandings()
                 } else if index == 1 {
                     self.openNewWorkout()
                 } else if index == 2 {
@@ -219,18 +219,11 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         let v3 = UIViewController()
         v3.view.backgroundColor = .peterRiver
         
+        let standings = UIImage(named: "standings")!.withRenderingMode(.alwaysOriginal)
         let chat = UIImage(named: "chat-gray")!.withRenderingMode(.alwaysOriginal)
         let plus = UIImage(named: "activity-large-white")!
-
-        let proPic: UIImage = {
-            if let pic = currentUser.profilePictureUrl, let image = KingfisherManager.shared.cache.retrieveImageInMemoryCache(forKey: pic) ??  KingfisherManager.shared.cache.retrieveImageInDiskCache(forKey: pic) {
-                return proPicImage(image)
-            } else {
-                return UIImage(named: "user")!
-            }
-        }()
         
-        v1.tabBarItem = UITabBarItem(title: nil, image: proPic, selectedImage: proPic)
+        v1.tabBarItem = UITabBarItem(title: nil, image: standings, selectedImage: standings)
         v2.tabBarItem = ESTabBarItem.init(BigContentView(), title: nil, image: plus, selectedImage: plus)
         v3.tabBarItem = UITabBarItem(title: nil, image: chat, selectedImage: chat)
         v3.tabBarItem?.badgeColor = .brand
@@ -251,6 +244,15 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         self.tabBarViewController = tabBarController
         
         return tabBarController
+    }
+    
+    func presentStandings() {
+        guard let nav = tabBarViewController?.viewControllers?[safe: 1] as? GRNavigationController else { return }
+        guard let artist = nav.viewControllers.last as? ArtistViewController else { return }
+        
+        let stats = ChallengeStatsViewController(challenge: artist.challenge, users: artist.users, workouts: artist.workouts)
+        
+        UIViewController.topmost().present(stats.inNav(), animated: true, completion: nil)
     }
     
     func centerActiveOrUpcomingChallenge(_ challenge: Challenge) {
@@ -453,4 +455,31 @@ extension AppCoordinator: MFMessageComposeViewControllerDelegate {
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         controller.dismissSelf()
     }
+}
+
+extension UIWindow {
+    func topmostViewController() -> UIViewController {
+      func recurse(_ viewController: UIViewController) -> UIViewController {
+        switch viewController {
+          case let tabBarViewController as UITabBarController:
+            return recurse(tabBarViewController.selectedViewController ?? tabBarViewController)
+          case let navigationViewController as UINavigationController:
+            return recurse(navigationViewController.viewControllers.last ?? navigationViewController)
+          default:
+            if let presentedViewController = viewController.presentedViewController, !presentedViewController.isBeingDismissed {
+              return recurse(presentedViewController)
+            } else {
+              return viewController
+            }
+        }
+      }
+      
+      return recurse(rootViewController!)
+    }
+}
+
+extension UIViewController {
+  static func topmost(for window: UIWindow = UIApplication.shared.keyWindow!) -> UIViewController {
+    return window.topmostViewController()
+  }
 }
