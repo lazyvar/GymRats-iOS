@@ -53,17 +53,9 @@ class StatsBabyCell: UITableViewCell {
             let daysWorkoutsBase = days.reduce([:]) { hash, day -> [Date: [Workout]] in
                 return hash.merging([day: []], uniquingKeysWith: { _, new in new })
             }
-            let workoutsPerDay = Dictionary(grouping: workouts, by: { $0.createdAt.respecting([.day, .month, .year]) })
+            let workoutsPerDay = Dictionary(grouping: workouts, by: { $0.createdAt.respecting([.day, .month, .year], timeZone: .utc) })
             let bucketed = workoutsPerDay.merging(daysWorkoutsBase, uniquingKeysWith: { old, _ in old }).sorted { (a, b) -> Bool in
                 return a.key < b.key
-            }
-
-            let users = users.filter {
-                if workouts.contains(where: { $0.gymRatsUserId == 9 }) {
-                    return true
-                } else {
-                    return $0.id != 9
-                }
             }
             
             var daysAllPeepsTwerked = 0
@@ -84,7 +76,7 @@ class StatsBabyCell: UITableViewCell {
                 userToCurrentStreak[user] = 0
             }
             
-            for (day, workouts) in bucketed {
+            for (_, workouts) in bucketed {
                 if workouts.isEmpty {
                     daysNoPeepsTwerked += 1
                 } else if users.allSatisfy({ user -> Bool in
@@ -132,9 +124,29 @@ class StatsBabyCell: UITableViewCell {
                     userToLongestStreak[user] = streak
                 }
             }
-            
+
+            let usersToNumberOfWorkoutsPre9am: [User: Int] = users.reduce([:]) { hash, user -> [User: Int] in
+                let workouts = userToWorkouts[user]!
+                let timeDiff = CGFloat(TimeZone.current.secondsFromGMT()) / CGFloat(3600)
+                let datesBefore9amLocalTime = workouts.filter { workout -> Bool in
+                    var t = workout.createdAt.hour + Int(timeDiff)
+                    
+                    if t < 0 {
+                        t += 24
+                    }
+                    
+                    if t >= 24 {
+                        t -= 24
+                    }
+                    
+                    return t < 9
+                }
+                
+                return hash.merging([user: datesBefore9amLocalTime.count], uniquingKeysWith: { _, new in new })
+            }
+
             let mostWorkoutsUser = userToWorkouts.sorted(by: { $0.value.count > $1.value.count }).first!
-            let mostRelaxedUser = userToDaysRelaxed.sorted(by: { $0.value > $1.value }).first!
+            let earlyBird = usersToNumberOfWorkoutsPre9am.sorted(by: { $0.value > $1.value }).first!
             let mostInDayUser = userToMostWorkoutsInDay.sorted(by: { $0.value > $1.value }).first!
             let nakedUser = userToLongestStreak.sorted(by: { $0.value > $1.value }).first!
 
@@ -145,14 +157,14 @@ class StatsBabyCell: UITableViewCell {
                 self.daysNoOneWorkedOutLabel.text = "\(daysNoPeepsTwerked)"
         
                 self.mostWorkoutsLabel.text = "\(mostWorkoutsUser.value.count)"
-                self.relaxingLabel.text = "\(mostRelaxedUser.value)"
+                self.relaxingLabel.text = "\(earlyBird.value)"
                 self.mostWorkoutsDayLabel.text = "\(mostInDayUser.value)"
                 self.streakLabel.text = "\(nakedUser.value)"
                 
                 self.mostWorkoutsView.load(avatarInfo: mostWorkoutsUser.key)
                 self.streakView.load(avatarInfo: nakedUser.key)
                 self.mostWorkoutsDayView.load(avatarInfo: mostInDayUser.key)
-                self.relaxingView.load(avatarInfo: mostRelaxedUser.key)
+                self.relaxingView.load(avatarInfo: earlyBird.key)
             }
         }
     }
@@ -160,10 +172,10 @@ class StatsBabyCell: UITableViewCell {
 }
 
 extension Date {
-    func respecting(_ dateComponents: Set<Calendar.Component>) -> Date {
+    func respecting(_ dateComponents: Set<Calendar.Component>, timeZone: TimeZone = .current) -> Date {
         let components = Calendar.current.dateComponents(dateComponents, from: self)
         var calendar = Calendar(identifier: .iso8601)
-        calendar.timeZone = .utc
+        calendar.timeZone = timeZone
         
         return calendar.date(from: components)!
     }
