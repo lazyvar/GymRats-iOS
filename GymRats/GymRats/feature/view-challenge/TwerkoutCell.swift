@@ -82,6 +82,8 @@ class TwerkoutCell: UITableViewCell {
 //        shadowView.layer.shadowColor = UIColor.shadow.cgColor
 //        shadowView.layer.shadowOpacity = 0.5
 
+        
+        
         shadowView.layer.cornerRadius = 4
         shadowView.clipsToBounds = true
         shadowView.isSkeletonable = true

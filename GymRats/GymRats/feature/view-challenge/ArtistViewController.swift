@@ -12,6 +12,7 @@ import RxCocoa
 import RxGesture
 import Kingfisher
 import NVActivityIndicatorView
+import MapKit
 
 class ArtistViewController: UIViewController, Special {
     
@@ -62,6 +63,31 @@ class ArtistViewController: UIViewController, Special {
     )
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        DispatchQueue.main.async {
+            // preload maps
+            let cood = CLLocationCoordinate2D (
+                latitude: 0,
+                longitude: 0
+            )
+            let coordinateRegion = MKCoordinateRegion (
+                center: cood,
+                latitudinalMeters: 500, longitudinalMeters: 500
+            )
+            let annotation = PlaceAnnotation (
+                title: "",
+                coordinate: cood
+            )
+
+            let mapView = MKMapView(frame: CGRect(x: 1000, y: 1000, width: 1, height: 1))
+            
+            mapView.setRegion(coordinateRegion, animated: false)
+            mapView.mapType = .standard
+            mapView.isUserInteractionEnabled = false
+            mapView.addAnnotation(annotation)
+        }
+        
         tableView.separatorStyle = .none
         navigationItem.largeTitleDisplayMode = .never
         
