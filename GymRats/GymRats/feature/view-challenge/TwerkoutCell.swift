@@ -70,10 +70,10 @@ class TwerkoutCell: UITableViewCell {
         NotificationCenter.default.addObserver(self, selector: #selector(enablePress), name: NSNotification.Name(rawValue: "enable_press"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(disablePress), name: NSNotification.Name(rawValue: "disable_press"), object: nil)
         
-        desc.font = .body
-        tit.font = .bodyBold
-        det.font = .body
-        timeLabel.font = .details
+//        desc.font = .body
+//        tit.font = .bodyBold
+//        det.font = .body
+//        timeLabel.font = .details
         bg.backgroundColor = .foreground
         bg.layer.cornerRadius = 4
 

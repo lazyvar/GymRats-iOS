@@ -156,7 +156,7 @@ class StatsBabyCell: UITableViewCell {
             }
         }
     }
-    
+
 }
 
 extension Date {
