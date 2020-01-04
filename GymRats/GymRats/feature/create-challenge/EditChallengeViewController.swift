@@ -170,6 +170,7 @@ class EditChallengeViewController: GRFormViewController, Special {
             challengeName: name.value!,
             photo: self.photo.value
         ).subscribe(onNext: { [weak self] challenge in
+            Track.event(.challengeEdited)
             self?.hideLoadingBar()
             self?.dismissSelf()
             self?.delegate?.challengeEdited(challenge: challenge)

@@ -53,6 +53,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         
         GMSPlacesClient.provideAPIKey("AIzaSyD1X4TH-TneFnDqjiJ2rb2FGgxK8JZyrIo")
         FirebaseApp.configure()
+        Track.screens()
         UIApplication.shared.statusBarStyle = .default
     }
     
@@ -176,6 +177,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
             }
         }
         
+        Track.currentUser()
         window.rootViewController = drawer
     }
     
@@ -360,6 +362,8 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     func updateUser(_ user: User) {
         self.currentUser = user
         
+        Track.currentUser()
+        
         NotificationCenter.default.post(name: .updatedCurrentUser, object: user)
         
         // update pic on tab
@@ -454,6 +458,10 @@ extension NSNotification.Name {
 extension AppCoordinator: MFMessageComposeViewControllerDelegate {
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         controller.dismissSelf()
+        
+        if result == .sent {
+            Track.event(.smsInviteSent)
+        }
     }
 }
 

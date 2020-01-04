@@ -146,6 +146,8 @@ class CreateChallengeViewController: GRFormViewController, Special {
         .subscribe(onNext: { [weak self] challenge in
             self?.hideLoadingBar()
             
+            Track.event(.challengeCreated)
+            
             let share = ShareCodeViewController.loadFromNib(from: .challenge)
             share.challenge = challenge
             share.delegate = self?.delegate

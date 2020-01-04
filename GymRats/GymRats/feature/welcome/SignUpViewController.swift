@@ -67,6 +67,7 @@ class SignUpViewController: GRFormViewController, Special {
         gymRatsAPI.signUp(email: email, password: password, profilePicture: proPic, fullName: fullName)
             .subscribe(onNext: { [weak self] user in
                 self?.hideLoadingBar()
+                Track.event(.signup)
                 GymRatsApp.delegate.appCoordinator.login(user: user)
             }, onError: { [weak self] error in
                 self?.presentAlert(with: error)

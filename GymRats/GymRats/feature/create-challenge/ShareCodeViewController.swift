@@ -88,6 +88,10 @@ extension ShareCodeViewController: MFMessageComposeViewControllerDelegate {
  
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         controller.dismissSelf()
+        
+        if result == .sent {
+            Track.event(.smsInviteSent)
+        }
     }
     
 }

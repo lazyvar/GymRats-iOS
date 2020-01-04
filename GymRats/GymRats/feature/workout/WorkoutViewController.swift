@@ -138,6 +138,7 @@ class WorkoutViewController: UITableViewController {
                 
                 switch event {
                 case .next(let comments):
+                    Track.event(.commentedOnWorkout)
                     self.textField?.text = nil
                     self.resignFirstResponder()
                     self.comments = comments

@@ -9,9 +9,9 @@
 import UIKit
 import RxSwift
 
-enum ProfileChangeType {
-    case email
-    case fullName
+enum ProfileChangeType: String {
+    case email = "email"
+    case fullName = "name"
 }
 
 struct UpdateUser: Encodable {
@@ -105,6 +105,7 @@ class ProfileChangeController: UIViewController, UITextFieldDelegate {
             switch event {
             case .next(let user):
                 GymRatsApp.coordinator.updateUser(user)
+                Track.event(.profileEdited, parameters: ["change_type": self.change.rawValue])
                 self.navigationController?.popViewController(animated: true)
             case .error(let error):
                 self.presentAlert(with: error)

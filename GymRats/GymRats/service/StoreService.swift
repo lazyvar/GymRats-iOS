@@ -19,6 +19,7 @@ class StoreService {
         if count >= 10 && !UserDefaults.standard.bool(forKey: UserDefaultsKeys.requestReview) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                 SKStoreReviewController.requestReview()
+                Track.event(.storeReviewRequested)
                 UserDefaults.standard.set(true, forKey: UserDefaultsKeys.requestReview)
             }
         }
