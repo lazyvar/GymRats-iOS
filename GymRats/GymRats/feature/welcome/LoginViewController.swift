@@ -43,6 +43,7 @@ class LoginViewController: GRFormViewController, Special {
             
             let resetPassword = UIAlertAction(title: "Send", style: .default, handler: { _ in
                 self.resetPassword(email: alertController.textFields?.first?.text)
+                Track.event(.passwordReset)
             })
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -69,6 +70,7 @@ class LoginViewController: GRFormViewController, Special {
         gymRatsAPI.login(email: email, password: password)
             .subscribe(onNext: { [weak self] user in
                 self?.hideLoadingBar()
+                Track.event(.login)
                 GymRatsApp.delegate.appCoordinator.login(user: user)
             }, onError: { [weak self] error in
                 self?.presentAlert(title: "Uh-oh", message: error.localizedDescription)

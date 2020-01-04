@@ -174,6 +174,7 @@ extension ChatViewController: MessageInputBarDelegate {
                 
                 switch event {
                 case .next(let message):
+                    Track.event(.chatSent)
                     self.chats.append(message)
                     self.messagesCollectionView.reloadData()
                     self.messageInputBar.inputTextView.text = nil

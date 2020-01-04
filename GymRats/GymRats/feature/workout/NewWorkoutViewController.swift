@@ -231,6 +231,7 @@ class NewWorkoutViewController: GRFormViewController, Special {
         ).subscribe(onNext: { [weak self] workouts in
             guard let self = self else { return }
             
+            Track.event(.workoutLogged)
             self.hideLoadingBar()
             self.navigationController?.popViewController(animated: true)
             StoreService.requestReview()
