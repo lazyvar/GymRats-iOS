@@ -18,6 +18,7 @@
 		0107AE372325E3D300944D11 /* TwerkoutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0107AE352325E3D300944D11 /* TwerkoutCell.xib */; };
 		0118A28B239DA7F9006A8A7A /* RatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0118A289239DA7F9006A8A7A /* RatsCell.swift */; };
 		0118A28C239DA7F9006A8A7A /* RatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0118A28A239DA7F9006A8A7A /* RatsCell.xib */; };
+		0118C24923C28BA1002FB84D /* CreateWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0118C24823C28BA1002FB84D /* CreateWorkoutViewController.swift */; };
 		011FB62822A31E65004D5B8E /* LoadingUserWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB62722A31E65004D5B8E /* LoadingUserWorkoutView.swift */; };
 		011FB62B22A33AAA004D5B8E /* UserProfileMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB62922A33AAA004D5B8E /* UserProfileMenuTableViewCell.swift */; };
 		011FB62C22A33AAA004D5B8E /* UserProfileMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011FB62A22A33AAA004D5B8E /* UserProfileMenuTableViewCell.xib */; };
@@ -130,7 +131,7 @@
 		746764DF220B4829000CFB1B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764DE220B4829000CFB1B /* ProfileViewController.swift */; };
 		746764E1220B5A93000CFB1B /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E0220B5A93000CFB1B /* Switch.swift */; };
 		746764E3220B6D5C000CFB1B /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E2220B6D5C000CFB1B /* Collection+Extension.swift */; };
-		746764E7220BAE44000CFB1B /* NewWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E6220BAE44000CFB1B /* NewWorkoutViewController.swift */; };
+		746764E7220BAE44000CFB1B /* BadNewWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E6220BAE44000CFB1B /* BadNewWorkoutViewController.swift */; };
 		746764EA220BCB5C000CFB1B /* GRNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E8220BCB5C000CFB1B /* GRNavigationController.swift */; };
 		746764EB220BCB5C000CFB1B /* GRNavigationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 746764E9220BCB5C000CFB1B /* GRNavigationController.xib */; };
 		746764ED220BD68D000CFB1B /* RightAlignedconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764EC220BD68D000CFB1B /* RightAlignedconButton.swift */; };
@@ -201,6 +202,7 @@
 		0107AE352325E3D300944D11 /* TwerkoutCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TwerkoutCell.xib; sourceTree = "<group>"; };
 		0118A289239DA7F9006A8A7A /* RatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatsCell.swift; sourceTree = "<group>"; };
 		0118A28A239DA7F9006A8A7A /* RatsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RatsCell.xib; sourceTree = "<group>"; };
+		0118C24823C28BA1002FB84D /* CreateWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutViewController.swift; sourceTree = "<group>"; };
 		011FB62722A31E65004D5B8E /* LoadingUserWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingUserWorkoutView.swift; sourceTree = "<group>"; };
 		011FB62922A33AAA004D5B8E /* UserProfileMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileMenuTableViewCell.swift; sourceTree = "<group>"; };
 		011FB62A22A33AAA004D5B8E /* UserProfileMenuTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserProfileMenuTableViewCell.xib; sourceTree = "<group>"; };
@@ -318,7 +320,7 @@
 		746764DE220B4829000CFB1B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		746764E0220B5A93000CFB1B /* Switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
 		746764E2220B6D5C000CFB1B /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
-		746764E6220BAE44000CFB1B /* NewWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkoutViewController.swift; sourceTree = "<group>"; };
+		746764E6220BAE44000CFB1B /* BadNewWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadNewWorkoutViewController.swift; sourceTree = "<group>"; };
 		746764E8220BCB5C000CFB1B /* GRNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRNavigationController.swift; sourceTree = "<group>"; };
 		746764E9220BCB5C000CFB1B /* GRNavigationController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GRNavigationController.xib; sourceTree = "<group>"; };
 		746764EC220BD68D000CFB1B /* RightAlignedconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightAlignedconButton.swift; sourceTree = "<group>"; };
@@ -786,7 +788,8 @@
 				01E68FD322D29ACC004E1218 /* WorkoutHeaderView.swift */,
 				01E68FD522D29AEA004E1218 /* WorkoutHeaderView.xib */,
 				74A01B45220A778C00431ABD /* WorkoutViewController.swift */,
-				746764E6220BAE44000CFB1B /* NewWorkoutViewController.swift */,
+				746764E6220BAE44000CFB1B /* BadNewWorkoutViewController.swift */,
+				0118C24823C28BA1002FB84D /* CreateWorkoutViewController.swift */,
 				01BFF8FA223D425C0044F802 /* CommentTableViewCell.swift */,
 				01BFF8FB223D425C0044F802 /* CommentTableViewCell.xib */,
 				01001A1223C278970022AB32 /* LogWorkoutCell.swift */,
@@ -1085,7 +1088,7 @@
 				01E68FD422D29ACC004E1218 /* WorkoutHeaderView.swift in Sources */,
 				74A01B2F220A1CD900431ABD /* CreateChallengeViewController.swift in Sources */,
 				01C926E8233FB96E00C1C128 /* ShareCodeViewController.swift in Sources */,
-				746764E7220BAE44000CFB1B /* NewWorkoutViewController.swift in Sources */,
+				746764E7220BAE44000CFB1B /* BadNewWorkoutViewController.swift in Sources */,
 				011FB62822A31E65004D5B8E /* LoadingUserWorkoutView.swift in Sources */,
 				7455AC5E22125296005A558A /* ServiceResponse.swift in Sources */,
 				01660839239C5EAF00FCFD26 /* ChallengeStatsViewController.swift in Sources */,
@@ -1102,6 +1105,7 @@
 				747D6FE02208ECDD0062BB39 /* Styles.swift in Sources */,
 				011FB62F22A33C14004D5B8E /* MenuTableViewCell.swift in Sources */,
 				0107AE2E2325CD5D00944D11 /* LeaderboardCell.swift in Sources */,
+				0118C24923C28BA1002FB84D /* CreateWorkoutViewController.swift in Sources */,
 				01A3EB13237747D30097FC2A /* CVStatus.swift in Sources */,
 				747D6FDA2208E8130062BB39 /* KeychainResult.swift in Sources */,
 				01A3EB1F237747D30097FC2A /* CVCalendarContentPresentationCoordinator.swift in Sources */,

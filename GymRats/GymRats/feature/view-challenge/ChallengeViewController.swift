@@ -54,7 +54,7 @@ class ChallengeViewController: UIViewController {
             logWorkoutButton.layer.shadowOffset = CGSize(width: 0, height: 0)
             logWorkoutButton.rx.tap
                 .subscribe(onNext: { _ in
-                    let newWorkoutViewController = NewWorkoutViewController()
+                    let newWorkoutViewController = BadNewWorkoutViewController()
                     newWorkoutViewController.delegate = self
                     
                     self.push(newWorkoutViewController)
@@ -209,7 +209,7 @@ extension ChallengeViewController: ChallengeDayViewControllerDelegate {
 
 extension ChallengeViewController: NewWorkoutDelegate {
     
-    func newWorkoutController(_ newWorkoutController: NewWorkoutViewController, created workouts: [Workout]) {
+    func newWorkoutController(_ newWorkoutController: BadNewWorkoutViewController, created workouts: [Workout]) {
         self.reload()
     }
     

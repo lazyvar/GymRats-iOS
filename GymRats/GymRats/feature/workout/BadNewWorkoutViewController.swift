@@ -13,10 +13,10 @@ import GooglePlaces
 import Eureka
 
 protocol NewWorkoutDelegate: class {
-    func newWorkoutController(_ newWorkoutController: NewWorkoutViewController, created workouts: [Workout])
+    func newWorkoutController(_ newWorkoutController: BadNewWorkoutViewController, created workouts: [Workout])
 }
 
-class NewWorkoutViewController: GRFormViewController, Special {
+class BadNewWorkoutViewController: GRFormViewController, Special {
     
     weak var delegate: NewWorkoutDelegate?
 
@@ -241,7 +241,7 @@ class NewWorkoutViewController: GRFormViewController, Special {
     
 }
 
-extension NewWorkoutViewController: CLLocationManagerDelegate {
+extension BadNewWorkoutViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {

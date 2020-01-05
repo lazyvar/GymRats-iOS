@@ -270,21 +270,11 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         let generator = UIImpactFeedbackGenerator(style: .heavy)
         generator.impactOccurred()
 
-        let logWorkoutModal = LogWorkoutModalViewController(
-            tappedPhotoLibrary: {
+        let logWorkoutModal = LogWorkoutModalViewController() { image in
             
-            },
-            tappedTakePicture: {
-            
-            }
-        )
+        }
         
         tabBarViewController?.presentPanModal(logWorkoutModal)
-        
-//        let newWorkoutViewController = NewWorkoutViewController()
-//
-//        newWorkoutViewController.delegate = self
-//        tabBarViewController?.present(newWorkoutViewController.inNav(), animated: true, completion: nil)
     }
     
     func pushUserProfile() {
@@ -444,7 +434,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
 
 extension AppCoordinator: NewWorkoutDelegate {
     
-    func newWorkoutController(_ newWorkoutController: NewWorkoutViewController, created workouts: [Workout]) {
+    func newWorkoutController(_ newWorkoutController: BadNewWorkoutViewController, created workouts: [Workout]) {
         newWorkoutController.dismissSelf()
         self.artistVc?.fetchUserWorkouts()
     }

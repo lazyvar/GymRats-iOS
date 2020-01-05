@@ -11,12 +11,10 @@ import PanModal
 
 class LogWorkoutModalViewController: UITableViewController {
 
-    let tappedPhotoLibrary: () -> Void
-    let tappedTakePicture: () -> Void
-
-    init(tappedPhotoLibrary: @escaping () -> Void, tappedTakePicture: @escaping () -> Void) {
-        self.tappedPhotoLibrary = tappedPhotoLibrary
-        self.tappedTakePicture = tappedTakePicture
+    let onPickImage: (UIImage) -> Void
+    
+    init(onPickImage: @escaping (UIImage) -> Void) {
+        self.onPickImage = onPickImage
         
         super.init(style: .plain)
     }
@@ -45,9 +43,57 @@ class LogWorkoutModalViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "log") as! LogWorkoutCell
         
+        cell.onTakePicture = { [weak self] in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                let imagePicker = UIImagePickerController()
+                imagePicker.sourceType = .camera
+                imagePicker.delegate = self
+                UINavigationBar.appearance().isTranslucent = false
+                UINavigationBar.appearance().barTintColor = .background
+                UINavigationBar.appearance().tintColor = .primaryText
+                
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        }
+
+        cell.onChooseFromLibrary = { [weak self] in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                let imagePicker = UIImagePickerController()
+                imagePicker.sourceType = .photoLibrary
+                imagePicker.delegate = self
+                UINavigationBar.appearance().isTranslucent = false
+                UINavigationBar.appearance().barTintColor = .background
+                UINavigationBar.appearance().tintColor = .primaryText
+
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+        }
+
         return cell
     }
 
+}
+
+extension LogWorkoutModalViewController: UINavigationControllerDelegate {
+
+}
+
+extension LogWorkoutModalViewController: UIImagePickerControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true) {
+            self.dismiss(animated: true) {
+                if let img = info[.originalImage] as? UIImage {
+                    self.onPickImage(img)
+                }
+            }
+        }
+    }
+    
 }
 
 extension LogWorkoutModalViewController: PanModalPresentable {
