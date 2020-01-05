@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01001A1423C278970022AB32 /* LogWorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01001A1223C278970022AB32 /* LogWorkoutCell.swift */; };
+		01001A1523C278970022AB32 /* LogWorkoutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01001A1323C278970022AB32 /* LogWorkoutCell.xib */; };
+		01001A1723C27DC90022AB32 /* LogWorkoutModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01001A1623C27DC90022AB32 /* LogWorkoutModalViewController.swift */; };
 		0107AE2E2325CD5D00944D11 /* LeaderboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0107AE2C2325CD5D00944D11 /* LeaderboardCell.swift */; };
 		0107AE2F2325CD5D00944D11 /* LeaderboardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0107AE2D2325CD5D00944D11 /* LeaderboardCell.xib */; };
 		0107AE322325CDD200944D11 /* HumanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0107AE302325CDD200944D11 /* HumanCell.swift */; };
@@ -187,6 +190,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01001A1223C278970022AB32 /* LogWorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogWorkoutCell.swift; sourceTree = "<group>"; };
+		01001A1323C278970022AB32 /* LogWorkoutCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogWorkoutCell.xib; sourceTree = "<group>"; };
+		01001A1623C27DC90022AB32 /* LogWorkoutModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogWorkoutModalViewController.swift; sourceTree = "<group>"; };
 		0107AE2C2325CD5D00944D11 /* LeaderboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardCell.swift; sourceTree = "<group>"; };
 		0107AE2D2325CD5D00944D11 /* LeaderboardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeaderboardCell.xib; sourceTree = "<group>"; };
 		0107AE302325CDD200944D11 /* HumanCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanCell.swift; sourceTree = "<group>"; };
@@ -783,6 +789,9 @@
 				746764E6220BAE44000CFB1B /* NewWorkoutViewController.swift */,
 				01BFF8FA223D425C0044F802 /* CommentTableViewCell.swift */,
 				01BFF8FB223D425C0044F802 /* CommentTableViewCell.xib */,
+				01001A1223C278970022AB32 /* LogWorkoutCell.swift */,
+				01001A1323C278970022AB32 /* LogWorkoutCell.xib */,
+				01001A1623C27DC90022AB32 /* LogWorkoutModalViewController.swift */,
 			);
 			path = workout;
 			sourceTree = "<group>";
@@ -906,6 +915,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01001A1523C278970022AB32 /* LogWorkoutCell.xib in Resources */,
 				01297D852329E79000CA9E41 /* SF-Compact-Rounded-Heavy.otf in Resources */,
 				01297D872329E79000CA9E41 /* SF-Compact-Rounded-Regular.otf in Resources */,
 				01297D922329E79000CA9E41 /* SF-Pro-Rounded-Light.otf in Resources */,
@@ -1156,6 +1166,7 @@
 				01A3EB14237747D30097FC2A /* CVCalendarViewAppearanceDelegate.swift in Sources */,
 				01A3EB10237747D30097FC2A /* CVRange.swift in Sources */,
 				746764EA220BCB5C000CFB1B /* GRNavigationController.swift in Sources */,
+				01001A1423C278970022AB32 /* LogWorkoutCell.swift in Sources */,
 				018E9F51229F7E3D008AB016 /* ChallengeViewController.swift in Sources */,
 				74BE97BD220C9F2800D550CA /* ImagePickerController.swift in Sources */,
 				01A3EB16237747D30097FC2A /* CVCalendarContentViewController.swift in Sources */,
@@ -1177,6 +1188,7 @@
 				01A3EB1A237747D30097FC2A /* CVCalendarWeekContentViewController.swift in Sources */,
 				019CF1FB232722FF00D884DA /* BigContentView.swift in Sources */,
 				7432459F2214FE4D00A13634 /* ChangePasswordViewController.swift in Sources */,
+				01001A1723C27DC90022AB32 /* LogWorkoutModalViewController.swift in Sources */,
 				747D6FCD2208DE8E0062BB39 /* NetworkProvider.swift in Sources */,
 				747D6FC52208DCB60062BB39 /* UIView+Extension.swift in Sources */,
 				74C2D84E222C3D1A00FF0DE2 /* AboutViewController.swift in Sources */,

@@ -29,6 +29,7 @@ target 'GymRats' do
     pod 'NVActivityIndicatorView/AppExtension'
     pod "RxGesture"
     pod 'Eureka'
+    pod 'PanModal'
 
      target 'GymRatsTests' do
         inherit! :search_paths

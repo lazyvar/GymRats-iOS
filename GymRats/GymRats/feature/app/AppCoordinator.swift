@@ -267,12 +267,24 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     }
     
     func openNewWorkout() {
-        let newWorkoutViewController = NewWorkoutViewController()
         let generator = UIImpactFeedbackGenerator(style: .heavy)
         generator.impactOccurred()
 
-        newWorkoutViewController.delegate = self
-        tabBarViewController?.present(newWorkoutViewController.inNav(), animated: true, completion: nil)
+        let logWorkoutModal = LogWorkoutModalViewController(
+            tappedPhotoLibrary: {
+            
+            },
+            tappedTakePicture: {
+            
+            }
+        )
+        
+        tabBarViewController?.presentPanModal(logWorkoutModal)
+        
+//        let newWorkoutViewController = NewWorkoutViewController()
+//
+//        newWorkoutViewController.delegate = self
+//        tabBarViewController?.present(newWorkoutViewController.inNav(), animated: true, completion: nil)
     }
     
     func pushUserProfile() {
