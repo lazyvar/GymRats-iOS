@@ -112,9 +112,6 @@ class LoginViewController: GRFormViewController, Special {
             cell.textField.autocapitalizationType = .none
             cell.tintColor = .brand
             cell.height = { return 48 }
-            DispatchQueue.main.async {
-                cell.textField.becomeFirstResponder()
-            }
         })
     }()
     

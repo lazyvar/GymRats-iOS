@@ -75,9 +75,6 @@ class NewWorkoutViewController: GRFormViewController, Special {
             cell.titleLabel?.font = .body
             cell.height = { return 48 }
             cell.tintColor = .brand
-            DispatchQueue.main.async {
-                cell.textField.becomeFirstResponder()
-            }
         }
         
         let descriptionRow = TextAreaRow("description") {

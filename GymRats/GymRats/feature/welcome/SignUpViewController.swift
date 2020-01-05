@@ -196,9 +196,6 @@ extension SignUpViewController {
         emailCell.textLabel?.font = .body
         emailCell.tintColor = .brand
         emailCell.height = { return 48 }
-        DispatchQueue.main.async {
-            emailCell.textField.becomeFirstResponder()
-        }
     }
     
     func handleRowValidationChange(cell: UITableViewCell, textRow: TextRow) {
