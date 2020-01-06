@@ -13,6 +13,8 @@ class LogWorkoutModalViewController: UITableViewController {
 
     let onPickImage: (UIImage) -> Void
     
+    var showText = true
+    
     init(onPickImage: @escaping (UIImage) -> Void) {
         self.onPickImage = onPickImage
         
@@ -32,21 +34,20 @@ class LogWorkoutModalViewController: UITableViewController {
         tableView.register(UINib(nibName: "LogWorkoutCell", bundle: nil), forCellReuseIdentifier: "log")
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
+    override func numberOfSections(in tableView: UITableView) -> Int { return 1 }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return 1 }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "log") as! LogWorkoutCell
-        
+        cell.textStackView.isHidden = !showText
         cell.onTakePicture = { [weak self] in
             guard let self = self else { return }
             
-            DispatchQueue.main.async {
+            guard UIImagePickerController.isCameraDeviceAvailable(.front) || UIImagePickerController.isCameraDeviceAvailable(.rear) else {
+                self.presentAlert(title: "Uh-oh", message: "Your device needs a camera to do that.")
+                return
+            }
+
                 let imagePicker = UIImagePickerController()
                 imagePicker.sourceType = .camera
                 imagePicker.delegate = self
@@ -55,13 +56,11 @@ class LogWorkoutModalViewController: UITableViewController {
                 UINavigationBar.appearance().tintColor = .primaryText
                 
                 self.present(imagePicker, animated: true, completion: nil)
-            }
+            
         }
-
         cell.onChooseFromLibrary = { [weak self] in
             guard let self = self else { return }
             
-            DispatchQueue.main.async {
                 let imagePicker = UIImagePickerController()
                 imagePicker.sourceType = .photoLibrary
                 imagePicker.delegate = self
@@ -70,7 +69,7 @@ class LogWorkoutModalViewController: UITableViewController {
                 UINavigationBar.appearance().tintColor = .primaryText
 
                 self.present(imagePicker, animated: true, completion: nil)
-            }
+            
         }
 
         return cell

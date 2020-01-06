@@ -52,14 +52,6 @@ class ChallengeViewController: UIViewController {
             logWorkoutButton.layer.shadowOpacity = 0.3
             logWorkoutButton.layer.cornerRadius = 32
             logWorkoutButton.layer.shadowOffset = CGSize(width: 0, height: 0)
-            logWorkoutButton.rx.tap
-                .subscribe(onNext: { _ in
-                    let newWorkoutViewController = BadNewWorkoutViewController()
-                    newWorkoutViewController.delegate = self
-                    
-                    self.push(newWorkoutViewController)
-                })
-                .disposed(by: disposeBag)
         }
     }
     

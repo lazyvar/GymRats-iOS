@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreateWorkoutViewController: UIViewController {
+class CreateWorkoutViewController: GRFormViewController {
     
     var workoutImage: UIImage
     

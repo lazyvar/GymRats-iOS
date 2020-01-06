@@ -21,14 +21,21 @@ class BadNewWorkoutViewController: GRFormViewController, Special {
     weak var delegate: NewWorkoutDelegate?
 
     let disposeBag = DisposeBag()
-    
     let placeLikelihoods = BehaviorRelay<[Place]>(value: [])
     let place = BehaviorRelay<Place?>(value: nil)
-    let photo = BehaviorRelay<UIImage?>(value: nil)
+    
     let workoutDescription = BehaviorRelay<String?>(value: nil)
     let workoutTitle = BehaviorRelay<String?>(value: nil)
+    let photo = BehaviorRelay<UIImage?>(value: nil)
+    
+    lazy var workoutDescriptionThing = self.workoutHeader.map { $0?.description }
+    lazy var workoutTitleThing = self.workoutHeader.map { $0?.title }
+    lazy var photoThing = self.workoutHeader.map { $0?.image }
 
+    let workoutHeader = BehaviorRelay<WorkoutHeaderInfo?>(value: nil)
+    
     var challenges: [Int: BehaviorRelay<Bool>] = [:]
+    var workoutImage: UIImage
     
     lazy var submitButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(postWorkout))
     lazy var cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissSelf))
@@ -56,6 +63,16 @@ class BadNewWorkoutViewController: GRFormViewController, Special {
         self?.showLoadingBar()
     }
     
+    init(workoutImage: UIImage) {
+        self.workoutImage = workoutImage
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -67,65 +84,17 @@ class BadNewWorkoutViewController: GRFormViewController, Special {
         
         LabelRow.defaultCellUpdate = nil
 
-        let titleRow = TextRow("name") {
-            $0.title = "Title"
-            $0.placeholder = "Leg day."
-        }.cellSetup { cell, _ in
-            cell.textLabel?.font = .body
-            cell.titleLabel?.font = .body
-            cell.height = { return 48 }
-            cell.tintColor = .brand
+        let headerRow = CreateWorkoutHeaderRow("workout_header") {
+            $0.value = WorkoutHeaderInfo(image: workoutImage, title: "", description: "")
         }
-        
-        let descriptionRow = TextAreaRow("description") {
-            $0.placeholder = "Description...\n3x8 squats\n3x6 deadlifts\n3x4 rows"
-        }.cellSetup { cell, _ in
-            cell.textLabel?.font = .body
-            cell.textView.font = .body
-            cell.tintColor = .primaryText
-        }
-        
-        let photoRow = ImageRow("photo") {
-            $0.title = "Take Photo"
-            $0.placeholderImage = UIImage(named: "photo")?.withRenderingMode(.alwaysTemplate)
-            $0.sourceTypes = [.Camera, .SavedPhotosAlbum]
-            $0.validatePhotoWasTakenToday = false
-        }.cellSetup { cell, _ in
-            cell.height = { return 48 }
-            cell.tintColor = .primaryText
-            cell.textLabel?.font = .body
-        }
-        
+
         let activeChallenges = GymRatsApp.coordinator.menu.activeChallenges
         let challengeSection = Section("Challenges")
-        
-        let last = Section() {
-            let footerBuilder = { () -> UIView in
-                let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 30))
-                let textLabel = UILabel()
-                textLabel.font = .details
-                textLabel.numberOfLines = 0
-                textLabel.textAlignment = .center
-                textLabel.text = "Title and photo are required to post a workout."
-                textLabel.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 20)
-                
-                container.addSubview(textLabel)
-                
-                return container
-            }
-            
-            var footer = HeaderFooterView<UIView>(.callback(footerBuilder))
-            footer.height = { 30 }
-            
-            $0.footer = footer
-        }
         
         form +++ Section() {
             $0.tag = "the-form"
         }
-            <<< titleRow
-            <<< descriptionRow
-            <<< photoRow
+            <<< headerRow
             <<< placeButtonRow
         
         activeChallenges.forEach { challenge in
@@ -143,8 +112,9 @@ class BadNewWorkoutViewController: GRFormViewController, Special {
             challengeSection <<< row
         }
         
-        form +++ challengeSection
-        form +++ last
+        if activeChallenges.count > 1 {
+            form +++ challengeSection
+        }
         
         placeLikelihoods.asObservable()
             .subscribe { [weak self] event in
@@ -161,9 +131,10 @@ class BadNewWorkoutViewController: GRFormViewController, Special {
                 }
             }.disposed(by: disposeBag)
         
-        titleRow.rx.value.bind(to: self.workoutTitle).disposed(by: disposeBag)
-        descriptionRow.rx.value.bind(to: self.workoutDescription).disposed(by: disposeBag)
-        photoRow.rx.value.bind(to: self.photo).disposed(by: disposeBag)
+        headerRow.rx.value.bind(to: self.workoutHeader).disposed(by: disposeBag)
+        workoutDescriptionThing.bind(to: workoutDescription).disposed(by: disposeBag)
+        workoutTitleThing.bind(to: workoutTitle).disposed(by: disposeBag)
+        photoThing.bind(to: photo).disposed(by: disposeBag)
         placeRow.rx.value.bind(to: self.place).disposed(by: disposeBag)
         
         let titlePresent = self.workoutTitle.asObservable().isPresent
