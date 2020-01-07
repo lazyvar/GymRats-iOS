@@ -57,6 +57,15 @@ extension Observable where Element: OptionalType {
 
 }
 
+extension Observable where Element == String? {
+
+    var isPresent: Observable<Bool> {
+        return map { $0.value != nil && !$0.value!.isEmpty }.share(replay: 1)
+    }
+
+}
+
+
 extension Variable where Element == String {
     
     func bind(to label: UILabel) -> Disposable {

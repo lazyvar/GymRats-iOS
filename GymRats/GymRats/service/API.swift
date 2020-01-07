@@ -24,7 +24,7 @@ enum APIRequest {
     case getWorkoutsForChallenge(challenge: Challenge)
     case getAllWorkoutsForUser(user: User)
     case getWorkouts(forUser: User, inChallenge: Challenge)
-    case postWorkout(title: String, description: String?, photoUrl: String?, googlePlaceId: String?, challenges: [Int])
+    case postWorkout(title: String, description: String?, photoUrl: String?, googlePlaceId: String?, challenges: [Int], duration: Int?, distance: Int?, steps: Int?, calories: Int?, points: Int?)
     case updateUser(email: String?, name: String?, password: String?, profilePictureUrl: String?)
     case deleteWorkout(_ workout: Workout)
     case getCommentsForWorkout(_ workout: Workout)
@@ -95,7 +95,7 @@ enum APIRequest {
             return (.get, "workout/user/\(user.id)", nil)
         case .getWorkouts(forUser: let user, inChallenge: let challenge):
             return (.get, "challenge/\(challenge.id)/workout/user/\(user.id)", nil)
-        case .postWorkout(title: let title, description: let description, photoUrl: let photoUrl, googlePlaceId: let googlePlaceId, let challenges):
+        case .postWorkout(title: let title, description: let description, photoUrl: let photoUrl, googlePlaceId: let googlePlaceId, let challenges, let duration, let distance, let steps, let calories, let points):
             var params: Parameters = [
                 "title": title,
                 "challenges": challenges
@@ -111,6 +111,26 @@ enum APIRequest {
 
             if let googlePlaceId = googlePlaceId {
                 params["google_place_id"] = googlePlaceId
+            }
+
+            if let duration = duration {
+                params["duration"] = duration
+            }
+
+            if let distance = distance {
+                params["distance"] = distance
+            }
+
+            if let steps = steps {
+                params["steps"] = steps
+            }
+
+            if let calories = calories {
+                params["calories"] = calories
+            }
+
+            if let points = points {
+                params["points"] = points
             }
 
             return (.post, "workout", params)
@@ -173,7 +193,7 @@ class GymRatsAPI {
     
     private let networkProvider: NetworkProvider
     
-    init(networkProvider: NetworkProvider = ProductionNetworkProvider()) {
+    init(networkProvider: NetworkProvider = DevelopmentNetworkProvider()) {
         self.networkProvider = networkProvider
     }
     
@@ -295,14 +315,14 @@ class GymRatsAPI {
         return requestArray(.getWorkouts(forUser: user, inChallenge: challenge))
     }
 
-    func postWorkout(title: String, description: String?, photo: UIImage?, googlePlaceId: String?, challenges: [Int]) -> Observable<[Workout]> {
+    func postWorkout(title: String, description: String?, photo: UIImage?, googlePlaceId: String?, challenges: [Int], duration: Int?, distance: Int?, steps: Int?, calories: Int?, points: Int?) -> Observable<[Workout]> {
         if let photo = photo {
             return ImageService.uploadImageToFirebase(image: photo)
                 .flatMap { url in
-                    return self.requestObject(.postWorkout(title: title, description: description, photoUrl: url, googlePlaceId: googlePlaceId, challenges: challenges))
+                    return self.requestObject(.postWorkout(title: title, description: description, photoUrl: url, googlePlaceId: googlePlaceId, challenges: challenges, duration: duration, distance: distance, steps: steps, calories: calories, points: points))
                 }
         } else {
-            return requestObject(.postWorkout(title: title, description: description, photoUrl: nil, googlePlaceId: googlePlaceId, challenges: challenges))
+            return requestObject(.postWorkout(title: title, description: description, photoUrl: nil, googlePlaceId: googlePlaceId, challenges: challenges, duration: duration, distance: distance, steps: steps, calories: calories, points: points))
         }
     }
     

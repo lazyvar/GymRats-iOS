@@ -272,6 +272,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
 
         let logWorkoutModal = LogWorkoutModalViewController() { image in
             let createWorkoutViewController = BadNewWorkoutViewController(workoutImage: image).inNav()
+            createWorkoutViewController.delegate = self
             
             self.tabBarViewController?.present(createWorkoutViewController, animated: true, completion: nil)
         }

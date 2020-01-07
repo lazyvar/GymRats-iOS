@@ -28,7 +28,7 @@ class BadNewWorkoutViewController: GRFormViewController, Special {
     let workoutTitle = BehaviorRelay<String?>(value: nil)
     let photo = BehaviorRelay<UIImage?>(value: nil)
     
-    let time = BehaviorRelay<String?>(value: nil)
+    let duration = BehaviorRelay<String?>(value: nil)
     let distance = BehaviorRelay<String?>(value: nil)
     let steps = BehaviorRelay<String?>(value: nil)
     let calories = BehaviorRelay<String?>(value: nil)
@@ -96,8 +96,8 @@ class BadNewWorkoutViewController: GRFormViewController, Special {
             $0.value = WorkoutHeaderInfo(image: workoutImage, title: "", description: "")
         }
 
-        let timeRow = TextRow("time") {
-            $0.title = "Time (mins)"
+        let durationRow = TextRow("duration") {
+            $0.title = "Duration (mins)"
             $0.placeholder = "-"
         }.cellSetup { cell, _ in
             cell.textLabel?.font = .body
@@ -158,7 +158,7 @@ class BadNewWorkoutViewController: GRFormViewController, Special {
             $0.tag = "the-form"
         }
             <<< headerRow
-            <<< timeRow
+            <<< durationRow
             <<< distanceRow
             <<< stepsRow
             <<< caloriesRow
@@ -201,7 +201,7 @@ class BadNewWorkoutViewController: GRFormViewController, Special {
         
         headerRow.rx.value.bind(to: self.workoutHeader).disposed(by: disposeBag)
         
-        timeRow.rx.value.bind(to: self.time).disposed(by: disposeBag)
+        durationRow.rx.value.bind(to: self.duration).disposed(by: disposeBag)
         distanceRow.rx.value.bind(to: self.distance).disposed(by: disposeBag)
         stepsRow.rx.value.bind(to: self.steps).disposed(by: disposeBag)
         caloriesRow.rx.value.bind(to: self.calories).disposed(by: disposeBag)
@@ -259,18 +259,29 @@ class BadNewWorkoutViewController: GRFormViewController, Special {
     }
     
     @objc func postWorkout() {
+        
+        if (title.value ?? "").isEmpty {
+            presentAlert(title: "Uh-oh", message: "A title is required.")
+            return
+        }
+
         showLoadingBar(disallowUserInteraction: true)
         
         let challenges = self.challenges
             .filter { $0.value.value }
             .map { $0.key }
-        
+                
         gymRatsAPI.postWorkout (
             title: workoutTitle.value!,
             description: workoutDescription.value,
             photo: photo.value,
             googlePlaceId: place.value?.id,
-            challenges: challenges
+            challenges: challenges,
+            duration: duration.value.map { Int($0) } ?? nil,
+            distance: distance.value.map { Int($0) } ?? nil,
+            steps: steps.value.map { Int($0) } ?? nil,
+            calories: calories.value.map { Int($0) } ?? nil,
+            points: points.value.map { Int($0) } ?? nil
         ).subscribe(onNext: { [weak self] workouts in
             guard let self = self else { return }
             
