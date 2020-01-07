@@ -18,7 +18,6 @@
 		0107AE372325E3D300944D11 /* TwerkoutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0107AE352325E3D300944D11 /* TwerkoutCell.xib */; };
 		0118A28B239DA7F9006A8A7A /* RatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0118A289239DA7F9006A8A7A /* RatsCell.swift */; };
 		0118A28C239DA7F9006A8A7A /* RatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0118A28A239DA7F9006A8A7A /* RatsCell.xib */; };
-		0118C24923C28BA1002FB84D /* CreateWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0118C24823C28BA1002FB84D /* CreateWorkoutViewController.swift */; };
 		0118C24E23C2B704002FB84D /* CreateWorkoutHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0118C24C23C2B704002FB84D /* CreateWorkoutHeaderCell.swift */; };
 		0118C24F23C2B704002FB84D /* CreateWorkoutHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0118C24D23C2B704002FB84D /* CreateWorkoutHeaderCell.xib */; };
 		011FB62822A31E65004D5B8E /* LoadingUserWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB62722A31E65004D5B8E /* LoadingUserWorkoutView.swift */; };
@@ -204,7 +203,6 @@
 		0107AE352325E3D300944D11 /* TwerkoutCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TwerkoutCell.xib; sourceTree = "<group>"; };
 		0118A289239DA7F9006A8A7A /* RatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatsCell.swift; sourceTree = "<group>"; };
 		0118A28A239DA7F9006A8A7A /* RatsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RatsCell.xib; sourceTree = "<group>"; };
-		0118C24823C28BA1002FB84D /* CreateWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutViewController.swift; sourceTree = "<group>"; };
 		0118C24C23C2B704002FB84D /* CreateWorkoutHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutHeaderCell.swift; sourceTree = "<group>"; };
 		0118C24D23C2B704002FB84D /* CreateWorkoutHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateWorkoutHeaderCell.xib; sourceTree = "<group>"; };
 		011FB62722A31E65004D5B8E /* LoadingUserWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingUserWorkoutView.swift; sourceTree = "<group>"; };
@@ -793,7 +791,6 @@
 				01E68FD522D29AEA004E1218 /* WorkoutHeaderView.xib */,
 				74A01B45220A778C00431ABD /* WorkoutViewController.swift */,
 				746764E6220BAE44000CFB1B /* BadNewWorkoutViewController.swift */,
-				0118C24823C28BA1002FB84D /* CreateWorkoutViewController.swift */,
 				01BFF8FA223D425C0044F802 /* CommentTableViewCell.swift */,
 				01BFF8FB223D425C0044F802 /* CommentTableViewCell.xib */,
 				01001A1223C278970022AB32 /* LogWorkoutCell.swift */,
@@ -1112,7 +1109,6 @@
 				747D6FE02208ECDD0062BB39 /* Styles.swift in Sources */,
 				011FB62F22A33C14004D5B8E /* MenuTableViewCell.swift in Sources */,
 				0107AE2E2325CD5D00944D11 /* LeaderboardCell.swift in Sources */,
-				0118C24923C28BA1002FB84D /* CreateWorkoutViewController.swift in Sources */,
 				01A3EB13237747D30097FC2A /* CVStatus.swift in Sources */,
 				747D6FDA2208E8130062BB39 /* KeychainResult.swift in Sources */,
 				01A3EB1F237747D30097FC2A /* CVCalendarContentPresentationCoordinator.swift in Sources */,

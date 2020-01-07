@@ -28,6 +28,12 @@ class BadNewWorkoutViewController: GRFormViewController, Special {
     let workoutTitle = BehaviorRelay<String?>(value: nil)
     let photo = BehaviorRelay<UIImage?>(value: nil)
     
+    let time = BehaviorRelay<String?>(value: nil)
+    let distance = BehaviorRelay<String?>(value: nil)
+    let steps = BehaviorRelay<String?>(value: nil)
+    let calories = BehaviorRelay<String?>(value: nil)
+    let points = BehaviorRelay<String?>(value: nil)
+
     lazy var workoutDescriptionThing = self.workoutHeader.map { $0?.description }
     lazy var workoutTitleThing = self.workoutHeader.map { $0?.title }
     lazy var photoThing = self.workoutHeader.map { $0?.image }
@@ -47,15 +53,17 @@ class BadNewWorkoutViewController: GRFormViewController, Special {
     .cellSetup { cell, _ in
         cell.tintColor = .primaryText
         cell.height = { return 48 }
+        cell.textLabel?.font = .body
+        cell.detailTextLabel?.font = .body
     }
     .onPresent { _, selector in
         selector.enableDeselection = false
     }
     
     lazy var placeButtonRow = ButtonRow("place") {
-        $0.title = "Check In Location"
+        $0.title = "Check in location"
     }.cellSetup { cell, _ in
-        cell.textLabel?.font = .body
+        cell.textLabel?.font = .bodyBold
         cell.tintColor = .primaryText
         cell.height = { return 48 }
     }.onCellSelection { [weak self] _, _ in
@@ -88,6 +96,61 @@ class BadNewWorkoutViewController: GRFormViewController, Special {
             $0.value = WorkoutHeaderInfo(image: workoutImage, title: "", description: "")
         }
 
+        let timeRow = TextRow("time") {
+            $0.title = "Time (mins)"
+            $0.placeholder = "-"
+        }.cellSetup { cell, _ in
+            cell.textLabel?.font = .body
+            cell.titleLabel?.font = .body
+            cell.height = { return 48 }
+            cell.tintColor = .brand
+            cell.textField.keyboardType = .numberPad
+        }
+
+        let distanceRow = TextRow("distance") {
+            $0.title = "Distance (miles)"
+            $0.placeholder = "-"
+        }.cellSetup { cell, _ in
+            cell.textLabel?.font = .body
+            cell.titleLabel?.font = .body
+            cell.height = { return 48 }
+            cell.tintColor = .brand
+            cell.textField.keyboardType = .numberPad
+        }
+
+        let stepsRow = TextRow("steps") {
+            $0.title = "Steps"
+            $0.placeholder = "-"
+        }.cellSetup { cell, _ in
+            cell.textLabel?.font = .body
+            cell.titleLabel?.font = .body
+            cell.height = { return 48 }
+            cell.tintColor = .brand
+            cell.textField.keyboardType = .numberPad
+        }
+
+        let caloriesRow = TextRow("cals") {
+            $0.title = "Calories"
+            $0.placeholder = "-"
+        }.cellSetup { cell, _ in
+            cell.textLabel?.font = .body
+            cell.titleLabel?.font = .body
+            cell.height = { return 48 }
+            cell.tintColor = .brand
+            cell.textField.keyboardType = .numberPad
+        }
+
+        let pointsRow = TextRow("points") {
+            $0.title = "Points"
+            $0.placeholder = "-"
+        }.cellSetup { cell, _ in
+            cell.textLabel?.font = .body
+            cell.titleLabel?.font = .body
+            cell.height = { return 48 }
+            cell.tintColor = .brand
+            cell.textField.keyboardType = .numberPad
+        }
+
         let activeChallenges = GymRatsApp.coordinator.menu.activeChallenges
         let challengeSection = Section("Challenges")
         
@@ -95,6 +158,11 @@ class BadNewWorkoutViewController: GRFormViewController, Special {
             $0.tag = "the-form"
         }
             <<< headerRow
+            <<< timeRow
+            <<< distanceRow
+            <<< stepsRow
+            <<< caloriesRow
+            <<< pointsRow
             <<< placeButtonRow
         
         activeChallenges.forEach { challenge in
@@ -132,6 +200,13 @@ class BadNewWorkoutViewController: GRFormViewController, Special {
             }.disposed(by: disposeBag)
         
         headerRow.rx.value.bind(to: self.workoutHeader).disposed(by: disposeBag)
+        
+        timeRow.rx.value.bind(to: self.time).disposed(by: disposeBag)
+        distanceRow.rx.value.bind(to: self.distance).disposed(by: disposeBag)
+        stepsRow.rx.value.bind(to: self.steps).disposed(by: disposeBag)
+        caloriesRow.rx.value.bind(to: self.calories).disposed(by: disposeBag)
+        pointsRow.rx.value.bind(to: self.points).disposed(by: disposeBag)
+
         workoutDescriptionThing.bind(to: workoutDescription).disposed(by: disposeBag)
         workoutTitleThing.bind(to: workoutTitle).disposed(by: disposeBag)
         photoThing.bind(to: photo).disposed(by: disposeBag)
@@ -175,9 +250,9 @@ class BadNewWorkoutViewController: GRFormViewController, Special {
                 let places = placeLikelihoods?.sorted(by: { $0.likelihood > $1.likelihood }).map({ Place(from: $0.place) }).compacted()
             else { return }
 
-            self.form.sectionBy(tag: "the-form")?.remove(at: 3) // yikes
+            self.form.sectionBy(tag: "the-form")?.remove(at: 6) // yikes
             var section = self.form.sectionBy(tag: "the-form")
-            section?.insert(self.placeRow, at: 3)
+            section?.insert(self.placeRow, at: 6)
   
             self.placeLikelihoods.accept(places.unique())
         })

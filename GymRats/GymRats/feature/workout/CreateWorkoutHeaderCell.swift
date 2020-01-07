@@ -33,11 +33,20 @@ class CreateWorkoutHeaderCell: Cell<WorkoutHeaderInfo>, CellType {
         titleTextField.addTarget(self, action: #selector(titleChanged), for: .editingChanged)
         descTextView.delegate = self
         editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
-        descTextView.placeholder = "Description...\n3x8 squats\n3x6 deadlifts\n3x4 rows"
+        descTextView.placeholder = "Description"
+        titleTextField.font = .body
+        descTextView.font = .body
+        descTextView.tintColor = .none
+        
         if #available(iOS 13.0, *) {
-            descTextView.placeholderColor = .placeholderText
+            if UIViewController().traitCollection.userInterfaceStyle == .dark {
+                descTextView.placeholderColor = .init(red: 0.92, green: 0.92, blue: 0.96, alpha: 0.3)
+            } else {
+                descTextView.placeholderColor = .init(red: 0, green: 0.1, blue: 0.098, alpha: 0.22)
+            }
         } else {
-            // R:0.92 G:0.92 B:0.96 A:0.3
+            descTextView.placeholderColor = .init(red: 0, green: 0, blue: 0.098, alpha: 0.22)
+            // seperator R:0.92 G:0.92 B:0.96 A:0.3
         }
         
         let tap = UITapGestureRecognizer()
@@ -48,8 +57,8 @@ class CreateWorkoutHeaderCell: Cell<WorkoutHeaderInfo>, CellType {
         isUserInteractionEnabled = true
         workoutImageView.addGestureRecognizer(tap)
         descTextView.backgroundColor = .clear
-        descTextView.contentInset = .init(top: 8, left: 0, bottom: 0, right: 0)
-        descTextView.textContainerInset = .init(top: 8, left: 0, bottom: 0, right: 0)
+        descTextView.contentInset = .init(top: 5, left: 0, bottom: 0, right: 0)
+        descTextView.textContainerInset = .init(top: 5, left: 0, bottom: 0, right: 0)
         descTextView.textContainer.lineFragmentPadding = 0
     }
 

@@ -10,7 +10,7 @@ import Foundation
 import StoreKit
 
 class StoreService {
-    
+
     static func requestReview() {
         var count = UserDefaults.standard.integer(forKey: UserDefaultsKeys.processCompletedCountKey)
         count += 1
@@ -24,7 +24,7 @@ class StoreService {
             }
         }
     }
-    
+
 }
 
 class UserDefaultsKeys {
