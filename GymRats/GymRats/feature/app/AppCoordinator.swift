@@ -271,10 +271,10 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         generator.impactOccurred()
 
         let logWorkoutModal = LogWorkoutModalViewController() { image in
-            let createWorkoutViewController = BadNewWorkoutViewController(workoutImage: image).inNav()
+            let createWorkoutViewController = BadNewWorkoutViewController(workoutImage: image)
             createWorkoutViewController.delegate = self
             
-            self.tabBarViewController?.present(createWorkoutViewController, animated: true, completion: nil)
+            self.tabBarViewController?.present(createWorkoutViewController.inNav(), animated: true, completion: nil)
         }
         
         tabBarViewController?.presentPanModal(logWorkoutModal)
