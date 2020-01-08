@@ -24,7 +24,7 @@ enum APIRequest {
     case getWorkoutsForChallenge(challenge: Challenge)
     case getAllWorkoutsForUser(user: User)
     case getWorkouts(forUser: User, inChallenge: Challenge)
-    case postWorkout(title: String, description: String?, photoUrl: String?, googlePlaceId: String?, challenges: [Int], duration: Int?, distance: Int?, steps: Int?, calories: Int?, points: Int?)
+    case postWorkout(title: String, description: String?, photoUrl: String?, googlePlaceId: String?, challenges: [Int], duration: Int?, distance: String?, steps: Int?, calories: Int?, points: Int?)
     case updateUser(email: String?, name: String?, password: String?, profilePictureUrl: String?)
     case deleteWorkout(_ workout: Workout)
     case getCommentsForWorkout(_ workout: Workout)
@@ -193,7 +193,7 @@ class GymRatsAPI {
     
     private let networkProvider: NetworkProvider
     
-    init(networkProvider: NetworkProvider = DevelopmentNetworkProvider()) {
+    init(networkProvider: NetworkProvider = ProductionNetworkProvider()) {
         self.networkProvider = networkProvider
     }
     
@@ -315,7 +315,7 @@ class GymRatsAPI {
         return requestArray(.getWorkouts(forUser: user, inChallenge: challenge))
     }
 
-    func postWorkout(title: String, description: String?, photo: UIImage?, googlePlaceId: String?, challenges: [Int], duration: Int?, distance: Int?, steps: Int?, calories: Int?, points: Int?) -> Observable<[Workout]> {
+    func postWorkout(title: String, description: String?, photo: UIImage?, googlePlaceId: String?, challenges: [Int], duration: Int?, distance: String?, steps: Int?, calories: Int?, points: Int?) -> Observable<[Workout]> {
         if let photo = photo {
             return ImageService.uploadImageToFirebase(image: photo)
                 .flatMap { url in

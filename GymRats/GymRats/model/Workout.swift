@@ -18,7 +18,7 @@ struct Workout: Codable {
     let createdAt: Date
     let googlePlaceId: String?
     let duration: Int?
-    let distance: Int?
+    let distance: String?
     let steps: Int?
     let calories: Int?
     let points: Int?

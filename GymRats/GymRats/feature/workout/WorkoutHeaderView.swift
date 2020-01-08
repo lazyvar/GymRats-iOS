@@ -76,7 +76,7 @@ class WorkoutHeaderView: UIView {
         usernameLabel.text = user.fullName
 
         durationLabel.text = workout.duration?.stringify ?? "-"
-        distanceLabel.text = workout.distance?.stringify ?? "-"
+        distanceLabel.text = workout.distance ?? "-"
         stepsLabel.text = workout.steps?.stringify ?? "-"
         caloriesLabel.text = workout.calories?.stringify ?? "-"
         pointsLabel.text = workout.points?.stringify ?? "-"

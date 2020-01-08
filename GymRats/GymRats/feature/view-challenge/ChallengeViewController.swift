@@ -244,7 +244,7 @@ extension ChallengeViewController: PageboyViewControllerDataSource {
             }
             
             userWorkouts = dummyUsers.map { user in
-                let workout = Workout(id: 0, gymRatsUserId: 0, challengeId: 0, title: String.genRandom(minLength: 5, maxLength: 20), description: nil, photoUrl: nil, createdAt: Date(), googlePlaceId: nil, duration: 0, distance: 0, steps: 0, calories: 0, points: 0)
+                let workout = Workout(id: 0, gymRatsUserId: 0, challengeId: 0, title: String.genRandom(minLength: 5, maxLength: 20), description: nil, photoUrl: nil, createdAt: Date(), googlePlaceId: nil, duration: 0, distance: "", steps: 0, calories: 0, points: 0)
                 
                 return UserWorkout(user: user, workout: workout)
             }

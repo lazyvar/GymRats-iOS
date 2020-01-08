@@ -63,7 +63,7 @@ class BadNewWorkoutViewController: GRFormViewController, Special {
     lazy var placeButtonRow = ButtonRow("place") {
         $0.title = "Check in location"
     }.cellSetup { cell, _ in
-        cell.textLabel?.font = .bodyBold
+        cell.textLabel?.font = .body
         cell.tintColor = .primaryText
         cell.height = { return 48 }
     }.onCellSelection { [weak self] _, _ in
@@ -115,7 +115,7 @@ class BadNewWorkoutViewController: GRFormViewController, Special {
             cell.titleLabel?.font = .body
             cell.height = { return 48 }
             cell.tintColor = .brand
-            cell.textField.keyboardType = .numberPad
+            cell.textField.keyboardType = .decimalPad
         }
 
         let stepsRow = TextRow("steps") {
@@ -278,7 +278,7 @@ class BadNewWorkoutViewController: GRFormViewController, Special {
             googlePlaceId: place.value?.id,
             challenges: challenges,
             duration: duration.value.map { Int($0) } ?? nil,
-            distance: distance.value.map { Int($0) } ?? nil,
+            distance: distance.value,
             steps: steps.value.map { Int($0) } ?? nil,
             calories: calories.value.map { Int($0) } ?? nil,
             points: points.value.map { Int($0) } ?? nil
