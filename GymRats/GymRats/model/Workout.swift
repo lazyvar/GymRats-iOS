@@ -17,6 +17,11 @@ struct Workout: Codable {
     let photoUrl: String?
     let createdAt: Date
     let googlePlaceId: String?
+    let duration: Int?
+    let distance: Int?
+    let steps: Int?
+    let calories: Int?
+    let points: Int?
 }
 
 extension Workout: AvatarProtocol {

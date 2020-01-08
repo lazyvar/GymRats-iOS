@@ -51,6 +51,12 @@ class WorkoutHeaderView: UIView {
     @IBOutlet weak var imageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var headerStackView: UIStackView!
     
+    @IBOutlet weak var durationLabel: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var stepsLabel: UILabel!
+    @IBOutlet weak var caloriesLabel: UILabel!
+    @IBOutlet weak var pointsLabel: UILabel!
+
     private let disposeBag = DisposeBag()
 
     class func instanceFromNib() -> WorkoutHeaderView {
@@ -68,6 +74,12 @@ class WorkoutHeaderView: UIView {
         userImageView.load(avatarInfo: user)
         timeLabel.text = workout.createdAt.challengeTime
         usernameLabel.text = user.fullName
+
+        durationLabel.text = workout.duration?.stringify ?? "-"
+        distanceLabel.text = workout.distance?.stringify ?? "-"
+        stepsLabel.text = workout.steps?.stringify ?? "-"
+        caloriesLabel.text = workout.calories?.stringify ?? "-"
+        pointsLabel.text = workout.points?.stringify ?? "-"
 
         if let pictureUrl = workout.photoUrl, let url = URL(string: pictureUrl) {
             if let image = KingfisherManager.shared.cache.retrieveImageInMemoryCache(forKey: pictureUrl) ?? KingfisherManager.shared.cache.retrieveImageInDiskCache(forKey: pictureUrl) {
@@ -142,5 +154,11 @@ class WorkoutHeaderView: UIView {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(tappedHeader))
         headerStackView.addGestureRecognizer(tap)
+    }
+}
+
+extension Int {
+    var stringify: String {
+        return String(self)
     }
 }

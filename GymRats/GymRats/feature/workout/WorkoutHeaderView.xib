@@ -8,8 +8,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="SF-Pro-Rounded-Light.otf">
+            <string>SFProRounded-Light</string>
+        </array>
         <array key="SF-Pro-Rounded-Regular.otf">
             <string>SFProRounded-Regular</string>
+        </array>
+        <array key="SF-Pro-Rounded-Semibold.otf">
+            <string>SFProRounded-Semibold</string>
         </array>
     </customFonts>
     <objects>
@@ -20,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="O6x-zj-wQX">
-                    <rect key="frame" x="0.0" y="44" width="414" height="540"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="573.5"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wy7-H8-JXI" userLabel="I">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
@@ -69,30 +75,148 @@
                             </constraints>
                         </view>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="UcY-V2-50n">
-                            <rect key="frame" x="0.0" y="476" width="414" height="64"/>
+                            <rect key="frame" x="0.0" y="476" width="414" height="60.5"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8qz-DW-uZA">
-                                    <rect key="frame" x="10" y="10" width="394" height="0.0"/>
+                                    <rect key="frame" x="10" y="4" width="394" height="0.0"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" id="NhB-dH-n6c"/>
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hPl-Si-3ge">
-                                    <rect key="frame" x="10" y="15" width="394" height="19.5"/>
+                                    <rect key="frame" x="10" y="9" width="394" height="19.5"/>
                                     <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="16"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HZb-iG-BYP">
-                                    <rect key="frame" x="10" y="39.5" width="394" height="14.5"/>
-                                    <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="12"/>
+                                    <rect key="frame" x="10" y="33.5" width="394" height="17"/>
+                                    <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <directionalEdgeInsets key="directionalLayoutMargins" top="10" leading="10" bottom="10" trailing="10"/>
+                            <directionalEdgeInsets key="directionalLayoutMargins" top="4" leading="10" bottom="10" trailing="10"/>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="VPs-e3-NAb">
+                            <rect key="frame" x="0.0" y="536.5" width="414" height="37"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="S56-VD-vNd">
+                                    <rect key="frame" x="10" y="0.0" width="394" height="16"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="eMx-IY-oXc">
+                                            <rect key="frame" x="0.0" y="0.0" width="124.5" height="16"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g9r-Th-UfW">
+                                                    <rect key="frame" x="0.0" y="0.0" width="59.5" height="16"/>
+                                                    <fontDescription key="fontDescription" name="SFProRounded-Semibold" family="SF Pro Rounded" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZQw-Gp-eqJ">
+                                                    <rect key="frame" x="65.5" y="0.0" width="59" height="16"/>
+                                                    <fontDescription key="fontDescription" name="SFProRounded-Light" family="SF Pro Rounded" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="f1P-vD-72b">
+                                            <rect key="frame" x="134.5" y="0.0" width="125" height="16"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F32-OL-k85">
+                                                    <rect key="frame" x="0.0" y="0.0" width="59.5" height="16"/>
+                                                    <fontDescription key="fontDescription" name="SFProRounded-Semibold" family="SF Pro Rounded" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rpy-YI-hjr">
+                                                    <rect key="frame" x="65.5" y="0.0" width="59.5" height="16"/>
+                                                    <fontDescription key="fontDescription" name="SFProRounded-Light" family="SF Pro Rounded" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="m0S-cb-pbh">
+                                            <rect key="frame" x="269.5" y="0.0" width="124.5" height="16"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steps" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gyk-mF-0Wr">
+                                                    <rect key="frame" x="0.0" y="0.0" width="59" height="16"/>
+                                                    <fontDescription key="fontDescription" name="SFProRounded-Semibold" family="SF Pro Rounded" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2eh-cn-Aan">
+                                                    <rect key="frame" x="65" y="0.0" width="59.5" height="16"/>
+                                                    <fontDescription key="fontDescription" name="SFProRounded-Light" family="SF Pro Rounded" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="N2R-zV-tcN">
+                                    <rect key="frame" x="10" y="21" width="394" height="16"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="ifF-Mh-fGM">
+                                            <rect key="frame" x="0.0" y="0.0" width="124.5" height="16"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calories" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1E-93-ZcB">
+                                                    <rect key="frame" x="0.0" y="0.0" width="59.5" height="16"/>
+                                                    <fontDescription key="fontDescription" name="SFProRounded-Semibold" family="SF Pro Rounded" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ad-Bq-KJm">
+                                                    <rect key="frame" x="65.5" y="0.0" width="59" height="16"/>
+                                                    <fontDescription key="fontDescription" name="SFProRounded-Light" family="SF Pro Rounded" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="nCl-Oa-8nH">
+                                            <rect key="frame" x="134.5" y="0.0" width="125" height="16"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Points" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k0h-Qj-96V">
+                                                    <rect key="frame" x="0.0" y="0.0" width="59.5" height="16"/>
+                                                    <fontDescription key="fontDescription" name="SFProRounded-Semibold" family="SF Pro Rounded" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mn4-c3-499">
+                                                    <rect key="frame" x="65.5" y="0.0" width="59.5" height="16"/>
+                                                    <fontDescription key="fontDescription" name="SFProRounded-Light" family="SF Pro Rounded" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="4l0-aK-4V2">
+                                            <rect key="frame" x="269.5" y="0.0" width="124.5" height="16"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Steps" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="stF-bb-1lG">
+                                                    <rect key="frame" x="0.0" y="0.0" width="59" height="16"/>
+                                                    <fontDescription key="fontDescription" name="SFProRounded-Semibold" family="SF Pro Rounded" pointSize="13"/>
+                                                    <color key="textColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="51" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KCJ-fY-vaN">
+                                                    <rect key="frame" x="65" y="0.0" width="59.5" height="16"/>
+                                                    <fontDescription key="fontDescription" name="SFProRounded-Light" family="SF Pro Rounded" pointSize="13"/>
+                                                    <color key="textColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="10" bottom="0.0" trailing="10"/>
                         </stackView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -107,12 +231,17 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="caloriesLabel" destination="2ad-Bq-KJm" id="Mm5-gX-xrw"/>
                 <outlet property="descriptionLabel" destination="HZb-iG-BYP" id="ysL-IR-1LZ"/>
+                <outlet property="distanceLabel" destination="Rpy-YI-hjr" id="O8N-V2-o5V"/>
+                <outlet property="durationLabel" destination="ZQw-Gp-eqJ" id="3V5-DR-WNc"/>
                 <outlet property="headerStackView" destination="wy7-H8-JXI" id="UPI-Ed-abY"/>
                 <outlet property="imageView" destination="ulA-Zt-Wgr" id="Ger-3X-aYp"/>
                 <outlet property="imageViewHeight" destination="S2V-3Q-OJc" id="yhl-NO-DX0"/>
                 <outlet property="mapView" destination="V12-VP-OMA" id="ZuY-Lw-z9J"/>
+                <outlet property="pointsLabel" destination="mn4-c3-499" id="5ZC-ju-jgR"/>
                 <outlet property="stackView" destination="O6x-zj-wQX" id="Lma-Ln-0dm"/>
+                <outlet property="stepsLabel" destination="2eh-cn-Aan" id="Zyp-Qw-dFm"/>
                 <outlet property="timeLabel" destination="coV-oo-phf" id="7T5-pi-Cic"/>
                 <outlet property="titleLabel" destination="hPl-Si-3ge" id="KcW-AF-lxy"/>
                 <outlet property="userImageView" destination="PAv-YC-fPV" id="BYU-Xg-dzG"/>
