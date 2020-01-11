@@ -10,17 +10,81 @@ import UIKit
 
 class ChallengeStatsViewController: UITableViewController {
     
-    let challenge: Challenge
-    var users: [User]
-    var workouts: [Workout]
+    enum SortBy: String, CaseIterable {
+        case workouts
+        case duration
+        case distance
+        case steps
+        case calories
+        case points
+        
+        var description: String {
+            switch self {
+            case .workouts, .steps, .calories, .points:
+                return self.rawValue
+            case .duration:
+                return "minutes"
+            case .distance:
+                return "miles"
+            }
+        }
+    }
     
+    let challenge: Challenge
+    
+    var _users: [Int: User] = [:]
+    var users: [User] {
+        get {
+            switch self.sortby {
+            case .workouts:
+                return usersSortedByWorkouts
+            case .calories:
+                return usersSortedByDuration
+            case .distance:
+                return usersSortedByDistance
+            case .duration:
+                return usersSortedBySteps
+            case .points:
+                return usersSortedByCalories
+            case .steps:
+                return usersSortedByPoints
+            }
+        }
+    }
+    
+    var workouts: [Workout]
+    var sortby: SortBy {
+        get {
+            let cached = UserDefaults.standard.string(forKey: "challenge_stats_\(challenge.id)_sort_by") ?? SortBy.workouts.rawValue
+            
+            return SortBy(rawValue: cached) ?? .workouts
+        }
+        set {
+            UserDefaults.standard.set(newValue.rawValue, forKey: "challenge_stats_\(challenge.id)_sort_by")
+        }
+    }
+    
+    var userToWorkoutTotalCache: [Int: Int] = [:]
+    var userToDurationTotalCache: [Int: Int] = [:]
+    var userToDistanceTotalCache: [Int: Double] = [:]
+    var userToStepsTotalCache: [Int: Int] = [:]
+    var userToCaloriesCache: [Int: Int] = [:]
+    var userToPointsCache: [Int: Int] = [:]
+
+    var usersSortedByWorkouts: [User] = []
+    var usersSortedByDuration: [User] = []
+    var usersSortedByDistance: [User] = []
+    var usersSortedBySteps: [User] = []
+    var usersSortedByCalories: [User] = []
+    var usersSortedByPoints: [User] = []
+
     init(challenge: Challenge, users: [User], workouts: [Workout]) {
         self.workouts = workouts
         self.challenge = challenge
-        self.users = users.map { user -> (User, [Workout]) in
-            return (user, workouts.filter { $0.gymRatsUserId == user.id })
-        }.sorted(by: { $0.1.count > $1.1.count })
-        .map { $0.0 }
+        
+        for user in users {
+            _users[user.id] = user
+        }
         
         super.init(style: .grouped)
     }
@@ -34,28 +98,99 @@ class ChallengeStatsViewController: UITableViewController {
         
         setupBackButton()
         
+        let tap = UITapGestureRecognizer()
+        tap.addTarget(self, action: #selector(stopit))
+        
+        view.addGestureRecognizer(tap)
+        
+        tableView.register(UINib(nibName: "SegmentedCell", bundle: nil), forCellReuseIdentifier: "celly")
         tableView.register(UINib(nibName: "RatsCell", bundle: nil), forCellReuseIdentifier: "rat")
         tableView.register(UINib(nibName: "DateProgressCell", bundle: nil), forCellReuseIdentifier: "date")
         tableView.register(UINib(nibName: "StatsBabyCell", bundle: nil), forCellReuseIdentifier: "baby")
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .background        
+        tableView.backgroundColor = .background
    
-        if users.isEmpty {
+        if _users.isEmpty {
             self.showLoadingBar()
             NotificationCenter.default.addObserver(self, selector: #selector(hereIsTheData), name: .init("hereIsTheDatam"), object: nil)
+        } else {
+            calc()
         }
+    }
+    
+    @objc func stopit() {
+        view.endEditing(true)
+        
+        self.tableView.reloadSections(IndexSet(arrayLiteral: 1), with: .fade)
     }
     
     @objc func hereIsTheData(notification: Notification) {
         self.hideLoadingBar()
+        
         guard let obj = notification.object as? ([User], [Workout]) else { return }
+        
         let (users, workouts) = obj
-        self.users = users.map { user -> (User, [Workout]) in
-            return (user, workouts.filter { $0.gymRatsUserId == user.id })
-        }.sorted(by: { $0.1.count > $1.1.count })
-        .map { $0.0 }
         self.workouts = workouts
+        
+        for user in users {
+            _users[user.id] = user
+        }
+
+        self.calc()
         self.tableView.reloadData()
+    }
+    
+    func calc() {
+        func update(_ user: Int, with workout: Workout) {
+            self.userToWorkoutTotalCache[user] = self.userToWorkoutTotalCache[user, default: 0] + 1
+            self.userToDurationTotalCache[user] = self.userToDurationTotalCache[user, default: 0] + (workout.duration ?? 0)
+            self.userToDistanceTotalCache[user] = self.userToDistanceTotalCache[user, default: 0] + (workout.distance != nil ? Double(workout.distance!) ?? 0 : 0)
+            self.userToStepsTotalCache[user] = self.userToStepsTotalCache[user, default: 0] + (workout.steps ?? 0)
+            self.userToCaloriesCache[user] = self.userToCaloriesCache[user, default: 0] + (workout.calories ?? 0)
+            self.userToPointsCache[user] = self.userToPointsCache[user, default: 0] + (workout.points ?? 0)
+        }
+        
+        for workout in workouts {
+            update(workout.gymRatsUserId, with: workout)
+        }
+
+        self.usersSortedByWorkouts = userToWorkoutTotalCache.sorted(by: { a, b -> Bool in
+            a.value > b.value
+        }).map({ args -> User in
+            return _users[args.key]!
+        })
+
+        self.usersSortedByDuration = userToDurationTotalCache.sorted(by: { a, b -> Bool in
+            a.value > b.value
+        }).map({ args -> User in
+            return _users[args.key]!
+        })
+
+        self.usersSortedByDistance = userToDistanceTotalCache.sorted(by: { a, b -> Bool in
+            a.value > b.value
+        }).map({ args -> User in
+            return _users[args.key]!
+        })
+
+        self.usersSortedBySteps = userToStepsTotalCache.sorted(by: { a, b -> Bool in
+            a.value > b.value
+        }).map({ args -> User in
+            return _users[args.key]!
+        })
+
+        self.usersSortedByCalories = userToCaloriesCache.sorted(by: { a, b -> Bool in
+            a.value > b.value
+        }).map({ args -> User in
+            return _users[args.key]!
+        })
+
+        self.usersSortedByPoints = userToPointsCache.sorted(by: { a, b -> Bool in
+            a.value > b.value
+        }).map({ args -> User in
+            return _users[args.key]!
+        })
+
+        tableView.reloadData()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -71,7 +206,7 @@ class ChallengeStatsViewController: UITableViewController {
         case 0:
             return 2
         case 1:
-            return users.count
+            return users.count + 1
         default:
             fatalError("Whooop!")
         }
@@ -80,9 +215,9 @@ class ChallengeStatsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard indexPath.section == 1 else { return }
+        guard indexPath.section == 1, indexPath.row > 0 else { return }
         
-        let profile = ProfileViewController(user: users[indexPath.row], challenge: challenge)
+        let profile = ProfileViewController(user: users[indexPath.row - 1], challenge: challenge)
         
         push(profile)
     }
@@ -121,10 +256,27 @@ class ChallengeStatsViewController: UITableViewController {
                 fatalError("WOW")
             }
         case 1:
-            return userCell(row: indexPath.row)
+            switch indexPath.row {
+            case 0:
+                return cellycell()
+            case 1:
+                return userCell(row: indexPath.row - 1)
+            default: fatalError("yikes")
+            }
         default:
             fatalError("Stop")
         }
+    }
+    
+    func cellycell() -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "celly") as! SegmentedCell
+        cell.selectionStyle = .none
+        cell.sortbyTextField.text = self.sortby.rawValue.capitalized
+        cell.picker.delegate = self
+        cell.picker.dataSource = self
+        cell.picker.selectRow(SortBy.allCases.enumerated().first(where: { $0.element == self.sortby })!.offset, inComponent: 0, animated: false)
+        
+        return cell
     }
     
     func dateCell(tableView: UITableView) -> UITableViewCell {
@@ -144,10 +296,46 @@ class ChallengeStatsViewController: UITableViewController {
     
     func userCell(row: Int) -> UITableViewCell {
         let user = users[row]
-        let workouts = self.workouts.filter { $0.gymRatsUserId == user.id }.count
         let cell = tableView.dequeueReusableCell(withIdentifier: "rat") as! RatsCell
-        cell.configure(withHuman: user, workouts: workouts)
+        
+        let score: String
+        switch sortby {
+        case .workouts:
+            score = String(self.userToWorkoutTotalCache[user.id, default: 0])
+        case .duration:
+            score = String(self.userToDurationTotalCache[user.id, default: 0])
+        case .distance:
+            score = String(self.userToDistanceTotalCache[user.id, default: 0])
+        case .steps:
+            score = String(self.userToStepsTotalCache[user.id, default: 0])
+        case .calories:
+            score = String(self.userToCaloriesCache[user.id, default: 0])
+        case .points:
+            score = String(self.userToPointsCache[user.id, default: 0])
+        }
+        
+        cell.configure(withHuman: user, score: score, scoredBy: sortby)
         
         return cell
     }
+}
+
+extension ChallengeStatsViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return SortBy.allCases.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return SortBy.allCases[row].rawValue.capitalized
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        sortby = SortBy.allCases[row]
+    }
+    
 }

@@ -96,6 +96,9 @@
 		01A3EB29237747D30097FC2A /* CVCalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A3EB0A237747D30097FC2A /* CVCalendarManager.swift */; };
 		01A3EB2A237747D30097FC2A /* CVShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A3EB0B237747D30097FC2A /* CVShape.swift */; };
 		01A3EB2C237747D30097FC2A /* CVPresent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A3EB0D237747D30097FC2A /* CVPresent.swift */; };
+		01AC5F5E23CA3A4A00FFAE4D /* SegmentedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AC5F5C23CA3A4A00FFAE4D /* SegmentedCell.swift */; };
+		01AC5F5F23CA3A4A00FFAE4D /* SegmentedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01AC5F5D23CA3A4A00FFAE4D /* SegmentedCell.xib */; };
+		01AC5F6123CA414800FFAE4D /* ReadOnlyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AC5F6023CA414800FFAE4D /* ReadOnlyTextField.swift */; };
 		01AE59E222A60E6800F3FB07 /* MackAttack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AE59E122A60E6800F3FB07 /* MackAttack.swift */; };
 		01AE59E422A60FE400F3FB07 /* MackAttackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AE59E322A60FE400F3FB07 /* MackAttackTests.swift */; };
 		01BFF8F9223B30750044F802 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF8F8223B30750044F802 /* Comment.swift */; };
@@ -281,6 +284,9 @@
 		01A3EB0A237747D30097FC2A /* CVCalendarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVCalendarManager.swift; sourceTree = "<group>"; };
 		01A3EB0B237747D30097FC2A /* CVShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVShape.swift; sourceTree = "<group>"; };
 		01A3EB0D237747D30097FC2A /* CVPresent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVPresent.swift; sourceTree = "<group>"; };
+		01AC5F5C23CA3A4A00FFAE4D /* SegmentedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedCell.swift; sourceTree = "<group>"; };
+		01AC5F5D23CA3A4A00FFAE4D /* SegmentedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentedCell.xib; sourceTree = "<group>"; };
+		01AC5F6023CA414800FFAE4D /* ReadOnlyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadOnlyTextField.swift; sourceTree = "<group>"; };
 		01AE59E122A60E6800F3FB07 /* MackAttack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MackAttack.swift; sourceTree = "<group>"; };
 		01AE59E322A60FE400F3FB07 /* MackAttackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MackAttackTests.swift; sourceTree = "<group>"; };
 		01BFF8F8223B30750044F802 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -768,6 +774,9 @@
 				0166083F239C8CA700FCFD26 /* StatsBabyCell.xib */,
 				0118A289239DA7F9006A8A7A /* RatsCell.swift */,
 				0118A28A239DA7F9006A8A7A /* RatsCell.xib */,
+				01AC5F5C23CA3A4A00FFAE4D /* SegmentedCell.swift */,
+				01AC5F5D23CA3A4A00FFAE4D /* SegmentedCell.xib */,
+				01AC5F6023CA414800FFAE4D /* ReadOnlyTextField.swift */,
 			);
 			path = "view-challenge";
 			sourceTree = "<group>";
@@ -965,6 +974,7 @@
 				01297D892329E79000CA9E41 /* SF-Compact-Rounded-Semibold.otf in Resources */,
 				01297D862329E79000CA9E41 /* SF-Compact-Rounded-Light.otf in Resources */,
 				01297D8F2329E79000CA9E41 /* SF-Pro-Rounded-Regular.otf in Resources */,
+				01AC5F5F23CA3A4A00FFAE4D /* SegmentedCell.xib in Resources */,
 				01297D962329E79000CA9E41 /* SF-Pro-Rounded-Heavy.otf in Resources */,
 				01297D8B2329E79000CA9E41 /* SF-Compact-Rounded-Black.otf in Resources */,
 				01297D972329E79000CA9E41 /* SF-Pro-Rounded-Bold.otf in Resources */,
@@ -1187,8 +1197,10 @@
 				01BFF909223DB1C30044F802 /* ChatMessage.swift in Sources */,
 				74A01B4E220A83FD00431ABD /* UIDate+Extension.swift in Sources */,
 				74A01B27220A0BBF00431ABD /* Challenge.swift in Sources */,
+				01AC5F5E23CA3A4A00FFAE4D /* SegmentedCell.swift in Sources */,
 				74BE97BE220C9F2800D550CA /* ImageRow.swift in Sources */,
 				748DFB8C220FD882007220C7 /* GService.swift in Sources */,
+				01AC5F6123CA414800FFAE4D /* ReadOnlyTextField.swift in Sources */,
 				01A3EB26237747D30097FC2A /* CVCalendarViewAnimator.swift in Sources */,
 				74A01B34220A3B2000431ABD /* Workout.swift in Sources */,
 				74F47889220CECFE005CD4E4 /* ImageService.swift in Sources */,
