@@ -64,6 +64,8 @@ class ChallengeStatsViewController: UITableViewController {
         }
     }
     
+    lazy var selectedSortBy: SortBy = self.sortby
+    
     var userToWorkoutTotalCache: [Int: Int] = [:]
     var userToDurationTotalCache: [Int: Int] = [:]
     var userToDistanceTotalCache: [Int: Double] = [:]
@@ -120,8 +122,6 @@ class ChallengeStatsViewController: UITableViewController {
     
     @objc func stopit() {
         view.endEditing(true)
-        
-        self.tableView.reloadSections(IndexSet(arrayLiteral: 1), with: .fade)
     }
     
     @objc func hereIsTheData(notification: Notification) {
@@ -259,9 +259,8 @@ class ChallengeStatsViewController: UITableViewController {
             switch indexPath.row {
             case 0:
                 return cellycell()
-            case 1:
+            default:
                 return userCell(row: indexPath.row - 1)
-            default: fatalError("yikes")
             }
         default:
             fatalError("Stop")
@@ -276,7 +275,32 @@ class ChallengeStatsViewController: UITableViewController {
         cell.picker.dataSource = self
         cell.picker.selectRow(SortBy.allCases.enumerated().first(where: { $0.element == self.sortby })!.offset, inComponent: 0, animated: false)
         
+        let toolBar = UIToolbar()
+        toolBar.barStyle = .default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = .brand
+        toolBar.sizeToFit()
+
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(donePicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(cancelPicker))
+
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        cell.sortbyTextField.inputAccessoryView = toolBar
+        
         return cell
+    }
+    
+    @objc func donePicker() {
+        self.sortby = selectedSortBy
+        self.tableView.reloadSections(IndexSet(arrayLiteral: 1), with: .fade)
+    }
+    
+    @objc func cancelPicker() {
+        self.view.endEditing(true)
+        self.selectedSortBy = self.sortby
     }
     
     func dateCell(tableView: UITableView) -> UITableViewCell {
@@ -335,7 +359,7 @@ extension ChallengeStatsViewController: UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        sortby = SortBy.allCases[row]
+        selectedSortBy = SortBy.allCases[row]
     }
     
 }
