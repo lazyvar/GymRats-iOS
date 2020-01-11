@@ -37,6 +37,25 @@ enum Track {
         Analytics.setUserID(String(currentUser.id))
         Analytics.setUserProperty(currentUser.email, forName: "email")
         Analytics.setUserProperty(currentUser.fullName, forName: "name")
+        
+        let mode: String? = {
+            if #available(iOS 12.0, *) {
+                switch UIViewController().traitCollection.userInterfaceStyle {
+                case .dark:
+                    return "dark"
+                case .light:
+                    return "light"
+                case .unspecified:
+                    return "unspecified"
+                }
+            } else {
+                return nil
+            }
+        }()
+        
+        if let mode = mode {
+            Analytics.setUserProperty("interface_style", forName: mode)
+        }
     }
     
     static func screens() {
