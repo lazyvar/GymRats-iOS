@@ -100,11 +100,6 @@ class ChallengeStatsViewController: UITableViewController {
         
         setupBackButton()
         
-        let tap = UITapGestureRecognizer()
-        tap.addTarget(self, action: #selector(stopit))
-        
-        view.addGestureRecognizer(tap)
-        
         tableView.register(UINib(nibName: "SegmentedCell", bundle: nil), forCellReuseIdentifier: "celly")
         tableView.register(UINib(nibName: "RatsCell", bundle: nil), forCellReuseIdentifier: "rat")
         tableView.register(UINib(nibName: "DateProgressCell", bundle: nil), forCellReuseIdentifier: "date")
@@ -118,10 +113,6 @@ class ChallengeStatsViewController: UITableViewController {
         } else {
             calc()
         }
-    }
-    
-    @objc func stopit() {
-        view.endEditing(true)
     }
     
     @objc func hereIsTheData(notification: Notification) {
