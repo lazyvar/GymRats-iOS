@@ -38,15 +38,15 @@ class ChallengeStatsViewController: UITableViewController {
             switch self.sortby {
             case .workouts:
                 return usersSortedByWorkouts
-            case .calories:
+            case .duration:
                 return usersSortedByDuration
             case .distance:
                 return usersSortedByDistance
-            case .duration:
-                return usersSortedBySteps
-            case .points:
-                return usersSortedByCalories
             case .steps:
+                return usersSortedBySteps
+            case .calories:
+                return usersSortedByCalories
+            case .points:
                 return usersSortedByPoints
             }
         }
@@ -156,38 +156,38 @@ class ChallengeStatsViewController: UITableViewController {
 
         self.usersSortedByWorkouts = userToWorkoutTotalCache.sorted(by: { a, b -> Bool in
             a.value > b.value
-        }).map({ args -> User in
-            return _users[args.key]!
+        }).compactMap({ args in
+            return _users[args.key]
         })
 
         self.usersSortedByDuration = userToDurationTotalCache.sorted(by: { a, b -> Bool in
             a.value > b.value
-        }).map({ args -> User in
-            return _users[args.key]!
+        }).compactMap({ args in
+            return _users[args.key]
         })
 
         self.usersSortedByDistance = userToDistanceTotalCache.sorted(by: { a, b -> Bool in
             a.value > b.value
-        }).map({ args -> User in
-            return _users[args.key]!
+        }).compactMap({ args in
+            return _users[args.key]
         })
 
         self.usersSortedBySteps = userToStepsTotalCache.sorted(by: { a, b -> Bool in
             a.value > b.value
-        }).map({ args -> User in
-            return _users[args.key]!
+        }).compactMap({ args in
+            return _users[args.key]
         })
 
         self.usersSortedByCalories = userToCaloriesCache.sorted(by: { a, b -> Bool in
             a.value > b.value
-        }).map({ args -> User in
-            return _users[args.key]!
+        }).compactMap({ args in
+            return _users[args.key]
         })
 
         self.usersSortedByPoints = userToPointsCache.sorted(by: { a, b -> Bool in
             a.value > b.value
-        }).map({ args -> User in
-            return _users[args.key]!
+        }).compactMap({ args in
+            return _users[args.key]
         })
 
         tableView.reloadData()
@@ -321,6 +321,7 @@ class ChallengeStatsViewController: UITableViewController {
     func userCell(row: Int) -> UITableViewCell {
         let user = users[row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "rat") as! RatsCell
+        cell.selectionStyle = .default
         
         let score: String
         switch sortby {
