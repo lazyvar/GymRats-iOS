@@ -54,7 +54,7 @@ enum Track {
         }()
         
         if let mode = mode {
-            Analytics.setUserProperty("interface_style", forName: mode)
+            Analytics.setUserProperty(mode, forName: "interface_style")
         }
     }
 }
