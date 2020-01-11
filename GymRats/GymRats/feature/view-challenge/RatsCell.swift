@@ -18,10 +18,10 @@ class RatsCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    func configure(withHuman human: User, workouts: Int) {
+    func configure(withHuman human: User, score: String, scoredBy: ChallengeStatsViewController.SortBy) {
         userImageView.load(avatarInfo: human)
         nameLabel.text = "\(human.fullName)"
-        descLabel.text = "\(workouts) workouts"
+        descLabel.text = "\(score) \(scoredBy.description)"
     }
     
     override func prepareForReuse() {

@@ -25,13 +25,6 @@ class SignUpViewController: GRFormViewController, Special {
         tableView.backgroundColor = .background
         setupBackButton()
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem (
-            title: "Back",
-            style: .plain,
-            target: self,
-            action: #selector(UIViewController.dismissSelf)
-        )
-        
         LabelRow.defaultCellUpdate = { cell, row in
             cell.contentView.backgroundColor = .brand
             cell.textLabel?.textColor = .newWhite

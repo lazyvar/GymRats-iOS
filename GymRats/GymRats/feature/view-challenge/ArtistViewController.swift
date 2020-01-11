@@ -486,7 +486,7 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
         cell.pressBlock = { [unowned self] in
             let stats = ChallengeStatsViewController(challenge: self.challenge, users: self.users, workouts: self.workouts)
             
-            self.present(stats.inNav(), animated: true, completion: nil)
+            self.push(stats)
         }        
 
         let skeletonView = UIView()

@@ -53,7 +53,6 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         
         GMSPlacesClient.provideAPIKey("AIzaSyD1X4TH-TneFnDqjiJ2rb2FGgxK8JZyrIo")
         FirebaseApp.configure()
-        Track.screens()
         UIApplication.shared.statusBarStyle = .default
     }
     
@@ -254,7 +253,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         
         let stats = ChallengeStatsViewController(challenge: artist.challenge, users: artist.users, workouts: artist.workouts)
         
-        UIViewController.topmost().present(stats.inNav(), animated: true, completion: nil)
+        artist.push(stats)
     }
     
     func centerActiveOrUpcomingChallenge(_ challenge: Challenge) {
