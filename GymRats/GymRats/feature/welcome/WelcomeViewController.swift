@@ -56,11 +56,11 @@ class WelcomeViewController: UIViewController {
         view.addConstraintsWithFormat(format: "H:|-64-[v0]-64-|", views: signUpButton)
 
         loginButton.onTouchUpInside { [weak self] in
-            self?.present(LoginViewController().inNav(), animated: true, completion: nil)
+            self?.push(LoginViewController(), animated: true)
         }.disposed(by: disposeBag)
         
         signUpButton.onTouchUpInside { [weak self] in
-            self?.present(SignUpViewController().inNav(), animated: true, completion: nil)
+            self?.push(SignUpViewController(), animated: true)
         }.disposed(by: disposeBag)
     }
     

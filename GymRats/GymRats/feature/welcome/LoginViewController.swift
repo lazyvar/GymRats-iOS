@@ -25,14 +25,7 @@ class LoginViewController: GRFormViewController, Special {
         form = form +++ section <<< emailRow <<< passwordRow
         
         tableView.backgroundColor = .background
-        setupBackButton()
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem (
-            title: "Back",
-            style: .plain,
-            target: self,
-            action: #selector(UIViewController.dismissSelf)
-        )
+        setupBackButton()        
         
         loginButton.onTouchUpInside { [weak self] in
             self?.login()

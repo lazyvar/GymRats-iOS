@@ -38,9 +38,7 @@ class ChallengeStatsViewController: UITableViewController {
         tableView.register(UINib(nibName: "DateProgressCell", bundle: nil), forCellReuseIdentifier: "date")
         tableView.register(UINib(nibName: "StatsBabyCell", bundle: nil), forCellReuseIdentifier: "baby")
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .background
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(UIViewController.dismissSelf))
+        tableView.backgroundColor = .background        
    
         if users.isEmpty {
             self.showLoadingBar()

@@ -254,7 +254,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         
         let stats = ChallengeStatsViewController(challenge: artist.challenge, users: artist.users, workouts: artist.workouts)
         
-        UIViewController.topmost().present(stats.inNav(), animated: true, completion: nil)
+        artist.push(stats)
     }
     
     func centerActiveOrUpcomingChallenge(_ challenge: Challenge) {

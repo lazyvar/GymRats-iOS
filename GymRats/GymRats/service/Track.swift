@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 
-typealias JSON =  [String: Any]
+typealias JSON = [String: Any]
 
 enum Track {
 
