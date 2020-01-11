@@ -53,7 +53,6 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         
         GMSPlacesClient.provideAPIKey("AIzaSyD1X4TH-TneFnDqjiJ2rb2FGgxK8JZyrIo")
         FirebaseApp.configure()
-        Track.screens()
         UIApplication.shared.statusBarStyle = .default
     }
     

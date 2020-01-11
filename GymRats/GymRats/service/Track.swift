@@ -57,25 +57,4 @@ enum Track {
             Analytics.setUserProperty("interface_style", forName: mode)
         }
     }
-    
-    static func screens() {
-        Analytics.setScreenName("welcome", screenClass: "WelcomeViewController")
-        Analytics.setScreenName("login", screenClass: "LoginViewController")
-        Analytics.setScreenName("signup", screenClass: "SignUpViewController")
-        Analytics.setScreenName("settings", screenClass: "SettingsViewController")
-        Analytics.setScreenName("challenge", screenClass: "ArtistViewController")
-        Analytics.setScreenName("create_workout", screenClass: "NewWorkoutViewController")
-        Analytics.setScreenName("challenge_stats", screenClass: "ChallengeStatsViewController")
-        Analytics.setScreenName("workout_details", screenClass: "WorkoutViewController")
-        Analytics.setScreenName("challenge_preview", screenClass: "UpcomingChallengeViewController")
-        Analytics.setScreenName("create_challenge", screenClass: "CreateChallengeViewController")
-        Analytics.setScreenName("profile", screenClass: "ProfileViewController")
-        Analytics.setScreenName("chat", screenClass: "ChatViewController")
-        Analytics.setScreenName("home", screenClass: "HomeViewController")
-        Analytics.setScreenName("past_challenges", screenClass: "ArchivedChallengesTableViewController")
-        Analytics.setScreenName("share_code", screenClass: "ShareCodeViewController")
-        Analytics.setScreenName("about", screenClass: "AboutViewController")
-        Analytics.setScreenName("edit_profile", screenClass: "ProfileChangeController")
-        Analytics.setScreenName("change_password", screenClass: "ChangePasswordController")
-    }
 }
