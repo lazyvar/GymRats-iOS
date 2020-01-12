@@ -23,6 +23,7 @@ class CreateWorkoutHeaderCell: Cell<WorkoutHeaderInfo>, CellType {
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var descTextView: RSKPlaceholderTextView!
+    @IBOutlet weak var lineView: UIView!
     
     let disposeBag = DisposeBag()
     
@@ -41,12 +42,14 @@ class CreateWorkoutHeaderCell: Cell<WorkoutHeaderInfo>, CellType {
         if #available(iOS 13.0, *) {
             if UIViewController().traitCollection.userInterfaceStyle == .dark {
                 descTextView.placeholderColor = .init(red: 0.92, green: 0.92, blue: 0.96, alpha: 0.3)
+                lineView.backgroundColor = .init(red: 0.92, green: 0.92, blue: 0.96, alpha: 0.3)
             } else {
                 descTextView.placeholderColor = .init(red: 0, green: 0.1, blue: 0.098, alpha: 0.22)
             }
         } else {
             descTextView.placeholderColor = .init(red: 0, green: 0, blue: 0.098, alpha: 0.22)
             // seperator R:0.92 G:0.92 B:0.96 A:0.3
+            // R:0.33 G:0.33 B:0.35 A:0.6
         }
         
         let tap = UITapGestureRecognizer()

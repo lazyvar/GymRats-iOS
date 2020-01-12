@@ -85,6 +85,7 @@
             <connections>
                 <outlet property="descTextView" destination="5js-ms-728" id="vWZ-u7-8J2"/>
                 <outlet property="editButton" destination="fom-Ym-xoH" id="jAV-Q0-dyo"/>
+                <outlet property="lineView" destination="Laf-A6-WjN" id="cY4-va-dpV"/>
                 <outlet property="titleTextField" destination="glA-zI-1LV" id="R40-En-LKa"/>
                 <outlet property="workoutImageView" destination="kC3-8b-69h" id="7Id-Pq-TfA"/>
             </connections>
