@@ -46,6 +46,7 @@ class EditChallengeViewController: GRFormViewController, Special {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        submitButton.tintColor = .brand
         title = "Edit Challenge"
         view.backgroundColor = .background
         
