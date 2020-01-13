@@ -85,6 +85,7 @@ class WorkoutViewController: UITableViewController {
         let tapToHideKeyboard = UITapGestureRecognizer()
         tapToHideKeyboard.numberOfTapsRequired = 1
         tapToHideKeyboard.addTarget(self, action: #selector(hideKeyboard))
+        tapToHideKeyboard.cancelsTouchesInView = false
         
         view.addGestureRecognizer(tapToHideKeyboard)
         

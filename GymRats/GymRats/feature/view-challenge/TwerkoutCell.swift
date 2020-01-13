@@ -65,7 +65,7 @@ class TwerkoutCell: UITableViewCell {
 
         shortPress.addTarget(self, action: #selector(handle(shortPress:)))
         shortPress.delegate = self
-        addGestureRecognizer(shortPress)
+        //addGestureRecognizer(shortPress)
         
         NotificationCenter.default.addObserver(self, selector: #selector(enablePress), name: NSNotification.Name(rawValue: "enable_press"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(disablePress), name: NSNotification.Name(rawValue: "disable_press"), object: nil)
@@ -74,7 +74,7 @@ class TwerkoutCell: UITableViewCell {
 //        tit.font = .bodyBold
 //        det.font = .body
 //        timeLabel.font = .details
-        bg.backgroundColor = .foreground
+        //bg.backgroundColor = .foreground
         bg.layer.cornerRadius = 4
 
 //        shadowView.layer.shadowOffset = CGSize(width: 0, height: 0)

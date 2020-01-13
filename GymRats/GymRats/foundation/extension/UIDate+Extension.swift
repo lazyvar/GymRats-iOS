@@ -18,5 +18,19 @@ extension Date {
         
         return Date.formatter.string(from: self)
     }
-    
+
+    var challengeTimeTime: String {
+        Date.formatter.timeZone = TimeZone.current
+        Date.formatter.dateFormat = "h:mm"
+        
+        return Date.formatter.string(from: self)
+    }
+
+    var challengeTimeA: String {
+        Date.formatter.timeZone = TimeZone.current
+        Date.formatter.dateFormat = "a"
+        
+        return Date.formatter.string(from: self)
+    }
+
 }

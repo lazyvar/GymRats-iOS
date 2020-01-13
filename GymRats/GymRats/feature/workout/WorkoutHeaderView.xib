@@ -232,16 +232,23 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="caloriesLabel" destination="2ad-Bq-KJm" id="Mm5-gX-xrw"/>
+                <outlet property="caloriesLabelLabel" destination="H1E-93-ZcB" id="qGp-nX-8Ib"/>
                 <outlet property="descriptionLabel" destination="HZb-iG-BYP" id="ysL-IR-1LZ"/>
                 <outlet property="distanceLabel" destination="Rpy-YI-hjr" id="O8N-V2-o5V"/>
+                <outlet property="distanceLabelLabel" destination="F32-OL-k85" id="DaK-pX-ogC"/>
                 <outlet property="durationLabel" destination="ZQw-Gp-eqJ" id="3V5-DR-WNc"/>
+                <outlet property="durationLabelLabel" destination="g9r-Th-UfW" id="uup-Q8-3kz"/>
+                <outlet property="firstStack" destination="S56-VD-vNd" id="TNX-Ob-aXi"/>
                 <outlet property="headerStackView" destination="wy7-H8-JXI" id="UPI-Ed-abY"/>
                 <outlet property="imageView" destination="ulA-Zt-Wgr" id="Ger-3X-aYp"/>
                 <outlet property="imageViewHeight" destination="S2V-3Q-OJc" id="yhl-NO-DX0"/>
                 <outlet property="mapView" destination="V12-VP-OMA" id="ZuY-Lw-z9J"/>
                 <outlet property="pointsLabel" destination="mn4-c3-499" id="5ZC-ju-jgR"/>
+                <outlet property="pointsLabelLabel" destination="k0h-Qj-96V" id="6zg-26-fIK"/>
+                <outlet property="secondStack" destination="N2R-zV-tcN" id="RfN-nh-sI7"/>
                 <outlet property="stackView" destination="O6x-zj-wQX" id="Lma-Ln-0dm"/>
                 <outlet property="stepsLabel" destination="2eh-cn-Aan" id="Zyp-Qw-dFm"/>
+                <outlet property="stepsLabelLabel" destination="gyk-mF-0Wr" id="TPa-3Q-1Hs"/>
                 <outlet property="timeLabel" destination="coV-oo-phf" id="7T5-pi-Cic"/>
                 <outlet property="titleLabel" destination="hPl-Si-3ge" id="KcW-AF-lxy"/>
                 <outlet property="userImageView" destination="PAv-YC-fPV" id="BYU-Xg-dzG"/>
