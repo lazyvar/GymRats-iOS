@@ -73,7 +73,7 @@ class EditChallengeViewController: GRFormViewController, Special {
         }
         
         let pictureRow = ImageRow("photo") {
-            $0.title = "Picture"
+            $0.title = "Banner photo"
             $0.placeholderImage = UIImage(named: "photo")?.withRenderingMode(.alwaysTemplate)
             $0.sourceTypes = [.Camera, .PhotoLibrary]
             
@@ -92,7 +92,7 @@ class EditChallengeViewController: GRFormViewController, Special {
         
         let startDateRow = DateRow() {
             $0.value = challenge.startDate
-            $0.title = "Start Date"
+            $0.title = "Start date"
             $0.dateFormatter = dateFormatter
         }.cellSetup { cell, row in
             cell.datePicker.timeZone = .utc
@@ -102,7 +102,7 @@ class EditChallengeViewController: GRFormViewController, Special {
         
         let endDateRow = DateRow() {
             $0.value = Date() + 30.days
-            $0.title = "End Date"
+            $0.title = "End date"
             $0.value = challenge.endDate
             $0.dateFormatter = dateFormatter
         }.cellSetup { cell, row in
@@ -112,7 +112,7 @@ class EditChallengeViewController: GRFormViewController, Special {
         }
         
         let numberOfDayslabel = LabelRow() {
-            $0.title = "Total Days"
+            $0.title = "Total days"
             $0.value = "30"
         }.cellSetup { cell, _ in
             cell.textLabel?.font = .body

@@ -472,6 +472,36 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        if isSoloChallenge {
+            switch indexPath.section {
+            case 0, 1:
+                break
+            default:
+                let date = useMe[indexPath.section-fluffCount]
+                let workouts = userWorkouts(for: date).filter { $0.workout != nil }
+                let workout = workouts[indexPath.row].workout!
+                let user = users.first(where: { $0.id == workout.gymRatsUserId })!
+
+                self.push(WorkoutViewController(user: user, workout: workout, challenge: self.challenge))
+            }
+        } else {
+            switch indexPath.section {
+            case 0, 1, 2:
+                break
+            default:
+                let date = useMe[indexPath.section-fluffCount]
+                let workouts = userWorkouts(for: date).filter { $0.workout != nil }
+                let workout = workouts[indexPath.row].workout!
+                let user = users.first(where: { $0.id == workout.gymRatsUserId })!
+
+                self.push(WorkoutViewController(user: user, workout: workout, challenge: self.challenge))
+            }
+        }
+    }
+    
     func noWorkoutsCell() -> UITableViewCell {
         let cell = UITableViewCell()
         cell.textLabel?.text = "  None posted yet. "
@@ -559,7 +589,6 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
             self?.push(WorkoutViewController(user: user, workout: workout, challenge: self?.challenge))
         }
         
-        cell.selectionStyle = .none
         cell.desc.text = workout.description
         cell.twerk.kf.setImage(with: URL(string: workout.photoUrl ?? ""), options: [.transition(.fade(0.2))])
         cell.tit.text = workout.title

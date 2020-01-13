@@ -56,7 +56,16 @@ class WorkoutHeaderView: UIView {
     @IBOutlet weak var stepsLabel: UILabel!
     @IBOutlet weak var caloriesLabel: UILabel!
     @IBOutlet weak var pointsLabel: UILabel!
-
+    
+    @IBOutlet weak var durationLabelLabel: UILabel!
+    @IBOutlet weak var distanceLabelLabel: UILabel!
+    @IBOutlet weak var stepsLabelLabel: UILabel!
+    @IBOutlet weak var caloriesLabelLabel: UILabel!
+    @IBOutlet weak var pointsLabelLabel: UILabel!
+    
+    @IBOutlet weak var firstStack: UIStackView!
+    @IBOutlet weak var secondStack: UIStackView!
+    
     private let disposeBag = DisposeBag()
 
     class func instanceFromNib() -> WorkoutHeaderView {
@@ -68,6 +77,14 @@ class WorkoutHeaderView: UIView {
         self.delegate?.tappedHeader()
     }
     
+    enum WorkoutData: String, CaseIterable {
+        case duration
+        case distance
+        case steps
+        case calories
+        case points
+    }
+    
     func configure(user: User, workout: Workout, challenge: Challenge?, width: CGFloat) {
         constrainWidth(width)
         
@@ -75,11 +92,72 @@ class WorkoutHeaderView: UIView {
         timeLabel.text = workout.createdAt.challengeTime
         usernameLabel.text = user.fullName
 
-        durationLabel.text = workout.duration?.stringify ?? "-"
-        distanceLabel.text = workout.distance ?? "-"
-        stepsLabel.text = workout.steps?.stringify ?? "-"
-        caloriesLabel.text = workout.calories?.stringify ?? "-"
-        pointsLabel.text = workout.points?.stringify ?? "-"
+        durationLabel.text = nil
+        distanceLabel.text = nil
+        stepsLabel.text = nil
+        caloriesLabel.text = nil
+        pointsLabel.text = nil
+
+        durationLabelLabel.text = nil
+        distanceLabelLabel.text = nil
+        stepsLabelLabel.text = nil
+        caloriesLabelLabel.text = nil
+        pointsLabelLabel.text = nil
+        
+        firstStack.isHidden = false
+        secondStack.isHidden = false
+        
+        let datas: [(WorkoutData, String?)] = [
+            (.duration, workout.duration?.stringify),
+            (.distance, workout.distance),
+            (.steps, workout.steps?.stringify),
+            (.calories, workout.calories?.stringify),
+            (.points, workout.points?.stringify),
+        ]
+        let newDatas = datas.compactMap { d -> (WorkoutData, String)? in
+            guard let stang = d.1 else { return nil }
+                
+            return (d.0, stang)
+        }
+
+        for o in newDatas.enumerated() {
+            let text1 = o.element.0.rawValue.capitalized
+            let text2 = o.element.1
+            
+            switch o.offset {
+            case 0:
+                durationLabelLabel.text = text1
+                durationLabel.text = text2
+            case 1:
+                distanceLabelLabel.text = text1
+                distanceLabel.text = text2
+            case 2:
+                stepsLabelLabel.text = text1
+                stepsLabel.text = text2
+            case 3:
+                caloriesLabelLabel.text = text1
+                caloriesLabel.text = text2
+            case 4:
+                pointsLabelLabel.text = text1
+                pointsLabel.text = text2
+            default: break
+            }
+        }
+        
+        if newDatas.isEmpty {
+            firstStack.isHidden = true
+            secondStack.isHidden = true
+        }
+        
+        if newDatas.count < 4 {
+            secondStack.isHidden = true
+        }
+        
+//        durationLabel.text = workout.duration?.stringify ?? "-"
+//        distanceLabel.text = workout.distance ?? "-"
+//        stepsLabel.text =  ?? "-"
+//        caloriesLabel.text =  ?? "-"
+//        pointsLabel.text =  ?? "-"
 
         if let pictureUrl = workout.photoUrl, let url = URL(string: pictureUrl) {
             if let image = KingfisherManager.shared.cache.retrieveImageInMemoryCache(forKey: pictureUrl) ?? KingfisherManager.shared.cache.retrieveImageInDiskCache(forKey: pictureUrl) {

@@ -28,9 +28,9 @@ class CommentTableViewCell: UITableViewCell {
         menu.image = menu.image?.withRenderingMode(.alwaysTemplate)
         menu.tintColor = .primaryText
         
-        menu.rx.tapGesture().subscribe { [weak self] _ in
-            self?.menuTappedBlock?()
-        }.disposed(by: disposeBag)
+//        menu.rx.tapGesture().subscribe { [weak self] _ in
+//            self?.menuTappedBlock?()
+//        }.disposed(by: disposeBag)
     }
     
     override func prepareForReuse() {

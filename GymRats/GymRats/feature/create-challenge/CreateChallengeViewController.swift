@@ -67,7 +67,7 @@ class CreateChallengeViewController: GRFormViewController, Special {
         
         let startDateRow = DateRow() {
             $0.value = Date()
-            $0.title = "Start Date"
+            $0.title = "Start date"
             $0.minimumDate = Date()
         }.cellSetup { cell, _ in
             cell.tintColor = .brand
@@ -77,14 +77,14 @@ class CreateChallengeViewController: GRFormViewController, Special {
         let endDateRow = DateRow() {
             $0.value = Date() + 30.days
             $0.minimumDate = Date()
-            $0.title = "End Date"
+            $0.title = "End date"
         }.cellSetup { cell, _ in
             cell.tintColor = .brand
             cell.height = { return 48 }
         }
         
         let numberOfDayslabel = LabelRow() {
-            $0.title = "Total Days"
+            $0.title = "Total days"
             $0.value = "30"
         }.cellSetup { cell, _ in
             cell.textLabel?.font = .body
