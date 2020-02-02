@@ -110,21 +110,23 @@ extension Date {
         return Int(jd - LILIAN_DAY_BASE)
     }
 
-    func jd(inTimeZone timeZone: TimeZone) -> Double {
-        var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = timeZone
-        
-        let flags: Set<Calendar.Component> = Set(arrayLiteral: .year, .month, .day)
-        let comps = calendar.dateComponents(flags, from: date)
-        let year = comps.year!, month = comps.month!, day = comps.day!
-        let y = year + (month - 3)/12
-        let m = (month - 3) % 12
-        let d = day - 1
-        let n = d + (153 * m + 2) / 5 + 365 * y + y / 4 - y / 100 + y / 400
-        let mjd = n - 678881
-        let jd = Double(mjd) + 2400000.5
-        
-        return jd
-    }
+  func jd(inTimeZone timeZone: TimeZone) -> Double {
+    var calendar = Calendar(identifier: .gregorian)
+    calendar.timeZone = timeZone
+    
+    let flags: Set<Calendar.Component> = Set(arrayLiteral: .year, .month, .day)
+    let comps = calendar.dateComponents(flags, from: date)
+    let year = comps.year!, month = comps.month!, day = comps.day!
+    
+    return jd(year: year, month: month, day: day)
+  }
+  
+  func jd(year: Int, month: Int, day: Int) -> Double {
+    let a = (14 - month) / 12
+    let y = year + 4800 - a
+    let m = month + 12 * a - 3
+    let jd = day + (153 * m + 2) / 5 + y * 365 + y / 4 - y / 100 + y / 400 - 32045
 
+    return Double(jd) - 0.5
+  }
 }
