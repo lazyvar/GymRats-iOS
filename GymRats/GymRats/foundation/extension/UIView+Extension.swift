@@ -28,12 +28,27 @@ extension UIView {
     }
     
     func fill(in view: UIView, top: CGFloat = 0, bottom: CGFloat = 0, left: CGFloat = 0, right: CGFloat = 0) {
-        self.leftAnchor.constraint(equalTo: view.leftAnchor)
-        self.rightAnchor.constraint(equalTo: view.rightAnchor)
-        self.topAnchor.constraint(equalTo: view.topAnchor)
-        self.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+      self.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+      self.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+      self.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+      self.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
-    
+  
+    /// Fills the view to all the anchors of the parent view.
+    func inflate(in parent: UIView) {
+      translatesAutoresizingMaskIntoConstraints = false
+      parent.addSubview(self)
+
+      NSLayoutConstraint.activate(
+        [
+          leadingAnchor.constraint(equalTo: parent.leadingAnchor),
+          trailingAnchor.constraint(equalTo: parent.trailingAnchor),
+          topAnchor.constraint(equalTo: parent.topAnchor),
+          bottomAnchor.constraint(equalTo: parent.bottomAnchor),
+        ]
+      )
+    }
+  
     @discardableResult func horizontallyCenter(in view: UIView, x: CGFloat = 0) -> NSLayoutConstraint {
         let constraint = NSLayoutConstraint (
             item: self,

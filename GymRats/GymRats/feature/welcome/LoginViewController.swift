@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import Eureka
 
-class LoginViewController: GRFormViewController, Special {
+class LoginViewController: GRFormViewController {
     
     let disposeBag = DisposeBag()
     

@@ -13,17 +13,35 @@ struct RecoverableViewState {
     var cornerRadius: CGFloat
     var clipToBounds: Bool
     
-    // UI text
-    var text: String?
-    
-    // UI image
-    var image: UIImage?
-}
-
-extension RecoverableViewState {
     init(view: UIView) {
         self.backgroundColor = view.backgroundColor
         self.clipToBounds = view.layer.masksToBounds
         self.cornerRadius = view.layer.cornerRadius
+    }
+}
+
+struct RecoverableTextViewState {
+    var text: String?
+    var textColor: UIColor?
+    var isUserInteractionsEnabled: Bool
+    
+    init(view: UILabel) {
+        self.textColor = view.textColor
+        self.text = view.text
+        self.isUserInteractionsEnabled = view.isUserInteractionEnabled
+    }
+    
+    init(view: UITextView) {
+        self.textColor = view.textColor
+        self.text = view.text
+        self.isUserInteractionsEnabled = view.isUserInteractionEnabled
+    }
+}
+
+struct RecoverableImageViewState {
+    var image: UIImage?
+    
+    init(view: UIImageView) {
+        self.image = view.image
     }
 }

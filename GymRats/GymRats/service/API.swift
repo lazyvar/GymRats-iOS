@@ -41,7 +41,7 @@ enum APIRequest {
     var requestProperties: (method: HTTPMethod, path: String, params: Parameters?) {
         switch self {
         case .login(let email, let password):
-            return (.post, "login", ["email": email, "password": password])
+            return (.post, "tokens", ["email": email, "password": password])
         case .signup(email: let email, password: let password, profilePictureUrl: let url, fullName: let fullName):
             var params: Parameters =  [
                 "email": email,
@@ -53,15 +53,15 @@ enum APIRequest {
                 params["profile_picture_url"] = url
             }
 
-            return (.post, "signup", params)
+            return (.post, "accounts", params)
         case .resetPassword(let email):
-            return (.post, "reset-password", ["email": email])
+            return (.post, "passwords", ["email": email])
         case .getAllChallenges:
-            return (.get, "challenge", nil)
+            return (.get, "challenges", nil)
         case .joinChallenge(let code):
-            return (.post, "challenge/code/\(code)", nil)
+            return (.post, "memberships", ["code": code])
         case .deleteComment(id: let id):
-            return (.delete, "comment/\(id)", nil)
+            return (.delete, "comments/\(id)", nil)
         case .createChallenge(startDate: let startDate, endDate: let endDate, challengeName: let challengeName, photoUrl: let photoUrl):
             var params: Parameters =  [
                 "start_date": startDate.toISO(),
@@ -74,7 +74,7 @@ enum APIRequest {
                 params["profile_picture_url"] = photoUrl
             }
             
-            return (.post, "challenge", params)
+            return (.post, "challenges", params)
         case .editChallenge(id: let id, startDate: let startDate, endDate: let endDate, challengeName: let challengeName, photoUrl: let photoUrl):
             var params: Parameters =  [
                 "start_date": startDate.toISO(),
@@ -86,15 +86,15 @@ enum APIRequest {
                 params["profile_picture_url"] = photoUrl
             }
             
-            return (.put, "challenge/\(id)", params)
+            return (.put, "challenges/\(id)", params)
         case .getUsersForChallenge(challenge: let challenge):
-            return (.get, "challenge/\(challenge.id)/user", nil)
+            return (.get, "challenges/\(challenge.id)/members", nil)
         case .getWorkoutsForChallenge(challenge: let challenge):
-            return (.get, "challenge/\(challenge.id)/workout", nil)
+            return (.get, "deprecated/\(challenge.id)/workout", nil)
         case .getAllWorkoutsForUser(user: let user):
             return (.get, "workout/user/\(user.id)", nil)
         case .getWorkouts(forUser: let user, inChallenge: let challenge):
-            return (.get, "challenge/\(challenge.id)/workout/user/\(user.id)", nil)
+            return (.get, "challenges/\(challenge.id)/members/\(user.id)/workouts", nil)
         case .postWorkout(title: let title, description: let description, photoUrl: let photoUrl, googlePlaceId: let googlePlaceId, let challenges, let duration, let distance, let steps, let calories, let points):
             var params: Parameters = [
                 "title": title,
@@ -133,7 +133,7 @@ enum APIRequest {
                 params["points"] = points
             }
 
-            return (.post, "workout", params)
+            return (.post, "workouts", params)
         case .updateUser(email: let email, name: let name, password: let password, profilePictureUrl: let profilePictureUrl):
             var params: Parameters = [:]
             
@@ -153,37 +153,37 @@ enum APIRequest {
                 params["full_name"] = name
             }
 
-            return (.put, "user", params)
+            return (.put, "accounts/self", params)
         case .deleteWorkout(let workout):
-            return (.delete, "workout/\(workout.id)", nil)
+            return (.delete, "workouts/\(workout.id)", nil)
         case .getCommentsForWorkout(let workout):
-            return (.get, "workout/\(workout.id)/comment", nil)
+            return (.get, "workouts/\(workout.id)/comments", nil)
         case .postComment(comment: let comment, workout: let workout):
             let params: Parameters = [
                 "content": comment,
             ]
             
-            return (.post, "workout/\(workout.id)/comment", params)
+            return (.post, "comments", params)
         case .getChat(let challenge, page: let page):
-            return (.get, "challenge/\(challenge.id)/chat/page/\(page)", nil)
+            return (.get, "deprecated", nil)
         case .postChatMessage(message: let message, challenge: let challenge):
             let params: Parameters = [
                 "content": message,
             ]
             
-            return (.post, "challenge/\(challenge.id)/chat", params)
+            return (.post, "deprecated", params)
         case .getUnreadChats(let challenge):
-            return (.get, "challenge/\(challenge.id)/chat/unread", nil)
+            return (.get, "deprecated", nil)
         case .registerDevice(deviceToken: let deviceToken):
             let params: Parameters = [
                 "token": deviceToken
             ]
             
-            return (.post, "device", params)
+            return (.post, "devices", params)
         case .deleteDevice:
-            return (.delete, "device", nil)
+            return (.delete, "devices", nil)
         case .leaveChallenge(let challenge):
-            return (.delete, "challenge/\(challenge.id)/membership", nil)
+            return (.delete, "memberships/\(challenge.id)", nil)
         }
     }
 
@@ -193,7 +193,7 @@ class GymRatsAPI {
     
     private let networkProvider: NetworkProvider
     
-    init(networkProvider: NetworkProvider = ProductionNetworkProvider()) {
+    init(networkProvider: NetworkProvider = DevelopmentNetworkProvider()) {
         self.networkProvider = networkProvider
     }
     

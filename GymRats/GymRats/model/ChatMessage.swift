@@ -18,21 +18,19 @@ struct ChatMessage: Codable {
 }
 
 extension ChatMessage: MessageType {
-    
-    var sender: Sender {
-        return gymRatsUser.asSender
-    }
-    
-    var messageId: String {
-        return "\(id)"
-    }
-    
-    var sentDate: Date {
-        return createdAt
-    }
-    
-    var kind: MessageKind {
-        return .text(content)
-    }
-    
+  var sender: SenderType {
+    return gymRatsUser.asSender
+  }
+  
+  var messageId: String {
+    return "\(id)"
+  }
+  
+  var sentDate: Date {
+    return createdAt
+  }
+  
+  var kind: MessageKind {
+      return .text(content)
+  }
 }

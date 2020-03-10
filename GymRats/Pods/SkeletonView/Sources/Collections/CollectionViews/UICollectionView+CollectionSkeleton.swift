@@ -9,7 +9,6 @@
 import UIKit
 
 extension UICollectionView: CollectionSkeleton {
-    
     var estimatedNumberOfRows: Int {
         guard let flowlayout = collectionViewLayout as? UICollectionViewFlowLayout else { return 0 }
         return Int(ceil(frame.height/flowlayout.itemSize.height))
@@ -39,6 +38,14 @@ extension UICollectionView: CollectionSkeleton {
         let dataSource = SkeletonCollectionDataSource(collectionViewDataSource: originalDataSource)
         self.skeletonDataSource = dataSource
         reloadData()
+    }
+    
+    func updateDummyDataSource() {
+        if (dataSource as? SkeletonCollectionDataSource) != nil {
+            reloadData()
+        } else {
+            addDummyDataSource()
+        }
     }
     
     func removeDummyDataSource(reloadAfter: Bool) {

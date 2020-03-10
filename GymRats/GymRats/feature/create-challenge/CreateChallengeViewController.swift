@@ -17,7 +17,7 @@ protocol CreateChallengeDelegate: class {
     func challengeCreated(challenge: Challenge)
 }
 
-class CreateChallengeViewController: GRFormViewController, Special {
+class CreateChallengeViewController: GRFormViewController {
 
     weak var delegate: CreateChallengeDelegate?
     

@@ -109,9 +109,9 @@ extension Observable where Element == Data {
                 
                 switch serviceResponse.status {
                 case .success:
-                    return serviceResponse.response!
+                    return serviceResponse.data!
                 case .failure:
-                    throw SimpleError(message: serviceResponse.errorMessage!)
+                    throw SimpleError(message: serviceResponse.error!)
                 }
             } catch let error {
                 print(error)
@@ -128,12 +128,11 @@ extension Observable where Element == Data {
                 
                 switch serviceResponse.status {
                 case .success:
-                    return serviceResponse.response!
+                    return serviceResponse.data!
                 case .failure:
-                    throw SimpleError(message: serviceResponse.errorMessage!)
+                    throw SimpleError(message: serviceResponse.error!)
                 }
             } catch let error {
-                print(error)
                 throw error
             }
         }
@@ -145,7 +144,7 @@ extension JSONDecoder {
     
     static let gymRatsAPIDecoder: JSONDecoder = {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .formatted(dateFormatter)

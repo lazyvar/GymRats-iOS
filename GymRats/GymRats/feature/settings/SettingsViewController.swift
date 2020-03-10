@@ -14,7 +14,7 @@ import SafariServices
 
 private let SettingsCellId = "SettingsCell"
 
-class SettingsViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, Special {
+class SettingsViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let disposeBag = DisposeBag()
     

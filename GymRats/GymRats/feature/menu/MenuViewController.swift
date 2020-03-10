@@ -203,7 +203,7 @@ extension MenuViewController {
                     .subscribe(onNext: { _ in
                         if let nav = GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController {
                             if let home = nav.children.first as? HomeViewController {
-                                home.fetchAllChallenges()
+                                // home.fetchAllChallenges()
                                 
                                 GymRatsApp.coordinator.drawer.closeDrawer(animated: true, completion: nil)
                             } else {
@@ -254,7 +254,7 @@ extension MenuViewController: CreateChallengeDelegate {
         
         if let nav = GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController {
             if let home = nav.children.first as? HomeViewController {
-                home.fetchAllChallenges()
+                // home.fetchAllChallenges()
                 
                 GymRatsApp.coordinator.drawer.closeDrawer(animated: true, completion: nil)
             } else {

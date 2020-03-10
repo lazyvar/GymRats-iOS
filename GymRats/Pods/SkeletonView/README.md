@@ -1,8 +1,8 @@
 ![](Assets/header2.jpg)
 
 <p align="center">
-    <a href="https://app.bitrise.io/app/6d289a17e22c8323">
-      <img src="https://app.bitrise.io/app/6d289a17e22c8323/status.svg?token=fI7gKC41XD9-aRXDScCKBw&branch=master">
+    <a href="https://github.com/Juanpe/SkeletonView/workflows/build">
+      <img src="https://github.com/Juanpe/SkeletonView/workflows/build/badge.svg">
     </a>
     <a href="https://codebeat.co/projects/github-com-juanpe-skeletonview-master"><img alt="codebeat badge" src="https://codebeat.co/badges/f854fdfd-31e5-4689-ba04-075d83653e60" /></a>
     <a href="https://github.com/Juanpe/SkeletonView">
@@ -12,16 +12,19 @@
     <a href="https://cocoapods.org/pods/SkeletonView">
         <img src="https://img.shields.io/cocoapods/v/SkeletonView.svg" alt="CocoaPods" />
     </a>
-    <a href="https://cocoapods.org/pods/SkeletonView">
-        <img src="https://img.shields.io/cocoapods/dt/SkeletonView.svg?style=flat" alt="CocoaPods downloads" />
+    <a href="https://github.com/Carthage/Carthage">
+        <img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage" />
+    </a>
+    <a href="https://github.com/apple/swift-package-manager">
+        <img src="https://img.shields.io/badge/SPM-compatible-brightgreen.svg" alt="SPM" />
     </a>
     <a href="https://twitter.com/JuanpeCatalan">
         <img src="https://img.shields.io/badge/contact-@JuanpeCatalan-blue.svg?style=flat" alt="Twitter: @JuanpeCatalan" />
     </a>
-    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=MJ4Y2D9DEX6FL&lc=ES&item_name=SkeletonView&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted">
-        <img src="https://img.shields.io/badge/Donate-PayPal-green.svg" alt="Paypal" />
-    </a>
     <br/>
+    <a href="https://gitter.im/SkeletonView/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge">
+        <img src="https://badges.gitter.im/SkeletonView/community.svg?style=flat" />
+    </a>
     <a href="https://twitter.com/intent/tweet?text=Wow%20This%20library%20is%20awesome:&url=https%3A%2F%2Fgithub.com%2FJuanpe%2FSkeletonView">
       <img src="https://img.shields.io/twitter/url/https/github.com/Juanpe/SkeletonView.svg?style=social" alt="License" />
     </a>
@@ -29,7 +32,8 @@
 
 🌎  Translations: </br>
 [🇨🇳](https://github.com/Juanpe/SkeletonView/blob/master/README_zh.md) by [@WhatsXie](https://twitter.com/WhatsXie) </br>
-[🇧🇷](https://github.com/Juanpe/SkeletonView/blob/master/README_pt-br.md) by [@brunomunizaf](https://twitter.com/brunomuniz_af)
+[🇧🇷](https://github.com/Juanpe/SkeletonView/blob/master/README_pt-br.md) by [@brunomunizaf](https://twitter.com/brunomuniz_af) </br>
+[🇰🇷](https://github.com/Juanpe/SkeletonView/blob/master/README_ko.md) by [@techinpark](https://twitter.com/techinpark)
 
 Today almost all apps have async processes, such as Api requests, long running processes, etc. And while the processes are working, usually developers place a loading view to show users that something is going on.
 
@@ -42,12 +46,14 @@ Enjoy it! 🙂
 * [Installation](#-installation)
   * [Cocoapods](#using-cocoapods)
   * [Carthage](#using-carthage)
+  * [SPM](#using-swift-package-manager)
 * [How to use](#-how-to-use)
   * [Collections](#-collections)
   * [Multiline text](#-multiline-text)
   * [Custom colors](#-custom-colors)
   * [Appearance](#-appearance)
   * [Custom animations](#-custom-animations)
+  * [Transitions](#-transitions)
   * [Hierarchy](#-hierarchy)
   * [Debug](#-debug)
 * [Documentation](#-documentation)
@@ -90,6 +96,18 @@ Edit your `Cartfile` and specify the dependency:
 ```bash
 github "Juanpe/SkeletonView"
 ```
+
+#### Using [Swift Package Manager](https://github.com/apple/swift-package-manager)
+
+Once you have your Swift package set up, adding `SkeletonView` as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
+
+```swift
+  dependencies: [
+    .package(url: "https://github.com/Juanpe/SkeletonView.git", from: "1.7.0")
+  ]
+```
+
+
 
 ## 🐒 How to use
 
@@ -155,6 +173,33 @@ avatarImageView.isSkeletonable = true
 > **IMPORTANT!**
 >>```SkeletonView``` is recursive, so if you want show the skeleton in all skeletonable views, you only need to call the show method in the main container view. For example, with UIViewControllers
 
+### Extra
+
+#### Skeleton views layout
+
+Sometimes skeleton layout may not fit your layout because the parent view bounds have changed. ~For example, rotating the device.~
+
+You can relayout the skeleton views like so:
+
+```swift
+override func viewDidLayoutSubviews() {
+    view.layoutSkeletonIfNeeded()
+}
+```
+
+⚠️⚠️ You shouldn't call this method. From *version 1.8.1* you don't need to call this method, the library does automatically. So, you can use this method *ONLY* in the cases when you need to update the layout of the skeleton manually.
+
+#### Update skeleton configuration
+
+You can change the skeleton configuration at any time like its colour, animation, etc. with the following methods:
+
+```swift
+(1) view.updateSkeleton()                 // Solid
+(2) view.updateGradientSkeleton()         // Gradient
+(3) view.updateAnimatedSkeleton()         // Solid animated
+(4) view.updateAnimatedGradientSkeleton() // Gradient animated
+```
+
 ### 🌿 Collections
 
  Now, ```SkeletonView``` is compatible with ```UITableView``` and ```UICollectionView```.
@@ -168,6 +213,8 @@ public protocol SkeletonTableViewDataSource: UITableViewDataSource {
     func numSections(in collectionSkeletonView: UITableView) -> Int
     func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int
     func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier
+    func collectionSkeletonView(_ skeletonView: UITableView, identifierForHeaderInSection section: Int) -> ReusableHeaderFooterIdentifier?
+    func collectionSkeletonView(_ skeletonView: UITableView, identifierForFooterInSection section: Int) -> ReusableHeaderFooterIdentifier?
 }
 ```
 As you can see, this protocol inherits from ```UITableViewDataSource```, so you can replace this protocol with the skeleton protocol.
@@ -183,6 +230,16 @@ func numSections(in collectionSkeletonView: UITableView) -> Int
 func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int
 // Default:
 // It calculates how many cells need to populate whole tableview
+```
+
+``` swift
+func collectionSkeletonView(_ skeletonView: UITableView, identifierForHeaderInSection section: Int) -> ReusableHeaderFooterIdentifier?
+// Default: nil
+```
+
+``` swift
+func collectionSkeletonView(_ skeletonView: UITableView, identifierForFooterInSection section: Int) -> ReusableHeaderFooterIdentifier?
+// Default: nil
 ```
 
 There is only one method you need to implement to let Skeleton know the cell identifier. This method doesn't have default implementation:
@@ -281,9 +338,9 @@ Besides, ```SkeletonView``` features 20 flat colors 🤙🏼
 
 Default values:
 - **tintColor**: UIColor
-    - *default: .clouds*
+    - *default: `.skeletonDefault` (same as `.clouds` but adaptive to dark mode)*
 - **gradient**: SkeletonGradient
-  - *default: SkeletonGradient(baseColor: .clouds)*
+  - *default: `SkeletonGradient(baseColor: .skeletonDefault)`*
 - **multilineHeight**: CGFloat
   - *default: 15*
 - **multilineSpacing**: CGFloat
@@ -298,6 +355,12 @@ To get these default values you can use `SkeletonAppearance.default`. Using this
 SkeletonAppearance.default.multilineHeight = 20
 SkeletonAppearance.default.tintColor = .green
 ```
+
+You can also specifiy these line appearance properties on a per-label basis:
+- **lastLineFillPercent**: Int
+- **linesCornerRadius**: Int
+- **skeletonLineSpacing**: CGFloat
+- **skeletonPaddingInsets**: UIEdgeInsets
 
 
 ### 🤓 Custom animations
@@ -351,20 +414,65 @@ view.showAnimatedGradientSkeleton(usingGradient: gradient, animation: animation)
 Exist another way to create sliding animations, just using this shortcut:
 >>```let animation = GradientDirection.leftToRight.slidingAnimation()```
 
+
+
+### 🏄 Transitions
+
+```SkeletonView``` has build-in transitions to **show** or **hide** the skeletons in a *smoother* way 🤙
+
+To use the transition, simply add the ```transition``` parameter to your ```showSkeleton()``` or ```hideSkeleton()``` function with the transition time, like this:
+
+```swift
+view.showSkeleton(transition: .crossDissolve(0.25))     //Show skeleton cross dissolve transition with 0.25 seconds fade time
+view.hideSkeleton(transition: .crossDissolve(0.25))     //Hide skeleton cross dissolve transition with 0.25 seconds fade time
+
+```
+
+The default value is  `crossDissolve(0.25)`
+
+**Preview**
+
+<table>
+<tr>
+<td width="50%">
+<center>None</center>
+</td>
+<td width="50%">
+<center>Cross dissolve</center>
+</td>
+</tr>
+<tr>
+<td width="50%">
+<img src="Assets/skeleton_transition_nofade.gif"></img>
+</td>
+<td width="50%">
+<img src="Assets/skeleton_transition_fade.gif"></img>
+</td>
+</tr>
+</table>
+
+
 ### 👨‍👧‍👦 Hierarchy
 
 Since ```SkeletonView``` is recursive, and we want skeleton to be very efficient, we want to stop recursion as soon as possible. For this reason, you must set the container view as `Skeletonable`, because Skeleton will stop looking for `skeletonable` subviews as soon as a view is not Skeletonable, breaking then the recursion.
 
 Because an image is worth a thousand words:
 
+In this example we have a `UIViewController` with a `ContainerView` and a `UITableView`. When the view is ready, we show the skeleton using this method:
+```
+view.showSkeleton()
+```
+
 > ```ìsSkeletonable```= ☠️
 
-| Configuration | Result
-|------- | -------
-|![](Assets/no_skeletonable.png) | ![](Assets/no_skeletonables_result.png)
-|![](Assets/container_no_skeletonable.png) | ![](Assets/no_skeletonables_result.png)
-|![](Assets/container_skeletonable.png) | ![](Assets/container_skeletonable_result.png)
-|![](Assets/all_skeletonables.png) | ![](Assets/all_skeletonables_result.png)
+| Configuration | Result|
+|:-------:|:-------:|
+|<img src="Assets/no_skeletonable.jpg" width="350"/> | <img src="Assets/no_skeletonables_result.png" width="350"/>|
+|<img src="Assets/container_no_skeletonable.jpg" width="350"/> | <img src="Assets/no_skeletonables_result.png" width="350"/>|
+|<img src="Assets/container_skeletonable.jpg" width="350"/> | <img src="Assets/container_skeletonable_result.png" width="350"/>|
+|<img src="Assets/all_skeletonables.jpg" width="350"/>| <img src="Assets/all_skeletonables_result.png" width="350"/>|
+|<img src="Assets/tableview_no_skeletonable.jpg" width="350"/> | <img src="Assets/tableview_no_skeletonable_result.png" height="350"/>|
+|<img src="Assets/tableview_skeletonable.jpg" width="350"/> | <img src="Assets/tableview_skeletonable_result.png" height="350"/>|
 
 
 ### 🔬 Debug
@@ -400,7 +508,7 @@ Coming soon...😅
 
 * iOS 9.0+
 * tvOS 9.0+
-* Swift 4.2
+* Swift 5
 
 ## 📬 Next steps
 
@@ -412,8 +520,8 @@ Coming soon...😅
 * [x] Add recovery state
 * [x] Custom default appearance
 * [x] Debug mode
+* [x] Add animations when it shows/hides the skeletons
 * [ ] Custom collections compatible
-* [ ] Add animations when it shows/hides the skeletons
 * [ ] MacOS and WatchOS compatible
 
 ## ❤️ Contributing
@@ -440,6 +548,7 @@ See [all contributors](https://github.com/Juanpe/SkeletonView/graphs/contributor
 - [CocoaControls](https://www.cocoacontrols.com/controls/skeletonview)
 - [Awesome iOS Newsletter #74](https://ios.libhunt.com/newsletter/74)
 - [Swift News #36](https://www.youtube.com/watch?v=mAGpsQiy6so)
+- [Best iOS articles, new tools & more](https://medium.com/flawless-app-stories/best-ios-articles-new-tools-more-fcbe673e10d)
 
 
 

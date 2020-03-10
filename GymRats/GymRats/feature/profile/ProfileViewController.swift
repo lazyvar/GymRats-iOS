@@ -8,7 +8,6 @@
 
 import UIKit
 import RxSwift
-import YogaKit
 
 class ProfileViewController: UITableViewController {
     
@@ -122,93 +121,93 @@ class ProfileViewController: UITableViewController {
         usernameLabel.text = user.fullName
         usernameLabel.textAlignment = .center
         
-        containerView.configureLayout { layout in
-            layout.isEnabled = true
-            layout.flexDirection = .column
-            layout.justifyContent = .flexStart
-            layout.alignContent = .center
-            layout.padding = 15
-        }
-        
-        userImageView.configureLayout { layout in
-            layout.isEnabled = true
-            layout.width = 72
-            layout.height = 72
-            layout.flexGrow = 1
-            layout.marginBottom = 10
-            layout.alignSelf = .center
-        }
-        
-        usernameLabel.configureLayout { layout in
-            layout.isEnabled = true
-            layout.flexGrow = 1
-        }
-        
-        totalWorkoutsLabel.configureLayout { layout in
-            layout.isEnabled = true
-            layout.flexGrow = 1
-        }
-        
-        let monthContainer = UIView()
-        
-        monthContainer.configureLayout { layout in
-            layout.isEnabled = true
-            layout.flexDirection = .row
-            layout.alignContent = .center
-            layout.justifyContent = .spaceBetween
-            layout.width = YGValue(self.view.frame.width - 30)
-            layout.padding = 10
-        }
-        
-        goBackInTimeButton.configureLayout { layout in
-            layout.isEnabled = true
-            layout.alignSelf = .center
-            layout.flexShrink = 1
-        }
-        
-        monthLabel.configureLayout { layout in
-            layout.isEnabled = true
-            layout.alignSelf = .center
-            layout.flexGrow = 1
-        }
-        
-        goForwardInTimeButton.configureLayout { layout in
-            layout.isEnabled = true
-            layout.alignSelf = .center
-            layout.flexShrink = 1
-        }
-        
-        monthContainer.addSubview(goBackInTimeButton)
-        monthContainer.addSubview(monthLabel)
-        monthContainer.addSubview(goForwardInTimeButton)
-        
-        monthContainer.yoga.applyLayout(preservingOrigin: true)
-        
-        calendarMenu.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 15
-            layout.width = YGValue(self.view.frame.width - 70)
-            layout.height = 15
-            layout.marginLeft = 20
-        }
-        
-        calendarView.configureLayout { layout in
-            layout.isEnabled = true
-            layout.flexGrow = 1
-            layout.marginTop = 5
-            layout.marginLeft = 20
-            layout.width = YGValue(self.view.frame.width - 70)
-            layout.height = YGValue(self.view.frame.width - 70)
-        }
-        
-        containerView.addSubview(userImageView)
-        containerView.addSubview(usernameLabel)
-        containerView.addSubview(totalWorkoutsLabel)
-        containerView.addSubview(monthContainer)
-        containerView.addSubview(calendarMenu)
-        containerView.addSubview(calendarView)
-        
-        containerView.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
+//        containerView.configureLayout { layout in
+//            layout.isEnabled = true
+//            layout.flexDirection = .column
+//            layout.justifyContent = .flexStart
+//            layout.alignContent = .center
+//            layout.padding = 15
+//        }
+//
+//        userImageView.configureLayout { layout in
+//            layout.isEnabled = true
+//            layout.width = 72
+//            layout.height = 72
+//            layout.flexGrow = 1
+//            layout.marginBottom = 10
+//            layout.alignSelf = .center
+//        }
+//
+//        usernameLabel.configureLayout { layout in
+//            layout.isEnabled = true
+//            layout.flexGrow = 1
+//        }
+//
+//        totalWorkoutsLabel.configureLayout { layout in
+//            layout.isEnabled = true
+//            layout.flexGrow = 1
+//        }
+//
+//        let monthContainer = UIView()
+//
+//        monthContainer.configureLayout { layout in
+//            layout.isEnabled = true
+//            layout.flexDirection = .row
+//            layout.alignContent = .center
+//            layout.justifyContent = .spaceBetween
+//            layout.width = YGValue(self.view.frame.width - 30)
+//            layout.padding = 10
+//        }
+//
+//        goBackInTimeButton.configureLayout { layout in
+//            layout.isEnabled = true
+//            layout.alignSelf = .center
+//            layout.flexShrink = 1
+//        }
+//
+//        monthLabel.configureLayout { layout in
+//            layout.isEnabled = true
+//            layout.alignSelf = .center
+//            layout.flexGrow = 1
+//        }
+//
+//        goForwardInTimeButton.configureLayout { layout in
+//            layout.isEnabled = true
+//            layout.alignSelf = .center
+//            layout.flexShrink = 1
+//        }
+//
+//        monthContainer.addSubview(goBackInTimeButton)
+//        monthContainer.addSubview(monthLabel)
+//        monthContainer.addSubview(goForwardInTimeButton)
+//
+//        monthContainer.yoga.applyLayout(preservingOrigin: true)
+//
+//        calendarMenu.configureLayout { layout in
+//            layout.isEnabled = true
+//            layout.marginTop = 15
+//            layout.width = YGValue(self.view.frame.width - 70)
+//            layout.height = 15
+//            layout.marginLeft = 20
+//        }
+//
+//        calendarView.configureLayout { layout in
+//            layout.isEnabled = true
+//            layout.flexGrow = 1
+//            layout.marginTop = 5
+//            layout.marginLeft = 20
+//            layout.width = YGValue(self.view.frame.width - 70)
+//            layout.height = YGValue(self.view.frame.width - 70)
+//        }
+//
+//        containerView.addSubview(userImageView)
+//        containerView.addSubview(usernameLabel)
+//        containerView.addSubview(totalWorkoutsLabel)
+//        containerView.addSubview(monthContainer)
+//        containerView.addSubview(calendarMenu)
+//        containerView.addSubview(calendarView)
+//
+//        containerView.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
 
         tableView.tableHeaderView = containerView
         
@@ -310,98 +309,98 @@ class ProfileViewController: UITableViewController {
     }
     
     func showWorkouts(_ workouts: [Workout]) {
-        let workoutsContainer = UIView()
-        workoutsContainer.tag = 111
-        workoutsContainer.backgroundColor = .clear
-        
-        workoutsContainer.configureLayout { layout in
-            layout.isEnabled = true
-            layout.flexGrow = 1
-            layout.flexDirection = .column
-            layout.justifyContent = .flexStart
-            layout.paddingLeft = 20
-            layout.paddingRight = 20
-        }
-        
-        for (index, workout) in workouts.enumerated() {
-            let row = UIView()
-            row.tag = index
-            row.backgroundColor = .clear
-            
-            let titleDetailsContainer = UIView()
-            
-            let titleLabel = UILabel()
-            titleLabel.text = workout.title
-            titleLabel.font = .body
-            
-            let detailsLabel = UILabel()
-            detailsLabel.font = .details
-            detailsLabel.numberOfLines = 0
-            detailsLabel.attributedText = self.detailsLabeText(for: workout)
-            
-            let timeLabel: UILabel = UILabel()
-            timeLabel.font = .details
-            timeLabel.text = workout.createdAt.challengeTime
-            timeLabel.textAlignment = .right
-            
-            row.configureLayout { layout in
-                layout.isEnabled = true
-                layout.flexDirection = .row
-                layout.justifyContent = .flexStart
-                layout.padding = 5
-            }
-            
-            titleDetailsContainer.configureLayout { layout in
-                layout.isEnabled = true
-                layout.flexDirection = .column
-                layout.justifyContent = .flexStart
-            }
-            
-            timeLabel.configureLayout { layout in
-                layout.isEnabled = true
-                layout.flexGrow = 1
-            }
-            
-            titleLabel.configureLayout { layout in
-                layout.isEnabled = true
-                layout.marginTop = 7
-                layout.marginRight = 10
-            }
-            
-            detailsLabel.configureLayout { layout in
-                layout.isEnabled = true
-                layout.marginTop = 3
-                layout.marginBottom = 7
-                layout.paddingRight = 10
-            }
-            
-            row.addSubview(titleDetailsContainer)
-            row.addSubview(timeLabel)
-            
-            titleDetailsContainer.addSubview(titleLabel)
-            titleDetailsContainer.addSubview(detailsLabel)
-            
-            titleDetailsContainer.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
-            row.yoga.applyLayout(preservingOrigin: true)
-            
-            row.addDivider()
-            
-            let tap = UITapGestureRecognizer(target: self, action: #selector(ProfileViewController.transitionToWorkoutScreen(tap:)))
-            tap.numberOfTapsRequired = 1
-            
-            row.addGestureRecognizer(tap)
-            row.isUserInteractionEnabled = true
-            
-            workoutsContainer.addSubview(row)
-        }
-        
-        workoutsContainer.yoga.applyLayout(preservingOrigin: true)
-        
-        if let containerView = self.containerView {
-            containerView.subviews.first(where: { $0.tag == 111 })?.removeFromSuperview()
-            containerView.addSubview(workoutsContainer)
-            containerView.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
-        }
+//        let workoutsContainer = UIView()
+//        workoutsContainer.tag = 111
+//        workoutsContainer.backgroundColor = .clear
+//        
+//        workoutsContainer.configureLayout { layout in
+//            layout.isEnabled = true
+//            layout.flexGrow = 1
+//            layout.flexDirection = .column
+//            layout.justifyContent = .flexStart
+//            layout.paddingLeft = 20
+//            layout.paddingRight = 20
+//        }
+//        
+//        for (index, workout) in workouts.enumerated() {
+//            let row = UIView()
+//            row.tag = index
+//            row.backgroundColor = .clear
+//            
+//            let titleDetailsContainer = UIView()
+//            
+//            let titleLabel = UILabel()
+//            titleLabel.text = workout.title
+//            titleLabel.font = .body
+//            
+//            let detailsLabel = UILabel()
+//            detailsLabel.font = .details
+//            detailsLabel.numberOfLines = 0
+//            detailsLabel.attributedText = self.detailsLabeText(for: workout)
+//            
+//            let timeLabel: UILabel = UILabel()
+//            timeLabel.font = .details
+//            timeLabel.text = workout.createdAt.challengeTime
+//            timeLabel.textAlignment = .right
+//            
+//            row.configureLayout { layout in
+//                layout.isEnabled = true
+//                layout.flexDirection = .row
+//                layout.justifyContent = .flexStart
+//                layout.padding = 5
+//            }
+//            
+//            titleDetailsContainer.configureLayout { layout in
+//                layout.isEnabled = true
+//                layout.flexDirection = .column
+//                layout.justifyContent = .flexStart
+//            }
+//            
+//            timeLabel.configureLayout { layout in
+//                layout.isEnabled = true
+//                layout.flexGrow = 1
+//            }
+//            
+//            titleLabel.configureLayout { layout in
+//                layout.isEnabled = true
+//                layout.marginTop = 7
+//                layout.marginRight = 10
+//            }
+//            
+//            detailsLabel.configureLayout { layout in
+//                layout.isEnabled = true
+//                layout.marginTop = 3
+//                layout.marginBottom = 7
+//                layout.paddingRight = 10
+//            }
+//            
+//            row.addSubview(titleDetailsContainer)
+//            row.addSubview(timeLabel)
+//            
+//            titleDetailsContainer.addSubview(titleLabel)
+//            titleDetailsContainer.addSubview(detailsLabel)
+//            
+//            titleDetailsContainer.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
+//            row.yoga.applyLayout(preservingOrigin: true)
+//            
+//            row.addDivider()
+//            
+//            let tap = UITapGestureRecognizer(target: self, action: #selector(ProfileViewController.transitionToWorkoutScreen(tap:)))
+//            tap.numberOfTapsRequired = 1
+//            
+//            row.addGestureRecognizer(tap)
+//            row.isUserInteractionEnabled = true
+//            
+//            workoutsContainer.addSubview(row)
+//        }
+//        
+//        workoutsContainer.yoga.applyLayout(preservingOrigin: true)
+//        
+//        if let containerView = self.containerView {
+//            containerView.subviews.first(where: { $0.tag == 111 })?.removeFromSuperview()
+//            containerView.addSubview(workoutsContainer)
+//            containerView.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
+//        }
     }
 
     private func detailsLabeText(for workout: Workout, including place: Place? = nil) -> NSAttributedString {

@@ -38,7 +38,7 @@ public typealias TransformConfiguration = Configuration<TransformGestureRecogniz
 public typealias TransformControlEvent = ControlEvent<TransformGestureRecognizers>
 public typealias TransformObservable = Observable<TransformGestureRecognizers>
 
-public extension Reactive where Base: View {
+extension Reactive where Base: View {
     public func transformGestures(
         configuration: TransformConfiguration? = nil
         ) -> TransformControlEvent {
@@ -55,9 +55,9 @@ public extension Reactive where Base: View {
     }
 }
 
-public extension ObservableType where E == TransformGestureRecognizers {
+extension ObservableType where Element == TransformGestureRecognizers {
 
-    public func when(_ states: GestureRecognizerState...) -> Observable<E> {
+    public func when(_ states: GestureRecognizerState...) -> Observable<Element> {
         return filter { gestures in
             return states.contains(gestures.panGesture.state)
                 || states.contains(gestures.rotationGesture.state)

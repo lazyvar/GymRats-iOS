@@ -68,7 +68,7 @@ class NgrokNetworkProvider: NetworkProvider {
 class DevelopmentNetworkProvider: NetworkProvider {
 
     func buildUrl(forPath path: String) -> String {
-        return "http://localhost:4567/\(path)"
+        return "http://localhost:4000/\(path)"
     }
 
     func request(method: HTTPMethod, url: String, headers: HTTPHeaders, parameters: Parameters?) -> Observable<(HTTPURLResponse, Data)> {

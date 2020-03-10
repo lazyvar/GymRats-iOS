@@ -4,12 +4,11 @@ use_frameworks!
 
 target 'GymRats' do
     pod 'Alamofire', '~> 4.7'
-    pod 'RxSwift',    '~> 4.0'
-    pod 'RxCocoa',    '~> 4.0'
+    pod 'RxSwift', '~> 5'
+    pod 'RxCocoa', '~> 5'
     pod 'RxAlamofire'
     pod 'Kingfisher', '~> 4.0'
     pod 'RxOptional'
-    pod 'YogaKit'
     pod 'MMDrawerController', '~> 0.5.7'
     pod 'SwiftDate', '~> 5.0'
     pod "AvatarImageView", '~> 2.2.0'
@@ -34,18 +33,5 @@ target 'GymRats' do
 
      target 'GymRatsTests' do
         inherit! :search_paths
-    end
-end
-
-post_install do |installer|
-    installer.pods_project.targets.each do |target|
-        target.build_configurations.each do |config|
-            if target.name == 'Cache'
-                config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-Onone'
-            end
-	    if target.name == "MessageKit" || target.name == "YogaKit"
-		config.build_settings['SWIFT_VERSION'] = '4.2'
-	    end
-        end
     end
 end

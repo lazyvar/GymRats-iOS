@@ -15,7 +15,8 @@ struct User: Codable, Hashable {
     let fullName: String
     let profilePictureUrl: String?
     let token: String?
-    
+    let workouts: [Workout]?
+  
     var hashValue: Int { return id }
 }
 

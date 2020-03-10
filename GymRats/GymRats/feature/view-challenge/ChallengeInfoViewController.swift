@@ -8,7 +8,7 @@
 
 import UIKit
 import MMDrawerController
-import YogaKit
+
 import RxSwift
 
 class ChallengeInfoViewController: UITableViewController {
@@ -32,120 +32,120 @@ class ChallengeInfoViewController: UITableViewController {
     }
     
     override func viewDidLoad() {
-        tableView.separatorStyle = .none
-        tableView.register(UINib(nibName: "UserWorkoutTableViewCell", bundle: nil), forCellReuseIdentifier: "ChallengeUserCell")
-        
-        let containerView = UIView()
-        
-        containerView.configureLayout { layout in
-            layout.isEnabled = true
-            layout.flexDirection = .column
-            layout.justifyContent = .flexStart
-            layout.alignContent = .flexStart
-            layout.width = 280
-            layout.paddingTop = 10
-            layout.padding = 10
-        }
-
-        let imageView = UserImageView()
-        imageView.load(avatarInfo: challenge)
-        
-        imageView.configureLayout { layout in
-            layout.isEnabled = true
-            layout.width = 80
-            layout.height = 80
-            layout.margin = 5
-        }
-        
-        let imageViewContainer = UIView()
-        
-        imageViewContainer.configureLayout { layout in
-            layout.isEnabled = true
-            layout.flexDirection = .row
-            layout.alignContent = .center
-            layout.justifyContent = .center
-        }
-        
-        let challengeNameLabel = UILabel()
-        challengeNameLabel.font = .body
-        challengeNameLabel.textAlignment = .center
-        challengeNameLabel.textColor = .black
-        challengeNameLabel.text = challenge.name
-        
-        challengeNameLabel.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 5
-        }
-
-        let codeLabel = UILabel()
-        codeLabel.font = .details
-        codeLabel.textAlignment = .center
-        codeLabel.text = "Join code: \(challenge.code)"
-        
-        codeLabel.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 5
-        }
-        
-        imageViewContainer.addSubview(imageView)
-        
-        imageViewContainer.yoga.applyLayout(preservingOrigin: true)
-        
-        let daysLeft = UILabel()
-        daysLeft.font = .details
-        daysLeft.textAlignment = .center
-        
-        let difference = Date().localDateIsDaysApartFromUTCDate(challenge.endDate)
-        
-        if difference > 0 {
-            daysLeft.text = "Completed on \(challenge.endDate.toFormat("MMM d, yyyy"))"
-        } else if difference < 0 {
-            let diff = abs(difference)
-            
-            if diff == 1 {
-                daysLeft.text = "1 day remaining (\(challenge.endDate.toFormat("MMM d")))"
-            } else {
-                daysLeft.text = "\(diff) days remaining (\(challenge.endDate.toFormat("MMM d")))"
-            }
-        } else {
-            daysLeft.text = "Last day (\(challenge.endDate.toFormat("MMM d")))"
-        }
-        
-        daysLeft.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 5
-        }
-
-        let leaveChallengeButton = UIButton()
-        leaveChallengeButton.backgroundColor = .brand
-        leaveChallengeButton.setTitle("Leave Challenge", for: .normal)
-//        leaveChallengeButton.setTitleColor(.white, for: .normal)
-        leaveChallengeButton.titleLabel?.font = .body
-        leaveChallengeButton.layer.cornerRadius = 8
-        leaveChallengeButton.clipsToBounds = true
-        
-        leaveChallengeButton.onTouchUpInside { [weak self] in
-            self?.showAlert()
-        }.disposed(by: disposeBag)
-        
-        leaveChallengeButton.configureLayout { layout in
-            layout.isEnabled = true
-            layout.marginTop = 10
-            layout.marginBottom = 5
-            layout.marginLeft = 30
-            layout.marginRight = 30
-            layout.height = YGValue(30)
-        }
-
-        containerView.addSubview(imageViewContainer)
-        containerView.addSubview(challengeNameLabel)
-        containerView.addSubview(codeLabel)
-        containerView.addSubview(daysLeft)
-        containerView.addSubview(leaveChallengeButton)
-
-        containerView.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
-
-        tableView.tableHeaderView = containerView
+//        tableView.separatorStyle = .none
+//        tableView.register(UINib(nibName: "UserWorkoutTableViewCell", bundle: nil), forCellReuseIdentifier: "ChallengeUserCell")
+//
+//        let containerView = UIView()
+//
+//        containerView.configureLayout { layout in
+//            layout.isEnabled = true
+//            layout.flexDirection = .column
+//            layout.justifyContent = .flexStart
+//            layout.alignContent = .flexStart
+//            layout.width = 280
+//            layout.paddingTop = 10
+//            layout.padding = 10
+//        }
+//
+//        let imageView = UserImageView()
+//        imageView.load(avatarInfo: challenge)
+//
+//        imageView.configureLayout { layout in
+//            layout.isEnabled = true
+//            layout.width = 80
+//            layout.height = 80
+//            layout.margin = 5
+//        }
+//
+//        let imageViewContainer = UIView()
+//
+//        imageViewContainer.configureLayout { layout in
+//            layout.isEnabled = true
+//            layout.flexDirection = .row
+//            layout.alignContent = .center
+//            layout.justifyContent = .center
+//        }
+//
+//        let challengeNameLabel = UILabel()
+//        challengeNameLabel.font = .body
+//        challengeNameLabel.textAlignment = .center
+//        challengeNameLabel.textColor = .black
+//        challengeNameLabel.text = challenge.name
+//
+//        challengeNameLabel.configureLayout { layout in
+//            layout.isEnabled = true
+//            layout.marginTop = 5
+//        }
+//
+//        let codeLabel = UILabel()
+//        codeLabel.font = .details
+//        codeLabel.textAlignment = .center
+//        codeLabel.text = "Join code: \(challenge.code)"
+//
+//        codeLabel.configureLayout { layout in
+//            layout.isEnabled = true
+//            layout.marginTop = 5
+//        }
+//
+//        imageViewContainer.addSubview(imageView)
+//
+//        imageViewContainer.yoga.applyLayout(preservingOrigin: true)
+//
+//        let daysLeft = UILabel()
+//        daysLeft.font = .details
+//        daysLeft.textAlignment = .center
+//
+//        let difference = Date().localDateIsDaysApartFromUTCDate(challenge.endDate)
+//
+//        if difference > 0 {
+//            daysLeft.text = "Completed on \(challenge.endDate.toFormat("MMM d, yyyy"))"
+//        } else if difference < 0 {
+//            let diff = abs(difference)
+//
+//            if diff == 1 {
+//                daysLeft.text = "1 day remaining (\(challenge.endDate.toFormat("MMM d")))"
+//            } else {
+//                daysLeft.text = "\(diff) days remaining (\(challenge.endDate.toFormat("MMM d")))"
+//            }
+//        } else {
+//            daysLeft.text = "Last day (\(challenge.endDate.toFormat("MMM d")))"
+//        }
+//
+//        daysLeft.configureLayout { layout in
+//            layout.isEnabled = true
+//            layout.marginTop = 5
+//        }
+//
+//        let leaveChallengeButton = UIButton()
+//        leaveChallengeButton.backgroundColor = .brand
+//        leaveChallengeButton.setTitle("Leave Challenge", for: .normal)
+////        leaveChallengeButton.setTitleColor(.white, for: .normal)
+//        leaveChallengeButton.titleLabel?.font = .body
+//        leaveChallengeButton.layer.cornerRadius = 8
+//        leaveChallengeButton.clipsToBounds = true
+//
+//        leaveChallengeButton.onTouchUpInside { [weak self] in
+//            self?.showAlert()
+//        }.disposed(by: disposeBag)
+//
+//        leaveChallengeButton.configureLayout { layout in
+//            layout.isEnabled = true
+//            layout.marginTop = 10
+//            layout.marginBottom = 5
+//            layout.marginLeft = 30
+//            layout.marginRight = 30
+//            layout.height = YGValue(30)
+//        }
+//
+//        containerView.addSubview(imageViewContainer)
+//        containerView.addSubview(challengeNameLabel)
+//        containerView.addSubview(codeLabel)
+//        containerView.addSubview(daysLeft)
+//        containerView.addSubview(leaveChallengeButton)
+//
+//        containerView.yoga.applyLayout(preservingOrigin: true, dimensionFlexibility: .flexibleHeight)
+//
+//        tableView.tableHeaderView = containerView
     }
     
     private func showAlert() {
@@ -160,7 +160,7 @@ class ChallengeInfoViewController: UITableViewController {
                         if let nav = GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController {
                             // MACK
                             if let home = nav.children.first as? HomeViewController {
-                                home.fetchAllChallenges()
+                                // home.fetchAllChallenges()
                                 
                                 GymRatsApp.coordinator.drawer.closeDrawer(animated: true, completion: nil)
                             } else {

@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import MessageUI
 
-class UpcomingChallengeViewController: UICollectionViewController, Special {
+class UpcomingChallengeViewController: UICollectionViewController {
 
     let challenge: Challenge
     var users: [User] = []
@@ -153,7 +153,7 @@ class UpcomingChallengeViewController: UICollectionViewController, Special {
                         if let nav = GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController {
                             // MACK
                             if let home = nav.children.first as? HomeViewController {
-                                home.fetchAllChallenges()
+                                // home.fetchAllChallenges()
                                 
                                 GymRatsApp.coordinator.drawer.closeDrawer(animated: true, completion: nil)
                             } else {

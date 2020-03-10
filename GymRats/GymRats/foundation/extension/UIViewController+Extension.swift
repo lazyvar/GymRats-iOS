@@ -42,29 +42,27 @@ extension UIViewController {
         navigationItem.leftBarButtonItem = menu
     }
     
-    func showLoadingBar(disallowUserInteraction: Bool = false, special: Bool = false) {
-            let center = view.center
-            let thing = NVActivityIndicatorView(frame: CGRect(x: center.x-50, y: center.y-150, width: 100, height: 100), type: .ballPulseSync, color: .brand, padding: 20)
-            thing.backgroundColor = .foreground
-            thing.layer.cornerRadius = 10
-            thing.layer.shadowRadius = 7
-            thing.layer.shadowColor = UIColor.shadow.cgColor
-            thing.layer.shadowOffset = CGSize(width: 0, height: 0)
-            thing.layer.shadowOpacity = 0.5
+    func showLoadingBar(disallowUserInteraction: Bool = false) {
+      let center = view.center
+      let thing = NVActivityIndicatorView(frame: CGRect(x: center.x-50, y: center.y-150, width: 100, height: 100), type: .ballPulseSync, color: .brand, padding: 20)
+      thing.backgroundColor = .foreground
+      thing.layer.cornerRadius = 10
+      thing.layer.shadowRadius = 7
+      thing.layer.shadowColor = UIColor.shadow.cgColor
+      thing.layer.shadowOffset = CGSize(width: 0, height: 0)
+      thing.layer.shadowOpacity = 0.5
 
-            view.addSubview(thing)
-            
-            thing.startAnimating()
-        
-        if disallowUserInteraction {
-            UIApplication.shared.beginIgnoringInteractionEvents()
-            
-            let dimView = UIView()
-            //view.backgroundColor = UIColor.fog.withAlphaComponent(0.3)
-            view.tag = 333
-            
-            UIApplication.shared.keyWindow?.addSubview(dimView)
-        }
+      view.addSubview(thing)
+      
+      thing.startAnimating()
+      
+      if disallowUserInteraction {
+        let dimView = UIView()
+        view.tag = 333
+
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        UIApplication.shared.keyWindow?.addSubview(dimView)
+      }
     }
 
     func hideLoadingBar() {
@@ -114,6 +112,9 @@ extension UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+  func install(_ child: UIViewController) {
+    addChild(child)
+    child.view.inflate(in: view)
+    child.didMove(toParent: self)
+  }
 }
-
-protocol Special { }

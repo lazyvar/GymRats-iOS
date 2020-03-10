@@ -14,7 +14,7 @@ import Kingfisher
 import NVActivityIndicatorView
 import MapKit
 
-class ArtistViewController: UIViewController, Special {
+class ArtistViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     let challenge: Challenge
@@ -160,7 +160,7 @@ class ArtistViewController: UIViewController, Special {
                     case .next:
                         if let nav = GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController {
                             if let home = nav.children.first as? HomeViewController {
-                                home.fetchAllChallenges()
+                                // home.fetchAllChallenges()
                                 
                                 GymRatsApp.coordinator.drawer.closeDrawer(animated: true, completion: nil)
                             } else {
@@ -221,15 +221,12 @@ class ArtistViewController: UIViewController, Special {
     }
     
     @objc func fetchUserWorkouts() {
-        let users = gymRatsAPI.getUsers(for: challenge)
-        let workouts = gymRatsAPI.getWorkouts(for: challenge)
-        
         showLoadingBar()
         
-        Observable.zip(users, workouts).subscribe(onNext: { zipped in
-            let (users, workouts) = zipped
+        gymRatsAPI.getUsers(for: challenge).subscribe(onNext: { users in
+            let workouts = users.flatMap { $0.workouts ?? [] }
             
-            NotificationCenter.default.post(name: .init("hereIsTheDatam"), object: zipped)
+            NotificationCenter.default.post(name: .init("hereIsTheDatam"), object: (users, workouts))
             
             self.users = users.sorted(by: { a, b -> Bool in
                 let workoutsA = self.workouts.filter { $0.gymRatsUserId == a.id }.count

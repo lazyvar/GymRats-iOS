@@ -60,9 +60,7 @@ public enum GradientDirection {
 }
 
 public class SkeletonAnimationBuilder {
-    
-    public init() {
-    }
+    public init() { }
     
     public func makeSlidingAnimation(withDirection direction: GradientDirection, duration: CFTimeInterval = 1.5) -> SkeletonLayerAnimation {
         return { layer in
@@ -80,6 +78,7 @@ public class SkeletonAnimationBuilder {
             animGroup.duration = duration
             animGroup.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)
             animGroup.repeatCount = .infinity
+            animGroup.isRemovedOnCompletion = false
             
             return animGroup
         }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Workout: Codable {
+struct Workout: Codable, Hashable {
     let id: Int
     let gymRatsUserId: Int
     let challengeId: Int
@@ -22,6 +22,12 @@ struct Workout: Codable {
     let steps: Int?
     let calories: Int?
     let points: Int?
+  
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(id)
+    _ = hasher.finalize()
+  }
 }
 
 extension Workout: AvatarProtocol {

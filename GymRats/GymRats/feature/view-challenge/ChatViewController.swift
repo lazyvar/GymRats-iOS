@@ -9,7 +9,6 @@
 import UIKit
 import MessageKit
 import RxSwift
-import MessageInputBar
 
 class ChatViewController: MessagesViewController {
     
@@ -190,7 +189,7 @@ extension ChatViewController: MessageInputBarDelegate {
 
 extension ChatViewController: MessagesDataSource {
     
-    func currentSender() -> Sender {
+    func currentSender() -> SenderType {
         return GymRatsApp.coordinator.currentUser.asSender
     }
     

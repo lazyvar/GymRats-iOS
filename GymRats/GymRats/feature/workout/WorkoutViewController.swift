@@ -130,7 +130,7 @@ class WorkoutViewController: UITableViewController {
     func postComment(_ comment: String) {
         guard !postingComment else { return }
         
-        self.showLoadingBar(disallowUserInteraction: true, special: true)
+        self.showLoadingBar(disallowUserInteraction: true)
         self.postingComment = true
         gymRatsAPI.post(comment: comment, on: workout)
             .subscribe { event in
@@ -160,7 +160,7 @@ class WorkoutViewController: UITableViewController {
             let areYouSureAlert = UIAlertController(title: "Are you sure?", message: "You will not be able to recover a workout once it has been removed.", preferredStyle: .alert)
             
             let deleteAction = UIAlertAction(title: "Remove", style: .destructive) { _ in
-                self.showLoadingBar(special: true)
+                self.showLoadingBar()
                 gymRatsAPI.deleteWorkout(self.workout)
                     .subscribe({ event in
                         self.hideLoadingBar()
@@ -239,7 +239,7 @@ extension WorkoutViewController {
                     
                     let delete = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
                         guard let self = self else { return }
-                        self.showLoadingBar(special: true)
+                        self.showLoadingBar()
                         gymRatsAPI.deleteComment(id: comment.id)
                             .subscribe { e in
                                 self.hideLoadingBar()

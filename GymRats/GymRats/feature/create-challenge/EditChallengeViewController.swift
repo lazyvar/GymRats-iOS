@@ -18,7 +18,7 @@ protocol EditChallengeDelegate: class {
     func challengeEdited(challenge: Challenge)
 }
 
-class EditChallengeViewController: GRFormViewController, Special {
+class EditChallengeViewController: GRFormViewController {
     
     let challenge: Challenge
     

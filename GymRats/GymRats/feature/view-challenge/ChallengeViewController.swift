@@ -240,7 +240,7 @@ extension ChallengeViewController: PageboyViewControllerDataSource {
             if cachedUserCount == 0 { cachedUserCount = 5 }
             
             let dummyUsers = (1...cachedUserCount).map { _ in
-                return User(id: 0, email: "", fullName: String.genRandom(minLength: 5, maxLength: 20), profilePictureUrl: nil, token: nil)
+              return User(id: 0, email: "", fullName: String.genRandom(minLength: 5, maxLength: 20), profilePictureUrl: nil, token: nil, workouts: [])
             }
             
             userWorkouts = dummyUsers.map { user in

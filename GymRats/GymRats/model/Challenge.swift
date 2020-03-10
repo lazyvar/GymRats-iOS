@@ -16,7 +16,6 @@ struct Challenge: Codable {
     let profilePictureUrl: String?
     let startDate: Date
     let endDate: Date
-    let timeZone: String
 }
 
 extension Challenge {
