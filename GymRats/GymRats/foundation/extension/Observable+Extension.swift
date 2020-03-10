@@ -33,14 +33,6 @@ extension UIButton {
     
 }
 
-extension Collection {
-    
-    var isNotEmpty: Bool {
-        return !isEmpty
-    }
-    
-}
-
 extension UITextField {
     
     var requiredValidation: Observable<Bool> {
@@ -137,7 +129,23 @@ extension Observable where Element == Data {
             }
         }
     }
-    
+  
+  func decodeNewArray<T: Decodable>() -> Observable<NetworkResult<[T]>> {
+    return map { data -> NetworkResult<[T]> in
+      do {
+        let serviceResponse = try JSONDecoder.gymRatsAPIDecoder.decode(ServiceResponse<[T]>.self, from: data)
+        
+        switch serviceResponse.status {
+        case .success:
+          return .success(serviceResponse.data!)
+        case .failure:
+          return .failure(.init(error: SimpleError(message: serviceResponse.error!)))
+        }
+      } catch let error {
+        return .failure(.init(error: error))
+      }
+    }
+  }
 }
 
 extension JSONDecoder {

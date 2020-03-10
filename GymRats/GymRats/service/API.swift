@@ -221,7 +221,11 @@ class GymRatsAPI {
     private func requestArray<T: Decodable>(_ apiRequest: APIRequest) -> Observable<[T]> {
         return baseRequest(apiRequest).decodeArray()
     }
-    
+  
+    private func requestArray<T: Decodable>(_ apiRequest: APIRequest) -> Observable<NetworkResult<[T]>> {
+      return baseRequest(apiRequest).decodeNewArray()
+    }
+  
     func login(email: String, password: String) -> Observable<User> {
         return requestObject(.login(email: email, password: password))
             .do(onNext: { user in
@@ -268,7 +272,11 @@ class GymRatsAPI {
     func getAllChallenges() -> Observable<[Challenge]> {
         return requestArray(.getAllChallenges)
     }
-    
+
+    func newGetAllChallenges() -> Observable<NetworkResult<[Challenge]>> {
+      return requestArray(.getAllChallenges)
+    }
+
     func joinChallenge(code: String) -> Observable<Challenge> {
         return requestObject(.joinChallenge(code: code))
     }

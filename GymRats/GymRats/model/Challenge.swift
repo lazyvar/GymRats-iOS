@@ -10,12 +10,14 @@ import Foundation
 import SwiftDate
 
 struct Challenge: Codable {
-    let id: Int
-    let name: String
-    let code: String
-    let profilePictureUrl: String?
-    let startDate: Date
-    let endDate: Date
+  static let all = Resource<NetworkResult<[Challenge]>> { gymRatsAPI.newGetAllChallenges() }
+  
+  let id: Int
+  let name: String
+  let code: String
+  let profilePictureUrl: String?
+  let startDate: Date
+  let endDate: Date
 }
 
 extension Challenge {

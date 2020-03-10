@@ -33,6 +33,12 @@ extension Observable {
     return subscribe { _ in }
     .disposed(by: disposeBag)
   }
+
+  func next(_ do: @escaping (Element) -> Void) -> Disposable {
+    return subscribe { event in
+      if case .next(let element) = event { `do`(element) }
+    }
+  }
 }
 
 enum InputSubject {
@@ -58,5 +64,31 @@ extension BehaviorSubject where Element == Void {
 extension PublishSubject where Element == Void {
   func trigger() {
     onNext(())
+  }
+}
+
+
+typealias NetworkResult<T> = Result<T, AnyError>
+
+struct AnyError: Error {
+  let error: Error
+}
+
+extension Result {
+  var success: Bool { object != nil}
+  var failure: Bool { error != nil }
+  
+  var object: Success? {
+    switch self {
+    case .success(let object): return object
+    case .failure: return nil
+    }
+  }
+
+  var error: Failure? {
+    switch self {
+    case .success: return nil
+    case .failure(let error): return error
+    }
   }
 }

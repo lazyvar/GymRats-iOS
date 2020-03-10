@@ -22,13 +22,22 @@ class HomeViewController: BindableViewController {
   }
   
   override func bindViewModel() {
-    viewModel.output.message
-      .flatMap { message in
-        UIAlertController.present(title: "Hoo", message: message, actions: [OKAlertAction()])
-      }
+    viewModel.output.error
+      .flatMap { UIAlertController.present($0) }
       .ignore(disposedBy: disposeBag)
-
     
+    viewModel.output.showEmptyState
+      .next { [weak self] _ in
+        self?.install(UIViewController())
+      }
+      .disposed(by: disposeBag)
+    
+    viewModel.output.showChallenge.subscribe { event in
+      if let challenge = event.element {
+        GymRatsApp.coordinator.centerActiveOrUpcomingChallenge(challenge)
+      }
+    }
+    .disposed(by: disposeBag)
   }
 }
 
