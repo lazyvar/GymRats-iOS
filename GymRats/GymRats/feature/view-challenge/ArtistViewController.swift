@@ -165,13 +165,13 @@ class ArtistViewController: UIViewController {
                                 GymRatsApp.coordinator.drawer.closeDrawer(animated: true, completion: nil)
                             } else {
                                 let center = HomeViewController()
-                                let nav = GRNavigationController(rootViewController: center)
+                                let nav = UINavigationController(rootViewController: center)
                                 
                                 GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
                             }
                         } else {
                             let center = HomeViewController()
-                            let nav = GRNavigationController(rootViewController: center)
+                            let nav = UINavigationController(rootViewController: center)
                             
                             GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
                         }
@@ -612,7 +612,7 @@ extension ArtistViewController: EditChallengeDelegate {
     
     func challengeEdited(challenge: Challenge) {
         let center = HomeViewController()
-        let nav = GRNavigationController(rootViewController: center)
+        let nav = UINavigationController(rootViewController: center)
         
         GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
     }

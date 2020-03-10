@@ -12,36 +12,35 @@ import RxSwift
 import RxCocoa
 
 extension UIViewController {
-    
     func push(_ viewController: UIViewController, animated: Bool = true) {
-        viewController.hidesBottomBarWhenPushed = true
+      viewController.hidesBottomBarWhenPushed = true
 
-        navigationController?.pushViewController(viewController, animated: animated)
+      navigationController?.pushViewController(viewController, animated: animated)
     }
     
     func inNav() -> UINavigationController {
-        return GRNavigationController(rootViewController: self)
+      return UINavigationController(rootViewController: self)
     }
     
     func setupBackButton() {
-        let yourBackImage = UIImage(named: "chevron-left")!.withRenderingMode(.alwaysTemplate)
-        
-        navigationController?.navigationBar.tintColor = .lightGray
-        navigationController?.navigationBar.backIndicatorImage = yourBackImage
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = yourBackImage
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+      let yourBackImage = UIImage(named: "chevron-left")!.withRenderingMode(.alwaysTemplate)
+      
+      navigationController?.navigationBar.tintColor = .lightGray
+      navigationController?.navigationBar.backIndicatorImage = yourBackImage
+      navigationController?.navigationBar.backIndicatorTransitionMaskImage = yourBackImage
+      navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 
     func setupMenuButton() {
-        let menu = UIBarButtonItem (
-            image: UIImage(named: "menu")?.withRenderingMode(.alwaysTemplate),
-            style: .plain,
-            target: GymRatsApp.coordinator,
-            action: #selector(AppCoordinator.toggleMenu)
-        )
-        menu.tintColor = .lightGray
-        
-        navigationItem.leftBarButtonItem = menu
+      let menu = UIBarButtonItem (
+        image: UIImage(named: "menu")?.withRenderingMode(.alwaysTemplate),
+        style: .plain,
+        target: GymRatsApp.coordinator,
+        action: #selector(AppCoordinator.toggleMenu)
+      )
+      menu.tintColor = .lightGray
+      
+      navigationItem.leftBarButtonItem = menu
     }
     
     func showLoadingBar(disallowUserInteraction: Bool = false) {
@@ -68,51 +67,50 @@ extension UIViewController {
     }
 
     func hideLoadingBar() {
-        guard let nav = self.navigationController as? GRNavigationController else { return }
-        
-        nav.hideLoadingBarYo()
-        UIApplication.shared.endIgnoringInteractionEvents()
-        UIApplication.shared.keyWindow?.subviews.first(where: { $0.tag == 333 })?.removeFromSuperview()
-        
-        if let view = view.allSubviews().first(ofType: NVActivityIndicatorView.self) {
-            view.stopAnimating()
-            view.removeFromSuperview()
-        }
+      guard let nav = self.navigationController as? UINavigationController else { return }
+      
+      UIApplication.shared.endIgnoringInteractionEvents()
+      UIApplication.shared.keyWindow?.subviews.first(where: { $0.tag == 333 })?.removeFromSuperview()
+      
+      if let view = view.allSubviews().first(ofType: NVActivityIndicatorView.self) {
+        view.stopAnimating()
+        view.removeFromSuperview()
+      }
     }
 
-    func setupForHome() {
-        setupMenuButton()
-        setupBackButton()
+  func setupForHome() {
+    setupMenuButton()
+    setupBackButton()
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem (
-            image: UIImage(named: "chat"),
-            style: .plain,
-            target: self,
-            action: #selector(doNothing)
-        )
-    }
+    navigationItem.rightBarButtonItem = UIBarButtonItem (
+      image: UIImage(named: "chat"),
+      style: .plain,
+      target: self,
+      action: #selector(doNothing)
+    )
+  }
     
-    @objc func doNothing() {
-        
-    }
+  @objc func doNothing() {
+      
+  }
     
-    func presentAlert(title: String, message: String) {
-        DispatchQueue.main.async {
-            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
-            
-            alertController.addAction(okAction)
-            self.present(alertController, animated: true, completion:  nil)
-        }
+  func presentAlert(title: String, message: String) {
+    DispatchQueue.main.async {
+      let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+      let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+      
+      alertController.addAction(okAction)
+      self.present(alertController, animated: true, completion:  nil)
     }
+  }
     
-    func presentAlert(with error: Error) {
-        presentAlert(title: "Uh-oh", message: error.localizedDescription)
-    }
+  func presentAlert(with error: Error) {
+    presentAlert(title: "Uh-oh", message: error.localizedDescription)
+  }
     
-   @objc func dismissSelf() {
-        self.dismiss(animated: true, completion: nil)
-    }
+  @objc func dismissSelf() {
+    self.dismiss(animated: true, completion: nil)
+  }
     
   func install(_ child: UIViewController) {
     addChild(child)

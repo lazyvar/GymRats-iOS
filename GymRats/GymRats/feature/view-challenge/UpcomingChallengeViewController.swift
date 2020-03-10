@@ -158,7 +158,7 @@ class UpcomingChallengeViewController: UICollectionViewController {
                                 GymRatsApp.coordinator.drawer.closeDrawer(animated: true, completion: nil)
                             } else {
                                 let center = HomeViewController()
-                                let nav = GRNavigationController(rootViewController: center)
+                                let nav = UINavigationController(rootViewController: center)
                                 
                                 GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
                             }
@@ -230,7 +230,7 @@ extension UpcomingChallengeViewController: EditChallengeDelegate {
     
     func challengeEdited(challenge: Challenge) {
         let center = HomeViewController()
-        let nav = GRNavigationController(rootViewController: center)
+        let nav = UINavigationController(rootViewController: center)
         
         GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
     }

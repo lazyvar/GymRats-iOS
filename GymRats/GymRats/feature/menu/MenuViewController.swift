@@ -48,7 +48,7 @@ class MenuViewController: UITableViewController {
 
     @objc func gotoCurrentUserProfile() {
         let profile = ProfileViewController(user: GymRatsApp.coordinator.currentUser, challenge: nil)
-        let nav = GRNavigationController(rootViewController: profile)
+        let nav = UINavigationController(rootViewController: profile)
     
         profile.setupMenuButton()
         let gear = UIImage(named: "gear")!.withRenderingMode(.alwaysTemplate)
@@ -172,7 +172,7 @@ extension MenuViewController {
         
         if indexPath.section == 0 {
             let profile = ProfileViewController(user: GymRatsApp.coordinator.currentUser, challenge: nil)
-            let nav = GRNavigationController(rootViewController: profile)
+            let nav = UINavigationController(rootViewController: profile)
             
             profile.setupMenuButton()
             profile.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "gear"), style: .plain, target: profile, action: #selector(ProfileViewController.transitionToSettings))
@@ -181,7 +181,7 @@ extension MenuViewController {
         } else if indexPath.section == 1 {
             if activeChallenges.count == 0 {
                 let center = HomeViewController()
-                let nav = GRNavigationController(rootViewController: center)
+                let nav = UINavigationController(rootViewController: center)
                 
                 GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
                 
@@ -208,13 +208,13 @@ extension MenuViewController {
                                 GymRatsApp.coordinator.drawer.closeDrawer(animated: true, completion: nil)
                             } else {
                                 let center = HomeViewController()
-                                let nav = GRNavigationController(rootViewController: center)
+                                let nav = UINavigationController(rootViewController: center)
                                 
                                 GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
                             }
                         } else {
                             let center = HomeViewController()
-                            let nav = GRNavigationController(rootViewController: center)
+                            let nav = UINavigationController(rootViewController: center)
                             
                             GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
                         }
@@ -225,7 +225,7 @@ extension MenuViewController {
                 let createChallengeViewController = CreateChallengeViewController()
                 createChallengeViewController.delegate = self
                 
-                let nav = GRNavigationController(rootViewController: createChallengeViewController)
+                let nav = UINavigationController(rootViewController: createChallengeViewController)
                 nav.navigationBar.turnSolidWhiteSlightShadow()
                 
                 self.present(nav, animated: true, completion: nil)
@@ -236,7 +236,7 @@ extension MenuViewController {
                 GymRatsApp.coordinator.drawer.setCenterView(settings.inNav(), withCloseAnimation: true, completion: nil)
             case 4:
                 let center = AboutViewController()
-                let nav = GRNavigationController(rootViewController: center)
+                let nav = UINavigationController(rootViewController: center)
                 
                 GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
             default:
@@ -259,13 +259,13 @@ extension MenuViewController: CreateChallengeDelegate {
                 GymRatsApp.coordinator.drawer.closeDrawer(animated: true, completion: nil)
             } else {
                 let center = HomeViewController()
-                let nav = GRNavigationController(rootViewController: center)
+                let nav = UINavigationController(rootViewController: center)
                 
                 GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
             }
         } else {
             let center = HomeViewController()
-            let nav = GRNavigationController(rootViewController: center)
+            let nav = UINavigationController(rootViewController: center)
             
             GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
         }

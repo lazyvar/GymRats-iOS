@@ -158,7 +158,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         menu = MenuViewController()
         
         let home = HomeViewController()
-        let centerViewController = GRNavigationController(rootViewController: home)
+        let centerViewController = UINavigationController(rootViewController: home)
         
         drawer = MMDrawerController(center: centerViewController, leftDrawerViewController: menu)
         drawer.view.backgroundColor = .background
@@ -248,7 +248,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     }
     
     func presentStandings() {
-        guard let nav = tabBarViewController?.viewControllers?[safe: 1] as? GRNavigationController else { return }
+        guard let nav = tabBarViewController?.viewControllers?[safe: 1] as? UINavigationController else { return }
         guard let artist = nav.viewControllers.last as? ArtistViewController else { return }
         
         let stats = ChallengeStatsViewController(challenge: artist.challenge, users: artist.users, workouts: artist.workouts)
@@ -328,7 +328,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     }
     
     func openChat() {
-        guard let nav = tabBarViewController?.viewControllers?[safe: 1] as? GRNavigationController else {
+        guard let nav = tabBarViewController?.viewControllers?[safe: 1] as? UINavigationController else {
             return
         }
         
@@ -398,7 +398,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     func logout() {
         gymRatsAPI.deleteDevice()
             .subscribe { _ in
-                let nav = GRNavigationController(rootViewController: WelcomeViewController())
+                let nav = UINavigationController(rootViewController: WelcomeViewController())
                 nav.navigationBar.turnSolidWhiteSlightShadow()
                 
                 self.window.rootViewController = nav
