@@ -260,7 +260,7 @@ class ProfileViewController: UITableViewController {
     }
     
     func loadWorkouts() {
-        let workouts: Observable<[Workout]>
+        let workouts: Observable<NetworkResult<[Workout]>>
         
         if let challenge = challenge {
             workouts = gymRatsAPI.getWorkouts(for: user, in: challenge)
@@ -270,7 +270,9 @@ class ProfileViewController: UITableViewController {
         
         showLoadingBar()
         
-        let mappedWorkouts = workouts.map { workouts in
+        let mappedWorkouts = workouts.map { workouts -> [Workout] in
+          let workouts = workouts.object ?? []
+          
             return workouts.reduce([], { (workouts, workout) -> [Workout] in
                 if workouts.contains(where: { anotherWorkout in
                     workout.challengeId != anotherWorkout.challengeId &&

@@ -96,18 +96,18 @@ class ChatViewController: MessagesViewController {
         
         self.showLoadingBar()
         
-        gymRatsAPI.getAllChats(for: challenge, page: page)
-            .subscribe { event in
-                self.hideLoadingBar()
-                
-                switch event {
-                case .next(let messages):
-                    self.handleFetchResponse(loadedMessages: messages, page: page, clear: clear)
-                case .error(let error):
-                    self.presentAlert(with: error)
-                default: break
-                }
-            }.disposed(by: disposeBag)
+//        gymRatsAPI.getAllChats(for: challenge, page: page)
+//            .subscribe { event in
+//                self.hideLoadingBar()
+//
+//                switch event {
+//                case .next(let messages):
+//                    self.handleFetchResponse(loadedMessages: messages, page: page, clear: clear)
+//                case .error(let error):
+//                    self.presentAlert(with: error)
+//                default: break
+//                }
+//            }.disposed(by: disposeBag)
     }
     
     private func handleFetchResponse(loadedMessages: [ChatMessage], page: Int, clear: Bool) {
@@ -167,22 +167,22 @@ extension ChatViewController: MessageInputBarDelegate {
     func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
         self.showLoadingBar(disallowUserInteraction: true)
         
-        gymRatsAPI.postChatMessage(text, for: challenge)
-            .subscribe { event in
-                self.hideLoadingBar()
-                
-                switch event {
-                case .next(let message):
-                    Track.event(.chatSent)
-                    self.chats.append(message)
-                    self.messagesCollectionView.reloadData()
-                    self.messageInputBar.inputTextView.text = nil
-                    self.messagesCollectionView.scrollToBottom(animated: true)
-                case .error(let error):
-                    self.presentAlert(with: error)
-                default: break
-                }
-            }.disposed(by: disposeBag)
+//        gymRatsAPI.postChatMessage(text, for: challenge)
+//            .subscribe { event in
+//                self.hideLoadingBar()
+//                
+//                switch event {
+//                case .next(let message):
+//                    Track.event(.chatSent)
+//                    self.chats.append(message)
+//                    self.messagesCollectionView.reloadData()
+//                    self.messageInputBar.inputTextView.text = nil
+//                    self.messagesCollectionView.scrollToBottom(animated: true)
+//                case .error(let error):
+//                    self.presentAlert(with: error)
+//                default: break
+//                }
+//            }.disposed(by: disposeBag)
     }
     
 }

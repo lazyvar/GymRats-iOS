@@ -61,6 +61,8 @@ class SignUpViewController: GRFormViewController {
             .subscribe(onNext: { [weak self] user in
                 self?.hideLoadingBar()
                 Track.event(.signup)
+              guard let user = user.object else { return }
+              
                 GymRatsApp.delegate.appCoordinator.login(user: user)
             }, onError: { [weak self] error in
                 self?.presentAlert(with: error)

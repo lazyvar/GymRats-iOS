@@ -10,32 +10,30 @@ import Foundation
 import MessageKit
 
 struct User: Codable, Hashable {
-    let id: Int
-    let email: String
-    let fullName: String
-    let profilePictureUrl: String?
-    let token: String?
-    let workouts: [Workout]?
-  
-    var hashValue: Int { return id }
+  let id: Int
+  let email: String
+  let fullName: String
+  let profilePictureUrl: String?
+  let token: String?
+  let workouts: [Workout]?
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(id)
+  }
 }
 
 extension User: AvatarProtocol {
-    
-    var myName: String? {
-        return self.fullName
-    }
-    
-    var pictureUrl: String? {
-        return profilePictureUrl
-    }
-    
+  var myName: String? {
+    return self.fullName
+  }
+  
+  var pictureUrl: String? {
+    return profilePictureUrl
+  }
 }
 
 extension User {
-    
-    var asSender: Sender {
-        return Sender(id: "\(id)", displayName: fullName)
-    }
-    
+  var asSender: Sender {
+    return Sender(id: "\(id)", displayName: fullName)
+  }
 }

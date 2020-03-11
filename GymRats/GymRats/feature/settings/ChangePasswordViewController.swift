@@ -148,18 +148,18 @@ class ChangePasswordController: GRFormViewController {
         
         showLoadingBar()
         
-        gymRatsAPI.updateUser(email: nil, name: nil, password: newPassword, profilePicture: nil)
-            .subscribe { event in
-                self.hideLoadingBar()
-                
-                switch event {
-                case .next(let user):
-                    GymRatsApp.coordinator.updateUser(user)
-                    self.navigationController?.popViewController(animated: true)
-                case .error(let error):
-                    self.presentAlert(with: error)
-                default: break
-                }
-            }.disposed(by: disposeBag)
+//        gymRatsAPI.updateUser(email: nil, name: nil, password: newPassword, profilePicture: nil)
+//            .subscribe { event in
+//                self.hideLoadingBar()
+//                
+//                switch event {
+//                case .next(let user):
+//                    GymRatsApp.coordinator.updateUser(user)
+//                    self.navigationController?.popViewController(animated: true)
+//                case .error(let error):
+//                    self.presentAlert(with: error)
+//                default: break
+//                }
+//            }.disposed(by: disposeBag)
     }
 }

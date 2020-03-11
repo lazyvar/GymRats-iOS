@@ -161,21 +161,21 @@ class EditChallengeViewController: GRFormViewController {
         let start = DateInRegion(startDate.value!, region: .UTC).dateAtStartOf(.day).date
         let end = DateInRegion(endDate.value!, region: .UTC).dateAtStartOf(.day).date
         
-        gymRatsAPI.editChallenge (
-            id: challenge.id,
-            startDate: start,
-            endDate: end,
-            challengeName: name.value!,
-            photo: self.photo.value
-        ).subscribe(onNext: { [weak self] challenge in
-            Track.event(.challengeEdited)
-            self?.hideLoadingBar()
-            self?.dismissSelf()
-            self?.delegate?.challengeEdited(challenge: challenge)
-        }, onError: { [weak self] error in
-            self?.presentAlert(with: error)
-            self?.hideLoadingBar()
-        }).disposed(by: disposeBag)
+//        gymRatsAPI.editChallenge (
+//            id: challenge.id,
+//            startDate: start,
+//            endDate: end,
+//            challengeName: name.value!,
+//            photo: self.photo.value
+//        ).subscribe(onNext: { [weak self] challenge in
+//            Track.event(.challengeEdited)
+//            self?.hideLoadingBar()
+//            self?.dismissSelf()
+//            self?.delegate?.challengeEdited(challenge: challenge)
+//        }, onError: { [weak self] error in
+//            self?.presentAlert(with: error)
+//            self?.hideLoadingBar()
+//        }).disposed(by: disposeBag)
     }
     
 }

@@ -14,6 +14,11 @@ import Kingfisher
 import NVActivityIndicatorView
 import MapKit
 
+struct UserWorkout {
+  let user: User
+  let workout: Workout?
+}
+
 class ArtistViewController: UIViewController {
     
     let disposeBag = DisposeBag()
@@ -206,6 +211,7 @@ class ArtistViewController: UIViewController {
             .subscribe { event in
                 switch event {
                 case .next(let chats):
+                  guard let chats = chats.object else { return }
                     if chats.isEmpty {
                         self.chatItem.image = UIImage(named: "chat-gray")
                     } else {
@@ -222,8 +228,11 @@ class ArtistViewController: UIViewController {
     
     @objc func fetchUserWorkouts() {
         showLoadingBar()
-        
+      
+      gymRatsAPI.getWorkouts(for: challenge)
+      
         gymRatsAPI.getUsers(for: challenge).subscribe(onNext: { users in
+          guard let users = users.object else { return }
             let workouts = users.flatMap { $0.workouts ?? [] }
             
             NotificationCenter.default.post(name: .init("hereIsTheDatam"), object: (users, workouts))

@@ -28,7 +28,7 @@ final class HomeViewModel: ViewModel {
   
   init() {
     let challenges = input.viewDidLoad
-      .flatMap { Challenge.all.fetch() }
+      .flatMap { _ in Challenge.all.fetch() }
       .observeOn(MainScheduler.instance)
       .share()
     

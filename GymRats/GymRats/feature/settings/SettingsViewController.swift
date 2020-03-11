@@ -101,17 +101,17 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
 
         showLoadingBar()
         
-        gymRatsAPI.updateUser(email: nil, name: nil, password: nil, profilePicture: image)
-            .subscribe { event in
-                self.hideLoadingBar()
-                switch event {
-                case .next(let user):
-                    GymRatsApp.coordinator.updateUser(user)
-                case .error(let error):
-                    self.presentAlert(with: error)
-                default: break
-                }
-            }.disposed(by: disposeBag)
+//        gymRatsAPI.updateUser(email: nil, name: nil, password: nil, profilePicture: image)
+//            .subscribe { event in
+//                self.hideLoadingBar()
+//                switch event {
+//                case .next(let user):
+//                    GymRatsApp.coordinator.updateUser(user)
+//                case .error(let error):
+//                    self.presentAlert(with: error)
+//                default: break
+//                }
+//            }.disposed(by: disposeBag)
     }
     
     func chooseProfilePic() {

@@ -87,6 +87,8 @@ class UpcomingChallengeViewController: UICollectionViewController {
             .subscribe { event in
                 switch event {
                 case .next(let chats):
+                  guard let chats = chats.object else { return }
+                  
                     if chats.isEmpty {
                         self.chatItem.image = UIImage(named: "chat-gray")
                     } else {
@@ -134,6 +136,8 @@ class UpcomingChallengeViewController: UICollectionViewController {
                 
                 switch event {
                 case .next(let users):
+                  guard let users = users.object else { return }
+                  
                     self.users = users
                     self.collectionView.reloadData()
                 default: break

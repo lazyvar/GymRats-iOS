@@ -317,6 +317,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
             .subscribe { event in
                 switch event {
                 case .next(let chats):
+                  guard let chats = chats.object else { return }
                     if chats.isEmpty {
                         self.chatItem?.badgeValue = nil
                     } else {

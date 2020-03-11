@@ -29,9 +29,9 @@ enum JoinChallenge {
             let ok = UIAlertAction(title: "OK", style: .default, handler: { _ in
                 let code = alert.textFields?.first?.text ?? ""
                 
-                gymRatsAPI.joinChallenge(code: code)
-                    .subscribe(subscriber)
-                    .disposed(by: disposeBag)
+//                gymRatsAPI.joinChallenge(code: code)
+//                    .subscribe(subscriber)
+//                    .disposed(by: disposeBag)
             })
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { _ in

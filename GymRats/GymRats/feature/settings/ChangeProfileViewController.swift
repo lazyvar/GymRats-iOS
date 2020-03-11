@@ -14,11 +14,6 @@ enum ProfileChangeType: String {
     case fullName = "name"
 }
 
-struct UpdateUser: Encodable {
-    var email: String?
-    var fullName: String?
-}
-
 class ProfileChangeController: UIViewController, UITextFieldDelegate {
     
     let disposeBag = DisposeBag()
@@ -78,40 +73,40 @@ class ProfileChangeController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func tappedSave() {
-        showLoadingBar()
-        
-        let text = textField.text ?? ""
-        
-        guard !text.isEmpty else { return }
-        
-        let observable: Observable<User>
-        
-        switch change {
-        case .fullName:
-            observable = gymRatsAPI.updateUser(email: nil, name: text, password: nil, profilePicture: nil)
-        case .email:
-            guard text.isValidEmail() else {
-                presentAlert(title: "Invalid Email", message: "Please provide a valid email address.")
-                
-                return
-            }
-            
-            observable = gymRatsAPI.updateUser(email: text, name: nil, password: nil, profilePicture: nil)
-        }
-        
-        observable.subscribe { event in
-            self.hideLoadingBar()
-            
-            switch event {
-            case .next(let user):
-                GymRatsApp.coordinator.updateUser(user)
-                Track.event(.profileEdited, parameters: ["change_type": self.change.rawValue])
-                self.navigationController?.popViewController(animated: true)
-            case .error(let error):
-                self.presentAlert(with: error)
-            default: break
-            }
-        }.disposed(by: disposeBag)
+//        showLoadingBar()
+//        
+//        let text = textField.text ?? ""
+//        
+//        guard !text.isEmpty else { return }
+//        
+//        let observable: Observable<User>
+//        
+//        switch change {
+//        case .fullName:
+//            // MACK: observable = gymRatsAPI.updateUser(email: nil, name: text, password: nil, profilePicture: nil)
+//        case .email:
+//            guard text.isValidEmail() else {
+//                presentAlert(title: "Invalid Email", message: "Please provide a valid email address.")
+//                
+//                return
+//            }
+//            
+//           // observable = gymRatsAPI.updateUser(email: text, name: nil, password: nil, profilePicture: nil)
+//        }
+//        
+//        observable.subscribe { event in
+//            self.hideLoadingBar()
+//            
+//            switch event {
+//            case .next(let user):
+//                GymRatsApp.coordinator.updateUser(user)
+//                Track.event(.profileEdited, parameters: ["change_type": self.change.rawValue])
+//                self.navigationController?.popViewController(animated: true)
+//            case .error(let error):
+//                self.presentAlert(with: error)
+//            default: break
+//            }
+//        }.disposed(by: disposeBag)
     }
     
     let detailLabel: UILabel = {

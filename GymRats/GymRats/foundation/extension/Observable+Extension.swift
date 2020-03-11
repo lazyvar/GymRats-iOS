@@ -59,11 +59,9 @@ extension Observable where Element == String? {
 
 
 extension Variable where Element == String {
-    
-    func bind(to label: UILabel) -> Disposable {
-        return self.asObservable().bind(to: label.rx.text)
-    }
-    
+  func bind(to label: UILabel) -> Disposable {
+    return self.asObservable().bind(to: label.rx.text)
+  }
 }
 
 extension Observable where Element == URL {
@@ -92,45 +90,24 @@ extension Observable where Element == URL {
 }
 
 extension Observable where Element == Data {
-    
-    @discardableResult
-    func decodeObject<T: Decodable>() -> Observable<T> {
-        return map { data in
-            do {
-                let serviceResponse = try JSONDecoder.gymRatsAPIDecoder.decode(ServiceResponse<T>.self, from: data)
-                
-                switch serviceResponse.status {
-                case .success:
-                    return serviceResponse.data!
-                case .failure:
-                    throw SimpleError(message: serviceResponse.error!)
-                }
-            } catch let error {
-                print(error)
-                throw error
-            }
+  func decodeObject<T: Decodable>() -> Observable<NetworkResult<T>> {
+    return map { data in
+      do {
+        let serviceResponse = try JSONDecoder.gymRatsAPIDecoder.decode(ServiceResponse<T>.self, from: data)
+        
+        switch serviceResponse.status {
+        case .success:
+          return .success(serviceResponse.data!)
+        case .failure:
+          return .failure(.init(error: SimpleError(message: serviceResponse.error!)))
         }
+      } catch let error {
+        return .failure(.init(error: error))
+      }
     }
-    
-    @discardableResult
-    func decodeArray<T: Decodable>() -> Observable<[T]> {
-        return map { data in
-            do {
-                let serviceResponse = try JSONDecoder.gymRatsAPIDecoder.decode(ServiceResponse<[T]>.self, from: data)
-                
-                switch serviceResponse.status {
-                case .success:
-                    return serviceResponse.data!
-                case .failure:
-                    throw SimpleError(message: serviceResponse.error!)
-                }
-            } catch let error {
-                throw error
-            }
-        }
-    }
+  }
   
-  func decodeNewArray<T: Decodable>() -> Observable<NetworkResult<[T]>> {
+  func decodeArray<T: Decodable>() -> Observable<NetworkResult<[T]>> {
     return map { data -> NetworkResult<[T]> in
       do {
         let serviceResponse = try JSONDecoder.gymRatsAPIDecoder.decode(ServiceResponse<[T]>.self, from: data)
@@ -149,16 +126,14 @@ extension Observable where Element == Data {
 }
 
 extension JSONDecoder {
+  static let gymRatsAPIDecoder: JSONDecoder = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
     
-    static let gymRatsAPIDecoder: JSONDecoder = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-        
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(dateFormatter)
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        
-        return decoder
-    }()
+    let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .formatted(dateFormatter)
+    decoder.keyDecodingStrategy = .convertFromSnakeCase
     
+    return decoder
+  }()
 }

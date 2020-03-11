@@ -120,6 +120,8 @@ class WorkoutViewController: UITableViewController {
                 
                 switch event {
                 case .next(let comments):
+                  guard let comments = comments.object else { return }
+                  
                     self.comments = comments
                     self.tableView.reloadData()
                 default: break
@@ -140,6 +142,7 @@ class WorkoutViewController: UITableViewController {
                 switch event {
                 case .next(let comments):
                     Track.event(.commentedOnWorkout)
+                    guard let comments = comments.object else { return }
                     self.textField?.text = nil
                     self.resignFirstResponder()
                     self.comments = comments

@@ -58,7 +58,7 @@ class ArchivedChallengesTableViewController: UITableViewController {
             .subscribe(onNext: { [weak self] challenges in
                 self?.hideLoadingBar()
                 self?.refresher.endRefreshing()
-                
+                guard let challenges = challenges.object else { return }
                 let past = challenges.getPastChallenges()
                 self?.challenges = past
                 
