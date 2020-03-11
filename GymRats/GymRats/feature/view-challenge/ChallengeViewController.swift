@@ -18,69 +18,66 @@ struct UserWorkout {
 
 class ChallengeViewController: UIViewController {
     
-    private let disposeBag = DisposeBag()
-    
-    var challenge: Challenge!
-    
-    @IBOutlet weak var challengeImageView: UserImageView! {
-        didSet {
-            challengeImageView.load(avatarInfo: challenge)
-        }
+  private let disposeBag = DisposeBag()
+  
+  var challenge: Challenge!
+  
+  @IBOutlet weak var challengeImageView: UserImageView! {
+    didSet {
+      challengeImageView.load(avatarInfo: challenge)
     }
-    
-    @IBOutlet weak var challengeTitleLabel: UILabel! {
-        didSet {
-            challengeTitleLabel.font = .body
-//            challengeTitleLabel.textColor = .white
-            challengeTitleLabel.text = challenge.name
-        }
+  }
+  
+  @IBOutlet weak var challengeTitleLabel: UILabel! {
+    didSet {
+      challengeTitleLabel.font = .body
+      challengeTitleLabel.text = challenge.name
     }
-    
-    @IBOutlet weak var challengeDetailsLabel: UILabel! {
-        didSet {
-            challengeDetailsLabel
-                .font = .details
-//            challengeDetailsLabel.textColor = .white
-            challengeDetailsLabel.text = challenge.daysLeft
-        }
+  }
+  
+  @IBOutlet weak var challengeDetailsLabel: UILabel! {
+    didSet {
+      challengeDetailsLabel.font = .details
+      challengeDetailsLabel.text = challenge.daysLeft
     }
-    
-    @IBOutlet weak var logWorkoutButton: UIButton! {
-        didSet {
-            logWorkoutButton.layer.shadowColor = UIColor.black.cgColor
-            logWorkoutButton.layer.shadowRadius = 3
-            logWorkoutButton.layer.shadowOpacity = 0.3
-            logWorkoutButton.layer.cornerRadius = 32
-            logWorkoutButton.layer.shadowOffset = CGSize(width: 0, height: 0)
-        }
+  }
+  
+  @IBOutlet weak var logWorkoutButton: UIButton! {
+    didSet {
+      logWorkoutButton.layer.shadowColor = UIColor.black.cgColor
+      logWorkoutButton.layer.shadowRadius = 3
+      logWorkoutButton.layer.shadowOpacity = 0.3
+      logWorkoutButton.layer.cornerRadius = 32
+      logWorkoutButton.layer.shadowOffset = CGSize(width: 0, height: 0)
     }
-    
-    @IBOutlet weak var headerViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var headerView: UIView! {
-        didSet {
-            headerView.backgroundColor = .brand
-            
-            let tap = UITapGestureRecognizer(target: self, action: #selector(presentChallengeInfo))
-            
-            headerView.addGestureRecognizer(tap)
-        }
+  }
+  
+  @IBOutlet weak var headerViewTopConstraint: NSLayoutConstraint!
+  @IBOutlet weak var headerView: UIView! {
+    didSet {
+      headerView.backgroundColor = .brand
+      
+      let tap = UITapGestureRecognizer(target: self, action: #selector(presentChallengeInfo))
+      
+      headerView.addGestureRecognizer(tap)
     }
-    
-    var pageboyViewController: PageboyViewController {
-        return children.first as! PageboyViewController
-    }
-    
-    private var cachedDayViewControllers: [Int: ChallengeDayViewController] = [:]
-    
-    lazy var chatItem = UIBarButtonItem (
-        image: UIImage(named: "chat")?.withRenderingMode(.alwaysOriginal),
-        style: .plain,
-        target: self,
-        action: #selector(openChat)
-    )
+  }
+  
+  var pageboyViewController: PageboyViewController {
+    return children.first as! PageboyViewController
+  }
+  
+  private var cachedDayViewControllers: [Int: ChallengeDayViewController] = [:]
+  
+  lazy var chatItem = UIBarButtonItem (
+    image: UIImage(named: "chat")?.withRenderingMode(.alwaysOriginal),
+    style: .plain,
+    target: self,
+    action: #selector(openChat)
+  )
 
-    var users: [User] = []
-    var workouts: [Workout] = []
+  var users: [User] = []
+  var workouts: [Workout] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -243,11 +240,7 @@ extension ChallengeViewController: PageboyViewControllerDataSource {
               return User(id: 0, email: "", fullName: String.genRandom(minLength: 5, maxLength: 20), profilePictureUrl: nil, token: nil, workouts: [])
             }
             
-            userWorkouts = dummyUsers.map { user in
-                let workout = Workout(id: 0, gymRatsUserId: 0, challengeId: 0, title: String.genRandom(minLength: 5, maxLength: 20), description: nil, photoUrl: nil, createdAt: Date(), googlePlaceId: nil, duration: 0, distance: "", steps: 0, calories: 0, points: 0)
-                
-                return UserWorkout(user: user, workout: workout)
-            }
+            userWorkouts = [] // ded
         }
         
         if let viewController = cachedDayViewControllers[index] {

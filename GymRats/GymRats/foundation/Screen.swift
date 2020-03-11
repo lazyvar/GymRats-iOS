@@ -9,10 +9,19 @@
 import Foundation
 import UIKit
 
+struct Navigation {
+  static let push = Navigation { $0.push($1) }
+  static let present = Navigation { $0.present($1.inNav()) }
+  static let install = Navigation { $0.install($1) }
+  
+  let action: (_ from: UIViewController, _ to: UIViewController) -> ()
+}
+
 enum Screen {
   case activeChallenge(Challenge)
   case noChallenges
   case home
+  case createChallenge(CreateChallengeDelegate)
   
   var viewController: UIViewController {
     switch self {
@@ -22,6 +31,11 @@ enum Screen {
       return HomeViewController()
     case .activeChallenge(let challenge):
       return ArtistViewController(challenge: challenge)
+    case .createChallenge(let delegate):
+      let createChallengeViewController = CreateChallengeViewController()
+      createChallengeViewController.delegate = delegate
+      
+      return createChallengeViewController
     }
   }
 }

@@ -7,13 +7,20 @@
 //
 
 import UIKit
+import RxSwift
 
 class NoChallengesViewController: BindableViewController {
   
   let viewModel = NoChallengesViewModel()
   
+  private let disposeBag = DisposeBag()
+  
   override func bindViewModel() {
-    // ...
+    viewModel.output.presentScreen
+      .next { [weak self] screen in
+        self?.present(screen.viewController)
+      }
+      .disposed(by: disposeBag)
   }
 
   @IBAction private func tappedJoinButton(_ sender: Any) {

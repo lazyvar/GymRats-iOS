@@ -9,35 +9,32 @@
 import Foundation
 
 struct Workout: Codable, Hashable {
-    let id: Int
-    let gymRatsUserId: Int
-    let challengeId: Int
-    let title: String
-    let description: String?
-    let photoUrl: String?
-    let createdAt: Date
-    let googlePlaceId: String?
-    let duration: Int?
-    let distance: String?
-    let steps: Int?
-    let calories: Int?
-    let points: Int?
-  
+  let id: Int
+  let account: User
+  let gymRatsUserId: Int
+  let challengeId: Int
+  let title: String
+  let description: String?
+  let photoUrl: String?
+  let createdAt: Date
+  let googlePlaceId: String?
+  let duration: Int?
+  let distance: String?
+  let steps: Int?
+  let calories: Int?
+  let points: Int?
 
   func hash(into hasher: inout Hasher) {
     hasher.combine(id)
-    _ = hasher.finalize()
   }
 }
 
 extension Workout: AvatarProtocol {
-    
-    var pictureUrl: String? {
-        return photoUrl
-    }
-    
-    var myName: String? {
-        return title
-    }
-    
+  var pictureUrl: String? {
+    return photoUrl
+  }
+
+  var myName: String? {
+    return title
+  }
 }

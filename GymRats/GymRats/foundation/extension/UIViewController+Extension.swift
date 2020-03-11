@@ -17,7 +17,11 @@ extension UIViewController {
 
       navigationController?.pushViewController(viewController, animated: animated)
     }
-    
+
+    func present(_ viewController: UIViewController) {
+      present(viewController.inNav(), animated: true)
+    }
+
     func inNav() -> UINavigationController {
       return UINavigationController(rootViewController: self)
     }

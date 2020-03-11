@@ -19,7 +19,7 @@ final class NoChallengesViewModel: ViewModel {
   }
 
   struct Output {
-    
+    let presentScreen = PublishSubject<Screen>()
   }
 
   let input = Input()
@@ -30,12 +30,15 @@ final class NoChallengesViewModel: ViewModel {
       .flatMap { JoinChallenge.presentJoinChallengeModal(on: .topmost()) }
       .ignore(disposedBy: disposeBag)
     
-    //    let createChallengeViewController = CreateChallengeViewController()
-    //    createChallengeViewController.delegate = self
-    //
-    //    let nav = UINavigationController(rootViewController: createChallengeViewController)
-    //    nav.navigationBar.turnSolidWhiteSlightShadow()
-    //
-    //    self?.present(nav, animated: true, completion: nil)
+    input.tappedStartChallenge
+      .map { _ in Screen.createChallenge(self) }
+      .bind(to: output.presentScreen)
+      .disposed(by: disposeBag)
+  }
+}
+
+extension NoChallengesViewModel: CreateChallengeDelegate {
+  func challengeCreated(challenge: Challenge) {
+  
   }
 }
