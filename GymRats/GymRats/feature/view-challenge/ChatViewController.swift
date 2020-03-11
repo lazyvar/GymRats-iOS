@@ -189,7 +189,7 @@ extension ChatViewController: MessageInputBarDelegate {
 extension ChatViewController: MessagesDataSource {
     
     func currentSender() -> SenderType {
-        return GymRatsApp.coordinator.currentUser.asSender
+        return GymRats.currentAccount.asSender
     }
     
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {

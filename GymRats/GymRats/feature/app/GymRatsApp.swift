@@ -9,13 +9,11 @@
 import UIKit
 
 class GymRatsApp {
-    
-    static var delegate: AppDelegate {
-        return UIApplication.shared.delegate as! AppDelegate
-    }
-    
-    static var coordinator: AppCoordinator {
-        return delegate.appCoordinator
-    }
-    
+  static var delegate: AppDelegate {
+    return UIApplication.shared.delegate as! AppDelegate
+  }
+  
+  static var coordinator: AppCoordinator {
+    return delegate.appCoordinator
+  }
 }

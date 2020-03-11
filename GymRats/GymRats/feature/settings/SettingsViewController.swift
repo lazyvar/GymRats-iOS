@@ -232,18 +232,18 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
             switch indexPath.row {
             case 0:
                 theCell.textLabel?.text = "Email"
-                theCell.detailTextLabel?.text = GymRatsApp.coordinator.currentUser.email
+                theCell.detailTextLabel?.text = GymRats.currentAccount.email
                 theCell.accessoryType = .disclosureIndicator
             case 1:
                 theCell.textLabel?.text = "Profile picture"
                 
                 let userImageView = UserImageView(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
-                userImageView.load(avatarInfo: GymRatsApp.coordinator.currentUser)
+                userImageView.load(avatarInfo: GymRats.currentAccount)
                 
                 cell?.accessoryView = userImageView
             case 2:
                 theCell.textLabel?.text = "Name"
-                theCell.detailTextLabel?.text = GymRatsApp.coordinator.currentUser.fullName
+                theCell.detailTextLabel?.text = GymRats.currentAccount.fullName
                 theCell.accessoryType = .disclosureIndicator
             case 3:
                 theCell.textLabel?.text = "Password"

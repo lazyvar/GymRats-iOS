@@ -31,7 +31,7 @@ enum Track {
   }
     
   static func currentUser() {
-    guard let currentUser = GymRatsApp.coordinator.currentUser else { return }
+    guard let currentUser = GymRats.currentAccount else { return }
     
     Analytics.setUserID(String(currentUser.id))
     Analytics.setUserProperty(currentUser.email, forName: "email")

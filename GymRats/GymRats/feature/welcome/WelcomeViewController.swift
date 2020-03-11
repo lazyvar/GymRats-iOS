@@ -21,7 +21,6 @@ class WelcomeViewController: UIViewController {
     }()
 
     let loginButton: UIButton = .secondary(text: "Log In")
-    
     let signUpButton: UIButton = .secondary(text: "Sign Up")
     
     override func viewDidLoad() {

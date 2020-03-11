@@ -47,7 +47,7 @@ class MenuViewController: UITableViewController {
     }
 
     @objc func gotoCurrentUserProfile() {
-        let profile = ProfileViewController(user: GymRatsApp.coordinator.currentUser, challenge: nil)
+        let profile = ProfileViewController(user: GymRats.currentAccount, challenge: nil)
         let nav = UINavigationController(rootViewController: profile)
     
         profile.setupMenuButton()
@@ -108,8 +108,8 @@ extension MenuViewController {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "UserProfile") as! UserProfileMenuTableViewCell
 
-            cell.userImageView.skeletonLoad(avatarInfo: GymRatsApp.coordinator.currentUser)
-            cell.usernameLabel.text = GymRatsApp.coordinator.currentUser.fullName
+            cell.userImageView.skeletonLoad(avatarInfo: GymRats.currentAccount)
+            cell.usernameLabel.text = GymRats.currentAccount.fullName
 
             return cell
         }
@@ -171,7 +171,7 @@ extension MenuViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if indexPath.section == 0 {
-            let profile = ProfileViewController(user: GymRatsApp.coordinator.currentUser, challenge: nil)
+            let profile = ProfileViewController(user: GymRats.currentAccount, challenge: nil)
             let nav = UINavigationController(rootViewController: profile)
             
             profile.setupMenuButton()
@@ -222,10 +222,10 @@ extension MenuViewController {
                         self?.presentAlert(with: error)
                     }).disposed(by: self.disposeBag)
             case 2:
-                let createChallengeViewControllerGrr = CreateChallengeViewControllerGrr()
-                createChallengeViewControllerGrr.delegate = self
+                let createChallengeViewController = CreateChallengeViewController()
+                createChallengeViewController.delegate = self
                 
-                let nav = UINavigationController(rootViewController: createChallengeViewControllerGrr)
+                let nav = UINavigationController(rootViewController: createChallengeViewController)
                 nav.navigationBar.turnSolidWhiteSlightShadow()
                 
                 self.present(nav, animated: true, completion: nil)

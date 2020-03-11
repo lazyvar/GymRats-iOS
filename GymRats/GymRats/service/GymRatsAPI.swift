@@ -124,7 +124,7 @@ extension GymRatsAPI {
       case .login, .signup, .resetPassword:
         return [:]
       default:
-        return ["Authorization": GymRatsApp.coordinator.currentUser.token!]
+        return ["Authorization": GymRats.currentAccount.token!]
       }
     }()
     

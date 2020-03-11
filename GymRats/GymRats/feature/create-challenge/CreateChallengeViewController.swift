@@ -1,5 +1,5 @@
 //
-//  CreateChallengeViewControllerGrr.swift
+//  CreateChallengeViewController.swift
 //  GymRats
 //
 //  Created by Mack Hasz on 2/5/19.
@@ -17,7 +17,7 @@ protocol CreateChallengeDelegate: class {
     func challengeCreated(challenge: Challenge)
 }
 
-class CreateChallengeViewControllerGrr: GRFormViewController {
+class CreateChallengeViewController: GRFormViewController {
 
     weak var delegate: CreateChallengeDelegate?
     

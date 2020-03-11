@@ -59,12 +59,12 @@ class ProfileChangeController: UIViewController, UITextFieldDelegate {
         switch change {
         case .email:
             detailLabel.text = "Your email can be used for password recovery."
-            textField.text = GymRatsApp.coordinator.currentUser.email
+            textField.text = GymRats.currentAccount.email
             textField.placeholder = "Enter email"
             navigationItem.title = "Email"
         case .fullName:
             detailLabel.text = "Set your name"
-            textField.text = GymRatsApp.coordinator.currentUser.fullName
+            textField.text = GymRats.currentAccount.fullName
             textField.placeholder = "Enter name"
             navigationItem.title = "Name"
         }

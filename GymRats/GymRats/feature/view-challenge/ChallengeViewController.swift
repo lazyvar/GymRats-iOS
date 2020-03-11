@@ -12,10 +12,53 @@ import RxCocoa
 
 class ChallengeViewController: BindableViewController {
   
+  // MARK: Init
+  
+  private let challenge: Challenge
+  private let viewModel = ChallengeViewModel()
   private let disposeBag = DisposeBag()
-  private let refresher = UIRefreshControl()
 
-  @IBOutlet private weak var tableView: UITableView!
+  init(challenge: Challenge) {
+    self.challenge = challenge
+    
+    super.init(nibName: Self.xibName, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  // MARK: Views
+  
+  private lazy var refresher = UIRefreshControl().apply {
+    $0.addTarget(self, action: #selector(refreshValueChanged), for: .valueChanged)
+  }
+  
+  @IBOutlet private weak var tableView: UITableView! {
+    didSet {
+      tableView.showsVerticalScrollIndicator = false
+      tableView.registerCellNibForClass(ChallengeBannerCell.self)
+      tableView.registerCellNibForClass(WorkoutCell.self)
+
+      tableView.addSubview(refresher)
+    }
+  }
+
+  private lazy var chatBarButtonItem = UIBarButtonItem (
+    image: .chatGray,
+    style: .plain,
+    target: self,
+    action: #selector(chatTapped)
+  )
+  
+  private lazy var menuBarButtonItem = UIBarButtonItem(
+    image: .moreVertical,
+    style: .plain,
+    target: self,
+    action: #selector(menuTapped)
+  ).apply { $0.tintColor = .lightGray }
+  
+  // MARK: View lifecycle
   
   override func bindViewModel() {
     // ...
@@ -23,26 +66,33 @@ class ChallengeViewController: BindableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-
-    // PRELOAD MAPS
-        
-    // refresher.addTarget(self, action: #selector(fetchUserWorkouts), for: .valueChanged)
-    tableView.addSubview(refresher)
     
-    // set up nav
+    navigationItem.rightBarButtonItems = {
+      if challenge.isPast {
+        return [chatBarButtonItem, menuBarButtonItem]
+      } else {
+        return [menuBarButtonItem]
+      }
+    }()
+  }
+  
+  // MARK: Button handlers
+  
+  @objc private func menuTapped() {
     
-    tableView.showsVerticalScrollIndicator = false
-    tableView.register(UINib(nibName: "GoatCell", bundle: nil), forCellReuseIdentifier: "goat")
-    tableView.register(UINib(nibName: "TwerkoutCell", bundle: nil), forCellReuseIdentifier: "twer")
-    tableView.register(UINib(nibName: "LeaderboardCell", bundle: nil), forCellReuseIdentifier: "ld")
+  }
+  
+  @objc private func chatTapped() {
+    
+  }
+  
+  @objc private func refreshValueChanged() {
+    
   }
 }
 
-extension ChallengeViewController: UITableViewDelegate {
-  
-}
-
-extension ChallengeViewController: UITableViewDataSource {
+// MARK: UITableViewDataSource & UITableViewDelegate
+extension ChallengeViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return 0
   }

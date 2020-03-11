@@ -22,6 +22,15 @@ struct User: Codable, Hashable {
   }
 }
 
+extension User {
+  static func loadCurrent() -> User? {
+    switch Keychain.gymRats.retrieveObject(forKey: .currentUser) {
+    case .success(let user): return user
+    case .error: return nil
+    }
+  }
+}
+
 extension User: AvatarProtocol {
   var myName: String? {
     return self.fullName

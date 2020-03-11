@@ -16,7 +16,12 @@ import ESTabBarController_swift
 import MessageUI
 import Kingfisher
 
-class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
+struct UserWorkout {
+  let user: User
+  let workout: Workout?
+}
+
+class AppCoordinator: NSObject, UNUserNotificationCenterDelegate {
     
     let window: UIWindow
     let application: UIApplication
@@ -34,26 +39,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     }
     
     func start() {
-        UINavigationBar.appearance().barTintColor = .primaryText
-        UINavigationBar.appearance().tintColor = .background
-
-        if let user = loadCurrentUser() {
-            login(user: user)
-            registerForNotifications(on: application)
-        } else {
-            window.rootViewController = WelcomeViewController().inNav()
-        }
-        
-        window.makeKeyAndVisible()
-        
-        #if DEBUG
-        NetworkActivityLogger.shared.level = .debug
-        NetworkActivityLogger.shared.startLogging()
-        #endif
-        
-        GMSPlacesClient.provideAPIKey("AIzaSyD1X4TH-TneFnDqjiJ2rb2FGgxK8JZyrIo")
-        FirebaseApp.configure()
-        UIApplication.shared.statusBarStyle = .default
+      
     }
     
     func userNotificationCenter (
@@ -93,7 +79,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
             return
         }
         
-        guard GymRatsApp.coordinator.currentUser != nil else { return }
+        guard GymRats.currentAccount != nil else { return }
         
         switch aps.gr.notificationType {
         case .comment:
@@ -188,7 +174,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         }
     }
     
-    func replaceCenterInTab(with viewController: ChallengeViewControllerGrr, challenge: Challenge) {
+    func replaceCenterInTab(with viewController: ChallengeViewController, challenge: Challenge) {
         let centerViewController = center(with: viewController, challenge: challenge)
 
         drawer.setCenterView(centerViewController, withCloseAnimation: true, completion: { _ in
@@ -206,7 +192,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         self.artistViewController = viewController
     }
     
-    var artistViewController: ChallengeViewControllerGrr?
+    var artistViewController: ChallengeViewController?
     
     func center(with artistViewController: UIViewController, challenge: Challenge) -> UIViewController {
         let tabBarController = ESTabBarController()
@@ -249,18 +235,18 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     
     func presentStandings() {
         guard let nav = tabBarViewController?.viewControllers?[safe: 1] as? UINavigationController else { return }
-        guard let artist = nav.viewControllers.last as? ChallengeViewControllerGrr else { return }
+        guard let artist = nav.viewControllers.last as? ChallengeViewController else { return }
         
-        let stats = ChallengeStatsViewController(challenge: artist.challenge, users: artist.users, workouts: artist.workouts)
-        
-        artist.push(stats)
+//        let stats = ChallengeStatsViewController(challenge: artist.challenge, users: artist.users, workouts: artist.workouts)
+//        
+//        artist.push(stats)
     }
     
     func centerActiveOrUpcomingChallenge(_ challenge: Challenge) {
         if challenge.isActive {
-            replaceCenterInTab(with: ChallengeViewControllerGrr(challenge: challenge), challenge: challenge)
+            // replaceCenterInTab(with: ChallengeViewController(challenge: challenge), challenge: challenge)
         } else if challenge.isUpcoming {
-            let upcomingViewController = UpcomingChallengeViewControllerGrr(challenge: challenge).inNav()
+            let upcomingViewController = UpcomingChallengeViewController(challenge: challenge).inNav()
             GymRatsApp.coordinator.drawer.setCenterView(upcomingViewController, withCloseAnimation: true, completion: nil)
         }
     }
@@ -280,7 +266,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     }
     
     func pushUserProfile() {
-        let profile = ProfileViewController(user: GymRatsApp.coordinator.currentUser, challenge: nil)
+        let profile = ProfileViewController(user: GymRats.currentAccount, challenge: nil)
 
         let gear = UIImage(named: "gear")!.withRenderingMode(.alwaysTemplate)
         let gearItem = UIBarButtonItem(image: gear, style: .plain, target: profile, action: #selector(ProfileViewController.transitionToSettings))
@@ -311,21 +297,21 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     }
     
     @objc func refreshChatIcon() {
-        guard let challenge = artistViewController?.challenge else { return }
+//        guard let challenge = artistViewController?.challenge else { return }
         
-        gymRatsAPI.getUnreadChats(for: challenge)
-            .subscribe { event in
-                switch event {
-                case .next(let chats):
-                  guard let chats = chats.object else { return }
-                    if chats.isEmpty {
-                        self.chatItem?.badgeValue = nil
-                    } else {
-                        self.chatItem?.badgeValue = String(chats.count)
-                    }
-                default: break
-                }
-            }.disposed(by: disposeBag)
+//        gymRatsAPI.getUnreadChats(for: challenge)
+//            .subscribe { event in
+//                switch event {
+//                case .next(let chats):
+//                  guard let chats = chats.object else { return }
+//                    if chats.isEmpty {
+//                        self.chatItem?.badgeValue = nil
+//                    } else {
+//                        self.chatItem?.badgeValue = String(chats.count)
+//                    }
+//                default: break
+//                }
+//            }.disposed(by: disposeBag)
     }
     
     func openChat() {
@@ -333,11 +319,11 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
             return
         }
         
-        guard let artist = nav.viewControllers.last as? ChallengeViewControllerGrr else { return }
+        guard let artist = nav.viewControllers.last as? ChallengeViewController else { return }
         
-        let chat = ChatViewController(challenge: artist.challenge)
-        
-        artist.push(chat)
+//        let chat = ChatViewController(challenge: artist.challenge)
+//
+//        artist.push(chat)
     }
     
     func proPicImage(_ image: UIImage) -> UIImage {
@@ -385,7 +371,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         }
         
         if let artist = artistViewController {
-            artist.fetchUserWorkouts()
+            // artist.fetchUserWorkouts()
         }
 
         switch Keychain.gymRats.storeObject(user, forKey: .currentUser) {
@@ -424,9 +410,9 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         }
     }
     
-    var artistVc: ChallengeViewControllerGrr? {
+    var artistVc: ChallengeViewController? {
         if let vc = (GymRatsApp.coordinator.drawer?.centerViewController as? UITabBarController)?.viewControllers?[safe: 1] as? UINavigationController {
-            if let vc = vc.viewControllers[safe: 0] as? ChallengeViewControllerGrr {
+            if let vc = vc.viewControllers[safe: 0] as? ChallengeViewController {
                 return vc
             }
         }
@@ -439,7 +425,7 @@ extension AppCoordinator: NewWorkoutDelegate {
     
     func newWorkoutController(_ newWorkoutController: BadNewWorkoutViewController, created workouts: [Workout]) {
         newWorkoutController.dismissSelf()
-        self.artistVc?.fetchUserWorkouts()
+        // self.artistVc?.fetchUserWorkouts()
     }
     
 }

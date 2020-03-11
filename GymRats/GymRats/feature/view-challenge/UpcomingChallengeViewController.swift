@@ -1,5 +1,5 @@
 //
-//  UpcomingChallengeViewControllerGrr.swift
+//  UpcomingChallengeViewController.swift
 //  GymRats
 //
 //  Created by Mack on 6/4/19.
@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import MessageUI
 
-class UpcomingChallengeViewControllerGrr: UICollectionViewController {
+class UpcomingChallengeViewController: UICollectionViewController {
 
     let challenge: Challenge
     var users: [User] = []
@@ -106,7 +106,7 @@ class UpcomingChallengeViewControllerGrr: UICollectionViewController {
     }
 
     @objc func editChallenge() {
-        let editViewController = EditChallengeViewControllerGrr(challenge: self.challenge)
+        let editViewController = EditChallengeViewController(challenge: self.challenge)
         editViewController.delegate = self
         
         self.present(editViewController.inNav(), animated: true, completion: nil)
@@ -224,13 +224,13 @@ class UpcomingChallengeViewControllerGrr: UICollectionViewController {
     }
 }
 
-extension UpcomingChallengeViewControllerGrr: MFMessageComposeViewControllerDelegate {
+extension UpcomingChallengeViewController: MFMessageComposeViewControllerDelegate {
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         controller.dismissSelf()
     }
 }
 
-extension UpcomingChallengeViewControllerGrr: EditChallengeDelegate {
+extension UpcomingChallengeViewController: EditChallengeDelegate {
     
     func challengeEdited(challenge: Challenge) {
         let center = HomeViewController()

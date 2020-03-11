@@ -93,11 +93,17 @@ extension UIViewController {
       action: #selector(doNothing)
     )
   }
-    
-  @objc func doNothing() {
-      
+  
+  convenience init(_ xibName: String) {
+    self.init(nibName: xibName, bundle: nil)
   }
     
+  @objc func doNothing() { }
+  
+  static var xibName: String {
+    return classNameWithoutModule(Self.self)
+  }
+  
   func presentAlert(title: String, message: String) {
     DispatchQueue.main.async {
       let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -121,4 +127,12 @@ extension UIViewController {
     child.view.inflate(in: view)
     child.didMove(toParent: self)
   }
+}
+
+func classNameWithoutModule(_ class: AnyClass) -> String {
+  return `class`
+    .description()
+    .components(separatedBy: ".")
+    .dropFirst()
+    .joined(separator: ".")
 }

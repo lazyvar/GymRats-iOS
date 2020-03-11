@@ -225,7 +225,7 @@ extension WorkoutViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell") as! CommentTableViewCell
             let comment = comments[indexPath.row]
             let user: User = comment.gymRatsUser
-            let currentUser = GymRatsApp.coordinator.currentUser!
+            let currentUser = GymRats.currentAccount!
             
             cell.userImageView.load(avatarInfo: user)
             cell.nameLabel.text = user.fullName
@@ -281,7 +281,7 @@ extension WorkoutViewController {
             cell.backgroundColor = .clear
             
             let imageView = UserImageView()
-            imageView.load(avatarInfo: GymRatsApp.coordinator.currentUser)
+            imageView.load(avatarInfo: GymRats.currentAccount)
             
             let textField = UITextField()
             textField.borderStyle = .roundedRect
