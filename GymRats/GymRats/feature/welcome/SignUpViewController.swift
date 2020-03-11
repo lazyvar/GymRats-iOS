@@ -50,9 +50,9 @@ class SignUpViewController: GRFormViewController {
         
         let valuesDictionary = form.values()
 
-        let email = valuesDictionary["email"] as! String
+        let email    = valuesDictionary["email"] as! String
         let password = valuesDictionary["password"] as! String
-        let proPic = valuesDictionary["proPic"] as! UIImage?
+        let proPic   = valuesDictionary["proPic"] as! UIImage?
         let fullName = valuesDictionary["full_name"] as! String
 
         self.showLoadingBar(disallowUserInteraction: true)
@@ -63,7 +63,7 @@ class SignUpViewController: GRFormViewController {
                 Track.event(.signup)
               guard let user = user.object else { return }
               
-                GymRatsApp.delegate.appCoordinator.login(user: user)
+              GymRats.login(user)
             }, onError: { [weak self] error in
                 self?.presentAlert(with: error)
                 self?.hideLoadingBar()

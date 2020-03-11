@@ -20,6 +20,7 @@ class ChallengeViewController: BindableViewController {
 
   init(challenge: Challenge) {
     self.challenge = challenge
+    self.viewModel.configure(challenge: challenge)
     
     super.init(nibName: Self.xibName, bundle: nil)
   }
@@ -74,6 +75,8 @@ class ChallengeViewController: BindableViewController {
         return [menuBarButtonItem]
       }
     }()
+    
+    viewModel.input.viewDidLoad.trigger()
   }
   
   // MARK: Button handlers

@@ -23,6 +23,7 @@ class HomeViewController: BindableViewController {
   
   override func bindViewModel() {
     viewModel.output.error
+      .debug()
       .flatMap { UIAlertController.present($0) }
       .ignore(disposedBy: disposeBag)
     

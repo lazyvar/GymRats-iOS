@@ -146,7 +146,7 @@ class CreateChallengeViewController: GRFormViewController {
             Track.event(.challengeCreated)
             
             let share = ShareCodeViewController.loadFromNib(from: .challenge)
-            share.challenge = challenge
+            share.challenge = challenge.object!
             share.delegate = self?.delegate
             
             self?.navigationController?.setViewControllers([share], animated: true)

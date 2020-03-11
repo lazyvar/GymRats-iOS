@@ -29,6 +29,10 @@ extension User {
     case .error: return nil
     }
   }
+  
+  static func saveCurrent(_ user: User) {
+    Keychain.gymRats.storeObject(user, forKey: .currentUser)
+  }
 }
 
 extension User: AvatarProtocol {

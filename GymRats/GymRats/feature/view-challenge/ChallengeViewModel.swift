@@ -13,12 +13,14 @@ import RxCocoa
 final class ChallengeViewModel: ViewModel {
   
   private let disposeBag = DisposeBag()
+  private var challenge: Challenge!
   
   struct Input {
     let viewDidLoad = PublishSubject<Void>()
   }
   
   struct Output {
+    let workouts = PublishSubject<Workout>()
     let error = PublishSubject<Error>()
     let pushScreen = PublishSubject<Screen>()
   }
@@ -26,7 +28,16 @@ final class ChallengeViewModel: ViewModel {
   let input = Input()
   let output = Output()
   
+  func configure(challenge: Challenge) {
+    self.challenge = challenge
+  }
+  
   init() {
-    
+    input.viewDidLoad
+      .flatMap { gymRatsAPI.getWorkouts(for: self.challenge) }
+      .debug()
+      .debug()
+      .debug()
+      .ignore(disposedBy: disposeBag)
   }
 }

@@ -22,7 +22,8 @@ class GymRatsAPI {
   }
   
   func signUp(email: String, password: String, profilePicture: UIImage?, fullName: String) -> Observable<NetworkResult<User>> {
-    fatalError()
+    // TODO: Image upload
+    return requestObject(.signup(email: email, password: password, profilePictureUrl: nil, fullName: fullName))
   }
   
   func resetPassword(email: String) -> Observable<NetworkResult<EmptyJSON>> {
@@ -33,16 +34,13 @@ class GymRatsAPI {
     return requestArray(.getAllChallenges)
   }
 
-  func newGetAllChallenges() -> Observable<NetworkResult<[Challenge]>> {
-    return requestArray(.getAllChallenges)
-  }
-
   func joinChallenge(code: String) -> Observable<NetworkResult<Challenge>> {
     return requestObject(.joinChallenge(code: code))
   }
   
-  func createChallenge(startDate: Date, endDate: Date, challengeName: String, photo: UIImage?) -> Observable<Challenge> {
-    fatalError()
+  func createChallenge(startDate: Date, endDate: Date, challengeName: String, photo: UIImage?) -> Observable<NetworkResult<Challenge>> {
+    // TODO: Image upload
+    return requestObject(.createChallenge(startDate: startDate, endDate: endDate, challengeName: challengeName, photoUrl: nil))
   }
 
   func editChallenge() -> Observable<Challenge> {
@@ -50,23 +48,23 @@ class GymRatsAPI {
   }
 
   func getUsers(for challenge:  Challenge) -> Observable<NetworkResult<[User]>> {
-      return requestArray(.getUsersForChallenge(challenge: challenge))
+    return requestArray(.getUsersForChallenge(challenge: challenge))
   }
   
   func deleteComment(id: Int) -> Observable<NetworkResult<EmptyJSON>> {
-      return requestObject(.deleteComment(id: id))
+    return requestObject(.deleteComment(id: id))
   }
   
   func getWorkouts(for challenge: Challenge) -> Observable<NetworkResult<[Workout]>> {
-      return requestArray(.getWorkoutsForChallenge(challenge: challenge))
+    return requestArray(.getWorkoutsForChallenge(challenge: challenge))
   }
   
   func getAllWorkouts(for user: User) -> Observable<NetworkResult<[Workout]>> {
-      return requestArray(.getAllWorkoutsForUser(user: user))
+    return requestArray(.getAllWorkoutsForUser(user: user))
   }
 
   func getWorkouts(for user: User, in challenge: Challenge) -> Observable<NetworkResult<[Workout]>> {
-      return requestArray(.getWorkouts(forUser: user, inChallenge: challenge))
+    return requestArray(.getWorkouts(forUser: user, inChallenge: challenge))
   }
 
   func postWorkout(_ workout: NewWorkout, challenges: [Challenge]) -> Observable<NetworkResult<[Workout]>> {

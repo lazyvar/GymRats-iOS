@@ -11,7 +11,6 @@ import Foundation
 struct Workout: Codable, Hashable {
   let id: Int
   let account: User
-  let gymRatsUserId: Int
   let challengeId: Int
   let title: String
   let description: String?
@@ -24,6 +23,10 @@ struct Workout: Codable, Hashable {
   let calories: Int?
   let points: Int?
 
+  var gymRatsUserId: Int {
+    return account.id
+  }
+  
   func hash(into hasher: inout Hasher) {
     hasher.combine(id)
   }

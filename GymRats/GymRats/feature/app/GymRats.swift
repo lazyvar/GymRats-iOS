@@ -12,7 +12,9 @@ import UserNotifications
 import GooglePlaces
 import Firebase
 
+/// God object. Handles AppDelegate functions among other things.
 enum GymRats {
+  /// Global reference to the logged in user.
   static var currentAccount: User!
   
   static private var window: UIWindow!
@@ -20,11 +22,13 @@ enum GymRats {
   static private var coldStartNotification: [AnyHashable: Any]?
   static private let disposeBag = DisposeBag()
 
+  /// Initialize the app.
   static func initialize(window: UIWindow, application: UIApplication) {
     self.window = window
     self.application = application
   }
   
+  /// Called at the very start of the application.
   static func start(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
     coldStartNotification = launchOptions?[.remoteNotification] as? [AnyHashable: Any]
     currentAccount = User.loadCurrent()
@@ -54,9 +58,17 @@ enum GymRats {
     
     GMSPlacesClient.provideAPIKey("AIzaSyD1X4TH-TneFnDqjiJ2rb2FGgxK8JZyrIo")
     FirebaseApp.configure()
-    UIApplication.shared.statusBarStyle = .default
   }
   
+  /// Sets the current account and shows the home screen.
+  static func login(_ user: User) {
+    currentAccount = user
+    User.saveCurrent(user)
+    window.rootViewController = DrawerViewController()
+    Track.currentUser()
+  }
+  
+  /// Called when the app registered for notifications.
   static func didRegisterForRemoteNotifications(withDeviceToken deviceToken: Data) {
     let deviceTokenString = deviceToken.reduce("", { $0 + String(format: "%02X", $1) })
 
@@ -64,6 +76,7 @@ enum GymRats {
       .ignore(disposedBy: disposeBag)
   }
   
+  /// Called when the app enters the foreground state.
   static func willEnterForeground() {
     application.applicationIconBadgeNumber = 1
     application.applicationIconBadgeNumber = 0

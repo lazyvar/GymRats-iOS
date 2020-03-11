@@ -16,8 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   var appCoordinator: AppCoordinator!
 
-  let disposeBag = DisposeBag()
-
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     application.applicationIconBadgeNumber = 1
     application.applicationIconBadgeNumber = 0

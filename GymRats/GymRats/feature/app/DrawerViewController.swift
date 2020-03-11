@@ -25,6 +25,8 @@ class DrawerViewController: UIViewController {
       $0.setDrawerVisualStateBlock(MMDrawerVisualState.parallaxVisualStateBlock(withParallaxFactor: 2))
     }
     
+    GymRatsApp.coordinator.drawer = drawer // TODO: don't do
+    
     install(drawer)
   }
 }
