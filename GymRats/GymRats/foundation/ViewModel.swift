@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import Kingfisher
 
 protocol ViewModel {
   associatedtype Intput
@@ -96,20 +97,18 @@ extension Result {
 
 
 extension Decodable {
-    
-    init(from anything: Any) throws {
-        let data = try JSONSerialization.data(withJSONObject: anything, options: .prettyPrinted)
+  init(from anything: Any) throws {
+    let data = try JSONSerialization.data(withJSONObject: anything, options: .prettyPrinted)
 
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-        
-        let decoder: JSONDecoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .formatted(dateFormatter)
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-
-        self = try decoder.decode(Self.self, from: data)
-    }
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
     
+    let decoder: JSONDecoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .formatted(dateFormatter)
+    decoder.keyDecodingStrategy = .convertFromSnakeCase
+
+    self = try decoder.decode(Self.self, from: data)
+  }
 }
 
 extension Notification {
@@ -121,3 +120,5 @@ extension NSNotification.Name {
     static let commentNotification = NSNotification.Name.init("CommentNotification")
     static let chatNotification = NSNotification.Name.init("ChatNotification")
 }
+
+extension UIView: Placeholder { }

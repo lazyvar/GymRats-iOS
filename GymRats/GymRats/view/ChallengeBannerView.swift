@@ -1,14 +1,14 @@
 //
-//  ChallengeBannerCell.swift
+//  ChallengeBannerView.swift
 //  GymRats
 //
-//  Created by Mack on 9/8/19.
-//  Copyright © 2019 Mack Hasz. All rights reserved.
+//  Created by mack on 3/11/20.
+//  Copyright © 2020 Mack Hasz. All rights reserved.
 //
 
 import UIKit
 
-class ChallengeBannerCell: UITableViewCell {
+class ChallengeBannerView: XibView {
   @IBOutlet weak var calendarStackView: UIStackView!
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var membersLabel: UILabel!
@@ -22,5 +22,9 @@ class ChallengeBannerCell: UITableViewCell {
       bg.layer.cornerRadius = 4
       bg.clipsToBounds = true
     }
+  }
+  
+  @IBOutlet weak var bannerImageView: UIImageView! {
+    didSet { bannerImageView.contentMode = .scaleAspectFill }
   }
 }

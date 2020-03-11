@@ -32,7 +32,7 @@ target 'GymRats' do
     pod 'RSKPlaceholderTextView'
     pod 'RxDataSources', '~> 4.0'
 
-     target 'GymRatsTests' do
+    target 'GymRatsTests' do
         inherit! :search_paths
     end
 end

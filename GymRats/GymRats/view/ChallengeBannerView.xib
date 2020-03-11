@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Rounded-Bold.otf">
+            <string>SFProRounded-Bold</string>
+        </array>
+        <array key="SF-Pro-Rounded-Regular.otf">
+            <string>SFProRounded-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChallengeBannerView" customModule="GymRats" customModuleProvider="target">
+            <connections>
+                <outlet property="activityLabel" destination="5E4-Wq-8XC" id="Sdq-Mf-vz0"/>
+                <outlet property="bannerImageView" destination="Hb4-4B-IUi" id="ccV-g2-txT"/>
+                <outlet property="bg" destination="Gnh-TA-bLU" id="IF9-3m-hbT"/>
+                <outlet property="calendarLabel" destination="AYT-ND-rpV" id="6zO-IM-nqX"/>
+                <outlet property="calendarStackView" destination="9bX-5W-98G" id="j60-20-FGq"/>
+                <outlet property="membersLabel" destination="zRN-hP-DWs" id="Snx-cJ-DAf"/>
+                <outlet property="pictureHeight" destination="P6s-kC-it1" id="n3B-6d-eC2"/>
+                <outlet property="titleLabel" destination="F99-CG-21d" id="fnl-uy-gry"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="287"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" id="Gnh-TA-bLU">
+                    <rect key="frame" x="108" y="-215" width="426" height="856"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hb4-4B-IUi">
+                            <rect key="frame" x="0.0" y="0.0" width="426" height="150"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="150" id="P6s-kC-it1"/>
+                            </constraints>
+                        </imageView>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="wcj-bJ-8ee">
+                            <rect key="frame" x="71" y="165" width="302" height="676"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="lDO-xV-Dfh">
+                                    <rect key="frame" x="0.0" y="325.5" width="84" height="25"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="users" translatesAutoresizingMaskIntoConstraints="NO" id="tI3-QC-7DS">
+                                            <rect key="frame" x="0.0" y="0.0" width="24" height="25"/>
+                                            <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="24" id="iEd-7h-lVy"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zRN-hP-DWs">
+                                            <rect key="frame" x="29" y="0.0" width="55" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="55" id="THk-jy-o7d"/>
+                                            </constraints>
+                                            <string key="text">3
+members</string>
+                                            <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="10"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="XOI-EF-gTb">
+                                    <rect key="frame" x="104" y="325.5" width="89" height="25"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="activity" translatesAutoresizingMaskIntoConstraints="NO" id="R7F-i7-F3G">
+                                            <rect key="frame" x="0.0" y="0.0" width="24" height="25"/>
+                                            <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="24" id="E4g-Al-dIB"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5E4-Wq-8XC">
+                                            <rect key="frame" x="29" y="0.0" width="60" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="60" id="HVE-eb-xoX"/>
+                                            </constraints>
+                                            <string key="text">10
+workouts</string>
+                                            <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="10"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="9bX-5W-98G">
+                                    <rect key="frame" x="213" y="325.5" width="89" height="25"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cal" translatesAutoresizingMaskIntoConstraints="NO" id="gyJ-o4-jQj">
+                                            <rect key="frame" x="0.0" y="0.0" width="24" height="25"/>
+                                            <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="24" id="ugm-Ce-fhi"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYT-ND-rpV">
+                                            <rect key="frame" x="29" y="0.0" width="60" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="60" id="8xq-yb-E4P"/>
+                                            </constraints>
+                                            <string key="text">1512
+days left</string>
+                                            <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="10"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="Hb4-4B-IUi" secondAttribute="trailing" id="579-gE-594"/>
+                        <constraint firstItem="wcj-bJ-8ee" firstAttribute="centerX" secondItem="Gnh-TA-bLU" secondAttribute="centerX" constant="9" id="6NB-wr-Mzl"/>
+                        <constraint firstItem="Hb4-4B-IUi" firstAttribute="top" secondItem="Gnh-TA-bLU" secondAttribute="top" id="8pH-nn-Nka"/>
+                        <constraint firstAttribute="bottom" secondItem="wcj-bJ-8ee" secondAttribute="bottom" constant="15" id="Dy9-iP-j4i"/>
+                        <constraint firstItem="Hb4-4B-IUi" firstAttribute="leading" secondItem="Gnh-TA-bLU" secondAttribute="leading" id="PWb-pX-Nta"/>
+                        <constraint firstItem="wcj-bJ-8ee" firstAttribute="top" secondItem="Hb4-4B-IUi" secondAttribute="bottom" constant="15" id="b1b-w3-DKk"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="ktL-CX-eW0"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="F99-CG-21d">
+                    <rect key="frame" x="20" y="0.0" width="450" height="36"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="SFProRounded-Bold" family="SF Pro Rounded" pointSize="30"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="-374" y="302"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="activity" width="25" height="25"/>
+        <image name="cal" width="25" height="25"/>
+        <image name="users" width="25" height="25"/>
+    </resources>
+</document>

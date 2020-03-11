@@ -149,7 +149,7 @@ days left</string>
                 <outlet property="pictureHeight" destination="Y7S-dD-kNg" id="KYr-tb-yrO"/>
                 <outlet property="titleLabel" destination="BoT-qf-wEn" id="ZyH-r0-64D"/>
             </connections>
-            <point key="canvasLocation" x="221.73913043478262" y="134.26339285714286"/>
+            <point key="canvasLocation" x="139.13043478260872" y="132.92410714285714"/>
         </tableViewCell>
     </objects>
     <resources>

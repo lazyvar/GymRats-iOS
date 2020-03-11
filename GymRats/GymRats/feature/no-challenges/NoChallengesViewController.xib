@@ -50,7 +50,7 @@
                     </subviews>
                 </stackView>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
                 <constraint firstItem="g8b-3q-tlZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="60" id="7DN-VS-J3D"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="g8b-3q-tlZ" secondAttribute="trailing" constant="60" id="RnO-Vx-ZeZ"/>

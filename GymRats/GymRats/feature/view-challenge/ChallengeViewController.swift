@@ -36,12 +36,17 @@ class ChallengeViewController: BindableViewController {
     $0.addTarget(self, action: #selector(refreshValueChanged), for: .valueChanged)
   }
   
+  private lazy var challengeBannerView = ChallengeBannerView().apply {
+    self.configureHeader($0)
+  }
+  
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
       tableView.showsVerticalScrollIndicator = false
       tableView.registerCellNibForClass(WorkoutCell.self)
       tableView.rx.setDelegate(self).disposed(by: disposeBag)
       tableView.addSubview(refresher)
+      tableView.tableHeaderView = challengeBannerView
     }
   }
 
@@ -104,15 +109,96 @@ class ChallengeViewController: BindableViewController {
   // MARK: Button handlers
   
   @objc private func menuTapped() {
+    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+    let inviteAction = UIAlertAction(title: "Invite", style: .default) { _ in
+      // TODO
+      GymRatsApp.coordinator.inviteTo(self.challenge)
+    }
     
+    let editAction = UIAlertAction(title: "Edit", style: .default) { _ in
+      let editViewController = EditChallengeViewController(challenge: self.challenge)
+      editViewController.delegate = self
+      
+      self.present(editViewController.inNav(), animated: true, completion: nil)
+    }
+    
+    let deleteAction = UIAlertAction(title: "Leave", style: .destructive) { _ in
+      self.leaveChallenge()
+    }
+    
+    let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    
+    alertViewController.addAction(inviteAction)
+    alertViewController.addAction(editAction)
+    alertViewController.addAction(deleteAction)
+    alertViewController.addAction(cancelAction)
+    
+    self.present(alertViewController, animated: true, completion: nil)
   }
   
   @objc private func chatTapped() {
-    
+    push(
+      ChatViewController(challenge: challenge)
+    )
   }
   
   @objc private func refreshValueChanged() {
     viewModel.input.refresh.trigger()
+  }
+  
+  private func leaveChallenge() {
+    let alert = UIAlertController(title: "Are you sure you want to leave \(challenge.name)?", message: nil, preferredStyle: .actionSheet)
+    let leave = UIAlertAction(title: "Leave", style: .destructive) { _ in
+      // TODO: leave challenge / reload home
+    }
+      
+    let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+      
+    alert.addAction(leave)
+    alert.addAction(cancel)
+      
+    present(alert, animated: true, completion: nil)
+  }
+  
+  private func configureHeader(_ header: ChallengeBannerView) {
+    let skeletonView = UIView()
+    skeletonView.isSkeletonable = true
+    skeletonView.showAnimatedSkeleton()
+    skeletonView.showSkeleton()
+    
+    header.titleLabel.text = challenge.name
+    
+    if let pictureUrl = challenge.pictureUrl {
+      header.bannerImageView.kf.setImage(with: URL(string: pictureUrl)!, placeholder: skeletonView, options: [.transition(.fade(0.2))])
+      header.pictureHeight.constant = 150
+    } else {
+      header.pictureHeight.constant = 0
+    }
+    
+    // TODO: fetch members and workouts
+//    if users.count == 0 {
+//        cell.usersLabel.text = "-\nmembers"
+//    } else if users.count == 1 {
+//        cell.usersLabel.text = "Solo\nchallenge"
+//    } else {
+//        cell.usersLabel.text = "\(users.count)\nmembers"
+//    }
+    
+//    if workouts.count == 0 {
+//        header.activityLabel.text = "-\nworkouts"
+//    } else if workouts.count == 1 {
+//        header.activityLabel.text = "1\nworkout"
+//    } else {
+//        header.activityLabel.text = "\(workouts.count)\nworkouts"
+//    }
+
+    let daysLeft = challenge.daysLeft.split(separator: " ")
+    let new = daysLeft[0]
+    let left = daysLeft[daysLeft.startIndex+1..<daysLeft.endIndex]
+    let left2 = left.joined(separator: " ")
+    let ok = new + "\n" + left2
+    
+    header.calendarLabel.text = ok
   }
 }
 
@@ -146,5 +232,12 @@ extension ChallengeViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
     return UIView()
+  }
+}
+
+// MARK: EditChallengeDelegate
+extension ChallengeViewController: EditChallengeDelegate {
+  func challengeEdited(challenge: Challenge) {
+    // TODO: reload home/challenge
   }
 }
