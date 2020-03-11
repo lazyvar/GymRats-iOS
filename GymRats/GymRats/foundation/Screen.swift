@@ -9,9 +9,19 @@
 import Foundation
 import UIKit
 
-struct Screen {
-  static let noChallenges = Screen(viewController: NoChallengesViewController())
-  static let home = Screen(viewController: HomeViewController())
-
-  let viewController: UIViewController
+enum Screen {
+  case activeChallenge(Challenge)
+  case noChallenges
+  case home
+  
+  var viewController: UIViewController {
+    switch self {
+    case .noChallenges:
+      return NoChallengesViewController()
+    case .home:
+      return HomeViewController()
+    case .activeChallenge(let challenge):
+      return ArtistViewController(challenge: challenge)
+    }
+  }
 }

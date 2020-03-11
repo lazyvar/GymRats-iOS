@@ -26,17 +26,10 @@ class HomeViewController: BindableViewController {
       .flatMap { UIAlertController.present($0) }
       .ignore(disposedBy: disposeBag)
     
-    viewModel.output.showChallenge
-      .next { [weak self] _ in
-        self?.install(NoChallengesViewController())
+    viewModel.output.installScreen
+      .next { [weak self] screen in
+        self?.install(screen.viewController)
       }
       .disposed(by: disposeBag)
-    
-//    viewModel.output.showChallenge.subscribe { event in
-//      if let challenge = event.element {
-//        GymRatsApp.coordinator.centerActiveOrUpcomingChallenge(challenge)
-//      }
-//    }
-//    .disposed(by: disposeBag)
   }
 }

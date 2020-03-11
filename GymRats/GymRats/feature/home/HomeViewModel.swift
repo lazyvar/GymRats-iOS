@@ -20,40 +20,32 @@ final class HomeViewModel: ViewModel {
   
   struct Output {
     let error = PublishSubject<Error>()
-    let showEmptyState = PublishSubject<Void>()
-    let showChallenge = PublishSubject<Challenge>()
+    let installScreen = PublishSubject<Screen>()
   }
   
   let input = Input()
   let output = Output()
   
   init() {
-    let fetchChallenges = input.viewDidLoad
+    let challenges = input.viewDidLoad
       .flatMap { Challenge.all.fetch() }
       .observeOn(MainScheduler.instance)
       .share()
     
-    fetchChallenges
+    challenges
       .compactMap { $0.error }
       .bind(to: output.error)
       .disposed(by: disposeBag)
     
-    let challenges = fetchChallenges
+    challenges
       .compactMap { $0.object }
-      .share()
-    
-    challenges
-      .filter { $0.isEmpty }
-      .map { _ in () }
-      .bind(to: output.showEmptyState)
-      .disposed(by: disposeBag)
-    
-    challenges
-      .filter { $0.isNotEmpty }
-      .compactMap { challenges in
-        let challengeId = UserDefaults.standard.integer(forKey: "last_opened_challenge")
+      .map { challenges -> Screen in
+        guard challenges.isNotEmpty else { return .noChallenges }
         
-        return challenges.first { $0.id == challengeId } ?? challenges.first
+        let challengeId = UserDefaults.standard.integer(forKey: "last_opened_challenge")
+        let challenge = challenges.first { $0.id == challengeId } ?? challenges.first
+        
+        return .activeChallenge(challenge!)
       }
       .do(onNext: { _ in
         if let notification = GymRatsApp.coordinator.coldStartNotification {
@@ -61,7 +53,7 @@ final class HomeViewModel: ViewModel {
           GymRatsApp.coordinator.coldStartNotification = nil
         }
       })
-      .bind(to: output.showChallenge)
+      .bind(to: output.installScreen)
       .disposed(by: disposeBag)
   }
 }
