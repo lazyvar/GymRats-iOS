@@ -22,7 +22,9 @@ class LoginViewController: GRFormViewController {
         
         title = "Login"
         
-        form = form +++ section <<< emailRow <<< passwordRow
+        form = form +++ section
+          <<< emailRow
+          <<< passwordRow
         
         tableView.backgroundColor = .background
         setupBackButton()        

@@ -1,5 +1,5 @@
 //
-//  EditChallengeViewController.swift
+//  EditChallengeViewControllerGrr.swift
 //  GymRats
 //
 //  Created by Mack on 9/24/19.
@@ -18,7 +18,7 @@ protocol EditChallengeDelegate: class {
     func challengeEdited(challenge: Challenge)
 }
 
-class EditChallengeViewController: GRFormViewController {
+class EditChallengeViewControllerGrr: GRFormViewController {
     
     let challenge: Challenge
     

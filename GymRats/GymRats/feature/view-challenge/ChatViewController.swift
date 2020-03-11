@@ -170,7 +170,7 @@ extension ChatViewController: MessageInputBarDelegate {
 //        gymRatsAPI.postChatMessage(text, for: challenge)
 //            .subscribe { event in
 //                self.hideLoadingBar()
-//                
+//
 //                switch event {
 //                case .next(let message):
 //                    Track.event(.chatSent)
@@ -184,7 +184,6 @@ extension ChatViewController: MessageInputBarDelegate {
 //                }
 //            }.disposed(by: disposeBag)
     }
-    
 }
 
 extension ChatViewController: MessagesDataSource {

@@ -222,10 +222,10 @@ extension MenuViewController {
                         self?.presentAlert(with: error)
                     }).disposed(by: self.disposeBag)
             case 2:
-                let createChallengeViewController = CreateChallengeViewController()
-                createChallengeViewController.delegate = self
+                let createChallengeViewControllerGrr = CreateChallengeViewControllerGrr()
+                createChallengeViewControllerGrr.delegate = self
                 
-                let nav = UINavigationController(rootViewController: createChallengeViewController)
+                let nav = UINavigationController(rootViewController: createChallengeViewControllerGrr)
                 nav.navigationBar.turnSolidWhiteSlightShadow()
                 
                 self.present(nav, animated: true, completion: nil)

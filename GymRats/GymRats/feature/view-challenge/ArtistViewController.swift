@@ -1,5 +1,5 @@
 //
-//  ArtistViewController.swift
+//  ChallengeViewControllerGrr.swift
 //  GymRats
 //
 //  Created by Mack on 9/8/19.
@@ -19,112 +19,61 @@ struct UserWorkout {
   let workout: Workout?
 }
 
-class ArtistViewController: UIViewController {
-    
-    let disposeBag = DisposeBag()
-    let challenge: Challenge
-    
-    var userWorkouts: [UserWorkout] = []
-    var users: [User] = []
-    var workouts: [Workout] = []
-    var useMe: [Date] = []
-    
-    lazy var tableView: UITableView! = {
-        let tb = UITableView(frame: .zero, style: .grouped)
-        tb.translatesAutoresizingMaskIntoConstraints = false
-        tb.delegate = self
-        tb.dataSource = self
-        tb.backgroundColor = .background
-        
-        view.addSubview(tb)
-    
-        NSLayoutConstraint.activate([
-            NSLayoutConstraint(item: tb, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: tb, attribute: .centerY, relatedBy: .equal, toItem: view, attribute: .centerY, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: tb, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: tb, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0)
-        ])
+class ChallengeViewControllerGrr: BindableViewController {
 
-        return tb
-    }()
-    
+  private let challenge: Challenge
+  private let disposeBag = DisposeBag()
+  
+  var userWorkouts: [UserWorkout] = []
+  var users: [User] = []
+  var workouts: [Workout] = []
+  var useMe: [Date] = []
+      
     init(challenge: Challenge) {
-        self.challenge = challenge
-        
-        super.init(nibName: nil, bundle: nil)
-    }
+      self.challenge = challenge
+      
+      super.init(nibName: nil, bundle: nil)
+  }
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+    
+  
+  lazy var chatItem = UIBarButtonItem (
+    image: UIImage(named: "chat-gray")?.withRenderingMode(.alwaysOriginal),
+    style: .plain,
+    target: self,
+    action: #selector(openChat)
+  )
+    
+  override func viewDidLoad() {
+    super.viewDidLoad()
+      
+    DispatchQueue.main.async {
+        // preload maps
+        let cood = CLLocationCoordinate2D (
+            latitude: 0,
+            longitude: 0
+        )
+        let coordinateRegion = MKCoordinateRegion (
+            center: cood,
+            latitudinalMeters: 500, longitudinalMeters: 500
+        )
+        let annotation = PlaceAnnotation (
+            title: "",
+            coordinate: cood
+        )
+
+        let mapView = MKMapView(frame: CGRect(x: 1000, y: 1000, width: 1, height: 1))
+        
+        mapView.setRegion(coordinateRegion, animated: false)
+        mapView.mapType = .standard
+        mapView.isUserInteractionEnabled = false
+        mapView.addAnnotation(annotation)
     }
     
-    let refresher = UIRefreshControl()
-    
-    lazy var chatItem = UIBarButtonItem (
-        image: UIImage(named: "chat-gray")?.withRenderingMode(.alwaysOriginal),
-        style: .plain,
-        target: self,
-        action: #selector(openChat)
-    )
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        DispatchQueue.main.async {
-            // preload maps
-            let cood = CLLocationCoordinate2D (
-                latitude: 0,
-                longitude: 0
-            )
-            let coordinateRegion = MKCoordinateRegion (
-                center: cood,
-                latitudinalMeters: 500, longitudinalMeters: 500
-            )
-            let annotation = PlaceAnnotation (
-                title: "",
-                coordinate: cood
-            )
-
-            let mapView = MKMapView(frame: CGRect(x: 1000, y: 1000, width: 1, height: 1))
-            
-            mapView.setRegion(coordinateRegion, animated: false)
-            mapView.mapType = .standard
-            mapView.isUserInteractionEnabled = false
-            mapView.addAnnotation(annotation)
-        }
-        
-        tableView.separatorStyle = .none
-        navigationItem.largeTitleDisplayMode = .never
-        
-        refresher.addTarget(self, action: #selector(fetchUserWorkouts), for: .valueChanged)
-        tableView.addSubview(refresher)
-        
-        let more = UIImage(named: "more-vertical")?.withRenderingMode(.alwaysTemplate)
-        let menu = UIBarButtonItem(image: more, landscapeImagePhone: nil, style: .plain, target: self, action: #selector(showMenu))
-        menu.tintColor = .lightGray
-        
-        var rightItems = [menu]
-        
-        tableView.showsVerticalScrollIndicator = false
-        tableView.register(UINib(nibName: "GoatCell", bundle: nil), forCellReuseIdentifier: "goat")
-        tableView.register(UINib(nibName: "TwerkoutCell", bundle: nil), forCellReuseIdentifier: "twer")
-        tableView.register(UINib(nibName: "LeaderboardCell", bundle: nil), forCellReuseIdentifier: "ld")
-
-        fetchUserWorkouts()
-        setupBackButton()
-
-        if challenge.isPast {
-            rightItems.append(chatItem)
-        } else {
-            setupMenuButton()
-        }
-        
-        navigationItem.rightBarButtonItems = rightItems
-        
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.init("WorkoutDeleted"), object: nil, queue: nil) { notification in
-            self.fetchUserWorkouts()
-        }
-    }
+  }
     
     @objc func showMenu() {
         let inviteAction = UIAlertAction(title: "Invite", style: .default) { _ in
@@ -132,7 +81,7 @@ class ArtistViewController: UIViewController {
         }
         
         let editAction = UIAlertAction(title: "Edit", style: .default) { _ in
-            let editViewController = EditChallengeViewController(challenge: self.challenge)
+            let editViewController = EditChallengeViewControllerGrr(challenge: self.challenge)
             editViewController.delegate = self
             
             self.present(editViewController.inNav(), animated: true, completion: nil)
@@ -323,7 +272,7 @@ class ArtistViewController: UIViewController {
 
 }
 
-extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
+extension ChallengeViewControllerGrr: UITableViewDelegate, UITableViewDataSource {
     
      func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         guard section > 0 && !users.isEmpty else { return 0 }
@@ -617,7 +566,7 @@ extension ArtistViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension UIView: Placeholder { }
 
-extension ArtistViewController: EditChallengeDelegate {
+extension ChallengeViewControllerGrr: EditChallengeDelegate {
     
     func challengeEdited(challenge: Challenge) {
         let center = HomeViewController()

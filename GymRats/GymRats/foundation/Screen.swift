@@ -30,12 +30,12 @@ enum Screen {
     case .home:
       return HomeViewController()
     case .activeChallenge(let challenge):
-      return ArtistViewController(challenge: challenge)
+      return ChallengeViewControllerGrr(challenge: challenge)
     case .createChallenge(let delegate):
-      let createChallengeViewController = CreateChallengeViewController()
-      createChallengeViewController.delegate = delegate
+      let createChallengeViewControllerGrr = CreateChallengeViewControllerGrr()
+      createChallengeViewControllerGrr.delegate = delegate
       
-      return createChallengeViewController
+      return createChallengeViewControllerGrr
     }
   }
 }

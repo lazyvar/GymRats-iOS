@@ -188,7 +188,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         }
     }
     
-    func replaceCenterInTab(with viewController: ArtistViewController, challenge: Challenge) {
+    func replaceCenterInTab(with viewController: ChallengeViewControllerGrr, challenge: Challenge) {
         let centerViewController = center(with: viewController, challenge: challenge)
 
         drawer.setCenterView(centerViewController, withCloseAnimation: true, completion: { _ in
@@ -206,7 +206,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         self.artistViewController = viewController
     }
     
-    var artistViewController: ArtistViewController?
+    var artistViewController: ChallengeViewControllerGrr?
     
     func center(with artistViewController: UIViewController, challenge: Challenge) -> UIViewController {
         let tabBarController = ESTabBarController()
@@ -249,7 +249,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     
     func presentStandings() {
         guard let nav = tabBarViewController?.viewControllers?[safe: 1] as? UINavigationController else { return }
-        guard let artist = nav.viewControllers.last as? ArtistViewController else { return }
+        guard let artist = nav.viewControllers.last as? ChallengeViewControllerGrr else { return }
         
         let stats = ChallengeStatsViewController(challenge: artist.challenge, users: artist.users, workouts: artist.workouts)
         
@@ -258,9 +258,9 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
     
     func centerActiveOrUpcomingChallenge(_ challenge: Challenge) {
         if challenge.isActive {
-            replaceCenterInTab(with: ArtistViewController(challenge: challenge), challenge: challenge)
+            replaceCenterInTab(with: ChallengeViewControllerGrr(challenge: challenge), challenge: challenge)
         } else if challenge.isUpcoming {
-            let upcomingViewController = UpcomingChallengeViewController(challenge: challenge).inNav()
+            let upcomingViewController = UpcomingChallengeViewControllerGrr(challenge: challenge).inNav()
             GymRatsApp.coordinator.drawer.setCenterView(upcomingViewController, withCloseAnimation: true, completion: nil)
         }
     }
@@ -333,7 +333,7 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
             return
         }
         
-        guard let artist = nav.viewControllers.last as? ArtistViewController else { return }
+        guard let artist = nav.viewControllers.last as? ChallengeViewControllerGrr else { return }
         
         let chat = ChatViewController(challenge: artist.challenge)
         
@@ -424,9 +424,9 @@ class AppCoordinator: NSObject, Coordinator, UNUserNotificationCenterDelegate {
         }
     }
     
-    var artistVc: ArtistViewController? {
+    var artistVc: ChallengeViewControllerGrr? {
         if let vc = (GymRatsApp.coordinator.drawer?.centerViewController as? UITabBarController)?.viewControllers?[safe: 1] as? UINavigationController {
-            if let vc = vc.viewControllers[safe: 0] as? ArtistViewController {
+            if let vc = vc.viewControllers[safe: 0] as? ChallengeViewControllerGrr {
                 return vc
             }
         }

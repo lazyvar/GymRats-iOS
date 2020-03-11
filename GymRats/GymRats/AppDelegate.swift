@@ -61,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.applicationIconBadgeNumber = 0
 
         if let vc = (GymRatsApp.coordinator.drawer?.centerViewController as? UITabBarController)?.viewControllers?[safe: 1] as? UINavigationController {
-            if let vc = vc.viewControllers[safe: 0] as? ArtistViewController {
+            if let vc = vc.viewControllers[safe: 0] as? ChallengeViewControllerGrr {
                 vc.fetchUserWorkouts()
             }
         }

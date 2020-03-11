@@ -115,7 +115,7 @@ class ArchivedChallengesTableViewController: UITableViewController {
         
         let challenge = challenges[indexPath.row]
         
-        push(ArtistViewController(challenge: challenge))
+        push(ChallengeViewControllerGrr(challenge: challenge))
     }
     
 }
