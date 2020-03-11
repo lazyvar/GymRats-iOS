@@ -4,6 +4,7 @@ PODS:
   - Cache (5.2.0)
   - Crashlytics (3.12.0):
     - Fabric (~> 1.9.0)
+  - Differentiator (4.0.1)
   - EasyNotificationBadge (1.2.0)
   - ESTabBarController-swift (2.8.0)
   - Eureka (5.2.0)
@@ -115,6 +116,10 @@ PODS:
   - RxCocoa (5.1.0):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
+  - RxDataSources (4.0.1):
+    - Differentiator (~> 4.0)
+    - RxCocoa (~> 5.0)
+    - RxSwift (~> 5.0)
   - RxGesture (3.0.1):
     - RxCocoa (~> 5.0)
     - RxSwift (~> 5.0)
@@ -150,6 +155,7 @@ DEPENDENCIES:
   - RSKPlaceholderTextView
   - RxAlamofire
   - RxCocoa (~> 5)
+  - RxDataSources (~> 4.0)
   - RxGesture
   - RxOptional
   - RxSwift (~> 5)
@@ -163,6 +169,7 @@ SPEC REPOS:
     - AvatarImageView
     - Cache
     - Crashlytics
+    - Differentiator
     - EasyNotificationBadge
     - ESTabBarController-swift
     - Eureka
@@ -196,6 +203,7 @@ SPEC REPOS:
     - RSKPlaceholderTextView
     - RxAlamofire
     - RxCocoa
+    - RxDataSources
     - RxGesture
     - RxOptional
     - RxRelay
@@ -209,6 +217,7 @@ SPEC CHECKSUMS:
   AvatarImageView: afe8e7eb50181ca3f095e21034f245676b535c55
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
+  Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   EasyNotificationBadge: afeb15ed6f9a4262d626a2b745297e96afa26c2e
   ESTabBarController-swift: 05593a6ad64700b03c0eb60ff625916370aa4136
   Eureka: 820a761c700f6eaab3b60758f138e0d9b99072b3
@@ -242,6 +251,7 @@ SPEC CHECKSUMS:
   RSKPlaceholderTextView: 1bd95b1fdcbc51316ac1b27a2dadb1c774d7461a
   RxAlamofire: a2d7621de4c23a0c6e7b476b504acc32838ee341
   RxCocoa: 13d2a4d7546a34b8ececae8c281e4ea1dbb94f2b
+  RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
   RxGesture: a3f8dd6adf078110ed5e1c9c30d09d705a09852e
   RxOptional: b1fcd60856807a564c0215c2184b8d33e7826dc2
   RxRelay: a168bd6caf712d00c676ac344e9295afc93b418e
@@ -250,6 +260,6 @@ SPEC CHECKSUMS:
   SwiftDate: 6329e58969a2de31cea7f1ee1143b247693196e7
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: b2512d8a0c3714a59eb90c39e023b2f044f37bd9
+PODFILE CHECKSUM: 0511c0895822f427c3d1f0bac65a7927d212c275
 
 COCOAPODS: 1.8.4

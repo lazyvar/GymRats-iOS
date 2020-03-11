@@ -59,6 +59,8 @@
 		013D0247241941C90063F189 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013D0246241941C90063F189 /* UITableView+Extension.swift */; };
 		013D02492419454B0063F189 /* GymRats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013D02482419454B0063F189 /* GymRats.swift */; };
 		013D024B2419484A0063F189 /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013D024A2419484A0063F189 /* DrawerViewController.swift */; };
+		013D024D2419751C0063F189 /* DayWorkouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013D024C2419751C0063F189 /* DayWorkouts.swift */; };
+		013D0251241979B80063F189 /* ChallengeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013D0250241979B80063F189 /* ChallengeTabBarController.swift */; };
 		014A7657237764B6002CE366 /* GRFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014A7656237764B6002CE366 /* GRFormViewController.swift */; };
 		014B6772241882C000F356EB /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014B6770241882C000F356EB /* ChallengeViewController.swift */; };
 		014B6773241882C000F356EB /* ChallengeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 014B6771241882C000F356EB /* ChallengeViewController.xib */; };
@@ -261,6 +263,8 @@
 		013D0246241941C90063F189 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
 		013D02482419454B0063F189 /* GymRats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymRats.swift; sourceTree = "<group>"; };
 		013D024A2419484A0063F189 /* DrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
+		013D024C2419751C0063F189 /* DayWorkouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayWorkouts.swift; sourceTree = "<group>"; };
+		013D0250241979B80063F189 /* ChallengeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeTabBarController.swift; sourceTree = "<group>"; };
 		014A7656237764B6002CE366 /* GRFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRFormViewController.swift; sourceTree = "<group>"; };
 		014B6770241882C000F356EB /* ChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
 		014B6771241882C000F356EB /* ChallengeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeViewController.xib; sourceTree = "<group>"; };
@@ -735,6 +739,7 @@
 				01F5296224184A8500FA96E0 /* no-challenges */,
 				747D6FE12208ED550062BB39 /* welcome */,
 				747D6FBE2208DC790062BB39 /* app */,
+				013D0250241979B80063F189 /* ChallengeTabBarController.swift */,
 			);
 			path = feature;
 			sourceTree = "<group>";
@@ -796,6 +801,7 @@
 				01319ED624187876005E65D2 /* NewUser.swift */,
 				01319ED8241878EA005E65D2 /* UpdateChallenge.swift */,
 				01319EDA241879FD005E65D2 /* UpdateUser.swift */,
+				013D024C2419751C0063F189 /* DayWorkouts.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1192,6 +1198,7 @@
 				01BFF90E223DE26C0044F802 /* APS.swift in Sources */,
 				01A3EAEB2377471B0097FC2A /* BindableObserver.swift in Sources */,
 				747D6FD82208E8130062BB39 /* KeychainErrors.swift in Sources */,
+				013D024D2419751C0063F189 /* DayWorkouts.swift in Sources */,
 				01A3EB18237747D30097FC2A /* CVCalendarView.swift in Sources */,
 				01A3EB29237747D30097FC2A /* CVCalendarManager.swift in Sources */,
 				01A3EB22237747D30097FC2A /* CVCalendarMonthContentViewController.swift in Sources */,
@@ -1255,6 +1262,7 @@
 				01BFF8FC223D425C0044F802 /* CommentTableViewCell.swift in Sources */,
 				747D6FE32208ED660062BB39 /* WelcomeViewController.swift in Sources */,
 				01A3EB24237747D30097FC2A /* CVCalendarWeekView.swift in Sources */,
+				013D0251241979B80063F189 /* ChallengeTabBarController.swift in Sources */,
 				7432459D2214FAF800A13634 /* ChangeProfileViewController.swift in Sources */,
 				747D6FDE2208E85A0062BB39 /* User.swift in Sources */,
 				01BFF8F9223B30750044F802 /* Comment.swift in Sources */,

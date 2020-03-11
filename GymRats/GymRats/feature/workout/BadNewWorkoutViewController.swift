@@ -151,7 +151,7 @@ class BadNewWorkoutViewController: GRFormViewController {
             cell.textField.keyboardType = .numberPad
         }
 
-        let activeChallenges = GymRatsApp.coordinator.menu.activeChallenges
+        let activeChallenges = GymRatsApp.coordinator.menu.activeChallenges // TODO: don't do this
         let challengeSection = Section("Challenges")
         
         form +++ Section() {
@@ -270,30 +270,22 @@ class BadNewWorkoutViewController: GRFormViewController {
         let challenges = self.challenges
             .filter { $0.value.value }
             .map { $0.key }
-                
-//        gymRatsAPI.postWorkout (
-//            title: workoutTitle.value!,
-//            description: workoutDescription.value,
-//            photo: photo.value,
-//            googlePlaceId: place.value?.id,
-//            challenges: challenges,
-//            duration: duration.value.map { Int($0) } ?? nil,
-//            distance: distance.value,
-//            steps: steps.value.map { Int($0) } ?? nil,
-//            calories: calories.value.map { Int($0) } ?? nil,
-//            points: points.value.map { Int($0) } ?? nil
-//        ).subscribe(onNext: { [weak self] workouts in
-//            guard let self = self else { return }
-//            
-//            Track.event(.workoutLogged)
-//            self.hideLoadingBar()
-//            self.navigationController?.popViewController(animated: true)
-//            StoreService.requestReview()
-//            self.delegate?.newWorkoutController(self, created: workouts)
-//        }, onError: { [weak self] error in
-//            self?.presentAlert(with: error)
-//            self?.hideLoadingBar()
-//        }).disposed(by: disposeBag)
+      
+      let newWorkout = NewWorkout(title: workoutTitle.value!, description: workoutDescription.value, photoUrl: nil, googlePlaceId: nil, duration: nil, distance: nil, steps: nil, calories: nil, points: nil)
+      
+      gymRatsAPI.postWorkout(newWorkout, challenges: challenges)
+          .subscribe(onNext: { [weak self] workouts in
+            guard let self = self else { return }
+            
+            Track.event(.workoutLogged)
+            self.hideLoadingBar()
+            self.navigationController?.popViewController(animated: true)
+            StoreService.requestReview()
+            self.delegate?.newWorkoutController(self, created: [workouts.object!])
+        }, onError: { [weak self] error in
+            self?.presentAlert(with: error)
+            self?.hideLoadingBar()
+        }).disposed(by: disposeBag)
     }
     
 }

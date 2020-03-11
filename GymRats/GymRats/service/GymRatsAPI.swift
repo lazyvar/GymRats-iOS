@@ -67,7 +67,7 @@ class GymRatsAPI {
     return requestArray(.getWorkouts(forUser: user, inChallenge: challenge))
   }
 
-  func postWorkout(_ workout: NewWorkout, challenges: [Challenge]) -> Observable<NetworkResult<[Workout]>> {
+  func postWorkout(_ workout: NewWorkout, challenges: [Int]) -> Observable<NetworkResult<Workout>> {
     return requestObject(.postWorkout(workout, challenges: challenges))
   }
   

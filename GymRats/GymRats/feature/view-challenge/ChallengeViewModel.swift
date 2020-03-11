@@ -17,10 +17,11 @@ final class ChallengeViewModel: ViewModel {
   
   struct Input {
     let viewDidLoad = PublishSubject<Void>()
+    let refresh = PublishSubject<Void>()
   }
   
   struct Output {
-    let workouts = PublishSubject<Workout>()
+    let workouts = PublishSubject<[Workout]>()
     let error = PublishSubject<Error>()
     let pushScreen = PublishSubject<Screen>()
   }
@@ -33,11 +34,18 @@ final class ChallengeViewModel: ViewModel {
   }
   
   init() {
-    input.viewDidLoad
-      .flatMap { gymRatsAPI.getWorkouts(for: self.challenge) }
-      .debug()
-      .debug()
-      .debug()
-      .ignore(disposedBy: disposeBag)
+    let workouts = Observable.merge(input.viewDidLoad, input.refresh)
+      .flatMap { _ in gymRatsAPI.getWorkouts(for: self.challenge) }
+      .share()
+    
+    workouts
+      .compactMap { $0.error }
+      .bind(to: output.error)
+      .disposed(by: disposeBag)
+
+    workouts
+      .compactMap { $0.object }
+      .bind(to: output.workouts)
+      .disposed(by: disposeBag)
   }
 }

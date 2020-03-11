@@ -30,6 +30,7 @@ target 'GymRats' do
     pod 'Eureka'
     pod 'PanModal'
     pod 'RSKPlaceholderTextView'
+    pod 'RxDataSources', '~> 4.0'
 
      target 'GymRatsTests' do
         inherit! :search_paths

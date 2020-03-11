@@ -9,7 +9,6 @@
 import Foundation
 
 struct NewWorkout: Encodable {
-  let challengeId: Int?
   let title: String
   let description: String?
   let photoUrl: String?

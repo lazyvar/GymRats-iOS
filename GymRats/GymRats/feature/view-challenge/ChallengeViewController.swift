@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxDataSources
 
 class ChallengeViewController: BindableViewController {
   
@@ -38,9 +39,8 @@ class ChallengeViewController: BindableViewController {
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
       tableView.showsVerticalScrollIndicator = false
-      tableView.registerCellNibForClass(ChallengeBannerCell.self)
       tableView.registerCellNibForClass(WorkoutCell.self)
-
+      tableView.rx.setDelegate(self).disposed(by: disposeBag)
       tableView.addSubview(refresher)
     }
   }
@@ -61,8 +61,30 @@ class ChallengeViewController: BindableViewController {
   
   // MARK: View lifecycle
   
+  private let dataSource = RxTableViewSectionedReloadDataSource<DayWorkouts>(configureCell: WorkoutCell.configure)
+  
   override func bindViewModel() {
-    // ...
+    viewModel.output.workouts
+      .do(onNext: {  [weak self] _ in
+        self?.refresher.endRefreshing()
+      })
+      .map { [DayWorkouts(day: Date(), items: $0)] }
+      .bind(to: tableView.rx.items(dataSource: dataSource))
+      .disposed(by: disposeBag)
+    
+    viewModel.output.error
+      .do(onNext: {  [weak self] _ in
+        self?.refresher.endRefreshing()
+      })
+      .debug()
+      .flatMap { UIAlertController.present($0) }
+      .ignore(disposedBy: disposeBag)
+  
+    tableView.rx.itemSelected
+      .subscribe(onNext: { [weak self] indexPath in
+        self?.tableView.deselectRow(at: indexPath, animated: true)
+      })
+      .disposed(by: disposeBag)
   }
   
   override func viewDidLoad() {
@@ -90,17 +112,39 @@ class ChallengeViewController: BindableViewController {
   }
   
   @objc private func refreshValueChanged() {
-    
+    viewModel.input.refresh.trigger()
   }
 }
 
 // MARK: UITableViewDataSource & UITableViewDelegate
-extension ChallengeViewController: UITableViewDataSource, UITableViewDelegate {
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 0
+extension ChallengeViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let date = dataSource[section].day
+    let label = UILabel()
+    label.frame = CGRect(x: 15, y: 0, width: view.frame.width, height: 30)
+    label.backgroundColor = .clear
+    label.font = .proRoundedBold(size: 16)
+
+    if date.serverDateIsToday {
+      label.text = "Today"
+    } else if date.serverDateIsYesterday {
+      label.text = "Yesterday"
+    } else {
+      label.text = date.toFormat("EEEE, MMM d")
+    }
+    
+    let headerView = UIView()
+    headerView.addSubview(label)
+    headerView.backgroundColor = .clear
+    
+    return headerView
   }
   
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    return UITableViewCell()
+  func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    return .leastNormalMagnitude
+  }
+  
+  func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    return UIView()
   }
 }

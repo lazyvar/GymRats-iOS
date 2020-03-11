@@ -9,12 +9,12 @@
 import Foundation
 
 struct ServiceResponse<T: Decodable>: Decodable {
-    enum Status: String, Decodable {
-        case success
-        case failure
-    }
-    
-    let status: Status
-    let data: T?
-    let error: String?
+  let status: Status
+  let data: T?
+  let error: String?
+
+  enum Status: String, Decodable {
+    case success
+    case failure
+  }
 }

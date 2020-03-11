@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxDataSources
+import Kingfisher
 
 class WorkoutCell: UITableViewCell {
   @IBOutlet weak var detailsLabel: UILabel!
@@ -46,9 +48,30 @@ class WorkoutCell: UITableViewCell {
   override func prepareForReuse() {
     super.prepareForReuse()
     
+    descriptionLabel.text = nil
+    userImageView.imageView.image = nil
+    timeLabel.text = nil
+    titleLabel.text = nil
+    detailsLabel.text = nil
     workoutImageView.image = nil
     workoutImageView.kf.cancelDownloadTask()
     shadowView.startSkeletonAnimation()
     shadowView.showSkeleton()
+  }
+
+  static func configure(
+    dataSource: TableViewSectionedDataSource<DayWorkouts>,
+    tableView: UITableView,
+    indexPath: IndexPath,
+    workout: Workout
+  ) -> UITableViewCell {
+    return tableView.dequeueReusableCell(withType: WorkoutCell.self, for: indexPath).apply {
+      $0.descriptionLabel.text = workout.description
+      $0.workoutImageView.kf.setImage(with: URL(string: workout.photoUrl ?? ""), options: [.transition(.fade(0.2))])
+      $0.titleLabel.text = workout.title
+      $0.detailsLabel.text = workout.account.fullName
+      $0.userImageView.load(avatarInfo: workout.account)
+      $0.timeLabel.text = "\(workout.createdAt.challengeTime)"
+    }
   }
 }

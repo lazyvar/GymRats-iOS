@@ -24,7 +24,7 @@ enum APIRequest {
   case getWorkoutsForChallenge(challenge: Challenge)
   case getAllWorkoutsForUser(user: User)
   case getWorkouts(forUser: User, inChallenge: Challenge)
-  case postWorkout(_ workout: NewWorkout, challenges: [Challenge])
+  case postWorkout(_ workout: NewWorkout, challenges: [Int])
   case updateUser(_ user: UpdateUser)
   case deleteWorkout(_ workout: Workout)
   case getCommentsForWorkout(_ workout: Workout)
@@ -98,7 +98,7 @@ enum APIRequest {
     case .postWorkout(let workout, let challenges):
       var params: Parameters = [
         "title": workout.title,
-        "challenges": challenges.map { $0.id }
+        "challenges": challenges,
       ]
       
       if let description = workout.description {
