@@ -114,9 +114,11 @@ days left</string>
                             <constraint firstItem="PYE-vo-RpP" firstAttribute="leading" secondItem="d6N-Vd-grd" secondAttribute="leading" id="GXb-Ta-igU"/>
                             <constraint firstItem="PYE-vo-RpP" firstAttribute="top" secondItem="d6N-Vd-grd" secondAttribute="top" id="GdQ-bg-E4A"/>
                             <constraint firstAttribute="bottom" secondItem="KXn-vf-IKq" secondAttribute="bottom" constant="15" id="T6Q-Ol-0eh"/>
+                            <constraint firstItem="KXn-vf-IKq" firstAttribute="top" secondItem="PYE-vo-RpP" secondAttribute="bottom" constant="15" id="UJp-tE-BDW"/>
                             <constraint firstItem="KXn-vf-IKq" firstAttribute="top" secondItem="PYE-vo-RpP" secondAttribute="bottom" constant="15" id="XgL-6J-Foh"/>
                             <constraint firstAttribute="trailing" secondItem="PYE-vo-RpP" secondAttribute="trailing" id="o2s-p6-lyV"/>
                             <constraint firstItem="KXn-vf-IKq" firstAttribute="centerX" secondItem="d6N-Vd-grd" secondAttribute="centerX" constant="9" id="oKd-V7-6Hc"/>
+                            <constraint firstAttribute="bottom" secondItem="KXn-vf-IKq" secondAttribute="bottom" constant="15" id="vob-77-4lL"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BoT-qf-wEn">
@@ -127,22 +129,28 @@ days left</string>
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="BoT-qf-wEn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="0qq-77-Xxh"/>
                     <constraint firstItem="BoT-qf-wEn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="5xn-gQ-eH8"/>
                     <constraint firstItem="BoT-qf-wEn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="8XX-Uf-pfD"/>
+                    <constraint firstAttribute="bottom" secondItem="d6N-Vd-grd" secondAttribute="bottom" constant="9" id="CWJ-y2-wAR"/>
                     <constraint firstItem="d6N-Vd-grd" firstAttribute="top" secondItem="BoT-qf-wEn" secondAttribute="bottom" constant="9" id="GuA-qW-AXJ"/>
                     <constraint firstAttribute="trailing" secondItem="BoT-qf-wEn" secondAttribute="trailing" constant="15" id="I2S-my-PaD"/>
+                    <constraint firstAttribute="trailing" secondItem="BoT-qf-wEn" secondAttribute="trailing" constant="15" id="KPh-yS-BIH"/>
                     <constraint firstItem="d6N-Vd-grd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="LEA-zY-bqb"/>
+                    <constraint firstItem="d6N-Vd-grd" firstAttribute="top" secondItem="BoT-qf-wEn" secondAttribute="bottom" constant="9" id="Lck-40-JfV"/>
                     <constraint firstAttribute="bottomMargin" secondItem="d6N-Vd-grd" secondAttribute="bottom" constant="-2" id="Onk-5a-bB1"/>
+                    <constraint firstAttribute="trailing" secondItem="d6N-Vd-grd" secondAttribute="trailing" constant="20" id="Rcj-fk-MIR"/>
                     <constraint firstAttribute="trailingMargin" secondItem="d6N-Vd-grd" secondAttribute="trailing" id="cvD-ay-bKB"/>
+                    <constraint firstItem="d6N-Vd-grd" firstAttribute="top" secondItem="BoT-qf-wEn" secondAttribute="bottom" constant="9" id="d8M-ib-5li"/>
+                    <constraint firstItem="BoT-qf-wEn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="h4J-Ux-cdu"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="activityLabel" destination="Tdi-91-COX" id="0LK-Q8-A2s"/>
-                <outlet property="bannerImageView" destination="PYE-vo-RpP" id="ckZ-QY-Rrn"/>
+                <outlet property="bannerImageView" destination="PYE-vo-RpP" id="VX2-Ah-IPe"/>
                 <outlet property="bg" destination="d6N-Vd-grd" id="SaJ-XF-CBl"/>
-                <outlet property="calLabel" destination="4bk-Xq-9Zy" id="3pi-kQ-bfG"/>
                 <outlet property="calendarLabel" destination="4bk-Xq-9Zy" id="q5W-fD-ruY"/>
                 <outlet property="calendarStackView" destination="eFP-HO-iSE" id="ThY-Dz-4ba"/>
                 <outlet property="membersLabel" destination="0X2-X3-Le7" id="P8Y-hz-a3L"/>

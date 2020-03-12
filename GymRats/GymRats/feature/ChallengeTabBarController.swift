@@ -14,10 +14,12 @@ class ChallengeTabBarController: ESTabBarController {
   // MARK: Init
 
   private let challenge: Challenge
+  private let challengeViewController: ChallengeViewController
   private let generator = UIImpactFeedbackGenerator(style: .heavy)
-  
+
   init(challenge: Challenge) {
     self.challenge = challenge
+    self.challengeViewController = ChallengeViewController(challenge: challenge)
     
     super.init(nibName: nil, bundle: nil)
   }
@@ -33,7 +35,7 @@ class ChallengeTabBarController: ESTabBarController {
       UIViewController().apply {
         $0.tabBarItem = UITabBarItem(title: nil, image: .standings, selectedImage: .standings)
       },
-      ChallengeViewController(challenge: challenge).inNav().apply {
+      challengeViewController.inNav().apply {
         $0.tabBarItem = ESTabBarItem(BigContentView(), title: nil, image: .activityLargeWhite, selectedImage: .activityLargeWhite)
       },
       UIViewController().apply {
@@ -43,9 +45,9 @@ class ChallengeTabBarController: ESTabBarController {
     ]
     
     configureTabBar()
+    selectedIndex = 1
     didHijackHandler = hijack
     shouldHijackHandler = { _, _, _ in return true }
-    selectedIndex = 1
   }
 }
 
@@ -61,7 +63,7 @@ private extension ChallengeTabBarController {
   }
   
   private func pushStats() {
-    push(
+    challengeViewController.push(
       ChallengeStatsViewController(challenge: challenge, users: [], workouts: [])
     )
   }
@@ -77,11 +79,11 @@ private extension ChallengeTabBarController {
       self.present(createWorkoutViewController.inNav(), animated: true, completion: nil)
     }
     
-    presentPanModal(logWorkoutModal)
+    challengeViewController.presentPanModal(logWorkoutModal)
   }
   
   private func pushChat() {
-    push(
+    challengeViewController.push(
       ChatViewController(challenge: challenge)
     )
   }

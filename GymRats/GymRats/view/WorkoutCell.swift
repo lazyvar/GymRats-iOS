@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RxDataSources
 import Kingfisher
 
 class WorkoutCell: UITableViewCell {
@@ -59,12 +58,7 @@ class WorkoutCell: UITableViewCell {
     shadowView.showSkeleton()
   }
 
-  static func configure(
-    dataSource: TableViewSectionedDataSource<DayWorkouts>,
-    tableView: UITableView,
-    indexPath: IndexPath,
-    workout: Workout
-  ) -> UITableViewCell {
+  static func configure(tableView: UITableView, indexPath: IndexPath, workout: Workout) -> UITableViewCell {
     return tableView.dequeueReusableCell(withType: WorkoutCell.self, for: indexPath).apply {
       $0.descriptionLabel.text = workout.description
       $0.workoutImageView.kf.setImage(with: URL(string: workout.photoUrl ?? ""), options: [.transition(.fade(0.2))])

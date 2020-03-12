@@ -27,7 +27,9 @@ enum Track {
   }
     
   static func event(_ event: Event, parameters: JSON? = nil) {
+    #if RELEASE
     Analytics.logEvent(event.rawValue, parameters: parameters)
+    #endif
   }
     
   static func currentUser() {

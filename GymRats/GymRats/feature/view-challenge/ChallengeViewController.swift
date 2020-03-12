@@ -11,6 +11,13 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
+enum ChallengeRow {
+  case banner(Challenge)
+  case workout(Workout)
+}
+
+typealias ChallengeSection = SectionModel<Date?, ChallengeRow>
+
 class ChallengeViewController: BindableViewController {
   
   // MARK: Init
@@ -35,18 +42,14 @@ class ChallengeViewController: BindableViewController {
   private lazy var refresher = UIRefreshControl().apply {
     $0.addTarget(self, action: #selector(refreshValueChanged), for: .valueChanged)
   }
-  
-  private lazy var challengeBannerView = ChallengeBannerView().apply {
-    self.configureHeader($0)
-  }
-  
+
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
       tableView.showsVerticalScrollIndicator = false
       tableView.registerCellNibForClass(WorkoutCell.self)
+      tableView.registerCellNibForClass(ChallengeBannerCell.self)
       tableView.rx.setDelegate(self).disposed(by: disposeBag)
       tableView.addSubview(refresher)
-      tableView.tableHeaderView = challengeBannerView
     }
   }
 
@@ -66,19 +69,29 @@ class ChallengeViewController: BindableViewController {
   
   // MARK: View lifecycle
   
-  private let dataSource = RxTableViewSectionedReloadDataSource<DayWorkouts>(configureCell: WorkoutCell.configure)
+  private let dataSource = RxTableViewSectionedReloadDataSource<ChallengeSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
+    switch row {
+    case .banner(let challenge):
+      return ChallengeBannerCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge)
+    case .workout(let workout):
+      return WorkoutCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
+    }
+  })
   
   override func bindViewModel() {
     viewModel.output.workouts
-      .do(onNext: {  [weak self] _ in
+      .do(onNext: { [weak self] _ in
         self?.refresher.endRefreshing()
       })
-      .map { [DayWorkouts(day: Date(), items: $0)] }
+      .map { workouts -> [ChallengeRow] in
+        return [.banner(self.challenge)] + workouts.map { ChallengeRow.workout($0) }
+      }
+      .map { [ChallengeSection(model: Date(), items: $0)] }
       .bind(to: tableView.rx.items(dataSource: dataSource))
       .disposed(by: disposeBag)
     
     viewModel.output.error
-      .do(onNext: {  [weak self] _ in
+      .do(onNext: { [weak self] _ in
         self?.refresher.endRefreshing()
       })
       .debug()
@@ -159,53 +172,13 @@ class ChallengeViewController: BindableViewController {
       
     present(alert, animated: true, completion: nil)
   }
-  
-  private func configureHeader(_ header: ChallengeBannerView) {
-    let skeletonView = UIView()
-    skeletonView.isSkeletonable = true
-    skeletonView.showAnimatedSkeleton()
-    skeletonView.showSkeleton()
-    
-    header.titleLabel.text = challenge.name
-    
-    if let pictureUrl = challenge.pictureUrl {
-      header.bannerImageView.kf.setImage(with: URL(string: pictureUrl)!, placeholder: skeletonView, options: [.transition(.fade(0.2))])
-      header.pictureHeight.constant = 150
-    } else {
-      header.pictureHeight.constant = 0
-    }
-    
-    // TODO: fetch members and workouts
-//    if users.count == 0 {
-//        cell.usersLabel.text = "-\nmembers"
-//    } else if users.count == 1 {
-//        cell.usersLabel.text = "Solo\nchallenge"
-//    } else {
-//        cell.usersLabel.text = "\(users.count)\nmembers"
-//    }
-    
-//    if workouts.count == 0 {
-//        header.activityLabel.text = "-\nworkouts"
-//    } else if workouts.count == 1 {
-//        header.activityLabel.text = "1\nworkout"
-//    } else {
-//        header.activityLabel.text = "\(workouts.count)\nworkouts"
-//    }
-
-    let daysLeft = challenge.daysLeft.split(separator: " ")
-    let new = daysLeft[0]
-    let left = daysLeft[daysLeft.startIndex+1..<daysLeft.endIndex]
-    let left2 = left.joined(separator: " ")
-    let ok = new + "\n" + left2
-    
-    header.calendarLabel.text = ok
-  }
 }
 
 // MARK: UITableViewDataSource & UITableViewDelegate
 extension ChallengeViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    let date = dataSource[section].day
+    guard let date = dataSource[section].model else { return nil }
+    
     let label = UILabel()
     label.frame = CGRect(x: 15, y: 0, width: view.frame.width, height: 30)
     label.backgroundColor = .clear

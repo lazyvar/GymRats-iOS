@@ -20,7 +20,7 @@ final class HomeViewModel: ViewModel {
   
   struct Output {
     let error = PublishSubject<Error>()
-    let installScreen = PublishSubject<Screen>()
+    let replaceCenter = PublishSubject<Screen>()
   }
   
   let input = Input()
@@ -53,7 +53,7 @@ final class HomeViewModel: ViewModel {
           GymRatsApp.coordinator.coldStartNotification = nil
         }
       })
-      .bind(to: output.installScreen)
+      .bind(to: output.replaceCenter)
       .disposed(by: disposeBag)
   }
 }

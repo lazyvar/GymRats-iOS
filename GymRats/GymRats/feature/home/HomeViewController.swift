@@ -27,9 +27,9 @@ class HomeViewController: BindableViewController {
       .flatMap { UIAlertController.present($0) }
       .ignore(disposedBy: disposeBag)
     
-    viewModel.output.installScreen
+    viewModel.output.replaceCenter
       .next { [weak self] screen in
-        self?.install(screen.viewController)
+        self?.mm_drawerController.setCenterView(screen.viewController, withFullCloseAnimation: false, completion: nil)
       }
       .disposed(by: disposeBag)
   }
