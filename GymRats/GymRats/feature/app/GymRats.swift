@@ -58,7 +58,7 @@ enum GymRats {
     
     GMSPlacesClient.provideAPIKey("AIzaSyD1X4TH-TneFnDqjiJ2rb2FGgxK8JZyrIo")
     
-    #if RELEASE
+    #if DEBUG
     FirebaseApp.configure()
     #endif
   }

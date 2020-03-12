@@ -6,12 +6,12 @@
 //  Copyright © 2020 Mack Hasz. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-struct NewWorkout: Encodable {
+struct NewWorkout {
   let title: String
   let description: String?
-  let photoUrl: String?
+  let photo: UIImage?
   let googlePlaceId: String?
   let duration: Int?
   let distance: String?

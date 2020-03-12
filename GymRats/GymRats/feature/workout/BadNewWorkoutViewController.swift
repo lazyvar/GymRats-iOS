@@ -259,35 +259,46 @@ class BadNewWorkoutViewController: GRFormViewController {
     }
     
     @objc func postWorkout() {
-        
-        if (title.value ?? "").isEmpty {
-            presentAlert(title: "Uh-oh", message: "A title is required.")
-            return
-        }
+      guard (title.value ?? "").isNotEmpty else { presentAlert(title: "Uh-oh", message: "A title is required."); return }
 
-        showLoadingBar(disallowUserInteraction: true)
+      showLoadingBar(disallowUserInteraction: true)
         
-        let challenges = self.challenges
-            .filter { $0.value.value }
-            .map { $0.key }
+      let challenges = self.challenges
+          .filter { $0.value.value }
+          .map { $0.key }
       
-      let newWorkout = NewWorkout(title: workoutTitle.value!, description: workoutDescription.value, photoUrl: nil, googlePlaceId: nil, duration: nil, distance: nil, steps: nil, calories: nil, points: nil)
+      let newWorkout = NewWorkout(
+        title: workoutTitle.value!,
+        description: workoutDescription.value,
+        photo: photo.value,
+        googlePlaceId: place.value?.id,
+        duration: duration.value.map { Int($0) } ?? nil,
+        distance: distance.value,
+        steps: steps.value.map { Int($0) } ?? nil,
+        calories: calories.value.map { Int($0) } ?? nil,
+        points: points.value.map { Int($0) } ?? nil
+      )
       
       gymRatsAPI.postWorkout(newWorkout, challenges: challenges)
-          .subscribe(onNext: { [weak self] workouts in
-            guard let self = self else { return }
-            
-            Track.event(.workoutLogged)
-            self.hideLoadingBar()
-            self.navigationController?.popViewController(animated: true)
-            StoreService.requestReview()
+        .subscribe(onNext: { [weak self] workouts in
+          guard let self = self else { return }
+          
+          Track.event(.workoutLogged)
+          self.hideLoadingBar()
+          self.navigationController?.popViewController(animated: true)
+          StoreService.requestReview()
+          
+          if let error = workouts.error {
+            print(error)
+            self.delegate?.newWorkoutController(self, created: [])
+          } else {
             self.delegate?.newWorkoutController(self, created: [workouts.object!])
+          }
         }, onError: { [weak self] error in
-            self?.presentAlert(with: error)
-            self?.hideLoadingBar()
+          self?.presentAlert(with: error)
+          self?.hideLoadingBar()
         }).disposed(by: disposeBag)
     }
-    
 }
 
 extension BadNewWorkoutViewController: CLLocationManagerDelegate {

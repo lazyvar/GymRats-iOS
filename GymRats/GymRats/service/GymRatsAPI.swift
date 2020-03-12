@@ -20,12 +20,19 @@ class GymRatsAPI {
   }
 
   func login(email: String, password: String) -> Observable<NetworkResult<Account>> {
-    fatalError()
+    return requestObject(.login(email: email, password: password))
   }
   
   func signUp(email: String, password: String, profilePicture: UIImage?, fullName: String) -> Observable<NetworkResult<Account>> {
-    // TODO: Image upload
-    return requestObject(.signup(email: email, password: password, profilePictureUrl: nil, fullName: fullName))
+    return Observable<UIImage?>.just(profilePicture)
+      .flatMap { image -> Observable<String?> in
+        guard let image = image else { return .just(nil) }
+      
+        return ImageService.uploadImageToFirebase(image: image).map { url -> String? in url }
+      }
+      .flatMap { url in
+        return self.requestObject(.signup(email: email, password: password, profilePictureUrl: url, fullName: fullName))
+      }
   }
   
   func resetPassword(email: String) -> Observable<NetworkResult<EmptyJSON>> {
@@ -41,12 +48,27 @@ class GymRatsAPI {
   }
   
   func createChallenge(startDate: Date, endDate: Date, challengeName: String, photo: UIImage?) -> Observable<NetworkResult<Challenge>> {
-    // TODO: Image upload
-    return requestObject(.createChallenge(startDate: startDate, endDate: endDate, challengeName: challengeName, photoUrl: nil))
+    return Observable<UIImage?>.just(photo)
+      .flatMap { image -> Observable<String?> in
+        guard let image = image else { return .just(nil) }
+      
+        return ImageService.uploadImageToFirebase(image: image).map { url -> String? in url }
+      }
+      .flatMap { url in
+        return self.requestObject(.createChallenge(startDate: startDate, endDate: endDate, challengeName: challengeName, photoUrl: url))
+      }
   }
 
-  func editChallenge() -> Observable<Challenge> {
-    fatalError()
+  func updateChallenge(id: Int, startDate: Date, endDate: Date, challengeName: String, photo: UIImage?) -> Observable<NetworkResult<Challenge>> {
+    return Observable<UIImage?>.just(photo)
+      .flatMap { image -> Observable<String?> in
+        guard let image = image else { return .just(nil) }
+      
+        return ImageService.uploadImageToFirebase(image: image).map { url -> String? in url }
+      }
+      .flatMap { url in
+        return self.requestObject(.editChallenge(UpdateChallenge(id: id, name: challengeName, profilePictureUrl: url, startDate: startDate, endDate: endDate)))
+      }
   }
 
   func getUsers(for challenge:  Challenge) -> Observable<NetworkResult<[Account]>> {
@@ -70,7 +92,15 @@ class GymRatsAPI {
   }
 
   func postWorkout(_ workout: NewWorkout, challenges: [Int]) -> Observable<NetworkResult<Workout>> {
-    return requestObject(.postWorkout(workout, challenges: challenges))
+    return Observable<UIImage?>.just(workout.photo)
+      .flatMap { image -> Observable<String?> in
+        guard let image = image else { return .just(nil) }
+      
+        return ImageService.uploadImageToFirebase(image: image).map { url -> String? in url }
+      }
+      .flatMap { url in
+        return self.requestObject(.postWorkout(workout, photoURL: url, challenges: challenges))
+      }
   }
   
   func getMembers(for challenge: Challenge) -> Observable<NetworkResult<[Account]>> {

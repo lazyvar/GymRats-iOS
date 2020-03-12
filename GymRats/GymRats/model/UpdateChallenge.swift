@@ -11,7 +11,6 @@ import Foundation
 struct UpdateChallenge: Codable {
   let id: Int
   let name: String
-  let code: String?
   let profilePictureUrl: String?
   let startDate: Date
   let endDate: Date
