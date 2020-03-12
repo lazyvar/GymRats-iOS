@@ -10,6 +10,8 @@ import Foundation
 import RxSwift
 import Alamofire
 
+let gymRatsAPI = GymRatsAPI()
+
 class GymRatsAPI {
   private let networkProvider: NetworkProvider
   
@@ -17,11 +19,11 @@ class GymRatsAPI {
     self.networkProvider = networkProvider
   }
 
-  func login(email: String, password: String) -> Observable<NetworkResult<User>> {
+  func login(email: String, password: String) -> Observable<NetworkResult<Account>> {
     fatalError()
   }
   
-  func signUp(email: String, password: String, profilePicture: UIImage?, fullName: String) -> Observable<NetworkResult<User>> {
+  func signUp(email: String, password: String, profilePicture: UIImage?, fullName: String) -> Observable<NetworkResult<Account>> {
     // TODO: Image upload
     return requestObject(.signup(email: email, password: password, profilePictureUrl: nil, fullName: fullName))
   }
@@ -47,7 +49,7 @@ class GymRatsAPI {
     fatalError()
   }
 
-  func getUsers(for challenge:  Challenge) -> Observable<NetworkResult<[User]>> {
+  func getUsers(for challenge:  Challenge) -> Observable<NetworkResult<[Account]>> {
     return requestArray(.getUsersForChallenge(challenge: challenge))
   }
   
@@ -59,11 +61,11 @@ class GymRatsAPI {
     return requestArray(.getWorkoutsForChallenge(challenge: challenge))
   }
   
-  func getAllWorkouts(for user: User) -> Observable<NetworkResult<[Workout]>> {
+  func getAllWorkouts(for user: Account) -> Observable<NetworkResult<[Workout]>> {
     return requestArray(.getAllWorkoutsForUser(user: user))
   }
 
-  func getWorkouts(for user: User, in challenge: Challenge) -> Observable<NetworkResult<[Workout]>> {
+  func getWorkouts(for user: Account, in challenge: Challenge) -> Observable<NetworkResult<[Workout]>> {
     return requestArray(.getWorkouts(forUser: user, inChallenge: challenge))
   }
 
@@ -71,7 +73,11 @@ class GymRatsAPI {
     return requestObject(.postWorkout(workout, challenges: challenges))
   }
   
-  func updateUser(_ user: UpdateUser) -> Observable<NetworkResult<User>> {
+  func getMembers(for challenge: Challenge) -> Observable<NetworkResult<[Account]>> {
+    return requestArray(.getMembersForChallenge(challenge))
+  }
+  
+  func updateUser(_ user: UpdateUser) -> Observable<NetworkResult<Account>> {
     return requestObject(.updateUser(user))
   }
   

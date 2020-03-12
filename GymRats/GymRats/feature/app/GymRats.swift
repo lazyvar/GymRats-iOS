@@ -15,7 +15,7 @@ import Firebase
 /// God object. Handles AppDelegate functions among other things.
 enum GymRats {
   /// Global reference to the logged in user.
-  static var currentAccount: User!
+  static var currentAccount: Account!
   
   static private var window: UIWindow!
   static private var application: UIApplication!
@@ -31,7 +31,7 @@ enum GymRats {
   /// Called at the very start of the application.
   static func start(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
     coldStartNotification = launchOptions?[.remoteNotification] as? [AnyHashable: Any]
-    currentAccount = User.loadCurrent()
+    currentAccount = Account.loadCurrent()
     
     UINavigationBar.appearance().barTintColor = .primaryText
     UINavigationBar.appearance().tintColor = .background
@@ -64,9 +64,9 @@ enum GymRats {
   }
   
   /// Sets the current account and shows the home screen.
-  static func login(_ user: User) {
+  static func login(_ user: Account) {
     currentAccount = user
-    User.saveCurrent(user)
+    Account.saveCurrent(user)
     window.rootViewController = DrawerViewController()
     Track.currentUser()
   }

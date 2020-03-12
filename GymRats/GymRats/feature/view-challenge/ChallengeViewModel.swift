@@ -21,7 +21,8 @@ final class ChallengeViewModel: ViewModel {
   }
   
   struct Output {
-    let workouts = PublishSubject<[Workout]>()
+    let spin = PublishSubject<Bool>()
+    let sections = PublishSubject<[ChallengeSection]>()
     let error = PublishSubject<Error>()
     let pushScreen = PublishSubject<Screen>()
   }
@@ -34,18 +35,42 @@ final class ChallengeViewModel: ViewModel {
   }
   
   init() {
-    let workouts = Observable.merge(input.viewDidLoad, input.refresh)
-      .flatMap { _ in gymRatsAPI.getWorkouts(for: self.challenge) }
+    let memberWorkouts = Observable.merge(input.viewDidLoad, input.refresh)
+      .flatMap { _ in
+        Observable.combineLatest(
+          gymRatsAPI.getMembers(for: self.challenge),
+          gymRatsAPI.getWorkouts(for: self.challenge)
+        )
+      }
       .share()
     
-    workouts
-      .compactMap { $0.error }
+    input.viewDidLoad.map { _ in true }
+      .bind(to: output.spin)
+      .disposed(by: disposeBag)
+
+    memberWorkouts.map { _ in false }
+      .bind(to: output.spin)
+      .disposed(by: disposeBag)
+    
+    memberWorkouts
+      .compactMap { $0.0.error ?? $0.1.error }
       .bind(to: output.error)
       .disposed(by: disposeBag)
 
-    workouts
-      .compactMap { $0.object }
-      .bind(to: output.workouts)
+    memberWorkouts
+      .map { members, workouts -> [ChallengeSection] in
+        let workouts = workouts.object ?? []
+        let members = members.object ?? []
+        let banner = ChallengeSection(model: nil, items: [.banner(self.challenge, members, workouts)])
+        let workoutSections = self.challenge
+          .bucket(workouts)
+          .map { date, workouts in
+            ChallengeSection(model: date, items: workouts.map { ChallengeRow.workout($0) })
+          }
+
+        return [banner] + workoutSections
+      }
+      .bind(to: output.sections)
       .disposed(by: disposeBag)
   }
 }

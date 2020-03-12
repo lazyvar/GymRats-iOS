@@ -85,7 +85,7 @@ class WorkoutHeaderView: UIView {
         case points
     }
     
-    func configure(user: User, workout: Workout, challenge: Challenge?, width: CGFloat) {
+    func configure(user: Account, workout: Workout, challenge: Challenge?, width: CGFloat) {
         constrainWidth(width)
         
         userImageView.load(avatarInfo: user)

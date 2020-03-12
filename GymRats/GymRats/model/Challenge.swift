@@ -39,6 +39,14 @@ extension Challenge {
             return workouts.workoutsExist(on: date)
         })
     }
+  
+  func bucket(_ workouts: [Workout]) -> [(Date, [Workout])] {
+    return days.reversed().compactMap({ day -> (Date, [Workout])? in
+      let workouts = workouts.workouts(on: day)
+      
+      return workouts.isNotEmpty ? (day, workouts) : nil
+    })
+  }
 
     var daysLeft: String {
         let difference = Date().localDateIsDaysApartFromUTCDate(endDate)

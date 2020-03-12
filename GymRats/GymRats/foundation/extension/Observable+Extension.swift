@@ -129,6 +129,7 @@ extension JSONDecoder {
   static let gymRatsAPIDecoder: JSONDecoder = {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+    dateFormatter.timeZone = .utc
     
     let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = .formatted(dateFormatter)

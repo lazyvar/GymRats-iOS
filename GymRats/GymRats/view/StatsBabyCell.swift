@@ -36,7 +36,7 @@ class StatsBabyCell: UITableViewCell {
         selectionStyle = .none
     }
     
-    func wow(_ challenge: Challenge, _ workouts: [Workout], _ users: [User]) {
+    func wow(_ challenge: Challenge, _ workouts: [Workout], _ users: [Account]) {
         guard !users.isEmpty else { return }
         
         let days = challenge.days
@@ -60,12 +60,12 @@ class StatsBabyCell: UITableViewCell {
             
             var daysAllPeepsTwerked = 0
             var daysNoPeepsTwerked = 0
-            var userLookup = [Int: User]()
-            var userToWorkouts = [User: [Workout]]()
-            var userToMostWorkoutsInDay = [User: Int]()
-            var userToDaysRelaxed = [User: Int]()
-            var userToLongestStreak = [User: Int]()
-            var userToCurrentStreak = [User: Int]()
+            var userLookup = [Int: Account]()
+            var userToWorkouts = [Account: [Workout]]()
+            var userToMostWorkoutsInDay = [Account: Int]()
+            var userToDaysRelaxed = [Account: Int]()
+            var userToLongestStreak = [Account: Int]()
+            var userToCurrentStreak = [Account: Int]()
             
             for user in users {
                 userToWorkouts[user] = []
@@ -85,7 +85,7 @@ class StatsBabyCell: UITableViewCell {
                     daysAllPeepsTwerked += 1
                 }
                 
-                var workoutsForTheDay = [User: Int]()
+                var workoutsForTheDay = [Account: Int]()
                 for user in users {
                     workoutsForTheDay[user] = 0
                 }
@@ -125,7 +125,7 @@ class StatsBabyCell: UITableViewCell {
                 }
             }
 
-            let usersToNumberOfWorkoutsPre9am: [User: Int] = users.reduce([:]) { hash, user -> [User: Int] in
+            let usersToNumberOfWorkoutsPre9am: [Account: Int] = users.reduce([:]) { hash, user -> [Account: Int] in
                 let workouts = userToWorkouts[user]!
                 let timeDiff = CGFloat(TimeZone.current.secondsFromGMT()) / CGFloat(3600)
                 let datesBefore9amLocalTime = workouts.filter { workout -> Bool in

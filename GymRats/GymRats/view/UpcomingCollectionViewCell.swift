@@ -13,7 +13,7 @@ class UpcomingCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var userImageView: UserImageView!
     @IBOutlet weak var someText: UILabel!
     
-    var user: User! {
+    var user: Account! {
         didSet {
             self.someText.text = user.fullName
             self.userImageView.skeletonLoad(avatarInfo: user)

@@ -10,7 +10,7 @@ import Foundation
 
 struct Workout: Codable, Hashable {
   let id: Int
-  let account: User
+  let account: Account
   let challengeId: Int
   let title: String
   let description: String?

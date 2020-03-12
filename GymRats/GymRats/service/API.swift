@@ -11,8 +11,6 @@ import Alamofire
 import RxSwift
 import RxAlamofire
 
-let gymRatsAPI = GymRatsAPI()
-
 enum APIRequest {
   case login(email: String, password: String)
   case signup(email: String, password: String, profilePictureUrl: String?, fullName: String)
@@ -22,8 +20,8 @@ enum APIRequest {
   case createChallenge(startDate: Date, endDate: Date, challengeName: String, photoUrl: String?)
   case getUsersForChallenge(challenge: Challenge)
   case getWorkoutsForChallenge(challenge: Challenge)
-  case getAllWorkoutsForUser(user: User)
-  case getWorkouts(forUser: User, inChallenge: Challenge)
+  case getAllWorkoutsForUser(user: Account)
+  case getWorkouts(forUser: Account, inChallenge: Challenge)
   case postWorkout(_ workout: NewWorkout, challenges: [Int])
   case updateUser(_ user: UpdateUser)
   case deleteWorkout(_ workout: Workout)
@@ -37,6 +35,7 @@ enum APIRequest {
   case leaveChallenge(_ challenge: Challenge)
   case editChallenge(_ challenge: UpdateChallenge)
   case deleteComment(id: Int)
+  case getMembersForChallenge(_ challenge: Challenge)
   
   var requestProperties: (method: HTTPMethod, path: String, params: Parameters?) {
     switch self {
@@ -95,6 +94,8 @@ enum APIRequest {
       return (.get, "workout/user/\(user.id)", nil)
     case .getWorkouts(forUser: let user, inChallenge: let challenge):
       return (.get, "challenges/\(challenge.id)/members/\(user.id)/workouts", nil)
+    case .getMembersForChallenge(let challenge):
+      return (.get, "/challenges/\(challenge.id)/members", nil)
     case .postWorkout(let workout, let challenges):
       var params: Parameters = [
         "title": workout.title,

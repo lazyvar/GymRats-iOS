@@ -13,5 +13,5 @@ struct Comment: Codable {
     let workoutId: Int
     let content: String
     let createdAt: Date
-    let gymRatsUser: User
+    let gymRatsUser: Account
 }

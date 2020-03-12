@@ -12,7 +12,7 @@ import RxCocoa
 import RxDataSources
 
 enum ChallengeRow {
-  case banner(Challenge)
+  case banner(Challenge, [Account], [Workout])
   case workout(Workout)
 }
 
@@ -69,24 +69,22 @@ class ChallengeViewController: BindableViewController {
   
   // MARK: View lifecycle
   
+  private let members = BehaviorSubject<[Account]>(value: [])
+  
   private let dataSource = RxTableViewSectionedReloadDataSource<ChallengeSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
     switch row {
-    case .banner(let challenge):
-      return ChallengeBannerCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge)
+    case .banner(let challenge, let members, let workouts):
+      return ChallengeBannerCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge, members: members, workouts: workouts)
     case .workout(let workout):
       return WorkoutCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
     }
   })
   
   override func bindViewModel() {
-    viewModel.output.workouts
+    viewModel.output.sections
       .do(onNext: { [weak self] _ in
         self?.refresher.endRefreshing()
       })
-      .map { workouts -> [ChallengeRow] in
-        return [.banner(self.challenge)] + workouts.map { ChallengeRow.workout($0) }
-      }
-      .map { [ChallengeSection(model: Date(), items: $0)] }
       .bind(to: tableView.rx.items(dataSource: dataSource))
       .disposed(by: disposeBag)
     
@@ -98,6 +96,12 @@ class ChallengeViewController: BindableViewController {
       .flatMap { UIAlertController.present($0) }
       .ignore(disposedBy: disposeBag)
   
+    viewModel.output.spin
+      .do(onNext: { [weak self] spin in
+        spin ? self?.showLoadingBar() : self?.hideLoadingBar()
+      })
+      .ignore(disposedBy: disposeBag)
+    
     tableView.rx.itemSelected
       .subscribe(onNext: { [weak self] indexPath in
         self?.tableView.deselectRow(at: indexPath, animated: true)
@@ -124,8 +128,7 @@ class ChallengeViewController: BindableViewController {
   @objc private func menuTapped() {
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
     let inviteAction = UIAlertAction(title: "Invite", style: .default) { _ in
-      // TODO
-      GymRatsApp.coordinator.inviteTo(self.challenge)
+      ChallengeFlow.invite(to: self.challenge)
     }
     
     let editAction = UIAlertAction(title: "Edit", style: .default) { _ in

@@ -98,7 +98,7 @@ class UserWorkoutTableViewCell: UITableViewCell {
         }
     }
 
-    func configureForSleeping(user: User, day: Date, allWorkouts: [Workout]) {
+    func configureForSleeping(user: Account, day: Date, allWorkouts: [Workout]) {
         userImageView.load(avatarInfo: user)
 
         titleLabel.isHidden = false
@@ -131,7 +131,7 @@ class UserWorkoutTableViewCell: UITableViewCell {
         contentView.alpha = 0.333
     }
     
-    func configure(for user: User, withNumberOfWorkouts numberOfWorkouts: Int) {
+    func configure(for user: Account, withNumberOfWorkouts numberOfWorkouts: Int) {
         userImageView.load(avatarInfo: user)
         
         fullNameLabel.isHidden = false

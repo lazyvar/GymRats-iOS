@@ -12,7 +12,7 @@ import RxSwift
 class ProfileViewController: UITableViewController {
     
     let disposeBag = DisposeBag()
-    let user: User
+    let user: Account
     let challenge: Challenge?
     
     var workouts: [Workout] = []
@@ -74,7 +74,7 @@ class ProfileViewController: UITableViewController {
         return button
     }()
     
-    init(user: User, challenge: Challenge?) {
+    init(user: Account, challenge: Challenge?) {
         self.user = user
         self.challenge = challenge
         

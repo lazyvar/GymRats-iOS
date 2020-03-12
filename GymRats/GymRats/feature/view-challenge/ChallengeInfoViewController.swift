@@ -17,9 +17,9 @@ class ChallengeInfoViewController: UITableViewController {
     
     let challenge: Challenge
     let workouts: [Workout]
-    let members: [User]
+    let members: [Account]
     
-    init(challenge: Challenge, workouts: [Workout], users: [User]) {
+    init(challenge: Challenge, workouts: [Workout], users: [Account]) {
         self.workouts = workouts
         self.members = users
         self.challenge = challenge

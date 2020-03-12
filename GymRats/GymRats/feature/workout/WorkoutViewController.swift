@@ -15,7 +15,7 @@ import Kingfisher
 class WorkoutViewController: UITableViewController {
 
     let disposeBag = DisposeBag()
-    let user: User
+    let user: Account
     let workout: Workout
     let challenge: Challenge?
     
@@ -33,7 +33,7 @@ class WorkoutViewController: UITableViewController {
         return label
     }()
     
-    init(user: User, workout: Workout, challenge: Challenge?) {
+    init(user: Account, workout: Workout, challenge: Challenge?) {
         self.user = user
         self.workout = workout
         self.challenge = challenge
@@ -224,7 +224,7 @@ extension WorkoutViewController {
         if indexPath.row < comments.count {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell") as! CommentTableViewCell
             let comment = comments[indexPath.row]
-            let user: User = comment.gymRatsUser
+            let user: Account = comment.gymRatsUser
             let currentUser = GymRats.currentAccount!
             
             cell.userImageView.load(avatarInfo: user)

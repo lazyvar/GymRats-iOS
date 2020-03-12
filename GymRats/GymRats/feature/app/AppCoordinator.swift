@@ -17,7 +17,7 @@ import MessageUI
 import Kingfisher
 
 struct UserWorkout {
-  let user: User
+  let user: Account
   let workout: Workout?
 }
 
@@ -26,7 +26,7 @@ class AppCoordinator: NSObject, UNUserNotificationCenterDelegate {
     let window: UIWindow
     let application: UIApplication
     
-    var currentUser: User!
+    var currentUser: Account!
     var drawer: MMDrawerController!
     
     var coldStartNotification: [AnyHashable: Any]?
@@ -139,7 +139,7 @@ class AppCoordinator: NSObject, UNUserNotificationCenterDelegate {
     var menu: MenuViewController!
     weak var tabBarViewController: ESTabBarController?
     
-    func login(user: User) {
+    func login(user: Account) {
         currentUser = user
         menu = MenuViewController()
         
@@ -276,22 +276,7 @@ class AppCoordinator: NSObject, UNUserNotificationCenterDelegate {
         
         artistViewController?.push(profile)
     }
-    
-    func inviteTo(_ challenge: Challenge) {
-        DispatchQueue.main.async {
-            guard MFMessageComposeViewController.canSendText() else {
-                self.tabBarViewController?.presentAlert(title: "Uh-oh", message: "This device cannot send text message.")
-                return
-            }
-            
-            let messageViewController = MFMessageComposeViewController()
-            messageViewController.body = "Let's workout together! Join my GymRats challenge using invite code \"\(challenge.code)\" https://apps.apple.com/us/app/gymrats-group-challenge/id1453444814"
-            messageViewController.messageComposeDelegate = self
-            
-            self.tabBarViewController?.present(messageViewController, animated: true, completion: nil)
-        }
-    }
-    
+
     var chatItem: UITabBarItem? {
         return tabBarViewController?.tabBar.items?[safe: 2]
     }
@@ -350,7 +335,7 @@ class AppCoordinator: NSObject, UNUserNotificationCenterDelegate {
         return imageView.imageFromContext().withRenderingMode(.alwaysOriginal)
     }
     
-    func updateUser(_ user: User) {
+    func updateUser(_ user: Account) {
         self.currentUser = user
         
         Track.currentUser()
@@ -400,7 +385,7 @@ class AppCoordinator: NSObject, UNUserNotificationCenterDelegate {
             }.disposed(by: disposeBag)
     }
     
-    func loadCurrentUser() -> User? {
+    func loadCurrentUser() -> Account? {
         switch Keychain.gymRats.retrieveObject(forKey: .currentUser) {
         case .success(let user):
             return user
@@ -434,9 +419,9 @@ extension Keychain {
     static var gymRats = Keychain(group: nil)
 }
 
-extension Keychain.Key where Object == User {
-    static var currentUser: Keychain.Key<User> {
-        return Keychain.Key<User>(rawValue: "currentUser", synchronize: true)
+extension Keychain.Key where Object == Account {
+    static var currentUser: Keychain.Key<Account> {
+        return Keychain.Key<Account>(rawValue: "currentUser", synchronize: true)
     }
 }
 
@@ -444,16 +429,6 @@ extension Keychain.Key where Object == User {
 extension NSNotification.Name {
     static let updatedCurrentUser = NSNotification.Name(rawValue: "GRCurrentUserUpdated")
     static let updatedCurrentUserPic = NSNotification.Name(rawValue: "GRCurrentUserUpdatedPic")
-}
-
-extension AppCoordinator: MFMessageComposeViewControllerDelegate {
-    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-        controller.dismissSelf()
-        
-        if result == .sent {
-            Track.event(.smsInviteSent)
-        }
-    }
 }
 
 extension UIWindow {

@@ -110,7 +110,7 @@ class UserImageView: UIView {
     }
     
     @objc func currentUserWasUpdated(notification: Notification) {
-        guard let thisUser = avatarInfo as? User else { return }
+        guard let thisUser = avatarInfo as? Account else { return }
         guard thisUser.id == GymRats.currentAccount.id else { return }
         guard let image = notification.object as? UIImage else { return }
         

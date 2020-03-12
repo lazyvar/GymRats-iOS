@@ -18,6 +18,8 @@
 		0118A28C239DA7F9006A8A7A /* RatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0118A28A239DA7F9006A8A7A /* RatsCell.xib */; };
 		0118C24E23C2B704002FB84D /* CreateWorkoutHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0118C24C23C2B704002FB84D /* CreateWorkoutHeaderCell.swift */; };
 		0118C24F23C2B704002FB84D /* CreateWorkoutHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0118C24D23C2B704002FB84D /* CreateWorkoutHeaderCell.xib */; };
+		011EEB8D241A8BB100CC9F9E /* ChallengeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011EEB8C241A8BB100CC9F9E /* ChallengeFlow.swift */; };
+		011EEB90241A8C4000CC9F9E /* TrackMessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011EEB8F241A8C4000CC9F9E /* TrackMessageDelegate.swift */; };
 		011FB62B22A33AAA004D5B8E /* UserProfileMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB62922A33AAA004D5B8E /* UserProfileMenuTableViewCell.swift */; };
 		011FB62C22A33AAA004D5B8E /* UserProfileMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011FB62A22A33AAA004D5B8E /* UserProfileMenuTableViewCell.xib */; };
 		011FB62F22A33C14004D5B8E /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB62D22A33C14004D5B8E /* MenuTableViewCell.swift */; };
@@ -168,7 +170,7 @@
 		747D6FDA2208E8130062BB39 /* KeychainResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FD52208E8130062BB39 /* KeychainResult.swift */; };
 		747D6FDB2208E8130062BB39 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FD62208E8130062BB39 /* Keychain.swift */; };
 		747D6FDC2208E8130062BB39 /* Keychain+Subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FD72208E8130062BB39 /* Keychain+Subscripts.swift */; };
-		747D6FDE2208E85A0062BB39 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FDD2208E85A0062BB39 /* User.swift */; };
+		747D6FDE2208E85A0062BB39 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FDD2208E85A0062BB39 /* Account.swift */; };
 		747D6FE02208ECDD0062BB39 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FDF2208ECDD0062BB39 /* Styles.swift */; };
 		747D6FE32208ED660062BB39 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FE22208ED660062BB39 /* WelcomeViewController.swift */; };
 		747D6FE52208ED6F0062BB39 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FE42208ED6F0062BB39 /* LoginViewController.swift */; };
@@ -221,6 +223,8 @@
 		0118A28A239DA7F9006A8A7A /* RatsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RatsCell.xib; sourceTree = "<group>"; };
 		0118C24C23C2B704002FB84D /* CreateWorkoutHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutHeaderCell.swift; sourceTree = "<group>"; };
 		0118C24D23C2B704002FB84D /* CreateWorkoutHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateWorkoutHeaderCell.xib; sourceTree = "<group>"; };
+		011EEB8C241A8BB100CC9F9E /* ChallengeFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeFlow.swift; sourceTree = "<group>"; };
+		011EEB8F241A8C4000CC9F9E /* TrackMessageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMessageDelegate.swift; sourceTree = "<group>"; };
 		011FB62922A33AAA004D5B8E /* UserProfileMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileMenuTableViewCell.swift; sourceTree = "<group>"; };
 		011FB62A22A33AAA004D5B8E /* UserProfileMenuTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserProfileMenuTableViewCell.xib; sourceTree = "<group>"; };
 		011FB62D22A33C14004D5B8E /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
@@ -380,7 +384,7 @@
 		747D6FD52208E8130062BB39 /* KeychainResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainResult.swift; sourceTree = "<group>"; };
 		747D6FD62208E8130062BB39 /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		747D6FD72208E8130062BB39 /* Keychain+Subscripts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Keychain+Subscripts.swift"; sourceTree = "<group>"; };
-		747D6FDD2208E85A0062BB39 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		747D6FDD2208E85A0062BB39 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		747D6FDF2208ECDD0062BB39 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		747D6FE22208ED660062BB39 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		747D6FE42208ED6F0062BB39 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -431,6 +435,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		011EEB8B241A8B9700CC9F9E /* flow */ = {
+			isa = PBXGroup;
+			children = (
+				011EEB8C241A8BB100CC9F9E /* ChallengeFlow.swift */,
+			);
+			path = flow;
+			sourceTree = "<group>";
+		};
+		011EEB8E241A8C3200CC9F9E /* delegate */ = {
+			isa = PBXGroup;
+			children = (
+				011EEB8F241A8C4000CC9F9E /* TrackMessageDelegate.swift */,
+			);
+			path = delegate;
+			sourceTree = "<group>";
+		};
 		011FB63122A3736D004D5B8E /* archived-challenges */ = {
 			isa = PBXGroup;
 			children = (
@@ -672,11 +692,13 @@
 			children = (
 				01BFF90C223DE1B60044F802 /* GymRats.entitlements */,
 				74118053220C558E00EB9D11 /* resource */,
+				011EEB8E241A8C3200CC9F9E /* delegate */,
 				747D6FD12208E7FF0062BB39 /* library */,
 				747D6FCF2208E7EF0062BB39 /* model */,
 				747D6FBB2208DBE40062BB39 /* service */,
 				747D6FBA2208DBD70062BB39 /* feature */,
 				747D6FB92208DBCF0062BB39 /* foundation */,
+				011EEB8B241A8B9700CC9F9E /* flow */,
 				01F5296324184AE400FA96E0 /* view */,
 				01F529572418348D00FA96E0 /* store */,
 				747D6F992208DB310062BB39 /* AppDelegate.swift */,
@@ -787,7 +809,7 @@
 		747D6FCF2208E7EF0062BB39 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				747D6FDD2208E85A0062BB39 /* User.swift */,
+				747D6FDD2208E85A0062BB39 /* Account.swift */,
 				74A01B26220A0BBF00431ABD /* Challenge.swift */,
 				74A01B33220A3B2000431ABD /* Workout.swift */,
 				748DFB8D2210B2EA007220C7 /* Place.swift */,
@@ -1217,6 +1239,7 @@
 				01A3EB12237747D30097FC2A /* CVCalendarViewAppearance.swift in Sources */,
 				74A01B43220A691300431ABD /* MenuViewController.swift in Sources */,
 				01AE59E222A60E6800F3FB07 /* MackAttack.swift in Sources */,
+				011EEB8D241A8BB100CC9F9E /* ChallengeFlow.swift in Sources */,
 				01A3EB19237747D30097FC2A /* CVCalendarViewDelegate.swift in Sources */,
 				01A3EB27237747D30097FC2A /* CVCalendarDayViewControlCoordinator.swift in Sources */,
 				0107AE362325E3D300944D11 /* WorkoutCell.swift in Sources */,
@@ -1260,7 +1283,7 @@
 				01A3EB24237747D30097FC2A /* CVCalendarWeekView.swift in Sources */,
 				013D0251241979B80063F189 /* ChallengeTabBarController.swift in Sources */,
 				7432459D2214FAF800A13634 /* ChangeProfileViewController.swift in Sources */,
-				747D6FDE2208E85A0062BB39 /* User.swift in Sources */,
+				747D6FDE2208E85A0062BB39 /* Account.swift in Sources */,
 				01BFF8F9223B30750044F802 /* Comment.swift in Sources */,
 				012C668D22A8A987000E95A0 /* UpcomingChallengeCollectionReusableView.swift in Sources */,
 				7455AC602212585B005A558A /* ChallengeInfoViewController.swift in Sources */,
@@ -1289,6 +1312,7 @@
 				01A3EB16237747D30097FC2A /* CVCalendarContentViewController.swift in Sources */,
 				01A3EB1C237747D30097FC2A /* CVSet.swift in Sources */,
 				747D6FE52208ED6F0062BB39 /* LoginViewController.swift in Sources */,
+				011EEB90241A8C4000CC9F9E /* TrackMessageDelegate.swift in Sources */,
 				014B6772241882C000F356EB /* ChallengeViewController.swift in Sources */,
 				74305071220A05FC005D8C52 /* GymRatsApp.swift in Sources */,
 				01A3EB1B237747D30097FC2A /* CVSelectionType.swift in Sources */,

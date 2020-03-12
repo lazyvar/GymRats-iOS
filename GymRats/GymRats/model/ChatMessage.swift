@@ -14,7 +14,7 @@ struct ChatMessage: Codable {
     let challengeId: Int
     let content: String
     let createdAt: Date
-    let gymRatsUser: User
+    let gymRatsUser: Account
 }
 
 extension ChatMessage: MessageType {

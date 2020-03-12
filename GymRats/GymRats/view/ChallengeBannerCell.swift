@@ -25,7 +25,7 @@ class ChallengeBannerCell: UITableViewCell {
     }
   }
   
-  static func configure(tableView: UITableView, indexPath: IndexPath, challenge: Challenge) -> UITableViewCell {
+  static func configure(tableView: UITableView, indexPath: IndexPath, challenge: Challenge, members: [Account], workouts: [Workout]) -> UITableViewCell {
     return tableView.dequeueReusableCell(withType: ChallengeBannerCell.self, for: indexPath).apply {
       let skeletonView = UIView()
       skeletonView.isSkeletonable = true
@@ -43,22 +43,22 @@ class ChallengeBannerCell: UITableViewCell {
       
       $0.selectionStyle = .none
       
-//      if users.count == 0 {
-//        $0.usersLabel.text = "-\nmembers"
-//      } else if users.count == 1 {
-//        $0.usersLabel.text = "Solo\nchallenge"
-//      } else {
-//        $0.usersLabel.text = "\(users.count)\nmembers"
-//      }
-//
-//      if workouts.count == 0 {
-//        $0.activityLabel.text = "-\nworkouts"
-//      } else if workouts.count == 1 {
-//        $0.activityLabel.text = "1\nworkout"
-//      } else {
-//        $0.activityLabel.text = "\(workouts.count)\nworkouts"
-//      }
-      
+      if members.count == 0 {
+        $0.membersLabel.text = "-\nmembers"
+      } else if members.count == 1 {
+        $0.membersLabel.text = "Solo\nchallenge"
+      } else {
+        $0.membersLabel.text = "\(members.count)\nmembers"
+      }
+
+      if workouts.count == 0 {
+        $0.activityLabel.text = "-\nworkouts"
+      } else if workouts.count == 1 {
+        $0.activityLabel.text = "1\nworkout"
+      } else {
+        $0.activityLabel.text = "\(workouts.count)\nworkouts"
+      }
+
       $0.calendarLabel.text = {
         let daysLeft = challenge.daysLeft.split(separator: " ")
         let first = daysLeft[0]

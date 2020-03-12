@@ -13,7 +13,7 @@ import MessageUI
 class UpcomingChallengeViewController: UICollectionViewController {
 
     let challenge: Challenge
-    var users: [User] = []
+    var users: [Account] = []
     
     private let disposeBag = DisposeBag()
     

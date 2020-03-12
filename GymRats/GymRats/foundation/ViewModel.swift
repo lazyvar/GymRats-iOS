@@ -73,6 +73,10 @@ typealias NetworkResult<T> = Result<T, AnyError>
 
 struct AnyError: Error {
   let error: Error
+  
+  var localizedDescription: String {
+    return error.localizedDescription
+  }
 }
 
 extension Result {

@@ -32,8 +32,8 @@ class ChallengeStatsViewController: UITableViewController {
     
     let challenge: Challenge
     
-    var _users: [Int: User] = [:]
-    var users: [User] {
+    var _users: [Int: Account] = [:]
+    var users: [Account] {
         get {
             switch self.sortby {
             case .workouts:
@@ -73,14 +73,14 @@ class ChallengeStatsViewController: UITableViewController {
     var userToCaloriesCache: [Int: Int] = [:]
     var userToPointsCache: [Int: Int] = [:]
 
-    var usersSortedByWorkouts: [User] = []
-    var usersSortedByDuration: [User] = []
-    var usersSortedByDistance: [User] = []
-    var usersSortedBySteps: [User] = []
-    var usersSortedByCalories: [User] = []
-    var usersSortedByPoints: [User] = []
+    var usersSortedByWorkouts: [Account] = []
+    var usersSortedByDuration: [Account] = []
+    var usersSortedByDistance: [Account] = []
+    var usersSortedBySteps: [Account] = []
+    var usersSortedByCalories: [Account] = []
+    var usersSortedByPoints: [Account] = []
 
-    init(challenge: Challenge, users: [User], workouts: [Workout]) {
+    init(challenge: Challenge, users: [Account], workouts: [Workout]) {
         self.workouts = workouts
         self.challenge = challenge
         
@@ -118,7 +118,7 @@ class ChallengeStatsViewController: UITableViewController {
     @objc func hereIsTheData(notification: Notification) {
         self.hideLoadingBar()
         
-        guard let obj = notification.object as? ([User], [Workout]) else { return }
+        guard let obj = notification.object as? ([Account], [Workout]) else { return }
         
         let (users, workouts) = obj
         self.workouts = workouts
