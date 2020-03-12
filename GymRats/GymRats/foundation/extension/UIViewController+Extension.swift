@@ -23,7 +23,11 @@ extension UIViewController {
     }
 
     func inNav() -> UINavigationController {
-      return UINavigationController(rootViewController: self)
+      let navigationController = UINavigationController(rootViewController: self)
+      navigationController.navigationBar.tintColor = .primaryText
+      navigationController.navigationBar.turnSolidWhiteSlightShadow()
+
+      return navigationController
     }
     
     func setupBackButton() {

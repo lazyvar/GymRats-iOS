@@ -8,7 +8,6 @@
 
 import Foundation
 import RxSwift
-import RxCocoa
 
 final class ChallengeViewModel: ViewModel {
   
@@ -18,13 +17,14 @@ final class ChallengeViewModel: ViewModel {
   struct Input {
     let viewDidLoad = PublishSubject<Void>()
     let refresh = PublishSubject<Void>()
+    let tappedRow = PublishSubject<IndexPath>()
   }
   
   struct Output {
     let spin = PublishSubject<Bool>()
     let sections = PublishSubject<[ChallengeSection]>()
     let error = PublishSubject<Error>()
-    let pushScreen = PublishSubject<Screen>()
+    let navigation = PublishSubject<(Navigation, Screen)>()
   }
   
   let input = Input()
@@ -57,13 +57,19 @@ final class ChallengeViewModel: ViewModel {
       .bind(to: output.error)
       .disposed(by: disposeBag)
 
-    memberWorkouts
-      .map { members, workouts -> [ChallengeSection] in
+    let buckets = memberWorkouts
+      .map { members, workouts -> ([Account], [(Date, [Workout])]) in
         let workouts = workouts.object ?? []
-        let members = members.object ?? []
+
+        return (members.object ?? [], self.challenge.bucket(workouts))
+      }
+      .share()
+    
+    buckets
+      .map { members, bucketedWorkouts -> [ChallengeSection] in
+        let workouts = bucketedWorkouts.flatMap { $0.1 }
         let banner = ChallengeSection(model: nil, items: [.banner(self.challenge, members, workouts)])
-        let workoutSections = self.challenge
-          .bucket(workouts)
+        let workoutSections = bucketedWorkouts
           .map { date, workouts in
             ChallengeSection(model: date, items: workouts.map { ChallengeRow.workout($0) })
           }
@@ -71,6 +77,18 @@ final class ChallengeViewModel: ViewModel {
         return [banner] + workoutSections
       }
       .bind(to: output.sections)
+      .disposed(by: disposeBag)
+    
+    Observable.combineLatest(input.tappedRow, buckets)
+      .compactMap { indexPath, bucketedWorkouts -> (Navigation, Screen)? in
+        let section = indexPath.section - 1
+        
+        guard let dayWorkouts = bucketedWorkouts.1[safe: section] else { return nil }
+        guard let workout = dayWorkouts.1[safe: indexPath.row] else { return nil }
+        
+        return (.push(animated: true), .workout(workout))
+      }
+      .bind(to: output.navigation)
       .disposed(by: disposeBag)
   }
 }

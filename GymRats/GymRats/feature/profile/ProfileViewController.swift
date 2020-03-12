@@ -421,7 +421,7 @@ class ProfileViewController: UITableViewController {
         let date = self.calendarView.presentedDate.convertedDate()!
         
         if let workout = self.workouts.workouts(on: date)[safe: tag] {
-            self.push(WorkoutViewController(user: user, workout: workout, challenge: challenge))
+            self.push(WorkoutViewController(workout: workout, challenge: challenge))
         }
     }
 

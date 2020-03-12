@@ -15,7 +15,6 @@ import Kingfisher
 class WorkoutViewController: UITableViewController {
 
     let disposeBag = DisposeBag()
-    let user: Account
     let workout: Workout
     let challenge: Challenge?
     
@@ -33,12 +32,11 @@ class WorkoutViewController: UITableViewController {
         return label
     }()
     
-    init(user: Account, workout: Workout, challenge: Challenge?) {
-        self.user = user
-        self.workout = workout
-        self.challenge = challenge
-        
-        super.init(nibName: nil, bundle: nil)
+    init(workout: Workout, challenge: Challenge?) {
+      self.workout = workout
+      self.challenge = challenge
+    
+      super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -68,7 +66,7 @@ class WorkoutViewController: UITableViewController {
         navigationItem.largeTitleDisplayMode = .never
         
         self.headerView = WorkoutHeaderView.instanceFromNib()
-        headerView.configure(user: user, workout: workout, challenge: challenge, width: tableView.frame.width)
+        headerView.configure(workout: workout, challenge: challenge, width: tableView.frame.width)
         headerView.delegate = self
         headerView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -155,7 +153,7 @@ class WorkoutViewController: UITableViewController {
     }
     
     @objc func transitionToProfile() {
-        self.push(ProfileViewController(user: user, challenge: challenge))
+      self.push(ProfileViewController(user: workout.account, challenge: challenge))
     }
     
     @objc func showMenu() {

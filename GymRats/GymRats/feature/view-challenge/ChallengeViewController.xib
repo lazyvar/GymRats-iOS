@@ -24,14 +24,13 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="8o5-yG-kQG" secondAttribute="bottom" id="BT6-EG-Zxx"/>
                 <constraint firstItem="8o5-yG-kQG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Clp-3e-OVp"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="8o5-yG-kQG" secondAttribute="trailing" id="WnH-Fm-cp6"/>
                 <constraint firstItem="8o5-yG-kQG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="wV0-6H-ya3"/>
             </constraints>
-            <nil key="simulatedTopBarMetrics"/>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="-62" y="147"/>
         </view>

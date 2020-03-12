@@ -27,4 +27,8 @@ enum ChallengeFlow {
     
     topMost.present(messageViewController, animated: true, completion: nil)
   }
+  
+  static func leave(_ challenge: Challenge) {
+    
+  }
 }

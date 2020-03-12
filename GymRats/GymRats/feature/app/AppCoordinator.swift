@@ -94,7 +94,7 @@ class AppCoordinator: NSObject, UNUserNotificationCenterDelegate {
                 } else {
                     guard let user = aps.gr.user, let challenge = aps.gr.challenge, let workout = aps.gr.workout else { return }
                     
-                    let workoutViewController = WorkoutViewController(user: user, workout: workout, challenge: challenge)
+                    let workoutViewController = WorkoutViewController(workout: workout, challenge: challenge)
                     workoutViewController.hidesBottomBarWhenPushed = true
 
                     if let nav = GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController {

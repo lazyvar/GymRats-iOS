@@ -15,7 +15,10 @@ class ChallengeBannerCell: UITableViewCell {
   @IBOutlet weak var calendarLabel: UILabel!
   @IBOutlet weak var activityLabel: UILabel!
   @IBOutlet weak var pictureHeight: NSLayoutConstraint!
-  @IBOutlet weak var bannerImageView: UIImageView!
+  
+  @IBOutlet weak var bannerImageView: UIImageView! {
+    didSet { bannerImageView.contentMode = .scaleAspectFill }
+  }
   
   @IBOutlet weak var bg: UIView! {
     didSet {

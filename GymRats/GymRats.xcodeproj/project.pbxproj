@@ -18,6 +18,7 @@
 		0118A28C239DA7F9006A8A7A /* RatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0118A28A239DA7F9006A8A7A /* RatsCell.xib */; };
 		0118C24E23C2B704002FB84D /* CreateWorkoutHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0118C24C23C2B704002FB84D /* CreateWorkoutHeaderCell.swift */; };
 		0118C24F23C2B704002FB84D /* CreateWorkoutHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0118C24D23C2B704002FB84D /* CreateWorkoutHeaderCell.xib */; };
+		011DAE98241ADC69009B3613 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011DAE97241ADC69009B3613 /* Navigation.swift */; };
 		011EEB8D241A8BB100CC9F9E /* ChallengeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011EEB8C241A8BB100CC9F9E /* ChallengeFlow.swift */; };
 		011EEB90241A8C4000CC9F9E /* TrackMessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011EEB8F241A8C4000CC9F9E /* TrackMessageDelegate.swift */; };
 		011FB62B22A33AAA004D5B8E /* UserProfileMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB62922A33AAA004D5B8E /* UserProfileMenuTableViewCell.swift */; };
@@ -223,6 +224,7 @@
 		0118A28A239DA7F9006A8A7A /* RatsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RatsCell.xib; sourceTree = "<group>"; };
 		0118C24C23C2B704002FB84D /* CreateWorkoutHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutHeaderCell.swift; sourceTree = "<group>"; };
 		0118C24D23C2B704002FB84D /* CreateWorkoutHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateWorkoutHeaderCell.xib; sourceTree = "<group>"; };
+		011DAE97241ADC69009B3613 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		011EEB8C241A8BB100CC9F9E /* ChallengeFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeFlow.swift; sourceTree = "<group>"; };
 		011EEB8F241A8C4000CC9F9E /* TrackMessageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMessageDelegate.swift; sourceTree = "<group>"; };
 		011FB62922A33AAA004D5B8E /* UserProfileMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileMenuTableViewCell.swift; sourceTree = "<group>"; };
@@ -739,6 +741,7 @@
 				01319ED024184FAC005E65D2 /* Screen.swift */,
 				013D024024193BE30063F189 /* UIImage+Assets.swift */,
 				013D02442419401F0063F189 /* Apply.swift */,
+				011DAE97241ADC69009B3613 /* Navigation.swift */,
 			);
 			path = foundation;
 			sourceTree = "<group>";
@@ -1311,6 +1314,7 @@
 				74BE97BD220C9F2800D550CA /* ImagePickerController.swift in Sources */,
 				01A3EB16237747D30097FC2A /* CVCalendarContentViewController.swift in Sources */,
 				01A3EB1C237747D30097FC2A /* CVSet.swift in Sources */,
+				011DAE98241ADC69009B3613 /* Navigation.swift in Sources */,
 				747D6FE52208ED6F0062BB39 /* LoginViewController.swift in Sources */,
 				011EEB90241A8C4000CC9F9E /* TrackMessageDelegate.swift in Sources */,
 				014B6772241882C000F356EB /* ChallengeViewController.swift in Sources */,

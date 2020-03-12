@@ -45,11 +45,18 @@ class ChallengeViewController: BindableViewController {
 
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
+      tableView.backgroundColor = .background
       tableView.showsVerticalScrollIndicator = false
       tableView.registerCellNibForClass(WorkoutCell.self)
       tableView.registerCellNibForClass(ChallengeBannerCell.self)
       tableView.rx.setDelegate(self).disposed(by: disposeBag)
       tableView.addSubview(refresher)
+      tableView.rx.itemSelected
+        .do(onNext: { [weak self] indexPath in
+          self?.tableView.deselectRow(at: indexPath, animated: true)
+        })
+        .bind(to: viewModel.input.tappedRow)
+        .disposed(by: disposeBag)
     }
   }
 
@@ -102,9 +109,9 @@ class ChallengeViewController: BindableViewController {
       })
       .ignore(disposedBy: disposeBag)
     
-    tableView.rx.itemSelected
-      .subscribe(onNext: { [weak self] indexPath in
-        self?.tableView.deselectRow(at: indexPath, animated: true)
+    viewModel.output.navigation
+      .subscribe(onNext: { [weak self] (navigation, screen) in
+        self?.navigate(navigation, to: screen.viewController)
       })
       .disposed(by: disposeBag)
   }
@@ -119,6 +126,10 @@ class ChallengeViewController: BindableViewController {
         return [menuBarButtonItem]
       }
     }()
+    
+    if challenge.isPast.toggled {
+      setupMenuButton()
+    }
     
     viewModel.input.viewDidLoad.trigger()
   }
@@ -200,6 +211,12 @@ extension ChallengeViewController: UITableViewDelegate {
     headerView.backgroundColor = .clear
     
     return headerView
+  }
+  
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    guard dataSource[section].model != nil else { return .zero }
+
+    return 30
   }
   
   func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

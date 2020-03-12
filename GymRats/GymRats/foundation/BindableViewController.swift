@@ -13,6 +13,9 @@ class BindableViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    setupBackButton()
+    view.backgroundColor = .background
+
     bindViewModel()
   }
   

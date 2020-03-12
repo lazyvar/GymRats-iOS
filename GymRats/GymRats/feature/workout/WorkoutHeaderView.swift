@@ -85,12 +85,12 @@ class WorkoutHeaderView: UIView {
         case points
     }
     
-    func configure(user: Account, workout: Workout, challenge: Challenge?, width: CGFloat) {
+    func configure(workout: Workout, challenge: Challenge?, width: CGFloat) {
         constrainWidth(width)
         
-        userImageView.load(avatarInfo: user)
+        userImageView.load(avatarInfo: workout.account)
         timeLabel.text = workout.createdAt.challengeTime
-        usernameLabel.text = user.fullName
+        usernameLabel.text = workout.account.fullName
 
         durationLabel.text = nil
         distanceLabel.text = nil

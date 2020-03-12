@@ -14,6 +14,7 @@ enum Screen {
   case noChallenges
   case home
   case createChallenge(CreateChallengeDelegate)
+  case workout(Workout)
   
   var viewController: UIViewController {
     switch self {
@@ -28,6 +29,8 @@ enum Screen {
       createChallengeViewController.delegate = delegate
       
       return createChallengeViewController
+    case .workout(let workout):
+      return WorkoutViewController(workout: workout, challenge: nil)
     }
   }
 }

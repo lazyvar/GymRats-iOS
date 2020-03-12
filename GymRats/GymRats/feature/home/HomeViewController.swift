@@ -18,6 +18,7 @@ class HomeViewController: BindableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
   
+    view.backgroundColor = .background
     viewModel.input.viewDidLoad.trigger()
   }
   

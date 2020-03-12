@@ -10,10 +10,9 @@ import Foundation
 
 extension Array {
 
-    subscript (safe index: Int) -> Element? {
-        return index < count ? self[index] : nil
+    subscript (safe index: Index) -> Element? {
+      return indices.contains(index) ? self[index] : nil
     }
-    
     func first<T>(ofType: T.Type) -> T? {
         return first(where: { $0 is T }) as? T
     }
