@@ -12,6 +12,7 @@ import RxSwift
 
 enum ChallengeFlow {
   static private var delegate = TrackMessageDelegate()
+  static private let disposeBag = DisposeBag()
   
   static func invite(to challenge: Challenge) {
     let topMost = UIViewController.topmost()
@@ -30,11 +31,19 @@ enum ChallengeFlow {
   }
   
   static func leave(_ challenge: Challenge) {
-    // TODO
+    gymRatsAPI.leaveChallenge(challenge)
+      .next { result in
+        switch result {
+        case .success:
+          Challenge.State.all.fetch().ignore(disposedBy: disposeBag)
+        case .failure(let error):
+          UIViewController.topmost().presentAlert(with: error)
+        }
+      }
+      .disposed(by: disposeBag)
   }
   
-  static func join(_ onJoin: @escaping (Challenge) -> Void) {
-    let disposeBag = DisposeBag()
+  static func join() {
     let cancelAction = UIAlertAction(title: "Cancel", style: .default)
     let alert = UIAlertController (
       title: "Join Challenge",
@@ -48,8 +57,8 @@ enum ChallengeFlow {
       gymRatsAPI.joinChallenge(code: code)
         .next { result in
           switch result {
-          case .success(let challenge):
-            onJoin(challenge)
+          case .success:
+            Challenge.State.all.fetch().ignore(disposedBy: disposeBag)
           case .failure(let error):
             UIViewController.topmost().presentAlert(with: error)
           }

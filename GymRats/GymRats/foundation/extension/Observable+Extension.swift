@@ -102,7 +102,7 @@ extension Observable where Element == Data {
           return .failure(.init(error: SimpleError(message: serviceResponse.error!)))
         }
       } catch let error {
-        return .failure(.init(error: error))
+        return .failure(.init(error: SimpleError(message: "Something went wrong. Please try agin.")))
       }
     }
   }
@@ -119,7 +119,7 @@ extension Observable where Element == Data {
           return .failure(.init(error: SimpleError(message: serviceResponse.error!)))
         }
       } catch let error {
-        return .failure(.init(error: error))
+        return .failure(.init(error: SimpleError(message: "Something went wrong. Please try agin.")))
       }
     }
   }

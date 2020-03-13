@@ -27,7 +27,7 @@ final class NoChallengesViewModel: ViewModel {
 
   init() {
     input.tappedJoinChallenge
-      .subscribe(onNext: { ChallengeFlow.join() { _ in /* TODO */ } })
+      .subscribe(onNext: { ChallengeFlow.join() })
       .disposed(by: disposeBag)
     
     input.tappedStartChallenge

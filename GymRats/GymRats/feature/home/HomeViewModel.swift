@@ -19,7 +19,7 @@ final class HomeViewModel: ViewModel {
   
   struct Output {
     let error = PublishSubject<Error>()
-    let replaceCenter = PublishSubject<Screen>()
+    let navigation = PublishSubject<(Navigation, Screen)>()
   }
   
   let input = Input()
@@ -38,13 +38,13 @@ final class HomeViewModel: ViewModel {
     
     challenges
       .compactMap { $0.object }
-      .map { challenges -> Screen in
-        guard challenges.isNotEmpty else { return .noChallenges }
+      .map { challenges -> (Navigation, Screen) in
+        guard challenges.isNotEmpty else { return (.replaceDrawerCenterInNav(animated: false), .noChallenges) }
         
         let challengeId = UserDefaults.standard.integer(forKey: "last_opened_challenge")
         let challenge = challenges.first { $0.id == challengeId } ?? challenges.first
         
-        return .activeChallenge(challenge!)
+        return (.replaceDrawerCenter(animated: false), .activeChallenge(challenge!))
       }
       .do(onNext: { _ in
         if let notification = GymRatsApp.coordinator.coldStartNotification {
@@ -52,7 +52,7 @@ final class HomeViewModel: ViewModel {
           GymRatsApp.coordinator.coldStartNotification = nil
         }
       })
-      .bind(to: output.replaceCenter)
+      .bind(to: output.navigation)
       .disposed(by: disposeBag)
   }
 }

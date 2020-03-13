@@ -20,7 +20,7 @@ struct Resource<T> {
   }
   
   @discardableResult func fetch() -> Observable<T> {
-    let source = self.source()
+    let source = self.source().share()
       
     source
       .bind(to: resource)

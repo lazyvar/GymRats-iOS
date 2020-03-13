@@ -74,7 +74,7 @@ final class MenuViewModel: ViewModel {
         case 2: return {
           switch indexPath.row {
           case 0: return (.replaceDrawerCenterInNav(animated: true), .completedChallenges)
-          case 1: ChallengeFlow.join() { _ in /* TODO */ } ; return nil
+          case 1: ChallengeFlow.join(); return nil
           case 2: return (.presentInNav(animated: true), .createChallenge(self))
           case 3: return (.replaceDrawerCenterInNav(animated: true), .settings)
           case 4: return (.replaceDrawerCenterInNav(animated: true), .about)

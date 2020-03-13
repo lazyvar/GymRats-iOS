@@ -16,9 +16,8 @@ class HomeViewController: BindableViewController {
   private let disposeBag = DisposeBag()
   
   override func viewDidLoad() {
-    super.viewDidLoad()
-  
-    view.backgroundColor = .background
+    super.viewDidLoad()  
+    
     viewModel.input.viewDidLoad.trigger()
   }
   
@@ -28,10 +27,10 @@ class HomeViewController: BindableViewController {
       .flatMap { UIAlertController.present($0) }
       .ignore(disposedBy: disposeBag)
     
-    viewModel.output.replaceCenter
-      .next { [weak self] screen in
-        self?.mm_drawerController.setCenterView(screen.viewController, withFullCloseAnimation: false, completion: nil)
-      }
+    viewModel.output.navigation
+      .subscribe(onNext: { [weak self] (navigation, screen) in
+        self?.navigate(navigation, to: screen.viewController)
+      })
       .disposed(by: disposeBag)
   }
 }

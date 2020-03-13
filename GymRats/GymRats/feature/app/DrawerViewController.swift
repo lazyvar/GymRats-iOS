@@ -8,8 +8,11 @@
 
 import UIKit
 import MMDrawerController
+import RxSwift
 
 class DrawerViewController: UIViewController {
+  private let disposeBag = DisposeBag()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
   

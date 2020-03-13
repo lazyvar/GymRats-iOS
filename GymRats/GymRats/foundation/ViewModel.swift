@@ -72,11 +72,24 @@ extension PublishSubject where Element == Void {
 typealias NetworkResult<T> = Result<T, AnyError>
 
 struct AnyError: Error {
-  let error: Error
+  let error: Error & LocalizedError
   
   var localizedDescription: String {
     return error.localizedDescription
   }
+  
+  var description: String {
+    get {
+      return error.errorDescription ?? ""
+    }
+  }
+
+  var errorDescription: String? {
+    get {
+      return error.errorDescription
+    }
+  }
+
 }
 
 extension Result {
@@ -116,13 +129,15 @@ extension Decodable {
 }
 
 extension Notification {
-    static let commentNotification = Notification(name: .commentNotification)
-    static let chatNotification = Notification(name: .chatNotification)
+  static let commentNotification = Notification(name: .commentNotification)
+  static let chatNotification = Notification(name: .chatNotification)
+  static let challengesUpdated = Notification(name: .challengesUpdated)
 }
 
 extension NSNotification.Name {
-    static let commentNotification = NSNotification.Name.init("CommentNotification")
-    static let chatNotification = NSNotification.Name.init("ChatNotification")
+  static let commentNotification = NSNotification.Name.init("CommentNotification")
+  static let chatNotification = NSNotification.Name.init("ChatNotification")
+  static let challengesUpdated = NSNotification.Name.init("ChallengesUpdated")
 }
 
 extension UIView: Placeholder { }

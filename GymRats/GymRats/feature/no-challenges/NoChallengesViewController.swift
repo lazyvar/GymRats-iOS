@@ -23,6 +23,12 @@ class NoChallengesViewController: BindableViewController {
       .disposed(by: disposeBag)
   }
 
+  override func viewDidLoad() {
+    super.viewDidLoad()
+
+    setupMenuButton()
+  }
+  
   @IBAction private func tappedJoinButton(_ sender: Any) {
     viewModel.input.tappedJoinChallenge.trigger()
   }
