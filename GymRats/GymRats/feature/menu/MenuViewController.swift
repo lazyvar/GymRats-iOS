@@ -17,7 +17,8 @@ class MenuViewController: BindableViewController {
   static let width: CGFloat = { UIScreen.main.bounds.width - 133 }()
 
   private let viewModel = MenuViewModel()
-  
+  private let disposeBag = DisposeBag()
+
   @IBOutlet weak var tableView: UITableView! {
     didSet {
       tableView.rx.setDelegate(self).disposed(by: disposeBag)
@@ -34,8 +35,6 @@ class MenuViewController: BindableViewController {
         .disposed(by: disposeBag)
     }
   }
-
-  private let disposeBag = DisposeBag()
   
   private let dataSource = RxTableViewSectionedReloadDataSource<MenuSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
     switch row {
@@ -102,11 +101,3 @@ extension MenuViewController: UITableViewDelegate {
     return 25
   }
 }
-
-extension MenuViewController: CreateChallengeDelegate {
-  func challengeCreated(challenge: Challenge) {
-    
-  }
-}
-
-// UserDefaults.standard.set(challenge.id, forKey: "last_opened_challenge")

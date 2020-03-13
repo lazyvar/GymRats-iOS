@@ -28,17 +28,15 @@ final class MenuViewModel: ViewModel {
   let output = Output()
   
   init() {
-    let challenges = BehaviorSubject<[Challenge]>(value: [])
     let profile = Observable.just(
       MenuSection(model: false, items: [.profile(GymRats.currentAccount)])
     )
 
-    Observable.merge(Challenge.State.all.observe().compactMap { $0.object })
+    let challenges = Observable.merge(Challenge.State.all.observe().compactMap { $0.object })
       .map { challenges in
         return challenges.filter { $0.isActive || $0.isUpcoming }
       }
-      .bind(to: challenges)
-      .disposed(by: disposeBag)
+      .share()
     
     let challengeSection = challenges
       .map { challenges -> MenuSection in
@@ -69,9 +67,9 @@ final class MenuViewModel: ViewModel {
       .bind(to: output.navigation)
       .disposed(by: disposeBag)
 
-    input.tappedRow
-      .compactMap { indexPath -> (Navigation, Screen)? in
-        let challenges = (try? challenges.value()) ?? []
+    input.tappedRow.withLatestFrom(challenges, resultSelector: { ($0, $1) })
+      .compactMap { stuff -> (Navigation, Screen)? in
+        let (indexPath, challenges) = stuff
         
         switch indexPath.section {
         case 0: return (.replaceDrawerCenterInNav(animated: true), .profile(GymRats.currentAccount))
