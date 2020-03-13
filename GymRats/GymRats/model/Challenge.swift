@@ -10,8 +10,6 @@ import Foundation
 import SwiftDate
 
 struct Challenge: Codable {
-  static let all = Resource<NetworkResult<[Challenge]>> { gymRatsAPI.getAllChallenges() }
-  
   let id: Int
   let name: String
   let code: String

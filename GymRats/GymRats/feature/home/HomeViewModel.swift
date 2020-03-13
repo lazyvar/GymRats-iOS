@@ -8,7 +8,6 @@
 
 import Foundation
 import RxSwift
-import RxCocoa
 
 final class HomeViewModel: ViewModel {
   
@@ -28,7 +27,7 @@ final class HomeViewModel: ViewModel {
   
   init() {
     let challenges = input.viewDidLoad
-      .flatMap { _ in Challenge.all.fetch() }
+      .flatMap { _ in Challenge.State.all.fetch() }
       .observeOn(MainScheduler.instance)
       .share()
     

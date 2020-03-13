@@ -69,7 +69,6 @@ private extension ChallengeTabBarController {
   }
   
   private func presentCreateWorkout() {
-    GymRatsApp.coordinator.menu.activeChallenges = [challenge] // TODO: don't do this
     generator.impactOccurred()
 
     let logWorkoutModal = LogWorkoutModalViewController() { image in

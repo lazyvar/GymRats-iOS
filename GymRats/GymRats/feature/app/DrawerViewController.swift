@@ -18,7 +18,7 @@ class DrawerViewController: UIViewController {
     let drawer = MMDrawerController(center: home, leftDrawerViewController: menu).apply {
       $0.view.backgroundColor = .background
       $0.showsShadow = false
-      $0.maximumLeftDrawerWidth = MenuViewController.menuWidth
+      $0.maximumLeftDrawerWidth = MenuViewController.width
       $0.centerHiddenInteractionMode = .full
       $0.openDrawerGestureModeMask = [.all]
       $0.closeDrawerGestureModeMask = [.all]
@@ -26,7 +26,7 @@ class DrawerViewController: UIViewController {
     }
     
     GymRatsApp.coordinator.drawer = drawer // TODO: don't do this
-    GymRatsApp.coordinator.menu = menu // TODO: don't do this
+    //GymRatsApp.coordinator.menu = menu // TODO: don't do this
 
     install(drawer)
   }

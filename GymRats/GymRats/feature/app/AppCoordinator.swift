@@ -149,7 +149,7 @@ class AppCoordinator: NSObject, UNUserNotificationCenterDelegate {
         drawer = MMDrawerController(center: centerViewController, leftDrawerViewController: menu)
         drawer.view.backgroundColor = .background
         drawer.showsShadow = false
-        drawer.maximumLeftDrawerWidth = MenuViewController.menuWidth
+        drawer.maximumLeftDrawerWidth = MenuViewController.width
         drawer.centerHiddenInteractionMode = .full
         drawer.openDrawerGestureModeMask = [.all]
         drawer.closeDrawerGestureModeMask = [.all]

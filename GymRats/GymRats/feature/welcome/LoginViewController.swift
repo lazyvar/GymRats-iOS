@@ -62,15 +62,18 @@ class LoginViewController: GRFormViewController {
       
       self.showLoadingBar(disallowUserInteraction: true)
         
-//        gymRatsAPI.login(email: email, password: password)
-//            .subscribe(onNext: { [weak self] user in
-//                self?.hideLoadingBar()
-//                Track.event(.login)
-//                GymRatsApp.delegate.appCoordinator.login(user: user)
-//            }, onError: { [weak self] error in
-//                self?.presentAlert(title: "Uh-oh", message: error.localizedDescription)
-//                self?.hideLoadingBar()
-//            }).disposed(by: disposeBag)
+        gymRatsAPI.login(email: email, password: password)
+            .subscribe(onNext: { [weak self] user in
+                self?.hideLoadingBar()
+                Track.event(.login)
+                guard let user = user.object else { return }
+                
+                GymRats.login(user)
+
+            }, onError: { [weak self] error in
+                self?.presentAlert(title: "Uh-oh", message: error.localizedDescription)
+                self?.hideLoadingBar()
+            }).disposed(by: disposeBag)
     }
     
     func resetPassword(email: String?) {

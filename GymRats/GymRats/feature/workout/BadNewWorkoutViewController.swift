@@ -151,7 +151,7 @@ class BadNewWorkoutViewController: GRFormViewController {
             cell.textField.keyboardType = .numberPad
         }
 
-        let activeChallenges = GymRatsApp.coordinator.menu.activeChallenges // TODO: don't do this
+        let activeChallenges: [Challenge] = [] // TODO: don't do this
         let challengeSection = Section("Challenges")
         
         form +++ Section() {

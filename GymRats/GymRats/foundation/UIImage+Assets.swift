@@ -13,4 +13,10 @@ extension UIImage {
   static let chatGray = UIImage(named: "chat-gray")!
   static let standings = UIImage(named: "standings")!
   static let activityLargeWhite = UIImage(named: "activity-large-white")!
+
+  static let archive = UIImage(named: "archive")!
+  static let plusCircle = UIImage(named: "plus-circle")!
+  static let play = UIImage(named: "play")!
+  static let gear = UIImage(named: "gear")!
+  static let info = UIImage(named: "info")!
 }
