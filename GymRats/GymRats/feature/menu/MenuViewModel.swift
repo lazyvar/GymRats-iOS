@@ -28,17 +28,18 @@ final class MenuViewModel: ViewModel {
   let output = Output()
   
   init() {
+    let challenges = BehaviorSubject<[Challenge]>(value: [])
     let profile = Observable.just(
       MenuSection(model: false, items: [.profile(GymRats.currentAccount)])
     )
-    
-    let challenges = Challenge.State.all.resource
-      .compactMap { $0?.object }
+
+    Observable.merge(Challenge.State.all.observe().compactMap { $0.object })
       .map { challenges in
         return challenges.filter { $0.isActive || $0.isUpcoming }
       }
-      .share()
-      
+      .bind(to: challenges)
+      .disposed(by: disposeBag)
+    
     let challengeSection = challenges
       .map { challenges -> MenuSection in
         let items: [MenuRow] = challenges.isNotEmpty ? challenges.map { MenuRow.challenge($0) } : [.home]
@@ -58,23 +59,36 @@ final class MenuViewModel: ViewModel {
       .bind(to: output.sections)
       .disposed(by: disposeBag)
     
-    Observable.combineLatest(input.tappedRow, challenges)
-      .compactMap { stuff -> (Navigation, Screen)? in
-        let (indexPath, challenges) = stuff
+    input.tappedRow
+      .filter { $0.section == 2 && $0.row == 1 }
+      .flatMap { _ in ChallengeFlow.join() }
+      .do(onNext: { challenge in
+        UserDefaults.standard.set(challenge.id, forKey: "last_opened_challenge")
+      })
+      .map { challenge -> (Navigation, Screen) in (.replaceDrawerCenter(animated: true), .activeChallenge(challenge)) }
+      .bind(to: output.navigation)
+      .disposed(by: disposeBag)
+
+    input.tappedRow
+      .compactMap { indexPath -> (Navigation, Screen)? in
+        let challenges = (try? challenges.value()) ?? []
         
         switch indexPath.section {
         case 0: return (.replaceDrawerCenterInNav(animated: true), .profile(GymRats.currentAccount))
-        case 1: return {
+        case 1:
           if challenges.isEmpty {
             return (.replaceDrawerCenterInNav(animated: true), .home)
           } else {
-            return (.replaceDrawerCenter(animated: true), .activeChallenge(challenges[indexPath.row]))
+            let challenge = challenges[indexPath.row]
+            
+            UserDefaults.standard.set(challenge.id, forKey: "last_opened_challenge")
+
+            return (.replaceDrawerCenter(animated: true), .activeChallenge(challenge))
           }
-        }()
         case 2: return {
           switch indexPath.row {
           case 0: return (.replaceDrawerCenterInNav(animated: true), .completedChallenges)
-          case 1: ChallengeFlow.join(); return nil
+          case 1: return nil
           case 2: return (.presentInNav(animated: true), .createChallenge(self))
           case 3: return (.replaceDrawerCenterInNav(animated: true), .settings)
           case 4: return (.replaceDrawerCenterInNav(animated: true), .about)

@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxDataSources
+import CRRefresh
 
 enum ChallengeRow {
   case banner(Challenge, [Account], [Workout])
@@ -38,10 +39,6 @@ class ChallengeViewController: BindableViewController {
   }
   
   // MARK: Views
-  
-  private lazy var refresher = UIRefreshControl().apply {
-    $0.addTarget(self, action: #selector(refreshValueChanged), for: .valueChanged)
-  }
 
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
@@ -50,7 +47,9 @@ class ChallengeViewController: BindableViewController {
       tableView.registerCellNibForClass(WorkoutCell.self)
       tableView.registerCellNibForClass(ChallengeBannerCell.self)
       tableView.rx.setDelegate(self).disposed(by: disposeBag)
-      tableView.addSubview(refresher)
+      tableView.cr.addHeadRefresh(animator: NormalHeaderAnimator()) { [weak self] in
+        self?.viewModel.input.refresh.trigger()
+      }
       tableView.rx.itemSelected
         .do(onNext: { [weak self] indexPath in
           self?.tableView.deselectRow(at: indexPath, animated: true)
@@ -90,14 +89,14 @@ class ChallengeViewController: BindableViewController {
   override func bindViewModel() {
     viewModel.output.sections
       .do(onNext: { [weak self] _ in
-        self?.refresher.endRefreshing()
+        self?.tableView.cr.endHeaderRefresh()
       })
       .bind(to: tableView.rx.items(dataSource: dataSource))
       .disposed(by: disposeBag)
     
     viewModel.output.error
       .do(onNext: { [weak self] _ in
-        self?.refresher.endRefreshing()
+        self?.tableView.cr.endHeaderRefresh()
       })
       .debug()
       .flatMap { UIAlertController.present($0) }
@@ -169,22 +168,8 @@ class ChallengeViewController: BindableViewController {
     )
   }
   
-  @objc private func refreshValueChanged() {
-    viewModel.input.refresh.trigger()
-  }
-  
   private func leaveChallenge() {
-    let alert = UIAlertController(title: "Are you sure you want to leave \(challenge.name)?", message: nil, preferredStyle: .actionSheet)
-    let leave = UIAlertAction(title: "Leave", style: .destructive) { _ in
-      // TODO: leave challenge / reload home
-    }
-      
-    let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-      
-    alert.addAction(leave)
-    alert.addAction(cancel)
-      
-    present(alert, animated: true, completion: nil)
+    // TODO
   }
 }
 

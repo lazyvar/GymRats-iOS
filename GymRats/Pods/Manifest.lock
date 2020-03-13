@@ -4,6 +4,7 @@ PODS:
   - Cache (5.2.0)
   - Crashlytics (3.12.0):
     - Fabric (~> 1.9.0)
+  - CRRefresh (1.1.3)
   - Differentiator (4.0.1)
   - EasyNotificationBadge (1.2.0)
   - ESTabBarController-swift (2.8.0)
@@ -138,6 +139,7 @@ DEPENDENCIES:
   - AvatarImageView (~> 2.2.0)
   - Cache
   - Crashlytics (~> 3.12.0)
+  - CRRefresh
   - EasyNotificationBadge
   - ESTabBarController-swift
   - Eureka
@@ -169,6 +171,7 @@ SPEC REPOS:
     - AvatarImageView
     - Cache
     - Crashlytics
+    - CRRefresh
     - Differentiator
     - EasyNotificationBadge
     - ESTabBarController-swift
@@ -217,6 +220,7 @@ SPEC CHECKSUMS:
   AvatarImageView: afe8e7eb50181ca3f095e21034f245676b535c55
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
+  CRRefresh: 1415d4ae06837fa7bb064c44f2e102f3ef517044
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   EasyNotificationBadge: afeb15ed6f9a4262d626a2b745297e96afa26c2e
   ESTabBarController-swift: 05593a6ad64700b03c0eb60ff625916370aa4136
@@ -260,6 +264,6 @@ SPEC CHECKSUMS:
   SwiftDate: 6329e58969a2de31cea7f1ee1143b247693196e7
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 7900425f6f2077f85df51de55b78d863be40e5b6
+PODFILE CHECKSUM: 68edfbf2fdd8b62710a9d8a087e28995eccd0ced
 
 COCOAPODS: 1.8.4

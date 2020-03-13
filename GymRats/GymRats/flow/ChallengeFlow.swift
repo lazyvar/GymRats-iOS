@@ -31,30 +31,9 @@ enum ChallengeFlow {
   }
   
   static func leave(_ challenge: Challenge) {
-    gymRatsAPI.leaveChallenge(challenge)
-      .next { result in
-        switch result {
-        case .success:
-          Challenge.State.all.fetch().ignore(disposedBy: disposeBag)
-        case .failure(let error):
-          UIViewController.topmost().presentAlert(with: error)
-        }
-      }
-      .disposed(by: disposeBag)
-  }
-  
-  static func join() {
-    let cancelAction = UIAlertAction(title: "Cancel", style: .default)
-    let alert = UIAlertController (
-      title: "Join Challenge",
-      message: "Enter the 6 character challenge code",
-      preferredStyle: .alert
-    )
-
-    let ok = UIAlertAction(title: "OK", style: .default, handler: { _ in
-      let code = alert.textFields?.first?.text ?? ""
-      
-      gymRatsAPI.joinChallenge(code: code)
+    let alert = UIAlertController(title: "Are you sure you want to leave \(challenge.name)?", message: nil, preferredStyle: .actionSheet)
+    let leave = UIAlertAction(title: "Leave", style: .destructive) { _ in
+      gymRatsAPI.leaveChallenge(challenge)
         .next { result in
           switch result {
           case .success:
@@ -64,15 +43,56 @@ enum ChallengeFlow {
           }
         }
         .disposed(by: disposeBag)
-    })
-
-    alert.addTextField { (textField: UITextField!) -> Void in
-      textField.placeholder = "Code"
     }
-    
-    alert.addAction(cancelAction)
-    alert.addAction(ok)
-
+      
+    let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+      
+    alert.addAction(leave)
+    alert.addAction(cancel)
+      
     UIViewController.topmost().present(alert, animated: true, completion: nil)
+  }
+  
+  static func join() -> Observable<Challenge> {
+    return .create { observer in
+      let disposeBag = DisposeBag()
+      let cancelAction = UIAlertAction(title: "Cancel", style: .default) { _ in
+        observer.onCompleted()
+      }
+      let alert = UIAlertController (
+        title: "Join Challenge",
+        message: "Enter the 6 character challenge code",
+        preferredStyle: .alert
+      )
+
+      let ok = UIAlertAction(title: "OK", style: .default, handler: { _ in
+        let code = alert.textFields?.first?.text ?? ""
+        
+        gymRatsAPI.joinChallenge(code: code)
+          .next { result in
+            switch result {
+            case .success(let challenge):
+              observer.on(.next(challenge))
+              Challenge.State.all.fetch().ignore(disposedBy: disposeBag)
+            case .failure(let error):
+              UIViewController.topmost().presentAlert(with: error)
+            }
+            
+            observer.onCompleted()
+          }
+          .disposed(by: disposeBag)
+      })
+
+      alert.addTextField { (textField: UITextField!) -> Void in
+        textField.placeholder = "Code"
+      }
+      
+      alert.addAction(cancelAction)
+      alert.addAction(ok)
+
+      UIViewController.topmost().present(alert, animated: true, completion: nil)
+
+      return Disposables.create()
+    }
   }
 }

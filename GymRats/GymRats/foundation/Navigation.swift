@@ -30,9 +30,9 @@ extension UIViewController {
     case .install:
       install(viewController)
     case .replaceDrawerCenter(animated: let animated):
-      mm_drawerController.setCenterView(viewController, withCloseAnimation: animated, completion: nil)
+      mm_drawerController?.setCenterView(viewController, withCloseAnimation: animated, completion: nil)
     case .replaceDrawerCenterInNav(animated: let animated):
-      mm_drawerController.setCenterView(viewController.inNav(), withCloseAnimation: animated, completion: nil)
+      mm_drawerController?.setCenterView(viewController.inNav(), withCloseAnimation: animated, completion: nil)
     case .replaceNav(animated: let animated):
       navigationController?.setViewControllers([viewController], animated: animated)
     }

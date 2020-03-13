@@ -16,10 +16,10 @@ class NoChallengesViewController: BindableViewController {
   private let disposeBag = DisposeBag()
   
   override func bindViewModel() {
-    viewModel.output.presentScreen
-      .next { [weak self] screen in
-        self?.present(screen.viewController)
-      }
+    viewModel.output.navigation
+      .subscribe(onNext: { [weak self] (navigation, screen) in
+        self?.navigate(navigation, to: screen.viewController)
+      })
       .disposed(by: disposeBag)
   }
 

@@ -36,7 +36,7 @@ final class HomeViewModel: ViewModel {
       .bind(to: output.error)
       .disposed(by: disposeBag)
     
-    challenges
+    Observable.merge(challenges, Challenge.State.all.observe())
       .compactMap { $0.object }
       .map { challenges -> (Navigation, Screen) in
         guard challenges.isNotEmpty else { return (.replaceDrawerCenterInNav(animated: false), .noChallenges) }

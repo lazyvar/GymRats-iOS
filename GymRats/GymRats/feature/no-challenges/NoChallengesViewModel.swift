@@ -19,7 +19,7 @@ final class NoChallengesViewModel: ViewModel {
   }
 
   struct Output {
-    let presentScreen = PublishSubject<Screen>()
+    let navigation = PublishSubject<(Navigation, Screen)>()
   }
 
   let input = Input()
@@ -27,12 +27,14 @@ final class NoChallengesViewModel: ViewModel {
 
   init() {
     input.tappedJoinChallenge
-      .subscribe(onNext: { ChallengeFlow.join() })
+      .flatMap { _ in ChallengeFlow.join() }
+      .map { challenge -> (Navigation, Screen) in (.replaceDrawerCenter(animated: true), .activeChallenge(challenge)) }
+      .bind(to: output.navigation)
       .disposed(by: disposeBag)
-    
+
     input.tappedStartChallenge
-      .map { _ in Screen.createChallenge(self) }
-      .bind(to: output.presentScreen)
+      .map { challenge -> (Navigation, Screen) in (.presentInNav(animated: true), .createChallenge(self)) }
+      .bind(to: output.navigation)
       .disposed(by: disposeBag)
   }
 }
