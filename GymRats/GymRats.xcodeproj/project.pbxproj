@@ -186,7 +186,6 @@
 		748DFB8E2210B2EA007220C7 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748DFB8D2210B2EA007220C7 /* Place.swift */; };
 		74A01B25220A0AFB00431ABD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B24220A0AFB00431ABD /* HomeViewController.swift */; };
 		74A01B27220A0BBF00431ABD /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B26220A0BBF00431ABD /* Challenge.swift */; };
-		74A01B2A220A17EC00431ABD /* JoinChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B29220A17EC00431ABD /* JoinChallenge.swift */; };
 		74A01B2C220A1A5B00431ABD /* SimpleError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B2B220A1A5B00431ABD /* SimpleError.swift */; };
 		74A01B2F220A1CD900431ABD /* CreateChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B2E220A1CD900431ABD /* CreateChallengeViewController.swift */; };
 		74A01B34220A3B2000431ABD /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B33220A3B2000431ABD /* Workout.swift */; };
@@ -405,7 +404,6 @@
 		748DFB8D2210B2EA007220C7 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		74A01B24220A0AFB00431ABD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		74A01B26220A0BBF00431ABD /* Challenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
-		74A01B29220A17EC00431ABD /* JoinChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinChallenge.swift; sourceTree = "<group>"; };
 		74A01B2B220A1A5B00431ABD /* SimpleError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleError.swift; sourceTree = "<group>"; };
 		74A01B2E220A1CD900431ABD /* CreateChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChallengeViewController.swift; sourceTree = "<group>"; };
 		74A01B33220A3B2000431ABD /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
@@ -770,7 +768,6 @@
 				74A01B41220A68EA00431ABD /* menu */,
 				74A01B30220A37CD00431ABD /* view-challenge */,
 				74A01B2D220A1CC800431ABD /* create-challenge */,
-				74A01B28220A17DC00431ABD /* join-challenge */,
 				74305072220A067C005D8C52 /* home */,
 				01F5296224184A8500FA96E0 /* no-challenges */,
 				747D6FE12208ED550062BB39 /* welcome */,
@@ -869,14 +866,6 @@
 				747D6FE62208ED780062BB39 /* SignUpViewController.swift */,
 			);
 			path = welcome;
-			sourceTree = "<group>";
-		};
-		74A01B28220A17DC00431ABD /* join-challenge */ = {
-			isa = PBXGroup;
-			children = (
-				74A01B29220A17EC00431ABD /* JoinChallenge.swift */,
-			);
-			path = "join-challenge";
 			sourceTree = "<group>";
 		};
 		74A01B2D220A1CC800431ABD /* create-challenge */ = {
@@ -1290,7 +1279,6 @@
 				747D6FDB2208E8130062BB39 /* Keychain.swift in Sources */,
 				013D02492419454B0063F189 /* GymRats.swift in Sources */,
 				01E833E42325BF7300C66C72 /* ChallengeBannerCell.swift in Sources */,
-				74A01B2A220A17EC00431ABD /* JoinChallenge.swift in Sources */,
 				0107C7EF241B06A2005650FB /* MenuRow.swift in Sources */,
 				01A3EB20237747D30097FC2A /* CVScrollDirection.swift in Sources */,
 				011FB63322A37387004D5B8E /* ArchivedChallengesTableViewController.swift in Sources */,

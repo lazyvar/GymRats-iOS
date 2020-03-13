@@ -27,8 +27,8 @@ final class NoChallengesViewModel: ViewModel {
 
   init() {
     input.tappedJoinChallenge
-      .flatMap { JoinChallenge.presentJoinChallengeModal(on: .topmost()) }
-      .ignore(disposedBy: disposeBag)
+      .subscribe(onNext: { ChallengeFlow.join() { _ in /* TODO */ } })
+      .disposed(by: disposeBag)
     
     input.tappedStartChallenge
       .map { _ in Screen.createChallenge(self) }
