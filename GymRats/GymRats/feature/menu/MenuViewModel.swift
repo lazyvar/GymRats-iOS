@@ -41,7 +41,7 @@ final class MenuViewModel: ViewModel {
       
     let challengeSection = challenges
       .map { challenges -> MenuSection in
-        let items: [MenuRow] = challenges.isNotEmpty ? challenges.map { MenuRow.challenge($0) } : []
+        let items: [MenuRow] = challenges.isNotEmpty ? challenges.map { MenuRow.challenge($0) } : [.home]
         
         return .init(model: false, items: items)
       }

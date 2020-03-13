@@ -53,17 +53,17 @@ class MenuViewController: BindableViewController {
         $0.imageView?.image = item.image
       }
     case .home:
-      return tableView.dequeueReusableCell(withType: UserProfileCell.self, for: indexPath).apply {
+      return tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath).apply {
         $0.textLabel?.font = .bodyBold
         $0.backgroundColor = .clear
         $0.imageView?.tintColor = .white
         $0.textLabel?.textColor = .white
         $0.textLabel?.text = "Home"
-        $0.imageView?.image = UIImage(named: "activity")?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        $0.imageView?.image = .activity
       }
     }
   })
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     
