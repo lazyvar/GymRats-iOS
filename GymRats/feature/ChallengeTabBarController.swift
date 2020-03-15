@@ -83,7 +83,7 @@ private extension ChallengeTabBarController {
   
   private func pushChat() {
     challengeViewController.push(
-      DeprecatedChatViewController(challenge: challenge)
+      ChatViewController(challenge: challenge)
     )
   }
   

@@ -10,11 +10,11 @@ import Foundation
 import MessageKit
 
 struct ChatMessage: Codable {
-    let id: Int
-    let challengeId: Int
-    let content: String
-    let createdAt: Date
-    let gymRatsUser: Account
+  let id: Int
+  let challengeId: Int
+  let content: String
+  let createdAt: Date
+  let gymRatsUser: Account
 }
 
 extension ChatMessage: MessageType {

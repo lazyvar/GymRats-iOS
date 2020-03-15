@@ -32,6 +32,7 @@
 		011FB63022A33C14004D5B8E /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011FB62E22A33C14004D5B8E /* ItemCell.xib */; };
 		011FB63322A37387004D5B8E /* ArchivedChallengesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB63222A37387004D5B8E /* ArchivedChallengesTableViewController.swift */; };
 		01213CE2241E9C62008461B0 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01213CE1241E9C62008461B0 /* ChatViewController.swift */; };
+		01213CE4241EB15A008461B0 /* Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01213CE3241EB15A008461B0 /* Coding.swift */; };
 		01297D842329E79000CA9E41 /* SF-Compact-Rounded-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01297D6F2329E79000CA9E41 /* SF-Compact-Rounded-Medium.otf */; };
 		01297D852329E79000CA9E41 /* SF-Compact-Rounded-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01297D702329E79000CA9E41 /* SF-Compact-Rounded-Heavy.otf */; };
 		01297D862329E79000CA9E41 /* SF-Compact-Rounded-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01297D712329E79000CA9E41 /* SF-Compact-Rounded-Light.otf */; };
@@ -244,6 +245,7 @@
 		011FB62E22A33C14004D5B8E /* ItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
 		011FB63222A37387004D5B8E /* ArchivedChallengesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchivedChallengesTableViewController.swift; sourceTree = "<group>"; };
 		01213CE1241E9C62008461B0 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		01213CE3241EB15A008461B0 /* Coding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Coding.swift; path = ../../../WebSocketsExample/Coding.swift; sourceTree = "<group>"; };
 		01297D6F2329E79000CA9E41 /* SF-Compact-Rounded-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Medium.otf"; sourceTree = "<group>"; };
 		01297D702329E79000CA9E41 /* SF-Compact-Rounded-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Heavy.otf"; sourceTree = "<group>"; };
 		01297D712329E79000CA9E41 /* SF-Compact-Rounded-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Light.otf"; sourceTree = "<group>"; };
@@ -768,6 +770,7 @@
 				013D02442419401F0063F189 /* Apply.swift */,
 				011DAE97241ADC69009B3613 /* Navigation.swift */,
 				01863FB8241C66E2001B3CE2 /* Alert.swift */,
+				01213CE3241EB15A008461B0 /* Coding.swift */,
 			);
 			path = foundation;
 			sourceTree = "<group>";
@@ -1353,6 +1356,7 @@
 				748DFB8C220FD882007220C7 /* GService.swift in Sources */,
 				01AC5F6123CA414800FFAE4D /* ReadOnlyTextField.swift in Sources */,
 				01A3EB26237747D30097FC2A /* CVCalendarViewAnimator.swift in Sources */,
+				01213CE4241EB15A008461B0 /* Coding.swift in Sources */,
 				74A01B34220A3B2000431ABD /* Workout.swift in Sources */,
 				74F47889220CECFE005CD4E4 /* ImageService.swift in Sources */,
 				014A7657237764B6002CE366 /* GRFormViewController.swift in Sources */,
