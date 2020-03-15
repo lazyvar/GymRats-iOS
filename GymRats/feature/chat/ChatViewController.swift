@@ -103,7 +103,7 @@ class ChatViewController: MessagesViewController {
     
     // TODO showLoadingBar()
         
-    gymRatsAPI.getAllChats(for: challenge, page: page)
+    gymRatsAPI.getChatMessages(for: challenge, page: page)
       .subscribe(onNext: { result in
         // self.hideLoadingBar()
 
@@ -156,10 +156,13 @@ class ChatViewController: MessagesViewController {
     channel.on("new_msg") { [weak self] message in
       if let data = message.payload.data(), let chat = try? JSONDecoder.gymRatsAPIDecoder.decode(ChatMessage.self, from: data) {
         self?.chats.append(chat)
+        
+        if chat.account.id == GymRats.currentAccount.id {
+          self?.messageInputBar.inputTextView.text = nil
+        }
       }
       
       self?.messagesCollectionView.reloadData()
-      self?.messageInputBar.inputTextView.text = nil
       self?.messageInputBar.sendButton.stopAnimating()
       self?.messagesCollectionView.scrollToBottom(animated: true)
     }
@@ -192,7 +195,6 @@ extension ChatViewController: MessagesDataSource {
 extension ChatViewController: InputBarAccessoryViewDelegate {
   func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
     messageInputBar.sendButton.startAnimating()
-    messageInputBar.inputTextView.placeholder = "Sending..."
     channel?.push("new_msg", payload: ["message": text.trimmingCharacters(in: .whitespacesAndNewlines)])
   }
 }
@@ -202,7 +204,7 @@ extension ChatViewController: MessageCellDelegate {
     guard let indexPath = messagesCollectionView.indexPath(for: cell) else { return }
     guard let chat = chats[safe: indexPath.section] else { return }
       
-    push(ProfileViewController(user: chat.gymRatsUser, challenge: challenge))
+    push(ProfileViewController(user: chat.account, challenge: challenge))
   }
 }
 
@@ -220,7 +222,7 @@ extension ChatViewController: MessagesDisplayDelegate {
     avatarView.addConstraintsWithFormat(format: "H:|[v0]|", views: userImageView)
     avatarView.addConstraintsWithFormat(format: "V:|[v0]|", views: userImageView)
       
-    userImageView.load(avatarInfo: chat.gymRatsUser)
+    userImageView.load(avatarInfo: chat.account)
   }
   
   func backgroundColor(for message: MessageType, at  indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {

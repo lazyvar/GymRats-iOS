@@ -208,7 +208,7 @@ extension DeprecatedChatViewController: MessageCellDelegate {
         guard let indexPath = messagesCollectionView.indexPath(for: cell) else { return }
         guard let chat = chats[safe: indexPath.section] else { return }
         
-        push(ProfileViewController(user: chat.gymRatsUser, challenge: challenge))
+        push(ProfileViewController(user: chat.account, challenge: challenge))
     }
 
 }
@@ -229,7 +229,7 @@ extension DeprecatedChatViewController: MessagesDisplayDelegate {
         avatarView.addConstraintsWithFormat(format: "H:|[v0]|", views: userImageView)
         avatarView.addConstraintsWithFormat(format: "V:|[v0]|", views: userImageView)
         
-        userImageView.load(avatarInfo: chat.gymRatsUser)
+        userImageView.load(avatarInfo: chat.account)
     }
     
     func backgroundColor(for message: MessageType, at  indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {

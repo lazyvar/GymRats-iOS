@@ -14,12 +14,12 @@ struct ChatMessage: Codable {
   let challengeId: Int
   let content: String
   let createdAt: Date
-  let gymRatsUser: Account
+  let account: Account
 }
 
 extension ChatMessage: MessageType {
   var sender: SenderType {
-    return gymRatsUser.asSender
+    return account.asSender
   }
   
   var messageId: String {

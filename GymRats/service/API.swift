@@ -27,7 +27,7 @@ enum APIRequest {
   case deleteWorkout(_ workout: Workout)
   case getCommentsForWorkout(_ workout: Workout)
   case postComment(comment: String, workout: Workout)
-  case getChat(_ challenge: Challenge, page: Int)
+  case getChatMessages(_ challenge: Challenge, page: Int)
   case postChatMessage(message: String, challenge: Challenge)
   case getUnreadChats(_ challenge: Challenge)
   case registerDevice(deviceToken: String)
@@ -165,8 +165,8 @@ enum APIRequest {
       ]
       
       return (.post, "comments", params)
-    case .getChat(let challenge, page: let page):
-      return (.get, "deprecated", nil)
+    case .getChatMessages(let challenge, page: let page):
+      return (.get, "challenges/\(challenge.id)/messages?page=\(page)", nil)
     case .postChatMessage(message: let message, challenge: let challenge):
       let params: Parameters = [
           "content": message,
