@@ -10,7 +10,7 @@ import UIKit
 import MessageKit
 import RxSwift
 
-class ChatViewController: MessagesViewController {
+class DeprecatedChatViewController: MessagesViewController {
     
     var chats: [ChatMessage] = []
     let disposeBag = DisposeBag()
@@ -162,7 +162,7 @@ class ChatViewController: MessagesViewController {
     }
 }
 
-extension ChatViewController: MessageInputBarDelegate {
+extension DeprecatedChatViewController: MessageInputBarDelegate {
     
     func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
         self.showLoadingBar(disallowUserInteraction: true)
@@ -186,7 +186,7 @@ extension ChatViewController: MessageInputBarDelegate {
     }
 }
 
-extension ChatViewController: MessagesDataSource {
+extension DeprecatedChatViewController: MessagesDataSource {
     
     func currentSender() -> SenderType {
         return GymRats.currentAccount.asSender
@@ -202,7 +202,7 @@ extension ChatViewController: MessagesDataSource {
     
 }
 
-extension ChatViewController: MessageCellDelegate {
+extension DeprecatedChatViewController: MessageCellDelegate {
     
     func didTapAvatar(in cell: MessageCollectionViewCell) {
         guard let indexPath = messagesCollectionView.indexPath(for: cell) else { return }
@@ -213,9 +213,9 @@ extension ChatViewController: MessageCellDelegate {
 
 }
 
-extension ChatViewController: MessagesLayoutDelegate { }
+extension DeprecatedChatViewController: MessagesLayoutDelegate { }
 
-extension ChatViewController: MessagesDisplayDelegate {
+extension DeprecatedChatViewController: MessagesDisplayDelegate {
     
     
     func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {

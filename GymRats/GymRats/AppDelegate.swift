@@ -27,14 +27,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     guard ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil else { return true }
     
     GymRats.start(launchOptions: launchOptions)
-      
+
     return true
   }
-    
+
   func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
     GymRats.didRegisterForRemoteNotifications(withDeviceToken: deviceToken)
   }
-    
+
   func applicationWillEnterForeground(_ application: UIApplication) {
     GymRats.willEnterForeground()
   }

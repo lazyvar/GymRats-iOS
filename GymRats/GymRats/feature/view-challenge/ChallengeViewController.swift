@@ -65,7 +65,7 @@ class ChallengeViewController: BindableViewController {
     target: self,
     action: #selector(chatTapped)
   )
-  
+
   private lazy var menuBarButtonItem = UIBarButtonItem(
     image: .moreVertical,
     style: .plain,
@@ -159,17 +159,17 @@ class ChallengeViewController: BindableViewController {
     alertViewController.addAction(deleteAction)
     alertViewController.addAction(cancelAction)
     
-    self.present(alertViewController, animated: true, completion: nil)
+    present(alertViewController, animated: true, completion: nil)
   }
   
   @objc private func chatTapped() {
     push(
-      ChatViewController(challenge: challenge)
+      DeprecatedChatViewController(challenge: challenge)
     )
   }
   
   private func leaveChallenge() {
-    // TODO
+    ChallengeFlow.leave(challenge)
   }
 }
 

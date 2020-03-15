@@ -32,7 +32,8 @@ final class MenuViewModel: ViewModel {
       MenuSection(model: false, items: [.profile(GymRats.currentAccount)])
     )
 
-    let challenges = Observable.merge(Challenge.State.all.observe().compactMap { $0.object })
+    let challenges = Challenge.State.all.observe()
+      .compactMap { $0.object }
       .map { challenges in
         return challenges.filter { $0.isActive || $0.isUpcoming }
       }
@@ -103,6 +104,8 @@ final class MenuViewModel: ViewModel {
 
 extension MenuViewModel: CreateChallengeDelegate {
   func challengeCreated(challenge: Challenge) {
-    
+    Challenge.State.all.fetch().ignore(disposedBy: disposeBag)
+    UserDefaults.standard.set(challenge.id, forKey: "last_opened_challenge")
+    output.navigation.on(.next((.replaceDrawerCenter(animated: true), .activeChallenge(challenge))))
   }
 }

@@ -184,7 +184,7 @@ class UpcomingChallengeViewController: UICollectionViewController {
     }
     
     @objc func openChat() {
-        push(ChatViewController(challenge: challenge))
+        push(DeprecatedChatViewController(challenge: challenge))
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

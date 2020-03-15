@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 final class Resource<T> {
-  private(set) var state: T?
+  var state: T? { return try? subject.value() }
   
   private let subject = BehaviorSubject<T?>(value: nil)
   private let source: () -> Observable<T>
@@ -22,7 +22,15 @@ final class Resource<T> {
 
   deinit { subject.onCompleted() }
 
-  @discardableResult func fetch() -> Observable<T> {
+  func fetchIfNeeded() -> Observable<T> {
+    if let val = try? subject.value() {
+      return .just(val)
+    } else {
+      return fetch()
+    }
+  }
+  
+  func fetch() -> Observable<T> {
     let source = Observable<T>.create { observer in
       return Disposables.create(
         [

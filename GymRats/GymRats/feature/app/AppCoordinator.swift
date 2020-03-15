@@ -118,7 +118,7 @@ class AppCoordinator: NSObject, UNUserNotificationCenterDelegate {
                 } else {
                     guard let challenge = aps.gr.challenge else { return }
                     
-                    let chatViewController = ChatViewController(challenge: challenge)
+                    let chatViewController = DeprecatedChatViewController(challenge: challenge)
                     chatViewController.hidesBottomBarWhenPushed = true
                     
                     if let nav = GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController {

@@ -92,8 +92,10 @@ class BadNewWorkoutViewController: GRFormViewController {
         
         LabelRow.defaultCellUpdate = nil
 
+      let activeChallenges = Challenge.State.all.state!.object!
+      
         let headerRow = CreateWorkoutHeaderRow("workout_header") {
-            $0.value = WorkoutHeaderInfo(image: workoutImage, title: "", description: "")
+          $0.value = WorkoutHeaderInfo(image: workoutImage, title: "", description: "")
         }
 
         let durationRow = TextRow("duration") {
@@ -151,7 +153,6 @@ class BadNewWorkoutViewController: GRFormViewController {
             cell.textField.keyboardType = .numberPad
         }
 
-        let activeChallenges: [Challenge] = [] // TODO: don't do this
         let challengeSection = Section("Challenges")
         
         form +++ Section() {

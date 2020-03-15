@@ -25,6 +25,7 @@ final class ChallengeViewModel: ViewModel {
     let sections = PublishSubject<[ChallengeSection]>()
     let error = PublishSubject<Error>()
     let navigation = PublishSubject<(Navigation, Screen)>()
+    let noWorkoutsViewIsHidden = BehaviorSubject(value: true)
   }
   
   let input = Input()
@@ -57,6 +58,12 @@ final class ChallengeViewModel: ViewModel {
       .bind(to: output.error)
       .disposed(by: disposeBag)
 
+    memberWorkouts
+      .compactMap { _, w in w.object }
+      .map { $0.isNotEmpty }
+      .bind(to: output.noWorkoutsViewIsHidden)
+      .disposed(by: disposeBag)
+    
     let buckets = memberWorkouts
       .map { members, workouts -> ([Account], [(Date, [Workout])]) in
         let workouts = workouts.object ?? []

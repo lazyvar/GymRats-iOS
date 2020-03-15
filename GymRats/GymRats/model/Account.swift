@@ -24,13 +24,18 @@ struct Account: Codable, Hashable {
 extension Account {
   static func loadCurrent() -> Account? {
     switch Keychain.gymRats.retrieveObject(forKey: .currentUser) {
-    case .success(let user): return user
-    case .error: return nil
+    case .success(let account):
+      Keychain.gymRats.deleteObject(withKey: .currentUser)
+      saveCurrent(account)
+      
+      return account
+    case .error:
+      return UserDefaults.standard.codable(forKey: "gym_rats_account")
     }
   }
   
   static func saveCurrent(_ account: Account) {
-    Keychain.gymRats.storeObject(account, forKey: .currentUser)
+    UserDefaults.standard.set(account, forKey: "gym_rats_account")
   }
 }
 

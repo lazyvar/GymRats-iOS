@@ -31,6 +31,7 @@
 		011FB62F22A33C14004D5B8E /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB62D22A33C14004D5B8E /* ItemCell.swift */; };
 		011FB63022A33C14004D5B8E /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011FB62E22A33C14004D5B8E /* ItemCell.xib */; };
 		011FB63322A37387004D5B8E /* ArchivedChallengesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB63222A37387004D5B8E /* ArchivedChallengesTableViewController.swift */; };
+		01213CE2241E9C62008461B0 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01213CE1241E9C62008461B0 /* ChatViewController.swift */; };
 		01297D842329E79000CA9E41 /* SF-Compact-Rounded-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01297D6F2329E79000CA9E41 /* SF-Compact-Rounded-Medium.otf */; };
 		01297D852329E79000CA9E41 /* SF-Compact-Rounded-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01297D702329E79000CA9E41 /* SF-Compact-Rounded-Heavy.otf */; };
 		01297D862329E79000CA9E41 /* SF-Compact-Rounded-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01297D712329E79000CA9E41 /* SF-Compact-Rounded-Light.otf */; };
@@ -68,6 +69,7 @@
 		013D02492419454B0063F189 /* GymRats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013D02482419454B0063F189 /* GymRats.swift */; };
 		013D024B2419484A0063F189 /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013D024A2419484A0063F189 /* DrawerViewController.swift */; };
 		013D0251241979B80063F189 /* ChallengeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013D0250241979B80063F189 /* ChallengeTabBarController.swift */; };
+		0144BC61241D530200569546 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0144BC60241D530200569546 /* UserDefaults+Extension.swift */; };
 		014A7657237764B6002CE366 /* GRFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014A7656237764B6002CE366 /* GRFormViewController.swift */; };
 		014B6772241882C000F356EB /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014B6770241882C000F356EB /* ChallengeViewController.swift */; };
 		014B6773241882C000F356EB /* ChallengeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 014B6771241882C000F356EB /* ChallengeViewController.xib */; };
@@ -77,6 +79,7 @@
 		0166083D239C61B800FCFD26 /* DateProgressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0166083B239C61B800FCFD26 /* DateProgressCell.xib */; };
 		01660840239C8CA700FCFD26 /* StatsBabyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0166083E239C8CA700FCFD26 /* StatsBabyCell.swift */; };
 		01660841239C8CA700FCFD26 /* StatsBabyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0166083F239C8CA700FCFD26 /* StatsBabyCell.xib */; };
+		01863FB9241C66E2001B3CE2 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01863FB8241C66E2001B3CE2 /* Alert.swift */; };
 		018E9F4D229F7D7E008AB016 /* Challenge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E9F4C229F7D7E008AB016 /* Challenge.storyboard */; };
 		018E9F4F229F7DB1008AB016 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */; };
 		01975EAC23C1204F0031E23A /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01975EAB23C1204F0031E23A /* Track.swift */; };
@@ -124,7 +127,7 @@
 		01BFF8FD223D425C0044F802 /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01BFF8FB223D425C0044F802 /* CommentTableViewCell.xib */; };
 		01BFF907223DAFD90044F802 /* UIBarButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF906223DAFD90044F802 /* UIBarButton+Extension.swift */; };
 		01BFF909223DB1C30044F802 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF908223DB1C30044F802 /* ChatMessage.swift */; };
-		01BFF90B223DC43E0044F802 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF90A223DC43E0044F802 /* ChatViewController.swift */; };
+		01BFF90B223DC43E0044F802 /* DeprecatedChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF90A223DC43E0044F802 /* DeprecatedChatViewController.swift */; };
 		01BFF90E223DE26C0044F802 /* APS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF90D223DE26C0044F802 /* APS.swift */; };
 		01C926E8233FB96E00C1C128 /* ShareCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C926E7233FB96E00C1C128 /* ShareCodeViewController.swift */; };
 		01E68FD422D29ACC004E1218 /* WorkoutHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E68FD322D29ACC004E1218 /* WorkoutHeaderView.swift */; };
@@ -240,6 +243,7 @@
 		011FB62D22A33C14004D5B8E /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		011FB62E22A33C14004D5B8E /* ItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
 		011FB63222A37387004D5B8E /* ArchivedChallengesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchivedChallengesTableViewController.swift; sourceTree = "<group>"; };
+		01213CE1241E9C62008461B0 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		01297D6F2329E79000CA9E41 /* SF-Compact-Rounded-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Medium.otf"; sourceTree = "<group>"; };
 		01297D702329E79000CA9E41 /* SF-Compact-Rounded-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Heavy.otf"; sourceTree = "<group>"; };
 		01297D712329E79000CA9E41 /* SF-Compact-Rounded-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Light.otf"; sourceTree = "<group>"; };
@@ -277,6 +281,7 @@
 		013D02482419454B0063F189 /* GymRats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymRats.swift; sourceTree = "<group>"; };
 		013D024A2419484A0063F189 /* DrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
 		013D0250241979B80063F189 /* ChallengeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeTabBarController.swift; sourceTree = "<group>"; };
+		0144BC60241D530200569546 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		014A7656237764B6002CE366 /* GRFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRFormViewController.swift; sourceTree = "<group>"; };
 		014B6770241882C000F356EB /* ChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
 		014B6771241882C000F356EB /* ChallengeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeViewController.xib; sourceTree = "<group>"; };
@@ -286,6 +291,7 @@
 		0166083B239C61B800FCFD26 /* DateProgressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateProgressCell.xib; sourceTree = "<group>"; };
 		0166083E239C8CA700FCFD26 /* StatsBabyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsBabyCell.swift; sourceTree = "<group>"; };
 		0166083F239C8CA700FCFD26 /* StatsBabyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatsBabyCell.xib; sourceTree = "<group>"; };
+		01863FB8241C66E2001B3CE2 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		018E9F4C229F7D7E008AB016 /* Challenge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Challenge.storyboard; sourceTree = "<group>"; };
 		018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
 		01975EAB23C1204F0031E23A /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
@@ -333,7 +339,7 @@
 		01BFF8FB223D425C0044F802 /* CommentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
 		01BFF906223DAFD90044F802 /* UIBarButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButton+Extension.swift"; sourceTree = "<group>"; };
 		01BFF908223DB1C30044F802 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
-		01BFF90A223DC43E0044F802 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		01BFF90A223DC43E0044F802 /* DeprecatedChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeprecatedChatViewController.swift; sourceTree = "<group>"; };
 		01BFF90C223DE1B60044F802 /* GymRats.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GymRats.entitlements; sourceTree = "<group>"; };
 		01BFF90D223DE26C0044F802 /* APS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APS.swift; sourceTree = "<group>"; };
 		01C926E7233FB96E00C1C128 /* ShareCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCodeViewController.swift; sourceTree = "<group>"; };
@@ -465,6 +471,14 @@
 				011FB63222A37387004D5B8E /* ArchivedChallengesTableViewController.swift */,
 			);
 			path = "archived-challenges";
+			sourceTree = "<group>";
+		};
+		01213CE0241E9C53008461B0 /* chat */ = {
+			isa = PBXGroup;
+			children = (
+				01213CE1241E9C62008461B0 /* ChatViewController.swift */,
+			);
+			path = chat;
 			sourceTree = "<group>";
 		};
 		01297D6E2329E79000CA9E41 /* SF Compact Rounded */ = {
@@ -753,6 +767,7 @@
 				013D024024193BE30063F189 /* UIImage+Assets.swift */,
 				013D02442419401F0063F189 /* Apply.swift */,
 				011DAE97241ADC69009B3613 /* Navigation.swift */,
+				01863FB8241C66E2001B3CE2 /* Alert.swift */,
 			);
 			path = foundation;
 			sourceTree = "<group>";
@@ -762,6 +777,7 @@
 			children = (
 				011FB63122A3736D004D5B8E /* archived-challenges */,
 				74C2D84C222C3D0C00FF0DE2 /* about */,
+				01213CE0241E9C53008461B0 /* chat */,
 				74F4788A220D0A1D005CD4E4 /* settings */,
 				746764DD220B4811000CFB1B /* profile */,
 				74A01B44220A777D00431ABD /* workout */,
@@ -815,6 +831,7 @@
 				01BFF906223DAFD90044F802 /* UIBarButton+Extension.swift */,
 				018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */,
 				013D0246241941C90063F189 /* UITableView+Extension.swift */,
+				0144BC60241D530200569546 /* UserDefaults+Extension.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -883,7 +900,7 @@
 			children = (
 				018E9F4C229F7D7E008AB016 /* Challenge.storyboard */,
 				7455AC5F2212585B005A558A /* ChallengeInfoViewController.swift */,
-				01BFF90A223DC43E0044F802 /* ChatViewController.swift */,
+				01BFF90A223DC43E0044F802 /* DeprecatedChatViewController.swift */,
 				0137A6FE22A766E3001A1148 /* UpcomingChallengeViewController.swift */,
 				01660838239C5EAF00FCFD26 /* ChallengeStatsViewController.swift */,
 				014B6770241882C000F356EB /* ChallengeViewController.swift */,
@@ -1265,7 +1282,7 @@
 				01A3EB28237747D30097FC2A /* CVCalendarWeekday.swift in Sources */,
 				01F5295624180ED200FA96E0 /* UIAlertViewController+Rx.swift in Sources */,
 				747D6FE72208ED780062BB39 /* SignUpViewController.swift in Sources */,
-				01BFF90B223DC43E0044F802 /* ChatViewController.swift in Sources */,
+				01BFF90B223DC43E0044F802 /* DeprecatedChatViewController.swift in Sources */,
 				746764ED220BD68D000CFB1B /* RightAlignedconButton.swift in Sources */,
 				01A1CD24233AF6B8005871F4 /* EditChallengeViewController.swift in Sources */,
 				74F4788C220D0A2F005CD4E4 /* SettingsViewController.swift in Sources */,
@@ -1279,6 +1296,7 @@
 				747D6FDB2208E8130062BB39 /* Keychain.swift in Sources */,
 				013D02492419454B0063F189 /* GymRats.swift in Sources */,
 				01E833E42325BF7300C66C72 /* ChallengeBannerCell.swift in Sources */,
+				0144BC61241D530200569546 /* UserDefaults+Extension.swift in Sources */,
 				0107C7EF241B06A2005650FB /* MenuRow.swift in Sources */,
 				01A3EB20237747D30097FC2A /* CVScrollDirection.swift in Sources */,
 				011FB63322A37387004D5B8E /* ArchivedChallengesTableViewController.swift in Sources */,
@@ -1305,6 +1323,7 @@
 				74A01B3B220A544F00431ABD /* UserWorkoutTableViewCell.swift in Sources */,
 				013D02452419401F0063F189 /* Apply.swift in Sources */,
 				013D0247241941C90063F189 /* UITableView+Extension.swift in Sources */,
+				01863FB9241C66E2001B3CE2 /* Alert.swift in Sources */,
 				0163A2382377AF19006FDDA2 /* StoreService.swift in Sources */,
 				747D6FC32208DCAB0062BB39 /* Observable+Extension.swift in Sources */,
 				01660840239C8CA700FCFD26 /* StatsBabyCell.swift in Sources */,
@@ -1350,6 +1369,7 @@
 				01BFF907223DAFD90044F802 /* UIBarButton+Extension.swift in Sources */,
 				011FB62B22A33AAA004D5B8E /* UserProfileCell.swift in Sources */,
 				747D6F9A2208DB310062BB39 /* AppDelegate.swift in Sources */,
+				01213CE2241E9C62008461B0 /* ChatViewController.swift in Sources */,
 				74A01B2C220A1A5B00431ABD /* SimpleError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
