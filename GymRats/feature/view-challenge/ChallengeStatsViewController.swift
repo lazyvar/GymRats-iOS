@@ -9,127 +9,127 @@
 import UIKit
 
 class ChallengeStatsViewController: UITableViewController {
+  enum SortBy: String, CaseIterable {
+    case workouts
+    case duration
+    case distance
+    case steps
+    case calories
+    case points
     
-    enum SortBy: String, CaseIterable {
-        case workouts
-        case duration
-        case distance
-        case steps
-        case calories
-        case points
-        
-        var description: String {
-            switch self {
-            case .workouts, .steps, .calories, .points:
-                return self.rawValue
-            case .duration:
-                return "minutes"
-            case .distance:
-                return "miles"
-            }
-        }
+    var description: String {
+      switch self {
+      case .workouts, .steps, .calories, .points:
+        return self.rawValue
+      case .duration:
+        return "minutes"
+      case .distance:
+        return "miles"
+      }
     }
+  }
     
-    let challenge: Challenge
-    
-    var _users: [Int: Account] = [:]
-    var users: [Account] {
-        get {
-            switch self.sortby {
-            case .workouts:
-                return usersSortedByWorkouts
-            case .duration:
-                return usersSortedByDuration
-            case .distance:
-                return usersSortedByDistance
-            case .steps:
-                return usersSortedBySteps
-            case .calories:
-                return usersSortedByCalories
-            case .points:
-                return usersSortedByPoints
-            }
-        }
-    }
-    
-    var workouts: [Workout]
-    var sortby: SortBy {
-        get {
-            let cached = UserDefaults.standard.string(forKey: "challenge_stats_\(challenge.id)_sort_by") ?? SortBy.workouts.rawValue
-            
-            return SortBy(rawValue: cached) ?? .workouts
-        }
-        set {
-            UserDefaults.standard.set(newValue.rawValue, forKey: "challenge_stats_\(challenge.id)_sort_by")
-        }
-    }
-    
-    lazy var selectedSortBy: SortBy = self.sortby
-    
-    var userToWorkoutTotalCache: [Int: Int] = [:]
-    var userToDurationTotalCache: [Int: Int] = [:]
-    var userToDistanceTotalCache: [Int: Double] = [:]
-    var userToStepsTotalCache: [Int: Int] = [:]
-    var userToCaloriesCache: [Int: Int] = [:]
-    var userToPointsCache: [Int: Int] = [:]
+  private let challenge: Challenge
 
-    var usersSortedByWorkouts: [Account] = []
-    var usersSortedByDuration: [Account] = []
-    var usersSortedByDistance: [Account] = []
-    var usersSortedBySteps: [Account] = []
-    var usersSortedByCalories: [Account] = []
-    var usersSortedByPoints: [Account] = []
+  private var _users: [Int: Account] = [:]
+  private var users: [Account] {
+    get {
+      switch self.sortby {
+      case .workouts:
+        return usersSortedByWorkouts
+      case .duration:
+        return usersSortedByDuration
+      case .distance:
+        return usersSortedByDistance
+      case .steps:
+        return usersSortedBySteps
+      case .calories:
+        return usersSortedByCalories
+      case .points:
+        return usersSortedByPoints
+      }
+    }
+  }
+    
+  private var workouts: [Workout]
+  private var sortby: SortBy {
+    get {
+      let cached = UserDefaults.standard.string(forKey: "challenge_stats_\(challenge.id)_sort_by") ?? SortBy.workouts.rawValue
+      
+      return SortBy(rawValue: cached) ?? .workouts
+    }
+    set {
+      UserDefaults.standard.set(newValue.rawValue, forKey: "challenge_stats_\(challenge.id)_sort_by")
+    }
+  }
+    
+  private lazy var selectedSortBy: SortBy = self.sortby
+  
+  private var userToWorkoutTotalCache: [Int: Int] = [:]
+  private var userToDurationTotalCache: [Int: Int] = [:]
+  private var userToDistanceTotalCache: [Int: Double] = [:]
+  private var userToStepsTotalCache: [Int: Int] = [:]
+  private var userToCaloriesCache: [Int: Int] = [:]
+  private var userToPointsCache: [Int: Int] = [:]
 
-    init(challenge: Challenge, users: [Account], workouts: [Workout]) {
-        self.workouts = workouts
-        self.challenge = challenge
-        
-        for user in users {
-            _users[user.id] = user
-        }
-        
-        super.init(style: .grouped)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupBackButton()
-        
-        tableView.register(UINib(nibName: "SegmentedCell", bundle: nil), forCellReuseIdentifier: "celly")
-        tableView.register(UINib(nibName: "RatsCell", bundle: nil), forCellReuseIdentifier: "rat")
-        tableView.register(UINib(nibName: "DateProgressCell", bundle: nil), forCellReuseIdentifier: "date")
-        tableView.register(UINib(nibName: "StatsBabyCell", bundle: nil), forCellReuseIdentifier: "baby")
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = .background
-   
-        if _users.isEmpty {
-            self.showLoadingBar()
-            NotificationCenter.default.addObserver(self, selector: #selector(hereIsTheData), name: .init("hereIsTheDatam"), object: nil)
-        } else {
-            calc()
-        }
-    }
-    
-    @objc func hereIsTheData(notification: Notification) {
-        self.hideLoadingBar()
-        
-        guard let obj = notification.object as? ([Account], [Workout]) else { return }
-        
-        let (users, workouts) = obj
-        self.workouts = workouts
-        
-        for user in users {
-            _users[user.id] = user
-        }
+  private var usersSortedByWorkouts: [Account] = []
+  private var usersSortedByDuration: [Account] = []
+  private var usersSortedByDistance: [Account] = []
+  private var usersSortedBySteps: [Account] = []
+  private var usersSortedByCalories: [Account] = []
+  private var usersSortedByPoints: [Account] = []
 
-        self.calc()
-        self.tableView.reloadData()
+  init(challenge: Challenge, members: [Account], workouts: [Workout]) {
+    self.workouts = workouts
+    self.challenge = challenge
+    
+    for member in members {
+      _users[member.id] = member
     }
+    
+    super.init(style: .grouped)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    setupBackButton()
+    
+    tableView.register(UINib(nibName: "SegmentedCell", bundle: nil), forCellReuseIdentifier: "celly")
+    tableView.register(UINib(nibName: "RatsCell", bundle: nil), forCellReuseIdentifier: "rat")
+    tableView.register(UINib(nibName: "DateProgressCell", bundle: nil), forCellReuseIdentifier: "date")
+    tableView.register(UINib(nibName: "StatsBabyCell", bundle: nil), forCellReuseIdentifier: "baby")
+    tableView.separatorStyle = .none
+    tableView.backgroundColor = .background
+
+    if _users.isEmpty {
+      self.showLoadingBar()
+      NotificationCenter.default.addObserver(self, selector: #selector(workoutsLoaded), name: .workoutsLoaded, object: nil)
+    } else {
+      calc()
+    }
+  }
+    
+  @objc func workoutsLoaded(notification: Notification) {
+    hideLoadingBar()
+    
+    guard let obj = notification.object as? ([Account], [Workout]) else { return }
+    
+    let (members, workouts) = obj
+    
+    self.workouts = workouts
+    
+    for member in members {
+      _users[member.id] = member
+    }
+
+    calc()
+    tableView.reloadData()
+  }
     
     func calc() {
         func update(_ user: Int, with workout: Workout) {

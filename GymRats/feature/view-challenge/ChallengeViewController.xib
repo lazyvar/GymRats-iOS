@@ -31,7 +31,7 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MEQ-lP-wm1">
-                    <rect key="frame" x="0.0" y="364" width="414" height="498"/>
+                    <rect key="frame" x="0.0" y="344" width="414" height="518"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="TiY-IF-4AM">
                             <rect key="frame" x="0.0" y="5" width="414" height="81.5"/>
@@ -66,7 +66,7 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
                 <constraint firstItem="MEQ-lP-wm1" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="2kr-iB-SH1"/>
-                <constraint firstItem="MEQ-lP-wm1" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="320" id="BSF-Ju-DHe"/>
+                <constraint firstItem="MEQ-lP-wm1" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="300" id="BSF-Ju-DHe"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="8o5-yG-kQG" secondAttribute="bottom" id="BT6-EG-Zxx"/>
                 <constraint firstItem="8o5-yG-kQG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Clp-3e-OVp"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="MEQ-lP-wm1" secondAttribute="trailing" id="Ec7-5i-ecw"/>

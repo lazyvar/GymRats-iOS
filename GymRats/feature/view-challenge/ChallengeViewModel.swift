@@ -61,6 +61,15 @@ final class ChallengeViewModel: ViewModel {
       .disposed(by: disposeBag)
 
     memberWorkouts
+      .do(onNext: { members, workouts in
+        guard let members = members.object else { return }
+        guard let workouts = workouts.object else { return }
+        
+        NotificationCenter.default.post(name: .workoutsLoaded, object: (members, workouts))
+      })
+      .ignore(disposedBy: disposeBag)
+   
+    memberWorkouts
       .compactMap { _, w in w.object }
       .map { $0.isNotEmpty }
       .bind(to: output.noWorkoutsViewIsHidden)

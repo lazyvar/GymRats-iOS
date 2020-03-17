@@ -63,7 +63,7 @@ private extension ChallengeTabBarController {
   
   private func pushStats() {
     challengeViewController.push(
-      ChallengeStatsViewController(challenge: challenge, users: [], workouts: [])
+      ChallengeStatsViewController(challenge: challenge, members: [], workouts: [])
     )
   }
   
@@ -94,6 +94,7 @@ private extension ChallengeTabBarController {
     tabBar.sendSubviewToBack(pxWhiteThing)
   }
 }
+
 //    var chatItem: UITabBarItem? {
 //      return tabBarViewController?.tabBar.items?[safe: 2]
 //    }

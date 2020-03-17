@@ -20,6 +20,7 @@ enum Screen {
   case completedChallenges
   case settings
   case about
+  case challengeStats(Challenge, [Account], [Workout])
   
   var viewController: UIViewController {
     switch self {
@@ -29,6 +30,8 @@ enum Screen {
       return HomeViewController()
     case .activeChallenge(let challenge):
       return ChallengeTabBarController(challenge: challenge)
+    case .challengeStats(let challenge, let members, let workouts):
+      return ChallengeStatsViewController(challenge: challenge, members: members, workouts: workouts)
     case .createChallenge(let delegate):
       let createChallengeViewController = CreateChallengeViewController()
       createChallengeViewController.delegate = delegate
@@ -64,15 +67,3 @@ enum Screen {
     }
   }
 }
-
-//let profile = ProfileViewController(user: GymRats.currentAccount, challenge: nil)
-//let nav = UINavigationController(rootViewController: profile)
-//
-//profile.setupMenuButton()
-//let gear = UIImage(named: "gear")!.withRenderingMode(.alwaysTemplate)
-//let gearItem = UIBarButtonItem(image: gear, style: .plain, target: profile, action: #selector(ProfileViewController.transitionToSettings))
-//gearItem.tintColor = .lightGray
-//
-//profile.navigationItem.rightBarButtonItem = gearItem
-//
-//GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
