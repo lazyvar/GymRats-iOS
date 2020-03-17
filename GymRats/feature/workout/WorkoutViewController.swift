@@ -153,7 +153,7 @@ class WorkoutViewController: UITableViewController {
     }
     
     @objc func transitionToProfile() {
-      self.push(ProfileViewController(user: workout.account, challenge: challenge))
+      self.push(ProfileViewController(account: workout.account, challenge: challenge))
     }
     
     @objc func showMenu() {
@@ -323,7 +323,7 @@ extension WorkoutViewController {
     
     let comment = comments[indexPath.row]
 
-    push(ProfileViewController(user: comment.account, challenge: challenge))
+    push(ProfileViewController(account: comment.account, challenge: challenge))
   }
 }
 

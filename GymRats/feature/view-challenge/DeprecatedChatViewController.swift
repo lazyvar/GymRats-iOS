@@ -208,7 +208,7 @@ extension DeprecatedChatViewController: MessageCellDelegate {
         guard let indexPath = messagesCollectionView.indexPath(for: cell) else { return }
         guard let chat = chats[safe: indexPath.section] else { return }
         
-        push(ProfileViewController(user: chat.account, challenge: challenge))
+        push(ProfileViewController(account: chat.account, challenge: challenge))
     }
 
 }

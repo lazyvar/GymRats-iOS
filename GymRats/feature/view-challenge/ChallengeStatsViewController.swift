@@ -208,7 +208,7 @@ class ChallengeStatsViewController: UITableViewController {
         
         guard indexPath.section == 1, indexPath.row > 0 else { return }
         
-        let profile = ProfileViewController(user: users[indexPath.row - 1], challenge: challenge)
+        let profile = ProfileViewController(account: users[indexPath.row - 1], challenge: challenge)
         
         push(profile)
     }

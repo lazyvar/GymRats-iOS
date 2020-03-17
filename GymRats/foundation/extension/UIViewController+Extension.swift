@@ -43,7 +43,7 @@ extension UIViewController {
       let menu = UIBarButtonItem (
         image: UIImage(named: "menu")?.withRenderingMode(.alwaysTemplate),
         style: .plain,
-        target: GymRatsApp.coordinator,
+        target: self,
         action: #selector(UIViewController.toggleMenu)
       )
       menu.tintColor = .lightGray

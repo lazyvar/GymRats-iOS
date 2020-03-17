@@ -89,8 +89,8 @@ enum APIRequest {
       return (.get, "challenges/\(challenge.id)/members", nil)
     case .getWorkoutsForChallenge(challenge: let challenge):
       return (.get, "challenges/\(challenge.id)/workouts", nil)
-    case .getAllWorkoutsForUser(user: let user):
-      return (.get, "workout/user/\(user.id)", nil)
+    case .getAllWorkoutsForUser(user: let account):
+      return (.get, "accounts/\(account.id)/workouts", nil)
     case .getWorkouts(forUser: let user, inChallenge: let challenge):
       return (.get, "challenges/\(challenge.id)/members/\(user.id)/workouts", nil)
     case .getMembersForChallenge(let challenge):

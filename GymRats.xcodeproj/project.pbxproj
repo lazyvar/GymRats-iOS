@@ -148,6 +148,8 @@
 		01F5296524184B0000FA96E0 /* SecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5296424184B0000FA96E0 /* SecondaryButton.swift */; };
 		01F5296924184BE600FA96E0 /* HeaderTwoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5296824184BE600FA96E0 /* HeaderTwoLabel.swift */; };
 		01F5296B24184CDA00FA96E0 /* NoChallengesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5296A24184CDA00FA96E0 /* NoChallengesViewModel.swift */; };
+		01FF413424205FDA007D316A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF413224205FDA007D316A /* ProfileViewController.swift */; };
+		01FF413524205FDA007D316A /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01FF413324205FDA007D316A /* ProfileViewController.xib */; };
 		7405FE93222C249B0054F029 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7405FE92222C249B0054F029 /* WebViewController.swift */; };
 		7411805F220C58C300EB9D11 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7411805C220C55B600EB9D11 /* Lato-Black.ttf */; };
 		74118060220C58C300EB9D11 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7411805E220C55B600EB9D11 /* Lato-BlackItalic.ttf */; };
@@ -166,7 +168,6 @@
 		7432459F2214FE4D00A13634 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7432459E2214FE4D00A13634 /* ChangePasswordViewController.swift */; };
 		7455AC5E22125296005A558A /* ServiceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7455AC5D22125296005A558A /* ServiceResponse.swift */; };
 		7455AC602212585B005A558A /* ChallengeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7455AC5F2212585B005A558A /* ChallengeInfoViewController.swift */; };
-		746764DF220B4829000CFB1B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764DE220B4829000CFB1B /* ProfileViewController.swift */; };
 		746764E3220B6D5C000CFB1B /* Collection+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E2220B6D5C000CFB1B /* Collection+Extension.swift */; };
 		746764E7220BAE44000CFB1B /* CreateWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764E6220BAE44000CFB1B /* CreateWorkoutViewController.swift */; };
 		746764ED220BD68D000CFB1B /* RightAlignedconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746764EC220BD68D000CFB1B /* RightAlignedconButton.swift */; };
@@ -365,6 +366,8 @@
 		01F5296424184B0000FA96E0 /* SecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButton.swift; sourceTree = "<group>"; };
 		01F5296824184BE600FA96E0 /* HeaderTwoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTwoLabel.swift; sourceTree = "<group>"; };
 		01F5296A24184CDA00FA96E0 /* NoChallengesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoChallengesViewModel.swift; sourceTree = "<group>"; };
+		01FF413224205FDA007D316A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		01FF413324205FDA007D316A /* ProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
 		0BDF2A3E7AA6DB6E35BFDD57 /* Pods-GymRats.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymRats.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GymRats/Pods-GymRats.debug.xcconfig"; sourceTree = "<group>"; };
 		1D049B34A7CBE955CE338AA6 /* Pods-GymRatsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymRatsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GymRatsTests/Pods-GymRatsTests.release.xcconfig"; sourceTree = "<group>"; };
 		45AE0586E2D3E12AB034ED36 /* Pods_GymRats.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GymRats.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -387,7 +390,6 @@
 		7432459E2214FE4D00A13634 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		7455AC5D22125296005A558A /* ServiceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceResponse.swift; sourceTree = "<group>"; };
 		7455AC5F2212585B005A558A /* ChallengeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoViewController.swift; sourceTree = "<group>"; };
-		746764DE220B4829000CFB1B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		746764E2220B6D5C000CFB1B /* Collection+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+Extension.swift"; sourceTree = "<group>"; };
 		746764E6220BAE44000CFB1B /* CreateWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutViewController.swift; sourceTree = "<group>"; };
 		746764EC220BD68D000CFB1B /* RightAlignedconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightAlignedconButton.swift; sourceTree = "<group>"; };
@@ -700,7 +702,8 @@
 		746764DD220B4811000CFB1B /* profile */ = {
 			isa = PBXGroup;
 			children = (
-				746764DE220B4829000CFB1B /* ProfileViewController.swift */,
+				01FF413224205FDA007D316A /* ProfileViewController.swift */,
+				01FF413324205FDA007D316A /* ProfileViewController.xib */,
 			);
 			path = profile;
 			sourceTree = "<group>";
@@ -1112,6 +1115,7 @@
 				01E68FD622D29AEA004E1218 /* WorkoutHeaderView.xib in Resources */,
 				74118067220C58C300EB9D11 /* Lato-LightItalic.ttf in Resources */,
 				01297D892329E79000CA9E41 /* SF-Compact-Rounded-Semibold.otf in Resources */,
+				01FF413524205FDA007D316A /* ProfileViewController.xib in Resources */,
 				01297D862329E79000CA9E41 /* SF-Compact-Rounded-Light.otf in Resources */,
 				01297D8F2329E79000CA9E41 /* SF-Pro-Rounded-Regular.otf in Resources */,
 				01AC5F5F23CA3A4A00FFAE4D /* SegmentedCell.xib in Resources */,
@@ -1310,6 +1314,7 @@
 				01E833E42325BF7300C66C72 /* ChallengeBannerCell.swift in Sources */,
 				0144BC61241D530200569546 /* UserDefaults+Extension.swift in Sources */,
 				0107C7EF241B06A2005650FB /* MenuRow.swift in Sources */,
+				01FF413424205FDA007D316A /* ProfileViewController.swift in Sources */,
 				01A3EB20237747D30097FC2A /* CVScrollDirection.swift in Sources */,
 				011FB63322A37387004D5B8E /* ArchivedChallengesTableViewController.swift in Sources */,
 				743050622209EA82005D8C52 /* UIViewController+Extension.swift in Sources */,
@@ -1378,7 +1383,6 @@
 				747D6FCD2208DE8E0062BB39 /* NetworkProvider.swift in Sources */,
 				747D6FC52208DCB60062BB39 /* UIView+Extension.swift in Sources */,
 				74C2D84E222C3D1A00FF0DE2 /* AboutViewController.swift in Sources */,
-				746764DF220B4829000CFB1B /* ProfileViewController.swift in Sources */,
 				0103A98F24204ED300B589DA /* CreateWorkoutDelegateObject.swift in Sources */,
 				01A3EB15237747D30097FC2A /* CVCalendarMenuViewDelegate.swift in Sources */,
 				746764E3220B6D5C000CFB1B /* Collection+Extension.swift in Sources */,

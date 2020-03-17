@@ -230,7 +230,7 @@ class ChallengeInfoViewController: UITableViewController {
         
         GymRatsApp.coordinator.drawer.closeDrawer(animated: true) { _ in
             let center = GymRatsApp.coordinator.drawer.centerViewController
-            let profile = ProfileViewController(user: user, challenge: self.challenge)
+            let profile = ProfileViewController(account: user, challenge: self.challenge)
             
             if let center = center as? UINavigationController {
                 center.push(profile, animated: true)

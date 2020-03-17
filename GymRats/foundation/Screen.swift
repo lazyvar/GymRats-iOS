@@ -15,7 +15,8 @@ enum Screen {
   case home
   case createChallenge(CreateChallengeDelegate)
   case workout(Workout, Challenge?)
-  case profile(Account, Challenge?)
+  case profile(Account, Challenge)
+  case currentAccount(Account)
   case completedChallenges
   case settings
   case about
@@ -36,13 +37,30 @@ enum Screen {
     case .workout(let workout, let challenge):
       return WorkoutViewController(workout: workout, challenge: challenge)
     case .profile(let account, let challenge):
-      return ProfileViewController(user: account, challenge: challenge)
+      return ProfileViewController(account: account, challenge: challenge)
     case .completedChallenges:
       return ArchivedChallengesTableViewController()
     case .settings:
       return SettingsViewController()
     case .about:
       return AboutViewController()
+    case .currentAccount(let account):
+      let profileViewController = ProfileViewController(account: account, challenge: nil).apply {
+        $0.setupMenuButton()
+      }
+
+      let gearItem = UIBarButtonItem(
+        image: .gear,
+        style: .plain,
+        target: profileViewController,
+        action: #selector(ProfileViewController.pushSettings)
+      ).apply {
+        $0.tintColor = .lightGray
+      }
+      
+      profileViewController.navigationItem.rightBarButtonItem = gearItem
+      
+      return profileViewController
     }
   }
 }

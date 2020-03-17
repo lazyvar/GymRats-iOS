@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileViewController" customModule="GymRats" customModuleProvider="target">
+            <connections>
+                <outlet property="backToTheFuture" destination="itO-m4-eRv" id="Skp-Zr-YhE"/>
+                <outlet property="backToThePast" destination="acT-bc-QWu" id="0rs-Kn-zmo"/>
+                <outlet property="calendarMenuView" destination="xqJ-fv-UB3" id="A56-ax-uUg"/>
+                <outlet property="calendarView" destination="QLI-fD-5v3" id="TWZ-Qv-s4a"/>
+                <outlet property="monthLabel" destination="VPg-vb-QXE" id="QoR-U6-1w8"/>
+                <outlet property="nameLabel" destination="oRC-xd-vPg" id="BSc-9g-gTS"/>
+                <outlet property="tableView" destination="Czn-IW-CfS" id="F0m-Fb-Qjj"/>
+                <outlet property="userImageView" destination="YGU-Hn-KEs" id="Jbp-9N-ZMz"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="workoutsLabel" destination="ldv-bb-gzD" id="Puz-Bh-gnN"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="x96-Cc-jGm">
+                    <rect key="frame" x="15" y="44" width="384" height="818"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="6p8-qU-HaF">
+                            <rect key="frame" x="0.0" y="0.0" width="384" height="123"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YGU-Hn-KEs" customClass="UserImageView" customModule="GymRats" customModuleProvider="target">
+                                    <rect key="frame" x="156" y="0.0" width="72" height="72"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="72" id="Zen-Dx-Kp9"/>
+                                        <constraint firstAttribute="height" constant="72" id="u2Y-uF-eAO"/>
+                                    </constraints>
+                                </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oRC-xd-vPg">
+                                    <rect key="frame" x="185" y="77" width="14" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total workouts: -" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ldv-bb-gzD">
+                                    <rect key="frame" x="128" y="102.5" width="128.5" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="scz-Dd-ofe">
+                            <rect key="frame" x="0.0" y="133" width="384" height="25"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="acT-bc-QWu">
+                                    <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="25" id="26v-9e-Pb7"/>
+                                    </constraints>
+                                    <state key="normal" title="Button" image="left-arrow"/>
+                                    <connections>
+                                        <action selector="timeTravelBackwards:" destination="-1" eventType="touchUpInside" id="jHi-cd-Lye"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jan 2020" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VPg-vb-QXE">
+                                    <rect key="frame" x="30" y="0.0" width="324" height="25"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="itO-m4-eRv">
+                                    <rect key="frame" x="359" y="0.0" width="25" height="25"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="25" id="uco-h2-c1O"/>
+                                    </constraints>
+                                    <state key="normal" title="Button" image="right-arrow"/>
+                                    <connections>
+                                        <action selector="timeTravelForwards:" destination="-1" eventType="touchUpInside" id="8d9-Ap-Sw2"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xqJ-fv-UB3" customClass="CVCalendarMenuView" customModule="GymRats" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="168" width="384" height="15"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="15" id="nTf-OV-2VS"/>
+                            </constraints>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QLI-fD-5v3" customClass="CVCalendarView" customModule="GymRats" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="193" width="384" height="384"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="QLI-fD-5v3" secondAttribute="height" multiplier="1:1" id="imr-BZ-1ou"/>
+                            </constraints>
+                        </view>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Czn-IW-CfS">
+                            <rect key="frame" x="0.0" y="587" width="384" height="231"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </tableView>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="x96-Cc-jGm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="R9n-HU-vYM"/>
+                <constraint firstItem="x96-Cc-jGm" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="VbG-pH-v2d"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="x96-Cc-jGm" secondAttribute="bottom" id="hUo-7W-rCa"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="x96-Cc-jGm" secondAttribute="trailing" constant="15" id="vva-13-g86"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="49" y="161"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="left-arrow" width="25" height="25"/>
+        <image name="right-arrow" width="25" height="25"/>
+    </resources>
+</document>
