@@ -24,11 +24,14 @@ class ChatViewController: MessagesViewController {
 
   init(challenge: Challenge) {
     self.challenge = challenge
-    self.socket = Socket("ws://localhost:4000/chat/websocket", params: ["token": GymRats.currentAccount.token ?? ""])
+    self.socket = Socket("wss://gym-rats-api-phoenix.herokuapp.com/chat/websocket", params: ["token": GymRats.currentAccount.token ?? ""])
     
     super.init(nibName: nil, bundle: nil)
 
     self.socket.onOpen { self.onSocketOpen() }
+    self.socket.onError { error in
+      print("Error connecting to socket: \(error)")
+    }
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -79,7 +82,7 @@ class ChatViewController: MessagesViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    
+
     socket.connect()
   }
   
@@ -97,7 +100,7 @@ class ChatViewController: MessagesViewController {
   private func loadNextPage() {
     loadChats(page: currentPage + 1)
   }
-    
+
   private func loadChats(page: Int, clear: Bool = false) {
     guard canLoadMorePosts else { return /* hide loading bar */ }
     
@@ -161,7 +164,7 @@ class ChatViewController: MessagesViewController {
           self?.messageInputBar.inputTextView.text = nil
         }
       }
-      
+  
       self?.messagesCollectionView.reloadData()
       self?.messageInputBar.sendButton.stopAnimating()
       self?.messagesCollectionView.scrollToBottom(animated: true)

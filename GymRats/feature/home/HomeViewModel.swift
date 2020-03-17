@@ -38,6 +38,7 @@ final class HomeViewModel: ViewModel {
     
     Observable.merge(challenges, Challenge.State.all.observe())
       .compactMap { $0.object }
+      .map { $0.filter { $0.isActive || $0.isUpcoming } }
       .map { challenges -> (Navigation, Screen) in
         guard challenges.isNotEmpty else { return (.replaceDrawerCenterInNav(animated: false), .noChallenges) }
         

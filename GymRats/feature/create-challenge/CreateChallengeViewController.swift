@@ -140,16 +140,21 @@ class CreateChallengeViewController: GRFormViewController {
       challengeName: name.value!,
       photo: photo.value
     )
-    .subscribe(onNext: { [weak self] challenge in
+    .subscribe(onNext: { [weak self] result in
       self?.hideLoadingBar()
       
       Track.event(.challengeCreated)
       
-      let share = ShareCodeViewController.loadFromNib(from: .challenge)
-      share.challenge = challenge.object!
-      share.delegate = self?.delegate
+      switch result {
+      case .success(let challenge):
+        let share = ShareCodeViewController.loadFromNib(from: .challenge)
+        share.challenge = challenge
+        share.delegate = self?.delegate
+        self?.navigationController?.setViewControllers([share], animated: true)
+      case .failure(let error):
+        self?.presentAlert(with: error)
+      }
       
-      self?.navigationController?.setViewControllers([share], animated: true)
     }, onError: { [weak self] error in
       self?.presentAlert(with: error)
       self?.hideLoadingBar()
