@@ -57,10 +57,7 @@ enum GymRats {
     #endif
     
     GMSPlacesClient.provideAPIKey("AIzaSyD1X4TH-TneFnDqjiJ2rb2FGgxK8JZyrIo")
-    
-    #if DEBUG
     FirebaseApp.configure()
-    #endif
   }
   
   /// Sets the current account and shows the home screen.
@@ -86,6 +83,16 @@ enum GymRats {
 
     // TODO: Refresh
   }
+  
+  /// Removes the current account and shows the welcome screen
+  static func logout() {
+    gymRatsAPI.deleteDevice()
+      .ignore(disposedBy: disposeBag)
+
+    currentAccount = nil
+    Account.removeCurrent()
+    window.rootViewController = WelcomeViewController().inNav()
+  }
 }
 
 private extension GymRats {
@@ -98,21 +105,3 @@ private extension GymRats {
     }
   }
 }
-
-//func logout() {
-//    gymRatsAPI.deleteDevice()
-//        .subscribe { _ in
-//            let nav = UINavigationController(rootViewController: WelcomeViewController())
-//            nav.navigationBar.turnSolidWhiteSlightShadow()
-//            
-//            self.window.rootViewController = nav
-//            self.currentUser = nil
-//
-//            switch Keychain.gymRats.deleteObject(withKey: .currentUser) {
-//            case .success:
-//                print("Woohoo!")
-//            case .error(let error):
-//                print("Bummer! \(error.description)")
-//            }
-//        }.disposed(by: disposeBag)
-//}

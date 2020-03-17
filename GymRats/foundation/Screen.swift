@@ -48,22 +48,17 @@ enum Screen {
     case .about:
       return AboutViewController()
     case .currentAccount(let account):
-      let profileViewController = ProfileViewController(account: account, challenge: nil).apply {
+      return ProfileViewController(account: account, challenge: nil).apply {
         $0.setupMenuButton()
+        $0.navigationItem.rightBarButtonItem = UIBarButtonItem(
+          image: .gear,
+          style: .plain,
+          target: $0,
+          action: #selector(ProfileViewController.pushSettings)
+        ).apply {
+          $0.tintColor = .lightGray
+        }
       }
-
-      let gearItem = UIBarButtonItem(
-        image: .gear,
-        style: .plain,
-        target: profileViewController,
-        action: #selector(ProfileViewController.pushSettings)
-      ).apply {
-        $0.tintColor = .lightGray
-      }
-      
-      profileViewController.navigationItem.rightBarButtonItem = gearItem
-      
-      return profileViewController
     }
   }
 }

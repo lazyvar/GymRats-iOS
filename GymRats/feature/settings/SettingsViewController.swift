@@ -16,90 +16,91 @@ private let SettingsCellId = "SettingsCell"
 
 class SettingsViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    let disposeBag = DisposeBag()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+  let disposeBag = DisposeBag()
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
 
-        view.backgroundColor = .background
-        
-        setupBackButton()
-        
-        tableView.separatorInset = .zero
-        tableView.separatorStyle = .none
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(currentUserWasUpdated), name: .updatedCurrentUser, object: nil)
+    view.backgroundColor = .background
+    
+    if navigationController?.viewControllers.count == 1 {
+      setupMenuButton()
     }
     
-    @objc func currentUserWasUpdated() {
-        self.tableView.reloadData()
+    setupBackButton()
+    
+    tableView.separatorInset = .zero
+    tableView.separatorStyle = .none
+    
+    NotificationCenter.default.addObserver(self, selector: #selector(currentUserWasUpdated), name: .updatedCurrentUser, object: nil)
+  }
+    
+  @objc private func currentUserWasUpdated() {
+    self.tableView.reloadData()
+  }
+    
+  override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 36))
+    view.backgroundColor = .background
+    
+    let label = UILabel(frame: CGRect(x: 10, y: 8, width: tableView.frame.width, height: 18))
+    label.font = .details
+    label.textColor = .brand
+    label.backgroundColor = .clear
+    
+    switch section {
+    case 0:
+      label.text = "PROFILE"
+    case 1:
+      label.text = "APP INFO"
+    case 2:
+      label.text = "STORAGE"
+    case 3:
+      label.text = "ACCOUNT"
+    default: break
     }
     
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 36))
-        view.backgroundColor = .background
-        
-        let label = UILabel(frame: CGRect(x: 10, y: 8, width: tableView.frame.width, height: 18))
-        label.font = .details
-        label.textColor = .brand
-        label.backgroundColor = .clear
-        
-        switch section {
-        case 0:
-            label.text = "PROFILE"
-            break
-        case 1:
-            label.text = "APP INFO"
-            break
-        case 2:
-            label.text = "STORAGE"
-        case 3:
-            label.text = "ACCOUNT"
-            break
-        default:
-            break
-        }
-        
-        view.addSubview(label)
-        
-        return view
-    }
+    view.addSubview(label)
+    
+    return view
+  }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 36
+      return 36
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+      return 4
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 4
-        case 1:
-            return 4
-        case 2:
-            return 1
-        case 3:
-            return 1
-        default:
-            return 0
-        }
+      switch section {
+      case 0:
+        return 4
+      case 1:
+        return 4
+      case 2:
+        return 1
+      case 3:
+        return 1
+      default:
+        return 0
+      }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismissSelf()
-        
-        var image: UIImage! = nil
-        if let img = info[.editedImage] as? UIImage {
-            image = img
-            
-        } else if let img = info[.originalImage] as? UIImage {
-            image = img
-        }
+      picker.dismissSelf()
+      
+      var image: UIImage! = nil
+      
+      if let img = info[.editedImage] as? UIImage {
+        image = img
+          
+      } else if let img = info[.originalImage] as? UIImage {
+        image = img
+      }
 
-        showLoadingBar()
+      showLoadingBar()
         
 //        gymRatsAPI.updateUser(email: nil, name: nil, password: nil, profilePicture: image)
 //            .subscribe { event in
@@ -194,8 +195,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
             KingfisherManager.shared.cache.clearMemoryCache()
             hideLoadingBar()
         case 3:
-          break
-          // TODO: GymRatsApp.coordinator.logout()
+          GymRats.logout()
         default:
             break
         }
