@@ -138,12 +138,12 @@ class WorkoutViewController: UITableViewController {
                 self.hideLoadingBar()
                 
                 switch event {
-                case .next(let comments):
+                case .next(let comment):
                     Track.event(.commentedOnWorkout)
-                    guard let comments = comments.object else { return }
+                    guard let comment = comment.object else { return }
                     self.textField?.text = nil
                     self.resignFirstResponder()
-                    self.comments = comments
+                    self.comments.append(comment)
                     self.tableView.reloadData()
                 case .error(let error):
                     self.presentAlert(with: error)
@@ -222,7 +222,7 @@ extension WorkoutViewController {
         if indexPath.row < comments.count {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell") as! CommentTableViewCell
             let comment = comments[indexPath.row]
-            let user: Account = comment.gymRatsUser
+            let user: Account = comment.account
             let currentUser = GymRats.currentAccount!
             
             cell.userImageView.load(avatarInfo: user)
@@ -230,7 +230,7 @@ extension WorkoutViewController {
             cell.commentLabel.text = comment.content
             cell.selectionStyle = .blue
             
-            cell.menu.isHidden = comment.gymRatsUser.id != currentUser.id
+            cell.menu.isHidden = comment.account.id != currentUser.id
             
             cell.menuTappedBlock = { [weak self] in
                 guard let self = self else { return }
@@ -302,64 +302,58 @@ extension WorkoutViewController {
             
             return cell
         }
-    }
-    
-    
-    
-    override func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
+  }
+
+  override func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
+    return 60
+  }
+  
+  override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    if indexPath.row < comments.count {
+        return UITableView.automaticDimension
+    } else {
         return 60
     }
+  }
+  
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row < comments.count {
-            return UITableView.automaticDimension
-        } else {
-            return 60
-        }
-    }
+    guard indexPath.row < comments.count else { return }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        guard indexPath.row < comments.count else { return }
-        
-        let comment = comments[indexPath.row]
+    let comment = comments[indexPath.row]
 
-        push(ProfileViewController(user: comment.gymRatsUser, challenge: challenge))
-    }
-    
+    push(ProfileViewController(user: comment.account, challenge: challenge))
+  }
 }
 
 extension WorkoutViewController: UITextFieldDelegate {
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    let text = textField.text ?? ""
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        let text = textField.text ?? ""
-        
-        guard !text.isEmpty else {
-            view.endEditing(true)
-            return false
-        }
-        
-        postComment(text)
-        
-        return false
+    guard !text.isEmpty else {
+      view.endEditing(true)
+      return false
     }
+      
+    postComment(text)
     
+    return false
+  }
 }
 
 class PlaceAnnotation: NSObject, MKAnnotation {
-
-    let title: String?
-    let coordinate: CLLocationCoordinate2D
+  let title: String?
+  let coordinate: CLLocationCoordinate2D
+  
+  init(title: String, coordinate: CLLocationCoordinate2D) {
+    self.title = title
+    self.coordinate = coordinate
     
-    init(title: String, coordinate: CLLocationCoordinate2D) {
-        self.title = title
-        self.coordinate = coordinate
-        
-        super.init()
-    }
+    super.init()
+  }
     
-    var subtitle: String? {
-        return nil
-    }
+  var subtitle: String? {
+    return nil
+  }
 }

@@ -28,7 +28,6 @@ enum APIRequest {
   case getCommentsForWorkout(_ workout: Workout)
   case postComment(comment: String, workout: Workout)
   case getChatMessages(_ challenge: Challenge, page: Int)
-  case postChatMessage(message: String, challenge: Challenge)
   case getUnreadChats(_ challenge: Challenge)
   case registerDevice(deviceToken: String)
   case deleteDevice
@@ -147,7 +146,7 @@ enum APIRequest {
       }
       
       if let profilePictureUrl = user.profilePictureUrl {
-        params["profile_picture_url"] = user.profilePictureUrl
+        params["profile_picture_url"] = profilePictureUrl
       }
 
       if let fullName = user.fullName {
@@ -161,23 +160,17 @@ enum APIRequest {
       return (.get, "workouts/\(workout.id)/comments", nil)
     case .postComment(comment: let comment, workout: let workout):
       let params: Parameters = [
-          "content": comment,
+        "content": comment,
       ]
       
-      return (.post, "comments", params)
+      return (.post, "workouts/\(workout.id)/comments", params)
     case .getChatMessages(let challenge, page: let page):
       return (.get, "challenges/\(challenge.id)/messages?page=\(page)", nil)
-    case .postChatMessage(message: let message, challenge: let challenge):
-      let params: Parameters = [
-          "content": message,
-      ]
-        
-      return (.post, "deprecated", params)
     case .getUnreadChats(let challenge):
       return (.get, "deprecated", nil)
     case .registerDevice(deviceToken: let deviceToken):
       let params: Parameters = [
-          "token": deviceToken
+        "token": deviceToken
       ]
         
       return (.post, "devices", params)

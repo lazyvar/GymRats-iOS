@@ -14,8 +14,8 @@ enum Screen {
   case noChallenges
   case home
   case createChallenge(CreateChallengeDelegate)
-  case workout(Workout)
-  case profile(Account)
+  case workout(Workout, Challenge?)
+  case profile(Account, Challenge?)
   case completedChallenges
   case settings
   case about
@@ -33,10 +33,10 @@ enum Screen {
       createChallengeViewController.delegate = delegate
       
       return createChallengeViewController
-    case .workout(let workout):
-      return WorkoutViewController(workout: workout, challenge: nil) // TODO
-    case .profile(let account):
-      return ProfileViewController(user: account, challenge: nil) // TODO
+    case .workout(let workout, let challenge):
+      return WorkoutViewController(workout: workout, challenge: challenge)
+    case .profile(let account, let challenge):
+      return ProfileViewController(user: account, challenge: challenge)
     case .completedChallenges:
       return ArchivedChallengesTableViewController()
     case .settings:

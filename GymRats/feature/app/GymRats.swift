@@ -98,3 +98,21 @@ private extension GymRats {
     }
   }
 }
+
+//func logout() {
+//    gymRatsAPI.deleteDevice()
+//        .subscribe { _ in
+//            let nav = UINavigationController(rootViewController: WelcomeViewController())
+//            nav.navigationBar.turnSolidWhiteSlightShadow()
+//            
+//            self.window.rootViewController = nav
+//            self.currentUser = nil
+//
+//            switch Keychain.gymRats.deleteObject(withKey: .currentUser) {
+//            case .success:
+//                print("Woohoo!")
+//            case .error(let error):
+//                print("Bummer! \(error.description)")
+//            }
+//        }.disposed(by: disposeBag)
+//}

@@ -101,3 +101,16 @@ extension MenuViewController: UITableViewDelegate {
     return 25
   }
 }
+
+        
+//    func pushUserProfile() {
+//        let profile = ProfileViewController(user: GymRats.currentAccount, challenge: nil)
+//
+//        let gear = UIImage(named: "gear")!.withRenderingMode(.alwaysTemplate)
+//        let gearItem = UIBarButtonItem(image: gear, style: .plain, target: profile, action: #selector(ProfileViewController.transitionToSettings))
+//        gearItem.tintColor = .lightGray
+//
+//        profile.navigationItem.rightBarButtonItem = gearItem
+//
+//        artistViewController?.push(profile)
+//    }

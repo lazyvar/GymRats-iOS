@@ -119,8 +119,8 @@ class GymRatsAPI {
     return requestArray(.getCommentsForWorkout(workout))
   }
   
-  func post(comment: String, on workout: Workout) -> Observable<NetworkResult<[Comment]>> {
-    return requestArray(.postComment(comment: comment, workout: workout))
+  func post(comment: String, on workout: Workout) -> Observable<NetworkResult<Comment>> {
+    return requestObject(.postComment(comment: comment, workout: workout))
   }
   
   func getUnreadChats(for challenge: Challenge) -> Observable<NetworkResult<[ChatMessage]>> {
@@ -130,11 +130,7 @@ class GymRatsAPI {
   func getChatMessages(for challenge: Challenge, page: Int) -> Observable<NetworkResult<[ChatMessage]>> {
     return requestArray(.getChatMessages(challenge, page: page))
   }
-  
-  func postChatMessage(_ message: String, for challenge: Challenge) -> Observable<NetworkResult<ChatMessage>> {
-    return requestObject(.postChatMessage(message: message, challenge: challenge))
-  }
-  
+
   func registerDevice(deviceToken: String) -> Observable<NetworkResult<EmptyJSON>> {
     return requestObject(.registerDevice(deviceToken: deviceToken))
   }

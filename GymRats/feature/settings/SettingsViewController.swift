@@ -194,7 +194,8 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
             KingfisherManager.shared.cache.clearMemoryCache()
             hideLoadingBar()
         case 3:
-            GymRatsApp.coordinator.logout()
+          break
+          // TODO: GymRatsApp.coordinator.logout()
         default:
             break
         }

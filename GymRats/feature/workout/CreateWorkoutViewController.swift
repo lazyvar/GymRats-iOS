@@ -1,5 +1,5 @@
 //
-//  NewWorkoutViewController.swift
+//  CreateWorkoutViewController.swift
 //  GymRats
 //
 //  Created by Mack Hasz on 2/6/19.
@@ -12,13 +12,13 @@ import RxCocoa
 import GooglePlaces
 import Eureka
 
-protocol NewWorkoutDelegate: class {
-    func newWorkoutController(_ newWorkoutController: BadNewWorkoutViewController, created workouts: [Workout])
+protocol CreatedWorkoutDelegate: class {
+  func createWorkoutController(_ createWorkoutController: CreateWorkoutViewController, created workout: Workout)
 }
 
-class BadNewWorkoutViewController: GRFormViewController {
+class CreateWorkoutViewController: GRFormViewController {
     
-    weak var delegate: NewWorkoutDelegate?
+    weak var delegate: CreatedWorkoutDelegate?
 
     let disposeBag = DisposeBag()
     let placeLikelihoods = BehaviorRelay<[Place]>(value: [])
@@ -236,8 +236,10 @@ class BadNewWorkoutViewController: GRFormViewController {
     }
     
     func getPlacesForCurrentLocation() {
-        let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.name.rawValue) |
-            UInt(GMSPlaceField.placeID.rawValue))!
+        let fields: GMSPlaceField = GMSPlaceField(rawValue:
+          UInt(GMSPlaceField.name.rawValue)
+          | UInt(GMSPlaceField.placeID.rawValue)
+        )!
         
         GMSPlacesClient.shared().findPlaceLikelihoodsFromCurrentLocation(withPlaceFields: fields, callback: { [weak self] placeLikelihoods, error in
             self?.hideLoadingBar()
@@ -247,15 +249,17 @@ class BadNewWorkoutViewController: GRFormViewController {
             }
             
             guard
-                let self = self,
-                let places = placeLikelihoods?.sorted(by: { $0.likelihood > $1.likelihood }).map({ Place(from: $0.place) }).compacted()
+              let self = self,
+              let places = placeLikelihoods?.sorted(by: { $0.likelihood > $1.likelihood }).map({ Place(from: $0.place) })
             else { return }
 
             self.form.sectionBy(tag: "the-form")?.remove(at: 6) // yikes
             var section = self.form.sectionBy(tag: "the-form")
             section?.insert(self.placeRow, at: 6)
   
-            self.placeLikelihoods.accept(places.unique())
+            var seen: [String: Bool] = [:]
+          
+          self.placeLikelihoods.accept(places.compactMap { p in p }.filter { seen.updateValue(true, forKey: $0.name) == nil })
         })
     }
     
@@ -291,9 +295,9 @@ class BadNewWorkoutViewController: GRFormViewController {
           
           if let error = workouts.error {
             print(error)
-            self.delegate?.newWorkoutController(self, created: [])
+            self.presentAlert(with: error)
           } else {
-            self.delegate?.newWorkoutController(self, created: [workouts.object!])
+            self.delegate?.createWorkoutController(self, created: workouts.object!)
           }
         }, onError: { [weak self] error in
           self?.presentAlert(with: error)
@@ -302,65 +306,26 @@ class BadNewWorkoutViewController: GRFormViewController {
     }
 }
 
-extension BadNewWorkoutViewController: CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .authorizedWhenInUse, .authorizedAlways:
-            getPlacesForCurrentLocation()
-        case .denied, .restricted:
-            self.hideLoadingBar()
-            presentAlert(title: "Location Permission Required", message: "To check in a location, please enable the permission in settings.")
-        case .notDetermined:
-            break
-        }
+extension CreateWorkoutViewController: CLLocationManagerDelegate {
+  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    switch status {
+    case .authorizedWhenInUse, .authorizedAlways:
+      getPlacesForCurrentLocation()
+    case .denied, .restricted:
+      hideLoadingBar()
+      presentAlert(title: "Location Permission Required", message: "To check in a location, please enable the permission in settings.")
+    case .notDetermined:
+      break
+    @unknown default:
+      break
     }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        // mt
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        presentAlert(title: "Error Getting Location", message: "Please try again.")
-    }
-    
-}
-
-extension Bool {
-    
-    var toggled: Bool {
-        return !self
-    }
-    
-}
-
-extension Array where Element == Place {
-    
-    func unique() -> [Place] {
-        var seen: [String: Bool] = [:]
-        return self.filter { seen.updateValue(true, forKey: $0.name) == nil }
-    }
-    
-}
-
-protocol OptionalParasite {
-    associatedtype WrappedParasite
-    
-    func toArray() -> [WrappedParasite]
-}
-
-extension Optional: OptionalParasite {
-    typealias WrappedParasite = Wrapped
-    
-    func toArray() -> [WrappedParasite] {
-        return flatMap { [$0] } ?? []
-    }
-}
-
-extension Sequence where Iterator.Element: OptionalParasite {
-    func compacted() -> [Iterator.Element.WrappedParasite] {
-        return flatMap { element in
-            return element.toArray()
-        }
-    }
+  }
+  
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    // mt
+  }
+  
+  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    presentAlert(title: "Error Getting Location", message: "Please try again.")
+  }
 }

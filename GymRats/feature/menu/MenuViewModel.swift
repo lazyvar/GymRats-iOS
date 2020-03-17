@@ -73,7 +73,7 @@ final class MenuViewModel: ViewModel {
         let (indexPath, challenges) = stuff
         
         switch indexPath.section {
-        case 0: return (.replaceDrawerCenterInNav(animated: true), .profile(GymRats.currentAccount))
+        case 0: return (.replaceDrawerCenterInNav(animated: true), .profile(GymRats.currentAccount, nil))
         case 1:
           if challenges.isEmpty {
             return (.replaceDrawerCenterInNav(animated: true), .home)

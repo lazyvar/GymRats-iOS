@@ -9,9 +9,9 @@
 import Foundation
 
 struct Comment: Codable {
-    let id: Int
-    let workoutId: Int
-    let content: String
-    let createdAt: Date
-    let gymRatsUser: Account
+  let id: Int
+  let workoutId: Int
+  let content: String
+  let createdAt: Date
+  let account: Account
 }

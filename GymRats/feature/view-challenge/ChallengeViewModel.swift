@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 final class ChallengeViewModel: ViewModel {
   
@@ -36,7 +37,8 @@ final class ChallengeViewModel: ViewModel {
   }
   
   init() {
-    let memberWorkouts = Observable.merge(input.viewDidLoad, input.refresh)
+    let workoutCreated = NotificationCenter.default.rx.notification(.workoutCreated).map { _ in () }
+    let memberWorkouts = Observable.merge(input.viewDidLoad, input.refresh, workoutCreated)
       .flatMap { _ in
         Observable.combineLatest(
           gymRatsAPI.getMembers(for: self.challenge),
@@ -86,14 +88,14 @@ final class ChallengeViewModel: ViewModel {
       .bind(to: output.sections)
       .disposed(by: disposeBag)
     
-    Observable.combineLatest(input.tappedRow, buckets)
+    input.tappedRow.withLatestFrom(buckets, resultSelector: { ($0, $1) })
       .compactMap { indexPath, bucketedWorkouts -> (Navigation, Screen)? in
         let section = indexPath.section - 1
         
         guard let dayWorkouts = bucketedWorkouts.1[safe: section] else { return nil }
         guard let workout = dayWorkouts.1[safe: indexPath.row] else { return nil }
         
-        return (.push(animated: true), .workout(workout))
+        return (.push(animated: true), .workout(workout, self.challenge))
       }
       .bind(to: output.navigation)
       .disposed(by: disposeBag)

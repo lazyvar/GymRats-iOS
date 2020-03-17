@@ -59,6 +59,12 @@ class ChallengeViewController: BindableViewController {
     }
   }
 
+  @IBOutlet private weak var noWorkoutsView: UIView! {
+    didSet { noWorkoutsView.backgroundColor = .background }
+  }
+  
+  @IBOutlet private weak var noWorkoutViewTopConstraint: NSLayoutConstraint!
+  
   private lazy var chatBarButtonItem = UIBarButtonItem (
     image: .chatGray,
     style: .plain,
@@ -102,6 +108,10 @@ class ChallengeViewController: BindableViewController {
       .flatMap { UIAlertController.present($0) }
       .ignore(disposedBy: disposeBag)
   
+    viewModel.output.noWorkoutsViewIsHidden
+      .bind(to: noWorkoutsView.rx.isHidden)
+      .disposed(by: disposeBag)
+    
     viewModel.output.spin
       .do(onNext: { [weak self] spin in
         spin ? self?.showLoadingBar() : self?.hideLoadingBar()
@@ -126,9 +136,14 @@ class ChallengeViewController: BindableViewController {
       }
     }()
     
-    if challenge.isPast.toggled {
+    if !challenge.isPast {
       setupMenuButton()
     }
+    
+    tableView.rx.contentOffset
+      .map { 320 - $0.y }
+      .bind(to: noWorkoutViewTopConstraint.rx.constant)
+      .disposed(by: disposeBag)
     
     viewModel.input.viewDidLoad.trigger()
   }
@@ -166,6 +181,10 @@ class ChallengeViewController: BindableViewController {
     push(
       DeprecatedChatViewController(challenge: challenge)
     )
+  }
+  
+  @IBAction private func tappedLogFirstWorkout(_ sender: Any) {
+    WorkoutFlow.logWorkout()
   }
   
   private func leaveChallenge() {

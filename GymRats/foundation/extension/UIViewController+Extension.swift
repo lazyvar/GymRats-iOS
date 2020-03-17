@@ -44,12 +44,22 @@ extension UIViewController {
         image: UIImage(named: "menu")?.withRenderingMode(.alwaysTemplate),
         style: .plain,
         target: GymRatsApp.coordinator,
-        action: #selector(AppCoordinator.toggleMenu)
+        action: #selector(UIViewController.toggleMenu)
       )
       menu.tintColor = .lightGray
       
       navigationItem.leftBarButtonItem = menu
     }
+  
+  @objc func toggleMenu() {
+    guard let drawer = mm_drawerController else { return }
+    
+    if drawer.openSide == .left {
+      drawer.closeDrawer(animated: true, completion: nil)
+    } else {
+      drawer.open(.left, animated: true, completion: nil)
+    }
+  }
     
     func showLoadingBar(disallowUserInteraction: Bool = false) {
       let center = view.center
