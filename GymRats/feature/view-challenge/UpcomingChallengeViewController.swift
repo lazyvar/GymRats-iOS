@@ -100,16 +100,15 @@ class UpcomingChallengeViewController: UICollectionViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        refreshChatIcon()
+      super.viewWillAppear(animated)
+      
+      refreshChatIcon()
     }
 
     @objc func editChallenge() {
-        let editViewController = EditChallengeViewController(challenge: self.challenge)
-        editViewController.delegate = self
-        
-        self.present(editViewController.inNav(), animated: true, completion: nil)
+      let editViewController = EditChallengeViewController(challenge: self.challenge)
+      
+      self.present(editViewController.inNav(), animated: true, completion: nil)
     }
     
     @objc func addFriend() {
@@ -145,44 +144,9 @@ class UpcomingChallengeViewController: UICollectionViewController {
         }.disposed(by: disposeBag)
     }
 
-    private func showAlert() {
-        let alert = UIAlertController(title: "Are you sure you want to leave \(challenge.name)?", message: nil, preferredStyle: .actionSheet)
-        let leave = UIAlertAction(title: "Leave", style: .destructive) { _ in
-            self.showLoadingBar()
-            gymRatsAPI.leaveChallenge(self.challenge)
-                .subscribe({ e in
-                    self.hideLoadingBar()
-                    switch e {
-                    case .next: break
-                      // TODO
-//                        if let nav = GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController {
-//                            // MACK
-//                            if let home = nav.children.first as? HomeViewController {
-//                                // home.fetchAllChallenges()
-//
-//                                GymRatsApp.coordinator.drawer.closeDrawer(animated: true, completion: nil)
-//                            } else {
-//                                let center = HomeViewController()
-//                                let nav = UINavigationController(rootViewController: center)
-//
-//                                GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
-//                            }
-//                        }
-                    case .error(let error):
-                        self.presentAlert(with: error)
-                    case .completed:
-                        break
-                    }
-                }).disposed(by: self.disposeBag)
-        }
-        
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        alert.addAction(leave)
-        alert.addAction(cancel)
-        
-        self.present(alert, animated: true, completion: nil)
-    }
+  private func showAlert() {
+    ChallengeFlow.leave(challenge)
+  }
     
     @objc func openChat() {
       push(ChatViewController(challenge: challenge))
@@ -229,16 +193,4 @@ extension UpcomingChallengeViewController: MFMessageComposeViewControllerDelegat
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         controller.dismissSelf()
     }
-}
-
-extension UpcomingChallengeViewController: EditChallengeDelegate {
-    
-    func challengeEdited(challenge: Challenge) {
-        let center = HomeViewController()
-        let nav = UINavigationController(rootViewController: center)
-          
-      // TODO
-//        GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
-    }
-    
 }

@@ -22,13 +22,16 @@ enum Screen {
   case about
   case challengeStats(Challenge, [Account], [Workout])
   case chat(Challenge)
-  
+  case upcomingChallenge(Challenge)
+
   var viewController: UIViewController {
     switch self {
     case .noChallenges:
       return NoChallengesViewController()
     case .home:
       return HomeViewController()
+    case .upcomingChallenge(let challenge):
+      return UpcomingChallengeViewController(challenge: challenge)
     case .activeChallenge(let challenge):
       return ChallengeTabBarController(challenge: challenge)
     case .challengeStats(let challenge, let members, let workouts):

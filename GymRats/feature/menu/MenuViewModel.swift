@@ -70,7 +70,7 @@ final class MenuViewModel: ViewModel {
       .map { challenge -> (Navigation, Screen) in (.replaceDrawerCenter(animated: true), .activeChallenge(challenge)) }
       .bind(to: output.navigation)
       .disposed(by: disposeBag)
-
+    
     input.tappedRow.withLatestFrom(challenges, resultSelector: { ($0, $1) })
       .compactMap { stuff -> (Navigation, Screen)? in
         let (indexPath, challenges) = stuff

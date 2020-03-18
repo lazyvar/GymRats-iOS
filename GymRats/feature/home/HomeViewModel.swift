@@ -43,9 +43,13 @@ final class HomeViewModel: ViewModel {
         guard challenges.isNotEmpty else { return (.replaceDrawerCenterInNav(animated: false), .noChallenges) }
         
         let challengeId = UserDefaults.standard.integer(forKey: "last_opened_challenge")
-        let challenge = challenges.first { $0.id == challengeId } ?? challenges.first
+        let challenge = challenges.first { $0.id == challengeId } ?? challenges.first!
         
-        return (.replaceDrawerCenter(animated: false), .activeChallenge(challenge!))
+        if challenge.isActive {
+          return (.replaceDrawerCenter(animated: false), .activeChallenge(challenge))
+        } else {
+          return (.replaceDrawerCenter(animated: false), .upcomingChallenge(challenge))
+        }
       }
       .do(onNext: { _ in
         GymRats.handleColdStartNotification()

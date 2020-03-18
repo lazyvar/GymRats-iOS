@@ -105,8 +105,6 @@ extension Result {
   }
 }
 
-
-
 extension Decodable {
   init(from anything: Any) throws {
     let data = try JSONSerialization.data(withJSONObject: anything, options: .prettyPrinted)
@@ -118,7 +116,8 @@ extension Decodable {
 extension Notification {
   static let commentNotification = Notification(name: .commentNotification)
   static let chatNotification = Notification(name: .chatNotification)
-  static let challengesUpdated = Notification(name: .challengesUpdated)
+  static let challengeEdited = Notification(name: .challengeEdited)
+  static let leftChallenge = Notification(name: .leftChallenge)
   static let workoutCreated = Notification(name: .workoutCreated)
   static let workoutsLoaded = Notification(name: .workoutsLoaded)
   static let workoutDeleted = Notification(name: .workoutDeleted)
@@ -127,7 +126,8 @@ extension Notification {
 extension NSNotification.Name {
   static let commentNotification = NSNotification.Name.init("CommentNotification")
   static let chatNotification = NSNotification.Name.init("ChatNotification")
-  static let challengesUpdated = NSNotification.Name.init("ChallengesUpdated")
+  static let challengeEdited = NSNotification.Name.init("ChallengeEdited")
+  static let leftChallenge = NSNotification.Name.init("LeftChallenge")
   static let workoutCreated = NSNotification.Name.init("WorkoutCreated")
   static let workoutsLoaded = NSNotification.Name.init("WorkoutsLoaded")
   static let workoutDeleted = NSNotification.Name.init("WorkoutDeleted")

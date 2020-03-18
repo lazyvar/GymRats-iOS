@@ -14,10 +14,6 @@ import GradientLoadingBar
 import Eureka
 import Kingfisher
 
-protocol EditChallengeDelegate: class {
-  func challengeEdited(challenge: Challenge)
-}
-
 class EditChallengeViewController: GRFormViewController {
   private let challenge: Challenge
   
@@ -30,9 +26,7 @@ class EditChallengeViewController: GRFormViewController {
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
-  weak var delegate: EditChallengeDelegate?
-  
+
   private let name = BehaviorRelay<String?>(value: nil)
   private let startDate = BehaviorRelay<Date?>(value: nil)
   private let endDate = BehaviorRelay<Date?>(value: nil)
@@ -168,14 +162,16 @@ class EditChallengeViewController: GRFormViewController {
       photo: self.photo.value
     ).subscribe(onNext: { [weak self] result in
       self?.hideLoadingBar()
-      self?.dismissSelf()
 
+      guard let self = self else { return }
+      
       switch result {
       case .success(let challenge):
         Track.event(.challengeEdited)
-        self?.delegate?.challengeEdited(challenge: challenge)
+        NotificationCenter.default.post(name: .challengeEdited, object: challenge)
+        self.dismissSelf()
       case .failure(let error):
-        self?.presentAlert(with: error)
+        self.presentAlert(with: error)
       }
     })
     .disposed(by: disposeBag)

@@ -37,7 +37,7 @@ enum ChallengeFlow {
         .next { result in
           switch result {
           case .success:
-            Challenge.State.all.fetch().ignore(disposedBy: disposeBag)
+            NotificationCenter.default.post(name: .leftChallenge, object: challenge)
           case .failure(let error):
             UIViewController.topmost().presentAlert(with: error)
           }

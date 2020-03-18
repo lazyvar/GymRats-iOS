@@ -27,10 +27,13 @@ class DrawerViewController: UIViewController {
       $0.closeDrawerGestureModeMask = [.all]
       $0.setDrawerVisualStateBlock(MMDrawerVisualState.parallaxVisualStateBlock(withParallaxFactor: 2))
     }
-    
-    //GymRatsApp.coordinator.drawer = drawer // TODO: don't do this
-    //GymRatsApp.coordinator.menu = menu // TODO: don't do this
 
+    Observable.merge(NotificationCenter.default.rx.notification(.challengeEdited), NotificationCenter.default.rx.notification(.leftChallenge))
+      .next { _ in
+        drawer.setCenterView(HomeViewController().inNav(), withCloseAnimation: true, completion: nil)
+      }
+      .disposed(by: disposeBag)
+    
     install(drawer)
   }
 }

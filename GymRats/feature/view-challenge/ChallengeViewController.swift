@@ -147,7 +147,6 @@ class ChallengeViewController: BindableViewController {
     
     let editAction = UIAlertAction(title: "Edit", style: .default) { _ in
       let editViewController = EditChallengeViewController(challenge: self.challenge)
-      editViewController.delegate = self
       
       self.present(editViewController.inNav(), animated: true, completion: nil)
     }
@@ -218,12 +217,5 @@ extension ChallengeViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
     return UIView()
-  }
-}
-
-// MARK: EditChallengeDelegate
-extension ChallengeViewController: EditChallengeDelegate {
-  func challengeEdited(challenge: Challenge) {
-    // TODO: reload home/challenge
   }
 }
