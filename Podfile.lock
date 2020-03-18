@@ -164,7 +164,7 @@ DEPENDENCIES:
   - RxGesture
   - RxOptional
   - RxSwift (~> 5)
-  - SkeletonView
+  - "SkeletonView (from `git@github.com:lazyvar/SkeletonView.git`)"
   - SwiftDate (~> 5.0)
   - SwiftPhoenixClient
   - TTTAttributedLabel
@@ -215,11 +215,19 @@ SPEC REPOS:
     - RxOptional
     - RxRelay
     - RxSwift
-    - SkeletonView
     - Starscream
     - SwiftDate
     - SwiftPhoenixClient
     - TTTAttributedLabel
+
+EXTERNAL SOURCES:
+  SkeletonView:
+    :git: "git@github.com:lazyvar/SkeletonView.git"
+
+CHECKOUT OPTIONS:
+  SkeletonView:
+    :commit: 57aa984a01f8fa02fa504683dca74709129558bd
+    :git: "git@github.com:lazyvar/SkeletonView.git"
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
@@ -272,6 +280,6 @@ SPEC CHECKSUMS:
   SwiftPhoenixClient: ba22ba809b345522afe478817d7cb51ee3d49365
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: 7c259ac6a21ccf3b0d1fdef0a708764fdfff89e6
+PODFILE CHECKSUM: 112c2c879ea56f0f5837f257c16bbece0dfdd3d9
 
 COCOAPODS: 1.8.4
