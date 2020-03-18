@@ -91,7 +91,7 @@ extension Observable where Element == URL {
 
 extension Observable where Element == NetworkResult<Data> {
   func decodeObject<T: Decodable>() -> Observable<NetworkResult<T>> {
-    return map { d in
+    return map { d in 
       guard let data = d.object else { return .failure(d.error!.localized()) }
 
       do {

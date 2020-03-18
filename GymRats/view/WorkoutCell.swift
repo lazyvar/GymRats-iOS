@@ -57,7 +57,7 @@ class WorkoutCell: UITableViewCell {
     shadowView.startSkeletonAnimation()
     shadowView.showSkeleton()
   }
-
+  
   static func configure(tableView: UITableView, indexPath: IndexPath, workout: Workout) -> UITableViewCell {
     return tableView.dequeueReusableCell(withType: WorkoutCell.self, for: indexPath).apply {
       $0.descriptionLabel.text = workout.description

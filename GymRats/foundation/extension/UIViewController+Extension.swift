@@ -85,8 +85,6 @@ extension UIViewController {
     }
 
     func hideLoadingBar() {
-      guard let nav = self.navigationController as? UINavigationController else { return }
-      
       UIApplication.shared.endIgnoringInteractionEvents()
       UIApplication.shared.keyWindow?.subviews.first(where: { $0.tag == 333 })?.removeFromSuperview()
       

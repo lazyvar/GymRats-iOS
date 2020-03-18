@@ -15,7 +15,7 @@ let gymRatsAPI = GymRatsAPI()
 class GymRatsAPI {
   private let networkProvider: NetworkProvider
   
-  init(networkProvider: NetworkProvider = DevelopmentNetworkProvider()) {
+  init(networkProvider: NetworkProvider = NgrokNetworkProvider("https://gym-rats-api-phoenix.herokuapp.com")) {
     self.networkProvider = networkProvider
   }
 
@@ -69,10 +69,6 @@ class GymRatsAPI {
       .flatMap { url in
         return self.requestObject(.editChallenge(UpdateChallenge(id: id, name: challengeName, profilePictureUrl: url, startDate: startDate, endDate: endDate)))
       }
-  }
-
-  func getUsers(for challenge:  Challenge) -> Observable<NetworkResult<[Account]>> {
-    return requestArray(.getUsersForChallenge(challenge: challenge))
   }
   
   func getChallenge(id: Int) -> Observable<NetworkResult<Challenge>> {

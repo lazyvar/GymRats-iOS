@@ -18,7 +18,6 @@ enum APIRequest {
   case getAllChallenges
   case joinChallenge(code: String)
   case createChallenge(startDate: Date, endDate: Date, challengeName: String, photoUrl: String?)
-  case getUsersForChallenge(challenge: Challenge)
   case getWorkoutsForChallenge(challenge: Challenge)
   case getAllWorkoutsForUser(user: Account)
   case getWorkouts(forUser: Account, inChallenge: Challenge)
@@ -87,8 +86,6 @@ enum APIRequest {
       }
       
       return (.put, "challenges/\(challenge.id)", params)
-    case .getUsersForChallenge(challenge: let challenge):
-      return (.get, "challenges/\(challenge.id)/members", nil)
     case .getWorkoutsForChallenge(challenge: let challenge):
       return (.get, "challenges/\(challenge.id)/workouts", nil)
     case .getAllWorkoutsForUser(user: let account):

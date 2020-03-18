@@ -83,20 +83,21 @@ class UpcomingChallengeViewController: UICollectionViewController {
     }
     
     func refreshChatIcon() {
-        gymRatsAPI.getUnreadChats(for: challenge)
-            .subscribe { event in
-                switch event {
-                case .next(let chats):
-                  guard let chats = chats.object else { return }
-                  
-                    if chats.isEmpty {
-                        self.chatItem.image = UIImage(named: "chat-gray")
-                    } else {
-                        self.chatItem.image = UIImage(named: "chat-unread-gray")?.withRenderingMode(.alwaysOriginal)
-                    }
-                default: break
-                }
-            }.disposed(by: disposeBag)
+      // TODO
+//        gymRatsAPI.getUnreadChats(for: challenge)
+//            .subscribe { event in
+//                switch event {
+//                case .next(let chats):
+//                  guard let chats = chats.object else { return }
+//
+//                    if chats.isEmpty {
+//                        self.chatItem.image = UIImage(named: "chat-gray")
+//                    } else {
+//                        self.chatItem.image = UIImage(named: "chat-unread-gray")?.withRenderingMode(.alwaysOriginal)
+//                    }
+//                default: break
+//                }
+//            }.disposed(by: disposeBag)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -124,25 +125,25 @@ class UpcomingChallengeViewController: UICollectionViewController {
         self.present(messageViewController, animated: true, completion: nil)
     }
     
-    @objc func fetchUsers() {
-        showLoadingBar()
-        refreshControl.beginRefreshing()
-        
-        gymRatsAPI.getUsers(for: challenge)
-            .subscribe { event in
-                self.hideLoadingBar()
-                self.refreshControl.endRefreshing()
-                
-                switch event {
-                case .next(let users):
-                  guard let users = users.object else { return }
-                  
-                    self.users = users
-                    self.collectionView.reloadData()
-                default: break
-                }
-        }.disposed(by: disposeBag)
-    }
+  @objc func fetchUsers() {
+      showLoadingBar()
+      refreshControl.beginRefreshing()
+      
+    gymRatsAPI.getMembers(for: challenge)
+      .subscribe(onNext: { result in
+        self.hideLoadingBar()
+        self.refreshControl.endRefreshing()
+      
+        switch result {
+        case .success(let members):
+          self.users = members
+          self.collectionView.reloadData()
+        case .failure(let error):
+          self.presentAlert(with: error)
+        }
+      })
+    .disposed(by: disposeBag)
+  }
 
   private func showAlert() {
     ChallengeFlow.leave(challenge)

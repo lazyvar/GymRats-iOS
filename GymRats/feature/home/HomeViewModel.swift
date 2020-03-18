@@ -48,7 +48,7 @@ final class HomeViewModel: ViewModel {
         if challenge.isActive {
           return (.replaceDrawerCenter(animated: false), .activeChallenge(challenge))
         } else {
-          return (.replaceDrawerCenter(animated: false), .upcomingChallenge(challenge))
+          return (.replaceDrawerCenterInNav(animated: false), .upcomingChallenge(challenge))
         }
       }
       .do(onNext: { _ in
