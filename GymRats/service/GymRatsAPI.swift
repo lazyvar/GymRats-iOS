@@ -15,7 +15,7 @@ let gymRatsAPI = GymRatsAPI()
 class GymRatsAPI {
   private let networkProvider: NetworkProvider
   
-  init(networkProvider: NetworkProvider = NgrokNetworkProvider("https://gym-rats-api-phoenix.herokuapp.com")) {
+  init(networkProvider: NetworkProvider = GymRats.environment.networkProvider) {
     self.networkProvider = networkProvider
   }
 

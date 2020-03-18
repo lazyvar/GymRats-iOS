@@ -24,7 +24,7 @@ class ChatViewController: MessagesViewController {
 
   init(challenge: Challenge) {
     self.challenge = challenge
-    self.socket = Socket("ws://localhost:4000/chat/websocket", params: ["token": GymRats.currentAccount.token ?? ""])
+    self.socket = Socket(GymRats.environment.ws, params: ["token": GymRats.currentAccount.token ?? ""])
     
     super.init(nibName: nil, bundle: nil)
 

@@ -89,6 +89,7 @@
 		018E9F4F229F7DB1008AB016 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */; };
 		01975EAC23C1204F0031E23A /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01975EAB23C1204F0031E23A /* Track.swift */; };
 		019CF1FB232722FF00D884DA /* BigContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019CF1FA232722FF00D884DA /* BigContentView.swift */; };
+		01A03B7F2422E69A0099760F /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A03B7E2422E69A0099760F /* Environment.swift */; };
 		01A1CD24233AF6B8005871F4 /* EditChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1CD23233AF6B8005871F4 /* EditChallengeViewController.swift */; };
 		01A3EAEB2377471B0097FC2A /* BindableObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A3EAE92377471A0097FC2A /* BindableObserver.swift */; };
 		01A3EAEC2377471B0097FC2A /* RxEureka.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A3EAEA2377471B0097FC2A /* RxEureka.swift */; };
@@ -305,6 +306,10 @@
 		018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
 		01975EAB23C1204F0031E23A /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		019CF1FA232722FF00D884DA /* BigContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigContentView.swift; sourceTree = "<group>"; };
+		01A03B7E2422E69A0099760F /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		01A03B812422EAD20099760F /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
+		01A03B822422EBD00099760F /* PreProduction.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PreProduction.xcconfig; sourceTree = "<group>"; };
+		01A03B832422EC020099760F /* Development.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Development.xcconfig; sourceTree = "<group>"; };
 		01A1CD23233AF6B8005871F4 /* EditChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditChallengeViewController.swift; sourceTree = "<group>"; };
 		01A3EAE92377471A0097FC2A /* BindableObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindableObserver.swift; sourceTree = "<group>"; };
 		01A3EAEA2377471B0097FC2A /* RxEureka.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxEureka.swift; sourceTree = "<group>"; };
@@ -522,6 +527,16 @@
 				01297D832329E79000CA9E41 /* SF-Pro-Rounded-Bold.otf */,
 			);
 			path = "SF Rounded";
+			sourceTree = "<group>";
+		};
+		01A03B802422EABC0099760F /* config */ = {
+			isa = PBXGroup;
+			children = (
+				01A03B812422EAD20099760F /* Production.xcconfig */,
+				01A03B822422EBD00099760F /* PreProduction.xcconfig */,
+				01A03B832422EC020099760F /* Development.xcconfig */,
+			);
+			path = config;
 			sourceTree = "<group>";
 		};
 		01A3EAE8237746E50097FC2A /* RxEureka */ = {
@@ -743,6 +758,7 @@
 				011EEB8B241A8B9700CC9F9E /* flow */,
 				01F5296324184AE400FA96E0 /* view */,
 				01F529572418348D00FA96E0 /* state */,
+				01A03B802422EABC0099760F /* config */,
 				747D6F992208DB310062BB39 /* AppDelegate.swift */,
 				747D6FA02208DB330062BB39 /* Assets.xcassets */,
 				01338DAB223B230E0019B67E /* GoogleService-Info.plist */,
@@ -829,6 +845,7 @@
 			children = (
 				013D02482419454B0063F189 /* GymRats.swift */,
 				013D024A2419484A0063F189 /* DrawerViewController.swift */,
+				01A03B7E2422E69A0099760F /* Environment.swift */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -1381,6 +1398,7 @@
 				74C2D84E222C3D1A00FF0DE2 /* AboutViewController.swift in Sources */,
 				0103A98F24204ED300B589DA /* CreateWorkoutDelegateObject.swift in Sources */,
 				01A3EB15237747D30097FC2A /* CVCalendarMenuViewDelegate.swift in Sources */,
+				01A03B7F2422E69A0099760F /* Environment.swift in Sources */,
 				746764E3220B6D5C000CFB1B /* Collection+Extension.swift in Sources */,
 				01BFF907223DAFD90044F802 /* UIBarButton+Extension.swift in Sources */,
 				011FB62B22A33AAA004D5B8E /* UserProfileCell.swift in Sources */,
@@ -1420,6 +1438,112 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		01A03B842422EC2F0099760F /* Preproduction */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Preproduction;
+		};
+		01A03B852422EC2F0099760F /* Preproduction */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01A03B822422EBD00099760F /* PreProduction.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = GymRats/GymRats.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 25;
+				DEVELOPMENT_TEAM = 24MV8D7ZU8;
+				INFOPLIST_FILE = GymRats/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 25;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hasz.GymRats;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Preproduction;
+		};
+		01A03B862422EC2F0099760F /* Preproduction */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01A03B822422EBD00099760F /* PreProduction.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 24MV8D7ZU8;
+				INFOPLIST_FILE = GymRatsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hasz.GymRatsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GymRats.app/GymRats";
+			};
+			name = Preproduction;
+		};
 		747D6FB12208DB330062BB39 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1538,7 +1662,7 @@
 		};
 		747D6FB42208DB330062BB39 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0BDF2A3E7AA6DB6E35BFDD57 /* Pods-GymRats.debug.xcconfig */;
+			baseConfigurationReference = 01A03B832422EC020099760F /* Development.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GymRats/GymRats.entitlements;
@@ -1561,7 +1685,7 @@
 		};
 		747D6FB52208DB330062BB39 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EC58A7A483BCAC310AB5A0EE /* Pods-GymRats.release.xcconfig */;
+			baseConfigurationReference = 01A03B812422EAD20099760F /* Production.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GymRats/GymRats.entitlements;
@@ -1584,7 +1708,7 @@
 		};
 		747D6FB72208DB330062BB39 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA1B9B38DC9FF0C9036AFCCB /* Pods-GymRatsTests.debug.xcconfig */;
+			baseConfigurationReference = 01A03B832422EC020099760F /* Development.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1606,7 +1730,7 @@
 		};
 		747D6FB82208DB330062BB39 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1D049B34A7CBE955CE338AA6 /* Pods-GymRatsTests.release.xcconfig */;
+			baseConfigurationReference = 01A03B812422EAD20099760F /* Production.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1633,6 +1757,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				747D6FB12208DB330062BB39 /* Debug */,
+				01A03B842422EC2F0099760F /* Preproduction */,
 				747D6FB22208DB330062BB39 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1642,6 +1767,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				747D6FB42208DB330062BB39 /* Debug */,
+				01A03B852422EC2F0099760F /* Preproduction */,
 				747D6FB52208DB330062BB39 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1651,6 +1777,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				747D6FB72208DB330062BB39 /* Debug */,
+				01A03B862422EC2F0099760F /* Preproduction */,
 				747D6FB82208DB330062BB39 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

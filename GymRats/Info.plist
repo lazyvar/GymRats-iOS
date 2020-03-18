@@ -79,5 +79,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>GYM_RATS_ENV</key>
+	<string>$(GYM_RATS_ENV)</string>
 </dict>
 </plist>

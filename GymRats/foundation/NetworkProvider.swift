@@ -18,18 +18,19 @@ protocol NetworkProvider {
 
 class ProductionNetworkProvider: NetworkProvider {
     
-  private let baseUrl: String = "https://gym-rats-api.herokuapp.com"
+  private let baseUrl: String = "https://www.gymratsapi.com"
   
   func buildUrl(forPath path: String) -> String {
-      return "\(baseUrl)/\(path)"
+    return "\(baseUrl)/\(path)"
   }
   
   func request(method: HTTPMethod, url: String, headers: HTTPHeaders, parameters: Parameters?) -> Observable<(HTTPURLResponse, Data)> {
     let request: DataRequest
+    
     if let parameters = parameters {
-        request = Alamofire.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
+      request = Alamofire.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
     } else {
-        request = Alamofire.request(url, method: method, parameters: parameters, headers: headers)
+      request = Alamofire.request(url, method: method, parameters: parameters, headers: headers)
     }
     
     request.validate(statusCode: 200..<300)
@@ -39,311 +40,45 @@ class ProductionNetworkProvider: NetworkProvider {
   }
 }
 
-class NgrokNetworkProvider: NetworkProvider {
-  let url: String
-  
-  init(_ url: String) {
-      self.url = url
-  }
+class PreProductionNetworkProvider: NetworkProvider {
+  private let baseUrl: String = "https://pre.gymratsapi.com"
   
   func buildUrl(forPath path: String) -> String {
-      return "\(url)/\(path)"
+    return "\(baseUrl)/\(path)"
   }
   
   func request(method: HTTPMethod, url: String, headers: HTTPHeaders, parameters: Parameters?) -> Observable<(HTTPURLResponse, Data)> {
-      let request: DataRequest
-      if let parameters = parameters {
-          request = Alamofire.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
-      } else {
-          request = Alamofire.request(url, method: method, parameters: parameters, headers: headers)
-      }
-      
-      return request.rx.responseData()
+    let request: DataRequest
+    
+    if let parameters = parameters {
+      request = Alamofire.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
+    } else {
+      request = Alamofire.request(url, method: method, parameters: parameters, headers: headers)
+    }
+    
+    request.validate(statusCode: 200..<300)
+    request.validate(contentType: ["application/json"])
+    
+    return request.rx.responseData()
   }
 }
 
 class DevelopmentNetworkProvider: NetworkProvider {
+  private let baseUrl: String = "http://localhost:4000"
+  
+  func buildUrl(forPath path: String) -> String {
+    return "\(baseUrl)/\(path)"
+  }
 
-    func buildUrl(forPath path: String) -> String {
-        return "http://localhost:4000/\(path)"
-    }
-
-    func request(method: HTTPMethod, url: String, headers: HTTPHeaders, parameters: Parameters?) -> Observable<(HTTPURLResponse, Data)> {
-        let request: DataRequest
-        if let parameters = parameters {
-            request = Alamofire.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
-        } else {
-            request = Alamofire.request(url, method: method, parameters: parameters, headers: headers)
-        }
-
-        return request.rx.responseData()
-    }
-
-}
-
-class MockedNetworkProvider: NetworkProvider {
-
-    func buildUrl(forPath path: String) -> String {
-        return path
-    }
-
-    func request(method: HTTPMethod, url: String, headers: HTTPHeaders, parameters: Parameters?) -> Observable<(HTTPURLResponse, Data)> {
-        return Observable<(HTTPURLResponse, Data)>.create { subscriber in
-            let data = self.mockedResponse(forURL: url, and: parameters)
-
-            switch url {
-            case "login":
-                if parameters?["email"] as? String == "error" {
-                    subscriber.onError(NSError(domain: "Wrong combo.", code: 100, userInfo: nil))
-                } else {
-                    subscriber.onNext((.dummy, data))
-                }
-            default:
-                subscriber.onNext((.dummy, data))
-            }
-            
-            return Disposables.create()
-        }.delay(1, scheduler: MainScheduler.instance)
-    }
+  func request(method: HTTPMethod, url: String, headers: HTTPHeaders, parameters: Parameters?) -> Observable<(HTTPURLResponse, Data)> {
+    let request: DataRequest
     
-    private func mockedResponse(forURL url: String, and parameters: Parameters?) -> Data {
-        let json: String = {
-            switch url {
-            case "login", "signup":
-                return """
-                {
-                    "id": 101,
-                    "email": "mack@hasz.email",
-                    "fullName": "Mack Hasz",
-                    "proPicUrl": "https://s3.amazonaws.com/com.hasz.oh/profile/3312CA11-9241-4B80-A9A1-76CCAC8306E5.jpg",
-                    "token": "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MTAxLCJ1c2VybmFtZSI6Im1hY2sifQ.bWylH53ljxUs9Adl-sNBCNyU7ONi9vOAp-tChlUsOH1IInzzeidoJ-OFZnZlMMTVaRDXFbKj2Wn5aCih3ves9w",
-                }
-                """
-            case "challenge/all":
-              switch GymRats.currentAccount.email {
-                case "no-active-challenges":
-                    return """
-                    []
-                    """
-                case "single-active-challenges":
-                    return """
-                    [{
-                    "id": 101,
-                    "name": "CapTech Rats",
-                    "code": "123456",
-                    "startDate": 1546300800,
-                    "endDate": 1556668800,
-                    "timeZone": "EST"
-                    }]
-                    """
-                case "many-active-challenges":
-                    return """
-                    [{
-                    "id": 101,
-                    "name": "CapTech Rats",
-                    "code": "123456",
-                    "startDate": 1546300800,
-                    "endDate": 1556668800,
-                    "timeZone": "PST"
-                    },{
-                    "id": 102,
-                    "name": "Hasz Fam",
-                    "code": "ABCDEF",
-                    "startDate": 1546300800,
-                    "endDate": 1556668800,
-                    "timeZone": "EST"
-                    },{
-                    "id": 102,
-                    "name": "Hasz Fam",
-                    "code": "ABCDEF",
-                    "startDate": 1546300800,
-                    "endDate": 1556668800,
-                    "timeZone": "UTC"
-                    }]
-                    """
-                default:
-                    return """
-                    [{
-                    "id": 101,
-                    "name": "CapTech Rats",
-                    "code": "123456",
-                    "startDate": 1546300800,
-                    "endDate": 1556668800,
-                    "timeZone": "EST"
-                    }]
-                    """
-                }
-            case "challenge/123456":
-                return """
-                {
-                "id": 101,
-                "name": "CapTech Rats",
-                "code": "123456",
-                "startDate": 1546300800,
-                "endDate": 1556668800,
-                "timeZone": "EST"
-                }
-                """
-            case "challenge":
-                return """
-                {
-                "id": 101,
-                "name": "CapTech Rats",
-                "code": "123456",
-                "startDate": 1546300800,
-                "endDate": 1556668800,
-                "timeZone": "EST"
-                }
-                """
-            case "challenge/101/user":
-                return """
-                [{
-                "id": 101,
-                "email": "mack@hasz.email",
-                "fullName": "Mack Hasz",
-                "proPicUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
-                "token": "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MTAxLCJ1c2VybmFtZSI6Im1hY2sifQ.bWylH53ljxUs9Adl-sNBCNyU7ONi9vOAp-tChlUsOH1IInzzeidoJ-OFZnZlMMTVaRDXFbKj2Wn5aCih3ves9w",
-                },{
-                "id": 102,
-                "email": "mack@hasz.email",
-                "fullName": "Jack Smith",
-                "proPicUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
-                "token": "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MTAxLCJ1c2VybmFtZSI6Im1hY2sifQ.bWylH53ljxUs9Adl-sNBCNyU7ONi9vOAp-tChlUsOH1IInzzeidoJ-OFZnZlMMTVaRDXFbKj2Wn5aCih3ves9w",
-                },{
-                "id": 103,
-                "email": "mack@hasz.email",
-                "fullName": "Yee Haw",
-                "proPicUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
-                "token": "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MTAxLCJ1c2VybmFtZSI6Im1hY2sifQ.bWylH53ljxUs9Adl-sNBCNyU7ONi9vOAp-tChlUsOH1IInzzeidoJ-OFZnZlMMTVaRDXFbKj2Wn5aCih3ves9w",
-                },{
-                "id": 104,
-                "email": "mack@hasz.email",
-                "fullName": "Issa Bell",
-                "proPicUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
-                "token": "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MTAxLCJ1c2VybmFtZSI6Im1hY2sifQ.bWylH53ljxUs9Adl-sNBCNyU7ONi9vOAp-tChlUsOH1IInzzeidoJ-OFZnZlMMTVaRDXFbKj2Wn5aCih3ves9w",
-                }]
-                """
-            case "challenge/102/user":
-                return """
-                [{
-                "id": 103,
-                "email": "mack@hasz.email",
-                "fullName": "Yee Haw",
-                "proPicUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
-                "token": "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MTAxLCJ1c2VybmFtZSI6Im1hY2sifQ.bWylH53ljxUs9Adl-sNBCNyU7ONi9vOAp-tChlUsOH1IInzzeidoJ-OFZnZlMMTVaRDXFbKj2Wn5aCih3ves9w",
-                },{
-                "id": 104,
-                "email": "mack@hasz.email",
-                "fullName": "Issa Bell",
-                "proPicUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
-                "token": "eyJhbGciOiJIUzUxMiJ9.eyJpZCI6MTAxLCJ1c2VybmFtZSI6Im1hY2sifQ.bWylH53ljxUs9Adl-sNBCNyU7ONi9vOAp-tChlUsOH1IInzzeidoJ-OFZnZlMMTVaRDXFbKj2Wn5aCih3ves9w",
-                }]
-                """
-            case "challenge/101/workout":
-                return """
-                [{
-                "id": 101,
-                "userId": 101,
-                "title": "I did it.",
-                "date": 1549411941,
-                "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
-                "description": "3x10 squats\\n3x8 deadlifts\\n3x6 cleans",
-                "place": {
-                "name": "Gold's Gym",
-                "latitude": 38.879336,
-                "longitude": -77.106882
-                }
-                },{
-                "id": 102,
-                "userId": 104,
-                "title": "Daily swoll, let's get this bread y'all.",
-                "date": 1549414273,
-                "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
-                "place": {
-                "name": "Evoke Yoga",
-                "latitude": 34.043980,
-                "longitude": -118.253337
-                }
-                },{
-                "id": 103,
-                "userId": 103,
-                "title": "THIS IS ITTTT.",
-                "date": 1549498396,
-                "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
-                }]
-                """
-            case "challenge/102/workout":
-                return """
-                [{
-                "id": 102,
-                "userId": 104,
-                "title": "Daily swoll, let's get this bread y'all.",
-                "date": 1549414273,
-                "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
-                },{
-                "id": 103,
-                "userId": 103,
-                "title": "THIS IS ITTTT.",
-                "date": 1549498396,
-                "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
-                }]
-                """
-            case "workout/user/100", "workout/user/101", "workout/user/102", "workout/user/103", "workout/user/104":
-                return """
-                [{
-                "id": 101,
-                "userId": 101,
-                "title": "I did it.",
-                "date": 1549411941,
-                "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
-                "description": "3x10 squats\\n3x8 deadlifts\\n3x6 cleans"
-                },{
-                "id": 102,
-                "userId": 104,
-                "title": "Another one bites the dust.",
-                "date": 1549414273,
-                "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
-                },{
-                "id": 103,
-                "userId": 104,
-                "title": "Daily swoll, let's get this bread y'all.",
-                "date": 1549212988,
-                "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
-                },{
-                "id": 104,
-                "userId": 104,
-                "title": "Morning vinyayasasaaaa",
-                "date": 1546534588,
-                "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
-                }]
-                """
-            case "workout":
-                return """
-                {
-                "id": 107,
-                "userId": 103,
-                "title": "This was the result of an upload",
-                "date": 1549414273,
-                "pictureUrl": "https://picsum.photos/\(Int.random(in: 100...500))",
-                }
-                """
-            default:
-                return "path not mockec"
-            }
-        }()
-        
-        return json.data(using: .utf8)!
+    if let parameters = parameters {
+      request = Alamofire.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
+    } else {
+      request = Alamofire.request(url, method: method, parameters: parameters, headers: headers)
     }
-    
-}
 
-extension HTTPURLResponse {
-    
-    static let dummy = HTTPURLResponse (
-        url: URL(string: "https://www.google.com")!,
-        statusCode: 200,
-        httpVersion: nil,
-        headerFields: nil
-    )!
-    
+    return request.rx.responseData()
+  }
 }
