@@ -14,7 +14,6 @@ import RxSwift
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
   var window: UIWindow?
-  var appCoordinator: AppCoordinator!
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     application.applicationIconBadgeNumber = 1
@@ -22,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     window = UIWindow(frame: UIScreen.main.bounds)
     GymRats.initialize(window: window!, application: application)
-    appCoordinator = AppCoordinator(window: window!, application: application)
 
     guard ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] == nil else { return true }
     

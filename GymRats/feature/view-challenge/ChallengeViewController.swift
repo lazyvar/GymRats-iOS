@@ -179,7 +179,7 @@ class ChallengeViewController: BindableViewController {
   
   @objc private func chatTapped() {
     push(
-      DeprecatedChatViewController(challenge: challenge)
+      ChatViewController(challenge: challenge)
     )
   }
   

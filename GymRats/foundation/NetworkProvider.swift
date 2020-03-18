@@ -120,7 +120,7 @@ class MockedNetworkProvider: NetworkProvider {
                 }
                 """
             case "challenge/all":
-                switch GymRatsApp.delegate.appCoordinator.currentUser.email {
+              switch GymRats.currentAccount.email {
                 case "no-active-challenges":
                     return """
                     []

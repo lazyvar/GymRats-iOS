@@ -153,20 +153,21 @@ class UpcomingChallengeViewController: UICollectionViewController {
                 .subscribe({ e in
                     self.hideLoadingBar()
                     switch e {
-                    case .next:
-                        if let nav = GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController {
-                            // MACK
-                            if let home = nav.children.first as? HomeViewController {
-                                // home.fetchAllChallenges()
-                                
-                                GymRatsApp.coordinator.drawer.closeDrawer(animated: true, completion: nil)
-                            } else {
-                                let center = HomeViewController()
-                                let nav = UINavigationController(rootViewController: center)
-                                
-                                GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
-                            }
-                        }
+                    case .next: break
+                      // TODO
+//                        if let nav = GymRatsApp.coordinator.drawer.centerViewController as? UINavigationController {
+//                            // MACK
+//                            if let home = nav.children.first as? HomeViewController {
+//                                // home.fetchAllChallenges()
+//
+//                                GymRatsApp.coordinator.drawer.closeDrawer(animated: true, completion: nil)
+//                            } else {
+//                                let center = HomeViewController()
+//                                let nav = UINavigationController(rootViewController: center)
+//
+//                                GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+//                            }
+//                        }
                     case .error(let error):
                         self.presentAlert(with: error)
                     case .completed:
@@ -184,7 +185,7 @@ class UpcomingChallengeViewController: UICollectionViewController {
     }
     
     @objc func openChat() {
-        push(DeprecatedChatViewController(challenge: challenge))
+      push(ChatViewController(challenge: challenge))
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -235,8 +236,9 @@ extension UpcomingChallengeViewController: EditChallengeDelegate {
     func challengeEdited(challenge: Challenge) {
         let center = HomeViewController()
         let nav = UINavigationController(rootViewController: center)
-        
-        GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
+          
+      // TODO
+//        GymRatsApp.coordinator.drawer.setCenterView(nav, withCloseAnimation: true, completion: nil)
     }
     
 }

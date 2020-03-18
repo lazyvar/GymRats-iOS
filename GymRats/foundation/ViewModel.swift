@@ -145,3 +145,51 @@ extension NSNotification.Name {
 }
 
 extension UIView: Placeholder { }
+
+struct UserWorkout {
+  let user: Account
+  let workout: Workout?
+}
+
+extension Keychain {
+    static var gymRats = Keychain(group: nil)
+}
+
+extension Keychain.Key where Object == Account {
+    static var currentUser: Keychain.Key<Account> {
+        return Keychain.Key<Account>(rawValue: "currentUser", synchronize: true)
+    }
+}
+
+
+extension NSNotification.Name {
+    static let updatedCurrentUser = NSNotification.Name(rawValue: "GRCurrentUserUpdated")
+    static let updatedCurrentUserPic = NSNotification.Name(rawValue: "GRCurrentUserUpdatedPic")
+}
+
+extension UIWindow {
+    func topmostViewController() -> UIViewController {
+      func recurse(_ viewController: UIViewController) -> UIViewController {
+        switch viewController {
+          case let tabBarViewController as UITabBarController:
+            return recurse(tabBarViewController.selectedViewController ?? tabBarViewController)
+          case let navigationViewController as UINavigationController:
+            return recurse(navigationViewController.viewControllers.last ?? navigationViewController)
+          default:
+            if let presentedViewController = viewController.presentedViewController, !presentedViewController.isBeingDismissed {
+              return recurse(presentedViewController)
+            } else {
+              return viewController
+            }
+        }
+      }
+      
+      return recurse(rootViewController!)
+    }
+}
+
+extension UIViewController {
+  static func topmost(for window: UIWindow = UIApplication.shared.keyWindow!) -> UIViewController {
+    return window.topmostViewController()
+  }
+}

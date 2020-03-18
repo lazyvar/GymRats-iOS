@@ -21,7 +21,8 @@ enum GymRats {
   static private var application: UIApplication!
   static private var coldStartNotification: [AnyHashable: Any]?
   static private let disposeBag = DisposeBag()
-
+  static private let notificationHandler = NotificationHandler()
+  
   /// Initialize the app.
   static func initialize(window: UIWindow, application: UIApplication) {
     self.window = window
@@ -97,7 +98,7 @@ enum GymRats {
 
 private extension GymRats {
   private static func registerForNotifications() {
-    // TODO: UNUserNotificationCenter.current().delegate = self
+    UNUserNotificationCenter.current().delegate = notificationHandler
     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
       guard granted else { return }
 
