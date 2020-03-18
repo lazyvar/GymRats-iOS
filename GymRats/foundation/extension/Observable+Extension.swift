@@ -89,9 +89,11 @@ extension Observable where Element == URL {
     
 }
 
-extension Observable where Element == Data {
+extension Observable where Element == NetworkResult<Data> {
   func decodeObject<T: Decodable>() -> Observable<NetworkResult<T>> {
-    return map { data in
+    return map { d in
+      guard let data = d.object else { return .failure(d.error!.localized()) }
+
       do {
         let serviceResponse = try JSONDecoder.gymRatsAPIDecoder.decode(ServiceResponse<T>.self, from: data)
         
@@ -99,16 +101,18 @@ extension Observable where Element == Data {
         case .success:
           return .success(serviceResponse.data!)
         case .failure:
-          return .failure(.init(error: SimpleError(message: serviceResponse.error!)))
+          return .failure(.init(serviceResponse.error ?? "Something went wrong. Please try agin."))
         }
       } catch let error {
-        return .failure(.init(error: SimpleError(message: "Something went wrong. Please try agin.")))
+        return .failure(.init(error.localized()))
       }
     }
   }
   
   func decodeArray<T: Decodable>() -> Observable<NetworkResult<[T]>> {
-    return map { data -> NetworkResult<[T]> in
+    return map { d -> NetworkResult<[T]> in
+      guard let data = d.object else { return .failure(d.error!.localized()) }
+
       do {
         let serviceResponse = try JSONDecoder.gymRatsAPIDecoder.decode(ServiceResponse<[T]>.self, from: data)
         
@@ -116,10 +120,10 @@ extension Observable where Element == Data {
         case .success:
           return .success(serviceResponse.data!)
         case .failure:
-          return .failure(.init(error: SimpleError(message: serviceResponse.error!)))
+          return .failure(.init(serviceResponse.error ?? "Something went wrong. Please try agin."))
         }
       } catch let error {
-        return .failure(.init(error: SimpleError(message: "Something went wrong. Please try agin.")))
+        return .failure(.init(error.localized()))
       }
     }
   }

@@ -68,29 +68,23 @@ extension PublishSubject where Element == Void {
   }
 }
 
-
-typealias NetworkResult<T> = Result<T, AnyError>
-
-struct AnyError: Error {
-  let error: Error & LocalizedError
+struct LocalizedErrorMessage: Error, LocalizedError {
+  private let error: Error?
+  private let message: String?
   
-  var localizedDescription: String {
-    return error.localizedDescription
-  }
-  
-  var description: String {
-    get {
-      return error.errorDescription ?? ""
-    }
-  }
+  init(_ error: Error) { self.error = error; self.message = nil }
+  init(_ message: String) { self.message = message; self.error = nil}
 
-  var errorDescription: String? {
-    get {
-      return error.errorDescription
-    }
-  }
-
+  var errorDescription: String? { return message ?? error?.localizedDescription ?? "Something went wrong. Please try again." }
 }
+
+extension Error {
+  func localized() -> LocalizedErrorMessage {
+    return .init(self)
+  }
+}
+
+typealias NetworkResult<T> = Result<T, LocalizedErrorMessage>
 
 extension Result {
   var success: Bool { object != nil}

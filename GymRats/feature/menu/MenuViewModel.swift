@@ -39,7 +39,7 @@ final class MenuViewModel: ViewModel {
       }
       .share()
     
-    let challengeSection = challenges
+    let challengeSection = Observable.merge(.just([]), challenges)
       .map { challenges -> MenuSection in
         let items: [MenuRow] = challenges.isNotEmpty ? challenges.map { MenuRow.challenge($0) } : [.home]
         
@@ -49,7 +49,10 @@ final class MenuViewModel: ViewModel {
     let items = Observable<[MenuRow.Item]>.just([.completed, .join, .start, .settings, .about])
       .map { MenuSection(model: true, items: $0.map { MenuRow.item($0) }) }
      
-    Observable.combineLatest(profile, challengeSection, items)
+    let stuff = Observable.combineLatest(profile, challengeSection, items)
+    let viewDidLoadWithStuff = input.viewDidLoad.withLatestFrom(stuff)
+    
+    Observable.merge(viewDidLoadWithStuff, stuff)
       .map { things in
         let (profile, challenges, items) = things
 

@@ -153,7 +153,7 @@ class GymRatsAPI {
 }
 
 extension GymRatsAPI {
-  private func baseRequest(_ apiRequest: APIRequest) -> Observable<Data> {
+  private func baseRequest(_ apiRequest: APIRequest) -> Observable<NetworkResult<Data>> {
     let (method, path, params) = apiRequest.requestProperties
     let url = networkProvider.buildUrl(forPath: path)
     
@@ -168,7 +168,10 @@ extension GymRatsAPI {
     
     return networkProvider
       .request(method: method, url: url, headers: headers, parameters: params)
-      .map { $0.1 }
+      .map { .success($0.1) }
+      .catchError { e -> Observable<NetworkResult<Data>> in
+        return .just(.failure(e.localized()))
+      }
   }
   
   private func requestObject<T: Decodable>(_ apiRequest: APIRequest) -> Observable<NetworkResult<T>> {
