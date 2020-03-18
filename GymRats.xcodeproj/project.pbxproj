@@ -187,7 +187,7 @@
 		747D6FE02208ECDD0062BB39 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FDF2208ECDD0062BB39 /* Styles.swift */; };
 		747D6FE32208ED660062BB39 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FE22208ED660062BB39 /* WelcomeViewController.swift */; };
 		747D6FE52208ED6F0062BB39 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FE42208ED6F0062BB39 /* LoginViewController.swift */; };
-		747D6FE72208ED780062BB39 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FE62208ED780062BB39 /* SignUpViewController.swift */; };
+		747D6FE72208ED780062BB39 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FE62208ED780062BB39 /* SignupViewController.swift */; };
 		747D6FE92208EDAF0062BB39 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FE82208EDAF0062BB39 /* Colors.swift */; };
 		748DFB8C220FD882007220C7 /* GService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748DFB8B220FD882007220C7 /* GService.swift */; };
 		748DFB8E2210B2EA007220C7 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748DFB8D2210B2EA007220C7 /* Place.swift */; };
@@ -412,7 +412,7 @@
 		747D6FDF2208ECDD0062BB39 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		747D6FE22208ED660062BB39 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		747D6FE42208ED6F0062BB39 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		747D6FE62208ED780062BB39 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		747D6FE62208ED780062BB39 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		747D6FE82208EDAF0062BB39 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		748DFB8B220FD882007220C7 /* GService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GService.swift; sourceTree = "<group>"; };
 		748DFB8D2210B2EA007220C7 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
@@ -894,7 +894,7 @@
 			children = (
 				747D6FE22208ED660062BB39 /* WelcomeViewController.swift */,
 				747D6FE42208ED6F0062BB39 /* LoginViewController.swift */,
-				747D6FE62208ED780062BB39 /* SignUpViewController.swift */,
+				747D6FE62208ED780062BB39 /* SignupViewController.swift */,
 			);
 			path = welcome;
 			sourceTree = "<group>";
@@ -1295,7 +1295,7 @@
 				0166083C239C61B800FCFD26 /* DateProgressCell.swift in Sources */,
 				01A3EB28237747D30097FC2A /* CVCalendarWeekday.swift in Sources */,
 				01F5295624180ED200FA96E0 /* UIAlertViewController+Rx.swift in Sources */,
-				747D6FE72208ED780062BB39 /* SignUpViewController.swift in Sources */,
+				747D6FE72208ED780062BB39 /* SignupViewController.swift in Sources */,
 				746764ED220BD68D000CFB1B /* RightAlignedconButton.swift in Sources */,
 				01A1CD24233AF6B8005871F4 /* EditChallengeViewController.swift in Sources */,
 				74F4788C220D0A2F005CD4E4 /* SettingsViewController.swift in Sources */,

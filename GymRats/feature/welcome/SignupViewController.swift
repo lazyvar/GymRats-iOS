@@ -11,7 +11,7 @@ import RxSwift
 import Eureka
 import TTTAttributedLabel
 
-class SignUpViewController: GRFormViewController {
+class SignupViewController: GRFormViewController {
     
     let disposeBag = DisposeBag()
     
@@ -46,33 +46,36 @@ class SignUpViewController: GRFormViewController {
     }
     
     func signUp() {
-        guard form.validate().count == 0 else { return }
-        
-        let valuesDictionary = form.values()
+      guard form.validate().count == 0 else { return }
+      
+      let valuesDictionary = form.values()
 
-        let email    = valuesDictionary["email"] as! String
-        let password = valuesDictionary["password"] as! String
-        let proPic   = valuesDictionary["proPic"] as! UIImage?
-        let fullName = valuesDictionary["full_name"] as! String
+      let email    = valuesDictionary["email"] as! String
+      let password = valuesDictionary["password"] as! String
+      let proPic   = valuesDictionary["proPic"] as! UIImage?
+      let fullName = valuesDictionary["full_name"] as! String
 
-        self.showLoadingBar(disallowUserInteraction: true)
-        
-        gymRatsAPI.signUp(email: email, password: password, profilePicture: proPic, fullName: fullName)
-            .subscribe(onNext: { [weak self] user in
-                self?.hideLoadingBar()
-                Track.event(.signup)
-              guard let user = user.object else { return }
-              
-              GymRats.login(user)
-            }, onError: { [weak self] error in
-                self?.presentAlert(with: error)
-                self?.hideLoadingBar()
-            }).disposed(by: disposeBag)
+      self.showLoadingBar(disallowUserInteraction: true)
+      
+      gymRatsAPI.signUp(email: email, password: password, profilePicture: proPic, fullName: fullName)
+        .subscribe(onNext: { [weak self] result in
+
+          self?.hideLoadingBar()
+          
+          switch result {
+          case .success(let user):
+            Track.event(.signup)
+            GymRats.login(user)
+          case .failure(let error):
+            self?.presentAlert(with: error)
+          }
+        })
+        .disposed(by: disposeBag)
     }
     
     let profilePictureImageRow: ImageRow = {
         return ImageRow() { imageRow in
-            imageRow.title = "Profile Picture"
+            imageRow.title = "Profile picture"
             imageRow.tag = "proPic"
             imageRow.placeholderImage = UIImage(named: "photo")?.withRenderingMode(.alwaysTemplate)
             imageRow.sourceTypes = [.Camera, .PhotoLibrary]
@@ -148,7 +151,7 @@ class SignUpViewController: GRFormViewController {
     
     lazy var fullNameRow: TextRow = {
         return TextRow() { textRow in
-            textRow.title = "Full Name"
+            textRow.title = "Full name"
             textRow.tag = "full_name"
             textRow.placeholder = "Master Splinter"
             textRow.add(rule: RuleRequired())
@@ -170,7 +173,7 @@ class SignUpViewController: GRFormViewController {
 }
 
 // Mark: shared Eurekah madness
-extension SignUpViewController {
+extension SignupViewController {
     
     func standardCellSetup(textCell: TextCell, textRow: TextRow) {
         textCell.textField.font = .body
@@ -261,7 +264,7 @@ extension SignUpViewController {
     
 }
 
-extension SignUpViewController: TTTAttributedLabelDelegate {
+extension SignupViewController: TTTAttributedLabelDelegate {
     
     func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
         let webView = WebViewController(url: url)

@@ -63,35 +63,35 @@ class LoginViewController: GRFormViewController {
       self.showLoadingBar(disallowUserInteraction: true)
         
         gymRatsAPI.login(email: email, password: password)
-            .subscribe(onNext: { [weak self] user in
-                self?.hideLoadingBar()
-                Track.event(.login)
-                guard let user = user.object else { return }
-                
-                GymRats.login(user)
-
-            }, onError: { [weak self] error in
-                self?.presentAlert(title: "Uh-oh", message: error.localizedDescription)
-                self?.hideLoadingBar()
-            }).disposed(by: disposeBag)
+          .subscribe(onNext: { [weak self] result in
+            self?.hideLoadingBar()
+            
+            switch result {
+            case .success(let user):
+              Track.event(.login)
+              GymRats.login(user)
+            case .failure(let error):
+              self?.presentAlert(with: error)
+            }
+          }).disposed(by: disposeBag)
     }
     
     func resetPassword(email: String?) {
-        guard let email = email else { return }
-        
-        showLoadingBar()
-        gymRatsAPI.resetPassword(email: email)
-            .subscribe { event in
-                self.hideLoadingBar()
-                
-                switch event {
-                case .next:
-                    self.presentAlert(title: "Email sent", message: "Check your inbox!")
-                case .error(let error):
-                    self.presentAlert(with: error)
-                case .completed: break
-                }
-            }.disposed(by: disposeBag)
+      guard let email = email else { return }
+      
+      showLoadingBar()
+      gymRatsAPI.resetPassword(email: email)
+        .subscribe(onNext: { [weak self] result in
+          self?.hideLoadingBar()
+            
+          switch result {
+          case .success:
+            self?.presentAlert(title: "Email sent", message: "Check your inbox!")
+          case .failure(let error):
+            self?.presentAlert(with: error)
+          }
+        })
+        .disposed(by: disposeBag)
     }
     
     lazy var section: Section = {

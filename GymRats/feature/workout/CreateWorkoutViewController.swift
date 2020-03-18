@@ -285,24 +285,21 @@ class CreateWorkoutViewController: GRFormViewController {
       )
       
       gymRatsAPI.postWorkout(newWorkout, challenges: challenges)
-        .subscribe(onNext: { [weak self] workouts in
+        .subscribe(onNext: { [weak self] result in
           guard let self = self else { return }
           
-          Track.event(.workoutLogged)
           self.hideLoadingBar()
-          self.navigationController?.popViewController(animated: true)
-          StoreService.requestReview()
           
-          if let error = workouts.error {
-            print(error)
+          switch result {
+          case .success(let workout):
+            Track.event(.workoutLogged)
+            StoreService.requestReview()
+            self.delegate?.createWorkoutController(self, created: workout)
+          case .failure(let error):
             self.presentAlert(with: error)
-          } else {
-            self.delegate?.createWorkoutController(self, created: workouts.object!)
           }
-        }, onError: { [weak self] error in
-          self?.presentAlert(with: error)
-          self?.hideLoadingBar()
-        }).disposed(by: disposeBag)
+        })
+        .disposed(by: disposeBag)
     }
 }
 
