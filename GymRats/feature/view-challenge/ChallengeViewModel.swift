@@ -37,7 +37,8 @@ final class ChallengeViewModel: ViewModel {
   
   init() {
     let workoutCreated = NotificationCenter.default.rx.notification(.workoutCreated).map { _ in () }
-    let memberWorkouts = Observable.merge(input.viewDidLoad, input.refresh, workoutCreated)
+    let workoutDeleted = NotificationCenter.default.rx.notification(.workoutDeleted).map { _ in () }
+    let memberWorkouts = Observable.merge(input.viewDidLoad, input.refresh, workoutCreated, workoutDeleted)
       .flatMap { _ in
         Observable.combineLatest(
           gymRatsAPI.getMembers(for: self.challenge),

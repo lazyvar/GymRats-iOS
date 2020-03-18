@@ -121,6 +121,7 @@ extension Notification {
   static let challengesUpdated = Notification(name: .challengesUpdated)
   static let workoutCreated = Notification(name: .workoutCreated)
   static let workoutsLoaded = Notification(name: .workoutsLoaded)
+  static let workoutDeleted = Notification(name: .workoutDeleted)
 }
 
 extension NSNotification.Name {
@@ -129,6 +130,7 @@ extension NSNotification.Name {
   static let challengesUpdated = NSNotification.Name.init("ChallengesUpdated")
   static let workoutCreated = NSNotification.Name.init("WorkoutCreated")
   static let workoutsLoaded = NSNotification.Name.init("WorkoutsLoaded")
+  static let workoutDeleted = NSNotification.Name.init("WorkoutDeleted")
 }
 
 extension UIView: Placeholder { }

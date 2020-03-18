@@ -100,6 +100,8 @@ class ProfileViewController: UIViewController {
     return calendar
   }()
   
+  private weak var observer: NSObjectProtocol?
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -115,7 +117,7 @@ class ProfileViewController: UIViewController {
     setupBackButton()
     loadWorkouts()
     
-    NotificationCenter.default.addObserver(forName: NSNotification.Name.init("WorkoutDeleted"), object: nil, queue: nil) { notification in
+    observer = NotificationCenter.default.addObserver(forName: .workoutDeleted, object: nil, queue: nil) { notification in
       self.loadWorkouts()
     }
   }

@@ -159,7 +159,7 @@ class WorkoutViewController: UITableViewController {
                             self.presentAlert(with: error)
                         case .next:
                             self.navigationController?.popViewController(animated: true)
-                            NotificationCenter.default.post(name: NSNotification.Name.init("WorkoutDeleted"), object: self.workout)
+                            NotificationCenter.default.post(name: .workoutDeleted, object: self.workout)
                         case .completed:
                             break
                         }
