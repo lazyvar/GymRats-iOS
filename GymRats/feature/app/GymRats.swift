@@ -19,9 +19,17 @@ enum GymRats {
   
   static private var window: UIWindow!
   static private var application: UIApplication!
-  static private var coldStartNotification: [AnyHashable: Any]?
   static private let disposeBag = DisposeBag()
   static private let notificationHandler = NotificationHandler()
+  
+  static private var coldStartNotification: [AnyHashable: Any]? {
+    get {
+      return notificationHandler.coldStartNotification
+    }
+    set {
+      notificationHandler.coldStartNotification = newValue
+    }
+  }
   
   /// Initialize the app.
   static func initialize(window: UIWindow, application: UIApplication) {
@@ -49,7 +57,7 @@ enum GymRats {
       Track.currentUser()
       registerForNotifications()
     }
-
+    
     window.makeKeyAndVisible()
     
     #if DEBUG
@@ -93,6 +101,14 @@ enum GymRats {
     currentAccount = nil
     Account.removeCurrent()
     window.rootViewController = WelcomeViewController().inNav()
+  }
+  
+  /// Callled after home as loaded, handle the cold start notification
+  static func handleColdStartNotification() {
+    if let notification = coldStartNotification {
+      notificationHandler.handleNotification(userInfo: notification)
+      coldStartNotification = nil
+    }
   }
 }
 

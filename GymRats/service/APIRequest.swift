@@ -30,6 +30,8 @@ enum APIRequest {
   case getChatMessages(_ challenge: Challenge, page: Int)
   case getUnreadChats(_ challenge: Challenge)
   case registerDevice(deviceToken: String)
+  case getChallenge(id: Int)
+  case getWorkout(id: Int)
   case deleteDevice
   case leaveChallenge(_ challenge: Challenge)
   case editChallenge(_ challenge: UpdateChallenge)
@@ -91,10 +93,14 @@ enum APIRequest {
       return (.get, "challenges/\(challenge.id)/workouts", nil)
     case .getAllWorkoutsForUser(user: let account):
       return (.get, "accounts/\(account.id)/workouts", nil)
+    case .getChallenge(id: let id):
+      return (.get, "challenges/\(id)", nil)
+    case .getWorkout(id: let id):
+      return (.get, "workouts/\(id)", nil)
     case .getWorkouts(forUser: let user, inChallenge: let challenge):
       return (.get, "challenges/\(challenge.id)/members/\(user.id)/workouts", nil)
     case .getMembersForChallenge(let challenge):
-      return (.get, "/challenges/\(challenge.id)/members", nil)
+      return (.get, "challenges/\(challenge.id)/members", nil)
     case .postWorkout(let workout, let photo, let challenges):
       var params: Parameters = [
         "title": workout.title,

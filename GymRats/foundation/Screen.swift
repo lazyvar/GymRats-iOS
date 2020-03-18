@@ -21,6 +21,7 @@ enum Screen {
   case settings
   case about
   case challengeStats(Challenge, [Account], [Workout])
+  case chat(Challenge)
   
   var viewController: UIViewController {
     switch self {
@@ -43,6 +44,8 @@ enum Screen {
       return ProfileViewController(account: account, challenge: challenge)
     case .completedChallenges:
       return ArchivedChallengesTableViewController()
+    case .chat(let challenge):
+      return ChatViewController(challenge: challenge)
     case .settings:
       return SettingsViewController()
     case .about:

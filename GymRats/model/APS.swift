@@ -9,19 +9,16 @@
 import Foundation
 
 struct ApplePushServiceObject: Codable {
-    let gr: GymRatsNotification
+  let gr: GymRatsNotification
+  
+  struct GymRatsNotification: Codable {
+    let notificationType: NotificationType
+    let workoutId: Int?
+    let challengeId: Int?
     
-    struct GymRatsNotification: Codable {
-        let notificationType: NotificationType
-        let comment: Comment?
-        let chatMessage: ChatMessage?
-        let user: Account?
-        let challenge: Challenge?
-        let workout: Workout?
-        
-        enum NotificationType: String, Codable {
-            case comment
-            case chatMessage = "chat_message"
-        }
+    enum NotificationType: String, Codable {
+      case workoutComment = "workout_comment"
+      case chatMessage = "chat_message"
     }
+  }
 }

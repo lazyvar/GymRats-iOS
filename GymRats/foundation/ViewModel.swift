@@ -117,14 +117,7 @@ extension Decodable {
   init(from anything: Any) throws {
     let data = try JSONSerialization.data(withJSONObject: anything, options: .prettyPrinted)
 
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
-    
-    let decoder: JSONDecoder = JSONDecoder()
-    decoder.dateDecodingStrategy = .formatted(dateFormatter)
-    decoder.keyDecodingStrategy = .convertFromSnakeCase
-
-    self = try decoder.decode(Self.self, from: data)
+    self = try JSONDecoder.gymRatsAPIDecoder.decode(Self.self, from: data)
   }
 }
 

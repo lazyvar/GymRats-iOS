@@ -48,11 +48,7 @@ final class HomeViewModel: ViewModel {
         return (.replaceDrawerCenter(animated: false), .activeChallenge(challenge!))
       }
       .do(onNext: { _ in
-        // TODO
-//        if let notification = GymRatsApp.coordinator.coldStartNotification {
-//          GymRatsApp.coordinator.handleNotification(userInfo: notification)
-//          GymRatsApp.coordinator.coldStartNotification = nil
-//        }
+        GymRats.handleColdStartNotification()
       })
       .bind(to: output.navigation)
       .disposed(by: disposeBag)
