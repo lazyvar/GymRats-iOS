@@ -148,6 +148,8 @@
 		01F5296524184B0000FA96E0 /* SecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5296424184B0000FA96E0 /* SecondaryButton.swift */; };
 		01F5296924184BE600FA96E0 /* HeaderTwoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5296824184BE600FA96E0 /* HeaderTwoLabel.swift */; };
 		01F5296B24184CDA00FA96E0 /* NoChallengesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5296A24184CDA00FA96E0 /* NoChallengesViewModel.swift */; };
+		01F7D7662422899000B2D5D8 /* NoWorkoutsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F7D7642422899000B2D5D8 /* NoWorkoutsCell.swift */; };
+		01F7D7672422899000B2D5D8 /* NoWorkoutsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F7D7652422899000B2D5D8 /* NoWorkoutsCell.xib */; };
 		01FF413424205FDA007D316A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF413224205FDA007D316A /* ProfileViewController.swift */; };
 		01FF413524205FDA007D316A /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01FF413324205FDA007D316A /* ProfileViewController.xib */; };
 		7405FE93222C249B0054F029 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7405FE92222C249B0054F029 /* WebViewController.swift */; };
@@ -363,6 +365,8 @@
 		01F5296424184B0000FA96E0 /* SecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButton.swift; sourceTree = "<group>"; };
 		01F5296824184BE600FA96E0 /* HeaderTwoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTwoLabel.swift; sourceTree = "<group>"; };
 		01F5296A24184CDA00FA96E0 /* NoChallengesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoChallengesViewModel.swift; sourceTree = "<group>"; };
+		01F7D7642422899000B2D5D8 /* NoWorkoutsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoWorkoutsCell.swift; sourceTree = "<group>"; };
+		01F7D7652422899000B2D5D8 /* NoWorkoutsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoWorkoutsCell.xib; sourceTree = "<group>"; };
 		01FF413224205FDA007D316A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		01FF413324205FDA007D316A /* ProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
 		0BDF2A3E7AA6DB6E35BFDD57 /* Pods-GymRats.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymRats.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GymRats/Pods-GymRats.debug.xcconfig"; sourceTree = "<group>"; };
@@ -615,6 +619,8 @@
 				01AC5F6023CA414800FFAE4D /* ReadOnlyTextField.swift */,
 				01F5296724184BCD00FA96E0 /* button */,
 				01F5296624184BC900FA96E0 /* text */,
+				01F7D7642422899000B2D5D8 /* NoWorkoutsCell.swift */,
+				01F7D7652422899000B2D5D8 /* NoWorkoutsCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1115,6 +1121,7 @@
 				01297D972329E79000CA9E41 /* SF-Pro-Rounded-Bold.otf in Resources */,
 				01BFF8FD223D425C0044F802 /* CommentTableViewCell.xib in Resources */,
 				0107C7E5241B0200005650FB /* MenuViewController.xib in Resources */,
+				01F7D7672422899000B2D5D8 /* NoWorkoutsCell.xib in Resources */,
 				01660841239C8CA700FCFD26 /* StatsBabyCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1345,6 +1352,7 @@
 				01A3EB16237747D30097FC2A /* CVCalendarContentViewController.swift in Sources */,
 				01A3EB1C237747D30097FC2A /* CVSet.swift in Sources */,
 				0107C7DB241AEE42005650FB /* State.swift in Sources */,
+				01F7D7662422899000B2D5D8 /* NoWorkoutsCell.swift in Sources */,
 				011DAE98241ADC69009B3613 /* Navigation.swift in Sources */,
 				747D6FE52208ED6F0062BB39 /* LoginViewController.swift in Sources */,
 				011EEB90241A8C4000CC9F9E /* TrackMessageDelegate.swift in Sources */,

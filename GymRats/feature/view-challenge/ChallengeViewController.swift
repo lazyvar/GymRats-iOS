@@ -15,6 +15,7 @@ import CRRefresh
 enum ChallengeRow {
   case banner(Challenge, [Account], [Workout])
   case workout(Workout)
+  case noWorkouts(() -> Void)
 }
 
 typealias ChallengeSection = SectionModel<Date?, ChallengeRow>
@@ -45,6 +46,7 @@ class ChallengeViewController: BindableViewController {
       tableView.backgroundColor = .background
       tableView.showsVerticalScrollIndicator = false
       tableView.registerCellNibForClass(WorkoutCell.self)
+      tableView.registerCellNibForClass(NoWorkoutsCell.self)
       tableView.registerCellNibForClass(ChallengeBannerCell.self)
       tableView.rx.setDelegate(self).disposed(by: disposeBag)
       tableView.cr.addHeadRefresh(animator: NormalHeaderAnimator()) { [weak self] in
@@ -58,12 +60,6 @@ class ChallengeViewController: BindableViewController {
         .disposed(by: disposeBag)
     }
   }
-
-  @IBOutlet private weak var noWorkoutsView: UIView! {
-    didSet { noWorkoutsView.backgroundColor = .background }
-  }
-  
-  @IBOutlet private weak var noWorkoutViewTopConstraint: NSLayoutConstraint!
   
   private lazy var chatBarButtonItem = UIBarButtonItem (
     image: .chatGray,
@@ -89,6 +85,8 @@ class ChallengeViewController: BindableViewController {
       return ChallengeBannerCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge, members: members, workouts: workouts)
     case .workout(let workout):
       return WorkoutCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
+    case .noWorkouts(let onLogWorkout):
+      return NoWorkoutsCell.configure(tableView: tableView, indexPath: indexPath, onLogWorkout: onLogWorkout)
     }
   })
   
@@ -107,10 +105,6 @@ class ChallengeViewController: BindableViewController {
       .debug()
       .flatMap { UIAlertController.present($0) }
       .ignore(disposedBy: disposeBag)
-  
-    viewModel.output.noWorkoutsViewIsHidden
-      .bind(to: noWorkoutsView.rx.isHidden)
-      .disposed(by: disposeBag)
     
     viewModel.output.spin
       .do(onNext: { [weak self] spin in
@@ -139,11 +133,6 @@ class ChallengeViewController: BindableViewController {
     if !challenge.isPast {
       setupMenuButton()
     }
-    
-    tableView.rx.contentOffset
-      .map { 320 - $0.y }
-      .bind(to: noWorkoutViewTopConstraint.rx.constant)
-      .disposed(by: disposeBag)
     
     viewModel.input.viewDidLoad.trigger()
   }

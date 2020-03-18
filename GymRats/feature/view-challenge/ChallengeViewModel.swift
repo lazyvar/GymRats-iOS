@@ -26,7 +26,6 @@ final class ChallengeViewModel: ViewModel {
     let sections = PublishSubject<[ChallengeSection]>()
     let error = PublishSubject<Error>()
     let navigation = PublishSubject<(Navigation, Screen)>()
-    let noWorkoutsViewIsHidden = BehaviorSubject(value: true)
   }
   
   let input = Input()
@@ -68,12 +67,6 @@ final class ChallengeViewModel: ViewModel {
         NotificationCenter.default.post(name: .workoutsLoaded, object: (members, workouts))
       })
       .ignore(disposedBy: disposeBag)
-   
-    memberWorkouts
-      .compactMap { _, w in w.object }
-      .map { $0.isNotEmpty }
-      .bind(to: output.noWorkoutsViewIsHidden)
-      .disposed(by: disposeBag)
     
     let buckets = memberWorkouts
       .map { members, workouts -> ([Account], [(Date, [Workout])]) in
@@ -91,8 +84,11 @@ final class ChallengeViewModel: ViewModel {
           .map { date, workouts in
             ChallengeSection(model: date, items: workouts.map { ChallengeRow.workout($0) })
           }
-
-        return [banner] + workoutSections
+        let noWorkouts  = ChallengeSection(model: nil, items: [
+          ChallengeRow.noWorkouts({ WorkoutFlow.logWorkout() })
+        ])
+        
+        return [banner] + workoutSections + (workouts.isEmpty ? [noWorkouts] : [])
       }
       .bind(to: output.sections)
       .disposed(by: disposeBag)
