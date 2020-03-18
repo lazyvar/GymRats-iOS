@@ -63,7 +63,7 @@ class ProfileViewController: UIViewController {
     }
   }
   
-  @IBOutlet private weak var calendarView: CVCalendarView!{
+  @IBOutlet private weak var calendarView: CVCalendarView! {
     didSet {
       calendarView.calendarAppearanceDelegate = self
       calendarView.calendarDelegate = self
@@ -71,7 +71,7 @@ class ProfileViewController: UIViewController {
     }
   }
   
-  @IBOutlet private weak var monthLabel: UILabel!{
+  @IBOutlet private weak var monthLabel: UILabel! {
     didSet {
       monthLabel.text = Date().toFormat("MMMM yyyy")
       monthLabel.numberOfLines = 1
@@ -221,6 +221,26 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     push(
       WorkoutViewController(workout: workout, challenge: challenge)
     )
+  }
+  
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    guard workoutsForSelectedDay.isNotEmpty else { return nil }
+    
+    let label = UILabel()
+    label.frame = CGRect(x: 15, y: 0, width: view.frame.width, height: 30)
+    label.backgroundColor = .clear
+    label.font = .proRoundedBold(size: 16)
+    label.text = calendarView.presentedDate?.convertedDate()?.toFormat("EEEE, MMM d")
+    
+    let headerView = UIView()
+    headerView.addSubview(label)
+    headerView.backgroundColor = .clear
+    
+    return headerView
+  }
+  
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return 30
   }
 }
 

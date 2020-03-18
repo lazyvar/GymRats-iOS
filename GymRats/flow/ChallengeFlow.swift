@@ -15,19 +15,12 @@ enum ChallengeFlow {
   static private let disposeBag = DisposeBag()
   
   static func invite(to challenge: Challenge) {
-    let topMost = UIViewController.topmost()
+    let activityViewController = UIActivityViewController(
+      activityItems: [URL(string: "https://apps.apple.com/us/app/gymrats-group-challenge/id1453444814")!],
+      applicationActivities: nil
+    )
     
-    guard MFMessageComposeViewController.canSendText() else {
-      topMost.presentAlert(title: "Uh-oh", message: "This device cannot send text message.")
-      return
-    }
-      
-    let messageViewController = MFMessageComposeViewController().apply {
-      $0.body = "Let's workout together! Join my GymRats challenge using invite code \"\(challenge.code)\" https://apps.apple.com/us/app/gymrats-group-challenge/id1453444814"
-      $0.messageComposeDelegate = delegate
-    }
-    
-    topMost.present(messageViewController, animated: true, completion: nil)
+    UIViewController.topmost().present(activityViewController, animated: true, completion: nil)
   }
   
   static func leave(_ challenge: Challenge) {
@@ -44,7 +37,7 @@ enum ChallengeFlow {
         }
         .disposed(by: disposeBag)
     }
-      
+
     let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
       
     alert.addAction(leave)
