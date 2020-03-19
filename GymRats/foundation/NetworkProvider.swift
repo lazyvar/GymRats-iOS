@@ -41,7 +41,7 @@ class ProductionNetworkProvider: NetworkProvider {
 }
 
 class PreProductionNetworkProvider: NetworkProvider {
-  private let baseUrl: String = "https://pre.gymratsapi.com"
+  private let baseUrl: String = "https://gym-rats-api-pre-production.gigalixirapp.com"
   
   func buildUrl(forPath path: String) -> String {
     return "\(baseUrl)/\(path)"
