@@ -85,7 +85,11 @@ final class MenuViewModel: ViewModel {
             
             UserDefaults.standard.set(challenge.id, forKey: "last_opened_challenge")
 
-            return (.replaceDrawerCenter(animated: true), .activeChallenge(challenge))
+            if challenge.isActive {
+              return (.replaceDrawerCenter(animated: true), .activeChallenge(challenge))
+            } else {
+              return (.replaceDrawerCenterInNav(animated: true), .upcomingChallenge(challenge))
+            }
           }
         case 2: return {
           switch indexPath.row {
@@ -111,7 +115,7 @@ extension MenuViewModel: CreateChallengeDelegate {
     UserDefaults.standard.set(challenge.id, forKey: "last_opened_challenge")
     
     if challenge.isActive {
-      output.navigation.on(.next((.replaceDrawerCenterInNav(animated: true), .activeChallenge(challenge))))
+      output.navigation.on(.next((.replaceDrawerCenter(animated: true), .activeChallenge(challenge))))
     } else {
       output.navigation.on(.next((.replaceDrawerCenterInNav(animated: true), .upcomingChallenge(challenge))))
     }

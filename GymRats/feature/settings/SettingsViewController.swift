@@ -189,15 +189,21 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
                 break
             }
         case 2:
-            showLoadingBar()
+          showLoadingBar()
+
+          DispatchQueue.global().async {
             GService.clearCache()
             KingfisherManager.shared.cache.clearDiskCache()
             KingfisherManager.shared.cache.clearMemoryCache()
-            hideLoadingBar()
+
+            DispatchQueue.main.async {
+              self.hideLoadingBar()
+            }
+          }
         case 3:
           GymRats.logout()
         default:
-            break
+          break
         }
     }
     
