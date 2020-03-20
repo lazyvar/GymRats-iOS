@@ -51,6 +51,7 @@ class ChallengeViewController: BindableViewController {
       tableView.rx.setDelegate(self).disposed(by: disposeBag)
       tableView.cr.addHeadRefresh(animator: NormalHeaderAnimator()) { [weak self] in
         self?.viewModel.input.refresh.trigger()
+        (self?.tabBarController as? ChallengeTabBarController)?.updateChatIcon()
       }
       tableView.rx.itemSelected
         .do(onNext: { [weak self] indexPath in
@@ -163,6 +164,26 @@ class ChallengeViewController: BindableViewController {
     alertViewController.addAction(cancelAction)
     
     present(alertViewController, animated: true, completion: nil)
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+
+    if challenge.isActive {
+      (tabBarController as? ChallengeTabBarController)?.updateChatIcon()
+    } else {
+      gymRatsAPI.getChatNotificationCount(for: challenge)
+        .subscribe(onNext: { [weak self] result in
+          let count = result.object?.count ?? 0
+          
+          if count == .zero {
+            self?.chatBarButtonItem.image = .chatGray
+          } else {
+            self?.chatBarButtonItem.image = .chatUnreadGray
+          }
+        })
+        .disposed(by: disposeBag)
+    }
   }
   
   @objc private func chatTapped() {

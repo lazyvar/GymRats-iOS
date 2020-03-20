@@ -139,6 +139,7 @@
 		01E68FD622D29AEA004E1218 /* WorkoutHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01E68FD522D29AEA004E1218 /* WorkoutHeaderView.xib */; };
 		01E833E42325BF7300C66C72 /* ChallengeBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E833E22325BF7300C66C72 /* ChallengeBannerCell.swift */; };
 		01E833E52325BF7300C66C72 /* ChallengeBannerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01E833E32325BF7300C66C72 /* ChallengeBannerCell.xib */; };
+		01EED5CD24253A3E005E0249 /* ChatNotificationCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EED5CC24253A3E005E0249 /* ChatNotificationCount.swift */; };
 		01F5294E2417FCD900FA96E0 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5294D2417FCD900FA96E0 /* HomeViewModel.swift */; };
 		01F529502417FD0200FA96E0 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5294F2417FD0200FA96E0 /* ViewModel.swift */; };
 		01F5295424180AB600FA96E0 /* BindableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5295324180AB600FA96E0 /* BindableViewController.swift */; };
@@ -360,6 +361,7 @@
 		01E68FD522D29AEA004E1218 /* WorkoutHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutHeaderView.xib; sourceTree = "<group>"; };
 		01E833E22325BF7300C66C72 /* ChallengeBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeBannerCell.swift; sourceTree = "<group>"; };
 		01E833E32325BF7300C66C72 /* ChallengeBannerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeBannerCell.xib; sourceTree = "<group>"; };
+		01EED5CC24253A3E005E0249 /* ChatNotificationCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNotificationCount.swift; sourceTree = "<group>"; };
 		01F5294D2417FCD900FA96E0 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		01F5294F2417FD0200FA96E0 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		01F5295324180AB600FA96E0 /* BindableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableViewController.swift; sourceTree = "<group>"; };
@@ -886,6 +888,7 @@
 				01319ED624187876005E65D2 /* NewUser.swift */,
 				01319ED8241878EA005E65D2 /* UpdateChallenge.swift */,
 				01319EDA241879FD005E65D2 /* UpdateUser.swift */,
+				01EED5CC24253A3E005E0249 /* ChatNotificationCount.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1310,6 +1313,7 @@
 				018E9F4F229F7DB1008AB016 /* UIStoryboard+Extension.swift in Sources */,
 				01319ED32418746C005E65D2 /* GymRatsAPI.swift in Sources */,
 				747D6FBD2208DBFE0062BB39 /* APIRequest.swift in Sources */,
+				01EED5CD24253A3E005E0249 /* ChatNotificationCount.swift in Sources */,
 				0118A28B239DA7F9006A8A7A /* RatsCell.swift in Sources */,
 				01A3EB1E237747D30097FC2A /* CVCalendarMenuView.swift in Sources */,
 				0118C24E23C2B704002FB84D /* CreateWorkoutHeaderCell.swift in Sources */,

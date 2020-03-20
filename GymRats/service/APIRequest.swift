@@ -27,11 +27,12 @@ enum APIRequest {
   case getCommentsForWorkout(_ workout: Workout)
   case postComment(comment: String, workout: Workout)
   case getChatMessages(_ challenge: Challenge, page: Int)
-  case getUnreadChats(_ challenge: Challenge)
+  case getChatNotificationCount(_ challenge: Challenge)
   case registerDevice(deviceToken: String)
   case getChallenge(id: Int)
   case getWorkout(id: Int)
   case deleteDevice
+  case seeChatNotifications(Challenge)
   case leaveChallenge(_ challenge: Challenge)
   case editChallenge(_ challenge: UpdateChallenge)
   case deleteComment(id: Int)
@@ -169,8 +170,10 @@ enum APIRequest {
       return (.post, "workouts/\(workout.id)/comments", params)
     case .getChatMessages(let challenge, page: let page):
       return (.get, "challenges/\(challenge.id)/messages?page=\(page)", nil)
-    case .getUnreadChats(let challenge):
-      return (.get, "deprecated", nil)
+    case .getChatNotificationCount(let challenge):
+      return (.get, "challenges/\(challenge.id)/chat_notifications/count", nil)
+    case .seeChatNotifications(let challenge):
+      return (.post, "challenges/\(challenge.id)/chat_notifications/seen", nil)
     case .registerDevice(deviceToken: let deviceToken):
       let params: Parameters = [
         "token": deviceToken

@@ -127,10 +127,14 @@ class GymRatsAPI {
     return requestObject(.postComment(comment: comment, workout: workout))
   }
   
-  func getUnreadChats(for challenge: Challenge) -> Observable<NetworkResult<[ChatMessage]>> {
-    return requestArray(.getUnreadChats(challenge))
+  func getChatNotificationCount(for challenge: Challenge) -> Observable<NetworkResult<ChatNotificationCount>> {
+    return requestObject(.getChatNotificationCount(challenge))
   }
-  
+
+  func seeChatNotifications(for challenge: Challenge) -> Observable<NetworkResult<String>> {
+    return requestObject(.seeChatNotifications(challenge))
+  }
+
   func getChatMessages(for challenge: Challenge, page: Int) -> Observable<NetworkResult<[ChatMessage]>> {
     return requestArray(.getChatMessages(challenge, page: page))
   }

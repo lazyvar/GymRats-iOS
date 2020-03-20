@@ -11,6 +11,7 @@ import UIKit
 extension UIImage {
   static let moreVertical = UIImage(named: "more-vertical")!
   static let chatGray = UIImage(named: "chat-gray")!
+  static let chatUnreadGray = UIImage(named: "chat-unread-gray")!
   static let standings = UIImage(named: "standings")!
   static let activityLargeWhite = UIImage(named: "activity-large-white")!
   static let activity = UIImage(named: "activity")!

@@ -83,21 +83,17 @@ class UpcomingChallengeViewController: UICollectionViewController {
     }
     
     func refreshChatIcon() {
-      // TODO
-//        gymRatsAPI.getUnreadChats(for: challenge)
-//            .subscribe { event in
-//                switch event {
-//                case .next(let chats):
-//                  guard let chats = chats.object else { return }
-//
-//                    if chats.isEmpty {
-//                        self.chatItem.image = UIImage(named: "chat-gray")
-//                    } else {
-//                        self.chatItem.image = UIImage(named: "chat-unread-gray")?.withRenderingMode(.alwaysOriginal)
-//                    }
-//                default: break
-//                }
-//            }.disposed(by: disposeBag)
+      gymRatsAPI.getChatNotificationCount(for: challenge)
+        .subscribe(onNext: { [weak self] result in
+          let count = result.object?.count ?? 0
+          
+          if count == .zero {
+            self?.chatItem.image = .chatGray
+          } else {
+            self?.chatItem.image = UIImage.chatUnreadGray.withRenderingMode(.alwaysOriginal)
+          }
+        })
+        .disposed(by: disposeBag)
     }
 
     override func viewWillAppear(_ animated: Bool) {

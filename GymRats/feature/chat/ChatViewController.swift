@@ -78,6 +78,9 @@ class ChatViewController: MessagesViewController {
         }
       })
       .disposed(by: disposeBag)
+    
+    gymRatsAPI.seeChatNotifications(for: challenge)
+      .ignore(disposedBy: disposeBag)
   }
   
   override func viewWillAppear(_ animated: Bool) {
