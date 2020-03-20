@@ -132,7 +132,7 @@ extension Observable where Element == NetworkResult<Data> {
 extension JSONDecoder {
   static let gymRatsAPIDecoder: JSONDecoder = {
     let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
     dateFormatter.timeZone = .utc
     
     let decoder = JSONDecoder()
