@@ -32,11 +32,11 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     tableView.separatorInset = .zero
     tableView.separatorStyle = .none
     
-    NotificationCenter.default.addObserver(self, selector: #selector(currentUserWasUpdated), name: .updatedCurrentUser, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(currentAccountUpdated), name: .currentAccountUpdated, object: nil)
   }
     
-  @objc private func currentUserWasUpdated() {
-    self.tableView.reloadData()
+  @objc private func currentAccountUpdated() {
+    tableView.reloadData()
   }
     
   override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -75,16 +75,11 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       switch section {
-      case 0:
-        return 4
-      case 1:
-        return 4
-      case 2:
-        return 1
-      case 3:
-        return 1
-      default:
-        return 0
+      case 0: return 4
+      case 1: return 4
+      case 2: return 1
+      case 3: return 1
+      default: return 0
       }
     }
     
@@ -102,17 +97,20 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
 
       showLoadingBar()
         
-//        gymRatsAPI.updateUser(email: nil, name: nil, password: nil, profilePicture: image)
-//            .subscribe { event in
-//                self.hideLoadingBar()
-//                switch event {
-//                case .next(let user):
-//                    GymRatsApp.coordinator.updateUser(user)
-//                case .error(let error):
-//                    self.presentAlert(with: error)
-//                default: break
-//                }
-//            }.disposed(by: disposeBag)
+      gymRatsAPI.updateUser(email: nil, name: nil, password: nil, profilePicture: image)
+        .subscribe(onNext: { [weak self] result in
+          self?.hideLoadingBar()
+          
+          switch result {
+          case .success(let account):
+            GymRats.currentAccount = account
+            Account.saveCurrent(account)
+            NotificationCenter.default.post(name: .currentAccountUpdated, object: account)
+          case .failure(let error):
+            self?.presentAlert(with: error)
+          }
+        })
+        .disposed(by: disposeBag)
     }
     
     func chooseProfilePic() {

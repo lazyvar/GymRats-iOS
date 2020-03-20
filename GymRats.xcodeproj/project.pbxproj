@@ -33,7 +33,7 @@
 		011FB62C22A33AAA004D5B8E /* UserProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011FB62A22A33AAA004D5B8E /* UserProfileCell.xib */; };
 		011FB62F22A33C14004D5B8E /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB62D22A33C14004D5B8E /* ItemCell.swift */; };
 		011FB63022A33C14004D5B8E /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011FB62E22A33C14004D5B8E /* ItemCell.xib */; };
-		011FB63322A37387004D5B8E /* ArchivedChallengesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB63222A37387004D5B8E /* ArchivedChallengesTableViewController.swift */; };
+		011FB63322A37387004D5B8E /* CompletedChallengesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB63222A37387004D5B8E /* CompletedChallengesViewController.swift */; };
 		01213CE2241E9C62008461B0 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01213CE1241E9C62008461B0 /* ChatViewController.swift */; };
 		01297D842329E79000CA9E41 /* SF-Compact-Rounded-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01297D6F2329E79000CA9E41 /* SF-Compact-Rounded-Medium.otf */; };
 		01297D852329E79000CA9E41 /* SF-Compact-Rounded-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01297D702329E79000CA9E41 /* SF-Compact-Rounded-Heavy.otf */; };
@@ -251,7 +251,7 @@
 		011FB62A22A33AAA004D5B8E /* UserProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserProfileCell.xib; sourceTree = "<group>"; };
 		011FB62D22A33C14004D5B8E /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		011FB62E22A33C14004D5B8E /* ItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
-		011FB63222A37387004D5B8E /* ArchivedChallengesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchivedChallengesTableViewController.swift; sourceTree = "<group>"; };
+		011FB63222A37387004D5B8E /* CompletedChallengesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedChallengesViewController.swift; sourceTree = "<group>"; };
 		01213CE1241E9C62008461B0 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		01297D6F2329E79000CA9E41 /* SF-Compact-Rounded-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Medium.otf"; sourceTree = "<group>"; };
 		01297D702329E79000CA9E41 /* SF-Compact-Rounded-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Heavy.otf"; sourceTree = "<group>"; };
@@ -485,12 +485,12 @@
 			path = delegate;
 			sourceTree = "<group>";
 		};
-		011FB63122A3736D004D5B8E /* archived-challenges */ = {
+		011FB63122A3736D004D5B8E /* completed-challenges */ = {
 			isa = PBXGroup;
 			children = (
-				011FB63222A37387004D5B8E /* ArchivedChallengesTableViewController.swift */,
+				011FB63222A37387004D5B8E /* CompletedChallengesViewController.swift */,
 			);
-			path = "archived-challenges";
+			path = "completed-challenges";
 			sourceTree = "<group>";
 		};
 		01213CE0241E9C53008461B0 /* chat */ = {
@@ -813,7 +813,7 @@
 		747D6FBA2208DBD70062BB39 /* feature */ = {
 			isa = PBXGroup;
 			children = (
-				011FB63122A3736D004D5B8E /* archived-challenges */,
+				011FB63122A3736D004D5B8E /* completed-challenges */,
 				74C2D84C222C3D0C00FF0DE2 /* about */,
 				01213CE0241E9C53008461B0 /* chat */,
 				74F4788A220D0A1D005CD4E4 /* settings */,
@@ -1339,7 +1339,7 @@
 				0107C7EF241B06A2005650FB /* MenuRow.swift in Sources */,
 				01FF413424205FDA007D316A /* ProfileViewController.swift in Sources */,
 				01A3EB20237747D30097FC2A /* CVScrollDirection.swift in Sources */,
-				011FB63322A37387004D5B8E /* ArchivedChallengesTableViewController.swift in Sources */,
+				011FB63322A37387004D5B8E /* CompletedChallengesViewController.swift in Sources */,
 				743050622209EA82005D8C52 /* UIViewController+Extension.swift in Sources */,
 				01BFF8FC223D425C0044F802 /* CommentTableViewCell.swift in Sources */,
 				747D6FE32208ED660062BB39 /* WelcomeViewController.swift in Sources */,

@@ -109,6 +109,7 @@ class ProfileViewController: UIViewController {
     navigationItem.largeTitleDisplayMode = .never
     
     nameLabel.text = account.fullName
+    userImageView.load(avatarInfo: account)
     
     if let challenge = challenge, challenge.isPast {
       calendarView.toggleViewWithDate(challenge.endDate)
@@ -120,8 +121,18 @@ class ProfileViewController: UIViewController {
     observer = NotificationCenter.default.addObserver(forName: .workoutDeleted, object: nil, queue: nil) { notification in
       self.loadWorkouts()
     }
+    
+    NotificationCenter.default.addObserver(self, selector: #selector(currentAccountUpdated), name: .currentAccountUpdated, object: nil)
   }
+      
+  @objc private func currentAccountUpdated(notification: Notification) {
+    guard let account = notification.object as? Account else { return }
   
+    nameLabel.text = account.fullName
+    userImageView.load(avatarInfo: account)
+    loadWorkouts()
+  }
+
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     

@@ -15,7 +15,7 @@ import CRRefresh
 enum ChallengeRow {
   case banner(Challenge, [Account], [Workout])
   case workout(Workout)
-  case noWorkouts(() -> Void)
+  case noWorkouts(Challenge, () -> Void)
 }
 
 typealias ChallengeSection = SectionModel<Date?, ChallengeRow>
@@ -86,8 +86,8 @@ class ChallengeViewController: BindableViewController {
       return ChallengeBannerCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge, members: members, workouts: workouts)
     case .workout(let workout):
       return WorkoutCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
-    case .noWorkouts(let onLogWorkout):
-      return NoWorkoutsCell.configure(tableView: tableView, indexPath: indexPath, onLogWorkout: onLogWorkout)
+    case .noWorkouts(let challenge, let onLogWorkout):
+      return NoWorkoutsCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge, onLogWorkout: onLogWorkout)
     }
   })
   
@@ -125,7 +125,7 @@ class ChallengeViewController: BindableViewController {
     
     navigationItem.rightBarButtonItems = {
       if challenge.isPast {
-        return [chatBarButtonItem, menuBarButtonItem]
+        return [menuBarButtonItem, chatBarButtonItem]
       } else {
         return [menuBarButtonItem]
       }
@@ -179,7 +179,7 @@ class ChallengeViewController: BindableViewController {
           if count == .zero {
             self?.chatBarButtonItem.image = .chatGray
           } else {
-            self?.chatBarButtonItem.image = .chatUnreadGray
+            self?.chatBarButtonItem.image = UIImage.chatUnreadGray.withRenderingMode(.alwaysOriginal)
           }
         })
         .disposed(by: disposeBag)

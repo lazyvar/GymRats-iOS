@@ -106,16 +106,19 @@ class UserImageView: UIView {
         addConstraintsWithFormat(format: "H:|[v0]|", views: skeletonView)
         addConstraintsWithFormat(format: "V:|[v0]|", views: skeletonView)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(currentUserWasUpdated), name: .updatedCurrentUserPic, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(currentAccountUpdated), name: .currentAccountUpdated, object: nil)
     }
     
-    @objc func currentUserWasUpdated(notification: Notification) {
-        guard let thisUser = avatarInfo as? Account else { return }
-        guard thisUser.id == GymRats.currentAccount.id else { return }
-        guard let image = notification.object as? UIImage else { return }
-        
-        self.userImage = image
-        self.imageView.refresh()
+    @objc func currentAccountUpdated(notification: Notification) {
+      guard let thisUser = avatarInfo as? Account else { return }
+      guard thisUser.id == GymRats.currentAccount.id else { return }
+      guard let account = notification.object as? Account else { return }
+      
+      self.userImage = nil
+      
+      if let s = account.pictureUrl, let url = URL(string: s) {
+        self.imageView.kf.setImage(with: url)
+      }
     }
 
     override func layoutSubviews() {

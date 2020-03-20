@@ -16,13 +16,14 @@ enum APIRequest {
   case signup(email: String, password: String, profilePictureUrl: String?, fullName: String)
   case resetPassword(email: String)
   case getAllChallenges
+  case getCompletedChallenges
   case joinChallenge(code: String)
   case createChallenge(startDate: Date, endDate: Date, challengeName: String, photoUrl: String?)
   case getWorkoutsForChallenge(challenge: Challenge)
   case getAllWorkoutsForUser(user: Account)
   case getWorkouts(forUser: Account, inChallenge: Challenge)
   case postWorkout(_ workout: NewWorkout, photoURL: String?, challenges: [Int])
-  case updateUser(_ user: UpdateUser)
+  case updateUser(email: String?, name: String?, password: String?, profilePictureUrl: String?)
   case deleteWorkout(_ workout: Workout)
   case getCommentsForWorkout(_ workout: Workout)
   case postComment(comment: String, workout: Workout)
@@ -58,6 +59,8 @@ enum APIRequest {
       return (.post, "passwords", ["email": email])
     case .getAllChallenges:
       return (.get, "challenges", nil)
+    case .getCompletedChallenges:
+      return (.get, "challenges?filter=complete", nil)
     case .joinChallenge(let code):
       return (.post, "memberships", ["code": code])
     case .deleteComment(id: let id):
@@ -138,22 +141,22 @@ enum APIRequest {
       }
 
       return (.post, "workouts", params)
-    case .updateUser(let user):
+    case .updateUser(let email, let name, let password, let profilePictureUrl):
       var params: Parameters = [:]
       
-      if let email = user.email {
+      if let email = email {
         params["email"] = email
       }
       
-      if let password = user.password {
+      if let password = password {
         params["password"] = password
       }
       
-      if let profilePictureUrl = user.profilePictureUrl {
+      if let profilePictureUrl = profilePictureUrl {
         params["profile_picture_url"] = profilePictureUrl
       }
 
-      if let fullName = user.fullName {
+      if let fullName = name {
         params["full_name"] = fullName
       }
 

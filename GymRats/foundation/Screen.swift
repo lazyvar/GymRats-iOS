@@ -46,7 +46,7 @@ enum Screen {
     case .profile(let account, let challenge):
       return ProfileViewController(account: account, challenge: challenge)
     case .completedChallenges:
-      return ArchivedChallengesTableViewController()
+      return CompletedChallengesViewController()
     case .chat(let challenge):
       return ChatViewController(challenge: challenge)
     case .settings:

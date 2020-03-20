@@ -28,9 +28,8 @@ final class MenuViewModel: ViewModel {
   let output = Output()
   
   init() {
-    let profile = Observable.just(
-      MenuSection(model: false, items: [.profile(GymRats.currentAccount)])
-    )
+    let profile = Observable<Void>.merge(.just(()), NotificationCenter.default.rx.notification(.currentAccountUpdated).map { _ in () })
+      .map { _ in return MenuSection(model: false, items: [.profile(GymRats.currentAccount)]) }
 
     let challenges = Challenge.State.all.observe()
       .compactMap { $0.object }
@@ -71,41 +70,52 @@ final class MenuViewModel: ViewModel {
       .bind(to: output.navigation)
       .disposed(by: disposeBag)
     
-    input.tappedRow.withLatestFrom(challenges, resultSelector: { ($0, $1) })
-      .compactMap { stuff -> (Navigation, Screen)? in
+    input.tappedRow
+      .filter { $0.section == 0 }
+      .map { _ -> (Navigation, Screen) in
+        return (.replaceDrawerCenterInNav(animated: true), .currentAccount(GymRats.currentAccount))
+      }
+      .bind(to: output.navigation)
+      .disposed(by: disposeBag)
+
+    input.tappedRow
+      .filter { $0.section == 1 }
+      .withLatestFrom(challenges, resultSelector: { ($0, $1) })
+      .map { stuff -> (Navigation, Screen) in
         let (indexPath, challenges) = stuff
         
-        switch indexPath.section {
-        case 0: return (.replaceDrawerCenterInNav(animated: true), .currentAccount(GymRats.currentAccount))
-        case 1:
-          if challenges.isEmpty {
-            return (.replaceDrawerCenterInNav(animated: true), .home)
-          } else {
-            let challenge = challenges[indexPath.row]
-            
-            UserDefaults.standard.set(challenge.id, forKey: "last_opened_challenge")
+        if challenges.isEmpty {
+          return (.replaceDrawerCenterInNav(animated: true), .home)
+        } else {
+          let challenge = challenges[indexPath.row]
+          
+          UserDefaults.standard.set(challenge.id, forKey: "last_opened_challenge")
 
-            if challenge.isActive {
-              return (.replaceDrawerCenter(animated: true), .activeChallenge(challenge))
-            } else {
-              return (.replaceDrawerCenterInNav(animated: true), .upcomingChallenge(challenge))
-            }
+          if challenge.isActive {
+            return (.replaceDrawerCenter(animated: true), .activeChallenge(challenge))
+          } else {
+            return (.replaceDrawerCenterInNav(animated: true), .upcomingChallenge(challenge))
           }
-        case 2: return {
-          switch indexPath.row {
-          case 0: return (.replaceDrawerCenterInNav(animated: true), .completedChallenges)
-          case 1: return nil
-          case 2: return (.presentInNav(animated: true), .createChallenge(self))
-          case 3: return (.replaceDrawerCenterInNav(animated: true), .settings)
-          case 4: return (.replaceDrawerCenterInNav(animated: true), .about)
-          default: fatalError("Unhandled row")
-          }
-        }()
-        default: fatalError("Unhandled section")
         }
       }
       .bind(to: output.navigation)
       .disposed(by: disposeBag)
+
+    input.tappedRow
+      .filter { $0.section == 2 }
+      .compactMap { indexPath -> (Navigation, Screen)? in
+        switch indexPath.row {
+        case 0: return (.replaceDrawerCenterInNav(animated: true), .completedChallenges)
+        case 1: return nil
+        case 2: return (.presentInNav(animated: true), .createChallenge(self))
+        case 3: return (.replaceDrawerCenterInNav(animated: true), .settings)
+        case 4: return (.replaceDrawerCenterInNav(animated: true), .about)
+        default: fatalError("Unhandled row")
+        }
+      }
+      .bind(to: output.navigation)
+      .disposed(by: disposeBag)
+
   }
 }
 

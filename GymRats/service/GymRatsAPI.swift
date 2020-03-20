@@ -43,6 +43,10 @@ class GymRatsAPI {
     return requestArray(.getAllChallenges)
   }
 
+  func getCompletedChallenges() -> Observable<NetworkResult<[Challenge]>> {
+    return requestArray(.getCompletedChallenges)
+  }
+
   func joinChallenge(code: String) -> Observable<NetworkResult<Challenge>> {
     return requestObject(.joinChallenge(code: code))
   }
@@ -111,8 +115,16 @@ class GymRatsAPI {
     return requestArray(.getMembersForChallenge(challenge))
   }
   
-  func updateUser(_ user: UpdateUser) -> Observable<NetworkResult<Account>> {
-    return requestObject(.updateUser(user))
+  func updateUser(email: String?, name: String?, password: String?, profilePicture: UIImage?) -> Observable<NetworkResult<Account>> {
+    return Observable<UIImage?>.just(profilePicture)
+      .flatMap { image -> Observable<String?> in
+        guard let image = image else { return .just(nil) }
+      
+        return ImageService.uploadImageToFirebase(image: image).map { url -> String? in url }
+      }
+      .flatMap { url in
+        return self.requestObject(.updateUser(email: email, name: name, password: password, profilePictureUrl: url))
+      }
   }
   
   func deleteWorkout(_ workout: Workout) -> Observable<NetworkResult<Workout>> {
@@ -162,7 +174,9 @@ extension GymRatsAPI {
       case .login, .signup, .resetPassword:
         return [:]
       default:
-        return ["Authorization": GymRats.currentAccount.token!]
+        guard let token = GymRats.currentAccount.token else { return [:] }
+          
+        return ["Authorization": token]
       }
     }()
     

@@ -53,6 +53,9 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="logWorkoutButton" destination="zgt-Ks-35W" id="ck6-0Z-YH5"/>
+            </connections>
             <point key="canvasLocation" x="-33.333333333333336" y="89.732142857142847"/>
         </tableViewCell>
     </objects>

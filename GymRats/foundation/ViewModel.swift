@@ -121,6 +121,7 @@ extension Notification {
   static let workoutCreated = Notification(name: .workoutCreated)
   static let workoutsLoaded = Notification(name: .workoutsLoaded)
   static let workoutDeleted = Notification(name: .workoutDeleted)
+  static let currentAccountUpdated = Notification(name: .currentAccountUpdated)
 }
 
 extension NSNotification.Name {
@@ -131,6 +132,7 @@ extension NSNotification.Name {
   static let workoutCreated = NSNotification.Name.init("WorkoutCreated")
   static let workoutsLoaded = NSNotification.Name.init("WorkoutsLoaded")
   static let workoutDeleted = NSNotification.Name.init("WorkoutDeleted")
+  static let currentAccountUpdated = NSNotification.Name.init("CurrentAccountUpdated")
 }
 
 extension UIView: Placeholder { }
@@ -148,12 +150,6 @@ extension Keychain.Key where Object == Account {
     static var currentUser: Keychain.Key<Account> {
         return Keychain.Key<Account>(rawValue: "currentUser", synchronize: true)
     }
-}
-
-
-extension NSNotification.Name {
-    static let updatedCurrentUser = NSNotification.Name(rawValue: "GRCurrentUserUpdated")
-    static let updatedCurrentUserPic = NSNotification.Name(rawValue: "GRCurrentUserUpdatedPic")
 }
 
 extension UIWindow {
