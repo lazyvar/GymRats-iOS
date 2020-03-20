@@ -33,9 +33,6 @@ class ProductionNetworkProvider: NetworkProvider {
       request = Alamofire.request(url, method: method, parameters: parameters, headers: headers)
     }
     
-    request.validate(statusCode: 200..<300)
-    request.validate(contentType: ["application/json"])
-    
     return request.rx.responseData()
   }
 }
@@ -55,9 +52,6 @@ class PreProductionNetworkProvider: NetworkProvider {
     } else {
       request = Alamofire.request(url, method: method, parameters: parameters, headers: headers)
     }
-    
-    request.validate(statusCode: 200..<300)
-    request.validate(contentType: ["application/json"])
     
     return request.rx.responseData()
   }
