@@ -16,7 +16,9 @@ enum ChallengeFlow {
   
   static func invite(to challenge: Challenge) {
     let activityViewController = UIActivityViewController(
-      activityItems: [URL(string: "https://apps.apple.com/us/app/gymrats-group-challenge/id1453444814")!],
+      activityItems: ["""
+      Let's workout together! Join \(challenge.name) using code \(challenge.code). https://apps.apple.com/us/app/gymrats-group-challenge/id1453444814
+      """],
       applicationActivities: nil
     )
     
