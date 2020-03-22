@@ -10,10 +10,10 @@ import Foundation
 
 extension GymRats {
   static var environment: Environment {
-    guard let info = Bundle.main.infoDictionary else { fatalError("Info.plist not found.") }
+    guard let info = Bundle.main.infoDictionary     else { fatalError("Info.plist not found.") }
     guard let env = info["GYM_RATS_ENV"] as? String else { fatalError("GYM_RATS_ENV not found in Info.plist") }
     
-    return Environment.init(rawValue: env)!
+    return Environment(rawValue: env)!
   }
 
   enum Environment: String {
@@ -23,17 +23,17 @@ extension GymRats {
     
     var networkProvider: NetworkProvider {
       switch self {
-      case .production: return ProductionNetworkProvider()
+      case .production:    return ProductionNetworkProvider()
       case .preProduction: return PreProductionNetworkProvider()
-      case .development: return DevelopmentNetworkProvider()
+      case .development:   return DevelopmentNetworkProvider()
       }
     }
     
     var ws: String {
       switch self {
-      case .production: return "wss://www.gymratsapi.com/chat/websocket"
+      case .production:    return "wss://www.gymratsapi.com/chat/websocket"
       case .preProduction: return "wss://gym-rats-api-pre-production.gigalixirapp.com/chat/websocket"
-      case .development: return "ws://localhost:4000/chat/websocket"
+      case .development:   return "ws://localhost:4000/chat/websocket"
       }
     }
   }
