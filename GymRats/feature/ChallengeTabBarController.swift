@@ -81,7 +81,7 @@ private extension ChallengeTabBarController {
   
   private func pushStats() {
     challengeViewController.push(
-      ChallengeStatsViewController(challenge: challenge, members: [], workouts: [])
+      ChallengeStatsViewController(challenge: challenge)
     )
   }
   
