@@ -64,6 +64,12 @@ final class MenuViewModel: ViewModel {
       .filter { $0.section == 2 && $0.row == 1 }
       .flatMap { _ in ChallengeFlow.join() }
       .do(onNext: { challenge in
+        if challenge.isPast {
+          UIViewController.topmost().presentAlert(title: "Challenge completed", message: "You have joined a challenge that has already completed.")
+        }
+      })
+      .filter { !$0.isPast }
+      .do(onNext: { challenge in
         UserDefaults.standard.set(challenge.id, forKey: "last_opened_challenge")
       })
       .map { challenge -> (Navigation, Screen) in (.replaceDrawerCenter(animated: true), .activeChallenge(challenge)) }

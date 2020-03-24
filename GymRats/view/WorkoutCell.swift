@@ -12,10 +12,20 @@ import Kingfisher
 class WorkoutCell: UITableViewCell {
   @IBOutlet weak var detailsLabel: UILabel!
   @IBOutlet weak var titleLabel: UILabel!
-  @IBOutlet weak var timeLabel: UILabel!
+  @IBOutlet weak var timeLabel: UILabel! {
+    didSet {
+      timeLabel.textColor = .secondaryLblColor
+    }
+  }
   @IBOutlet weak var userImageView: UserImageView!
   @IBOutlet weak var descriptionLabel: UILabel!
     
+  @IBOutlet weak var chevronView: UIImageView! {
+    didSet {
+      chevronView.tintColor = .chevron
+    }
+  }
+  
   @IBOutlet weak var workoutImageView: UIImageView! {
     didSet {
       workoutImageView.contentMode = .scaleAspectFill
@@ -26,6 +36,12 @@ class WorkoutCell: UITableViewCell {
   
   @IBOutlet weak var bg: UIView! {
     didSet { bg.layer.cornerRadius = 4 }
+  }
+  
+  @IBOutlet weak var clockImageView: UIImageView! {
+    didSet {
+      clockImageView.tintColor = .secondaryLblColor
+    }
   }
   
   @IBOutlet weak var shadowView: UIView! {

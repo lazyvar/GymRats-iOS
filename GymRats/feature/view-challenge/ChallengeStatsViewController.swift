@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import CRRefresh
 class ChallengeStatsViewController: UITableViewController {
-  enum SortBy: String, CaseIterable {
+  enum SortBy: Int, CaseIterable {
     case workouts
     case duration
     case distance
@@ -18,14 +18,25 @@ class ChallengeStatsViewController: UITableViewController {
     case calories
     case points
     
+    var title: String {
+      switch self {
+      case .workouts: return "workouts"
+      case .steps:    return "steps"
+      case .calories: return "calories"
+      case .points:   return "points"
+      case .duration: return "duration"
+      case .distance: return "distance"
+      }
+    }
+    
     var description: String {
       switch self {
-      case .workouts, .steps, .calories, .points:
-        return self.rawValue
-      case .duration:
-        return "minutes"
-      case .distance:
-        return "miles"
+      case .workouts: return "workouts"
+      case .steps:    return "steps"
+      case .calories: return "calories"
+      case .points:   return "points"
+      case .duration: return "minutes"
+      case .distance: return "miles"
       }
     }
   }
@@ -57,12 +68,12 @@ class ChallengeStatsViewController: UITableViewController {
   private var workouts: [Workout] = []
   private var sortby: SortBy {
     get {
-      let cached = UserDefaults.standard.string(forKey: "challenge_stats_\(challenge.id)_sort_by") ?? SortBy.workouts.rawValue
+      let cached = UserDefaults.standard.integer(forKey: "challenge_stats_\(challenge.id)_sort_by_integer")
       
       return SortBy(rawValue: cached) ?? .workouts
     }
     set {
-      UserDefaults.standard.set(newValue.rawValue, forKey: "challenge_stats_\(challenge.id)_sort_by")
+      UserDefaults.standard.set(newValue.rawValue, forKey: "challenge_stats_\(challenge.id)_sort_by_integer")
     }
   }
     
@@ -278,7 +289,7 @@ class ChallengeStatsViewController: UITableViewController {
   func cellycell() -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "celly") as! SegmentedCell
     cell.selectionStyle = .none
-    cell.sortbyTextField.text = self.sortby.rawValue.capitalized
+    cell.sortbyTextField.text = self.sortby.title.capitalized
     cell.picker.delegate = self
     cell.picker.dataSource = self
     cell.picker.selectRow(SortBy.allCases.enumerated().first(where: { $0.element == self.sortby })!.offset, inComponent: 0, animated: false)
@@ -363,7 +374,7 @@ extension ChallengeStatsViewController: UIPickerViewDelegate, UIPickerViewDataSo
   }
   
   func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-    return SortBy.allCases[row].rawValue.capitalized
+    return SortBy.allCases[row].title.capitalized
   }
   
   func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

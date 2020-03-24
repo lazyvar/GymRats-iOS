@@ -38,7 +38,6 @@ class ChallengeViewController: BindableViewController {
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
       tableView.backgroundColor = .background
-      tableView.showsVerticalScrollIndicator = false
       tableView.registerCellNibForClass(WorkoutCell.self)
       tableView.registerCellNibForClass(NoWorkoutsCell.self)
       tableView.registerCellNibForClass(ChallengeBannerCell.self)
@@ -75,15 +74,22 @@ class ChallengeViewController: BindableViewController {
     target: self,
     action: #selector(menuTapped)
   ).apply { $0.tintColor = .lightGray }
-  
+
+  private lazy var statsBarButtonItem = UIBarButtonItem(
+    image: .standings,
+    style: .plain,
+    target: self,
+    action: #selector(statsTapped)
+  ).apply { $0.tintColor = .lightGray }
+
   // MARK: View lifecycle
   
   private let members = BehaviorSubject<[Account]>(value: [])
   
   private let dataSource = RxTableViewSectionedReloadDataSource<ChallengeSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
     switch row {
-    case .banner(let challenge, let members, let workouts):
-      return ChallengeBannerCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge, members: members, workouts: workouts)
+    case .banner(let challenge, let challengeInfo):
+      return ChallengeBannerCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge, challengeInfo: challengeInfo)
     case .workout(let workout):
       return WorkoutCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
     case .noWorkouts(let challenge, let onLogWorkout):
@@ -139,7 +145,7 @@ class ChallengeViewController: BindableViewController {
     
     navigationItem.rightBarButtonItems = {
       if challenge.isPast {
-        return [menuBarButtonItem, chatBarButtonItem]
+        return [menuBarButtonItem, chatBarButtonItem, statsBarButtonItem]
       } else {
         return [menuBarButtonItem]
       }
@@ -151,8 +157,6 @@ class ChallengeViewController: BindableViewController {
     
     viewModel.input.viewDidLoad.trigger()
   }
-  
-  // MARK: Button handlers
   
   @objc private func menuTapped() {
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -178,6 +182,12 @@ class ChallengeViewController: BindableViewController {
     alertViewController.addAction(cancelAction)
     
     present(alertViewController, animated: true, completion: nil)
+  }
+  
+  @objc private func statsTapped() {
+    push(
+      ChallengeStatsViewController(challenge: challenge)
+    )
   }
   
   override func viewWillAppear(_ animated: Bool) {

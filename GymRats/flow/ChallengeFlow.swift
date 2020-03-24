@@ -26,7 +26,7 @@ enum ChallengeFlow {
   }
   
   static func leave(_ challenge: Challenge) {
-    let alert = UIAlertController(title: "Are you sure you want to leave \(challenge.name)?", message: nil, preferredStyle: .actionSheet)
+    let alert = UIAlertController(title: "Are you sure you want to leave \(challenge.name)?", message: nil, preferredStyle: .alert)
     let leave = UIAlertAction(title: "Leave", style: .destructive) { _ in
       gymRatsAPI.leaveChallenge(challenge)
         .next { result in

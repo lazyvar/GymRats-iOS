@@ -32,7 +32,7 @@ class ShareCodeViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = closeButton
 
-        label.text = "Challenge created! Others can join by using the code above. Copy it to your clipboard or tap the share button to send via text message. You can always do this later."
+        label.text = "Challenge created! Others can join by using the code above. Share now or invite friends later."
         label.font = .body
         label.numberOfLines = 0
         textView.text = challenge.code
@@ -69,19 +69,9 @@ class ShareCodeViewController: UIViewController {
         self.delegate?.challengeCreated(challenge: challenge)
     }
     
-    func invite() {
-        guard MFMessageComposeViewController.canSendText() else {
-            self.presentAlert(title: "Uh-oh", message: "This device cannot send text message.")
-            return
-        }
-        
-        let messageViewController = MFMessageComposeViewController()
-        messageViewController.body = "Let's workout together! Join my GymRats challenge using invite code \"\(challenge.code)\" https://apps.apple.com/us/app/gymrats-group-challenge/id1453444814"
-        messageViewController.messageComposeDelegate = self
-        
-        self.present(messageViewController, animated: true, completion: nil)
-    }
-    
+  func invite() {
+    ChallengeFlow.invite(to: challenge)
+  }
 }
 
 extension ShareCodeViewController: MFMessageComposeViewControllerDelegate {

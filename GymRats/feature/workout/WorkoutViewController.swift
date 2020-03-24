@@ -151,19 +151,20 @@ class WorkoutViewController: UITableViewController {
             let deleteAction = UIAlertAction(title: "Remove", style: .destructive) { _ in
                 self.showLoadingBar()
                 gymRatsAPI.deleteWorkout(self.workout)
-                    .subscribe({ event in
-                        self.hideLoadingBar()
-                        
-                        switch event {
-                        case .error(let error):
-                            self.presentAlert(with: error)
-                        case .next:
-                            self.navigationController?.popViewController(animated: true)
-                            NotificationCenter.default.post(name: .workoutDeleted, object: self.workout)
-                        case .completed:
-                            break
-                        }
-                    }).disposed(by: self.disposeBag)
+              .subscribe(onNext: { [weak self] result in
+                guard let self = self else { return }
+                
+                self.hideLoadingBar()
+                
+                switch result {
+                case .success:
+                  self.navigationController?.popViewController(animated: true)
+                  NotificationCenter.default.post(name: .workoutDeleted, object: self.workout)
+                case .failure(let error):
+                  self.presentAlert(with: error)
+                }
+              })
+              .disposed(by: self.disposeBag)
             }
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

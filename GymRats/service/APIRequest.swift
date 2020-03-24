@@ -39,6 +39,7 @@ enum APIRequest {
   case editChallenge(_ challenge: UpdateChallenge)
   case deleteComment(id: Int)
   case getMembersForChallenge(_ challenge: Challenge)
+  case challengeInfo(challenge: Challenge)
   
   var requestProperties: (method: HTTPMethod, path: String, params: Parameters?) {
     switch self {
@@ -190,6 +191,8 @@ enum APIRequest {
       return (.delete, "devices", nil)
     case .leaveChallenge(let challenge):
       return (.delete, "memberships/\(challenge.id)", nil)
+    case .challengeInfo(challenge: let challenge):
+      return (.get, "challenges/\(challenge.id)/info", nil)
     }
   }
 }

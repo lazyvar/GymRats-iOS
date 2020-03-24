@@ -131,7 +131,7 @@ class GymRatsAPI {
       }
   }
   
-  func deleteWorkout(_ workout: Workout) -> Observable<NetworkResult<Workout>> {
+  func deleteWorkout(_ workout: Workout) -> Observable<NetworkResult<EmptyJSON>> {
     return requestObject(.deleteWorkout(workout))
   }
   
@@ -165,6 +165,10 @@ class GymRatsAPI {
   
   func leaveChallenge(_ challenge: Challenge) -> Observable<NetworkResult<Challenge>> {
     return requestObject(.leaveChallenge(challenge))
+  }
+  
+  func challengeInfo(_ challenge: Challenge) -> Observable<NetworkResult<ChallengeInfo>> {
+    return requestObject(.challengeInfo(challenge: challenge))
   }
 }
 
