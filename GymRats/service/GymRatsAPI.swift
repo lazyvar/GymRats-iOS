@@ -90,7 +90,11 @@ class GymRatsAPI {
   func getWorkouts(for challenge: Challenge, page: Int) -> Observable<NetworkResult<[Workout]>> {
     return requestArray(.getWorkoutsForChallenge(challenge: challenge, page: page))
   }
-  
+
+  func getAllWorkouts(for challenge: Challenge) -> Observable<NetworkResult<[Workout]>> {
+    return requestArray(.getAllWorkouts(challenge: challenge))
+  }
+
   func getAllWorkouts(for user: Account) -> Observable<NetworkResult<[Workout]>> {
     return requestArray(.getAllWorkoutsForUser(user: user))
   }
