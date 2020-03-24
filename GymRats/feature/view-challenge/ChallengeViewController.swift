@@ -12,12 +12,6 @@ import RxCocoa
 import RxDataSources
 import CRRefresh
 
-enum ChallengeRow {
-  case banner(Challenge, [Account], [Workout])
-  case workout(Workout)
-  case noWorkouts(Challenge, () -> Void)
-}
-
 typealias ChallengeSection = SectionModel<Date?, ChallengeRow>
 
 class ChallengeViewController: BindableViewController {
@@ -52,6 +46,12 @@ class ChallengeViewController: BindableViewController {
       tableView.cr.addHeadRefresh(animator: NormalHeaderAnimator()) { [weak self] in
         self?.viewModel.input.refresh.trigger()
         (self?.tabBarController as? ChallengeTabBarController)?.updateChatIcon()
+      }
+      let footer = NormalFooterAnimator().apply { footer in
+        footer.noMoreDataDescription = ""
+      }
+      tableView.cr.addFootRefresh(animator: footer) { [weak self] in
+        self?.viewModel.input.infiniteScrollTriggered.trigger()
       }
       tableView.rx.itemSelected
         .do(onNext: { [weak self] indexPath in
@@ -93,29 +93,43 @@ class ChallengeViewController: BindableViewController {
   
   override func bindViewModel() {
     viewModel.output.sections
-      .do(onNext: { [weak self] _ in
-        self?.tableView.cr.endHeaderRefresh()
-      })
       .bind(to: tableView.rx.items(dataSource: dataSource))
       .disposed(by: disposeBag)
     
     viewModel.output.error
-      .do(onNext: { [weak self] _ in
-        self?.tableView.cr.endHeaderRefresh()
-      })
       .debug()
       .flatMap { UIAlertController.present($0) }
       .ignore(disposedBy: disposeBag)
     
-    viewModel.output.spin
+    viewModel.output.loading
       .do(onNext: { [weak self] spin in
         spin ? self?.showLoadingBar() : self?.hideLoadingBar()
+        
+        if !spin {
+          self?.tableView.cr.endHeaderRefresh()
+        }
       })
       .ignore(disposedBy: disposeBag)
+    
+    viewModel.output.doneLoadingMore
+      .subscribe(onNext: { [weak self] count in
+        self?.tableView.cr.endLoadingMore()
+
+        if let count = count, count == 0 {
+          self?.tableView.cr.noticeNoMoreData()
+        }
+      })
+      .disposed(by: disposeBag)
     
     viewModel.output.navigation
       .subscribe(onNext: { [weak self] (navigation, screen) in
         self?.navigate(navigation, to: screen.viewController)
+      })
+      .disposed(by: disposeBag)
+    
+    viewModel.output.resetNoMore
+      .subscribe(onNext: { [weak self] _ in
+        self?.tableView.cr.resetNoMore()
       })
       .disposed(by: disposeBag)
   }

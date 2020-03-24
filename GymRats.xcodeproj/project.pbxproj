@@ -84,6 +84,7 @@
 		0166083D239C61B800FCFD26 /* DateProgressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0166083B239C61B800FCFD26 /* DateProgressCell.xib */; };
 		01660840239C8CA700FCFD26 /* StatsBabyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0166083E239C8CA700FCFD26 /* StatsBabyCell.swift */; };
 		01660841239C8CA700FCFD26 /* StatsBabyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0166083F239C8CA700FCFD26 /* StatsBabyCell.xib */; };
+		017E10B32429674600CBBB92 /* ChallengeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017E10B22429674600CBBB92 /* ChallengeRow.swift */; };
 		01863FB9241C66E2001B3CE2 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01863FB8241C66E2001B3CE2 /* Alert.swift */; };
 		018E9F4D229F7D7E008AB016 /* Challenge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E9F4C229F7D7E008AB016 /* Challenge.storyboard */; };
 		018E9F4F229F7DB1008AB016 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */; };
@@ -302,6 +303,7 @@
 		0166083B239C61B800FCFD26 /* DateProgressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateProgressCell.xib; sourceTree = "<group>"; };
 		0166083E239C8CA700FCFD26 /* StatsBabyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsBabyCell.swift; sourceTree = "<group>"; };
 		0166083F239C8CA700FCFD26 /* StatsBabyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatsBabyCell.xib; sourceTree = "<group>"; };
+		017E10B22429674600CBBB92 /* ChallengeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeRow.swift; sourceTree = "<group>"; };
 		01863FB8241C66E2001B3CE2 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		018E9F4C229F7D7E008AB016 /* Challenge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Challenge.storyboard; sourceTree = "<group>"; };
 		018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
@@ -942,6 +944,7 @@
 				014B6770241882C000F356EB /* ChallengeViewController.swift */,
 				014B6771241882C000F356EB /* ChallengeViewController.xib */,
 				013D023E24193B440063F189 /* ChallengeViewModel.swift */,
+				017E10B22429674600CBBB92 /* ChallengeRow.swift */,
 			);
 			path = "view-challenge";
 			sourceTree = "<group>";
@@ -1396,6 +1399,7 @@
 				01A3EB26237747D30097FC2A /* CVCalendarViewAnimator.swift in Sources */,
 				74A01B34220A3B2000431ABD /* Workout.swift in Sources */,
 				74F47889220CECFE005CD4E4 /* ImageService.swift in Sources */,
+				017E10B32429674600CBBB92 /* ChallengeRow.swift in Sources */,
 				014A7657237764B6002CE366 /* GRFormViewController.swift in Sources */,
 				01A3EB1A237747D30097FC2A /* CVCalendarWeekContentViewController.swift in Sources */,
 				019CF1FB232722FF00D884DA /* BigContentView.swift in Sources */,

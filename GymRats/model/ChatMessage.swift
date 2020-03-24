@@ -9,12 +9,16 @@
 import Foundation
 import MessageKit
 
-struct ChatMessage: Codable {
+struct ChatMessage: Codable, Hashable {
   let id: Int
   let challengeId: Int
   let content: String
   let createdAt: Date
   let account: Account
+  
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(id)
+  }
 }
 
 extension ChatMessage: MessageType {

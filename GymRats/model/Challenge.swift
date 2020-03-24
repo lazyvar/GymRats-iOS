@@ -9,7 +9,7 @@
 import Foundation
 import SwiftDate
 
-struct Challenge: Codable {
+struct Challenge: Codable, Equatable {
   let id: Int
   let name: String
   let code: String
