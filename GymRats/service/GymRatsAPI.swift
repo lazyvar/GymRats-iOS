@@ -87,8 +87,8 @@ class GymRatsAPI {
     return requestObject(.deleteComment(id: id))
   }
   
-  func getWorkouts(for challenge: Challenge) -> Observable<NetworkResult<[Workout]>> {
-    return requestArray(.getWorkoutsForChallenge(challenge: challenge))
+  func getWorkouts(for challenge: Challenge, page: Int) -> Observable<NetworkResult<[Workout]>> {
+    return requestArray(.getWorkoutsForChallenge(challenge: challenge, page: page))
   }
   
   func getAllWorkouts(for user: Account) -> Observable<NetworkResult<[Workout]>> {
