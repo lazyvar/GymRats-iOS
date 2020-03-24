@@ -47,7 +47,7 @@ final class ChallengeViewModel: ViewModel {
   init() {
     let workoutCreated = NotificationCenter.default.rx.notification(.workoutCreated).map { _ in () }
     let workoutDeleted = NotificationCenter.default.rx.notification(.workoutDeleted).map { _ in () }
-    let cleanRefresh = Observable.merge(input.refresh, workoutCreated, workoutDeleted, input.viewDidLoad)
+    let cleanRefresh = Observable.merge(input.refresh, workoutCreated, workoutDeleted, input.viewDidLoad).share()
     
     let cleanRefreshWorkouts = cleanRefresh
       .do(onNext: { self.page = 0 })
@@ -59,21 +59,26 @@ final class ChallengeViewModel: ViewModel {
       .flatMap { gymRatsAPI.getWorkouts(for: self.challenge, page: self.page) }
       .share()
 
-    let memberFetch = Observable.merge(input.viewDidLoad, input.refresh)
-      .flatMap { gymRatsAPI.getMembers(for: self.challenge) }
+    let challengeInfoFetch = Observable.merge(cleanRefresh)
+      .flatMap { gymRatsAPI.challengeInfo(self.challenge) }
       .share()
     
-    let members = memberFetch.compactMap { $0.object }
+    let challengeInfo = challengeInfoFetch.compactMap { $0.object }.share()
 
     cleanRefresh.map { _ in () }
       .bind(to: output.resetNoMore)
       .disposed(by: disposeBag)
-    
+
+    Observable.merge(workoutCreated, workoutDeleted, input.viewDidLoad)
+      .map { _ in true }
+      .bind(to: output.loading)
+      .disposed(by: disposeBag)
+
     Observable.merge(cleanRefreshWorkouts, loadNextPage).map { _ in false }
       .bind(to: output.loading)
       .disposed(by: disposeBag)
     
-    Observable.merge(memberFetch.map { $0.error }, Observable.merge(cleanRefreshWorkouts, loadNextPage).map { $0.error })
+    Observable.merge(challengeInfoFetch.map { $0.error }, Observable.merge(cleanRefreshWorkouts, loadNextPage).map { $0.error })
       .compactMap { $0 }
       .bind(to: output.error)
       .disposed(by: disposeBag)
@@ -102,11 +107,11 @@ final class ChallengeViewModel: ViewModel {
 
     let bucketsYWorkouts = workouts.map { (self.challenge.bucket($0), $0) }
     
-    Observable.combineLatest(members, bucketsYWorkouts)
-      .map { members, bucketsYWorkouts -> [ChallengeSection] in
+    Observable.combineLatest(challengeInfo, bucketsYWorkouts)
+      .map { challengeInfo, bucketsYWorkouts -> [ChallengeSection] in
         let bucketedWorkouts = bucketsYWorkouts.0
         let workouts = bucketsYWorkouts.1
-        let banner = ChallengeSection(model: nil, items: [.banner(self.challenge, members, workouts)])
+        let banner = ChallengeSection(model: nil, items: [.banner(self.challenge, challengeInfo)])
         let workoutSections = bucketedWorkouts
           .map { date, workouts in
             ChallengeSection(model: date, items: workouts.map { ChallengeRow.workout($0) })

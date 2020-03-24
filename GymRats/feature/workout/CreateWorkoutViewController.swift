@@ -92,7 +92,7 @@ class CreateWorkoutViewController: GRFormViewController {
         
         LabelRow.defaultCellUpdate = nil
 
-      let activeChallenges = Challenge.State.all.state!.object!
+      let activeChallenges = (Challenge.State.all.state?.object ?? []).getActiveChallenges()
       
         let headerRow = CreateWorkoutHeaderRow("workout_header") {
           $0.value = WorkoutHeaderInfo(image: workoutImage, title: "", description: "")

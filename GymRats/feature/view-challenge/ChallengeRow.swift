@@ -9,7 +9,7 @@
 import Foundation
 
 enum ChallengeRow {
-  case banner(Challenge, [Account], [Workout])
+  case banner(Challenge, ChallengeInfo)
   case workout(Workout)
   case noWorkouts(Challenge, () -> Void)
 }
@@ -17,8 +17,8 @@ enum ChallengeRow {
 extension ChallengeRow: Equatable {
   static func == (lhs: ChallengeRow, rhs: ChallengeRow) -> Bool {
     switch (lhs, rhs) {
-    case (.banner(let challenge1, let members1, let workouts1), .banner(let challenge2, let members2, let workouts2)):
-      return challenge1 == challenge2 && members1 == members2 && workouts1 == workouts2
+    case (.banner(let challenge1, let challegneInfo1), .banner(let challenge2, let challengeInfo2)):
+      return challenge1 == challenge2 && challegneInfo1 == challengeInfo2
     case (.workout(let workout1), .workout(let workout2)):
       return workout1 == workout2
     case (.noWorkouts, noWorkouts): return true

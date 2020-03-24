@@ -19,7 +19,31 @@ extension UIColor {
             return .black
         }
     }
-    
+
+  static var secondaryLblColor: UIColor {
+     if #available(iOS 13.0, *) {
+         if UIViewController().traitCollection.userInterfaceStyle == .dark {
+             return .systemGray2
+         } else {
+             return .systemGray4
+         }
+     } else {
+      return UIColor(red: 188/255, green: 188/256, blue: 192/256, alpha: 1.0)
+     }
+  }
+
+  static var chevron: UIColor {
+     if #available(iOS 13.0, *) {
+         if UIViewController().traitCollection.userInterfaceStyle == .dark {
+             return .systemGray
+         } else {
+             return .systemGray5
+         }
+     } else {
+      return UIColor(red: 216/255, green: 216/256, blue: 220/256, alpha: 1.0)
+     }
+  }
+
     static var background: UIColor {
         if #available(iOS 13.0, *) {
             return .systemGray6

@@ -78,6 +78,7 @@
 		014B6773241882C000F356EB /* ChallengeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 014B6771241882C000F356EB /* ChallengeViewController.xib */; };
 		0158FF282423F73F00EDC584 /* Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158FF272423F73F00EDC584 /* Coding.swift */; };
 		015A1A5E2421A2B500D2EF5A /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015A1A5D2421A2B500D2EF5A /* NotificationHandler.swift */; };
+		01610148242ABC2800731E30 /* ChallengeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01610147242ABC2800731E30 /* ChallengeInfo.swift */; };
 		0163A2382377AF19006FDDA2 /* StoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0163A2372377AF19006FDDA2 /* StoreService.swift */; };
 		01660839239C5EAF00FCFD26 /* ChallengeStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01660838239C5EAF00FCFD26 /* ChallengeStatsViewController.swift */; };
 		0166083C239C61B800FCFD26 /* DateProgressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0166083A239C61B800FCFD26 /* DateProgressCell.swift */; };
@@ -297,6 +298,7 @@
 		014B6771241882C000F356EB /* ChallengeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeViewController.xib; sourceTree = "<group>"; };
 		0158FF272423F73F00EDC584 /* Coding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coding.swift; sourceTree = "<group>"; };
 		015A1A5D2421A2B500D2EF5A /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
+		01610147242ABC2800731E30 /* ChallengeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfo.swift; sourceTree = "<group>"; };
 		0163A2372377AF19006FDDA2 /* StoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreService.swift; sourceTree = "<group>"; };
 		01660838239C5EAF00FCFD26 /* ChallengeStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeStatsViewController.swift; sourceTree = "<group>"; };
 		0166083A239C61B800FCFD26 /* DateProgressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateProgressCell.swift; sourceTree = "<group>"; };
@@ -891,6 +893,7 @@
 				01319ED8241878EA005E65D2 /* UpdateChallenge.swift */,
 				01319EDA241879FD005E65D2 /* UpdateUser.swift */,
 				01EED5CC24253A3E005E0249 /* ChatNotificationCount.swift */,
+				01610147242ABC2800731E30 /* ChallengeInfo.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1364,6 +1367,7 @@
 				748DFB8E2210B2EA007220C7 /* Place.swift in Sources */,
 				74A01B3B220A544F00431ABD /* UserWorkoutTableViewCell.swift in Sources */,
 				013D02452419401F0063F189 /* Apply.swift in Sources */,
+				01610148242ABC2800731E30 /* ChallengeInfo.swift in Sources */,
 				013D0247241941C90063F189 /* UITableView+Extension.swift in Sources */,
 				01863FB9241C66E2001B3CE2 /* Alert.swift in Sources */,
 				0163A2382377AF19006FDDA2 /* StoreService.swift in Sources */,

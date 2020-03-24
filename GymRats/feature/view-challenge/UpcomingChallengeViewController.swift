@@ -108,18 +108,9 @@ class UpcomingChallengeViewController: UICollectionViewController {
       self.present(editViewController.inNav(), animated: true, completion: nil)
     }
     
-    @objc func addFriend() {
-        guard MFMessageComposeViewController.canSendText() else {
-            presentAlert(title: "Uh-oh", message: "This device cannot send text message.")
-            return
-        }
-        
-        let messageViewController = MFMessageComposeViewController()
-        messageViewController.body = "Let's workout together! Join my GymRats challenge using invite code \"\(challenge.code)\" https://apps.apple.com/us/app/gymrats-group-challenge/id1453444814"
-        messageViewController.messageComposeDelegate = self
-        
-        self.present(messageViewController, animated: true, completion: nil)
-    }
+  @objc func addFriend() {
+    ChallengeFlow.invite(to: challenge)
+  }
     
   @objc func fetchUsers() {
       showLoadingBar()
@@ -141,7 +132,7 @@ class UpcomingChallengeViewController: UICollectionViewController {
     .disposed(by: disposeBag)
   }
 
-  private func showAlert() {
+  @objc private func showAlert() {
     ChallengeFlow.leave(challenge)
   }
     
@@ -163,22 +154,20 @@ class UpcomingChallengeViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard kind == UICollectionView.elementKindSectionHeader else { fatalError("Unexpected element kind") }
-        
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header", for: indexPath) as! UpcomingChallengeCollectionReusableView
-        view.challenge = challenge
-        
-        if users.count == 1 {
-            view.memberLabel.text = "\(users.count) member"
-        } else {
-            view.memberLabel.text = "\(users.count) members"
-        }
-        
-        view.leaveChallenge.onTouchUpInside { [weak self] in
-            self?.showAlert()
-        }.disposed(by: disposeBag)
+      guard kind == UICollectionView.elementKindSectionHeader else { fatalError("Unexpected element kind") }
+      
+      let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header", for: indexPath) as! UpcomingChallengeCollectionReusableView
+      view.challenge = challenge
+      
+      if users.count == 1 {
+          view.memberLabel.text = "\(users.count) member"
+      } else {
+          view.memberLabel.text = "\(users.count) members"
+      }
+      
+      view.leaveChallenge.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
 
-        return view
+      return view
     }
     
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
