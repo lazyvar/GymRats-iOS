@@ -128,6 +128,8 @@ class ChallengeViewController: BindableViewController {
     
     viewModel.output.loading
       .do(onNext: { [weak self] loading in
+        loading ? self?.showLoadingBar() : self?.hideLoadingBar()
+        
         if !loading {
           self?.tableView.cr.endHeaderRefresh()
         }
