@@ -36,4 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func applicationWillEnterForeground(_ application: UIApplication) {
     GymRats.willEnterForeground()
   }
+  
+  func applicationDidEnterBackground(_ application: UIApplication) {
+    GymRats.didEnterBackground()
+  }
 }

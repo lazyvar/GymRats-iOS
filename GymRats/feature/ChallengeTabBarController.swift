@@ -49,10 +49,20 @@ class ChallengeTabBarController: ESTabBarController {
     selectedIndex = 1
     didHijackHandler = hijack
     shouldHijackHandler = { _, _, _ in return true }
+    
+    NotificationCenter.default.addObserver(self, selector: #selector(sawChat), name: .sawChat, object: nil)
   }
   
   private var chatItem: UITabBarItem? { return tabBar.items?[safe: 2] }
 
+  @objc private func sawChat(notification: Notification) {
+    guard let challenge = notification.object as? Challenge else { return }
+    
+    if challenge.id == self.challenge.id {
+      chatItem?.badgeValue = nil
+    }
+  }
+  
   func updateChatIcon() {
     gymRatsAPI.getChatNotificationCount(for: challenge)
       .subscribe(onNext: { [weak self] result in

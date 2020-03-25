@@ -38,6 +38,8 @@ class ChatViewController: MessagesViewController {
     fatalError("init(coder:) has not been implemented")
   }
 
+  var retries = 3
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -59,12 +61,11 @@ class ChatViewController: MessagesViewController {
     messagesCollectionView.messageCellDelegate = self
     messagesCollectionView.messagesDisplayDelegate = self
     
-    NotificationCenter.default.addObserver(
-      self,
-      selector: #selector(refresh),
-      name: .chatNotification,
-      object: nil
-    )
+    NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: .chatNotification, object: nil)
+
+    NotificationCenter.default.addObserver(self, selector: #selector(connectSocket), name: .appEnteredForeground, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(disconnectSocket), name: .appEnteredBackground, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: .appEnteredForeground, object: nil)
 
     messagesCollectionView.alpha = 0
     
@@ -79,6 +80,8 @@ class ChatViewController: MessagesViewController {
       })
       .disposed(by: disposeBag)
     
+    
+    
     gymRatsAPI.seeChatNotifications(for: challenge)
       .ignore(disposedBy: disposeBag)
   }
@@ -86,15 +89,25 @@ class ChatViewController: MessagesViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
-    socket.connect()
+    NotificationCenter.default.post(name: .sawChat, object: challenge)
+    connectSocket()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
 
+    disconnectSocket()
+  }
+  
+  @objc private func connectSocket() {
+    socket.connect()
+  }
+  
+  @objc private func disconnectSocket() {
+    channel.leave()
     socket.disconnect()
   }
-
+  
   @objc private func refresh() {
     canLoadMorePosts = true
     loadChats(page: 0, clear: true)
@@ -173,9 +186,9 @@ class ChatViewController: MessagesViewController {
       self?.messagesCollectionView.scrollToBottom(animated: true)
     }
     
-    channel.onError { [weak self] _ in
+    channel.onError { [weak self] error in
+      self?.navigationController?.popViewController(animated: true)
       self?.messageInputBar.sendButton.stopAnimating()
-      self?.presentAlert(title: "Uh-oh", message: "Something went wrong. Please try again.")
     }
     
     channel.join()

@@ -123,6 +123,8 @@ extension Notification {
   static let workoutDeleted = Notification(name: .workoutDeleted)
   static let currentAccountUpdated = Notification(name: .currentAccountUpdated)
   static let appEnteredForeground = Notification(name: .appEnteredForeground)
+  static let appEnteredBackground = Notification(name: .appEnteredBackground)
+  static let sawChat = Notification(name: .sawChat)
 }
 
 extension NSNotification.Name {
@@ -135,6 +137,8 @@ extension NSNotification.Name {
   static let workoutDeleted = NSNotification.Name.init("WorkoutDeleted")
   static let currentAccountUpdated = NSNotification.Name.init("CurrentAccountUpdated")
   static let appEnteredForeground = NSNotification.Name.init("AppEnteredForeground")
+  static let appEnteredBackground = NSNotification.Name.init("AppEnteredBackground")
+  static let sawChat = NSNotification.Name.init("SawChat")
 }
 
 extension UIView: Placeholder { }
