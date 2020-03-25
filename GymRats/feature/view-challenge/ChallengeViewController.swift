@@ -42,6 +42,7 @@ class ChallengeViewController: BindableViewController {
     didSet {
       tableView.backgroundColor = .background
       tableView.showsVerticalScrollIndicator = false
+      tableView.registerSkeletonCellNibForClass(WorkoutCell.self)
       tableView.registerCellNibForClass(WorkoutCell.self)
       tableView.registerCellNibForClass(NoWorkoutsCell.self)
       tableView.registerCellNibForClass(ChallengeBannerCell.self)
@@ -110,6 +111,8 @@ class ChallengeViewController: BindableViewController {
       return WorkoutCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
     case .noWorkouts(let challenge, let onLogWorkout):
       return NoWorkoutsCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge, onLogWorkout: onLogWorkout)
+    case .💀:
+      return WorkoutCell.skeleton(tableView: tableView, indexPath: indexPath)
     }
   })
   
@@ -125,13 +128,17 @@ class ChallengeViewController: BindableViewController {
     
     viewModel.output.loading
       .do(onNext: { [weak self] loading in
-        loading ? self?.showLoadingBar() : self?.hideLoadingBar()
-        
         if !loading {
           self?.tableView.cr.endHeaderRefresh()
         }
       })
       .ignore(disposedBy: disposeBag)
+    
+    viewModel.output.scrollToTop
+      .subscribe(onNext: { [weak self] _ in
+        self?.tableView.setContentOffset(.zero, animated: false)
+      })
+      .disposed(by: disposeBag)
     
     viewModel.output.doneLoadingMore
       .subscribe(onNext: { [weak self] count in
@@ -155,7 +162,7 @@ class ChallengeViewController: BindableViewController {
       })
       .disposed(by: disposeBag)
   }
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     

@@ -92,7 +92,7 @@ enum GymRats {
     application.applicationIconBadgeNumber = 1
     application.applicationIconBadgeNumber = 0
 
-    // TODO: Refresh
+    NotificationCenter.default.post(.appEnteredForeground)
   }
   
   /// Removes the current account and shows the welcome screen
