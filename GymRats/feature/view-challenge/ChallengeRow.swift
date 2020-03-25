@@ -7,11 +7,13 @@
 //
 
 import Foundation
+import RxDataSources
 
 enum ChallengeRow {
   case banner(Challenge, ChallengeInfo)
   case workout(Workout)
   case noWorkouts(Challenge, () -> Void)
+  case 💀(Int)
 }
 
 extension ChallengeRow: Equatable {
@@ -23,6 +25,26 @@ extension ChallengeRow: Equatable {
       return workout1 == workout2
     case (.noWorkouts, noWorkouts): return true
     default: return false
+    }
+  }
+}
+
+extension ChallengeRow: IdentifiableType {
+  public var identity: Int {
+    switch self {
+    case .banner: return 0
+    case .noWorkouts: return -1
+    case .workout(let workout): return workout.id
+    case .💀(let row): return row
+    }
+  }
+}
+
+extension Optional: IdentifiableType where Wrapped == Date {
+  public var identity: Double {
+    switch self {
+    case .some(let date): return date.julianDay
+    case .none: return 0
     }
   }
 }

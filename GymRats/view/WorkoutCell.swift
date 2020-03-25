@@ -56,7 +56,16 @@ class WorkoutCell: UITableViewCell {
 
   override func awakeFromNib() {
     super.awakeFromNib()
-
+    
+    detailsLabel.linesCornerRadius = 4
+    titleLabel.linesCornerRadius = 4
+    timeLabel.linesCornerRadius = 4
+    descriptionLabel.linesCornerRadius = 4
+    userImageView.isHidden = true
+    
+    titleLabel.clipsToBounds = true
+    descriptionLabel.clipsToBounds = true
+    
     clipsToBounds = false
   }
       
@@ -74,8 +83,32 @@ class WorkoutCell: UITableViewCell {
     shadowView.showSkeleton()
   }
   
+  static func skeleton(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+    return tableView.dequeueSkeletonCell(withType: WorkoutCell.self, for: indexPath).apply {      
+      $0.detailsLabel.isSkeletonable = true
+      $0.titleLabel.isSkeletonable = true
+      $0.timeLabel.isSkeletonable = true
+      $0.descriptionLabel.isSkeletonable = true
+      $0.clockImageView.isSkeletonable = true
+      $0.userImageView.isSkeletonable = true
+
+      $0.detailsLabel.showAnimatedSkeleton()
+      $0.titleLabel.showAnimatedSkeleton()
+      $0.timeLabel.showAnimatedSkeleton()
+      $0.descriptionLabel.showAnimatedSkeleton()
+      $0.clockImageView.showAnimatedSkeleton()
+      $0.detailsLabel.showAnimatedSkeleton()
+      $0.userImageView.showAnimatedSkeleton()
+      
+      $0.titleLabel.constrainWidth(CGFloat.random(in: 30...70))
+      $0.descriptionLabel.constrainWidth(CGFloat.random(in: 30...70))
+    }
+  }
+
   static func configure(tableView: UITableView, indexPath: IndexPath, workout: Workout) -> UITableViewCell {
     return tableView.dequeueReusableCell(withType: WorkoutCell.self, for: indexPath).apply {
+      $0.userImageView.isHidden = false
+
       $0.descriptionLabel.text = workout.description
       $0.workoutImageView.kf.setImage(with: URL(string: workout.photoUrl ?? ""), options: [.transition(.fade(0.2))])
       $0.titleLabel.text = workout.title
