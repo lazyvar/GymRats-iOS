@@ -136,6 +136,7 @@ PODS:
   - SwiftPhoenixClient (1.2.0):
     - Starscream (~> 3.1.0)
   - TTTAttributedLabel (2.0.0)
+  - UIScrollView-InfiniteScroll (1.1.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
@@ -168,6 +169,7 @@ DEPENDENCIES:
   - SwiftDate (~> 5.0)
   - SwiftPhoenixClient
   - TTTAttributedLabel
+  - UIScrollView-InfiniteScroll (~> 1.1.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -219,6 +221,7 @@ SPEC REPOS:
     - SwiftDate
     - SwiftPhoenixClient
     - TTTAttributedLabel
+    - UIScrollView-InfiniteScroll
 
 EXTERNAL SOURCES:
   SkeletonView:
@@ -279,7 +282,8 @@ SPEC CHECKSUMS:
   SwiftDate: 6329e58969a2de31cea7f1ee1143b247693196e7
   SwiftPhoenixClient: ba22ba809b345522afe478817d7cb51ee3d49365
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
+  UIScrollView-InfiniteScroll: 3ef456bcbe759c19f510a383cff96e6647c98c98
 
-PODFILE CHECKSUM: 112c2c879ea56f0f5837f257c16bbece0dfdd3d9
+PODFILE CHECKSUM: d0d1baa19402f08ca10db82d266912f33799dd45
 
 COCOAPODS: 1.8.4

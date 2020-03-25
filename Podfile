@@ -33,6 +33,7 @@ target 'GymRats' do
     pod 'RxDataSources', '~> 4.0'
     pod 'CRRefresh'
     pod 'SwiftPhoenixClient'
+    pod 'UIScrollView-InfiniteScroll', '~> 1.1.0'
 
     target 'GymRatsTests' do
         inherit! :search_paths
