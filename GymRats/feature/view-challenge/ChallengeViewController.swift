@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 import CRRefresh
+import UIScrollView_InfiniteScroll
 
 typealias ChallengeSection = SectionModel<Date?, ChallengeRow>
 
@@ -33,11 +34,14 @@ class ChallengeViewController: BindableViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
+  private var shouldShowInfScroll = true
+  
   // MARK: Views
 
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
       tableView.backgroundColor = .background
+      tableView.showsVerticalScrollIndicator = false
       tableView.registerCellNibForClass(WorkoutCell.self)
       tableView.registerCellNibForClass(NoWorkoutsCell.self)
       tableView.registerCellNibForClass(ChallengeBannerCell.self)
@@ -46,12 +50,24 @@ class ChallengeViewController: BindableViewController {
         self?.viewModel.input.refresh.trigger()
         (self?.tabBarController as? ChallengeTabBarController)?.updateChatIcon()
       }
-      let footer = NormalFooterAnimator().apply { footer in
-        footer.noMoreDataDescription = ""
-      }
-      tableView.cr.addFootRefresh(animator: footer) { [weak self] in
+      tableView.infiniteScrollIndicatorStyle = {
+        if #available(iOS 12.0, *) {
+          if traitCollection.userInterfaceStyle == .dark {
+            return .white
+          } else {
+            return .gray
+          }
+        } else {
+          return .gray
+        }
+      }()
+      tableView.addInfiniteScroll { [weak self] _ in
         self?.viewModel.input.infiniteScrollTriggered.trigger()
       }
+      tableView.setShouldShowInfiniteScrollHandler { [weak self] _ -> Bool in
+        return self?.shouldShowInfScroll ?? false
+      }
+      tableView.infiniteScrollTriggerOffset = 300
       tableView.rx.itemSelected
         .do(onNext: { [weak self] indexPath in
           self?.tableView.deselectRow(at: indexPath, animated: true)
@@ -108,10 +124,10 @@ class ChallengeViewController: BindableViewController {
       .ignore(disposedBy: disposeBag)
     
     viewModel.output.loading
-      .do(onNext: { [weak self] spin in
-        spin ? self?.showLoadingBar() : self?.hideLoadingBar()
+      .do(onNext: { [weak self] loading in
+        loading ? self?.showLoadingBar() : self?.hideLoadingBar()
         
-        if !spin {
+        if !loading {
           self?.tableView.cr.endHeaderRefresh()
         }
       })
@@ -119,10 +135,10 @@ class ChallengeViewController: BindableViewController {
     
     viewModel.output.doneLoadingMore
       .subscribe(onNext: { [weak self] count in
-        self?.tableView.cr.endLoadingMore()
+        self?.tableView.finishInfiniteScroll()
 
         if let count = count, count == 0 {
-          self?.tableView.cr.noticeNoMoreData()
+          self?.shouldShowInfScroll = false
         }
       })
       .disposed(by: disposeBag)
@@ -135,7 +151,7 @@ class ChallengeViewController: BindableViewController {
     
     viewModel.output.resetNoMore
       .subscribe(onNext: { [weak self] _ in
-        self?.tableView.cr.resetNoMore()
+        self?.shouldShowInfScroll = true
       })
       .disposed(by: disposeBag)
   }
