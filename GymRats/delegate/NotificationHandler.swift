@@ -61,9 +61,10 @@ class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
         }
         .disposed(by: disposeBag)
     case .workoutComment:
-      guard let id = aps.gr.workoutId else { return }
+      guard let workoutId = aps.gr.workoutId else { return }
+      guard let challengeId = aps.gr.challengeId else { return }
       
-      Observable.zip(gymRatsAPI.getWorkout(id: id), gymRatsAPI.getChallenge(id: id))
+      Observable.zip(gymRatsAPI.getWorkout(id: workoutId), gymRatsAPI.getChallenge(id: challengeId))
         .subscribe { event in
           guard let (w, c) = event.element else { return }
           

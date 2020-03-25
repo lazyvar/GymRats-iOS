@@ -95,6 +95,11 @@ enum GymRats {
     NotificationCenter.default.post(.appEnteredForeground)
   }
   
+  /// Called when the app entered the background state.
+  static func didEnterBackground() {
+    NotificationCenter.default.post(.appEnteredBackground)
+  }
+  
   /// Removes the current account and shows the welcome screen
   static func logout() {
     gymRatsAPI.deleteDevice()
