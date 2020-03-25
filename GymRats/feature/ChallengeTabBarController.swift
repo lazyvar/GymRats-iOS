@@ -45,6 +45,8 @@ class ChallengeTabBarController: ESTabBarController {
       }
     ]
     
+    NotificationCenter.default.addObserver(self, selector: #selector(updateChatIcon), name: .appEnteredForeground, object: nil)
+    
     configureTabBar()
     selectedIndex = 1
     didHijackHandler = hijack
@@ -53,7 +55,7 @@ class ChallengeTabBarController: ESTabBarController {
   
   private var chatItem: UITabBarItem? { return tabBar.items?[safe: 2] }
 
-  func updateChatIcon() {
+  @objc func updateChatIcon() {
     gymRatsAPI.getChatNotificationCount(for: challenge)
       .subscribe(onNext: { [weak self] result in
         let count = result.object?.count ?? 0

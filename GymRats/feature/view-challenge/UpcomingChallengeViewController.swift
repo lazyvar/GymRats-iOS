@@ -78,11 +78,13 @@ class UpcomingChallengeViewController: UICollectionViewController {
         let editButton = UIBarButtonItem(image: edit, style: .plain, target: self, action: #selector(editChallenge))
         
         navigationItem.rightBarButtonItems = [chatItem, editButton, button]
-        
+      
+      NotificationCenter.default.addObserver(self, selector: #selector(refreshChatIcon), name: .appEnteredForeground, object: nil)
+      
         fetchUsers()
     }
     
-    func refreshChatIcon() {
+    @objc func refreshChatIcon() {
       gymRatsAPI.getChatNotificationCount(for: challenge)
         .subscribe(onNext: { [weak self] result in
           let count = result.object?.count ?? 0
