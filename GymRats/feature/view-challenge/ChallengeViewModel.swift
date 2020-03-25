@@ -46,8 +46,8 @@ final class ChallengeViewModel: ViewModel {
   }
   
   init() {
-    let workoutCreated = NotificationCenter.default.rx.notification(.workoutCreated).map { _ in () }
-    let workoutDeleted = NotificationCenter.default.rx.notification(.workoutDeleted).map { _ in () }
+    let workoutCreated = NotificationCenter.default.rx.notification(.workoutCreated).map { _ in () }.share()
+    let workoutDeleted = NotificationCenter.default.rx.notification(.workoutDeleted).map { _ in () }.share()
     let appEnteredForeground = NotificationCenter.default.rx.notification(.appEnteredForeground).map { _ in () }.share()
     
     appEnteredForeground
@@ -76,6 +76,10 @@ final class ChallengeViewModel: ViewModel {
       .bind(to: output.resetNoMore)
       .disposed(by: disposeBag)
 
+    Observable.merge(workoutCreated, workoutDeleted).map { _ in true }
+      .bind(to: output.loading)
+      .disposed(by: disposeBag)
+    
     Observable.merge(cleanRefreshWorkouts, loadNextPage).map { _ in false }
       .bind(to: output.loading)
       .disposed(by: disposeBag)
