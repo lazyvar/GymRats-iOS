@@ -24,6 +24,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>GYM_RATS_ENV</key>
+	<string>$(GYM_RATS_ENV)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -79,7 +81,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>GYM_RATS_ENV</key>
-	<string>$(GYM_RATS_ENV)</string>
 </dict>
 </plist>

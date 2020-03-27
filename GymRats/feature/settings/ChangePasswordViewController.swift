@@ -145,12 +145,14 @@ class ChangePasswordController: GRFormViewController {
         
         let valuesDictionary = form.values()
         let newPassword = valuesDictionary["new_password"] as! String
+        let currentPassword = valuesDictionary["current_password"] as! String
         
-        showLoadingBar()
+      showLoadingBar()
       
-        gymRatsAPI.updateUser(email: nil, name: nil, password: newPassword, profilePicture: nil)
+      gymRatsAPI.updateUser(email: nil, name: nil, password: newPassword, profilePicture: nil, currentPassword: currentPassword)
           .subscribe(onNext: { [weak self] result in
             guard let self = self else { return }
+            self.hideLoadingBar()
             
             switch result {
             case .success(let account):

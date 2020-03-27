@@ -61,11 +61,8 @@ class ChatViewController: MessagesViewController {
     messagesCollectionView.messageCellDelegate = self
     messagesCollectionView.messagesDisplayDelegate = self
     
-    NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: .chatNotification, object: nil)
-
-    NotificationCenter.default.addObserver(self, selector: #selector(connectSocket), name: .appEnteredForeground, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(appEnteredForeground), name: .appEnteredForeground, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(disconnectSocket), name: .appEnteredBackground, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: .appEnteredForeground, object: nil)
 
     messagesCollectionView.alpha = 0
     
@@ -79,8 +76,6 @@ class ChatViewController: MessagesViewController {
         }
       })
       .disposed(by: disposeBag)
-    
-    
     
     gymRatsAPI.seeChatNotifications(for: challenge)
       .ignore(disposedBy: disposeBag)
@@ -97,6 +92,14 @@ class ChatViewController: MessagesViewController {
     super.viewWillDisappear(animated)
 
     disconnectSocket()
+  }
+  
+  @objc private func appEnteredForeground() {
+    // 😭
+    if UIViewController.topmost() == self {
+      refresh()
+      connectSocket()
+    }
   }
   
   @objc private func connectSocket() {

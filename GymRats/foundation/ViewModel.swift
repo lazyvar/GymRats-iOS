@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import Kingfisher
+import MMDrawerController
 
 protocol ViewModel {
   associatedtype Intput
@@ -115,7 +116,6 @@ extension Decodable {
 
 extension Notification {
   static let commentNotification = Notification(name: .commentNotification)
-  static let chatNotification = Notification(name: .chatNotification)
   static let challengeEdited = Notification(name: .challengeEdited)
   static let leftChallenge = Notification(name: .leftChallenge)
   static let workoutCreated = Notification(name: .workoutCreated)
@@ -159,24 +159,26 @@ extension Keychain.Key where Object == Account {
 }
 
 extension UIWindow {
-    func topmostViewController() -> UIViewController {
-      func recurse(_ viewController: UIViewController) -> UIViewController {
-        switch viewController {
-          case let tabBarViewController as UITabBarController:
-            return recurse(tabBarViewController.selectedViewController ?? tabBarViewController)
-          case let navigationViewController as UINavigationController:
-            return recurse(navigationViewController.viewControllers.last ?? navigationViewController)
-          default:
-            if let presentedViewController = viewController.presentedViewController, !presentedViewController.isBeingDismissed {
-              return recurse(presentedViewController)
-            } else {
-              return viewController
-            }
+  func topmostViewController() -> UIViewController {
+    func recurse(_ viewController: UIViewController) -> UIViewController {
+      switch viewController {
+      case let drawer as DrawerViewController:
+        return recurse((drawer.children.first as? MMDrawerController)?.centerViewController ?? drawer)
+      case let tabBarViewController as UITabBarController:
+        return recurse(tabBarViewController.selectedViewController ?? tabBarViewController)
+      case let navigationViewController as UINavigationController:
+        return recurse(navigationViewController.viewControllers.last ?? navigationViewController)
+      default:
+        if let presentedViewController = viewController.presentedViewController, !presentedViewController.isBeingDismissed {
+          return recurse(presentedViewController)
+        } else {
+          return viewController
         }
       }
-      
-      return recurse(rootViewController!)
     }
+    
+    return recurse(rootViewController!)
+  }
 }
 
 extension UIViewController {
