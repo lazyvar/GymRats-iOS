@@ -97,7 +97,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
 
       showLoadingBar()
         
-      gymRatsAPI.updateUser(email: nil, name: nil, password: nil, profilePicture: image)
+      gymRatsAPI.updateUser(email: nil, name: nil, password: nil, profilePicture: image, currentPassword: nil)
         .subscribe(onNext: { [weak self] result in
           self?.hideLoadingBar()
           
