@@ -24,7 +24,7 @@ enum APIRequest {
   case getAllWorkoutsForUser(user: Account)
   case getWorkouts(forUser: Account, inChallenge: Challenge)
   case postWorkout(_ workout: NewWorkout, photoURL: String?, challenges: [Int])
-  case updateUser(email: String?, name: String?, password: String?, profilePictureUrl: String?)
+  case updateUser(email: String?, name: String?, password: String?, profilePictureUrl: String?, currentPassword: String?)
   case deleteWorkout(_ workout: Workout)
   case getCommentsForWorkout(_ workout: Workout)
   case postComment(comment: String, workout: Workout)
@@ -145,7 +145,7 @@ enum APIRequest {
       }
 
       return (.post, "workouts", params)
-    case .updateUser(let email, let name, let password, let profilePictureUrl):
+    case .updateUser(let email, let name, let password, let profilePictureUrl, let currentPassword):
       var params: Parameters = [:]
       
       if let email = email {
@@ -156,6 +156,10 @@ enum APIRequest {
         params["password"] = password
       }
       
+      if let currentPassword = currentPassword {
+        params["current_password"] = currentPassword
+      }
+
       if let profilePictureUrl = profilePictureUrl {
         params["profile_picture_url"] = profilePictureUrl
       }

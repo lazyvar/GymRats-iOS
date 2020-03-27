@@ -119,7 +119,7 @@ class GymRatsAPI {
     return requestArray(.getMembersForChallenge(challenge))
   }
   
-  func updateUser(email: String?, name: String?, password: String?, profilePicture: UIImage?) -> Observable<NetworkResult<Account>> {
+  func updateUser(email: String?, name: String?, password: String?, profilePicture: UIImage?, currentPassword: String?) -> Observable<NetworkResult<Account>> {
     return Observable<UIImage?>.just(profilePicture)
       .flatMap { image -> Observable<String?> in
         guard let image = image else { return .just(nil) }
@@ -127,7 +127,7 @@ class GymRatsAPI {
         return ImageService.uploadImageToFirebase(image: image).map { url -> String? in url }
       }
       .flatMap { url in
-        return self.requestObject(.updateUser(email: email, name: name, password: password, profilePictureUrl: url))
+        return self.requestObject(.updateUser(email: email, name: name, password: password, profilePictureUrl: url, currentPassword: currentPassword))
       }
   }
   

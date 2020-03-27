@@ -82,7 +82,7 @@ class ProfileChangeController: UIViewController, UITextFieldDelegate {
         
         switch change {
         case .fullName:
-            observable = gymRatsAPI.updateUser(email: nil, name: text, password: nil, profilePicture: nil)
+          observable = gymRatsAPI.updateUser(email: nil, name: text, password: nil, profilePicture: nil, currentPassword: nil)
         case .email:
             guard text.isValidEmail() else {
                 presentAlert(title: "Invalid Email", message: "Please provide a valid email address.")
@@ -90,7 +90,7 @@ class ProfileChangeController: UIViewController, UITextFieldDelegate {
                 return
             }
             
-           observable = gymRatsAPI.updateUser(email: text, name: nil, password: nil, profilePicture: nil)
+            observable = gymRatsAPI.updateUser(email: text, name: nil, password: nil, profilePicture: nil, currentPassword: nil)
         }
       
         showLoadingBar()

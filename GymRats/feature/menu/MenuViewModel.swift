@@ -72,7 +72,13 @@ final class MenuViewModel: ViewModel {
       .do(onNext: { challenge in
         UserDefaults.standard.set(challenge.id, forKey: "last_opened_challenge")
       })
-      .map { challenge -> (Navigation, Screen) in (.replaceDrawerCenter(animated: true), .activeChallenge(challenge)) }
+      .map { challenge -> (Navigation, Screen) in
+        if challenge.isActive {
+          return (.replaceDrawerCenter(animated: true), .activeChallenge(challenge))
+        } else {
+          return (.replaceDrawerCenterInNav(animated: true), .upcomingChallenge(challenge))
+        }
+      }
       .bind(to: output.navigation)
       .disposed(by: disposeBag)
     
