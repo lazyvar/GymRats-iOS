@@ -143,9 +143,16 @@ enum GymRats {
 
 private extension GymRats {
   private static func branchCallback(params: [AnyHashable: Any]?, error: Error?) {
-    print("BRANCH")
-    print(params)
-    print(error)
+    guard let nonBranchLink = params?["+non_branch_link"] as? String else { return }
+    guard let codeSubstring = nonBranchLink.split(separator: "/").last else { return }
+
+    let code = String(codeSubstring)
+    
+    if Account.loadCurrent() != nil {
+      ChallengeFlow.join(code: code)
+    } else {
+      // save and join after sign up / log in
+    }
   }
   
   private static func registerForNotifications() {

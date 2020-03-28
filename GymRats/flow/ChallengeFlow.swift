@@ -48,6 +48,10 @@ enum ChallengeFlow {
     UIViewController.topmost().present(alert, animated: true, completion: nil)
   }
   
+  static func join(code: String) {
+    
+  }
+  
   static func join() -> Observable<Challenge> {
     return .create { observer in
       let disposeBag = DisposeBag()
