@@ -12,6 +12,7 @@ import UserNotifications
 import GooglePlaces
 import Firebase
 import MapKit
+import Branch
 
 /// God object. Handles AppDelegate functions among other things.
 enum GymRats {
@@ -20,9 +21,11 @@ enum GymRats {
   
   static private var window: UIWindow!
   static private var application: UIApplication!
+  static private var branch: Branch!
+
   static private let disposeBag = DisposeBag()
   static private let notificationHandler = NotificationHandler()
-  
+
   static private var coldStartNotification: [AnyHashable: Any]? {
     get {
       return notificationHandler.coldStartNotification
@@ -36,6 +39,15 @@ enum GymRats {
   static func initialize(window: UIWindow, application: UIApplication) {
     self.window = window
     self.application = application
+    
+    switch environment {
+    case .development, .preProduction:
+      Branch.setUseTestBranchKey(true)
+    case .production:
+      break
+    }
+    
+    self.branch = Branch.getInstance()
   }
   
   /// Called at the very start of the application.
@@ -60,6 +72,8 @@ enum GymRats {
     }
     
     window.makeKeyAndVisible()
+    
+    branch.initSession(launchOptions: launchOptions, andRegisterDeepLinkHandler: branchCallback)
     
     #if DEBUG
     NetworkActivityLogger.shared.level = .debug
@@ -100,6 +114,14 @@ enum GymRats {
     NotificationCenter.default.post(.appEnteredBackground)
   }
   
+  static func open(_ url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) {
+    branch.application(application, open: url, options: options)
+  }
+  
+  static func `continue`(_ userActivity: NSUserActivity) -> Void {
+    branch.continue(userActivity)
+  }
+  
   /// Removes the current account and shows the welcome screen
   static func logout() {
     gymRatsAPI.deleteDevice()
@@ -120,6 +142,12 @@ enum GymRats {
 }
 
 private extension GymRats {
+  private static func branchCallback(params: [AnyHashable: Any]?, error: Error?) {
+    print("BRANCH")
+    print(params)
+    print(error)
+  }
+  
   private static func registerForNotifications() {
     UNUserNotificationCenter.current().delegate = notificationHandler
     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in

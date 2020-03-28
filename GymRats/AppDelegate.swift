@@ -29,6 +29,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     return true
   }
 
+  func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    GymRats.open(url, options: options)
+    
+    return true
+  }
+
+  func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+    GymRats.continue(userActivity)
+    
+    return true
+  }
+  
   func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
     GymRats.didRegisterForRemoteNotifications(withDeviceToken: deviceToken)
   }
