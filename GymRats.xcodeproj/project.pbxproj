@@ -90,6 +90,9 @@
 		018E9F4D229F7D7E008AB016 /* Challenge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E9F4C229F7D7E008AB016 /* Challenge.storyboard */; };
 		018E9F4F229F7DB1008AB016 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */; };
 		01975EAC23C1204F0031E23A /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01975EAB23C1204F0031E23A /* Track.swift */; };
+		01987A9824300E9500835621 /* ChallengePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01987A9624300E9500835621 /* ChallengePreviewViewController.swift */; };
+		01987A9924300E9500835621 /* ChallengePreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01987A9724300E9500835621 /* ChallengePreviewViewController.xib */; };
+		01987A9B24300EB200835621 /* ChallengePreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01987A9A24300EB200835621 /* ChallengePreviewViewModel.swift */; };
 		019CF1FB232722FF00D884DA /* BigContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019CF1FA232722FF00D884DA /* BigContentView.swift */; };
 		01A03B7F2422E69A0099760F /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A03B7E2422E69A0099760F /* Environment.swift */; };
 		01A1CD24233AF6B8005871F4 /* EditChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1CD23233AF6B8005871F4 /* EditChallengeViewController.swift */; };
@@ -310,6 +313,9 @@
 		018E9F4C229F7D7E008AB016 /* Challenge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Challenge.storyboard; sourceTree = "<group>"; };
 		018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
 		01975EAB23C1204F0031E23A /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		01987A9624300E9500835621 /* ChallengePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengePreviewViewController.swift; sourceTree = "<group>"; };
+		01987A9724300E9500835621 /* ChallengePreviewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengePreviewViewController.xib; sourceTree = "<group>"; };
+		01987A9A24300EB200835621 /* ChallengePreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengePreviewViewModel.swift; sourceTree = "<group>"; };
 		019CF1FA232722FF00D884DA /* BigContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigContentView.swift; sourceTree = "<group>"; };
 		01A03B7E2422E69A0099760F /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		01A03B812422EAD20099760F /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
@@ -535,6 +541,16 @@
 				01297D832329E79000CA9E41 /* SF-Pro-Rounded-Bold.otf */,
 			);
 			path = "SF Rounded";
+			sourceTree = "<group>";
+		};
+		01987A9524300E7D00835621 /* preview */ = {
+			isa = PBXGroup;
+			children = (
+				01987A9624300E9500835621 /* ChallengePreviewViewController.swift */,
+				01987A9724300E9500835621 /* ChallengePreviewViewController.xib */,
+				01987A9A24300EB200835621 /* ChallengePreviewViewModel.swift */,
+			);
+			path = preview;
 			sourceTree = "<group>";
 		};
 		01A03B802422EABC0099760F /* config */ = {
@@ -817,6 +833,7 @@
 		747D6FBA2208DBD70062BB39 /* feature */ = {
 			isa = PBXGroup;
 			children = (
+				01987A9524300E7D00835621 /* preview */,
 				011FB63122A3736D004D5B8E /* completed-challenges */,
 				74C2D84C222C3D0C00FF0DE2 /* about */,
 				01213CE0241E9C53008461B0 /* chat */,
@@ -1113,6 +1130,7 @@
 				01297D902329E79000CA9E41 /* SF-Pro-Rounded-Black.otf in Resources */,
 				74118066220C58C300EB9D11 /* Lato-Light.ttf in Resources */,
 				747D6FA42208DB330062BB39 /* LaunchScreen.storyboard in Resources */,
+				01987A9924300E9500835621 /* ChallengePreviewViewController.xib in Resources */,
 				01297D842329E79000CA9E41 /* SF-Compact-Rounded-Medium.otf in Resources */,
 				01F5296124184A7300FA96E0 /* NoChallengesViewController.xib in Resources */,
 				74118065220C58C300EB9D11 /* Lato-Italic.ttf in Resources */,
@@ -1300,6 +1318,7 @@
 				01F5294E2417FCD900FA96E0 /* HomeViewModel.swift in Sources */,
 				01A3EB13237747D30097FC2A /* CVStatus.swift in Sources */,
 				747D6FDA2208E8130062BB39 /* KeychainResult.swift in Sources */,
+				01987A9B24300EB200835621 /* ChallengePreviewViewModel.swift in Sources */,
 				01F5296924184BE600FA96E0 /* HeaderTwoLabel.swift in Sources */,
 				01A3EB1F237747D30097FC2A /* CVCalendarContentPresentationCoordinator.swift in Sources */,
 				01A3EB12237747D30097FC2A /* CVCalendarViewAppearance.swift in Sources */,
@@ -1385,6 +1404,7 @@
 				01A3EB16237747D30097FC2A /* CVCalendarContentViewController.swift in Sources */,
 				01A3EB1C237747D30097FC2A /* CVSet.swift in Sources */,
 				0107C7DB241AEE42005650FB /* State.swift in Sources */,
+				01987A9824300E9500835621 /* ChallengePreviewViewController.swift in Sources */,
 				01F7D7662422899000B2D5D8 /* NoWorkoutsCell.swift in Sources */,
 				011DAE98241ADC69009B3613 /* Navigation.swift in Sources */,
 				747D6FE52208ED6F0062BB39 /* LoginViewController.swift in Sources */,

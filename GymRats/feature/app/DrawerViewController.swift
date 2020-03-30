@@ -16,9 +16,18 @@ class DrawerViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
   
+    defer { UserDefaults.standard.removeObject(forKey: "join-code") }
+    
     let menu = MenuViewController()
-    let home = HomeViewController().inNav()
-    let drawer = MMDrawerController(center: home, leftDrawerViewController: menu).apply {
+    let center: UIViewController
+    
+    if let code = UserDefaults.standard.string(forKey: "join-code") {
+      center = ChallengePreviewViewController(code: code)
+    } else {
+      center = HomeViewController().inNav()
+    }
+    
+    let drawer = MMDrawerController(center: center, leftDrawerViewController: menu).apply {
       $0.view.backgroundColor = .background
       $0.showsShadow = false
       $0.maximumLeftDrawerWidth = MenuViewController.width

@@ -127,6 +127,7 @@ enum GymRats {
     gymRatsAPI.deleteDevice()
       .ignore(disposedBy: disposeBag)
 
+    UserDefaults.standard.removeObject(forKey: "join-code")
     currentAccount = nil
     Account.removeCurrent()
     window.rootViewController = WelcomeViewController().inNav()
@@ -151,7 +152,7 @@ private extension GymRats {
     if Account.loadCurrent() != nil {
       ChallengeFlow.join(code: code)
     } else {
-      // save and join after sign up / log in
+      UserDefaults.standard.set(code, forKey: "join-code")
     }
   }
   

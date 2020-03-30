@@ -40,6 +40,7 @@ enum APIRequest {
   case deleteComment(id: Int)
   case getMembersForChallenge(_ challenge: Challenge)
   case challengeInfo(challenge: Challenge)
+  case getChallengeForCode(code: String)
   
   var requestProperties: (method: HTTPMethod, path: String, params: Parameters?) {
     switch self {
@@ -61,6 +62,8 @@ enum APIRequest {
       return (.post, "passwords", ["email": email])
     case .getAllChallenges:
       return (.get, "challenges", nil)
+    case .getChallengeForCode(let code):
+      return (.get, "challenges?code=\(code)", nil)
     case .getCompletedChallenges:
       return (.get, "challenges?filter=complete", nil)
     case .joinChallenge(let code):
