@@ -23,7 +23,7 @@ target 'GymRats' do
     pod 'EasyNotificationBadge'
     pod 'MessageKit'
     pod 'Pageboy', '~> 3.2'
-    pod 'SkeletonView', :git => 'git@github.com:lazyvar/SkeletonView.git'
+    pod 'SkeletonView'
     pod 'ESTabBarController-swift'
     pod 'NVActivityIndicatorView/AppExtension'
     pod "RxGesture"
