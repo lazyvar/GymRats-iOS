@@ -27,14 +27,23 @@ class CreateAccountViewController: GRFormViewController {
     }
     
     tableView.backgroundColor = .background
+    tableView.separatorStyle = .none
+    
+    let textFieldRow = TextFieldRow() { row in
+
+    }
     
     form = form
       +++ userInfoSection
-        <<< profilePictureRow
-        <<< emailRow
-        <<< fullNameRow
-        <<< passwordRow
-        <<< confirmPasswordRow
+        <<< textFieldRow
+        <<< textFieldRow
+        <<< textFieldRow
+        <<< textFieldRow
+//        <<< profilePictureRow
+//        <<< emailRow
+//        <<< fullNameRow
+//        <<< passwordRow
+//        <<< confirmPasswordRow
   }
   
   @objc private func createAccountButtonTapped() {
@@ -240,7 +249,7 @@ extension CreateAccountViewController {
         $0.title = validationMessage
         $0.cell.height = { 30 }
       }
-      
+
       section.insert(labelRow, at: validationLabelRowNumber + index)
     }
   }
