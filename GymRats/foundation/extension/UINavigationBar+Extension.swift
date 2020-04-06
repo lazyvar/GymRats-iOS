@@ -9,17 +9,9 @@
 import UIKit
 
 extension UINavigationBar {
-    
-    func turnBrandColorSlightShadow() {
-        isTranslucent = false
-        setBackgroundImage(.brand, for: .default)
-        shadowImage = UIImage()
-    }
-
-    func turnSolidWhiteSlightShadow() {
-        isTranslucent = false
-        setBackgroundImage(UIImage(color: .background), for: .default)
-        shadowImage = UIImage()
-    }
-
+  func turnSolidWhiteSlightShadow() {
+    isTranslucent = false
+    setBackgroundImage(UIImage(color: .background), for: .default)
+    shadowImage = UIImage()
+  }
 }

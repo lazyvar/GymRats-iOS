@@ -11,7 +11,6 @@ import RxSwift
 import RxCocoa
 
 class HomeViewController: BindableViewController {
-
   private let viewModel = HomeViewModel()
   private let disposeBag = DisposeBag()
   
