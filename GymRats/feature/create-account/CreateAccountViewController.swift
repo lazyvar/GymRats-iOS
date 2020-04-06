@@ -153,6 +153,7 @@ class CreateAccountViewController: GRFormViewController {
       passwordRow.placeholder = "Password"
       passwordRow.tag = "password"
       passwordRow.secure = true
+      passwordRow.icon = .lock
       passwordRow.add(rule: RuleRequired())
       passwordRow.add(rule: RuleMinLength(minLength: 6))
       passwordRow.add(rule: RuleMaxLength(maxLength: 16))
@@ -165,6 +166,7 @@ class CreateAccountViewController: GRFormViewController {
       passwordRow.placeholder = "Confirm password"
       passwordRow.tag = "confirm_pass"
       passwordRow.secure = true
+      passwordRow.icon = .check
       passwordRow.add(rule: RuleEqualsToRow(form: form, tag: "password"))
     }
     .onRowValidationChanged(self.handleRowValidationChange)
@@ -174,6 +176,7 @@ class CreateAccountViewController: GRFormViewController {
     return TextFieldRow() { textRow in
       textRow.placeholder = "Full name"
       textRow.tag = "full_name"
+      textRow.icon = .name
       textRow.add(rule: RuleRequired())
     }
     .onRowValidationChanged(self.handleRowValidationChange)
@@ -181,6 +184,7 @@ class CreateAccountViewController: GRFormViewController {
   
   private lazy var emailRow: TextFieldRow = {
     return TextFieldRow() { emailRow in
+      emailRow.icon = .mail
       emailRow.placeholder = "Email"
       emailRow.tag = "email"
       emailRow.add(rule: RuleEmail())

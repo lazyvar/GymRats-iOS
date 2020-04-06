@@ -23,4 +23,8 @@ extension UIImage {
   static let chevronLeft = UIImage(named: "chevron-left")!
   static let eyeOn = UIImage(named: "eye-on")!
   static let eyeOff = UIImage(named: "eye-off")!
+  static let name = UIImage(named: "name")!
+  static let check = UIImage(named: "check")!
+  static let mail = UIImage(named: "mail")!
+  static let lock = UIImage(named: "lock")!
 }

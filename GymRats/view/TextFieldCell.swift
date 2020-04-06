@@ -30,7 +30,10 @@ class TextFieldCell: Cell<String>, Eureka.TextFieldCell, CellType {
     textField?.isSecureTextEntry = (textFieldRow?.secure ?? false) && secureState
     
     if let icon = textFieldRow?.icon {
-      textField?.leftView = UIImageView(image: icon)
+      textField?.leftViewMode = .always
+      textField?.leftView = UIImageView(image: icon).apply {
+        $0.tintColor = .primaryText
+      }
     }
     
     if textFieldRow?.secure ?? false {
