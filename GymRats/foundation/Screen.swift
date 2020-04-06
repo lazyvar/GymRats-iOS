@@ -56,7 +56,7 @@ enum Screen {
     case .login:
       return LoginViewController()
     case .getStarted:
-      return SignupViewController()
+      return CreateAccountViewController()
     case .about:
       return AboutViewController()
     case .currentAccount(let account):

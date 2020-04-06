@@ -91,6 +91,7 @@
 		0176B673243B9AA20022B65F /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176B672243B9AA20022B65F /* UIColor+Extension.swift */; };
 		0176B675243B9AD00022B65F /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176B674243B9AD00022B65F /* UIImage+Extension.swift */; };
 		0176B677243B9EAD0022B65F /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176B676243B9EAD0022B65F /* UIDevice+Extension.swift */; };
+		0176B67A243BAF740022B65F /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176B679243BAF740022B65F /* CreateAccountViewController.swift */; };
 		017E10B32429674600CBBB92 /* ChallengeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017E10B22429674600CBBB92 /* ChallengeRow.swift */; };
 		01863FB9241C66E2001B3CE2 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01863FB8241C66E2001B3CE2 /* Alert.swift */; };
 		018E9F4D229F7D7E008AB016 /* Challenge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E9F4C229F7D7E008AB016 /* Challenge.storyboard */; };
@@ -143,6 +144,9 @@
 		01BFF909223DB1C30044F802 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF908223DB1C30044F802 /* ChatMessage.swift */; };
 		01BFF90E223DE26C0044F802 /* APS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BFF90D223DE26C0044F802 /* APS.swift */; };
 		01C926E8233FB96E00C1C128 /* ShareCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C926E7233FB96E00C1C128 /* ShareCodeViewController.swift */; };
+		01D5D362243BB8F20044E459 /* GymRatsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5D361243BB8F20044E459 /* GymRatsNavigationController.swift */; };
+		01D5D364243BB9E10044E459 /* NavigationTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5D363243BB9E10044E459 /* NavigationTransitionAnimator.swift */; };
+		01D5D366243BBA9F0044E459 /* NavigationTransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5D365243BBA9F0044E459 /* NavigationTransitionCoordinator.swift */; };
 		01E68FD422D29ACC004E1218 /* WorkoutHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E68FD322D29ACC004E1218 /* WorkoutHeaderView.swift */; };
 		01E68FD622D29AEA004E1218 /* WorkoutHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01E68FD522D29AEA004E1218 /* WorkoutHeaderView.xib */; };
 		01E833E42325BF7300C66C72 /* ChallengeBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E833E22325BF7300C66C72 /* ChallengeBannerCell.swift */; };
@@ -174,7 +178,6 @@
 		74118067220C58C300EB9D11 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74118057220C55B500EB9D11 /* Lato-LightItalic.ttf */; };
 		74118068220C58C300EB9D11 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74118058220C55B600EB9D11 /* Lato-Regular.ttf */; };
 		743050622209EA82005D8C52 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743050612209EA82005D8C52 /* UIViewController+Extension.swift */; };
-		743050652209EB9A005D8C52 /* UINavigationBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743050642209EB9A005D8C52 /* UINavigationBar+Extension.swift */; };
 		7432459D2214FAF800A13634 /* ChangeProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7432459C2214FAF800A13634 /* ChangeProfileViewController.swift */; };
 		7432459F2214FE4D00A13634 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7432459E2214FE4D00A13634 /* ChangePasswordViewController.swift */; };
 		7455AC5E22125296005A558A /* ServiceResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7455AC5D22125296005A558A /* ServiceResponse.swift */; };
@@ -316,6 +319,7 @@
 		0176B672243B9AA20022B65F /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		0176B674243B9AD00022B65F /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		0176B676243B9EAD0022B65F /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
+		0176B679243BAF740022B65F /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		017E10B22429674600CBBB92 /* ChallengeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeRow.swift; sourceTree = "<group>"; };
 		01863FB8241C66E2001B3CE2 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		018E9F4C229F7D7E008AB016 /* Challenge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Challenge.storyboard; sourceTree = "<group>"; };
@@ -372,6 +376,9 @@
 		01BFF90C223DE1B60044F802 /* GymRats.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GymRats.entitlements; sourceTree = "<group>"; };
 		01BFF90D223DE26C0044F802 /* APS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APS.swift; sourceTree = "<group>"; };
 		01C926E7233FB96E00C1C128 /* ShareCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCodeViewController.swift; sourceTree = "<group>"; };
+		01D5D361243BB8F20044E459 /* GymRatsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymRatsNavigationController.swift; sourceTree = "<group>"; };
+		01D5D363243BB9E10044E459 /* NavigationTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTransitionAnimator.swift; sourceTree = "<group>"; };
+		01D5D365243BBA9F0044E459 /* NavigationTransitionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationTransitionCoordinator.swift; sourceTree = "<group>"; };
 		01E68FD322D29ACC004E1218 /* WorkoutHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHeaderView.swift; sourceTree = "<group>"; };
 		01E68FD522D29AEA004E1218 /* WorkoutHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutHeaderView.xib; sourceTree = "<group>"; };
 		01E833E22325BF7300C66C72 /* ChallengeBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeBannerCell.swift; sourceTree = "<group>"; };
@@ -409,7 +416,6 @@
 		7411805D220C55B600EB9D11 /* Lato-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Italic.ttf"; sourceTree = "<group>"; };
 		7411805E220C55B600EB9D11 /* Lato-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-BlackItalic.ttf"; sourceTree = "<group>"; };
 		743050612209EA82005D8C52 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
-		743050642209EB9A005D8C52 /* UINavigationBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Extension.swift"; sourceTree = "<group>"; };
 		7432459C2214FAF800A13634 /* ChangeProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeProfileViewController.swift; sourceTree = "<group>"; };
 		7432459E2214FE4D00A13634 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		7455AC5D22125296005A558A /* ServiceResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceResponse.swift; sourceTree = "<group>"; };
@@ -547,6 +553,15 @@
 			path = "SF Rounded";
 			sourceTree = "<group>";
 		};
+		0176B678243BA8690022B65F /* create-account */ = {
+			isa = PBXGroup;
+			children = (
+				747D6FE62208ED780062BB39 /* SignupViewController.swift */,
+				0176B679243BAF740022B65F /* CreateAccountViewController.swift */,
+			);
+			path = "create-account";
+			sourceTree = "<group>";
+		};
 		01A03B802422EABC0099760F /* config */ = {
 			isa = PBXGroup;
 			children = (
@@ -601,6 +616,16 @@
 				01A3EB0D237747D30097FC2A /* CVPresent.swift */,
 			);
 			path = CVCalendar;
+			sourceTree = "<group>";
+		};
+		01D5D360243BB8920044E459 /* navigation-animation */ = {
+			isa = PBXGroup;
+			children = (
+				01D5D361243BB8F20044E459 /* GymRatsNavigationController.swift */,
+				01D5D363243BB9E10044E459 /* NavigationTransitionAnimator.swift */,
+				01D5D365243BBA9F0044E459 /* NavigationTransitionCoordinator.swift */,
+			);
+			path = "navigation-animation";
 			sourceTree = "<group>";
 		};
 		01F529572418348D00FA96E0 /* state */ = {
@@ -799,6 +824,7 @@
 		747D6FB92208DBCF0062BB39 /* foundation */ = {
 			isa = PBXGroup;
 			children = (
+				01D5D360243BB8920044E459 /* navigation-animation */,
 				747D6FC12208DC9A0062BB39 /* extension */,
 				747D6FC82208DCE60062BB39 /* AlamofireNetworkActivityLogger.swift */,
 				747D6FCC2208DE8E0062BB39 /* NetworkProvider.swift */,
@@ -839,6 +865,7 @@
 				74305072220A067C005D8C52 /* home */,
 				01F5296224184A8500FA96E0 /* no-challenges */,
 				747D6FE12208ED550062BB39 /* welcome */,
+				0176B678243BA8690022B65F /* create-account */,
 				747D6FBE2208DC790062BB39 /* app */,
 				013D0250241979B80063F189 /* ChallengeTabBarController.swift */,
 			);
@@ -876,7 +903,6 @@
 				747D6FC22208DCAB0062BB39 /* Observable+Extension.swift */,
 				747D6FC42208DCB60062BB39 /* UIView+Extension.swift */,
 				743050612209EA82005D8C52 /* UIViewController+Extension.swift */,
-				743050642209EB9A005D8C52 /* UINavigationBar+Extension.swift */,
 				74A01B4D220A83FD00431ABD /* UIDate+Extension.swift */,
 				746764E2220B6D5C000CFB1B /* Collection+Extension.swift */,
 				01BFF906223DAFD90044F802 /* UIBarButton+Extension.swift */,
@@ -938,7 +964,6 @@
 				0176B66D243B99E50022B65F /* WelcomeViewController.xib */,
 				0176B670243B99F30022B65F /* WelcomeViewModel.swift */,
 				747D6FE42208ED6F0062BB39 /* LoginViewController.swift */,
-				747D6FE62208ED780062BB39 /* SignupViewController.swift */,
 			);
 			path = welcome;
 			sourceTree = "<group>";
@@ -1380,8 +1405,8 @@
 				0176B673243B9AA20022B65F /* UIColor+Extension.swift in Sources */,
 				01A3EB0F237747D30097FC2A /* CVWeekdaySymbolType.swift in Sources */,
 				747D6FC92208DCE60062BB39 /* AlamofireNetworkActivityLogger.swift in Sources */,
-				743050652209EB9A005D8C52 /* UINavigationBar+Extension.swift in Sources */,
 				748DFB8E2210B2EA007220C7 /* Place.swift in Sources */,
+				0176B67A243BAF740022B65F /* CreateAccountViewController.swift in Sources */,
 				74A01B3B220A544F00431ABD /* UserWorkoutTableViewCell.swift in Sources */,
 				0176B675243B9AD00022B65F /* UIImage+Extension.swift in Sources */,
 				013D02452419401F0063F189 /* Apply.swift in Sources */,
@@ -1391,6 +1416,7 @@
 				0163A2382377AF19006FDDA2 /* StoreService.swift in Sources */,
 				747D6FC32208DCAB0062BB39 /* Observable+Extension.swift in Sources */,
 				01660840239C8CA700FCFD26 /* StatsBabyCell.swift in Sources */,
+				01D5D366243BBA9F0044E459 /* NavigationTransitionCoordinator.swift in Sources */,
 				74A01B46220A778C00431ABD /* WorkoutViewController.swift in Sources */,
 				01A3EB14237747D30097FC2A /* CVCalendarViewAppearanceDelegate.swift in Sources */,
 				0107C7DD241AEEFA005650FB /* MenuViewModel.swift in Sources */,
@@ -1403,6 +1429,7 @@
 				01A3EB16237747D30097FC2A /* CVCalendarContentViewController.swift in Sources */,
 				0176B66E243B99E50022B65F /* WelcomeViewController.swift in Sources */,
 				01A3EB1C237747D30097FC2A /* CVSet.swift in Sources */,
+				01D5D362243BB8F20044E459 /* GymRatsNavigationController.swift in Sources */,
 				0107C7DB241AEE42005650FB /* State.swift in Sources */,
 				01F7D7662422899000B2D5D8 /* NoWorkoutsCell.swift in Sources */,
 				011DAE98241ADC69009B3613 /* Navigation.swift in Sources */,
@@ -1431,6 +1458,7 @@
 				01001A1723C27DC90022AB32 /* LogWorkoutModalViewController.swift in Sources */,
 				747D6FCD2208DE8E0062BB39 /* NetworkProvider.swift in Sources */,
 				747D6FC52208DCB60062BB39 /* UIView+Extension.swift in Sources */,
+				01D5D364243BB9E10044E459 /* NavigationTransitionAnimator.swift in Sources */,
 				74C2D84E222C3D1A00FF0DE2 /* AboutViewController.swift in Sources */,
 				0103A98F24204ED300B589DA /* CreateWorkoutDelegateObject.swift in Sources */,
 				01A3EB15237747D30097FC2A /* CVCalendarMenuViewDelegate.swift in Sources */,

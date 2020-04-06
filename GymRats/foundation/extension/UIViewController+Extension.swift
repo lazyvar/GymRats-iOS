@@ -23,19 +23,14 @@ extension UIViewController {
     }
 
     func inNav() -> UINavigationController {
-      let navigationController = UINavigationController(rootViewController: self)
-      navigationController.navigationBar.tintColor = .primaryText
-      navigationController.navigationBar.turnSolidWhiteSlightShadow()
-
-      return navigationController
+      return GymRatsNavigationController(rootViewController: self)
     }
     
     func setupBackButton() {
-      let yourBackImage = UIImage(named: "chevron-left")!.withRenderingMode(.alwaysTemplate)
+      let chevronLeft = UIImage.chevronLeft.withRenderingMode(.alwaysTemplate)
       
-      navigationController?.navigationBar.tintColor = .lightGray
-      navigationController?.navigationBar.backIndicatorImage = yourBackImage
-      navigationController?.navigationBar.backIndicatorTransitionMaskImage = yourBackImage
+      navigationController?.navigationBar.backIndicatorImage = chevronLeft
+      navigationController?.navigationBar.backIndicatorTransitionMaskImage = chevronLeft
       navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 

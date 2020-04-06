@@ -20,4 +20,5 @@ extension UIImage {
   static let play = UIImage(named: "play")!
   static let gear = UIImage(named: "gear")!
   static let info = UIImage(named: "info")!
+  static let chevronLeft = UIImage(named: "chevron-left")!
 }
