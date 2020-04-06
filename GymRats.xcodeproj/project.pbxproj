@@ -150,6 +150,8 @@
 		01D5D369243BD2700044E459 /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5D367243BD2700044E459 /* TextFieldCell.swift */; };
 		01D5D36A243BD2700044E459 /* TextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D5D368243BD2700044E459 /* TextFieldCell.xib */; };
 		01D5D36D243BD32A0044E459 /* ShadowTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5D36C243BD32A0044E459 /* ShadowTextField.swift */; };
+		01D5D370243BDA7D0044E459 /* ErrorLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5D36E243BDA7D0044E459 /* ErrorLabelCell.swift */; };
+		01D5D371243BDA7D0044E459 /* ErrorLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D5D36F243BDA7D0044E459 /* ErrorLabelCell.xib */; };
 		01E68FD422D29ACC004E1218 /* WorkoutHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E68FD322D29ACC004E1218 /* WorkoutHeaderView.swift */; };
 		01E68FD622D29AEA004E1218 /* WorkoutHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01E68FD522D29AEA004E1218 /* WorkoutHeaderView.xib */; };
 		01E833E42325BF7300C66C72 /* ChallengeBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E833E22325BF7300C66C72 /* ChallengeBannerCell.swift */; };
@@ -384,6 +386,8 @@
 		01D5D367243BD2700044E459 /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
 		01D5D368243BD2700044E459 /* TextFieldCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldCell.xib; sourceTree = "<group>"; };
 		01D5D36C243BD32A0044E459 /* ShadowTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowTextField.swift; sourceTree = "<group>"; };
+		01D5D36E243BDA7D0044E459 /* ErrorLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabelCell.swift; sourceTree = "<group>"; };
+		01D5D36F243BDA7D0044E459 /* ErrorLabelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorLabelCell.xib; sourceTree = "<group>"; };
 		01E68FD322D29ACC004E1218 /* WorkoutHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHeaderView.swift; sourceTree = "<group>"; };
 		01E68FD522D29AEA004E1218 /* WorkoutHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutHeaderView.xib; sourceTree = "<group>"; };
 		01E833E22325BF7300C66C72 /* ChallengeBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeBannerCell.swift; sourceTree = "<group>"; };
@@ -693,6 +697,8 @@
 				01F7D7652422899000B2D5D8 /* NoWorkoutsCell.xib */,
 				01D5D367243BD2700044E459 /* TextFieldCell.swift */,
 				01D5D368243BD2700044E459 /* TextFieldCell.xib */,
+				01D5D36E243BDA7D0044E459 /* ErrorLabelCell.swift */,
+				01D5D36F243BDA7D0044E459 /* ErrorLabelCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1183,6 +1189,7 @@
 				74118060220C58C300EB9D11 /* Lato-BlackItalic.ttf in Resources */,
 				74118063220C58C300EB9D11 /* Lato-Hairline.ttf in Resources */,
 				01297D942329E79000CA9E41 /* SF-Pro-Rounded-Medium.otf in Resources */,
+				01D5D371243BDA7D0044E459 /* ErrorLabelCell.xib in Resources */,
 				0107AE372325E3D300944D11 /* WorkoutCell.xib in Resources */,
 				0176B66F243B99E50022B65F /* WelcomeViewController.xib in Resources */,
 				74A01B3C220A544F00431ABD /* UserWorkoutTableViewCell.xib in Resources */,
@@ -1383,6 +1390,7 @@
 				0166083C239C61B800FCFD26 /* DateProgressCell.swift in Sources */,
 				01A3EB28237747D30097FC2A /* CVCalendarWeekday.swift in Sources */,
 				01F5295624180ED200FA96E0 /* UIAlertViewController+Rx.swift in Sources */,
+				01D5D370243BDA7D0044E459 /* ErrorLabelCell.swift in Sources */,
 				746764ED220BD68D000CFB1B /* RightAlignedconButton.swift in Sources */,
 				01A1CD24233AF6B8005871F4 /* EditChallengeViewController.swift in Sources */,
 				74F4788C220D0A2F005CD4E4 /* SettingsViewController.swift in Sources */,

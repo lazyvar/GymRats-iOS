@@ -18,13 +18,6 @@ class CreateAccountViewController: GRFormViewController {
     super.viewDidLoad()
     
     title = "Create an account"
-
-    LabelRow.defaultCellUpdate = { cell, row in
-      cell.contentView.backgroundColor = .clear
-      cell.textLabel?.textColor = .niceBlue
-      cell.textLabel?.font = .details
-      cell.textLabel?.textAlignment = .left
-    }
     
     tableView.backgroundColor = .background
     tableView.separatorStyle = .none
@@ -199,17 +192,17 @@ class CreateAccountViewController: GRFormViewController {
     
     let validationLabelRowNumber = textRowNumber + 1
     
-    while validationLabelRowNumber < section.count && section[validationLabelRowNumber] is LabelRow {
+    while validationLabelRowNumber < section.count && section[validationLabelRowNumber] is ErrorLabelRow {
       section.remove(at: validationLabelRowNumber)
     }
     
     if row.isValid { return }
     
     for (index, validationMessage) in row.validationErrors.map({ $0.msg }).enumerated() {
-      let labelRow = LabelRow() {
-        $0.title = validationMessage
-        $0.cell.height = { 20 }
-      }
+      let labelRow = ErrorLabelRow()
+        .cellSetup { cell, _ in
+          cell.errorLabel.text = validationMessage
+        }
       
       section.insert(labelRow, at: validationLabelRowNumber + index)
     }
