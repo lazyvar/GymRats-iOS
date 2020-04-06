@@ -85,6 +85,12 @@
 		0166083D239C61B800FCFD26 /* DateProgressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0166083B239C61B800FCFD26 /* DateProgressCell.xib */; };
 		01660840239C8CA700FCFD26 /* StatsBabyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0166083E239C8CA700FCFD26 /* StatsBabyCell.swift */; };
 		01660841239C8CA700FCFD26 /* StatsBabyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0166083F239C8CA700FCFD26 /* StatsBabyCell.xib */; };
+		0176B66E243B99E50022B65F /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176B66C243B99E50022B65F /* WelcomeViewController.swift */; };
+		0176B66F243B99E50022B65F /* WelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0176B66D243B99E50022B65F /* WelcomeViewController.xib */; };
+		0176B671243B99F30022B65F /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176B670243B99F30022B65F /* WelcomeViewModel.swift */; };
+		0176B673243B9AA20022B65F /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176B672243B9AA20022B65F /* UIColor+Extension.swift */; };
+		0176B675243B9AD00022B65F /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176B674243B9AD00022B65F /* UIImage+Extension.swift */; };
+		0176B677243B9EAD0022B65F /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176B676243B9EAD0022B65F /* UIDevice+Extension.swift */; };
 		017E10B32429674600CBBB92 /* ChallengeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017E10B22429674600CBBB92 /* ChallengeRow.swift */; };
 		01863FB9241C66E2001B3CE2 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01863FB8241C66E2001B3CE2 /* Alert.swift */; };
 		018E9F4D229F7D7E008AB016 /* Challenge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E9F4C229F7D7E008AB016 /* Challenge.storyboard */; };
@@ -189,7 +195,6 @@
 		747D6FDC2208E8130062BB39 /* Keychain+Subscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FD72208E8130062BB39 /* Keychain+Subscripts.swift */; };
 		747D6FDE2208E85A0062BB39 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FDD2208E85A0062BB39 /* Account.swift */; };
 		747D6FE02208ECDD0062BB39 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FDF2208ECDD0062BB39 /* Styles.swift */; };
-		747D6FE32208ED660062BB39 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FE22208ED660062BB39 /* WelcomeViewController.swift */; };
 		747D6FE52208ED6F0062BB39 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FE42208ED6F0062BB39 /* LoginViewController.swift */; };
 		747D6FE72208ED780062BB39 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FE62208ED780062BB39 /* SignupViewController.swift */; };
 		747D6FE92208EDAF0062BB39 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747D6FE82208EDAF0062BB39 /* Colors.swift */; };
@@ -305,6 +310,12 @@
 		0166083B239C61B800FCFD26 /* DateProgressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateProgressCell.xib; sourceTree = "<group>"; };
 		0166083E239C8CA700FCFD26 /* StatsBabyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsBabyCell.swift; sourceTree = "<group>"; };
 		0166083F239C8CA700FCFD26 /* StatsBabyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatsBabyCell.xib; sourceTree = "<group>"; };
+		0176B66C243B99E50022B65F /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		0176B66D243B99E50022B65F /* WelcomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WelcomeViewController.xib; sourceTree = "<group>"; };
+		0176B670243B99F30022B65F /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
+		0176B672243B9AA20022B65F /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		0176B674243B9AD00022B65F /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		0176B676243B9EAD0022B65F /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		017E10B22429674600CBBB92 /* ChallengeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeRow.swift; sourceTree = "<group>"; };
 		01863FB8241C66E2001B3CE2 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		018E9F4C229F7D7E008AB016 /* Challenge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Challenge.storyboard; sourceTree = "<group>"; };
@@ -423,7 +434,6 @@
 		747D6FD72208E8130062BB39 /* Keychain+Subscripts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Keychain+Subscripts.swift"; sourceTree = "<group>"; };
 		747D6FDD2208E85A0062BB39 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		747D6FDF2208ECDD0062BB39 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
-		747D6FE22208ED660062BB39 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		747D6FE42208ED6F0062BB39 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		747D6FE62208ED780062BB39 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		747D6FE82208EDAF0062BB39 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -873,6 +883,9 @@
 				018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */,
 				013D0246241941C90063F189 /* UITableView+Extension.swift */,
 				0144BC60241D530200569546 /* UserDefaults+Extension.swift */,
+				0176B672243B9AA20022B65F /* UIColor+Extension.swift */,
+				0176B674243B9AD00022B65F /* UIImage+Extension.swift */,
+				0176B676243B9EAD0022B65F /* UIDevice+Extension.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -921,7 +934,9 @@
 		747D6FE12208ED550062BB39 /* welcome */ = {
 			isa = PBXGroup;
 			children = (
-				747D6FE22208ED660062BB39 /* WelcomeViewController.swift */,
+				0176B66C243B99E50022B65F /* WelcomeViewController.swift */,
+				0176B66D243B99E50022B65F /* WelcomeViewController.xib */,
+				0176B670243B99F30022B65F /* WelcomeViewModel.swift */,
 				747D6FE42208ED6F0062BB39 /* LoginViewController.swift */,
 				747D6FE62208ED780062BB39 /* SignupViewController.swift */,
 			);
@@ -1129,6 +1144,7 @@
 				74118063220C58C300EB9D11 /* Lato-Hairline.ttf in Resources */,
 				01297D942329E79000CA9E41 /* SF-Pro-Rounded-Medium.otf in Resources */,
 				0107AE372325E3D300944D11 /* WorkoutCell.xib in Resources */,
+				0176B66F243B99E50022B65F /* WelcomeViewController.xib in Resources */,
 				74A01B3C220A544F00431ABD /* UserWorkoutTableViewCell.xib in Resources */,
 				7411805F220C58C300EB9D11 /* Lato-Black.ttf in Resources */,
 				0107AE332325CDD200944D11 /* HumanCell.xib in Resources */,
@@ -1273,6 +1289,7 @@
 				01A3EAEC2377471B0097FC2A /* RxEureka.swift in Sources */,
 				01319EDB241879FD005E65D2 /* UpdateUser.swift in Sources */,
 				74A01B40220A560800431ABD /* RingView.swift in Sources */,
+				0176B677243B9EAD0022B65F /* UIDevice+Extension.swift in Sources */,
 				01E68FD422D29ACC004E1218 /* WorkoutHeaderView.swift in Sources */,
 				013D023F24193B440063F189 /* ChallengeViewModel.swift in Sources */,
 				74A01B2F220A1CD900431ABD /* CreateChallengeViewController.swift in Sources */,
@@ -1348,7 +1365,6 @@
 				011FB63322A37387004D5B8E /* CompletedChallengesViewController.swift in Sources */,
 				743050622209EA82005D8C52 /* UIViewController+Extension.swift in Sources */,
 				01BFF8FC223D425C0044F802 /* CommentTableViewCell.swift in Sources */,
-				747D6FE32208ED660062BB39 /* WelcomeViewController.swift in Sources */,
 				01A3EB24237747D30097FC2A /* CVCalendarWeekView.swift in Sources */,
 				013D0251241979B80063F189 /* ChallengeTabBarController.swift in Sources */,
 				7432459D2214FAF800A13634 /* ChangeProfileViewController.swift in Sources */,
@@ -1361,11 +1377,13 @@
 				01A3EB23237747D30097FC2A /* CVCalendarViewPresentationMode.swift in Sources */,
 				747D6FDC2208E8130062BB39 /* Keychain+Subscripts.swift in Sources */,
 				01319ED724187876005E65D2 /* NewUser.swift in Sources */,
+				0176B673243B9AA20022B65F /* UIColor+Extension.swift in Sources */,
 				01A3EB0F237747D30097FC2A /* CVWeekdaySymbolType.swift in Sources */,
 				747D6FC92208DCE60062BB39 /* AlamofireNetworkActivityLogger.swift in Sources */,
 				743050652209EB9A005D8C52 /* UINavigationBar+Extension.swift in Sources */,
 				748DFB8E2210B2EA007220C7 /* Place.swift in Sources */,
 				74A01B3B220A544F00431ABD /* UserWorkoutTableViewCell.swift in Sources */,
+				0176B675243B9AD00022B65F /* UIImage+Extension.swift in Sources */,
 				013D02452419401F0063F189 /* Apply.swift in Sources */,
 				01610148242ABC2800731E30 /* ChallengeInfo.swift in Sources */,
 				013D0247241941C90063F189 /* UITableView+Extension.swift in Sources */,
@@ -1383,6 +1401,7 @@
 				01001A1423C278970022AB32 /* LogWorkoutCell.swift in Sources */,
 				74BE97BD220C9F2800D550CA /* ImagePickerController.swift in Sources */,
 				01A3EB16237747D30097FC2A /* CVCalendarContentViewController.swift in Sources */,
+				0176B66E243B99E50022B65F /* WelcomeViewController.swift in Sources */,
 				01A3EB1C237747D30097FC2A /* CVSet.swift in Sources */,
 				0107C7DB241AEE42005650FB /* State.swift in Sources */,
 				01F7D7662422899000B2D5D8 /* NoWorkoutsCell.swift in Sources */,
@@ -1396,6 +1415,7 @@
 				74A01B4E220A83FD00431ABD /* UIDate+Extension.swift in Sources */,
 				01319ED524187790005E65D2 /* NewWorkout.swift in Sources */,
 				74A01B27220A0BBF00431ABD /* Challenge.swift in Sources */,
+				0176B671243B99F30022B65F /* WelcomeViewModel.swift in Sources */,
 				01AC5F5E23CA3A4A00FFAE4D /* SegmentedCell.swift in Sources */,
 				74BE97BE220C9F2800D550CA /* ImageRow.swift in Sources */,
 				748DFB8C220FD882007220C7 /* GService.swift in Sources */,
