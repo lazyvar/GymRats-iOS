@@ -20,7 +20,7 @@ class CreateAccountViewController: GRFormViewController {
     title = "Create an account"
 
     LabelRow.defaultCellUpdate = { cell, row in
-      cell.contentView.backgroundColor = .foreground
+      cell.contentView.backgroundColor = .clear
       cell.textLabel?.textColor = .niceBlue
       cell.textLabel?.font = .details
       cell.textLabel?.textAlignment = .left
@@ -29,21 +29,12 @@ class CreateAccountViewController: GRFormViewController {
     tableView.backgroundColor = .background
     tableView.separatorStyle = .none
     
-    let textFieldRow = TextFieldRow() { row in
-
-    }
-    
     form = form
       +++ userInfoSection
-        <<< textFieldRow
-        <<< textFieldRow
-        <<< textFieldRow
-        <<< textFieldRow
-//        <<< profilePictureRow
-//        <<< emailRow
-//        <<< fullNameRow
-//        <<< passwordRow
-//        <<< confirmPasswordRow
+        <<< emailRow
+        <<< fullNameRow
+        <<< passwordRow
+        <<< confirmPasswordRow
   }
   
   @objc private func createAccountButtonTapped() {
@@ -76,14 +67,14 @@ class CreateAccountViewController: GRFormViewController {
   
   // MARK: Eurekah
   
-  lazy var userInfoSection: Section = {
+  private lazy var userInfoSection: Section = {
     return Section() { section in
       section.footer = self.sectionFooter
       section.header = self.sectionHeader
     }
   }()
 
-  lazy var sectionHeader: HeaderFooterView<UIView> = {
+  private lazy var sectionHeader: HeaderFooterView<UIView> = {
     let headerBuilder = { () -> UIView in
       let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
 
@@ -104,7 +95,7 @@ class CreateAccountViewController: GRFormViewController {
     return footer
   }()
   
-  lazy var sectionFooter: HeaderFooterView<UIView> = {
+  private lazy var sectionFooter: HeaderFooterView<UIView> = {
     let footerBuilder = { () -> UIView in
       let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 100))
       let disclosure = "By signing up you are agreeing to the\nTerms of Service and Privacy Policy"
@@ -152,89 +143,59 @@ class CreateAccountViewController: GRFormViewController {
     return footer
   }()
   
-  let profilePictureRow: ImageRow = {
-    return ImageRow() { imageRow in
-      imageRow.title = "Profile picture"
-      imageRow.tag = "pro_pic"
-      imageRow.placeholderImage = UIImage(named: "photo")?.withRenderingMode(.alwaysTemplate)
-      imageRow.sourceTypes = [.Camera, .PhotoLibrary]
-    }.cellSetup { cell, _ in
-      cell.tintColor = .primaryText
-      cell.height = { return 48 }
-    }
-  }()
+//  private let profilePictureRow: ImageRow = {
+//    return ImageRow() { imageRow in
+//      imageRow.title = "Profile picture"
+//      imageRow.tag = "pro_pic"
+//      imageRow.placeholderImage = UIImage(named: "photo")?.withRenderingMode(.alwaysTemplate)
+//      imageRow.sourceTypes = [.Camera, .PhotoLibrary]
+//    }.cellSetup { cell, _ in
+//      cell.tintColor = .primaryText
+//      cell.height = { return 48 }
+//    }
+//  }()
   
-  lazy var passwordRow: PasswordRow = {
-    return PasswordRow() { passwordRow in
-      passwordRow.title = "Password"
+  private lazy var passwordRow: TextFieldRow = {
+    return TextFieldRow() { passwordRow in
+      passwordRow.placeholder = "Password"
       passwordRow.tag = "password"
       passwordRow.add(rule: RuleRequired())
       passwordRow.add(rule: RuleMinLength(minLength: 6))
       passwordRow.add(rule: RuleMaxLength(maxLength: 16))
     }
-    .cellSetup(self.standardCellSetup)
     .onRowValidationChanged(self.handleRowValidationChange)
   }()
   
-  lazy var confirmPasswordRow: PasswordRow = {
-    return PasswordRow() { passwordRow in
-      passwordRow.title = "Confirm password"
-      passwordRow.tag = "confirmPass"
+  private lazy var confirmPasswordRow: TextFieldRow = {
+    return TextFieldRow() { passwordRow in
+      passwordRow.placeholder = "Confirm password"
+      passwordRow.tag = "confirm_pass"
       passwordRow.add(rule: RuleEqualsToRow(form: form, tag: "password"))
     }
-    .cellSetup(self.standardCellSetup)
     .onRowValidationChanged(self.handleRowValidationChange)
   }()
   
-  lazy var fullNameRow: TextRow = {
-    return TextRow() { textRow in
-      textRow.title = "Full name"
+  private lazy var fullNameRow: TextFieldRow = {
+    return TextFieldRow() { textRow in
+      textRow.placeholder = "Full name"
       textRow.tag = "full_name"
-      textRow.placeholder = "Master Splinter"
       textRow.add(rule: RuleRequired())
     }
-    .cellSetup(self.standardCellSetup)
     .onRowValidationChanged(self.handleRowValidationChange)
   }()
   
-  lazy var emailRow: EmailRow = {
-    return EmailRow() { emailRow in
-      emailRow.title = "Email"
-      emailRow.placeholder = "your@email.com"
+  private lazy var emailRow: TextFieldRow = {
+    return TextFieldRow() { emailRow in
+      emailRow.placeholder = "Email"
       emailRow.tag = "email"
       emailRow.add(rule: RuleEmail())
       emailRow.add(rule: RuleRequired())
     }
-    .cellSetup(self.standardCellSetup)
     .onRowValidationChanged(self.handleRowValidationChange)
   }()
-}
 
-// Mark: Shared madness
-extension CreateAccountViewController {
-  func standardCellSetup(textCell: TextCell, textRow: TextRow) {
-    textCell.textField.font = .body
-    textCell.textLabel?.font = .body
-    textCell.tintColor = .brand
-    textCell.height = { return 48 }
-  }
-    
-  func standardCellSetup(passwordCell: PasswordCell, passwordRow: PasswordRow) {
-    passwordCell.textField.font = .body
-    passwordCell.textLabel?.font = .body
-    passwordCell.tintColor = .brand
-    passwordCell.height = { return 48 }
-  }
-    
-  func standardCellSetup(emailCell: EmailCell, emailRow: EmailRow) {
-    emailCell.textField.font = .body
-    emailCell.textLabel?.font = .body
-    emailCell.tintColor = .brand
-    emailCell.height = { return 48 }
-  }
-    
-  func handleRowValidationChange(cell: UITableViewCell, textRow: TextRow) {
-    guard let textRowNumber = textRow.indexPath?.row, var section = textRow.section else { return }
+  private func handleRowValidationChange(cell: UITableViewCell, row: TextFieldRow) {
+    guard let textRowNumber = row.indexPath?.row, var section = row.section else { return }
     
     let validationLabelRowNumber = textRowNumber + 1
     
@@ -242,54 +203,12 @@ extension CreateAccountViewController {
       section.remove(at: validationLabelRowNumber)
     }
     
-    if textRow.isValid { return }
-
-    for (index, validationMessage) in textRow.validationErrors.map({ $0.msg }).enumerated() {
+    if row.isValid { return }
+    
+    for (index, validationMessage) in row.validationErrors.map({ $0.msg }).enumerated() {
       let labelRow = LabelRow() {
         $0.title = validationMessage
-        $0.cell.height = { 30 }
-      }
-
-      section.insert(labelRow, at: validationLabelRowNumber + index)
-    }
-  }
-    
-  func handleRowValidationChange(cell: UITableViewCell, emailRow: EmailRow) {
-    guard let textRowNumber = emailRow.indexPath?.row, var section = emailRow.section else { return }
-    
-    let validationLabelRowNumber = textRowNumber + 1
-    
-    while validationLabelRowNumber < section.count && section[validationLabelRowNumber] is LabelRow {
-      section.remove(at: validationLabelRowNumber)
-    }
-    
-    if emailRow.isValid { return }
-
-    for (index, validationMessage) in emailRow.validationErrors.map({ $0.msg }).enumerated() {
-      let labelRow = LabelRow() {
-        $0.title = validationMessage
-        $0.cell.height = { 30 }
-      }
-      
-      section.insert(labelRow, at: validationLabelRowNumber + index)
-    }
-  }
-  
-  func handleRowValidationChange(cell: UITableViewCell, passwordRow: PasswordRow) {
-    guard let textRowNumber = passwordRow.indexPath?.row, var section = passwordRow.section else { return }
-    
-    let validationLabelRowNumber = textRowNumber + 1
-    
-    while validationLabelRowNumber < section.count && section[validationLabelRowNumber] is LabelRow {
-      section.remove(at: validationLabelRowNumber)
-    }
-    
-    if passwordRow.isValid { return }
-    
-    for (index, validationMessage) in passwordRow.validationErrors.map({ $0.msg }).enumerated() {
-      let labelRow = LabelRow() {
-        $0.title = validationMessage
-        $0.cell.height = { 30 }
+        $0.cell.height = { 20 }
       }
       
       section.insert(labelRow, at: validationLabelRowNumber + index)
