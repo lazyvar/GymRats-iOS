@@ -10,6 +10,7 @@ import UIKit
 
 extension UIColor {
   static let brand: UIColor = .hex("#D33A2C")
+  static let niceBlue: UIColor = .hex("#1074E7")
   
   static var primaryText: UIColor {
     switch UIDevice.contentMode {
@@ -17,7 +18,14 @@ extension UIColor {
     case .dark:  return .hex("#FFFFFF")
     }
   }
-  
+
+  static var secondaryText: UIColor {
+    switch UIDevice.contentMode {
+    case .light: return .hex("#000000", alpha: 0.25)
+    case .dark:  return .hex("#FFFFFF") // Dark mode todo
+    }
+  }
+
   static var background: UIColor {
     switch UIDevice.contentMode {
     case .light: return .hex("#FAFAFA")
