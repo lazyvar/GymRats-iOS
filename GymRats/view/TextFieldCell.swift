@@ -20,6 +20,8 @@ class TextFieldCell: Cell<String>, Eureka.TextFieldCell, CellType {
     backgroundColor = .clear
     shadowTextField.delegate = self
     shadowTextField.addTarget(self, action: #selector(textChanged), for: .editingChanged)
+    shadowTextField.textContentType = textFieldRow?.contentType
+    shadowTextField.keyboardType = textFieldRow?.keyboardType ?? .default
   }
   
   public override func update() {
@@ -28,7 +30,9 @@ class TextFieldCell: Cell<String>, Eureka.TextFieldCell, CellType {
     textField?.placeholder = textFieldRow?.placeholder
     textField?.text = row.value
     textField?.isSecureTextEntry = (textFieldRow?.secure ?? false) && secureState
-    
+    textField?.textContentType = textFieldRow?.contentType
+    textField?.keyboardType = textFieldRow?.keyboardType ?? .default
+
     if let icon = textFieldRow?.icon {
       textField?.leftViewMode = .always
       textField?.leftView = UIImageView(image: icon).apply {
@@ -117,6 +121,8 @@ final class TextFieldRow: Row<TextFieldCell>, RowType {
   var placeholder: String?
   var icon: UIImage?
   var secure: Bool = false
+  var contentType: UITextContentType?
+  var keyboardType: UIKeyboardType?
   
   required public init(tag: String?) {
     super.init(tag: tag)

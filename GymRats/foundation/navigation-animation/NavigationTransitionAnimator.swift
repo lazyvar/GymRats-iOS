@@ -16,7 +16,7 @@ final class NavigationTransitionAnimator: NSObject, UIViewControllerAnimatedTran
   }
 
   func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-    return 0.3
+    return TimeInterval(UINavigationController.hideShowBarDuration)
   }
 
   func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -43,7 +43,7 @@ final class NavigationTransitionAnimator: NSObject, UIViewControllerAnimatedTran
     UIView.animate(
       withDuration: duration,
       delay: 0,
-      options: .curveEaseInOut,
+      options: .curveEaseOut,
       animations: {
         toView.frame = toViewFrame
         fromView.frame = CGRect(

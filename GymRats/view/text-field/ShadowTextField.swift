@@ -74,6 +74,6 @@ class ShadowTextField: JVFloatLabeledTextField {
     clearButtonMode = .whileEditing
     layer.borderWidth = 0
     borderStyle = .none
-    backgroundColor = .foreground
+    backgroundColor = .clear
   }
 }

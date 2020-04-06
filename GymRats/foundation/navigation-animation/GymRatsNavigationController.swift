@@ -40,6 +40,8 @@ class GymRatsNavigationController: UINavigationController {
     guard let gestureRecognizerView = gestureRecognizer.view else { coordinator.interactionController = nil; return }
     
     let percent = gestureRecognizer.translation(in: gestureRecognizerView).x / gestureRecognizerView.bounds.size.width
+    
+    coordinator.interactionController?.completionSpeed = 0.5
 
     switch gestureRecognizer.state {
     case .began:
@@ -48,9 +50,12 @@ class GymRatsNavigationController: UINavigationController {
     case .changed:
       coordinator.interactionController?.update(percent)
     case .ended:
-      if percent > 0.5 && gestureRecognizer.state != .cancelled {
+      let velocity = gestureRecognizer.velocity(in: view)
+
+      if velocity.x > 200 && gestureRecognizer.state != .cancelled {
         coordinator.interactionController?.finish()
       } else {
+        coordinator.interactionController?.completionCurve = .easeOut
         coordinator.interactionController?.cancel()
       }
     

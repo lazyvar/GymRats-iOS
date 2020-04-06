@@ -154,6 +154,7 @@ class CreateAccountViewController: GRFormViewController {
       passwordRow.tag = "password"
       passwordRow.secure = true
       passwordRow.icon = .lock
+      passwordRow.contentType = .password
       passwordRow.add(rule: RuleRequired(msg: "Password is required."))
       passwordRow.add(rule: RuleMinLength(minLength: 6, msg: "Password must be greater than 6 characters."))
       passwordRow.add(rule: RuleMaxLength(maxLength: 32, msg: "Password must be less than 32 characters."))
@@ -167,6 +168,7 @@ class CreateAccountViewController: GRFormViewController {
       passwordRow.tag = "confirm_pass"
       passwordRow.secure = true
       passwordRow.icon = .check
+      passwordRow.contentType = .password
       passwordRow.add(rule: RuleEqualsToRow(form: form, tag: "password", msg: "Passwords don't match."))
     }
     .onRowValidationChanged(self.handleRowValidationChange)
@@ -177,6 +179,7 @@ class CreateAccountViewController: GRFormViewController {
       textRow.placeholder = "Name"
       textRow.tag = "full_name"
       textRow.icon = .name
+      textRow.contentType = .givenName
       textRow.add(rule: RuleRequired(msg: "Name is required."))
     }
     .onRowValidationChanged(self.handleRowValidationChange)
@@ -187,6 +190,8 @@ class CreateAccountViewController: GRFormViewController {
       emailRow.icon = .mail
       emailRow.placeholder = "Email"
       emailRow.tag = "email"
+      emailRow.keyboardType = .emailAddress
+      emailRow.contentType = .emailAddress
       emailRow.add(rule: RuleEmail(msg: "Email is not valid format."))
       emailRow.add(rule: RuleRequired(msg: "Email is required."))
     }
