@@ -60,7 +60,7 @@ class TextFieldCell: Cell<String>, Eureka.TextFieldCell, CellType {
   
   @objc private func tappedEye() {
     secureState.toggle()
-
+    update()
   }
   
   open override func cellCanBecomeFirstResponder() -> Bool {

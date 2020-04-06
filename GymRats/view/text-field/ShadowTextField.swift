@@ -24,11 +24,17 @@ class ShadowTextField: UITextField {
   }
   
   override func textRect(forBounds bounds: CGRect) -> CGRect {
-    return bounds.insetBy(dx: 10, dy: 0)
+    let leftFrame = leftViewRect(forBounds: bounds)
+    let dx = 10 + leftFrame.origin.x + leftFrame.size.width
+    
+    return bounds.insetBy(dx: dx, dy: 0)
   }
 
   override func editingRect(forBounds bounds: CGRect) -> CGRect {
-    return bounds.insetBy(dx: 10, dy: 0)
+    let leftFrame = leftViewRect(forBounds: bounds)
+    let dx = 10 + leftFrame.origin.x + leftFrame.size.width
+    
+    return bounds.insetBy(dx: dx, dy: 0)
   }
   
   override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
@@ -39,7 +45,7 @@ class ShadowTextField: UITextField {
   }
 
   override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
-    var rect = super.rightViewRect(forBounds: bounds)
+    var rect = super.leftViewRect(forBounds: bounds)
     rect.origin.x += 10
     
     return rect
@@ -64,6 +70,7 @@ class ShadowTextField: UITextField {
   }
 
   private func setup() {
+    clearButtonMode = .whileEditing
     layer.borderWidth = 0
     borderStyle = .none
     backgroundColor = .foreground
