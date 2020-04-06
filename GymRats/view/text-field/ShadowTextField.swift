@@ -31,6 +31,13 @@ class ShadowTextField: UITextField {
     return bounds.insetBy(dx: 10, dy: 0)
   }
   
+  override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
+    var rect = super.rightViewRect(forBounds: bounds)
+    rect.origin.x -= 10
+    
+    return rect
+  }
+  
   override func layoutSubviews() {
     super.layoutSubviews()
 

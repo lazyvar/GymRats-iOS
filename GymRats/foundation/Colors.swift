@@ -10,6 +10,7 @@ import UIKit
 
 extension UIColor {
   static let brand: UIColor = .hex("#D33A2C")
+  static let warning: UIColor = .hex("#FFCC00")
   static let niceBlue: UIColor = .hex("#1074E7")
   
   static var primaryText: UIColor {

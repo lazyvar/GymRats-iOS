@@ -152,6 +152,7 @@ class CreateAccountViewController: GRFormViewController {
     return TextFieldRow() { passwordRow in
       passwordRow.placeholder = "Password"
       passwordRow.tag = "password"
+      passwordRow.secure = true
       passwordRow.add(rule: RuleRequired())
       passwordRow.add(rule: RuleMinLength(minLength: 6))
       passwordRow.add(rule: RuleMaxLength(maxLength: 16))
@@ -163,6 +164,7 @@ class CreateAccountViewController: GRFormViewController {
     return TextFieldRow() { passwordRow in
       passwordRow.placeholder = "Confirm password"
       passwordRow.tag = "confirm_pass"
+      passwordRow.secure = true
       passwordRow.add(rule: RuleEqualsToRow(form: form, tag: "password"))
     }
     .onRowValidationChanged(self.handleRowValidationChange)

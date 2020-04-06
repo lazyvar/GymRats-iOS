@@ -27,15 +27,37 @@ class TextFieldCell: Cell<String>, Eureka.TextFieldCell, CellType {
     
     textField?.placeholder = textFieldRow?.placeholder
     textField?.text = row.value
-    textField?.isSecureTextEntry = textFieldRow?.secure ?? false
+    textField?.isSecureTextEntry = (textFieldRow?.secure ?? false) && secureState
     
     if let icon = textFieldRow?.icon {
       textField?.leftView = UIImageView(image: icon)
     }
     
     if textFieldRow?.secure ?? false {
-      // ...
+      let image: UIImage
+      
+      if secureState {
+        image = .eyeOn
+      } else {
+        image = .eyeOff
+      }
+      
+      let tap = UITapGestureRecognizer(target: self, action: #selector(tappedEye))
+      
+      textField?.rightViewMode = .whileEditing
+      textField?.rightView = UIImageView(image: image).apply {
+        $0.tintColor = .primaryText
+        $0.addGestureRecognizer(tap)
+        $0.isUserInteractionEnabled = true
+      }
     }
+  }
+  
+  private var secureState = true
+  
+  @objc private func tappedEye() {
+    secureState.toggle()
+
   }
   
   open override func cellCanBecomeFirstResponder() -> Bool {
