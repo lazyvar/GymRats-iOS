@@ -154,9 +154,9 @@ class CreateAccountViewController: GRFormViewController {
       passwordRow.tag = "password"
       passwordRow.secure = true
       passwordRow.icon = .lock
-      passwordRow.add(rule: RuleRequired())
-      passwordRow.add(rule: RuleMinLength(minLength: 6))
-      passwordRow.add(rule: RuleMaxLength(maxLength: 16))
+      passwordRow.add(rule: RuleRequired(msg: "Password is required."))
+      passwordRow.add(rule: RuleMinLength(minLength: 6, msg: "Password must be greater than 6 characters."))
+      passwordRow.add(rule: RuleMaxLength(maxLength: 32, msg: "Password must be less than 32 characters."))
     }
     .onRowValidationChanged(self.handleRowValidationChange)
   }()
@@ -167,17 +167,17 @@ class CreateAccountViewController: GRFormViewController {
       passwordRow.tag = "confirm_pass"
       passwordRow.secure = true
       passwordRow.icon = .check
-      passwordRow.add(rule: RuleEqualsToRow(form: form, tag: "password"))
+      passwordRow.add(rule: RuleEqualsToRow(form: form, tag: "password", msg: "Passwords don't match."))
     }
     .onRowValidationChanged(self.handleRowValidationChange)
   }()
   
   private lazy var fullNameRow: TextFieldRow = {
     return TextFieldRow() { textRow in
-      textRow.placeholder = "Full name"
+      textRow.placeholder = "Name"
       textRow.tag = "full_name"
       textRow.icon = .name
-      textRow.add(rule: RuleRequired())
+      textRow.add(rule: RuleRequired(msg: "Name is required."))
     }
     .onRowValidationChanged(self.handleRowValidationChange)
   }()
@@ -187,8 +187,8 @@ class CreateAccountViewController: GRFormViewController {
       emailRow.icon = .mail
       emailRow.placeholder = "Email"
       emailRow.tag = "email"
-      emailRow.add(rule: RuleEmail())
-      emailRow.add(rule: RuleRequired())
+      emailRow.add(rule: RuleEmail(msg: "Email is not valid format."))
+      emailRow.add(rule: RuleRequired(msg: "Email is required."))
     }
     .onRowValidationChanged(self.handleRowValidationChange)
   }()

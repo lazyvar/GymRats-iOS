@@ -32,7 +32,7 @@ class TextFieldCell: Cell<String>, Eureka.TextFieldCell, CellType {
     if let icon = textFieldRow?.icon {
       textField?.leftViewMode = .always
       textField?.leftView = UIImageView(image: icon).apply {
-        $0.tintColor = .primaryText
+        $0.tintColor = .secondaryText
       }
     }
     
