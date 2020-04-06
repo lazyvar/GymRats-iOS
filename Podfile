@@ -34,6 +34,7 @@ target 'GymRats' do
     pod 'CRRefresh'
     pod 'SwiftPhoenixClient'
     pod 'UIScrollView-InfiniteScroll', '~> 1.1.0'
+    pod 'JVFloatLabeledTextField'
 
     target 'GymRatsTests' do
         inherit! :search_paths

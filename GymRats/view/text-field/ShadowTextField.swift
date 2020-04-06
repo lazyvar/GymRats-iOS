@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import JVFloatLabeledTextField
 
-class ShadowTextField: UITextField {
+class ShadowTextField: JVFloatLabeledTextField {
   private var shadowLayer: CAShapeLayer!
   
   init() {
@@ -24,22 +25,17 @@ class ShadowTextField: UITextField {
   }
   
   override func textRect(forBounds bounds: CGRect) -> CGRect {
-    let leftFrame = leftViewRect(forBounds: bounds)
-    let dx = 10 + leftFrame.origin.x + leftFrame.size.width
-    
-    return bounds.insetBy(dx: dx, dy: 0)
+    return super.textRect(forBounds: bounds).insetBy(dx: 10, dy: 4)
   }
 
   override func editingRect(forBounds bounds: CGRect) -> CGRect {
-    let leftFrame = leftViewRect(forBounds: bounds)
-    let dx = 10 + leftFrame.origin.x + leftFrame.size.width
-    
-    return bounds.insetBy(dx: dx, dy: 0)
+    return super.editingRect(forBounds: bounds).insetBy(dx: 10, dy: 4)
   }
-  
+
   override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
     var rect = super.rightViewRect(forBounds: bounds)
     rect.origin.x -= 10
+    rect.origin.y -= 7
     
     return rect
   }
@@ -47,7 +43,8 @@ class ShadowTextField: UITextField {
   override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
     var rect = super.leftViewRect(forBounds: bounds)
     rect.origin.x += 10
-    
+    rect.origin.y -= 7
+
     return rect
   }
 
@@ -70,6 +67,10 @@ class ShadowTextField: UITextField {
   }
 
   private func setup() {
+    floatingLabelYPadding = 7
+    floatingLabelTextColor = .primaryText
+    floatingLabelActiveTextColor = .brand
+    floatingLabelFont = .details
     clearButtonMode = .whileEditing
     layer.borderWidth = 0
     borderStyle = .none

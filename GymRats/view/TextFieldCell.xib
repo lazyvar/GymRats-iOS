@@ -18,9 +18,9 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Nf-Jo-V5e" customClass="ShadowTextField" customModule="GymRats" customModuleProvider="target">
-                        <rect key="frame" x="20" y="5" width="371" height="40"/>
+                        <rect key="frame" x="20" y="5" width="371" height="50"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="40" id="LVN-wN-MEe"/>
+                            <constraint firstAttribute="height" constant="50" id="LVN-wN-MEe"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>

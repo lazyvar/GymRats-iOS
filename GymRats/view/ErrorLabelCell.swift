@@ -16,7 +16,7 @@ class ErrorLabelCell: Cell<String>, CellType {
     selectionStyle = .none
     backgroundColor = .clear
     
-    errorLabel.textColor = .systemOrange
+    errorLabel.textColor = .brand
     errorLabel.font = .details
   }
 }
