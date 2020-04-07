@@ -70,6 +70,7 @@ class LoginViewController: GRFormViewController {
             case .success(let user):
               Track.event(.login)
               GymRats.login(user)
+              GymRats.replaceRoot(with: DrawerViewController())
             case .failure(let error):
               self?.presentAlert(with: error)
             }

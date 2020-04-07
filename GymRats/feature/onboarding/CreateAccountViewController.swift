@@ -17,7 +17,7 @@ class CreateAccountViewController: GRFormViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    title = "Create an account"
+    title = "Get started"
     
     tableView.backgroundColor = .background
     tableView.separatorStyle = .none
@@ -47,13 +47,12 @@ class CreateAccountViewController: GRFormViewController {
     
     gymRatsAPI.signUp(email: email, password: password, profilePicture: proPic, fullName: fullName)
       .subscribe(onNext: { [weak self] result in
-
         self?.hideLoadingBar()
         
         switch result {
-        case .success(let user):
+        case .success(let account):
           Track.event(.signup)
-          GymRats.login(user)
+          GymRats.startOnboarding(account)
         case .failure(let error):
           self?.presentAlert(with: error)
         }

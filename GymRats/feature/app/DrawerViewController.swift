@@ -16,6 +16,9 @@ class DrawerViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
   
+    // Safety place, if they made it here they are not onboarding
+    UserDefaults.standard.removeObject(forKey: "account-is-onboarding")
+
     let menu = MenuViewController()
     let home = HomeViewController().inNav()
     let drawer = MMDrawerController(center: home, leftDrawerViewController: menu).apply {
