@@ -22,6 +22,8 @@
 		0107C7E4241B0200005650FB /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0107C7E2241B0200005650FB /* MenuViewController.swift */; };
 		0107C7E5241B0200005650FB /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0107C7E3241B0200005650FB /* MenuViewController.xib */; };
 		0107C7EF241B06A2005650FB /* MenuRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0107C7EE241B06A2005650FB /* MenuRow.swift */; };
+		01107DC9243CE665005AA8F3 /* HowItWorksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01107DC7243CE665005AA8F3 /* HowItWorksViewController.swift */; };
+		01107DCA243CE665005AA8F3 /* HowItWorksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01107DC8243CE665005AA8F3 /* HowItWorksViewController.xib */; };
 		0118A28B239DA7F9006A8A7A /* RatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0118A289239DA7F9006A8A7A /* RatsCell.swift */; };
 		0118A28C239DA7F9006A8A7A /* RatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0118A28A239DA7F9006A8A7A /* RatsCell.xib */; };
 		0118C24E23C2B704002FB84D /* CreateWorkoutHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0118C24C23C2B704002FB84D /* CreateWorkoutHeaderCell.swift */; };
@@ -256,6 +258,8 @@
 		0107C7E2241B0200005650FB /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		0107C7E3241B0200005650FB /* MenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
 		0107C7EE241B06A2005650FB /* MenuRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuRow.swift; sourceTree = "<group>"; };
+		01107DC7243CE665005AA8F3 /* HowItWorksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowItWorksViewController.swift; sourceTree = "<group>"; };
+		01107DC8243CE665005AA8F3 /* HowItWorksViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HowItWorksViewController.xib; sourceTree = "<group>"; };
 		0118A289239DA7F9006A8A7A /* RatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatsCell.swift; sourceTree = "<group>"; };
 		0118A28A239DA7F9006A8A7A /* RatsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RatsCell.xib; sourceTree = "<group>"; };
 		0118C24C23C2B704002FB84D /* CreateWorkoutHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutHeaderCell.swift; sourceTree = "<group>"; };
@@ -498,6 +502,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01107DC6243CE636005AA8F3 /* onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				0176B679243BAF740022B65F /* CreateAccountViewController.swift */,
+				01107DC7243CE665005AA8F3 /* HowItWorksViewController.swift */,
+				01107DC8243CE665005AA8F3 /* HowItWorksViewController.xib */,
+			);
+			path = onboarding;
+			sourceTree = "<group>";
+		};
 		011EEB8B241A8B9700CC9F9E /* flow */ = {
 			isa = PBXGroup;
 			children = (
@@ -563,14 +577,6 @@
 				01297D832329E79000CA9E41 /* SF-Pro-Rounded-Bold.otf */,
 			);
 			path = "SF Rounded";
-			sourceTree = "<group>";
-		};
-		0176B678243BA8690022B65F /* create-account */ = {
-			isa = PBXGroup;
-			children = (
-				0176B679243BAF740022B65F /* CreateAccountViewController.swift */,
-			);
-			path = "create-account";
 			sourceTree = "<group>";
 		};
 		01A03B802422EABC0099760F /* config */ = {
@@ -879,6 +885,7 @@
 		747D6FBA2208DBD70062BB39 /* feature */ = {
 			isa = PBXGroup;
 			children = (
+				01107DC6243CE636005AA8F3 /* onboarding */,
 				011FB63122A3736D004D5B8E /* completed-challenges */,
 				74C2D84C222C3D0C00FF0DE2 /* about */,
 				01213CE0241E9C53008461B0 /* chat */,
@@ -891,7 +898,6 @@
 				74305072220A067C005D8C52 /* home */,
 				01F5296224184A8500FA96E0 /* no-challenges */,
 				747D6FE12208ED550062BB39 /* welcome */,
-				0176B678243BA8690022B65F /* create-account */,
 				747D6FBE2208DC790062BB39 /* app */,
 				013D0250241979B80063F189 /* ChallengeTabBarController.swift */,
 			);
@@ -1175,6 +1181,7 @@
 				74118061220C58C300EB9D11 /* Lato-Bold.ttf in Resources */,
 				01D5D36A243BD2700044E459 /* TextFieldCell.xib in Resources */,
 				0118A28C239DA7F9006A8A7A /* RatsCell.xib in Resources */,
+				01107DCA243CE665005AA8F3 /* HowItWorksViewController.xib in Resources */,
 				01338DAC223B230E0019B67E /* GoogleService-Info.plist in Resources */,
 				74118064220C58C300EB9D11 /* Lato-HairlineItalic.ttf in Resources */,
 				01297D902329E79000CA9E41 /* SF-Pro-Rounded-Black.otf in Resources */,
@@ -1349,6 +1356,7 @@
 				74A01B2F220A1CD900431ABD /* CreateChallengeViewController.swift in Sources */,
 				01C926E8233FB96E00C1C128 /* ShareCodeViewController.swift in Sources */,
 				746764E7220BAE44000CFB1B /* CreateWorkoutViewController.swift in Sources */,
+				01107DC9243CE665005AA8F3 /* HowItWorksViewController.swift in Sources */,
 				7455AC5E22125296005A558A /* ServiceResponse.swift in Sources */,
 				01660839239C5EAF00FCFD26 /* ChallengeStatsViewController.swift in Sources */,
 				01BFF90E223DE26C0044F802 /* APS.swift in Sources */,
