@@ -34,6 +34,7 @@ target 'GymRats' do
     pod 'CRRefresh'
     pod 'SwiftPhoenixClient'
     pod 'UIScrollView-InfiniteScroll', '~> 1.1.0'
+    pod 'Branch'
     pod 'JVFloatLabeledTextField'
 
     target 'GymRatsTests' do

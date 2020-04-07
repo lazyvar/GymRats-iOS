@@ -11,7 +11,6 @@ import RxSwift
 import RxCocoa
 
 final class ChallengeViewModel: ViewModel {
-  
   private let disposeBag = DisposeBag()
   private var challenge: Challenge!
   private var page = 0

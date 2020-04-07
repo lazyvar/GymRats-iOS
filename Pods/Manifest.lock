@@ -1,6 +1,9 @@
 PODS:
   - Alamofire (4.9.1)
   - AvatarImageView (2.2.0)
+  - Branch (0.31.4):
+    - Branch/Core (= 0.31.4)
+  - Branch/Core (0.31.4)
   - Cache (5.2.0)
   - Crashlytics (3.12.0):
     - Fabric (~> 1.9.0)
@@ -144,6 +147,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.7)
   - AvatarImageView (~> 2.2.0)
+  - Branch
   - Cache
   - Crashlytics (~> 3.12.0)
   - CRRefresh
@@ -179,6 +183,7 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - AvatarImageView
+    - Branch
     - Cache
     - Crashlytics
     - CRRefresh
@@ -232,6 +237,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   AvatarImageView: afe8e7eb50181ca3f095e21034f245676b535c55
+  Branch: 5180bca89b8942dd0fe8175d7ecb8a8a451cf5b0
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
   CRRefresh: 1415d4ae06837fa7bb064c44f2e102f3ef517044
@@ -282,6 +288,6 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UIScrollView-InfiniteScroll: 3ef456bcbe759c19f510a383cff96e6647c98c98
 
-PODFILE CHECKSUM: fc75d123fa64671d7513e8e41056fec52b6d10a3
+PODFILE CHECKSUM: 1e713019fdc8032f936c0edb0e6b36eb12020a47
 
 COCOAPODS: 1.9.1
