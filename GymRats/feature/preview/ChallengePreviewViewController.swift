@@ -9,12 +9,52 @@
 import UIKit
 import RxSwift
 
-class ChallengePreviewViewController: BindableViewController {
-  private let viewModel = ChallengePreviewViewModel()
+class ChallengePreviewViewController: UIViewController {
   private let disposeBag = DisposeBag()
+  private let challenge: Challenge
   
-  init(code: String) {
-    self.viewModel.configure(code: code)
+  @IBOutlet weak var bannerImageView: UIImageView! {
+    didSet {
+      if let url = challenge.profilePictureUrl, let resource = URL(string: url) {
+        bannerImageView.kf.setImage(with: resource)
+      }
+    }
+  }
+  
+  @IBOutlet weak var calendarImageView: UIImageView! {
+    didSet { calendarImageView.tintColor = .primaryText }
+  }
+  
+  @IBOutlet weak var clockImageView: UIImageView! {
+    didSet { clockImageView.tintColor = .primaryText }
+  }
+
+  @IBOutlet weak var startDateLabel: UILabel! {
+    didSet {
+      startDateLabel.text = "Starts "
+      startDateLabel.font = .body
+      startDateLabel.textColor = .primaryText
+    }
+  }
+  
+  @IBOutlet weak var durationLabel: UILabel! {
+    didSet {
+      durationLabel.text = "Lasts "
+      durationLabel.font = .body
+      durationLabel.textColor = .primaryText
+    }
+  }
+  
+  @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
+  
+  @IBOutlet weak var bgView: UIView! {
+    didSet {
+      bgView.backgroundColor = .foreground
+    }
+  }
+  
+  init(challenge: Challenge) {
+    self.challenge = challenge
     
     super.init(nibName: Self.xibName, bundle: nil)
   }
@@ -26,10 +66,25 @@ class ChallengePreviewViewController: BindableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    viewModel.input.viewDidLoad.trigger()
+    title = challenge.name
+    view.backgroundColor = .background
   }
   
-  override func bindViewModel() {
+  @IBAction private func accept(_ sender: Any) {
+    showLoadingBar()
     
+    gymRatsAPI.joinChallenge(code: challenge.code)
+      .subscribe(onNext: { [weak self] result in
+        self?.hideLoadingBar()
+        
+        switch result {
+        case .success(let challenge):
+          // TODO
+          Challenge.State.all.fetch().ignore(disposedBy: self?.disposeBag ?? DisposeBag())
+        case .failure(let error):
+          self?.presentAlert(with: error)
+        }
+      })
+      .disposed(by: disposeBag)
   }
 }

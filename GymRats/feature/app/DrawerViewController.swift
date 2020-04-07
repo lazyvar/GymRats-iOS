@@ -20,15 +20,9 @@ class DrawerViewController: UIViewController {
     defer { UserDefaults.standard.removeObject(forKey: "account-is-onboarding") }
 
     let menu = MenuViewController()
-    let center: UIViewController
+    let home = HomeViewController().inNav()
     
-    if let code = UserDefaults.standard.string(forKey: "join-code") {
-      center = ChallengePreviewViewController(code: code)
-    } else {
-      center = HomeViewController().inNav()
-    }
-    
-    let drawer = MMDrawerController(center: center, leftDrawerViewController: menu).apply {
+    let drawer = MMDrawerController(center: home, leftDrawerViewController: menu).apply {
       $0.view.backgroundColor = .background
       $0.showsShadow = false
       $0.maximumLeftDrawerWidth = MenuViewController.width

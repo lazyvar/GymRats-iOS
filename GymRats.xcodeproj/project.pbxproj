@@ -107,7 +107,6 @@
 		01975EAC23C1204F0031E23A /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01975EAB23C1204F0031E23A /* Track.swift */; };
 		01987A9824300E9500835621 /* ChallengePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01987A9624300E9500835621 /* ChallengePreviewViewController.swift */; };
 		01987A9924300E9500835621 /* ChallengePreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01987A9724300E9500835621 /* ChallengePreviewViewController.xib */; };
-		01987A9B24300EB200835621 /* ChallengePreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01987A9A24300EB200835621 /* ChallengePreviewViewModel.swift */; };
 		019CF1FB232722FF00D884DA /* BigContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019CF1FA232722FF00D884DA /* BigContentView.swift */; };
 		01A03B7F2422E69A0099760F /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A03B7E2422E69A0099760F /* Environment.swift */; };
 		01A1CD24233AF6B8005871F4 /* EditChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1CD23233AF6B8005871F4 /* EditChallengeViewController.swift */; };
@@ -350,7 +349,6 @@
 		01975EAB23C1204F0031E23A /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		01987A9624300E9500835621 /* ChallengePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengePreviewViewController.swift; sourceTree = "<group>"; };
 		01987A9724300E9500835621 /* ChallengePreviewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengePreviewViewController.xib; sourceTree = "<group>"; };
-		01987A9A24300EB200835621 /* ChallengePreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengePreviewViewModel.swift; sourceTree = "<group>"; };
 		019CF1FA232722FF00D884DA /* BigContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigContentView.swift; sourceTree = "<group>"; };
 		01A03B7E2422E69A0099760F /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		01A03B812422EAD20099760F /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
@@ -600,7 +598,6 @@
 			children = (
 				01987A9624300E9500835621 /* ChallengePreviewViewController.swift */,
 				01987A9724300E9500835621 /* ChallengePreviewViewController.xib */,
-				01987A9A24300EB200835621 /* ChallengePreviewViewModel.swift */,
 			);
 			path = preview;
 			sourceTree = "<group>";
@@ -1413,7 +1410,6 @@
 				01F5294E2417FCD900FA96E0 /* HomeViewModel.swift in Sources */,
 				01A3EB13237747D30097FC2A /* CVStatus.swift in Sources */,
 				747D6FDA2208E8130062BB39 /* KeychainResult.swift in Sources */,
-				01987A9B24300EB200835621 /* ChallengePreviewViewModel.swift in Sources */,
 				01F5296924184BE600FA96E0 /* HeaderTwoLabel.swift in Sources */,
 				01A3EB1F237747D30097FC2A /* CVCalendarContentPresentationCoordinator.swift in Sources */,
 				01A3EB12237747D30097FC2A /* CVCalendarViewAppearance.swift in Sources */,
