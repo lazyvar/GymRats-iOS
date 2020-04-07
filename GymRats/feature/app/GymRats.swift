@@ -119,7 +119,7 @@ enum GymRats {
   }
 }
 
-private extension GymRats {
+private extension GymRats {  
   private static func registerForNotifications() {
     UNUserNotificationCenter.current().delegate = notificationHandler
     UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
