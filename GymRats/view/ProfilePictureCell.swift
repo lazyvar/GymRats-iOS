@@ -31,33 +31,20 @@ class ProfilePictureCell: Cell<UIImage>, CellType {
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesBegan(touches, with: event)
     
-    animate(isHighlighted: true)
+    animatePress(true)
   }
 
   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesEnded(touches, with: event)
     
-    animate(isHighlighted: false)
+    animatePress(false)
     (row as? ProfilePictureRow)?.selectionSon()
   }
 
   override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesCancelled(touches, with: event)
     
-    animate(isHighlighted: false)
-  }
-  
-  private func animate(isHighlighted: Bool) {
-    UIView.animate(
-      withDuration: 0.35,
-      delay: 0,
-      usingSpringWithDamping: 1,
-      initialSpringVelocity: 0,
-      options: .curveLinear,
-      animations: {
-        self.transform = isHighlighted ? .init(scaleX: 0.9, y: 0.9) : .identity
-      }
-    )
+    animatePress(false)
   }
   
   public override func update() {

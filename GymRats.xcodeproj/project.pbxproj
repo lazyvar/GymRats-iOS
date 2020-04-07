@@ -82,6 +82,10 @@
 		01527304243C055A00123E25 /* ProfilePictureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01527302243C055A00123E25 /* ProfilePictureCell.xib */; };
 		0158FF282423F73F00EDC584 /* Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158FF272423F73F00EDC584 /* Coding.swift */; };
 		015A1A5E2421A2B500D2EF5A /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015A1A5D2421A2B500D2EF5A /* NotificationHandler.swift */; };
+		015E2A8D243CEFD700307B21 /* TodaysGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015E2A8B243CEFD700307B21 /* TodaysGoalViewController.swift */; };
+		015E2A8E243CEFD700307B21 /* TodaysGoalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 015E2A8C243CEFD700307B21 /* TodaysGoalViewController.xib */; };
+		015E2A95243CF08600307B21 /* ChoiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015E2A93243CF08600307B21 /* ChoiceCell.swift */; };
+		015E2A96243CF08600307B21 /* ChoiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 015E2A94243CF08600307B21 /* ChoiceCell.xib */; };
 		01610148242ABC2800731E30 /* ChallengeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01610147242ABC2800731E30 /* ChallengeInfo.swift */; };
 		0163A2382377AF19006FDDA2 /* StoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0163A2372377AF19006FDDA2 /* StoreService.swift */; };
 		01660839239C5EAF00FCFD26 /* ChallengeStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01660838239C5EAF00FCFD26 /* ChallengeStatsViewController.swift */; };
@@ -318,6 +322,10 @@
 		01527302243C055A00123E25 /* ProfilePictureCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfilePictureCell.xib; sourceTree = "<group>"; };
 		0158FF272423F73F00EDC584 /* Coding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coding.swift; sourceTree = "<group>"; };
 		015A1A5D2421A2B500D2EF5A /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
+		015E2A8B243CEFD700307B21 /* TodaysGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysGoalViewController.swift; sourceTree = "<group>"; };
+		015E2A8C243CEFD700307B21 /* TodaysGoalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodaysGoalViewController.xib; sourceTree = "<group>"; };
+		015E2A93243CF08600307B21 /* ChoiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceCell.swift; sourceTree = "<group>"; };
+		015E2A94243CF08600307B21 /* ChoiceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChoiceCell.xib; sourceTree = "<group>"; };
 		01610147242ABC2800731E30 /* ChallengeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfo.swift; sourceTree = "<group>"; };
 		0163A2372377AF19006FDDA2 /* StoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreService.swift; sourceTree = "<group>"; };
 		01660838239C5EAF00FCFD26 /* ChallengeStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeStatsViewController.swift; sourceTree = "<group>"; };
@@ -508,6 +516,8 @@
 				0176B679243BAF740022B65F /* CreateAccountViewController.swift */,
 				01107DC7243CE665005AA8F3 /* HowItWorksViewController.swift */,
 				01107DC8243CE665005AA8F3 /* HowItWorksViewController.xib */,
+				015E2A8B243CEFD700307B21 /* TodaysGoalViewController.swift */,
+				015E2A8C243CEFD700307B21 /* TodaysGoalViewController.xib */,
 			);
 			path = onboarding;
 			sourceTree = "<group>";
@@ -711,6 +721,8 @@
 				01D5D36F243BDA7D0044E459 /* ErrorLabelCell.xib */,
 				01527301243C055A00123E25 /* ProfilePictureCell.swift */,
 				01527302243C055A00123E25 /* ProfilePictureCell.xib */,
+				015E2A93243CF08600307B21 /* ChoiceCell.swift */,
+				015E2A94243CF08600307B21 /* ChoiceCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1190,6 +1202,7 @@
 				01297D842329E79000CA9E41 /* SF-Compact-Rounded-Medium.otf in Resources */,
 				01F5296124184A7300FA96E0 /* NoChallengesViewController.xib in Resources */,
 				74118065220C58C300EB9D11 /* Lato-Italic.ttf in Resources */,
+				015E2A96243CF08600307B21 /* ChoiceCell.xib in Resources */,
 				01297D952329E79000CA9E41 /* SF-Pro-Rounded-Ultralight.otf in Resources */,
 				74118062220C58C300EB9D11 /* Lato-BoldItalic.ttf in Resources */,
 				01297D932329E79000CA9E41 /* SF-Pro-Rounded-Thin.otf in Resources */,
@@ -1205,6 +1218,7 @@
 				01D5D371243BDA7D0044E459 /* ErrorLabelCell.xib in Resources */,
 				0107AE372325E3D300944D11 /* WorkoutCell.xib in Resources */,
 				0176B66F243B99E50022B65F /* WelcomeViewController.xib in Resources */,
+				015E2A8E243CEFD700307B21 /* TodaysGoalViewController.xib in Resources */,
 				74A01B3C220A544F00431ABD /* UserWorkoutTableViewCell.xib in Resources */,
 				7411805F220C58C300EB9D11 /* Lato-Black.ttf in Resources */,
 				0107AE332325CDD200944D11 /* HumanCell.xib in Resources */,
@@ -1365,6 +1379,7 @@
 				01A3EB18237747D30097FC2A /* CVCalendarView.swift in Sources */,
 				01A3EB29237747D30097FC2A /* CVCalendarManager.swift in Sources */,
 				01A3EB22237747D30097FC2A /* CVCalendarMonthContentViewController.swift in Sources */,
+				015E2A95243CF08600307B21 /* ChoiceCell.swift in Sources */,
 				01F5295424180AB600FA96E0 /* BindableViewController.swift in Sources */,
 				0137A6FF22A766E3001A1148 /* UpcomingChallengeViewController.swift in Sources */,
 				74BE97BC220C9F2800D550CA /* ImageCell.swift in Sources */,
@@ -1428,6 +1443,7 @@
 				011FB63322A37387004D5B8E /* CompletedChallengesViewController.swift in Sources */,
 				743050622209EA82005D8C52 /* UIViewController+Extension.swift in Sources */,
 				01BFF8FC223D425C0044F802 /* CommentTableViewCell.swift in Sources */,
+				015E2A8D243CEFD700307B21 /* TodaysGoalViewController.swift in Sources */,
 				01A3EB24237747D30097FC2A /* CVCalendarWeekView.swift in Sources */,
 				01D5D369243BD2700044E459 /* TextFieldCell.swift in Sources */,
 				013D0251241979B80063F189 /* ChallengeTabBarController.swift in Sources */,
