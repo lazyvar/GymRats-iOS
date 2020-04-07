@@ -12,138 +12,153 @@ import Eureka
 
 class LoginViewController: GRFormViewController {
     
-    let disposeBag = DisposeBag()
-    
-    let loginButton: UIButton = .primary(text: "Log in")
-    let resetPasswordButton: UIButton = .secondary(text: "Reset password")
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        title = "Login"
-        
-        form = form +++ section
-          <<< emailRow
-          <<< passwordRow
-        
-        tableView.backgroundColor = .background
-        setupBackButton()        
-        
-        loginButton.onTouchUpInside { [weak self] in
-            self?.login()
-        }.disposed(by: disposeBag)
-        
-        resetPasswordButton.onTouchUpInside {
-            let alertController = UIAlertController(title: "Reset Password", message: nil, preferredStyle: .alert)
-            
-            let resetPassword = UIAlertAction(title: "Send", style: .default, handler: { _ in
-                self.resetPassword(email: alertController.textFields?.first?.text)
-                Track.event(.passwordReset)
-            })
-            
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            
-            alertController.addTextField { (textField: UITextField!) -> Void in
-                textField.placeholder = "Email"
-            }
-            
-            alertController.addAction(resetPassword)
-            alertController.addAction(cancelAction)
-            
-            self.present(alertController, animated: true, completion: nil)
-        }.disposed(by: disposeBag)
-    }
-    
-    func login() {
-      let formValues = form.values()
+  let disposeBag = DisposeBag()
+  
+  let loginButton = PrimaryButton()
+  let resetPasswordButton = SecondaryButton()
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
       
-      guard let email = formValues["email"] as? String,
-          let password = formValues["password"] as? String else { return }
-      
-      self.showLoadingBar(disallowUserInteraction: true)
-        
-        gymRatsAPI.login(email: email, password: password)
-          .subscribe(onNext: { [weak self] result in
-            self?.hideLoadingBar()
-            
-            switch result {
-            case .success(let user):
-              Track.event(.login)
-              GymRats.login(user)
-              GymRats.replaceRoot(with: DrawerViewController())
-            case .failure(let error):
-              self?.presentAlert(with: error)
-            }
-          }).disposed(by: disposeBag)
-    }
+    title = "Login"
     
-    func resetPassword(email: String?) {
-      guard let email = email else { return }
-      
-      showLoadingBar()
-      gymRatsAPI.resetPassword(email: email)
-        .subscribe(onNext: { [weak self] result in
-          self?.hideLoadingBar()
-            
-          switch result {
-          case .success:
-            self?.presentAlert(title: "Email sent", message: "Check your inbox!")
-          case .failure(let error):
-            self?.presentAlert(with: error)
-          }
-        })
-        .disposed(by: disposeBag)
-    }
-    
-    lazy var section: Section = {
-        return Section() { section in
-            section.footer = self.sectionFooter
-        }
-    }()
-    
-    let emailRow: TextRow = {
-        return TextRow() { textRow in
-            textRow.title = "Email"
-            textRow.tag = "email"
-        }.cellSetup({ cell, row in
-            cell.textField.font = .body
-            cell.textLabel?.font = .body
-            cell.textField.autocapitalizationType = .none
-            cell.tintColor = .brand
-            cell.height = { return 48 }
-        })
-    }()
-    
-    let passwordRow: PasswordRow = {
-        return PasswordRow() { passwordRow in
-            passwordRow.title = "Password"
-            passwordRow.tag = "password"
-        }.cellSetup({ (cell, row) in
-            cell.textField.font = .body
-            cell.textLabel?.font = .body
-            cell.tintColor = .brand
-            cell.height = { return 48 }
-        })
-    }()
-    
-    lazy var sectionFooter: HeaderFooterView<UIView> = {
-        let footerBuilder = { () -> UIView in
-            let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 96))
-            self.loginButton.layer.cornerRadius = 0
-            self.loginButton.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 48)
-            self.resetPasswordButton.layer.cornerRadius = 0
-            self.resetPasswordButton.frame = CGRect(x: 0, y: 48, width: self.view.frame.width, height: 48)
+    tableView.backgroundColor = .background
+    tableView.separatorStyle = .none
 
-            container.addSubview(self.resetPasswordButton)
-            container.addSubview(self.loginButton)
-
-            return container
-        }
-        
-        var footer = HeaderFooterView<UIView>(.callback(footerBuilder))
-        footer.height = { 96 }
-        
-        return footer
-    }()
+    form = form
+      +++ section
+        <<< emailRow
+        <<< passwordRow
+  }
     
+  @objc private func login() {
+    let formValues = form.values()
+    
+    guard
+      let email = formValues["email"] as? String,
+      let password = formValues["password"] as? String else { return }
+    
+    view.endEditing(true)
+    showLoadingBar(disallowUserInteraction: true)
+    
+    gymRatsAPI.login(email: email, password: password)
+      .subscribe(onNext: { [weak self] result in
+        self?.hideLoadingBar()
+        
+        switch result {
+        case .success(let user):
+          Track.event(.login)
+          GymRats.login(user)
+          GymRats.replaceRoot(with: DrawerViewController())
+        case .failure(let error):
+          self?.presentAlert(with: error)
+        }
+      }).disposed(by: disposeBag)
+  }
+  
+  @objc private func presentResetPasswordThing() {
+    let alertController = UIAlertController(title: "Reset Password", message: nil, preferredStyle: .alert)
+    let resetPassword = UIAlertAction(title: "Send", style: .default, handler: { _ in
+      self.resetPassword(email: alertController.textFields?.first?.text)
+      Track.event(.passwordReset)
+    })
+    
+    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+    
+    alertController.addTextField { (textField: UITextField!) -> Void in
+      textField.placeholder = "Email"
+      textField.text = self.form.values()["email"] as? String
+    }
+    
+    alertController.addAction(resetPassword)
+    alertController.addAction(cancelAction)
+    
+    present(alertController, animated: true, completion: nil)
+  }
+  
+  private func resetPassword(email: String?) {
+    guard let email = email else { return }
+    
+    showLoadingBar()
+    
+    gymRatsAPI.resetPassword(email: email)
+      .subscribe(onNext: { [weak self] result in
+        self?.hideLoadingBar()
+          
+        switch result {
+        case .success:
+          self?.presentAlert(title: "Email sent", message: "Check your inbox!")
+        case .failure(let error):
+          self?.presentAlert(with: error)
+        }
+      })
+      .disposed(by: disposeBag)
+  }
+    
+  lazy var section: Section = {
+    return Section() { section in
+      section.footer = self.sectionFooter
+    }
+  }()
+  
+  let emailRow: TextFieldRow = {
+    return TextFieldRow() { textRow in
+      textRow.placeholder = "Email"
+      textRow.tag = "email"
+      textRow.icon = UIDevice.contentMode == .dark ? .mailWhite : .mailBlack
+      textRow.keyboardType = .emailAddress
+      textRow.contentType = .emailAddress
+    }
+    .cellSetup({ cell, row in
+      cell.textField.autocapitalizationType = .none
+    })
+  }()
+  
+  let passwordRow: TextFieldRow = {
+    return TextFieldRow() { passwordRow in
+      passwordRow.placeholder = "Password"
+      passwordRow.secure = true
+      passwordRow.icon = UIDevice.contentMode == .dark ? .lockWhite : .lockBlack
+      passwordRow.contentType = .password
+      passwordRow.tag = "password"
+    }
+    .cellSetup({ cell, row in
+      cell.shadowTextField.autocorrectionType = .no
+      cell.shadowTextField.autocapitalizationType = .none
+    })
+  }()
+  
+  lazy var sectionFooter: HeaderFooterView<UIView> = {
+    let footerBuilder = { () -> UIView in
+      let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 96))
+      
+      container.addSubview(self.resetPasswordButton)
+      container.addSubview(self.loginButton)
+
+      self.loginButton.addTarget(self, action: #selector(self.login), for: .touchUpInside)
+      self.resetPasswordButton.addTarget(self, action: #selector(self.presentResetPasswordThing), for: .touchUpInside)
+      
+      self.loginButton.constrainWidth(250)
+      self.resetPasswordButton.constrainWidth(250)
+      
+      self.loginButton.translatesAutoresizingMaskIntoConstraints = false
+      self.resetPasswordButton.translatesAutoresizingMaskIntoConstraints = false
+      
+      self.loginButton.setTitle("Login", for: .normal)
+      self.resetPasswordButton.setTitle("Reset password", for: .normal)
+      
+      self.loginButton.horizontallyCenter(in: container)
+      self.resetPasswordButton.horizontallyCenter(in: container)
+
+      self.loginButton.topAnchor.constraint(equalTo: container.topAnchor, constant: 10).isActive = true
+      self.resetPasswordButton.topAnchor.constraint(equalTo: self.loginButton.bottomAnchor, constant: 10).isActive = true
+
+      return container
+    }
+    
+    var footer = HeaderFooterView<UIView>(.callback(footerBuilder))
+    footer.height = { 100 }
+    
+    return footer
+  }()
 }
