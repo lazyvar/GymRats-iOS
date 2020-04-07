@@ -51,7 +51,7 @@ class TodaysGoalViewController: BindableViewController {
         
         switch indexPath.row {
         case 0: return
-        case 1: return
+        case 1: self?.push(JoinChallengeViewController())
         case 2: GymRats.completeOnboarding()
         default: fatalError("Unhandled row.")
         }
