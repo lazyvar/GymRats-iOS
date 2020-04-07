@@ -41,9 +41,8 @@ class CreateAccountViewController: GRFormViewController {
     let proPic   = valuesDictionary["pro_pic"] as! UIImage?
     let fullName = valuesDictionary["full_name"] as! String
 
-    self.showLoadingBar(disallowUserInteraction: true)
-    
     view.endEditing(true)
+    showLoadingBar(disallowUserInteraction: true)
     
     gymRatsAPI.signUp(email: email, password: password, profilePicture: proPic, fullName: fullName)
       .subscribe(onNext: { [weak self] result in
@@ -150,7 +149,11 @@ class CreateAccountViewController: GRFormViewController {
       passwordRow.tag = "password"
       passwordRow.secure = true
       passwordRow.icon = UIDevice.contentMode == .dark ? .lockWhite : .lockBlack
-      passwordRow.contentType = .password
+      
+      if #available(iOS 12.0, *) {
+        passwordRow.contentType = .newPassword
+      }
+      
       passwordRow.add(rule: RuleRequired(msg: "Password is required."))
       passwordRow.add(rule: RuleMinLength(minLength: 6, msg: "Password must be greater than 6 characters."))
       passwordRow.add(rule: RuleMaxLength(maxLength: 32, msg: "Password must be less than 32 characters."))
@@ -168,7 +171,6 @@ class CreateAccountViewController: GRFormViewController {
       passwordRow.tag = "confirm_pass"
       passwordRow.secure = true
       passwordRow.icon = UIDevice.contentMode == .dark ? .checkWhite : .checkBlack
-      passwordRow.contentType = .password
       passwordRow.add(rule: RuleEqualsToRow(form: form, tag: "password", msg: "Passwords don't match."))
     }
     .cellSetup({ cell, row in
