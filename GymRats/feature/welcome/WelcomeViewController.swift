@@ -2,61 +2,43 @@
 //  WelcomeViewController.swift
 //  GymRats
 //
-//  Created by Mack Hasz on 2/4/19.
-//  Copyright © 2019 Mack Hasz. All rights reserved.
+//  Created by mack on 4/6/20.
+//  Copyright © 2020 Mack Hasz. All rights reserved.
 //
 
 import UIKit
 import RxSwift
 
-class WelcomeViewController: UIViewController {
-  private let logoView: UIImageView = {
-    let imageView = UIImageView(image: UIImage(named: "mr-rat"))
-    imageView.contentMode = .scaleAspectFit
-    
-    return imageView
-  }()
-
-  private let loginButton: UIButton = .secondary(text: "Log In")
-  private let signUpButton: UIButton = .secondary(text: "Sign Up")
+class WelcomeViewController: BindableViewController {
+  private let viewModel = WelcomeViewModel()
   private let disposeBag = DisposeBag()
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    setupBackButton()
-            
-    view.backgroundColor = .background
-    
-    let logoBackground = UIView()
-    logoBackground.backgroundColor = .brand
-    
-    let text = UILabel()
-    text.font = .h2
-    text.text = "Welcome to GymRats."
-    text.textAlignment = .center
-    
-    logoBackground.addSubview(logoView)
-    logoBackground.addConstraintsWithFormat(format: "V:|[v0]|", views: logoView)
-    logoBackground.addConstraintsWithFormat(format: "H:|[v0]|", views: logoView)
-    
-    view.addSubview(logoBackground)
-    view.addSubview(text)
-    view.addSubview(loginButton)
-    view.addSubview(signUpButton)
-    
-    view.addConstraintsWithFormat(format: "V:|[v0(144)]-20-[v1]-20-[v2]-15-[v3]", views: logoBackground, text, loginButton, signUpButton)
-    view.addConstraintsWithFormat(format: "H:|[v0]|", views: logoBackground)
-    view.addConstraintsWithFormat(format: "H:|[v0]|", views: text)
-    view.addConstraintsWithFormat(format: "H:|-64-[v0]-64-|", views: loginButton)
-    view.addConstraintsWithFormat(format: "H:|-64-[v0]-64-|", views: signUpButton)
-
-    loginButton.onTouchUpInside { [weak self] in
-      self?.push(LoginViewController(), animated: true)
-    }.disposed(by: disposeBag)
-    
-    signUpButton.onTouchUpInside { [weak self] in
-      self?.push(SignupViewController(), animated: true)
-    }.disposed(by: disposeBag)
+  
+  @IBOutlet private weak var titleLabel: UILabel! {
+    didSet {
+      let welcome = NSMutableAttributedString(string: "Welcome to ")
+      welcome.append(NSAttributedString(string: "GymRats", attributes: [
+        NSMutableAttributedString.Key.font: UIFont.h1Bold
+      ]))
+      
+      titleLabel.font = .h1
+      titleLabel.textColor = .primaryText
+      titleLabel.attributedText = welcome
+    }
+  }
+  
+  override func bindViewModel() {
+    viewModel.output.navigation
+      .subscribe(onNext: { [weak self] (navigation, screen) in
+        self?.navigate(navigation, to: screen.viewController)
+      })
+      .disposed(by: disposeBag)
+  }
+  
+  @IBAction private func loginButtonTapped(_ sender: Any) {
+    viewModel.input.tappedLogIn.trigger()
+  }
+  
+  @IBAction private func getStartedButtonTapped(_ sender: Any) {
+    viewModel.input.tappedGetStarted.trigger()
   }
 }

@@ -20,4 +20,17 @@ extension UIImage {
   static let play = UIImage(named: "play")!
   static let gear = UIImage(named: "gear")!
   static let info = UIImage(named: "info")!
+  static let chevronLeft = UIImage(named: "chevron-left")!
+  static let eyeOn = UIImage(named: "eye-on")!
+  static let eyeOff = UIImage(named: "eye-off")!
+  static let nameBlack = UIImage(named: "name-black")!
+  static let checkBlack = UIImage(named: "check-black")!
+  static let mailBlack = UIImage(named: "mail-black")!
+  static let lockBlack = UIImage(named: "lock-black")!
+  static let nameWhite = UIImage(named: "name-white")!
+  static let checkWhite = UIImage(named: "check-white")!
+  static let mailWhite = UIImage(named: "mail-white")!
+  static let lockWhite = UIImage(named: "lock-white")!
+  static let proPic = UIImage(named: "pro-pic")!
+  static let camera = UIImage(named: "camera")!
 }

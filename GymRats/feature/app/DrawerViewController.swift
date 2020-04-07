@@ -17,7 +17,8 @@ class DrawerViewController: UIViewController {
     super.viewDidLoad()
   
     defer { UserDefaults.standard.removeObject(forKey: "join-code") }
-    
+    defer { UserDefaults.standard.removeObject(forKey: "account-is-onboarding") }
+
     let menu = MenuViewController()
     let center: UIViewController
     

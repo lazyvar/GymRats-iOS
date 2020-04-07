@@ -60,7 +60,11 @@ enum GymRats {
     
     window.rootViewController = {
       if currentAccount != nil {
-        return DrawerViewController()
+        if UserDefaults.standard.bool(forKey: "account-is-onboarding") {
+          return HowItWorksViewController().inNav()
+        } else {
+          return DrawerViewController()
+        }
       } else {
         return WelcomeViewController().inNav()
       }
@@ -89,8 +93,33 @@ enum GymRats {
   static func login(_ user: Account) {
     currentAccount = user
     Account.saveCurrent(user)
-    window.rootViewController = DrawerViewController()
     Track.currentUser()
+  }
+
+  /// Logs the account in an takes them to onboarding. Sets user default to true for `account-is-onboarding`.
+  static func startOnboarding(_ account: Account) {
+    GymRats.login(account)
+    UserDefaults.standard.set(true, forKey: "account-is-onboarding")
+    GymRats.replaceRoot(with: HowItWorksViewController().inNav())
+  }
+  
+  /// Takes them to the main app and clears `account-is-onboarding`
+  static func completeOnboarding() {
+    UserDefaults.standard.removeObject(forKey: "account-is-onboarding")
+    replaceRoot(with: DrawerViewController())
+  }
+  
+  /// Animates the replacing of the rootViewController on the applications window.
+  static func replaceRoot(with viewController: UIViewController) {
+    window.rootViewController = viewController
+    
+    UIView.transition(
+      with: window,
+      duration: 0.25,
+      options: .transitionCrossDissolve,
+      animations: {},
+      completion: nil
+    )
   }
   
   /// Called when the app registered for notifications.

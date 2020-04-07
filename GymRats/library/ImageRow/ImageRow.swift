@@ -44,13 +44,24 @@ extension ImageRowSourceTypes {
         case ImageRowSourceTypes.Camera:
             return NSLocalizedString("Take photo", comment: "") 
         case ImageRowSourceTypes.PhotoLibrary:
-            return NSLocalizedString("Photo Library", comment: "") 
+            return NSLocalizedString("Photo library", comment: "")
         case ImageRowSourceTypes.SavedPhotosAlbum:
             return NSLocalizedString("Saved Photos", comment: "") 
         default:
             return ""
         }
     }
+  
+  var desc: String {
+    switch self {
+    case ImageRowSourceTypes.Camera:
+      return "Take photo"
+    case ImageRowSourceTypes.PhotoLibrary:
+      return "Photo library"
+    default:
+        return ""
+    }
+  }
 }
 
 public enum ImageClearAction {
@@ -88,7 +99,6 @@ open class _ImageRow<Cell: CellType>: OptionsRow<Cell>, PresenterRowType, ImageR
 
     presentationMode = .presentModally(controllerProvider: ControllerProvider.callback {
         let imagePickerController = ImagePickerController()
-        imagePickerController.validatePhotoWasTakenToday = self.validatePhotoWasTakenToday
         
         return imagePickerController
     }, onDismiss: { [weak self] vc in
@@ -100,7 +110,7 @@ open class _ImageRow<Cell: CellType>: OptionsRow<Cell>, PresenterRowType, ImageR
   }
 
   // copy over the existing logic from the SelectorRow
-    func displayImagePickerController(_ sourceType: UIImagePickerController.SourceType) {
+  func displayImagePickerController(_ sourceType: UIImagePickerController.SourceType) {
     if let presentationMode = presentationMode, !isDisabled {
       if let controller = presentationMode.makeController(){
         controller.row = self

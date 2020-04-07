@@ -24,57 +24,30 @@
 
 import Eureka
 import Foundation
-import AssetsLibrary
 
 /// Selector Controller used to pick an image
 open class ImagePickerController: UIImagePickerController, TypedRowControllerType, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+  
+  /// The row that pushed or presented this controller
+  public var row: RowOf<UIImage>!
+  
+  /// A closure to be called when the controller disappears.
+  public var onDismissCallback: ((UIViewController) -> ())?
+  
+  open override func viewDidLoad() {
+    super.viewDidLoad()
     
-    /// The row that pushed or presented this controller
-    public var row: RowOf<UIImage>!
+    delegate = self
+  }
+  
+  open func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
     
-    /// A closure to be called when the controller disappears.
-    public var onDismissCallback: ((UIViewController) -> ())?
-    
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        delegate = self
-    }
-    
-    public var validatePhotoWasTakenToday: Bool = false
-    
-    open func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if validatePhotoWasTakenToday {
-            if info[.mediaMetadata] != nil { // user took pic
-                (row as? ImageRow)?.imageURL = info[.referenceURL] as? URL
-                row.value = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage
-                onDismissCallback?(self)
-            } else {
-                if let url = info[UIImagePickerController.InfoKey.referenceURL] as? URL {
-                    let assetsLibrary = ALAssetsLibrary()
-                    assetsLibrary.asset(for: url, resultBlock: { (asset: ALAsset!) -> Void in
-                        if let date = asset.value(forProperty: ALAssetPropertyDate) as? Date {
-                            if date.isToday {
-                                (self.row as? ImageRow)?.imageURL = info[.referenceURL] as? URL
-                                self.row.value = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage
-                                self.onDismissCallback?(self)
-                            } else {
-                                self.presentAlert(title: "Photo Not Taken Today", message: "A photo can only be posted for a workout if it was taken today.")
-                            }
-                        }
-                    }) { (error: Error?) -> Void in
-                        self.presentAlert(title: "Permission Required", message: "Permission was be given for photos blah blah blah.")
-                    }
-                }
-            }
-        } else {
-            (row as? ImageRow)?.imageURL = info[.referenceURL] as? URL
-            row.value = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage
-            onDismissCallback?(self)
-        }
-    }
+    (row as? ImageRow)?.imageURL = info[.referenceURL] as? URL
+    row.value = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage
+    onDismissCallback?(self)
+  }
 
-    open func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
-        onDismissCallback?(self)
-    }
-    
+  open func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
+    onDismissCallback?(self)
+  }
 }

@@ -88,6 +88,7 @@ PODS:
   - InputBarAccessoryView (4.3.2):
     - InputBarAccessoryView/Core (= 4.3.2)
   - InputBarAccessoryView/Core (4.3.2)
+  - JVFloatLabeledTextField (1.2.2)
   - Kingfisher (4.10.1)
   - LightweightObservable (1.0.3)
   - MessageKit (3.1.0):
@@ -158,6 +159,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - GooglePlaces
   - GradientLoadingBar (~> 1.0)
+  - JVFloatLabeledTextField
   - Kingfisher (~> 4.0)
   - MessageKit
   - MMDrawerController (~> 0.5.7)
@@ -207,6 +209,7 @@ SPEC REPOS:
     - GradientLoadingBar
     - GTMSessionFetcher
     - InputBarAccessoryView
+    - JVFloatLabeledTextField
     - Kingfisher
     - LightweightObservable
     - MessageKit
@@ -260,6 +263,7 @@ SPEC CHECKSUMS:
   GradientLoadingBar: a0e1855e4ba5051301027d5f4a129f38003cc2b9
   GTMSessionFetcher: cea130bbfe5a7edc8d06d3f0d17288c32ffe9925
   InputBarAccessoryView: 7985d418040a05fe894bd4b8328dd43ab35517c3
+  JVFloatLabeledTextField: df48598472ee015701d509f43e59492a0d4ca208
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   LightweightObservable: 8687e8e1e2940ae2f64d7f71fe78c036d89c966f
   MessageKit: 3beb578737a5aa2bba25cc27c7b6d6faa09af5a7
@@ -284,6 +288,6 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UIScrollView-InfiniteScroll: 3ef456bcbe759c19f510a383cff96e6647c98c98
 
-PODFILE CHECKSUM: afa8e11a8229730d86016fc1f0441298e92999ea
+PODFILE CHECKSUM: 1e713019fdc8032f936c0edb0e6b36eb12020a47
 
 COCOAPODS: 1.9.1

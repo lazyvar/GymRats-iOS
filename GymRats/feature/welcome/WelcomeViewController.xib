@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Rounded-Regular.otf">
+            <string>SFProRounded-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WelcomeViewController" customModule="GymRats" customModuleProvider="target">
+            <connections>
+                <outlet property="titleLabel" destination="r47-zI-dyP" id="EDn-wU-b9t"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="d62-y9-ZrL">
+                    <rect key="frame" x="20" y="64" width="374" height="444.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to GymRats" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r47-zI-dyP">
+                            <rect key="frame" x="42.5" y="0.0" width="289" height="38.5"/>
+                            <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="32"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="start-it-up" translatesAutoresizingMaskIntoConstraints="NO" id="IaW-Zx-aE5">
+                            <rect key="frame" x="0.0" y="58.5" width="374" height="250"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="250" id="iVp-b3-tLa"/>
+                            </constraints>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c5H-L4-GGN" customClass="SecondaryButton" customModule="GymRats" customModuleProvider="target">
+                            <rect key="frame" x="62" y="328.5" width="250" height="48"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="TUh-Sk-GPq"/>
+                                <constraint firstAttribute="width" constant="250" id="gGB-jf-S8d"/>
+                            </constraints>
+                            <state key="normal" title="Log in"/>
+                            <connections>
+                                <action selector="loginButtonTapped:" destination="-1" eventType="touchUpInside" id="vO7-Mo-stI"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BXx-w6-fog" customClass="PrimaryButton" customModule="GymRats" customModuleProvider="target">
+                            <rect key="frame" x="62" y="396.5" width="250" height="48"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="FI7-bk-AzH"/>
+                                <constraint firstAttribute="width" constant="250" id="GQf-Bi-oDf"/>
+                            </constraints>
+                            <state key="normal" title="Get started"/>
+                            <connections>
+                                <action selector="getStartedButtonTapped:" destination="-1" eventType="touchUpInside" id="RQB-Yg-Rws"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="d62-y9-ZrL" secondAttribute="trailing" constant="20" id="0MN-8o-v5b"/>
+                <constraint firstItem="d62-y9-ZrL" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="LSj-mk-1RF"/>
+                <constraint firstItem="d62-y9-ZrL" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="euq-L6-OQy"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="280" y="-1"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="start-it-up" width="494" height="495"/>
+    </resources>
+</document>

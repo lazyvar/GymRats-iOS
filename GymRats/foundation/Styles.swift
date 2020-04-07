@@ -66,7 +66,9 @@ extension UIFont {
     static let detailsBold = UIFont(name: "SFProRounded-Bold", size: 12)!
     static let bigAndBlack = UIFont(name: "Lato-Black", size: 16)!
     static let menu = UIFont(name: "Lato-Black", size: 18)!
-    static let h1 = UIFont(name: "SFProRounded-Regular", size: 28)!
+    static let h1 = UIFont(name: "SFProRounded-Regular", size: 32)!
+    static let h1Bold = UIFont(name: "SFProRounded-Bold", size: 32)!
+    static let h4Bold = UIFont(name: "SFProRounded-Bold", size: 18)!
     static let h2 = UIFont(name: "SFProRounded-Regular", size: 24)!
     static let h3 = UIFont(name: "SFProRounded-Regular", size: 20)!
     static let h4 = UIFont(name: "SFProRounded-Regular", size: 18)!

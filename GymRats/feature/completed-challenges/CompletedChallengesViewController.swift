@@ -48,14 +48,14 @@ class CompletedChallengesViewController: UITableViewController {
       retryButton.isHidden = true
       showLoadingBar()
       
-      gymRatsAPI.getCompletedChallenges()
+      Challenge.State.all.fetch()
         .subscribe(onNext: { [weak self] result in
           self?.hideLoadingBar()
           self?.refresher.endRefreshing()
 
           switch result {
           case .success(let challenges):
-            self?.challenges = challenges
+            self?.challenges = challenges.getPastChallenges()
             self?.tableView.reloadData()
           case .failure(let error):
             self?.presentAlert(with: error)
