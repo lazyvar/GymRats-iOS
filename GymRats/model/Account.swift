@@ -35,7 +35,7 @@ extension Account {
   }
   
   static func saveCurrent(_ account: Account) {
-    UserDefaults.standard.set(account, forKey: "gym_rats_account")
+    UserDefaults.standard.setCodable(account, forKey: "gym_rats_account")
   }
   
   static func removeCurrent() {

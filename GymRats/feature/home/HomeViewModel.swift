@@ -56,5 +56,14 @@ final class HomeViewModel: ViewModel {
       })
       .bind(to: output.navigation)
       .disposed(by: disposeBag)
+  
+    input.viewDidLoad
+      .subscribe(onNext: { _ in
+        if let code = UserDefaults.standard.string(forKey: "join-code") {
+          UserDefaults.standard.removeObject(forKey: "join-code")
+          ChallengeFlow.join(code: code)
+        }
+      })
+      .disposed(by: disposeBag)
   }
 }

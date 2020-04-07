@@ -16,9 +16,8 @@ class DrawerViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
   
-    defer { UserDefaults.standard.removeObject(forKey: "join-code") }
-    defer { UserDefaults.standard.removeObject(forKey: "account-is-onboarding") }
-
+    UserDefaults.standard.removeObject(forKey: "account-is-onboarding")
+    
     let menu = MenuViewController()
     let home = HomeViewController().inNav()
     

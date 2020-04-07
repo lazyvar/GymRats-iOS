@@ -49,7 +49,32 @@ enum ChallengeFlow {
   }
   
   static func join(code: String) {
-    
+    UIViewController.topmost().showLoadingBar()
+  
+    gymRatsAPI.getChallenge(code: code)
+      .subscribe(onNext: { result in
+        UIViewController.topmost().hideLoadingBar()
+        
+        switch result {
+        case .success(let challenges):
+          guard let challenge = challenges.first(where: { $0.code == code }) else { return }
+          
+          let preview = ChallengePreviewViewController(challenge: challenge)
+          let nav = preview.inNav()
+          
+          preview.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: .close,
+            style: .plain,
+            target: preview,
+            action: #selector(UIViewController.dismissSelf)
+          )
+          
+          UIViewController.topmost().present(nav, animated: true, completion: nil)
+        case .failure(let error):
+          UIViewController.topmost().presentAlert(with: error)
+        }
+      })
+      .disposed(by: disposeBag)
   }
   
   static func join() -> Observable<Challenge> {

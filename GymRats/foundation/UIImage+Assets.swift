@@ -33,4 +33,5 @@ extension UIImage {
   static let lockWhite = UIImage(named: "lock-white")!
   static let proPic = UIImage(named: "pro-pic")!
   static let camera = UIImage(named: "camera")!
+  static let close = UIImage(named: "close")!
 }
