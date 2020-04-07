@@ -117,7 +117,14 @@ extension TextFieldCell: UITextFieldDelegate {
   }
 }
 
-final class TextFieldRow: Row<TextFieldCell>, RowType {
+final class TextFieldRow: Row<TextFieldCell>, RowType, FieldRowConformance, KeyboardReturnHandler {
+  var titlePercentage: CGFloat?
+  var placeholderColor: UIColor?
+  var keyboardReturnType: KeyboardReturnTypeConfiguration?
+  var formatter: Formatter?
+  var useFormatterDuringInput: Bool = false
+  var useFormatterOnDidBeginEditing: Bool?
+  
   var placeholder: String?
   var icon: UIImage?
   var secure: Bool = false

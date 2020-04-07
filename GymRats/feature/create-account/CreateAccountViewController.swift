@@ -24,6 +24,7 @@ class CreateAccountViewController: GRFormViewController {
     
     form = form
       +++ userInfoSection
+        <<< profilePictureRow
         <<< emailRow
         <<< fullNameRow
         <<< passwordRow
@@ -41,6 +42,8 @@ class CreateAccountViewController: GRFormViewController {
     let fullName = valuesDictionary["full_name"] as! String
 
     self.showLoadingBar(disallowUserInteraction: true)
+    
+    view.endEditing(true)
     
     gymRatsAPI.signUp(email: email, password: password, profilePicture: proPic, fullName: fullName)
       .subscribe(onNext: { [weak self] result in
@@ -136,29 +139,27 @@ class CreateAccountViewController: GRFormViewController {
     return footer
   }()
   
-//  private let profilePictureRow: ImageRow = {
-//    return ImageRow() { imageRow in
-//      imageRow.title = "Profile picture"
-//      imageRow.tag = "pro_pic"
-//      imageRow.placeholderImage = UIImage(named: "photo")?.withRenderingMode(.alwaysTemplate)
-//      imageRow.sourceTypes = [.Camera, .PhotoLibrary]
-//    }.cellSetup { cell, _ in
-//      cell.tintColor = .primaryText
-//      cell.height = { return 48 }
-//    }
-//  }()
+  private let profilePictureRow: ProfilePictureRow = {
+    return ProfilePictureRow() { row in
+      row.tag = "pro_pic"
+    }
+  }()
   
   private lazy var passwordRow: TextFieldRow = {
     return TextFieldRow() { passwordRow in
       passwordRow.placeholder = "Password"
       passwordRow.tag = "password"
       passwordRow.secure = true
-      passwordRow.icon = .lock
+      passwordRow.icon = UIDevice.contentMode == .dark ? .lockWhite : .lockBlack
       passwordRow.contentType = .password
       passwordRow.add(rule: RuleRequired(msg: "Password is required."))
       passwordRow.add(rule: RuleMinLength(minLength: 6, msg: "Password must be greater than 6 characters."))
       passwordRow.add(rule: RuleMaxLength(maxLength: 32, msg: "Password must be less than 32 characters."))
     }
+    .cellSetup({ cell, row in
+      cell.shadowTextField.autocorrectionType = .no
+      cell.shadowTextField.autocapitalizationType = .none
+    })
     .onRowValidationChanged(self.handleRowValidationChange)
   }()
   
@@ -167,10 +168,14 @@ class CreateAccountViewController: GRFormViewController {
       passwordRow.placeholder = "Confirm password"
       passwordRow.tag = "confirm_pass"
       passwordRow.secure = true
-      passwordRow.icon = .check
+      passwordRow.icon = UIDevice.contentMode == .dark ? .checkWhite : .checkBlack
       passwordRow.contentType = .password
       passwordRow.add(rule: RuleEqualsToRow(form: form, tag: "password", msg: "Passwords don't match."))
     }
+    .cellSetup({ cell, row in
+      cell.shadowTextField.autocorrectionType = .no
+      cell.shadowTextField.autocapitalizationType = .none
+    })
     .onRowValidationChanged(self.handleRowValidationChange)
   }()
   
@@ -178,7 +183,7 @@ class CreateAccountViewController: GRFormViewController {
     return TextFieldRow() { textRow in
       textRow.placeholder = "Name"
       textRow.tag = "full_name"
-      textRow.icon = .name
+      textRow.icon = UIDevice.contentMode == .dark ? .nameWhite : .nameBlack
       textRow.contentType = .givenName
       textRow.add(rule: RuleRequired(msg: "Name is required."))
     }
@@ -187,7 +192,7 @@ class CreateAccountViewController: GRFormViewController {
   
   private lazy var emailRow: TextFieldRow = {
     return TextFieldRow() { emailRow in
-      emailRow.icon = .mail
+      emailRow.icon = UIDevice.contentMode == .dark ? .mailWhite : .mailBlack
       emailRow.placeholder = "Email"
       emailRow.tag = "email"
       emailRow.keyboardType = .emailAddress
@@ -195,6 +200,10 @@ class CreateAccountViewController: GRFormViewController {
       emailRow.add(rule: RuleEmail(msg: "Email is not valid format."))
       emailRow.add(rule: RuleRequired(msg: "Email is required."))
     }
+    .cellSetup({ cell, row in
+      cell.shadowTextField.autocorrectionType = .no
+      cell.shadowTextField.autocapitalizationType = .none
+    })
     .onRowValidationChanged(self.handleRowValidationChange)
   }()
 

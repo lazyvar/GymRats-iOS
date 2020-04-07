@@ -76,6 +76,8 @@
 		014A7657237764B6002CE366 /* GRFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014A7656237764B6002CE366 /* GRFormViewController.swift */; };
 		014B6772241882C000F356EB /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014B6770241882C000F356EB /* ChallengeViewController.swift */; };
 		014B6773241882C000F356EB /* ChallengeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 014B6771241882C000F356EB /* ChallengeViewController.xib */; };
+		01527303243C055A00123E25 /* ProfilePictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01527301243C055A00123E25 /* ProfilePictureCell.swift */; };
+		01527304243C055A00123E25 /* ProfilePictureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01527302243C055A00123E25 /* ProfilePictureCell.xib */; };
 		0158FF282423F73F00EDC584 /* Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158FF272423F73F00EDC584 /* Coding.swift */; };
 		015A1A5E2421A2B500D2EF5A /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015A1A5D2421A2B500D2EF5A /* NotificationHandler.swift */; };
 		01610148242ABC2800731E30 /* ChallengeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01610147242ABC2800731E30 /* ChallengeInfo.swift */; };
@@ -308,6 +310,8 @@
 		014A7656237764B6002CE366 /* GRFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRFormViewController.swift; sourceTree = "<group>"; };
 		014B6770241882C000F356EB /* ChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
 		014B6771241882C000F356EB /* ChallengeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeViewController.xib; sourceTree = "<group>"; };
+		01527301243C055A00123E25 /* ProfilePictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureCell.swift; sourceTree = "<group>"; };
+		01527302243C055A00123E25 /* ProfilePictureCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfilePictureCell.xib; sourceTree = "<group>"; };
 		0158FF272423F73F00EDC584 /* Coding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coding.swift; sourceTree = "<group>"; };
 		015A1A5D2421A2B500D2EF5A /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 		01610147242ABC2800731E30 /* ChallengeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfo.swift; sourceTree = "<group>"; };
@@ -699,6 +703,8 @@
 				01D5D368243BD2700044E459 /* TextFieldCell.xib */,
 				01D5D36E243BDA7D0044E459 /* ErrorLabelCell.swift */,
 				01D5D36F243BDA7D0044E459 /* ErrorLabelCell.xib */,
+				01527301243C055A00123E25 /* ProfilePictureCell.swift */,
+				01527302243C055A00123E25 /* ProfilePictureCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1195,6 +1201,7 @@
 				74A01B3C220A544F00431ABD /* UserWorkoutTableViewCell.xib in Resources */,
 				7411805F220C58C300EB9D11 /* Lato-Black.ttf in Resources */,
 				0107AE332325CDD200944D11 /* HumanCell.xib in Resources */,
+				01527304243C055A00123E25 /* ProfilePictureCell.xib in Resources */,
 				011FB63022A33C14004D5B8E /* ItemCell.xib in Resources */,
 				01297D8D2329E79000CA9E41 /* SF-Compact-Rounded-Thin.otf in Resources */,
 				74118068220C58C300EB9D11 /* Lato-Regular.ttf in Resources */,
@@ -1354,6 +1361,7 @@
 				0137A6FF22A766E3001A1148 /* UpcomingChallengeViewController.swift in Sources */,
 				74BE97BC220C9F2800D550CA /* ImageCell.swift in Sources */,
 				747D6FE92208EDAF0062BB39 /* Colors.swift in Sources */,
+				01527303243C055A00123E25 /* ProfilePictureCell.swift in Sources */,
 				0107AE322325CDD200944D11 /* HumanCell.swift in Sources */,
 				747D6FE02208ECDD0062BB39 /* Styles.swift in Sources */,
 				01F5295D2418367B00FA96E0 /* Resource.swift in Sources */,
