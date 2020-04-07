@@ -30,7 +30,7 @@ class JoinChallengeViewController: UIViewController {
   
   private lazy var joinButton = UIBarButtonItem(
     // father forgive me for I have sinned
-    title: "                         Find                         ",
+    title: "                         Join                         ",
     style: .plain,
     target: self,
     action: #selector(join)
@@ -46,7 +46,7 @@ class JoinChallengeViewController: UIViewController {
     $0.barTintColor = .brand
     $0.items = [space, joinButton, space]
   }
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
