@@ -125,4 +125,17 @@ extension UIView {
     func allSubviews() -> [UIView] {
         return subviews + subviews.flatMap { $0.allSubviews() }
     }
+  
+  func animatePress(_ press: Bool) {
+    UIView.animate(
+      withDuration: 0.15,
+      delay: 0,
+      usingSpringWithDamping: 1,
+      initialSpringVelocity: 0,
+      options: .curveLinear,
+      animations: {
+        self.transform = press ? .init(scaleX: 0.9, y: 0.9) : .identity
+      }
+    )
+  }
 }

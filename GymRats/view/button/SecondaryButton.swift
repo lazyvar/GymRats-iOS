@@ -44,15 +44,24 @@ class SecondaryButton: UIButton {
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesBegan(touches, with: event)
     
+    animatePress(true)
     shadowLayer?.fillColor = UIColor.foreground.darker.cgColor
   }
   
   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesEnded(touches, with: event)
     
+    animatePress(false)
     shadowLayer?.fillColor = UIColor.foreground.cgColor
   }
   
+  override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesCancelled(touches, with: event)
+    
+    animatePress(false)
+    shadowLayer?.fillColor = UIColor.foreground.cgColor
+  }
+
   private func setup() {
     layer.borderWidth = 0
     contentEdgeInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)

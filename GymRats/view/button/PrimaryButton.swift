@@ -44,12 +44,21 @@ class PrimaryButton: UIButton {
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesBegan(touches, with: event)
     
+    animatePress(true)
     shadowLayer?.fillColor = UIColor.brand.darker.cgColor
   }
   
   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesEnded(touches, with: event)
     
+    animatePress(false)
+    shadowLayer?.fillColor = UIColor.brand.cgColor
+  }
+  
+  override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesCancelled(touches, with: event)
+    
+    animatePress(false)
     shadowLayer?.fillColor = UIColor.brand.cgColor
   }
   

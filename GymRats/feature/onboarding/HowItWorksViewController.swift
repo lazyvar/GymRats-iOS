@@ -28,6 +28,8 @@ class HowItWorksViewController: UIViewController {
   }
   
   @IBAction func gotIt(_ sender: Any) {
-    GymRats.completeOnboarding()
+    push(
+      TodaysGoalViewController()
+    )
   }
 }
