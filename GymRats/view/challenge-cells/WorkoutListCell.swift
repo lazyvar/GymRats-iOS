@@ -48,7 +48,15 @@ class WorkoutListCell: UITableViewCell {
     }
   }
   
+  @IBOutlet weak var workoutImageWidth: NSLayoutConstraint!
   @IBOutlet private weak var accountImageView: UserImageView!
+  
+  @IBOutlet weak var timeLabel: UILabel! {
+    didSet {
+      timeLabel.textColor = .primaryText
+      timeLabel.font = .details
+    }
+  }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesBegan(touches, with: event)
@@ -73,11 +81,11 @@ class WorkoutListCell: UITableViewCell {
     
     selectionStyle = .none
   }
-      
+
   override func prepareForReuse() {
     super.prepareForReuse()
 
-    imageShadowView.alpha = 1
+    workoutImageWidth.constant = 64
     workoutTitleLabel.text = nil
     workoutImageView.image = nil
     accountNameLabel.text = nil
@@ -86,21 +94,46 @@ class WorkoutListCell: UITableViewCell {
   
   static func skeleton(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
     return tableView.dequeueSkeletonCell(withType: WorkoutListCell.self, for: indexPath).apply {      
-      print($0)
+      $0.accountNameLabel.isSkeletonable = true
+      $0.workoutImageView.isSkeletonable = true
+      $0.workoutTitleLabel.isSkeletonable = true
+      $0.accountImageView.isSkeletonable = true
+      $0.timeLabel.isSkeletonable = true
+
+      $0.accountNameLabel.linesCornerRadius = 2
+      $0.workoutTitleLabel.linesCornerRadius = 2
+      $0.timeLabel.linesCornerRadius = 2
+
+      if let width = $0.accountNameLabel.constraints.first(where: { constraint -> Bool in
+        return constraint.firstAttribute == .width
+      }) {
+        $0.accountNameLabel.removeConstraint(width)
+      }
+
+      if let width = $0.workoutTitleLabel.constraints.first(where: { constraint -> Bool in
+        return constraint.firstAttribute == .width
+      }) {
+        $0.workoutTitleLabel.removeConstraint(width)
+      }
+
+      $0.accountNameLabel.constrainWidth(CGFloat.random(in: 55...125))
+      $0.workoutTitleLabel.constrainWidth(CGFloat.random(in: 95...200))
+
+      $0.accountNameLabel.showAnimatedSkeleton()
+      $0.workoutImageView.showAnimatedSkeleton()
+      $0.workoutTitleLabel.showAnimatedSkeleton()
+      $0.accountImageView.showAnimatedSkeleton()
+      $0.timeLabel.showAnimatedSkeleton()
     }
   }
 
   static func configure(tableView: UITableView, indexPath: IndexPath, workout: Workout) -> UITableViewCell {
-    return tableView.dequeueReusableCell(withType: WorkoutListCell.self, for: indexPath).apply { cell in
-      cell.accountNameLabel.text = workout.account.fullName
-      cell.workoutImageView.kf.setImage(with: URL(string: workout.photoUrl ?? ""), options: [.transition(.fade(0.2))]) { _, _, _, _ in
-        UIView.animate(withDuration: 0.2) {
-          cell.imageShadowView.alpha = 0
-        }
-      }
-      cell.workoutTitleLabel.text = workout.title
-      cell.accountImageView.load(avatarInfo: workout.account)
-//      $0.timeLabel.text = "\(workout.createdAt.challengeTime)"
+    return tableView.dequeueReusableCell(withType: WorkoutListCell.self, for: indexPath).apply {
+      $0.accountNameLabel.text = workout.account.fullName
+      $0.workoutImageView.kf.setImage(with: URL(string: workout.photoUrl ?? ""), options: [.transition(.fade(0.2))])
+      $0.workoutTitleLabel.text = workout.title
+      $0.accountImageView.load(avatarInfo: workout.account)
+      $0.timeLabel.text = "\(workout.createdAt.challengeTime)"
     }
   }
 }
