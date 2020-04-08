@@ -53,7 +53,8 @@ final class ChallengeViewModel: ViewModel {
       .bind(to: output.scrollToTop)
       .disposed(by: disposeBag)
     
-    let cleanRefresh = Observable.merge(input.refresh, workoutCreated, workoutDeleted, input.viewDidLoad, appEnteredForeground).share()
+    let cleanRefresh = Observable.merge(input.refresh, workoutCreated, workoutDeleted, input.viewDidLoad, appEnteredForeground)
+      .share()
     
     let cleanRefreshWorkouts = cleanRefresh
       .do(onNext: { self.page = 0 })
@@ -65,9 +66,11 @@ final class ChallengeViewModel: ViewModel {
       .flatMap { gymRatsAPI.getWorkouts(for: self.challenge, page: self.page) }
       .share()
 
-    let challengeInfoFetch = Observable.merge(cleanRefresh)
+    let challengeInfoFetchPure = Observable.merge(cleanRefresh)
       .flatMap { gymRatsAPI.challengeInfo(self.challenge) }
-      .share()
+      
+    let challengeInfoFetch = challengeInfoFetchPure
+      .executeFor(atLeast: .milliseconds(300), scheduler: MainScheduler.instance)
     
     let challengeInfo = challengeInfoFetch.compactMap { $0.object }.share()
 

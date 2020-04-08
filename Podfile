@@ -25,7 +25,7 @@ target 'GymRats' do
     pod 'SkeletonView'
     pod 'ESTabBarController-swift'
     pod 'NVActivityIndicatorView/AppExtension'
-    pod "RxGesture"
+    pod 'RxGesture'
     pod 'Eureka'
     pod 'PanModal'
     pod 'RSKPlaceholderTextView'

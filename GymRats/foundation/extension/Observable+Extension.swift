@@ -142,3 +142,12 @@ extension JSONDecoder {
     return decoder
   }()
 }
+
+extension ObservableType {
+  func executeFor(atLeast timeInterval: RxTimeInterval, scheduler: SchedulerType) -> Observable<Element> {
+    let minimumExecutionTime = Observable<Int>.timer(timeInterval, scheduler: scheduler)
+    
+    return Observable.zip(minimumExecutionTime, self.asObservable())
+      .map { _, element in element }
+  }
+}
