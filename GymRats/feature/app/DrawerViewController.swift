@@ -16,9 +16,8 @@ class DrawerViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
   
-    defer { UserDefaults.standard.removeObject(forKey: "join-code") }
-    defer { UserDefaults.standard.removeObject(forKey: "account-is-onboarding") }
-
+    UserDefaults.standard.removeObject(forKey: "account-is-onboarding")
+    
     let menu = MenuViewController()
     let home = HomeViewController().inNav()
     
@@ -39,5 +38,34 @@ class DrawerViewController: UIViewController {
       .disposed(by: disposeBag)
     
     install(drawer)
+    
+    if let code = UserDefaults.standard.string(forKey: "join-code") {
+      UserDefaults.standard.removeObject(forKey: "join-code")
+      
+      ChallengeFlow.join(code: code)
+      
+      NotificationCenter.default.rx.notification(.joinedChallenge)
+        .compactMap { $0.object as? Challenge }
+        .do(onNext: { challenge in
+          if challenge.isPast {
+            UIViewController.topmost().presentAlert(title: "Challenge completed", message: "You have joined a challenge that has already completed.")
+          }
+        })
+        .filter { !$0.isPast }
+        .do(onNext: { challenge in
+          UserDefaults.standard.set(challenge.id, forKey: "last_opened_challenge")
+        })
+        .map { challenge -> (Navigation, Screen) in
+          if challenge.isActive {
+            return (.replaceDrawerCenter(animated: true), .activeChallenge(challenge))
+          } else {
+            return (.replaceDrawerCenterInNav(animated: true), .upcomingChallenge(challenge))
+          }
+        }
+        .subscribe(onNext: { (navigation, screen) in
+          drawer.centerViewController?.navigate(navigation, to: screen.viewController)
+        })
+        .disposed(by: disposeBag)
+    }
   }
 }

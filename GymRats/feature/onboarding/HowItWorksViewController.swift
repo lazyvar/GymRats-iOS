@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import RxSwift
 
 class HowItWorksViewController: UIViewController {
-
+  private let disposeBag = DisposeBag()
+  private let code: String? = UserDefaults.standard.string(forKey: "join-code")
+  
   @IBOutlet weak var content: UILabel! {
     didSet {
       content.textColor = .primaryText
@@ -28,8 +31,31 @@ class HowItWorksViewController: UIViewController {
   }
   
   @IBAction func gotIt(_ sender: Any) {
-    push(
-      TodaysGoalViewController()
-    )
+    if let code = code {
+      showLoadingBar()
+      
+      gymRatsAPI.getChallenge(code: code)
+        .subscribe(onNext: { [weak self] result in
+          self?.hideLoadingBar()
+          
+          switch result {
+          case .success(let challenges):
+            guard let challenge = challenges.first(where: { $0.code == code }) else { return }
+
+            self?.push(
+              ChallengePreviewViewController(challenge: challenge)
+            )
+          case .failure:
+            self?.push(
+              TodaysGoalViewController()
+            )
+          }
+        })
+      .disposed(by: disposeBag)
+    } else {
+      push(
+        TodaysGoalViewController()
+      )
+    }
   }
 }

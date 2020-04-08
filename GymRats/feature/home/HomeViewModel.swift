@@ -10,7 +10,6 @@ import Foundation
 import RxSwift
 
 final class HomeViewModel: ViewModel {
-  
   private let disposeBag = DisposeBag()
   
   struct Input {

@@ -67,7 +67,13 @@ class ChallengePreviewViewController: UIViewController {
     }
   }
   
-  @IBOutlet private weak var imageViewHeightConstraint: NSLayoutConstraint!
+  @IBOutlet private weak var imageViewHeightConstraint: NSLayoutConstraint! {
+    didSet {
+      if challenge.profilePictureUrl == nil {
+        imageViewHeightConstraint.constant = 0
+      }
+    }
+  }
   
   @IBOutlet private weak var bgView: UIView! {
     didSet {
@@ -131,9 +137,15 @@ class ChallengePreviewViewController: UIViewController {
         
         switch result {
         case .success(let challenge):
-          // TODO
-          GymRats.completeOnboarding()
-          Challenge.State.all.fetch().ignore(disposedBy: self?.disposeBag ?? DisposeBag())
+          if let self = self { Challenge.State.all.fetch().ignore(disposedBy: self.disposeBag) }
+          
+          NotificationCenter.default.post(name: .joinedChallenge, object: challenge)
+          
+          if UserDefaults.standard.bool(forKey: "account-is-onboarding") {
+            GymRats.completeOnboarding()
+          } else {
+            self?.dismissSelf()
+          }
         case .failure(let error):
           self?.presentAlert(with: error)
         }

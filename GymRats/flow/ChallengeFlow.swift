@@ -49,49 +49,61 @@ enum ChallengeFlow {
   }
   
   static func join(code: String) {
-    
+    UIViewController.topmost().showLoadingBar()
+  
+    gymRatsAPI.getChallenge(code: code)
+      .subscribe(onNext: { result in
+        UIViewController.topmost().hideLoadingBar()
+        
+        switch result {
+        case .success(let challenges):
+          guard let challenge = challenges.first(where: { $0.code == code }) else { return }
+          
+          let preview = ChallengePreviewViewController(challenge: challenge)
+          let nav = preview.inNav()
+          
+          preview.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: .close,
+            style: .plain,
+            target: preview,
+            action: #selector(UIViewController.dismissSelf)
+          )
+          
+          UIViewController.topmost().present(nav, animated: true, completion: nil)
+        case .failure(let error):
+          UIViewController.topmost().presentAlert(with: error)
+        }
+      })
+      .disposed(by: disposeBag)
   }
   
   static func join() -> Observable<Challenge> {
     return .create { observer in
-      let disposeBag = DisposeBag()
-      let cancelAction = UIAlertAction(title: "Cancel", style: .default) { _ in
-        observer.onCompleted()
-      }
-      let alert = UIAlertController (
-        title: "Join Challenge",
-        message: "Enter the 6 character challenge code",
-        preferredStyle: .alert
+      let joinChallengeViewController = JoinChallengeViewController()
+      let nav = joinChallengeViewController.inNav()
+      
+      joinChallengeViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(
+        image: .close,
+        style: .plain,
+        target: joinChallengeViewController,
+        action: #selector(UIViewController.dismissSelf)
       )
+      
+      UIViewController.topmost().present(nav, animated: true, completion: nil)
 
-      let ok = UIAlertAction(title: "OK", style: .default, handler: { _ in
-        let code = alert.textFields?.first?.text ?? ""
-        
-        gymRatsAPI.joinChallenge(code: code)
-          .next { result in
-            switch result {
-            case .success(let challenge):
-              observer.on(.next(challenge))
-              Challenge.State.all.fetch().ignore(disposedBy: disposeBag)
-            case .failure(let error):
-              UIViewController.topmost().presentAlert(with: error)
-            }
+      return NotificationCenter.default.rx.notification(.joinedChallenge)
+        .subscribe { event in
+          switch event {
+          case .next(let notification):
+            guard let challenge = notification.object as? Challenge else { return }
             
+            observer.onNext(challenge)
+          case .error(let error):
+            observer.onError(error)
+          case .completed:
             observer.onCompleted()
           }
-          .disposed(by: disposeBag)
-      })
-
-      alert.addTextField { (textField: UITextField!) -> Void in
-        textField.placeholder = "Code"
-      }
-      
-      alert.addAction(cancelAction)
-      alert.addAction(ok)
-
-      UIViewController.topmost().present(alert, animated: true, completion: nil)
-
-      return Disposables.create()
+        }
     }
   }
 }

@@ -105,6 +105,7 @@ enum GymRats {
   
   /// Takes them to the main app and clears `account-is-onboarding`
   static func completeOnboarding() {
+    UserDefaults.standard.removeObject(forKey: "join-code")
     UserDefaults.standard.removeObject(forKey: "account-is-onboarding")
     replaceRoot(with: DrawerViewController())
   }
@@ -135,12 +136,16 @@ enum GymRats {
     application.applicationIconBadgeNumber = 1
     application.applicationIconBadgeNumber = 0
 
-    NotificationCenter.default.post(.appEnteredForeground)
+    if currentAccount != nil {
+      NotificationCenter.default.post(.appEnteredForeground)
+    }
   }
   
   /// Called when the app entered the background state.
   static func didEnterBackground() {
-    NotificationCenter.default.post(.appEnteredBackground)
+    if currentAccount != nil {
+      NotificationCenter.default.post(.appEnteredBackground)
+    }
   }
   
   static func open(_ url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) {
