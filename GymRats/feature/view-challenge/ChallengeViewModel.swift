@@ -115,8 +115,8 @@ final class ChallengeViewModel: ViewModel {
     let ghostSections = input.viewDidLoad
       .map { _ -> [ChallengeSection] in
         return [
-          .init(model: nil, items: [.banner(self.challenge, ChallengeInfo(memberCount: 0, workoutCount: 0))]),
-          .init(model: nil, items: [.💀(-1000), .💀(-1001), .💀(-1002), .💀(-1003), .💀(-1004), .💀(-1005), .💀(-1006), .💀(-1007), .💀(-1008)])
+          .init(model: .init(date: nil, skeleton: false), items: [.banner(self.challenge, ChallengeInfo(memberCount: 0, workoutCount: 0))]),
+          .init(model: .init(date: Date(), skeleton: true), items: [.💀(-1000), .💀(-1001), .💀(-1002), .💀(-1003), .💀(-1004), .💀(-1005), .💀(-1006), .💀(-1007), .💀(-1008)])
         ]
       }
 
@@ -124,12 +124,13 @@ final class ChallengeViewModel: ViewModel {
       .map { challengeInfo, bucketsYWorkouts -> [ChallengeSection] in
         let bucketedWorkouts = bucketsYWorkouts.0
         let workouts = bucketsYWorkouts.1
-        let banner = ChallengeSection(model: nil, items: [.banner(self.challenge, challengeInfo)])
+        let banner = ChallengeSection(model: .init(date: nil, skeleton: false), items: [.banner(self.challenge, challengeInfo)])
         let workoutSections = bucketedWorkouts
           .map { date, workouts in
-            ChallengeSection(model: date, items: workouts.map { ChallengeRow.workout($0) })
+            ChallengeSection(model: .init(date: date, skeleton: false), items: workouts.map { ChallengeRow.workout($0) })
           }
-        let noWorkouts  = ChallengeSection(model: nil, items: [
+        
+        let noWorkouts  = ChallengeSection(model:.init(date: nil, skeleton: false), items: [
           ChallengeRow.noWorkouts(self.challenge, { WorkoutFlow.logWorkout() })
         ])
         

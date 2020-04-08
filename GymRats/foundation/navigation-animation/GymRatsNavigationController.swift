@@ -18,7 +18,7 @@ class GymRatsNavigationController: UINavigationController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    delegate = coordinator
+//    delegate = coordinator
 
     view.addGestureRecognizer(edgeSwipeGestureRecognizer)
     view.backgroundColor = UIColor.background

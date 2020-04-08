@@ -47,16 +47,15 @@ class WorkoutListCell: UITableViewCell {
       accountNameLabel.font = .body
     }
   }
-  
-  @IBOutlet weak var workoutImageWidth: NSLayoutConstraint!
-  @IBOutlet private weak var accountImageView: UserImageView!
-  
-  @IBOutlet weak var timeLabel: UILabel! {
+  @IBOutlet private weak var timeLabel: UILabel! {
     didSet {
       timeLabel.textColor = .primaryText
       timeLabel.font = .details
     }
   }
+  
+  @IBOutlet private weak var workoutImageWidth: NSLayoutConstraint!
+  @IBOutlet private weak var accountImageView: UserImageView!
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesBegan(touches, with: event)
@@ -75,7 +74,7 @@ class WorkoutListCell: UITableViewCell {
     
     animatePress(false)
   }
-  
+
   override func awakeFromNib() {
     super.awakeFromNib()
     

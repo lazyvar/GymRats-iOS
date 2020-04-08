@@ -13,7 +13,12 @@ import RxDataSources
 import CRRefresh
 import UIScrollView_InfiniteScroll
 
-typealias ChallengeSection = SectionModel<Date?, ChallengeRow>
+struct ChallengeSectionModel: Equatable {
+  let date: Date?
+  let skeleton: Bool
+}
+
+typealias ChallengeSection = SectionModel<ChallengeSectionModel, ChallengeRow>
 
 class ChallengeViewController: BindableViewController {
   
@@ -262,13 +267,15 @@ class ChallengeViewController: BindableViewController {
 // MARK: UITableViewDataSource & UITableViewDelegate
 extension ChallengeViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    guard let date = dataSource[section].model else { return nil }
+    let model = dataSource[section].model
+
+    guard let date = model.date else { return nil }
     
     let label = UILabel()
-    label.frame = CGRect(x: 15, y: 0, width: view.frame.width, height: 30)
+    label.frame = CGRect(x: 20, y: 5, width: view.frame.width, height: 15)
     label.backgroundColor = .clear
-    label.font = .proRoundedBold(size: 16)
-
+    label.font = .proRoundedBold(size: 14)
+    
     if date.serverDateIsToday {
       label.text = "Today"
     } else if date.serverDateIsYesterday {
@@ -277,17 +284,27 @@ extension ChallengeViewController: UITableViewDelegate {
       label.text = date.toFormat("EEEE, MMM d")
     }
     
+    label.sizeToFit()
+
     let headerView = UIView()
     headerView.addSubview(label)
     headerView.backgroundColor = .clear
+    
+    if model.skeleton {
+      label.isSkeletonable = true
+      label.linesCornerRadius = 2
+      label.showAnimatedSkeleton()
+    }
     
     return headerView
   }
   
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    guard dataSource[section].model != nil else { return .zero }
+    let model = dataSource[section].model
 
-    return 30
+    guard model.date != nil else { return .zero }
+
+    return 25
   }
   
   func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
