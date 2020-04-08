@@ -47,10 +47,6 @@ class ChallengeViewController: BindableViewController {
       tableView.registerCellNibForClass(NoWorkoutsCell.self)
       tableView.registerCellNibForClass(ChallengeBannerCell.self)
       tableView.rx.setDelegate(self).disposed(by: disposeBag)
-      tableView.cr.addHeadRefresh(animator: NormalHeaderAnimator()) { [weak self] in
-        self?.viewModel.input.refresh.trigger()
-        (self?.tabBarController as? ChallengeTabBarController)?.updateChatIcon()
-      }
       tableView.infiniteScrollIndicatorStyle = {
         if #available(iOS 12.0, *) {
           if traitCollection.userInterfaceStyle == .dark {
@@ -131,7 +127,7 @@ class ChallengeViewController: BindableViewController {
         loading ? self?.showLoadingBar() : self?.hideLoadingBar()
         
         if !loading {
-          self?.tableView.cr.endHeaderRefresh()
+          self?.tableView.refreshControl?.endRefreshing()
         }
       })
       .ignore(disposedBy: disposeBag)
@@ -164,12 +160,15 @@ class ChallengeViewController: BindableViewController {
       })
       .disposed(by: disposeBag)
   }
+  
+  private let refreshControl = UIRefreshControl()
 
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    extendedLayoutIncludesOpaqueBars = true
+
     navigationItem.title = challenge.name
-    
     navigationItem.rightBarButtonItems = {
       if challenge.isPast {
         return [menuBarButtonItem, chatBarButtonItem, statsBarButtonItem]
@@ -182,7 +181,15 @@ class ChallengeViewController: BindableViewController {
       setupMenuButton()
     }
     
+    refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+    tableView.refreshControl = refreshControl
+    
     viewModel.input.viewDidLoad.trigger()
+  }
+  
+  @objc private func refresh() {
+    viewModel.input.refresh.trigger()
+    (tabBarController as? ChallengeTabBarController)?.updateChatIcon()
   }
   
   @objc private func menuTapped() {
