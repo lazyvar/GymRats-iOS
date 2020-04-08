@@ -1,40 +1,39 @@
 //
-//  WorkoutListCell.swift
+//  WorkoutBigCell.swift
 //  GymRats
 //
-//  Created by Mack on 9/8/19.
-//  Copyright © 2019 Mack Hasz. All rights reserved.
+//  Created by mack on 4/8/20.
+//  Copyright © 2020 Mack Hasz. All rights reserved.
 //
 
 import UIKit
-import Kingfisher
-import SkeletonView
 
-class WorkoutListCell: UITableViewCell {
-  @IBOutlet private weak var bgView: UIView! {
-    didSet {
-      bgView.backgroundColor = .clear
-    }
-  }
-  
-  @IBOutlet private weak var imageShadowView: UIView! {
-    didSet {
-      imageShadowView.isSkeletonable = true
-      imageShadowView.showAnimatedSkeleton()
-      imageShadowView.layer.cornerRadius = 4
-      imageShadowView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
-    }
-  }
-  
+class WorkoutBigCell: UITableViewCell {
   @IBOutlet private weak var workoutImageView: UIImageView! {
     didSet {
       workoutImageView.contentMode = .scaleAspectFill
       workoutImageView.backgroundColor = .clear
       workoutImageView.layer.cornerRadius = 4
-      workoutImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+      workoutImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
   }
   
+  @IBOutlet private weak var imageSkeletonView: UIView! {
+    didSet {
+      imageSkeletonView.isSkeletonable = true
+      imageSkeletonView.showAnimatedSkeleton()
+      imageSkeletonView.layer.cornerRadius = 4
+      imageSkeletonView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
+  }
+  
+  @IBOutlet private weak var timeLabel: UILabel! {
+    didSet {
+      timeLabel.textColor = .primaryText
+      timeLabel.font = .details
+    }
+  }
+
   @IBOutlet private weak var workoutTitleLabel: UILabel! {
     didSet {
       workoutTitleLabel.textColor = .primaryText
@@ -48,16 +47,15 @@ class WorkoutListCell: UITableViewCell {
       accountNameLabel.font = .body
     }
   }
-  
-  @IBOutlet private weak var timeLabel: UILabel! {
+
+  @IBOutlet private weak var bgView: UIView! {
     didSet {
-      timeLabel.textColor = .primaryText
-      timeLabel.font = .details
+      bgView.backgroundColor = .clear
     }
   }
   
-  @IBOutlet private weak var workoutImageWidth: NSLayoutConstraint!
   @IBOutlet private weak var accountImageView: UserImageView!
+  @IBOutlet private weak var workoutImageBackground: UIView!
   
   private var shadowLayer: CAShapeLayer!
   
@@ -88,13 +86,13 @@ class WorkoutListCell: UITableViewCell {
   override func prepareForReuse() {
     super.prepareForReuse()
 
-    workoutImageWidth.constant = 64
+    workoutImageBackground.isHidden = false
     workoutTitleLabel.text = nil
     workoutImageView.image = nil
     accountNameLabel.text = nil
     workoutImageView.kf.cancelDownloadTask()
   }
-  
+
   override func layoutIfNeeded() {
     super.layoutIfNeeded()
     
@@ -112,14 +110,12 @@ class WorkoutListCell: UITableViewCell {
       self.bgView.layer.insertSublayer(self.shadowLayer, at: 0)
     }
   }
-
+  
   static func skeleton(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-    return tableView.dequeueSkeletonCell(withType: WorkoutListCell.self, for: indexPath).apply {      
+    return tableView.dequeueSkeletonCell(withType: WorkoutBigCell.self, for: indexPath).apply {
       $0.accountNameLabel.isSkeletonable = true
-      $0.workoutImageView.isSkeletonable = true
       $0.workoutTitleLabel.isSkeletonable = true
       $0.accountImageView.isSkeletonable = true
-      $0.timeLabel.isSkeletonable = true
 
       $0.accountNameLabel.linesCornerRadius = 2
       $0.workoutTitleLabel.linesCornerRadius = 2
@@ -143,7 +139,6 @@ class WorkoutListCell: UITableViewCell {
       $0.workoutTitleLabel.constrainWidth(CGFloat.random(in: 95...200))
 
       $0.accountNameLabel.showAnimatedSkeleton()
-      $0.workoutImageView.showAnimatedSkeleton()
       $0.workoutTitleLabel.showAnimatedSkeleton()
       $0.accountImageView.showAnimatedSkeleton()
       $0.timeLabel.showAnimatedSkeleton()
@@ -151,16 +146,16 @@ class WorkoutListCell: UITableViewCell {
   }
 
   static func configure(tableView: UITableView, indexPath: IndexPath, workout: Workout) -> UITableViewCell {
-    return tableView.dequeueReusableCell(withType: WorkoutListCell.self, for: indexPath).apply {
+    return tableView.dequeueReusableCell(withType: WorkoutBigCell.self, for: indexPath).apply {
       $0.accountNameLabel.text = workout.account.fullName
       $0.workoutTitleLabel.text = workout.title
       $0.accountImageView.load(workout.account)
       $0.timeLabel.text = "\(workout.createdAt.challengeTime)"
-    
+
       if let photo = workout.photoUrl, let url = URL(string: photo) {
         $0.workoutImageView.kf.setImage(with: url, options: [.transition(.fade(0.2)), .forceTransition])
       } else {
-        $0.workoutImageWidth.constant = 0
+        $0.workoutImageBackground.isHidden = true
       }
     }
   }

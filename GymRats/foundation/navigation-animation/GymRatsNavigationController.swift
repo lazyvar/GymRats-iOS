@@ -14,10 +14,7 @@ class GymRatsNavigationController: UINavigationController {
 
     navigationBar.tintColor = .primaryText
     navigationBar.barTintColor = .background
-//    navigationBar.backgroundColor = .background
-//    navigationBar.isTranslucent = false
-//    navigationBar.isOpaque = true
-//    navigationBar.setBackgroundImage(UIImage(color: .background), for: .default)
+    navigationBar.isTranslucent = false
     navigationBar.shadowImage = UIImage(color: .clear)
     navigationBar.prefersLargeTitles = true
     

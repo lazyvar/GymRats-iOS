@@ -10,6 +10,7 @@ import UIKit
 import ESTabBarController_swift
 import RxSwift
 
+
 class ChallengeTabBarController: ESTabBarController {
 
   // MARK: Init
@@ -106,7 +107,7 @@ private extension ChallengeTabBarController {
       ChatViewController(challenge: challenge)
     )
   }
-  
+
   private func configureTabBar() {
     let pxWhiteThing = UIView(frame: CGRect(x: 0, y: -1, width: tabBar.frame.width, height: 1)).apply {
       $0.backgroundColor = .background

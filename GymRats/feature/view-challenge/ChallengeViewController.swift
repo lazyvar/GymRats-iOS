@@ -46,6 +46,8 @@ class ChallengeViewController: BindableViewController {
     didSet {
       tableView.backgroundColor = .background
       tableView.showsVerticalScrollIndicator = false
+      tableView.registerSkeletonCellNibForClass(WorkoutBigCell.self)
+      tableView.registerCellNibForClass(WorkoutBigCell.self)
       tableView.registerSkeletonCellNibForClass(WorkoutListCell.self)
       tableView.registerCellNibForClass(WorkoutListCell.self)
       tableView.registerCellNibForClass(NoWorkoutsCell.self)
@@ -103,16 +105,22 @@ class ChallengeViewController: BindableViewController {
   
   private let members = BehaviorSubject<[Account]>(value: [])
   
-  private let dataSource = RxTableViewSectionedReloadDataSource<ChallengeSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
+  private lazy var dataSource = RxTableViewSectionedReloadDataSource<ChallengeSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
     switch row {
     case .banner(let challenge, let challengeInfo):
       return ChallengeBannerCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge, challengeInfo: challengeInfo)
-    case .workout(let workout):
-      return WorkoutListCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
     case .noWorkouts(let challenge, let onLogWorkout):
       return NoWorkoutsCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge, onLogWorkout: onLogWorkout)
+    case .workout(let workout):
+      switch FeedStyle.stlye(for: self.challenge) {
+      case .list: return WorkoutListCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
+      case .big: return WorkoutBigCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
+      }
     case .💀:
-      return WorkoutListCell.skeleton(tableView: tableView, indexPath: indexPath)
+      switch FeedStyle.stlye(for: self.challenge) {
+      case .list: return WorkoutListCell.skeleton(tableView: tableView, indexPath: indexPath)
+      case .big: return WorkoutBigCell.skeleton(tableView: tableView, indexPath: indexPath)
+      }
     }
   })
   
@@ -248,6 +256,12 @@ class ChallengeViewController: BindableViewController {
     }
   }
   
+  @objc private func tappedChangeFeedStyle() {
+    FeedStyle.toggleStyle(for: challenge)
+    tableView.reloadData()
+    feedStyleButton.setImage(FeedStyle.stlye(for: challenge).image, for: .normal)
+  }
+  
   @objc private func chatTapped() {
     push(
       ChatViewController(challenge: challenge)
@@ -261,6 +275,12 @@ class ChallengeViewController: BindableViewController {
   private func leaveChallenge() {
     ChallengeFlow.leave(challenge)
   }
+  
+  private lazy var feedStyleButton = UIButton().apply {
+    $0.setImage(FeedStyle.stlye(for: self.challenge).image, for: .normal)
+    $0.tintColor = .primaryText
+    $0.translatesAutoresizingMaskIntoConstraints = false
+  }
 }
 
 // MARK: UITableViewDataSource & UITableViewDelegate
@@ -271,9 +291,9 @@ extension ChallengeViewController: UITableViewDelegate {
     guard let date = model.date else { return nil }
     
     let label = UILabel()
-    label.frame = CGRect(x: 20, y: 5, width: view.frame.width, height: 15)
     label.backgroundColor = .clear
     label.font = .proRoundedBold(size: 14)
+    label.translatesAutoresizingMaskIntoConstraints = false
     
     if date.serverDateIsToday {
       label.text = "Today"
@@ -282,17 +302,44 @@ extension ChallengeViewController: UITableViewDelegate {
     } else {
       label.text = date.toFormat("EEEE, MMM d")
     }
-    
-    label.sizeToFit()
 
     let headerView = UIView()
     headerView.addSubview(label)
     headerView.backgroundColor = .clear
     
+    label.verticallyCenter(in: headerView)
+    label.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20).isActive = true
+    
     if model.skeleton {
       label.isSkeletonable = true
       label.linesCornerRadius = 2
       label.showAnimatedSkeleton()
+    }
+    
+    if section == 1 {
+      headerView.addSubview(feedStyleButton)
+      
+      feedStyleButton.addTarget(self, action: #selector(self.tappedChangeFeedStyle), for: .touchUpInside)
+      feedStyleButton.verticallyCenter(in: headerView)
+      feedStyleButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: 0 - 20).isActive = true
+      feedStyleButton.constrainWidth(15)
+      feedStyleButton.constrainHeight(15)
+      feedStyleButton.imageView?.contentMode = .scaleAspectFit
+      
+      let tap = UITapGestureRecognizer(target: self, action: #selector(tappedChangeFeedStyle))
+      let ghostArea = UIView().apply {
+        $0.backgroundColor = .clear
+        $0.isUserInteractionEnabled = true
+        $0.addGestureRecognizer(tap)
+        $0.translatesAutoresizingMaskIntoConstraints = false
+      }
+  
+      headerView.addSubview(ghostArea)
+      
+      ghostArea.verticallyCenter(in: headerView)
+      ghostArea.trailingAnchor.constraint(equalTo: headerView.trailingAnchor).isActive = true
+      ghostArea.constrainWidth(80)
+      ghostArea.constrainHeight(30)
     }
     
     return headerView
