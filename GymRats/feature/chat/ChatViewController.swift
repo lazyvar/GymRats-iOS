@@ -47,6 +47,9 @@ class ChatViewController: MessagesViewController {
     messagesCollectionView.backgroundColor = .background
     title = challenge.name
 
+    
+    navigationItem.largeTitleDisplayMode = .never
+    
     setupBackButton()
     
     scrollsToBottomOnKeyboardBeginsEditing = true
@@ -244,7 +247,7 @@ extension ChatViewController: MessagesDisplayDelegate {
     avatarView.addConstraintsWithFormat(format: "H:|[v0]|", views: userImageView)
     avatarView.addConstraintsWithFormat(format: "V:|[v0]|", views: userImageView)
       
-    userImageView.load(avatarInfo: chat.account)
+    userImageView.load(chat.account)
   }
   
   func backgroundColor(for message: MessageType, at  indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
@@ -268,4 +271,19 @@ extension ChatViewController: MessagesDisplayDelegate {
       return dataSource.isFromCurrentSender(message: message) ? .newWhite : .primaryText
     }
   }
+}
+
+extension UIView {
+    
+    func addConstraintsWithFormat(format: String, views: UIView...) {
+        var viewsDictionary = [String: UIView]()
+        for (index, view) in views.enumerated() {
+            let key = "v\(index)"
+            viewsDictionary[key] = view
+            view.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: viewsDictionary))
+    }
+    
 }

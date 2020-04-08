@@ -67,9 +67,7 @@ enum Screen {
           style: .plain,
           target: $0,
           action: #selector(ProfileViewController.pushSettings)
-        ).apply {
-          $0.tintColor = .lightGray
-        }
+        )
       }
     }
   }

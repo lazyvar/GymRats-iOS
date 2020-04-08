@@ -10,6 +10,7 @@ import UIKit
 import ESTabBarController_swift
 import RxSwift
 
+
 class ChallengeTabBarController: ESTabBarController {
 
   // MARK: Init
@@ -40,7 +41,7 @@ class ChallengeTabBarController: ESTabBarController {
         $0.tabBarItem = ESTabBarItem(BigContentView(), title: nil, image: .activityLargeWhite, selectedImage: .activityLargeWhite)
       },
       UIViewController().apply {
-        $0.tabBarItem = UITabBarItem(title: nil, image: .chatGray, selectedImage: .chatGray)
+        $0.tabBarItem = UITabBarItem(title: nil, image: .chat, selectedImage: .chat)
         $0.tabBarItem?.badgeColor = .brand
       }
     ]
@@ -106,7 +107,7 @@ private extension ChallengeTabBarController {
       ChatViewController(challenge: challenge)
     )
   }
-  
+
   private func configureTabBar() {
     let pxWhiteThing = UIView(frame: CGRect(x: 0, y: -1, width: tabBar.frame.width, height: 1)).apply {
       $0.backgroundColor = .background
@@ -120,6 +121,7 @@ private extension ChallengeTabBarController {
     tabBar.layer.shadowColor = UIColor.shadow.cgColor
     tabBar.layer.shadowOpacity = 0.5
     tabBar.barTintColor = .background
+    tabBar.tintColor = .primaryText
     tabBar.addSubview(pxWhiteThing)
     tabBar.sendSubviewToBack(pxWhiteThing)
   }

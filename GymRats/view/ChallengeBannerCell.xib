@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="SF-Pro-Rounded-Bold.otf">
-            <string>SFProRounded-Bold</string>
-        </array>
         <array key="SF-Pro-Rounded-Regular.otf">
             <string>SFProRounded-Regular</string>
         </array>
@@ -18,15 +15,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="ChallengeBannerCell" customModule="GymRats" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="287"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="254" id="KGk-i7-Jjw" customClass="ChallengeBannerCell" customModule="GymRats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="254"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="287"/>
+                <rect key="frame" x="0.0" y="0.0" width="480" height="254"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d6N-Vd-grd">
-                        <rect key="frame" x="20" y="50" width="440" height="228"/>
+                        <rect key="frame" x="20" y="5" width="440" height="239"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PYE-vo-RpP">
                                 <rect key="frame" x="0.0" y="0.0" width="440" height="150"/>
@@ -35,10 +32,10 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="KXn-vf-IKq">
-                                <rect key="frame" x="78" y="165" width="302" height="48"/>
+                                <rect key="frame" x="78" y="165" width="302" height="59"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YQs-qi-n9G">
-                                        <rect key="frame" x="0.0" y="11.5" width="84" height="25"/>
+                                        <rect key="frame" x="0.0" y="17" width="84" height="25"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="users" translatesAutoresizingMaskIntoConstraints="NO" id="4In-H6-IIg">
                                                 <rect key="frame" x="0.0" y="0.0" width="24" height="25"/>
@@ -61,7 +58,7 @@ members</string>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="T8Y-aH-3Cs">
-                                        <rect key="frame" x="104" y="11.5" width="89" height="25"/>
+                                        <rect key="frame" x="104" y="17" width="89" height="25"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="activity" translatesAutoresizingMaskIntoConstraints="NO" id="D0i-7O-bVa">
                                                 <rect key="frame" x="0.0" y="0.0" width="24" height="25"/>
@@ -84,7 +81,7 @@ workouts</string>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="eFP-HO-iSE">
-                                        <rect key="frame" x="213" y="11.5" width="89" height="25"/>
+                                        <rect key="frame" x="213" y="17" width="89" height="25"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cal" translatesAutoresizingMaskIntoConstraints="NO" id="dmL-91-N7H">
                                                 <rect key="frame" x="0.0" y="0.0" width="24" height="25"/>
@@ -121,28 +118,12 @@ days left</string>
                             <constraint firstAttribute="bottom" secondItem="KXn-vf-IKq" secondAttribute="bottom" constant="15" id="vob-77-4lL"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BoT-qf-wEn">
-                        <rect key="frame" x="15" y="5" width="450" height="36"/>
-                        <fontDescription key="fontDescription" name="SFProRounded-Bold" family="SF Pro Rounded" pointSize="30"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="BoT-qf-wEn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="0qq-77-Xxh"/>
-                    <constraint firstItem="BoT-qf-wEn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="5xn-gQ-eH8"/>
-                    <constraint firstItem="BoT-qf-wEn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="8XX-Uf-pfD"/>
-                    <constraint firstAttribute="bottom" secondItem="d6N-Vd-grd" secondAttribute="bottom" constant="9" id="CWJ-y2-wAR"/>
-                    <constraint firstItem="d6N-Vd-grd" firstAttribute="top" secondItem="BoT-qf-wEn" secondAttribute="bottom" constant="9" id="GuA-qW-AXJ"/>
-                    <constraint firstAttribute="trailing" secondItem="BoT-qf-wEn" secondAttribute="trailing" constant="15" id="I2S-my-PaD"/>
-                    <constraint firstAttribute="trailing" secondItem="BoT-qf-wEn" secondAttribute="trailing" constant="15" id="KPh-yS-BIH"/>
-                    <constraint firstItem="d6N-Vd-grd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="LEA-zY-bqb"/>
-                    <constraint firstItem="d6N-Vd-grd" firstAttribute="top" secondItem="BoT-qf-wEn" secondAttribute="bottom" constant="9" id="Lck-40-JfV"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="d6N-Vd-grd" secondAttribute="bottom" constant="-2" id="Onk-5a-bB1"/>
+                    <constraint firstAttribute="bottom" secondItem="d6N-Vd-grd" secondAttribute="bottom" constant="10" id="FfB-8h-pQt"/>
+                    <constraint firstItem="d6N-Vd-grd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="P32-sc-zDd"/>
                     <constraint firstAttribute="trailing" secondItem="d6N-Vd-grd" secondAttribute="trailing" constant="20" id="Rcj-fk-MIR"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="d6N-Vd-grd" secondAttribute="trailing" id="cvD-ay-bKB"/>
-                    <constraint firstItem="d6N-Vd-grd" firstAttribute="top" secondItem="BoT-qf-wEn" secondAttribute="bottom" constant="9" id="d8M-ib-5li"/>
-                    <constraint firstItem="BoT-qf-wEn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="h4J-Ux-cdu"/>
+                    <constraint firstItem="d6N-Vd-grd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="UZl-Gm-WOM"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -155,9 +136,8 @@ days left</string>
                 <outlet property="calendarStackView" destination="eFP-HO-iSE" id="ThY-Dz-4ba"/>
                 <outlet property="membersLabel" destination="0X2-X3-Le7" id="P8Y-hz-a3L"/>
                 <outlet property="pictureHeight" destination="Y7S-dD-kNg" id="KYr-tb-yrO"/>
-                <outlet property="titleLabel" destination="BoT-qf-wEn" id="ZyH-r0-64D"/>
             </connections>
-            <point key="canvasLocation" x="139.13043478260872" y="132.92410714285714"/>
+            <point key="canvasLocation" x="247.82608695652175" y="133.92857142857142"/>
         </tableViewCell>
     </objects>
     <resources>

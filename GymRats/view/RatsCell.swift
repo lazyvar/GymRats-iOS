@@ -9,25 +9,19 @@
 import UIKit
 
 class RatsCell: UITableViewCell {
-
-    @IBOutlet weak var userImageView: UserImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var descLabel: UILabel!
+  @IBOutlet weak var userImageView: UserImageView!
+  @IBOutlet weak var nameLabel: UILabel!
+  @IBOutlet weak var descLabel: UILabel!
+  
+  func configure(withHuman human: Account, score: String, scoredBy: ChallengeStatsViewController.SortBy) {
+    userImageView.load(human)
+    nameLabel.text = "\(human.fullName)"
+    descLabel.text = "\(score) \(scoredBy.description)"
+  }
+  
+  override func prepareForReuse() {
+    super.prepareForReuse()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    func configure(withHuman human: Account, score: String, scoredBy: ChallengeStatsViewController.SortBy) {
-        userImageView.load(avatarInfo: human)
-        nameLabel.text = "\(human.fullName)"
-        descLabel.text = "\(score) \(scoredBy.description)"
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        userImageView.operation?.cancel()
-    }
-    
+    userImageView.clear()
+  }
 }

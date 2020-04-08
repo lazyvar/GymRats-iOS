@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import AvatarImageView
 import RxSwift
 import Kingfisher
 
@@ -39,10 +38,10 @@ class UserWorkoutTableViewCell: UITableViewCell {
             let user = userWorkout.user
 
             if let workout = userWorkout.workout {
-                if workout.pictureUrl != nil {
-                    userImageView.skeletonLoad(avatarInfo: workout)
-                } else {
-                    userImageView.load(avatarInfo: user)
+              if workout.photoUrl != nil {
+                userImageView.load(user)
+              } else {
+                userImageView.load(user)
                 }
                 
                 titleLabel.isHidden = false
@@ -82,7 +81,7 @@ class UserWorkoutTableViewCell: UITableViewCell {
         didSet {
             titleLabel.isHidden = false
             detailsLabel.isHidden = false
-            userImageView.load(avatarInfo: challenge)
+          userImageView.load(challenge)
             titleLabel.text = challenge.name
 
             if challenge.isActive {
@@ -99,7 +98,7 @@ class UserWorkoutTableViewCell: UITableViewCell {
     }
 
     func configureForSleeping(user: Account, day: Date, allWorkouts: [Workout]) {
-        userImageView.load(avatarInfo: user)
+      userImageView.load(user)
 
         titleLabel.isHidden = false
         detailsLabel.isHidden = false
@@ -132,7 +131,7 @@ class UserWorkoutTableViewCell: UITableViewCell {
     }
     
     func configure(for user: Account, withNumberOfWorkouts numberOfWorkouts: Int) {
-        userImageView.load(avatarInfo: user)
+      userImageView.load(user)
         
         fullNameLabel.isHidden = false
         fullNameLabel.text = user.fullName
@@ -178,7 +177,7 @@ class UserWorkoutTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        userImageView.imageView.image = nil
+        userImageView.clear()
         titleLabel.isHidden = true
         detailsLabel.isHidden = true
         fullNameLabel.isHidden = true

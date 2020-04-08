@@ -26,13 +26,13 @@ class ItemCell: UITableViewCell {
   override func prepareForReuse() {
     super.prepareForReuse()
     
-    userImageView.imageView.image = nil
+    userImageView.clear()
     titleLabel.text = nil
   }
   
   static func configure(tableView: UITableView, indexPath: IndexPath, challenge: Challenge) -> UITableViewCell {
     return tableView.dequeueReusableCell(withType: ItemCell.self, for: indexPath).apply {
-      $0.userImageView.skeletonLoad(avatarInfo: challenge)
+      $0.userImageView.load(challenge)
       $0.titleLabel.text = challenge.name
     }
   }

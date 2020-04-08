@@ -57,13 +57,11 @@ class WorkoutViewController: UITableViewController {
             target: self,
             action: #selector(showMenu)
         )
-        button.tintColor = .lightGray
         
         navigationItem.rightBarButtonItem = button
-
-        setupBackButton()
-        
         navigationItem.largeTitleDisplayMode = .never
+      
+        setupBackButton()
         
         self.headerView = WorkoutHeaderView.instanceFromNib()
         headerView.configure(workout: workout, challenge: challenge, width: tableView.frame.width)
@@ -214,7 +212,7 @@ extension WorkoutViewController {
             let user: Account = comment.account
             let currentUser = GymRats.currentAccount!
             
-            cell.userImageView.load(avatarInfo: user)
+          cell.userImageView.load(user)
             cell.nameLabel.text = user.fullName
             cell.commentLabel.text = comment.content
             cell.selectionStyle = .blue
@@ -268,7 +266,7 @@ extension WorkoutViewController {
             cell.backgroundColor = .clear
             
             let imageView = UserImageView()
-            imageView.load(avatarInfo: GymRats.currentAccount)
+          imageView.load(GymRats.currentAccount)
             
             let textField = UITextField()
             textField.borderStyle = .roundedRect

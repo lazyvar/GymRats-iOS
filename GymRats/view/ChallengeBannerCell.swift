@@ -10,24 +10,69 @@ import UIKit
 
 class ChallengeBannerCell: UITableViewCell {
   @IBOutlet weak var calendarStackView: UIStackView!
-  @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var membersLabel: UILabel!
   @IBOutlet weak var calendarLabel: UILabel!
   @IBOutlet weak var activityLabel: UILabel!
   @IBOutlet weak var pictureHeight: NSLayoutConstraint!
   
   @IBOutlet weak var bannerImageView: UIImageView! {
-    didSet { bannerImageView.contentMode = .scaleAspectFill }
+    didSet {
+      bannerImageView.contentMode = .scaleAspectFill
+      bannerImageView.layer.cornerRadius = 4
+      bannerImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
+    }
   }
   
   @IBOutlet weak var bg: UIView! {
     didSet {
-      bg.backgroundColor = .foreground
-      bg.layer.cornerRadius = 4
-      bg.clipsToBounds = true
+      bg.backgroundColor = .clear
     }
   }
   
+  private var shadowLayer: CAShapeLayer!
+
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesBegan(touches, with: event)
+    
+    animatePress(true)
+  }
+  
+  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesEnded(touches, with: event)
+    
+    animatePress(false)
+  }
+  
+  override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesCancelled(touches, with: event)
+    
+    animatePress(false)
+  }
+
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    
+    selectionStyle = .none
+  }
+
+  override func layoutIfNeeded() {
+    super.layoutIfNeeded()
+    
+    if self.shadowLayer == nil {
+      self.shadowLayer = CAShapeLayer()
+      self.shadowLayer.path = UIBezierPath(roundedRect: self.bg.bounds, cornerRadius: 4).cgPath
+      self.shadowLayer.fillColor = UIColor.foreground.cgColor
+
+      self.shadowLayer.shadowColor = UIColor.shadow.cgColor
+      self.shadowLayer.shadowPath = self.shadowLayer.path
+      self.shadowLayer.shadowOffset = CGSize(width: 0, height: 0)
+      self.shadowLayer.shadowOpacity = 1
+      self.shadowLayer.shadowRadius = 2
+
+      self.bg.layer.insertSublayer(self.shadowLayer, at: 0)
+    }
+  }
+
   static func configure(tableView: UITableView, indexPath: IndexPath, challenge: Challenge, challengeInfo: ChallengeInfo) -> UITableViewCell {
     return tableView.dequeueReusableCell(withType: ChallengeBannerCell.self, for: indexPath).apply {
       let skeletonView = UIView()
@@ -35,9 +80,7 @@ class ChallengeBannerCell: UITableViewCell {
       skeletonView.showAnimatedSkeleton()
       skeletonView.showSkeleton()
       
-      $0.titleLabel.text = challenge.name
-      
-      if let pic = challenge.pictureUrl {
+      if let pic = challenge.profilePictureUrl {
         $0.bannerImageView.kf.setImage(with: URL(string: pic)!, placeholder: skeletonView, options: [.transition(.fade(0.2))])
         $0.pictureHeight.constant = 150
       } else {

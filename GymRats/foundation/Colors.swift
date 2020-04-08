@@ -12,7 +12,7 @@ extension UIColor {
   static let brand: UIColor = .hex("#D33A2C")
   static let warning: UIColor = .hex("#FFCC00")
   static let niceBlue: UIColor = .hex("#1074E7")
-  static let shadow: UIColor = .hex("#000000", alpha: 0.1)
+  static let shadow: UIColor = .hex("#000000", alpha: 0.05)
   
   static var primaryText: UIColor {
     switch UIDevice.contentMode {

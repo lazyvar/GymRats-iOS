@@ -32,12 +32,7 @@ struct Workout: Codable, Hashable {
   }
 }
 
-extension Workout: AvatarProtocol {
-  var pictureUrl: String? {
-    return photoUrl
-  }
-
-  var myName: String? {
-    return title
-  }
+extension Workout: Avatar {
+  var avatarName: String? { return title }
+  var avatarImageURL: String? { return photoUrl }
 }

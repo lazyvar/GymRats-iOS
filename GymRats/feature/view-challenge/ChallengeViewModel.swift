@@ -53,7 +53,8 @@ final class ChallengeViewModel: ViewModel {
       .bind(to: output.scrollToTop)
       .disposed(by: disposeBag)
     
-    let cleanRefresh = Observable.merge(input.refresh, workoutCreated, workoutDeleted, input.viewDidLoad, appEnteredForeground).share()
+    let cleanRefresh = Observable.merge(input.refresh, workoutCreated, workoutDeleted, input.viewDidLoad, appEnteredForeground)
+      .share()
     
     let cleanRefreshWorkouts = cleanRefresh
       .do(onNext: { self.page = 0 })
@@ -65,9 +66,11 @@ final class ChallengeViewModel: ViewModel {
       .flatMap { gymRatsAPI.getWorkouts(for: self.challenge, page: self.page) }
       .share()
 
-    let challengeInfoFetch = Observable.merge(cleanRefresh)
+    let challengeInfoFetchPure = Observable.merge(cleanRefresh)
       .flatMap { gymRatsAPI.challengeInfo(self.challenge) }
-      .share()
+      
+    let challengeInfoFetch = challengeInfoFetchPure
+      .executeFor(atLeast: .milliseconds(300), scheduler: MainScheduler.instance)
     
     let challengeInfo = challengeInfoFetch.compactMap { $0.object }.share()
 
@@ -115,8 +118,8 @@ final class ChallengeViewModel: ViewModel {
     let ghostSections = input.viewDidLoad
       .map { _ -> [ChallengeSection] in
         return [
-          .init(model: nil, items: [.banner(self.challenge, ChallengeInfo(memberCount: 0, workoutCount: 0))]),
-          .init(model: nil, items: [.💀(-1000), .💀(-1001), .💀(-1002), .💀(-1003), .💀(-1004), .💀(-1005), .💀(-1006), .💀(-1007), .💀(-1008)])
+          .init(model: .init(date: nil, skeleton: false), items: [.banner(self.challenge, ChallengeInfo(memberCount: 0, workoutCount: 0))]),
+          .init(model: .init(date: Date(), skeleton: true), items: [.💀(-1000), .💀(-1001), .💀(-1002), .💀(-1003), .💀(-1004), .💀(-1005), .💀(-1006), .💀(-1007), .💀(-1008)])
         ]
       }
 
@@ -124,12 +127,13 @@ final class ChallengeViewModel: ViewModel {
       .map { challengeInfo, bucketsYWorkouts -> [ChallengeSection] in
         let bucketedWorkouts = bucketsYWorkouts.0
         let workouts = bucketsYWorkouts.1
-        let banner = ChallengeSection(model: nil, items: [.banner(self.challenge, challengeInfo)])
+        let banner = ChallengeSection(model: .init(date: nil, skeleton: false), items: [.banner(self.challenge, challengeInfo)])
         let workoutSections = bucketedWorkouts
           .map { date, workouts in
-            ChallengeSection(model: date, items: workouts.map { ChallengeRow.workout($0) })
+            ChallengeSection(model: .init(date: date, skeleton: false), items: workouts.map { ChallengeRow.workout($0) })
           }
-        let noWorkouts  = ChallengeSection(model: nil, items: [
+        
+        let noWorkouts  = ChallengeSection(model:.init(date: nil, skeleton: false), items: [
           ChallengeRow.noWorkouts(self.challenge, { WorkoutFlow.logWorkout() })
         ])
         
@@ -141,7 +145,17 @@ final class ChallengeViewModel: ViewModel {
       .bind(to: output.sections)
       .disposed(by: disposeBag)
     
-    input.tappedRow.withLatestFrom(bucketsYWorkouts, resultSelector: { ($0, $1) })
+    input.tappedRow
+      .filter { $0.section == 0 }
+      .map { _ -> (Navigation, Screen) in
+        return (.push(animated: true), .challengeStats(self.challenge))
+      }
+      .bind(to: output.navigation)
+      .disposed(by: disposeBag)
+
+    input.tappedRow
+      .filter { $0.section > 0 }
+      .withLatestFrom(bucketsYWorkouts, resultSelector: { ($0, $1) })
       .compactMap { indexPath, stuff -> (Navigation, Screen)? in
         let (bucketedWorkouts, _) = stuff
         let section = indexPath.section - 1

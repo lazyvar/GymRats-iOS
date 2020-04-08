@@ -18,6 +18,11 @@ struct Challenge: Codable, Equatable {
   let endDate: Date
 }
 
+extension Challenge: Avatar {
+  var avatarName: String? { return name }
+  var avatarImageURL: String? { return profilePictureUrl }
+}
+
 extension Challenge {
 
     var days: [Date] {
@@ -112,18 +117,6 @@ extension Array where Element == Challenge {
     
     func getUpcomingChallenges() -> [Challenge] {
         return self.filter { $0.isUpcoming }
-    }
-    
-}
-
-extension Challenge: AvatarProtocol {
-    
-    var pictureUrl: String? {
-        return self.profilePictureUrl
-    }
-    
-    var myName: String? {
-        return name
     }
     
 }

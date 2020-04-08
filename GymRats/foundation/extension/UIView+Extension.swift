@@ -95,47 +95,46 @@ extension UIView {
         return constraint
     }
     
-    @discardableResult func constrainHeight(_ height: CGFloat) -> NSLayoutConstraint {
-        let constraint = NSLayoutConstraint (
-            item: self,
-            attribute: .height,
-            relatedBy: .equal,
-            toItem: nil,
-            attribute: .notAnAttribute,
-            multiplier: 1,
-            constant: height
-        )
-        
-        constraint.isActive = true
-        
-        return constraint
-    }
+  @discardableResult func constrainHeight(_ height: CGFloat) -> NSLayoutConstraint {
+    let constraint = NSLayoutConstraint (
+      item: self,
+      attribute: .height,
+      relatedBy: .equal,
+      toItem: nil,
+      attribute: .notAnAttribute,
+      multiplier: 1,
+      constant: height
+    )
     
-    func addDivider() {
-        let divider = UIView()
-        divider.backgroundColor = .hex("#D8D8D8")
-        divider.layer.opacity = 0.85
+    constraint.isActive = true
+    
+    return constraint
+  }
+    
+  func addDivider() {
+    let divider = UIView()
+    divider.backgroundColor = .hex("#D8D8D8")
+    divider.layer.opacity = 0.85
 
-        addSubview(divider)
-        
-        addConstraintsWithFormat(format: "H:|[v0]|", views: divider)
-        addConstraintsWithFormat(format: "V:[v0(0.45)]|", views: divider)
-    }
+    addSubview(divider)
     
-    func allSubviews() -> [UIView] {
-        return subviews + subviews.flatMap { $0.allSubviews() }
-    }
+    addConstraintsWithFormat(format: "H:|[v0]|", views: divider)
+    addConstraintsWithFormat(format: "V:[v0(0.45)]|", views: divider)
+  }
+    
+  func allSubviews() -> [UIView] {
+    return subviews + subviews.flatMap { $0.allSubviews() }
+  }
   
   func animatePress(_ press: Bool) {
     UIView.animate(
       withDuration: 0.15,
       delay: 0,
-      usingSpringWithDamping: 1,
-      initialSpringVelocity: 0,
-      options: .curveLinear,
+      options: .curveEaseOut,
       animations: {
-        self.transform = press ? .init(scaleX: 0.9, y: 0.9) : .identity
-      }
+        self.transform = press ? .init(scaleX: 0.95, y: 0.95) : .identity
+      },
+      completion: nil
     )
   }
 }

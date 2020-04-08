@@ -9,18 +9,12 @@
 import UIKit
 
 class HumanCell: UICollectionViewCell {
-
-    @IBOutlet weak var userImageView: UserImageView!
-    @IBOutlet weak var humanLabel: UILabel!
+  @IBOutlet weak var userImageView: UserImageView!
+  @IBOutlet weak var humanLabel: UILabel!
+  
+  override func prepareForReuse() {
+    super.prepareForReuse()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        userImageView.userImage = nil
-    }
-
+    userImageView.clear()
+  }
 }

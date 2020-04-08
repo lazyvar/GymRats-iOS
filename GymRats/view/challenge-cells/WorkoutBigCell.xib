@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="413" id="KGk-i7-Jjw" customClass="WorkoutBigCell" customModule="GymRats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="364" height="413"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="364" height="413"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qm2-qR-X3b">
+                        <rect key="frame" x="25" y="11" width="314" height="391"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="RmH-PO-dpo">
+                                <rect key="frame" x="0.0" y="0.0" width="314" height="391"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W6o-Hf-E66">
+                                        <rect key="frame" x="0.0" y="0.0" width="314" height="314"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="okg-pS-km8">
+                                                <rect key="frame" x="0.0" y="0.0" width="314" height="314"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            </view>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iSK-5j-5bm">
+                                                <rect key="frame" x="0.0" y="0.0" width="314" height="314"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="okg-pS-km8" firstAttribute="centerX" secondItem="W6o-Hf-E66" secondAttribute="centerX" id="6q0-Ro-KG0"/>
+                                            <constraint firstItem="okg-pS-km8" firstAttribute="width" secondItem="W6o-Hf-E66" secondAttribute="width" id="Qpp-5s-auN"/>
+                                            <constraint firstItem="okg-pS-km8" firstAttribute="height" secondItem="W6o-Hf-E66" secondAttribute="height" id="R06-d3-qZO"/>
+                                            <constraint firstItem="okg-pS-km8" firstAttribute="centerY" secondItem="W6o-Hf-E66" secondAttribute="centerY" id="WGD-kT-t42"/>
+                                            <constraint firstItem="iSK-5j-5bm" firstAttribute="centerY" secondItem="W6o-Hf-E66" secondAttribute="centerY" id="Zpo-fS-T01"/>
+                                            <constraint firstAttribute="width" secondItem="W6o-Hf-E66" secondAttribute="height" multiplier="1:1" id="cLr-pK-0jp"/>
+                                            <constraint firstItem="iSK-5j-5bm" firstAttribute="width" secondItem="W6o-Hf-E66" secondAttribute="width" id="phF-lL-QC8"/>
+                                            <constraint firstItem="iSK-5j-5bm" firstAttribute="height" secondItem="W6o-Hf-E66" secondAttribute="height" id="wD4-q4-d8A"/>
+                                            <constraint firstItem="iSK-5j-5bm" firstAttribute="centerX" secondItem="W6o-Hf-E66" secondAttribute="centerX" id="xaT-BX-aMs"/>
+                                        </constraints>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cD6-I7-9KG">
+                                        <rect key="frame" x="0.0" y="321" width="314" height="70"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="LAH-jW-sbe">
+                                                <rect key="frame" x="10" y="0.0" width="294" height="20"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xz5-Vs-biO" customClass="UserImageView" customModule="GymRats" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="20" id="7Zq-6q-ehP"/>
+                                                            <constraint firstAttribute="width" constant="20" id="ens-PV-ckC"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pju-JD-vjn">
+                                                        <rect key="frame" x="30" y="0.0" width="42" height="20"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VU7-4c-XRk">
+                                                        <rect key="frame" x="82" y="0.0" width="212" height="20"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v9e-oG-iUf">
+                                                <rect key="frame" x="10" y="28" width="294" height="32"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="10" bottom="10" trailing="10"/>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="RmH-PO-dpo" secondAttribute="bottom" id="I6A-H5-chj"/>
+                            <constraint firstAttribute="trailing" secondItem="RmH-PO-dpo" secondAttribute="trailing" id="LxG-gD-vnd"/>
+                            <constraint firstItem="RmH-PO-dpo" firstAttribute="leading" secondItem="Qm2-qR-X3b" secondAttribute="leading" id="gUj-wx-Tqk"/>
+                            <constraint firstItem="RmH-PO-dpo" firstAttribute="top" secondItem="Qm2-qR-X3b" secondAttribute="top" id="pvZ-Yt-gu6"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="Qm2-qR-X3b" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="5" id="3oX-3w-mpE"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Qm2-qR-X3b" secondAttribute="bottom" id="Mjg-WK-AcP"/>
+                    <constraint firstItem="Qm2-qR-X3b" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="OZl-be-3qj"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Qm2-qR-X3b" secondAttribute="trailing" constant="5" id="SEL-pK-s3S"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="accountImageView" destination="xz5-Vs-biO" id="3gt-PW-RqV"/>
+                <outlet property="accountNameLabel" destination="Pju-JD-vjn" id="ACS-hE-xj5"/>
+                <outlet property="bgView" destination="Qm2-qR-X3b" id="UeS-sD-sjv"/>
+                <outlet property="imageSkeletonView" destination="okg-pS-km8" id="ke1-p1-OmB"/>
+                <outlet property="timeLabel" destination="VU7-4c-XRk" id="ZiU-HV-T9d"/>
+                <outlet property="workoutImageBackground" destination="W6o-Hf-E66" id="U2o-E3-g6w"/>
+                <outlet property="workoutImageView" destination="iSK-5j-5bm" id="7dO-tq-t2N"/>
+                <outlet property="workoutTitleLabel" destination="v9e-oG-iUf" id="SAX-sU-EQk"/>
+            </connections>
+            <point key="canvasLocation" x="-388.40579710144931" y="240.73660714285714"/>
+        </tableViewCell>
+    </objects>
+</document>

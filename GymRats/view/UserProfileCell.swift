@@ -21,7 +21,7 @@ class UserProfileCell: UITableViewCell {
   
   static func configure(tableView: UITableView, indexPath: IndexPath, account: Account) -> UITableViewCell {
     return tableView.dequeueReusableCell(withType: UserProfileCell.self, for: indexPath).apply {
-      $0.userImageView.skeletonLoad(avatarInfo: account)
+      $0.userImageView.load(account)
       $0.usernameLabel.text = account.fullName
     }
   }

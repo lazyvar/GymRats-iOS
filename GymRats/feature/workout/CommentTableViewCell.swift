@@ -36,7 +36,7 @@ class CommentTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        userImageView.userImage = nil
+        userImageView.clear()
         nameLabel.text = nil
         commentLabel.text = nil
         menuTappedBlock = nil
