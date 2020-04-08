@@ -42,8 +42,8 @@ class ChallengeViewController: BindableViewController {
     didSet {
       tableView.backgroundColor = .background
       tableView.showsVerticalScrollIndicator = false
-      tableView.registerSkeletonCellNibForClass(WorkoutCell.self)
-      tableView.registerCellNibForClass(WorkoutCell.self)
+      tableView.registerSkeletonCellNibForClass(WorkoutListCell.self)
+      tableView.registerCellNibForClass(WorkoutListCell.self)
       tableView.registerCellNibForClass(NoWorkoutsCell.self)
       tableView.registerCellNibForClass(ChallengeBannerCell.self)
       tableView.rx.setDelegate(self).disposed(by: disposeBag)
@@ -108,11 +108,11 @@ class ChallengeViewController: BindableViewController {
     case .banner(let challenge, let challengeInfo):
       return ChallengeBannerCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge, challengeInfo: challengeInfo)
     case .workout(let workout):
-      return WorkoutCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
+      return WorkoutListCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
     case .noWorkouts(let challenge, let onLogWorkout):
       return NoWorkoutsCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge, onLogWorkout: onLogWorkout)
     case .💀:
-      return WorkoutCell.skeleton(tableView: tableView, indexPath: indexPath)
+      return WorkoutListCell.skeleton(tableView: tableView, indexPath: indexPath)
     }
   })
   

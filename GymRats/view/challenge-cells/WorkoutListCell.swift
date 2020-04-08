@@ -1,5 +1,5 @@
 //
-//  WorkoutCell.swift
+//  WorkoutListCell.swift
 //  GymRats
 //
 //  Created by Mack on 9/8/19.
@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-class WorkoutCell: UITableViewCell {
+class WorkoutListCell: UITableViewCell {
   @IBOutlet weak var detailsLabel: UILabel!
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var timeLabel: UILabel! {
@@ -84,7 +84,7 @@ class WorkoutCell: UITableViewCell {
   }
   
   static func skeleton(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-    return tableView.dequeueSkeletonCell(withType: WorkoutCell.self, for: indexPath).apply {      
+    return tableView.dequeueSkeletonCell(withType: WorkoutListCell.self, for: indexPath).apply {      
       $0.detailsLabel.isSkeletonable = true
       $0.titleLabel.isSkeletonable = true
       $0.timeLabel.isSkeletonable = true
@@ -106,7 +106,7 @@ class WorkoutCell: UITableViewCell {
   }
 
   static func configure(tableView: UITableView, indexPath: IndexPath, workout: Workout) -> UITableViewCell {
-    return tableView.dequeueReusableCell(withType: WorkoutCell.self, for: indexPath).apply {
+    return tableView.dequeueReusableCell(withType: WorkoutListCell.self, for: indexPath).apply {
       $0.userImageView.isHidden = false
 
       $0.descriptionLabel.text = workout.description

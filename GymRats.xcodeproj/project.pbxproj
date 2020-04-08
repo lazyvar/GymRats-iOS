@@ -15,8 +15,8 @@
 		0103A99124204FE500B589DA /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0103A99024204FE500B589DA /* PrimaryButton.swift */; };
 		0107AE322325CDD200944D11 /* HumanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0107AE302325CDD200944D11 /* HumanCell.swift */; };
 		0107AE332325CDD200944D11 /* HumanCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0107AE312325CDD200944D11 /* HumanCell.xib */; };
-		0107AE362325E3D300944D11 /* WorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0107AE342325E3D300944D11 /* WorkoutCell.swift */; };
-		0107AE372325E3D300944D11 /* WorkoutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0107AE352325E3D300944D11 /* WorkoutCell.xib */; };
+		0107AE362325E3D300944D11 /* WorkoutListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0107AE342325E3D300944D11 /* WorkoutListCell.swift */; };
+		0107AE372325E3D300944D11 /* WorkoutListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0107AE352325E3D300944D11 /* WorkoutListCell.xib */; };
 		0107C7DB241AEE42005650FB /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0107C7DA241AEE42005650FB /* State.swift */; };
 		0107C7DD241AEEFA005650FB /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0107C7DC241AEEFA005650FB /* MenuViewModel.swift */; };
 		0107C7E4241B0200005650FB /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0107C7E2241B0200005650FB /* MenuViewController.swift */; };
@@ -259,8 +259,8 @@
 		0103A99024204FE500B589DA /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		0107AE302325CDD200944D11 /* HumanCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanCell.swift; sourceTree = "<group>"; };
 		0107AE312325CDD200944D11 /* HumanCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HumanCell.xib; sourceTree = "<group>"; };
-		0107AE342325E3D300944D11 /* WorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCell.swift; sourceTree = "<group>"; };
-		0107AE352325E3D300944D11 /* WorkoutCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutCell.xib; sourceTree = "<group>"; };
+		0107AE342325E3D300944D11 /* WorkoutListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListCell.swift; sourceTree = "<group>"; };
+		0107AE352325E3D300944D11 /* WorkoutListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutListCell.xib; sourceTree = "<group>"; };
 		0107C7DA241AEE42005650FB /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		0107C7DC241AEEFA005650FB /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
 		0107C7E2241B0200005650FB /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -597,6 +597,15 @@
 			path = "SF Rounded";
 			sourceTree = "<group>";
 		};
+		01498B6E243D64EA002B0D58 /* challenge-cells */ = {
+			isa = PBXGroup;
+			children = (
+				0107AE342325E3D300944D11 /* WorkoutListCell.swift */,
+				0107AE352325E3D300944D11 /* WorkoutListCell.xib */,
+			);
+			path = "challenge-cells";
+			sourceTree = "<group>";
+		};
 		01987A9524300E7D00835621 /* join-challenge */ = {
 			isa = PBXGroup;
 			children = (
@@ -705,6 +714,7 @@
 		01F5296324184AE400FA96E0 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				01498B6E243D64EA002B0D58 /* challenge-cells */,
 				011FB62922A33AAA004D5B8E /* UserProfileCell.swift */,
 				011FB62A22A33AAA004D5B8E /* UserProfileCell.xib */,
 				011FB62D22A33C14004D5B8E /* ItemCell.swift */,
@@ -719,8 +729,6 @@
 				01E833E32325BF7300C66C72 /* ChallengeBannerCell.xib */,
 				0107AE302325CDD200944D11 /* HumanCell.swift */,
 				0107AE312325CDD200944D11 /* HumanCell.xib */,
-				0107AE342325E3D300944D11 /* WorkoutCell.swift */,
-				0107AE352325E3D300944D11 /* WorkoutCell.xib */,
 				0166083A239C61B800FCFD26 /* DateProgressCell.swift */,
 				0166083B239C61B800FCFD26 /* DateProgressCell.xib */,
 				0166083E239C8CA700FCFD26 /* StatsBabyCell.swift */,
@@ -1238,7 +1246,7 @@
 				74118063220C58C300EB9D11 /* Lato-Hairline.ttf in Resources */,
 				01297D942329E79000CA9E41 /* SF-Pro-Rounded-Medium.otf in Resources */,
 				01D5D371243BDA7D0044E459 /* ErrorLabelCell.xib in Resources */,
-				0107AE372325E3D300944D11 /* WorkoutCell.xib in Resources */,
+				0107AE372325E3D300944D11 /* WorkoutListCell.xib in Resources */,
 				0176B66F243B99E50022B65F /* WelcomeViewController.xib in Resources */,
 				015E2A8E243CEFD700307B21 /* TodaysGoalViewController.xib in Resources */,
 				74A01B3C220A544F00431ABD /* UserWorkoutTableViewCell.xib in Resources */,
@@ -1426,7 +1434,7 @@
 				01A3EB27237747D30097FC2A /* CVCalendarDayViewControlCoordinator.swift in Sources */,
 				015A1A5E2421A2B500D2EF5A /* NotificationHandler.swift in Sources */,
 				0107C7E4241B0200005650FB /* MenuViewController.swift in Sources */,
-				0107AE362325E3D300944D11 /* WorkoutCell.swift in Sources */,
+				0107AE362325E3D300944D11 /* WorkoutListCell.swift in Sources */,
 				01F5296524184B0000FA96E0 /* SecondaryButton.swift in Sources */,
 				01A3EB17237747D30097FC2A /* CVDate.swift in Sources */,
 				7405FE93222C249B0054F029 /* WebViewController.swift in Sources */,

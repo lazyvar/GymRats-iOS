@@ -85,7 +85,7 @@ class ProfileViewController: UIViewController {
     didSet {
       tableView.dataSource = self
       tableView.delegate = self
-      tableView.registerCellNibForClass(WorkoutCell.self)
+      tableView.registerCellNibForClass(WorkoutListCell.self)
       tableView.backgroundColor = .background
       tableView.separatorStyle = .none
     }
@@ -221,7 +221,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let workout = workoutsForSelectedDay[safe: indexPath.row] else { return UITableViewCell() }
     
-    return WorkoutCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
+    return WorkoutListCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
