@@ -145,7 +145,17 @@ final class ChallengeViewModel: ViewModel {
       .bind(to: output.sections)
       .disposed(by: disposeBag)
     
-    input.tappedRow.withLatestFrom(bucketsYWorkouts, resultSelector: { ($0, $1) })
+    input.tappedRow
+      .filter { $0.section == 0 }
+      .map { _ -> (Navigation, Screen) in
+        return (.push(animated: true), .challengeStats(self.challenge))
+      }
+      .bind(to: output.navigation)
+      .disposed(by: disposeBag)
+
+    input.tappedRow
+      .filter { $0.section > 0 }
+      .withLatestFrom(bucketsYWorkouts, resultSelector: { ($0, $1) })
       .compactMap { indexPath, stuff -> (Navigation, Screen)? in
         let (bucketedWorkouts, _) = stuff
         let section = indexPath.section - 1

@@ -39,7 +39,6 @@ class UpcomingChallengeViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        chatItem.tintColor = .lightGray
         let dummyView = UIView(frame: CGRect(x: 0, y: -view.frame.height, width: view.frame.width, height: view.frame.height))
         dummyView.backgroundColor = .brand
         
@@ -90,9 +89,9 @@ class UpcomingChallengeViewController: UICollectionViewController {
           let count = result.object?.count ?? 0
           
           if count == .zero {
-            self?.chatItem.image = .chatGray
+            self?.chatItem.image = .chat
           } else {
-            self?.chatItem.image = UIImage.chatUnreadGray.withRenderingMode(.alwaysOriginal)
+            self?.chatItem.image = UIImage.chatUnread.withRenderingMode(.alwaysOriginal)
           }
         })
         .disposed(by: disposeBag)

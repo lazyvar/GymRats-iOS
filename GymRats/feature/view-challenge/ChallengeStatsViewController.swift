@@ -8,7 +8,7 @@
 
 import UIKit
 import RxSwift
-import CRRefresh
+
 class ChallengeStatsViewController: UITableViewController {
   enum SortBy: Int, CaseIterable {
     case workouts
@@ -102,7 +102,7 @@ class ChallengeStatsViewController: UITableViewController {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -114,10 +114,12 @@ class ChallengeStatsViewController: UITableViewController {
     tableView.register(UINib(nibName: "StatsBabyCell", bundle: nil), forCellReuseIdentifier: "baby")
     tableView.separatorStyle = .none
     tableView.backgroundColor = .background
-    tableView.cr.addHeadRefresh(animator: NormalHeaderAnimator()) { [weak self] in
-      self?.fetch()
-    }
+    
+    tableView.refreshControl = UIRefreshControl()
+    tableView.refreshControl?.addTarget(self, action: #selector(fetch), for: .valueChanged)
 
+    navigationItem.largeTitleDisplayMode = .never
+    
     self.showLoadingBar()
     
     fetch()
@@ -128,7 +130,7 @@ class ChallengeStatsViewController: UITableViewController {
       .subscribe(onNext: { [weak self] m, w in
         guard let self = self else { return }
         
-        self.tableView.cr.endHeaderRefresh()
+        self.tableView.refreshControl?.endRefreshing()
         self.hideLoadingBar()
         
         if let error = m.error ?? w.error {

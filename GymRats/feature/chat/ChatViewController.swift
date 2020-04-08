@@ -47,6 +47,9 @@ class ChatViewController: MessagesViewController {
     messagesCollectionView.backgroundColor = .background
     title = challenge.name
 
+    
+    navigationItem.largeTitleDisplayMode = .never
+    
     setupBackButton()
     
     scrollsToBottomOnKeyboardBeginsEditing = true

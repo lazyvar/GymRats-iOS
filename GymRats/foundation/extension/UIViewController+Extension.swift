@@ -36,12 +36,11 @@ extension UIViewController {
 
     func setupMenuButton() {
       let menu = UIBarButtonItem (
-        image: UIImage(named: "menu")?.withRenderingMode(.alwaysTemplate),
+        image: .menu,
         style: .plain,
         target: self,
         action: #selector(UIViewController.toggleMenu)
       )
-      menu.tintColor = .lightGray
       
       navigationItem.leftBarButtonItem = menu
     }

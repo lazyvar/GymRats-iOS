@@ -6,7 +6,6 @@ PODS:
   - Cache (5.2.0)
   - Crashlytics (3.12.0):
     - Fabric (~> 1.9.0)
-  - CRRefresh (1.1.3)
   - Differentiator (4.0.1)
   - EasyNotificationBadge (1.2.0)
   - ESTabBarController-swift (2.8.0)
@@ -149,7 +148,6 @@ DEPENDENCIES:
   - Branch
   - Cache
   - Crashlytics (~> 3.12.0)
-  - CRRefresh
   - EasyNotificationBadge
   - ESTabBarController-swift
   - Eureka
@@ -185,7 +183,6 @@ SPEC REPOS:
     - Branch
     - Cache
     - Crashlytics
-    - CRRefresh
     - Differentiator
     - EasyNotificationBadge
     - ESTabBarController-swift
@@ -239,7 +236,6 @@ SPEC CHECKSUMS:
   Branch: 5180bca89b8942dd0fe8175d7ecb8a8a451cf5b0
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
-  CRRefresh: 1415d4ae06837fa7bb064c44f2e102f3ef517044
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   EasyNotificationBadge: afeb15ed6f9a4262d626a2b745297e96afa26c2e
   ESTabBarController-swift: 05593a6ad64700b03c0eb60ff625916370aa4136
@@ -288,6 +284,6 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UIScrollView-InfiniteScroll: 3ef456bcbe759c19f510a383cff96e6647c98c98
 
-PODFILE CHECKSUM: dc8755a3f760fac540462d76fa8ffb7e76e4f92b
+PODFILE CHECKSUM: 8a20ac8a88619f57c4115eb3e2f6e04b72cb6e30
 
 COCOAPODS: 1.9.1

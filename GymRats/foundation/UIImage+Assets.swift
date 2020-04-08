@@ -10,8 +10,8 @@ import UIKit
 
 extension UIImage {
   static let moreVertical = UIImage(named: "more-vertical")!
-  static let chatGray = UIImage(named: "chat-gray")!
-  static let chatUnreadGray = UIImage(named: "chat-unread-gray")!
+  static let chat = UIImage(named: "chat")!
+  static let chatUnread = UIImage(named: "chat-unread")!
   static let standings = UIImage(named: "standings")!
   static let activityLargeWhite = UIImage(named: "activity-large-white")!
   static let activity = UIImage(named: "activity")!
@@ -34,4 +34,5 @@ extension UIImage {
   static let proPic = UIImage(named: "pro-pic")!
   static let camera = UIImage(named: "camera")!
   static let close = UIImage(named: "close")!
+  static let menu = UIImage(named: "menu")!
 }

@@ -57,10 +57,10 @@ class WorkoutViewController: UITableViewController {
             target: self,
             action: #selector(showMenu)
         )
-        button.tintColor = .lightGray
         
         navigationItem.rightBarButtonItem = button
-
+        navigationItem.largeTitleDisplayMode = .never
+      
         setupBackButton()
         
         self.headerView = WorkoutHeaderView.instanceFromNib()

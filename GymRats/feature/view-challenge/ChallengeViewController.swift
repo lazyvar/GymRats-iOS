@@ -10,7 +10,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxDataSources
-import CRRefresh
 import UIScrollView_InfiniteScroll
 
 struct ChallengeSectionModel: Equatable {
@@ -80,7 +79,7 @@ class ChallengeViewController: BindableViewController {
   }
   
   private lazy var chatBarButtonItem = UIBarButtonItem (
-    image: .chatGray,
+    image: .chat,
     style: .plain,
     target: self,
     action: #selector(chatTapped)
@@ -91,14 +90,14 @@ class ChallengeViewController: BindableViewController {
     style: .plain,
     target: self,
     action: #selector(menuTapped)
-  ).apply { $0.tintColor = .lightGray }
+  )
 
   private lazy var statsBarButtonItem = UIBarButtonItem(
     image: .standings,
     style: .plain,
     target: self,
     action: #selector(statsTapped)
-  ).apply { $0.tintColor = .lightGray }
+  )
 
   // MARK: View lifecycle
   
@@ -240,9 +239,9 @@ class ChallengeViewController: BindableViewController {
           let count = result.object?.count ?? 0
           
           if count == .zero {
-            self?.chatBarButtonItem.image = .chatGray
+            self?.chatBarButtonItem.image = .chat
           } else {
-            self?.chatBarButtonItem.image = UIImage.chatUnreadGray.withRenderingMode(.alwaysOriginal)
+            self?.chatBarButtonItem.image = UIImage.chatUnread.withRenderingMode(.alwaysOriginal)
           }
         })
         .disposed(by: disposeBag)

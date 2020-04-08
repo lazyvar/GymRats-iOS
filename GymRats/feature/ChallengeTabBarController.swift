@@ -40,7 +40,7 @@ class ChallengeTabBarController: ESTabBarController {
         $0.tabBarItem = ESTabBarItem(BigContentView(), title: nil, image: .activityLargeWhite, selectedImage: .activityLargeWhite)
       },
       UIViewController().apply {
-        $0.tabBarItem = UITabBarItem(title: nil, image: .chatGray, selectedImage: .chatGray)
+        $0.tabBarItem = UITabBarItem(title: nil, image: .chat, selectedImage: .chat)
         $0.tabBarItem?.badgeColor = .brand
       }
     ]
@@ -120,6 +120,7 @@ private extension ChallengeTabBarController {
     tabBar.layer.shadowColor = UIColor.shadow.cgColor
     tabBar.layer.shadowOpacity = 0.5
     tabBar.barTintColor = .background
+    tabBar.tintColor = .primaryText
     tabBar.addSubview(pxWhiteThing)
     tabBar.sendSubviewToBack(pxWhiteThing)
   }
