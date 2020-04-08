@@ -134,7 +134,7 @@ extension UIView {
       initialSpringVelocity: 0,
       options: .curveLinear,
       animations: {
-        self.transform = press ? .init(scaleX: 0.9, y: 0.9) : .identity
+        self.transform = press ? .init(scaleX: 0.95, y: 0.95) : .identity
       }
     )
   }

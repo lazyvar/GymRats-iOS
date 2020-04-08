@@ -10,7 +10,6 @@ import UIKit
 
 class ChallengeBannerCell: UITableViewCell {
   @IBOutlet weak var calendarStackView: UIStackView!
-  @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var membersLabel: UILabel!
   @IBOutlet weak var calendarLabel: UILabel!
   @IBOutlet weak var activityLabel: UILabel!
@@ -34,8 +33,6 @@ class ChallengeBannerCell: UITableViewCell {
       skeletonView.isSkeletonable = true
       skeletonView.showAnimatedSkeleton()
       skeletonView.showSkeleton()
-      
-      $0.titleLabel.text = challenge.name
       
       if let pic = challenge.pictureUrl {
         $0.bannerImageView.kf.setImage(with: URL(string: pic)!, placeholder: skeletonView, options: [.transition(.fade(0.2))])

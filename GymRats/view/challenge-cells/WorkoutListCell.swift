@@ -8,113 +8,99 @@
 
 import UIKit
 import Kingfisher
+import SkeletonView
 
 class WorkoutListCell: UITableViewCell {
-  @IBOutlet weak var detailsLabel: UILabel!
-  @IBOutlet weak var titleLabel: UILabel!
-  @IBOutlet weak var timeLabel: UILabel! {
+  @IBOutlet private weak var bgView: UIView! {
     didSet {
-      timeLabel.textColor = .secondaryLblColor
-    }
-  }
-  @IBOutlet weak var userImageView: UserImageView!
-  @IBOutlet weak var descriptionLabel: UILabel!
-    
-  @IBOutlet weak var chevronView: UIImageView! {
-    didSet {
-      chevronView.tintColor = .chevron
+      bgView.backgroundColor = .foreground
+      bgView.layer.cornerRadius = 4
+      bgView.clipsToBounds = true
     }
   }
   
-  @IBOutlet weak var workoutImageView: UIImageView! {
+  @IBOutlet private weak var imageShadowView: UIView! {
+    didSet {
+      imageShadowView.isSkeletonable = true
+      imageShadowView.showAnimatedSkeleton()
+    }
+  }
+  
+  @IBOutlet private weak var workoutImageView: UIImageView! {
     didSet {
       workoutImageView.contentMode = .scaleAspectFill
-      workoutImageView.layer.cornerRadius = 4
-      workoutImageView.clipsToBounds = true
+      workoutImageView.backgroundColor = .clear
+      workoutImageView.isSkeletonable = false
     }
   }
   
-  @IBOutlet weak var bg: UIView! {
-    didSet { bg.layer.cornerRadius = 4 }
-  }
-  
-  @IBOutlet weak var clockImageView: UIImageView! {
+  @IBOutlet private weak var workoutTitleLabel: UILabel! {
     didSet {
-      clockImageView.tintColor = .secondaryLblColor
+      workoutTitleLabel.textColor = .primaryText
+      workoutTitleLabel.font = .body
     }
   }
   
-  @IBOutlet weak var shadowView: UIView! {
+  @IBOutlet private weak var accountNameLabel: UILabel! {
     didSet {
-      shadowView.layer.cornerRadius = 4
-      shadowView.clipsToBounds = true
-      shadowView.isSkeletonable = true
-      shadowView.startSkeletonAnimation()
-      shadowView.showSkeleton()
+      accountNameLabel.textColor = .primaryText
+      accountNameLabel.font = .body
     }
   }
-
+  
+  @IBOutlet private weak var accountImageView: UserImageView!
+  
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesBegan(touches, with: event)
+    
+    animatePress(true)
+  }
+  
+  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesEnded(touches, with: event)
+    
+    animatePress(false)
+  }
+  
+  override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesCancelled(touches, with: event)
+    
+    animatePress(false)
+  }
+  
   override func awakeFromNib() {
     super.awakeFromNib()
     
-    detailsLabel.linesCornerRadius = 4
-    titleLabel.linesCornerRadius = 4
-    timeLabel.linesCornerRadius = 4
-    descriptionLabel.linesCornerRadius = 4
-    userImageView.isHidden = true
-    
-    titleLabel.clipsToBounds = true
-    descriptionLabel.clipsToBounds = true
-    
-    clipsToBounds = false
+    selectionStyle = .none
   }
       
   override func prepareForReuse() {
     super.prepareForReuse()
-    
-    descriptionLabel.text = nil
-    userImageView.imageView.image = nil
-    timeLabel.text = nil
-    titleLabel.text = nil
-    detailsLabel.text = nil
+
+    imageShadowView.alpha = 1
+    workoutTitleLabel.text = nil
     workoutImageView.image = nil
+    accountNameLabel.text = nil
     workoutImageView.kf.cancelDownloadTask()
-    shadowView.startSkeletonAnimation()
-    shadowView.showSkeleton()
   }
   
   static func skeleton(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
     return tableView.dequeueSkeletonCell(withType: WorkoutListCell.self, for: indexPath).apply {      
-      $0.detailsLabel.isSkeletonable = true
-      $0.titleLabel.isSkeletonable = true
-      $0.timeLabel.isSkeletonable = true
-      $0.descriptionLabel.isSkeletonable = true
-      $0.clockImageView.isSkeletonable = true
-      $0.userImageView.isSkeletonable = true
-
-      $0.detailsLabel.showAnimatedSkeleton()
-      $0.titleLabel.showAnimatedSkeleton()
-      $0.timeLabel.showAnimatedSkeleton()
-      $0.descriptionLabel.showAnimatedSkeleton()
-      $0.clockImageView.showAnimatedSkeleton()
-      $0.detailsLabel.showAnimatedSkeleton()
-      $0.userImageView.showAnimatedSkeleton()
-      
-      $0.titleLabel.constrainWidth(CGFloat.random(in: 30...70))
-      $0.descriptionLabel.constrainWidth(CGFloat.random(in: 30...70))
+      print($0)
     }
   }
 
   static func configure(tableView: UITableView, indexPath: IndexPath, workout: Workout) -> UITableViewCell {
-    return tableView.dequeueReusableCell(withType: WorkoutListCell.self, for: indexPath).apply {
-      $0.userImageView.isHidden = false
-
-      $0.descriptionLabel.text = workout.description
-      $0.workoutImageView.kf.setImage(with: URL(string: workout.photoUrl ?? ""), options: [.transition(.fade(0.2))])
-      $0.titleLabel.text = workout.title
-      $0.detailsLabel.text = workout.account.fullName
-      $0.userImageView.load(avatarInfo: workout.account)
-      $0.timeLabel.text = "\(workout.createdAt.challengeTime)"
+    return tableView.dequeueReusableCell(withType: WorkoutListCell.self, for: indexPath).apply { cell in
+      cell.accountNameLabel.text = workout.account.fullName
+      cell.workoutImageView.kf.setImage(with: URL(string: workout.photoUrl ?? ""), options: [.transition(.fade(0.2))]) { _, _, _, _ in
+        UIView.animate(withDuration: 0.2) {
+          cell.imageShadowView.alpha = 0
+        }
+      }
+      cell.workoutTitleLabel.text = workout.title
+      cell.accountImageView.load(avatarInfo: workout.account)
+//      $0.timeLabel.text = "\(workout.createdAt.challengeTime)"
     }
   }
 }

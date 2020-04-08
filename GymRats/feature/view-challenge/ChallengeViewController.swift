@@ -168,6 +168,8 @@ class ChallengeViewController: BindableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    navigationItem.title = challenge.name
+    
     navigationItem.rightBarButtonItems = {
       if challenge.isPast {
         return [menuBarButtonItem, chatBarButtonItem, statsBarButtonItem]
