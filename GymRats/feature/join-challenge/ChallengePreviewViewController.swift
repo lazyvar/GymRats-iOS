@@ -137,10 +137,15 @@ class ChallengePreviewViewController: UIViewController {
         
         switch result {
         case .success(let challenge):
-          // TODO
-          UserDefaults.standard.removeObject(forKey: "join-code")
-          GymRats.completeOnboarding()
-          Challenge.State.all.fetch().ignore(disposedBy: self?.disposeBag ?? DisposeBag())
+          if let self = self { Challenge.State.all.fetch().ignore(disposedBy: self.disposeBag) }
+          
+          NotificationCenter.default.post(name: .joinedChallenge, object: challenge)
+          
+          if UserDefaults.standard.bool(forKey: "account-is-onboarding") {
+            GymRats.completeOnboarding()
+          } else {
+            self?.dismissSelf()
+          }
         case .failure(let error):
           self?.presentAlert(with: error)
         }

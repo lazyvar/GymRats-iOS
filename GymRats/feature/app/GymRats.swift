@@ -105,6 +105,7 @@ enum GymRats {
   
   /// Takes them to the main app and clears `account-is-onboarding`
   static func completeOnboarding() {
+    UserDefaults.standard.removeObject(forKey: "join-code")
     UserDefaults.standard.removeObject(forKey: "account-is-onboarding")
     replaceRoot(with: DrawerViewController())
   }

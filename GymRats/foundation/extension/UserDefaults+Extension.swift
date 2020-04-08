@@ -11,7 +11,7 @@ import Foundation
 extension UserDefaults {
   func setCodable<Element: Codable>(_ value: Element, forKey key: String) {
     let encoder = JSONEncoder()
-    let data = try! encoder.encode(value)
+    let data = try? encoder.encode(value)
     
     UserDefaults.standard.setValue(data, forKey: key)
   }

@@ -10,7 +10,6 @@ import Foundation
 import RxSwift
 
 final class HomeViewModel: ViewModel {
-  
   private let disposeBag = DisposeBag()
   
   struct Input {
@@ -55,15 +54,6 @@ final class HomeViewModel: ViewModel {
         GymRats.handleColdStartNotification()
       })
       .bind(to: output.navigation)
-      .disposed(by: disposeBag)
-  
-    input.viewDidLoad
-      .subscribe(onNext: { _ in
-        if let code = UserDefaults.standard.string(forKey: "join-code") {
-          UserDefaults.standard.removeObject(forKey: "join-code")
-          ChallengeFlow.join(code: code)
-        }
-      })
       .disposed(by: disposeBag)
   }
 }
