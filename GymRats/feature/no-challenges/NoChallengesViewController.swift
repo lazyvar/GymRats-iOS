@@ -10,10 +10,15 @@ import UIKit
 import RxSwift
 
 class NoChallengesViewController: BindableViewController {
-  
-  let viewModel = NoChallengesViewModel()
-  
+  private let viewModel = NoChallengesViewModel()
   private let disposeBag = DisposeBag()
+  
+  @IBOutlet private weak var headerLabel: UILabel! {
+    didSet {
+      headerLabel.font = .h4
+      headerLabel.textColor = .primaryText
+    }
+  }
   
   override func bindViewModel() {
     viewModel.output.navigation
