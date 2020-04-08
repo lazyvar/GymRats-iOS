@@ -243,7 +243,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
                 theCell.textLabel?.text = "Profile picture"
                 
                 let userImageView = UserImageView(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
-                userImageView.load(avatarInfo: GymRats.currentAccount)
+                userImageView.load(GymRats.currentAccount)
                 
                 cell?.accessoryView = userImageView
             case 2:

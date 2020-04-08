@@ -109,7 +109,7 @@ class ProfileViewController: UIViewController {
     navigationItem.largeTitleDisplayMode = .never
     
     nameLabel.text = account.fullName
-    userImageView.load(avatarInfo: account)
+    userImageView.load(account)
     
     if let challenge = challenge, challenge.isPast {
       calendarView.toggleViewWithDate(challenge.endDate)
@@ -129,7 +129,7 @@ class ProfileViewController: UIViewController {
     guard let account = notification.object as? Account else { return }
   
     nameLabel.text = account.fullName
-    userImageView.load(avatarInfo: account)
+    userImageView.load(account)
     loadWorkouts()
   }
 

@@ -103,7 +103,9 @@ class WorkoutListCell: UITableViewCell {
       $0.accountNameLabel.linesCornerRadius = 2
       $0.workoutTitleLabel.linesCornerRadius = 2
       $0.timeLabel.linesCornerRadius = 2
-
+      $0.accountImageView.layer.cornerRadius = 10
+      $0.accountImageView.clipsToBounds = true
+      
       if let width = $0.accountNameLabel.constraints.first(where: { constraint -> Bool in
         return constraint.firstAttribute == .width
       }) {
@@ -132,7 +134,7 @@ class WorkoutListCell: UITableViewCell {
       $0.accountNameLabel.text = workout.account.fullName
       $0.workoutImageView.kf.setImage(with: URL(string: workout.photoUrl ?? ""), options: [.transition(.fade(0.2))])
       $0.workoutTitleLabel.text = workout.title
-      $0.accountImageView.load(avatarInfo: workout.account)
+      $0.accountImageView.load(workout.account)
       $0.timeLabel.text = "\(workout.createdAt.challengeTime)"
     }
   }

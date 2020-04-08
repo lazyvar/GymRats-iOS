@@ -1,6 +1,5 @@
 PODS:
   - Alamofire (4.9.1)
-  - AvatarImageView (2.2.0)
   - Branch (0.31.4):
     - Branch/Core (= 0.31.4)
   - Branch/Core (0.31.4)
@@ -90,6 +89,7 @@ PODS:
   - InputBarAccessoryView/Core (4.3.2)
   - JVFloatLabeledTextField (1.2.2)
   - Kingfisher (4.10.1)
+  - LetterAvatarKit (1.2.2)
   - LightweightObservable (1.0.3)
   - MessageKit (3.1.0):
     - InputBarAccessoryView (~> 4.3.0)
@@ -146,7 +146,6 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
-  - AvatarImageView (~> 2.2.0)
   - Branch
   - Cache
   - Crashlytics (~> 3.12.0)
@@ -161,6 +160,7 @@ DEPENDENCIES:
   - GradientLoadingBar (~> 1.0)
   - JVFloatLabeledTextField
   - Kingfisher (~> 4.0)
+  - LetterAvatarKit (= 1.2.2)
   - MessageKit
   - MMDrawerController (~> 0.5.7)
   - NVActivityIndicatorView/AppExtension
@@ -182,7 +182,6 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
-    - AvatarImageView
     - Branch
     - Cache
     - Crashlytics
@@ -211,6 +210,7 @@ SPEC REPOS:
     - InputBarAccessoryView
     - JVFloatLabeledTextField
     - Kingfisher
+    - LetterAvatarKit
     - LightweightObservable
     - MessageKit
     - MMDrawerController
@@ -236,7 +236,6 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
-  AvatarImageView: afe8e7eb50181ca3f095e21034f245676b535c55
   Branch: 5180bca89b8942dd0fe8175d7ecb8a8a451cf5b0
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
@@ -265,6 +264,7 @@ SPEC CHECKSUMS:
   InputBarAccessoryView: 7985d418040a05fe894bd4b8328dd43ab35517c3
   JVFloatLabeledTextField: df48598472ee015701d509f43e59492a0d4ca208
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
+  LetterAvatarKit: ad0fd9a9fe7c3721059cad56ed79fffc52e6a2fb
   LightweightObservable: 8687e8e1e2940ae2f64d7f71fe78c036d89c966f
   MessageKit: 3beb578737a5aa2bba25cc27c7b6d6faa09af5a7
   MMDrawerController: 7a4cf8e25596bf2434e03ce50d22a8608ddee6a1
@@ -288,6 +288,6 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UIScrollView-InfiniteScroll: 3ef456bcbe759c19f510a383cff96e6647c98c98
 
-PODFILE CHECKSUM: 1e713019fdc8032f936c0edb0e6b36eb12020a47
+PODFILE CHECKSUM: dc8755a3f760fac540462d76fa8ffb7e76e4f92b
 
 COCOAPODS: 1.9.1

@@ -16,7 +16,7 @@ class UpcomingCollectionViewCell: UICollectionViewCell {
     var user: Account! {
         didSet {
             self.someText.text = user.fullName
-            self.userImageView.skeletonLoad(avatarInfo: user)
+            self.userImageView.load(user)
         }
     }
     

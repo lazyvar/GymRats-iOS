@@ -11,7 +11,6 @@ target 'GymRats' do
     pod 'RxOptional'
     pod 'MMDrawerController', '~> 0.5.7'
     pod 'SwiftDate', '~> 5.0'
-    pod "AvatarImageView", '~> 2.2.0'
     pod 'GradientLoadingBar', '~> 1.0'
     pod 'Firebase/Core'
     pod 'Firebase/Storage'
@@ -36,6 +35,7 @@ target 'GymRats' do
     pod 'UIScrollView-InfiniteScroll', '~> 1.1.0'
     pod 'Branch'
     pod 'JVFloatLabeledTextField'
+    pod 'LetterAvatarKit', '1.2.2'
 
     target 'GymRatsTests' do
         inherit! :search_paths

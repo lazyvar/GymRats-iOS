@@ -34,7 +34,7 @@ class ChallengeBannerCell: UITableViewCell {
       skeletonView.showAnimatedSkeleton()
       skeletonView.showSkeleton()
       
-      if let pic = challenge.pictureUrl {
+      if let pic = challenge.profilePictureUrl {
         $0.bannerImageView.kf.setImage(with: URL(string: pic)!, placeholder: skeletonView, options: [.transition(.fade(0.2))])
         $0.pictureHeight.constant = 150
       } else {

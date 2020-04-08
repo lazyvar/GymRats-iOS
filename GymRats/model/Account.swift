@@ -43,14 +43,9 @@ extension Account {
   }
 }
 
-extension Account: AvatarProtocol {
-  var myName: String? {
-    return self.fullName
-  }
-  
-  var pictureUrl: String? {
-    return profilePictureUrl
-  }
+extension Account: Avatar {
+  var avatarName: String? { return fullName }
+  var avatarImageURL: String? { return profilePictureUrl }
 }
 
 extension Account {

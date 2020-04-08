@@ -10,7 +10,8 @@
 #endif
 #endif
 
+#import "LetterAvatarKit.h"
 
-FOUNDATION_EXPORT double AvatarImageViewVersionNumber;
-FOUNDATION_EXPORT const unsigned char AvatarImageViewVersionString[];
+FOUNDATION_EXPORT double LetterAvatarKitVersionNumber;
+FOUNDATION_EXPORT const unsigned char LetterAvatarKitVersionString[];
 

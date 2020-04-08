@@ -151,20 +151,20 @@ class StatsBabyCell: UITableViewCell {
             let nakedUser = userToLongestStreak.sorted(by: { $0.value > $1.value }).first!
 
             DispatchQueue.main.async {
-                self.totalWorkoutsLabel.text = "\(workouts.count)"
-                self.workoutsPerDayLabel.text = String(format: "%.2f", CGFloat(workouts.count)/CGFloat(challenge.days.count))
-                self.daysAllWorkedOutLabel.text = "\(daysAllPeepsTwerked)"
-                self.daysNoOneWorkedOutLabel.text = "\(daysNoPeepsTwerked)"
-        
-                self.mostWorkoutsLabel.text = "\(mostWorkoutsUser.value.count)"
-                self.relaxingLabel.text = "\(earlyBird.value)"
-                self.mostWorkoutsDayLabel.text = "\(mostInDayUser.value)"
-                self.streakLabel.text = "\(nakedUser.value)"
+              self.totalWorkoutsLabel.text = "\(workouts.count)"
+              self.workoutsPerDayLabel.text = String(format: "%.2f", CGFloat(workouts.count)/CGFloat(challenge.days.count))
+              self.daysAllWorkedOutLabel.text = "\(daysAllPeepsTwerked)"
+              self.daysNoOneWorkedOutLabel.text = "\(daysNoPeepsTwerked)"
+      
+              self.mostWorkoutsLabel.text = "\(mostWorkoutsUser.value.count)"
+              self.relaxingLabel.text = "\(earlyBird.value)"
+              self.mostWorkoutsDayLabel.text = "\(mostInDayUser.value)"
+              self.streakLabel.text = "\(nakedUser.value)"
                 
-                self.mostWorkoutsView.load(avatarInfo: mostWorkoutsUser.key)
-                self.streakView.load(avatarInfo: nakedUser.key)
-                self.mostWorkoutsDayView.load(avatarInfo: mostInDayUser.key)
-                self.relaxingView.load(avatarInfo: earlyBird.key)
+              self.mostWorkoutsView.load(mostWorkoutsUser.key)
+              self.streakView.load(nakedUser.key)
+              self.mostWorkoutsDayView.load(mostInDayUser.key)
+              self.relaxingView.load(earlyBird.key)
             }
         }
     }
