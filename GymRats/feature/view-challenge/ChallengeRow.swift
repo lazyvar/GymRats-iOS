@@ -12,7 +12,7 @@ import RxDataSources
 enum ChallengeRow {
   case banner(Challenge, ChallengeInfo)
   case workout(Workout)
-  case noWorkouts(Challenge, () -> Void)
+  case noWorkouts(Challenge)
   case 💀(Int)
 }
 

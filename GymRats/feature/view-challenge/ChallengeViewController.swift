@@ -53,6 +53,8 @@ class ChallengeViewController: BindableViewController {
       tableView.registerCellNibForClass(NoWorkoutsCell.self)
       tableView.registerCellNibForClass(ChallengeBannerCell.self)
       tableView.rx.setDelegate(self).disposed(by: disposeBag)
+      tableView.infiniteScrollTriggerOffset = 300
+
       tableView.infiniteScrollIndicatorStyle = {
         if #available(iOS 12.0, *) {
           if traitCollection.userInterfaceStyle == .dark {
@@ -64,19 +66,14 @@ class ChallengeViewController: BindableViewController {
           return .gray
         }
       }()
+      
       tableView.addInfiniteScroll { [weak self] _ in
         self?.viewModel.input.infiniteScrollTriggered.trigger()
       }
+      
       tableView.setShouldShowInfiniteScrollHandler { [weak self] _ -> Bool in
         return self?.shouldShowInfScroll ?? false
       }
-      tableView.infiniteScrollTriggerOffset = 300
-      tableView.rx.itemSelected
-        .do(onNext: { [weak self] indexPath in
-          self?.tableView.deselectRow(at: indexPath, animated: true)
-        })
-        .bind(to: viewModel.input.tappedRow)
-        .disposed(by: disposeBag)
     }
   }
   
@@ -101,16 +98,14 @@ class ChallengeViewController: BindableViewController {
     action: #selector(statsTapped)
   )
 
-  // MARK: View lifecycle
-  
-  private let members = BehaviorSubject<[Account]>(value: [])
+  // MARK: View lifecycle  
   
   private lazy var dataSource = RxTableViewSectionedReloadDataSource<ChallengeSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
     switch row {
     case .banner(let challenge, let challengeInfo):
       return ChallengeBannerCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge, challengeInfo: challengeInfo)
-    case .noWorkouts(let challenge, let onLogWorkout):
-      return NoWorkoutsCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge, onLogWorkout: onLogWorkout)
+    case .noWorkouts(let challenge):
+      return NoWorkoutsCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge)
     case .workout(let workout):
       switch FeedStyle.stlye(for: self.challenge) {
       case .list: return WorkoutListCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
@@ -166,6 +161,13 @@ class ChallengeViewController: BindableViewController {
       })
       .disposed(by: disposeBag)
     
+    tableView.rx.itemSelected
+      .do(onNext: { [weak self] indexPath in
+        self?.tableView.deselectRow(at: indexPath, animated: true)
+      })
+      .bind(to: viewModel.input.tappedRow)
+      .disposed(by: disposeBag)
+    
     viewModel.output.resetNoMore
       .subscribe(onNext: { [weak self] _ in
         self?.shouldShowInfScroll = true
@@ -195,6 +197,13 @@ class ChallengeViewController: BindableViewController {
     
     refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
     tableView.refreshControl = refreshControl
+    
+    if let tabBarController = tabBarController, navigationController?.children.first == self {
+      let insets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: tabBarController.tabBar.frame.height, right: 0)
+      
+      tableView.contentInset = insets
+      tableView.scrollIndicatorInsets = insets
+    }
     
     viewModel.input.viewDidLoad.trigger()
   }

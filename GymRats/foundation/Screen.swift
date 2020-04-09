@@ -25,9 +25,12 @@ enum Screen {
   case upcomingChallenge(Challenge)
   case login
   case getStarted
+  case map(placeID: String)
   
   var viewController: UIViewController {
     switch self {
+    case .map(placeID: let place):
+      return MapViewController(placeID: place)
     case .noChallenges:
       return NoChallengesViewController()
     case .home:

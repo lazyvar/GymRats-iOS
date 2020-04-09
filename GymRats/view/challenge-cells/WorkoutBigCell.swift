@@ -14,6 +14,7 @@ class WorkoutBigCell: UITableViewCell {
       workoutImageView.contentMode = .scaleAspectFill
       workoutImageView.backgroundColor = .clear
       workoutImageView.layer.cornerRadius = 4
+      workoutImageView.clipsToBounds = true
       workoutImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
   }
@@ -21,6 +22,7 @@ class WorkoutBigCell: UITableViewCell {
   @IBOutlet private weak var imageSkeletonView: UIView! {
     didSet {
       imageSkeletonView.isSkeletonable = true
+      imageSkeletonView.clipsToBounds = true
       imageSkeletonView.showAnimatedSkeleton()
       imageSkeletonView.layer.cornerRadius = 4
       imageSkeletonView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -86,6 +88,7 @@ class WorkoutBigCell: UITableViewCell {
   override func prepareForReuse() {
     super.prepareForReuse()
 
+    backgroundColor = .clear
     workoutImageBackground.isHidden = false
     workoutTitleLabel.text = nil
     workoutImageView.image = nil

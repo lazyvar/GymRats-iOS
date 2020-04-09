@@ -73,17 +73,7 @@ class WorkoutHeaderView: UIView {
     }
     
     weak var delegate: WorkoutHeaderViewDelegate?
-    @objc func tappedHeader() {
-        self.delegate?.tappedHeader()
-    }
-    
-    enum WorkoutData: String, CaseIterable {
-        case duration
-        case distance
-        case steps
-        case calories
-        case points
-    }
+
     
     func configure(workout: Workout, challenge: Challenge?, width: CGFloat) {
         constrainWidth(width)
@@ -92,66 +82,8 @@ class WorkoutHeaderView: UIView {
         timeLabel.text = workout.createdAt.challengeTime
         usernameLabel.text = workout.account.fullName
 
-        durationLabel.text = nil
-        distanceLabel.text = nil
-        stepsLabel.text = nil
-        caloriesLabel.text = nil
-        pointsLabel.text = nil
-
-        durationLabelLabel.text = nil
-        distanceLabelLabel.text = nil
-        stepsLabelLabel.text = nil
-        caloriesLabelLabel.text = nil
-        pointsLabelLabel.text = nil
         
-        firstStack.isHidden = false
-        secondStack.isHidden = false
         
-        let datas: [(WorkoutData, String?)] = [
-            (.duration, workout.duration?.stringify),
-            (.distance, workout.distance),
-            (.steps, workout.steps?.stringify),
-            (.calories, workout.calories?.stringify),
-            (.points, workout.points?.stringify),
-        ]
-        let newDatas = datas.compactMap { d -> (WorkoutData, String)? in
-            guard let stang = d.1 else { return nil }
-                
-            return (d.0, stang)
-        }
-
-        for o in newDatas.enumerated() {
-            let text1 = o.element.0.rawValue.capitalized
-            let text2 = o.element.1
-            
-            switch o.offset {
-            case 0:
-                durationLabelLabel.text = text1
-                durationLabel.text = text2
-            case 1:
-                distanceLabelLabel.text = text1
-                distanceLabel.text = text2
-            case 2:
-                stepsLabelLabel.text = text1
-                stepsLabel.text = text2
-            case 3:
-                caloriesLabelLabel.text = text1
-                caloriesLabel.text = text2
-            case 4:
-                pointsLabelLabel.text = text1
-                pointsLabel.text = text2
-            default: break
-            }
-        }
-        
-        if newDatas.isEmpty {
-            firstStack.isHidden = true
-            secondStack.isHidden = true
-        }
-        
-        if newDatas.count < 4 {
-            secondStack.isHidden = true
-        }
         
 //        durationLabel.text = workout.duration?.stringify ?? "-"
 //        distanceLabel.text = workout.distance ?? "-"
@@ -232,11 +164,5 @@ class WorkoutHeaderView: UIView {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(tappedHeader))
         headerStackView.addGestureRecognizer(tap)
-    }
-}
-
-extension Int {
-    var stringify: String {
-        return String(self)
     }
 }

@@ -19,7 +19,7 @@ class ChallengeBannerCell: UITableViewCell {
     didSet {
       bannerImageView.contentMode = .scaleAspectFill
       bannerImageView.layer.cornerRadius = 4
-      bannerImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
+      bannerImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
   }
   

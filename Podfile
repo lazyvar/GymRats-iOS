@@ -35,6 +35,7 @@ target 'GymRats' do
     pod 'Branch'
     pod 'JVFloatLabeledTextField'
     pod 'LetterAvatarKit', '1.2.2'
+    pod 'RxKeyboard'
 
     target 'GymRatsTests' do
         inherit! :search_paths

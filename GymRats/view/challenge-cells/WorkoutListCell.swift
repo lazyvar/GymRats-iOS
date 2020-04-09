@@ -21,6 +21,7 @@ class WorkoutListCell: UITableViewCell {
     didSet {
       imageShadowView.isSkeletonable = true
       imageShadowView.showAnimatedSkeleton()
+      imageShadowView.clipsToBounds = true
       imageShadowView.layer.cornerRadius = 4
       imageShadowView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
     }
@@ -30,6 +31,7 @@ class WorkoutListCell: UITableViewCell {
     didSet {
       workoutImageView.contentMode = .scaleAspectFill
       workoutImageView.backgroundColor = .clear
+      workoutImageView.clipsToBounds = true
       workoutImageView.layer.cornerRadius = 4
       workoutImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
     }

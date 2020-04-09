@@ -31,14 +31,14 @@ class LogWorkoutModalViewController: UITableViewController {
         tableView.backgroundColor = .background
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
-        tableView.register(UINib(nibName: "LogWorkoutListCell", bundle: nil), forCellReuseIdentifier: "log")
+        tableView.register(UINib(nibName: "LogWorkoutCell", bundle: nil), forCellReuseIdentifier: "log")
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int { return 1 }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return 1 }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "log") as! LogWorkoutListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "log") as! LogWorkoutCell
         cell.textStackView.isHidden = !showText
         cell.onTakePicture = { [weak self] in
             guard let self = self else { return }

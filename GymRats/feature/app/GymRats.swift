@@ -86,7 +86,6 @@ enum GymRats {
     
     GMSPlacesClient.provideAPIKey("AIzaSyD1X4TH-TneFnDqjiJ2rb2FGgxK8JZyrIo")
     FirebaseApp.configure()
-    preloadMaps()
   }
   
   /// Sets the current account and shows the home screen.
@@ -196,21 +195,6 @@ private extension GymRats {
       guard granted else { return }
 
       DispatchQueue.main.async { application.registerForRemoteNotifications() }
-    }
-  }
-  
-  private static func preloadMaps() {
-    DispatchQueue.main.async {
-      let cood = CLLocationCoordinate2D(latitude: 0, longitude: 0)
-      let coordinateRegion = MKCoordinateRegion(center: cood, latitudinalMeters: 500, longitudinalMeters: 500)
-      let annotation = PlaceAnnotation(title: "", coordinate: cood)
-      
-      _ = MKMapView(frame: CGRect(x: 1000, y: 1000, width: 1, height: 1)).apply {
-        $0.setRegion(coordinateRegion, animated: false)
-        $0.mapType = .standard
-        $0.isUserInteractionEnabled = false
-        $0.addAnnotation(annotation)
-      }
     }
   }
 }
