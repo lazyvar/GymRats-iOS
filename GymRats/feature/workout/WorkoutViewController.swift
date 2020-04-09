@@ -22,7 +22,8 @@ class WorkoutViewController: BindableViewController {
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
       tableView.backgroundColor = .clear
-      tableView.separatorStyle = .none
+      tableView.separatorColor = .divider
+      tableView.separatorInset = .zero
       tableView.clipsToBounds = false
       tableView.showsVerticalScrollIndicator = false
       tableView.registerCellNibForClass(WorkoutDetailsCell.self)
@@ -31,7 +32,7 @@ class WorkoutViewController: BindableViewController {
       tableView.registerCellNibForClass(CommentCell.self)
       tableView.registerCellNibForClass(NewCommentCell.self)
       tableView.rx.setDelegate(self).disposed(by: disposeBag)
-      tableView.estimatedRowHeight = 300
+      tableView.tableFooterView = UIView()
     }
   }
   

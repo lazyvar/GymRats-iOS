@@ -26,6 +26,7 @@ class NewCommentCell: UITableViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     
+    separatorInset = .init(top: .zero, left: .zero, bottom: .zero, right: .greatestFiniteMagnitude)
     clipsToBounds = true
     layer.cornerRadius = 4
     layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]

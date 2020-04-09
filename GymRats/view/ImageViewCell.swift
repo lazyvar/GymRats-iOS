@@ -61,6 +61,8 @@ class ImageViewCell: UITableViewCell {
     
     _imageView.alpha = 1
     setAspectRatio(1)
+    
+    separatorInset = .init(top: .zero, left: .zero, bottom: .zero, right: .greatestFiniteMagnitude)
     clipsToBounds = true
     layer.cornerRadius = 4
     layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
