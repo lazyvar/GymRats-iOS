@@ -20,12 +20,16 @@ class WorkoutViewController: BindableViewController {
 
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
-      tableView.backgroundColor = .background
+      tableView.backgroundColor = .clear
       tableView.separatorStyle = .none
       tableView.showsVerticalScrollIndicator = false
-      tableView.registerCellNibForClass(WorkoutHeaderCell.self)
-      tableView.registerCellNibForClass(CommentTableViewCell.self)
+      tableView.registerCellNibForClass(WorkoutDetailsCell.self)
+      tableView.registerCellNibForClass(ImageViewCell.self)
+      tableView.registerCellNibForClass(WorkoutAccountCell.self)
+      tableView.registerCellNibForClass(CommentCell.self)
+      tableView.registerCellNibForClass(NewCommentCell.self)
       tableView.rx.setDelegate(self).disposed(by: disposeBag)
+      tableView.estimatedRowHeight = 300
     }
   }
   
@@ -43,12 +47,16 @@ class WorkoutViewController: BindableViewController {
 
   private lazy var dataSource = RxTableViewSectionedReloadDataSource<WorkoutSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
     switch row {
-    case .header(let workout):
-      return WorkoutHeaderCell.configure(tableView: tableView, indexPath: indexPath, workout: workout, delegate: self)
+    case .image(url: let url):
+      return ImageViewCell.configure(tableView: tableView, indexPath: indexPath, imageURL: url)
+    case .account(let workout):
+      return WorkoutAccountCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
+    case .details(let workout):
+      return WorkoutDetailsCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
     case .comment(let comment):
-      return CommentTableViewCell()
-    case .newComment:
-      return UITableViewCell()
+      return CommentCell.configure(tableView: tableView, indexPath: indexPath, comment: comment)
+    case .newComment(let onSubmit):
+      return NewCommentCell.configure(tableView: tableView, indexPath: indexPath, account: GymRats.currentAccount, onSubmit: onSubmit)
     }
   })
   
@@ -79,24 +87,44 @@ class WorkoutViewController: BindableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    let spookyView = SpookyView().apply {
+      $0.translatesAutoresizingMaskIntoConstraints = false
+      $0.isUserInteractionEnabled = false
+    }
+    
+    view.insertSubview(spookyView, at: 0)
+    
+    let top = NSLayoutConstraint(
+      item: spookyView,
+      attribute: .top,
+      relatedBy: .equal,
+      toItem: tableView,
+      attribute: .top,
+      multiplier: 1,
+      constant: 0
+    )
+    
+    view.addConstraint(top)
+    
+    spookyView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor).isActive = true
+    spookyView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor).isActive = true
+    
+    let height = spookyView.constrainHeight(400)
+    
+    tableView.rx.contentOffset
+      .map { -1 * $0.y }
+      .bind(to: top.rx.constant)
+      .disposed(by: disposeBag)
+
+    tableView.rx.observe(CGSize.self, "contentSize")
+      .map { $0?.height ?? 0 }
+      .do(onNext: { print("height \($0)") })
+      .bind(to: height.rx.constant)
+      .disposed(by: disposeBag)
+    
     navigationItem.largeTitleDisplayMode = .never
     
     viewModel.input.viewDidLoad.trigger()
-  }
-}
-
-extension WorkoutViewController: WorkoutHeaderCellDelegate {
-  func tappedHeader() {
-    push(
-      ProfileViewController(account: workout.account, challenge: challenge)
-    )
-  }
-  
-  func layoutTableView() {
-    tableView.setNeedsLayout()
-    tableView.layoutIfNeeded()
-    tableView.beginUpdates()
-    tableView.endUpdates()
   }
 }
 

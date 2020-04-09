@@ -9,7 +9,9 @@
 import Foundation
 
 enum WorkoutRow {
-  case header(Workout)
+  case image(url: String)
+  case account(Workout)
+  case details(Workout)
   case comment(Comment)
-  case newComment
+  case newComment(onSubmit: (String) -> Void)
 }

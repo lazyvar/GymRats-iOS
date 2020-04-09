@@ -16,6 +16,7 @@ final class WorkoutViewModel: ViewModel {
   struct Input {
     let viewDidLoad = PublishSubject<Void>()
     let tappedRow = PublishSubject<IndexPath>()
+    let submittedComment = PublishSubject<String>()
   }
   
   struct Output {
@@ -32,11 +33,43 @@ final class WorkoutViewModel: ViewModel {
   }
   
   init() {
+    let submitComment = input.submittedComment
+      .flatMap { gymRatsAPI.post(comment: $0, on: self.workout) }
+      .share()
+    
+    submitComment
+      .compactMap { $0.error }
+      .bind(to:output.error)
+      .disposed(by: disposeBag)
+      
+    let submitCommentSuccess = submitComment.compactMap { $0.object }
+    let fetchComments = Observable.merge(input.viewDidLoad, submitCommentSuccess.map { _ in () })
+      .flatMap { gymRatsAPI.getComments(for: self.workout) }
+      .share()
+    
+    fetchComments
+      .compactMap { $0.error }
+      .bind(to:output.error)
+      .disposed(by: disposeBag)
+
+    let comments = fetchComments
+      .compactMap { $0.object }
+      .map { $0.map { WorkoutRow.comment($0) } }
+        
     input.viewDidLoad
-      .map { _ -> [WorkoutSection] in
-        return [
-          .init(model: (), items: [.header(self.workout)])
+      .flatMap { Observable.merge(.just([]), comments) }
+      .map { comments -> [WorkoutSection] in
+        let header: [WorkoutRow] = [
+          .image(url: self.workout.photoUrl ?? ""),
+          .account(self.workout),
+          .details(self.workout)
         ]
+        
+        let newComment = WorkoutRow.newComment { comment in
+          self.input.submittedComment.onNext(comment)
+        }
+        
+        return [.init(model: (), items: header + comments + [newComment])]
       }
       .bind(to: output.sections)
       .disposed(by: disposeBag)

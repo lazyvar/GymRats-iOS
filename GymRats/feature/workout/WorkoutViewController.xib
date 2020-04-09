@@ -20,19 +20,19 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="g4g-cy-E0Q">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                    <rect key="frame" x="20" y="5" width="374" height="857"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="g4g-cy-E0Q" secondAttribute="bottom" id="2HL-0u-jwF"/>
-                <constraint firstItem="g4g-cy-E0Q" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Qzb-DX-Zzf"/>
-                <constraint firstItem="g4g-cy-E0Q" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="kD6-vQ-W4Y"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="g4g-cy-E0Q" secondAttribute="trailing" id="nB9-nP-D8F"/>
+                <constraint firstItem="g4g-cy-E0Q" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Qzb-DX-Zzf"/>
+                <constraint firstItem="g4g-cy-E0Q" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="5" id="VKe-RR-9QI"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="g4g-cy-E0Q" secondAttribute="trailing" constant="20" id="nB9-nP-D8F"/>
+                <constraint firstItem="g4g-cy-E0Q" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="w3M-gw-aqs"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="13" y="13"/>
+            <point key="canvasLocation" x="-309" y="21"/>
         </view>
     </objects>
 </document>
