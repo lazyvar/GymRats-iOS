@@ -177,8 +177,10 @@ class WorkoutHeaderCell: UITableViewCell {
     let tap = UITapGestureRecognizer(target: self, action: #selector(tappedHeader))
     headerStackView.addGestureRecognizer(tap)
 
-    workoutImageHeight.constant = 300
+    workoutImageHeight.constant = 400
 
+    addObserver(self, forKeyPath: "bgView.bounds", options: .new, context: nil)
+    
     selectionStyle = .none
     backgroundColor = .clear
   }
@@ -268,6 +270,14 @@ class WorkoutHeaderCell: UITableViewCell {
       secondStack.isHidden = true
     }
   }
+  
+  override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    if keyPath == "bgView.bounds" {
+      self.shadowLayer?.path = UIBezierPath(roundedRect: self.bgView.bounds, cornerRadius: 4).cgPath
+    } else {
+      super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+    }
+  }
 
   @objc private func tappedHeader() {
     delegate?.tappedHeader()
@@ -283,35 +293,18 @@ class WorkoutHeaderCell: UITableViewCell {
       cell.configureStacks(workout)
       cell.delegate = delegate
       
-      KingfisherManager.shared.cache.clearDiskCache()
-      KingfisherManager.shared.cache.clearMemoryCache()
-      
       if let photo = workout.photoUrl, let url = URL(string: photo) {
         if let image = KingfisherManager.shared.cache.retrieveImageInMemoryCache(forKey: photo) ?? KingfisherManager.shared.cache.retrieveImageInDiskCache(forKey: photo) {
           let width = image.size.width
           let height = image.size.height
           let aspectRatio = height / width
+          let newHeight = cell.bgView.frame.width * aspectRatio
 
-          if let constraint = cell.workoutImageHeight {
-            cell.removeConstraint(constraint)
-          }
-          
-          cell.addConstraint(
-            .init(
-              item: cell.workoutImageBackground!,
-              attribute: .height,
-              relatedBy: .equal,
-              toItem: cell.bgView,
-              attribute: .width,
-              multiplier: aspectRatio,
-              constant: 0
-            )
-          )
-          
-          cell.shadowLayer = nil
+          cell.workoutImageHeight.constant = newHeight
           cell.workoutImageView.image = image
           cell.setNeedsLayout()
           cell.layoutIfNeeded()
+          cell.delegate?.layoutTableView()
         } else {
           cell.workoutImageView.kf.setImage(with: url, options: [.transition(.fade(0.2)), .forceTransition]) { image, _, _, _ in
             guard let image = image else { return }
@@ -322,9 +315,9 @@ class WorkoutHeaderCell: UITableViewCell {
             let newHeight = cell.bgView.frame.width * aspectRatio
 
             UIView.animate(withDuration: 0.25) {
-              cell.shadowLayer = nil
               cell.workoutImageHeight.constant = newHeight
               cell.setNeedsLayout()
+              cell.layoutIfNeeded()
               cell.delegate?.layoutTableView()
             }
           }
