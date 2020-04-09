@@ -10,8 +10,9 @@ import UIKit
 import RxSwift
 import RxDataSources
 import Kingfisher
+import RxKeyboard
 
-typealias WorkoutSection = SectionModel<Void, WorkoutRow>
+typealias WorkoutSection = AnimatableSectionModel<Nothing, WorkoutRow>
 
 class WorkoutViewController: BindableViewController {
   private let viewModel = WorkoutViewModel()
@@ -48,7 +49,7 @@ class WorkoutViewController: BindableViewController {
     fatalError("init(coder:) has not been implemented")
   }
 
-  private lazy var dataSource = RxTableViewSectionedReloadDataSource<WorkoutSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
+  private lazy var dataSource = RxTableViewSectionedAnimatedDataSource<WorkoutSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
     switch row {
     case .image(url: let url):
       return ImageViewCell.configure(tableView: tableView, indexPath: indexPath, imageURL: url)
@@ -56,8 +57,8 @@ class WorkoutViewController: BindableViewController {
       return WorkoutAccountCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
     case .details(let workout):
       return WorkoutDetailsCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
-    case .comment(let comment):
-      return CommentCell.configure(tableView: tableView, indexPath: indexPath, comment: comment)
+    case .comment(let comment, let onMenuTap):
+      return CommentCell.configure(tableView: tableView, indexPath: indexPath, comment: comment, onMenuTap: onMenuTap)
     case .newComment(let onSubmit):
       return NewCommentCell.configure(tableView: tableView, indexPath: indexPath, account: GymRats.currentAccount, onSubmit: onSubmit)
     }
@@ -65,11 +66,12 @@ class WorkoutViewController: BindableViewController {
   
   override func bindViewModel() {
     viewModel.output.sections
+      .do(onNext: { _ in self.hideLoadingBar() })
       .bind(to: tableView.rx.items(dataSource: dataSource))
       .disposed(by: disposeBag)
 
     viewModel.output.error
-      .debug()
+      .do(onNext: { _ in self.hideLoadingBar() })
       .flatMap { UIAlertController.present($0) }
       .ignore(disposedBy: disposeBag)
 
@@ -79,11 +81,25 @@ class WorkoutViewController: BindableViewController {
       })
       .disposed(by: disposeBag)
 
+    viewModel.output.presentCommentAlert
+      .subscribe { [weak self] e in
+        if let comment = e.element {
+          self?.showCommentMenu(comment)
+        }
+      }
+      .disposed(by: disposeBag)
+    
     tableView.rx.itemSelected
       .do(onNext: { [weak self] indexPath in
         self?.tableView.deselectRow(at: indexPath, animated: true)
       })
       .bind(to: viewModel.input.tappedRow)
+      .disposed(by: disposeBag)
+    
+    RxKeyboard.instance.visibleHeight
+      .drive(onNext: { [tableView] keyboardVisibleHeight in
+        tableView?.contentInset.bottom = keyboardVisibleHeight + 30
+      })
       .disposed(by: disposeBag)
   }
   
@@ -126,7 +142,94 @@ class WorkoutViewController: BindableViewController {
     
     navigationItem.largeTitleDisplayMode = .never
     
+    let tapToHideKeyboard = UITapGestureRecognizer()
+    tapToHideKeyboard.numberOfTapsRequired = 1
+    tapToHideKeyboard.addTarget(self, action: #selector(hideKeyboard))
+    tapToHideKeyboard.cancelsTouchesInView = false
+    
+    view.addGestureRecognizer(tapToHideKeyboard)
+
+    navigationItem.rightBarButtonItem = UIBarButtonItem (
+      image: .moreVertical,
+      style: .plain,
+      target: self,
+      action: #selector(showWorkoutMenu)
+    )
+    
     viewModel.input.viewDidLoad.trigger()
+  }
+
+  @objc private func hideKeyboard() {
+    view.endEditing(true)
+  }
+  
+  private func showCommentMenu(_ comment: Comment) {
+    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    let delete = UIAlertAction(title: "Delete comment", style: .destructive) { [weak self] _ in
+      let areYouSureAlert = UIAlertController(title: "Are you sure?", message: "This will permanently remove the comment.", preferredStyle: .alert)
+      
+      let delete = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+        guard let self = self else { return }
+        
+        self.showLoadingBar()
+        self.viewModel.input.tappedDeleteComment.onNext(comment)
+      }
+      
+      let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+      
+      areYouSureAlert.addAction(delete)
+      areYouSureAlert.addAction(cancel)
+      
+      self?.present(areYouSureAlert, animated: true, completion: nil)
+    }
+    
+    let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+    
+    alert.addAction(delete)
+    alert.addAction(cancel)
+    
+    self.present(alert, animated: true, completion: nil)
+  }
+  
+  @objc private func showWorkoutMenu() {
+    let deleteAction = UIAlertAction(title: "Remove workout", style: .destructive) { _ in
+      let areYouSureAlert = UIAlertController(title: "Are you sure?", message: "You will not be able to recover a workout once it has been removed.", preferredStyle: .alert)
+      
+      let deleteAction = UIAlertAction(title: "Remove", style: .destructive) { _ in
+          self.showLoadingBar()
+        
+          gymRatsAPI.deleteWorkout(self.workout)
+            .subscribe(onNext: { [weak self] result in
+              guard let self = self else { return }
+              
+              self.hideLoadingBar()
+              
+              switch result {
+              case .success:
+                self.navigationController?.popViewController(animated: true)
+                NotificationCenter.default.post(name: .workoutDeleted, object: self.workout)
+              case .failure(let error):
+                self.presentAlert(with: error)
+              }
+            })
+            .disposed(by: self.disposeBag)
+        }
+      
+      let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+      
+      areYouSureAlert.addAction(deleteAction)
+      areYouSureAlert.addAction(cancelAction)
+      
+      self.present(areYouSureAlert, animated: true, completion: nil)
+    }
+    
+    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+    
+    let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    alertViewController.addAction(deleteAction)
+    alertViewController.addAction(cancelAction)
+
+    self.present(alertViewController, animated: true, completion: nil)
   }
 }
 

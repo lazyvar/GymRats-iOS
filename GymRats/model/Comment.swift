@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Comment: Codable {
+struct Comment: Codable, Equatable {
   let id: Int
   let workoutId: Int
   let content: String

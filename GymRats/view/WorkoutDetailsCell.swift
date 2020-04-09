@@ -115,7 +115,7 @@ class WorkoutDetailsCell: UITableViewCell {
     super.awakeFromNib()
 
     selectionStyle = .none
-    backgroundColor = .clear
+    backgroundColor = .foreground
   }
   
   override func prepareForReuse() {

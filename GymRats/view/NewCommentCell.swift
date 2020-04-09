@@ -26,6 +26,7 @@ class NewCommentCell: UITableViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     
+    backgroundColor = .foreground
     separatorInset = .init(top: .zero, left: .zero, bottom: .zero, right: .greatestFiniteMagnitude)
     clipsToBounds = true
     layer.cornerRadius = 4
@@ -49,7 +50,11 @@ class NewCommentCell: UITableViewCell {
 
 extension NewCommentCell: UITextFieldDelegate {
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    onSubmit?(textField.text ?? "")
+    let text = (textField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+    
+    if text.isNotEmpty {
+      onSubmit?(text)
+    }
     
     return true
   }

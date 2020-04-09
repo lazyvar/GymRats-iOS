@@ -28,7 +28,7 @@ class ImageViewCell: UITableViewCell {
       if oldValue != nil {
         _imageView.removeConstraint(oldValue!)
       }
-      
+
       if aspectRatioConstraint != nil {
         _imageView.addConstraint(aspectRatioConstraint!)
       }

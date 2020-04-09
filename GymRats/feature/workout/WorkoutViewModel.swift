@@ -17,12 +17,14 @@ final class WorkoutViewModel: ViewModel {
     let viewDidLoad = PublishSubject<Void>()
     let tappedRow = PublishSubject<IndexPath>()
     let submittedComment = PublishSubject<String>()
+    let tappedDeleteComment = PublishSubject<Comment>()
   }
   
   struct Output {
     let sections = PublishSubject<[WorkoutSection]>()
     let error = PublishSubject<Error>()
     let navigation = PublishSubject<(Navigation, Screen)>()
+    let presentCommentAlert = PublishSubject<Comment>()
   }
   
   let input = Input()
@@ -33,6 +35,18 @@ final class WorkoutViewModel: ViewModel {
   }
   
   init() {
+    let deleteComment = input.tappedDeleteComment
+      .flatMap { gymRatsAPI.deleteComment(id: $0.id) }
+      .share()
+
+    deleteComment
+      .compactMap { $0.error }
+      .bind(to:output.error)
+      .disposed(by: disposeBag)
+
+    let deleteCommentSuccess = deleteComment
+      .compactMap { $0.object }
+    
     let submitComment = input.submittedComment
       .flatMap { gymRatsAPI.post(comment: $0, on: self.workout) }
       .share()
@@ -43,7 +57,7 @@ final class WorkoutViewModel: ViewModel {
       .disposed(by: disposeBag)
       
     let submitCommentSuccess = submitComment.compactMap { $0.object }
-    let fetchComments = Observable.merge(input.viewDidLoad, submitCommentSuccess.map { _ in () })
+    let fetchComments = Observable.merge(input.viewDidLoad, submitCommentSuccess.map { _ in () }, deleteCommentSuccess.map { _ in () })
       .flatMap { gymRatsAPI.getComments(for: self.workout) }
       .share()
     
@@ -54,7 +68,7 @@ final class WorkoutViewModel: ViewModel {
 
     let comments = fetchComments
       .compactMap { $0.object }
-      .map { $0.map { WorkoutRow.comment($0) } }
+      .map { $0.map { WorkoutRow.comment($0, onMenuTap: { self.output.presentCommentAlert.onNext($0) }) } }
         
     input.viewDidLoad
       .flatMap { Observable.merge(.just([]), comments) }
@@ -69,7 +83,7 @@ final class WorkoutViewModel: ViewModel {
           self.input.submittedComment.onNext(comment)
         }
         
-        return [.init(model: (), items: header + comments + [newComment])]
+        return [.init(model: .instance, items: header + comments + [newComment])]
       }
       .bind(to: output.sections)
       .disposed(by: disposeBag)
