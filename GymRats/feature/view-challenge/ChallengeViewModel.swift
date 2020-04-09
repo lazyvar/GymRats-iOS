@@ -134,7 +134,7 @@ final class ChallengeViewModel: ViewModel {
           }
         
         let noWorkouts  = ChallengeSection(model:.init(date: nil, skeleton: false), items: [
-          ChallengeRow.noWorkouts(self.challenge, { WorkoutFlow.logWorkout() })
+          ChallengeRow.noWorkouts(self.challenge)
         ])
         
         return [banner] + workoutSections + (workouts.isEmpty ? [noWorkouts] : [])
