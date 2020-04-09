@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		01001A1423C278970022AB32 /* LogWorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01001A1223C278970022AB32 /* LogWorkoutCell.swift */; };
-		01001A1523C278970022AB32 /* LogWorkoutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01001A1323C278970022AB32 /* LogWorkoutCell.xib */; };
 		01001A1723C27DC90022AB32 /* LogWorkoutModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01001A1623C27DC90022AB32 /* LogWorkoutModalViewController.swift */; };
 		0103A98D24204EB000B589DA /* WorkoutFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0103A98C24204EB000B589DA /* WorkoutFlow.swift */; };
 		0103A98F24204ED300B589DA /* CreateWorkoutDelegateObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0103A98E24204ED300B589DA /* CreateWorkoutDelegateObject.swift */; };
@@ -82,6 +80,8 @@
 		01527304243C055A00123E25 /* ProfilePictureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01527302243C055A00123E25 /* ProfilePictureCell.xib */; };
 		0158FF282423F73F00EDC584 /* Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158FF272423F73F00EDC584 /* Coding.swift */; };
 		015A1A5E2421A2B500D2EF5A /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015A1A5D2421A2B500D2EF5A /* NotificationHandler.swift */; };
+		015C071B243FC7E5003E75E9 /* LogWorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015C0719243FC7E5003E75E9 /* LogWorkoutCell.swift */; };
+		015C071C243FC7E5003E75E9 /* LogWorkoutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 015C071A243FC7E5003E75E9 /* LogWorkoutCell.xib */; };
 		015E2A8D243CEFD700307B21 /* TodaysGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015E2A8B243CEFD700307B21 /* TodaysGoalViewController.swift */; };
 		015E2A8E243CEFD700307B21 /* TodaysGoalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 015E2A8C243CEFD700307B21 /* TodaysGoalViewController.xib */; };
 		015E2A95243CF08600307B21 /* ChoiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015E2A93243CF08600307B21 /* ChoiceCell.swift */; };
@@ -264,8 +264,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		01001A1223C278970022AB32 /* LogWorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogWorkoutCell.swift; sourceTree = "<group>"; };
-		01001A1323C278970022AB32 /* LogWorkoutCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogWorkoutCell.xib; sourceTree = "<group>"; };
 		01001A1623C27DC90022AB32 /* LogWorkoutModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogWorkoutModalViewController.swift; sourceTree = "<group>"; };
 		0103A98C24204EB000B589DA /* WorkoutFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutFlow.swift; sourceTree = "<group>"; };
 		0103A98E24204ED300B589DA /* CreateWorkoutDelegateObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutDelegateObject.swift; sourceTree = "<group>"; };
@@ -339,6 +337,8 @@
 		01527302243C055A00123E25 /* ProfilePictureCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfilePictureCell.xib; sourceTree = "<group>"; };
 		0158FF272423F73F00EDC584 /* Coding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coding.swift; sourceTree = "<group>"; };
 		015A1A5D2421A2B500D2EF5A /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
+		015C0719243FC7E5003E75E9 /* LogWorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogWorkoutCell.swift; sourceTree = "<group>"; };
+		015C071A243FC7E5003E75E9 /* LogWorkoutCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogWorkoutCell.xib; sourceTree = "<group>"; };
 		015E2A8B243CEFD700307B21 /* TodaysGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysGoalViewController.swift; sourceTree = "<group>"; };
 		015E2A8C243CEFD700307B21 /* TodaysGoalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodaysGoalViewController.xib; sourceTree = "<group>"; };
 		015E2A93243CF08600307B21 /* ChoiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceCell.swift; sourceTree = "<group>"; };
@@ -1119,8 +1119,6 @@
 			isa = PBXGroup;
 			children = (
 				746764E6220BAE44000CFB1B /* CreateWorkoutViewController.swift */,
-				01001A1223C278970022AB32 /* LogWorkoutCell.swift */,
-				01001A1323C278970022AB32 /* LogWorkoutCell.xib */,
 				01001A1623C27DC90022AB32 /* LogWorkoutModalViewController.swift */,
 				0118C24C23C2B704002FB84D /* CreateWorkoutHeaderCell.swift */,
 				0118C24D23C2B704002FB84D /* CreateWorkoutHeaderCell.xib */,
@@ -1128,6 +1126,8 @@
 				01611D46243E957B00D1DAA4 /* WorkoutViewModel.swift */,
 				01611D48243E968A00D1DAA4 /* WorkoutRow.swift */,
 				01611D43243E954600D1DAA4 /* WorkoutViewController.xib */,
+				015C0719243FC7E5003E75E9 /* LogWorkoutCell.swift */,
+				015C071A243FC7E5003E75E9 /* LogWorkoutCell.xib */,
 			);
 			path = workout;
 			sourceTree = "<group>";
@@ -1252,7 +1252,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				01AB95A9243F8F620066C7DA /* WorkoutDetailsCell.xib in Resources */,
-				01001A1523C278970022AB32 /* LogWorkoutCell.xib in Resources */,
 				01297D852329E79000CA9E41 /* SF-Compact-Rounded-Heavy.otf in Resources */,
 				01297D872329E79000CA9E41 /* SF-Compact-Rounded-Regular.otf in Resources */,
 				01297D922329E79000CA9E41 /* SF-Pro-Rounded-Light.otf in Resources */,
@@ -1311,6 +1310,7 @@
 				01297D862329E79000CA9E41 /* SF-Compact-Rounded-Light.otf in Resources */,
 				01297D8F2329E79000CA9E41 /* SF-Pro-Rounded-Regular.otf in Resources */,
 				01AC5F5F23CA3A4A00FFAE4D /* SegmentedCell.xib in Resources */,
+				015C071C243FC7E5003E75E9 /* LogWorkoutCell.xib in Resources */,
 				01611D3D243E777600D1DAA4 /* WorkoutBigCell.xib in Resources */,
 				01297D962329E79000CA9E41 /* SF-Pro-Rounded-Heavy.otf in Resources */,
 				01297D8B2329E79000CA9E41 /* SF-Compact-Rounded-Black.otf in Resources */,
@@ -1533,6 +1533,7 @@
 				01A3EB23237747D30097FC2A /* CVCalendarViewPresentationMode.swift in Sources */,
 				747D6FDC2208E8130062BB39 /* Keychain+Subscripts.swift in Sources */,
 				01319ED724187876005E65D2 /* NewUser.swift in Sources */,
+				015C071B243FC7E5003E75E9 /* LogWorkoutCell.swift in Sources */,
 				0176B673243B9AA20022B65F /* UIColor+Extension.swift in Sources */,
 				01A3EB0F237747D30097FC2A /* CVWeekdaySymbolType.swift in Sources */,
 				747D6FC92208DCE60062BB39 /* AlamofireNetworkActivityLogger.swift in Sources */,
@@ -1557,7 +1558,6 @@
 				0103A99124204FE500B589DA /* PrimaryButton.swift in Sources */,
 				01A3EB10237747D30097FC2A /* CVRange.swift in Sources */,
 				0103A98D24204EB000B589DA /* WorkoutFlow.swift in Sources */,
-				01001A1423C278970022AB32 /* LogWorkoutCell.swift in Sources */,
 				74BE97BD220C9F2800D550CA /* ImagePickerController.swift in Sources */,
 				01A3EB16237747D30097FC2A /* CVCalendarContentViewController.swift in Sources */,
 				0176B66E243B99E50022B65F /* WelcomeViewController.swift in Sources */,
