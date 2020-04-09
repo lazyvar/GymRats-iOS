@@ -26,14 +26,14 @@ class WorkoutViewController: BindableViewController {
       tableView.separatorColor = .divider
       tableView.separatorInset = .zero
       tableView.clipsToBounds = false
+      tableView.tableFooterView = UIView()
       tableView.showsVerticalScrollIndicator = false
       tableView.registerCellNibForClass(WorkoutDetailsCell.self)
       tableView.registerCellNibForClass(ImageViewCell.self)
+      tableView.registerCellNibForClass(MapCell.self)
       tableView.registerCellNibForClass(WorkoutAccountCell.self)
       tableView.registerCellNibForClass(CommentCell.self)
       tableView.registerCellNibForClass(NewCommentCell.self)
-      tableView.rx.setDelegate(self).disposed(by: disposeBag)
-      tableView.tableFooterView = UIView()
     }
   }
   
@@ -57,6 +57,8 @@ class WorkoutViewController: BindableViewController {
       return WorkoutAccountCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
     case .details(let workout):
       return WorkoutDetailsCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
+    case .location(placeID: let place):
+      return MapCell.configure(tableView: tableView, indexPath: indexPath, placeID: place)
     case .comment(let comment, let onMenuTap):
       return CommentCell.configure(tableView: tableView, indexPath: indexPath, comment: comment, onMenuTap: onMenuTap)
     case .newComment(let onSubmit):
@@ -196,24 +198,24 @@ class WorkoutViewController: BindableViewController {
       let areYouSureAlert = UIAlertController(title: "Are you sure?", message: "You will not be able to recover a workout once it has been removed.", preferredStyle: .alert)
       
       let deleteAction = UIAlertAction(title: "Remove", style: .destructive) { _ in
-          self.showLoadingBar()
-        
-          gymRatsAPI.deleteWorkout(self.workout)
-            .subscribe(onNext: { [weak self] result in
-              guard let self = self else { return }
-              
-              self.hideLoadingBar()
-              
-              switch result {
-              case .success:
-                self.navigationController?.popViewController(animated: true)
-                NotificationCenter.default.post(name: .workoutDeleted, object: self.workout)
-              case .failure(let error):
-                self.presentAlert(with: error)
-              }
-            })
-            .disposed(by: self.disposeBag)
-        }
+        self.showLoadingBar()
+      
+        gymRatsAPI.deleteWorkout(self.workout)
+          .subscribe(onNext: { [weak self] result in
+            guard let self = self else { return }
+            
+            self.hideLoadingBar()
+            
+            switch result {
+            case .success:
+              self.navigationController?.popViewController(animated: true)
+              NotificationCenter.default.post(name: .workoutDeleted, object: self.workout)
+            case .failure(let error):
+              self.presentAlert(with: error)
+            }
+          })
+          .disposed(by: self.disposeBag)
+      }
       
       let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
       
@@ -231,8 +233,4 @@ class WorkoutViewController: BindableViewController {
 
     self.present(alertViewController, animated: true, completion: nil)
   }
-}
-
-extension WorkoutViewController: UITableViewDelegate {
-  
 }

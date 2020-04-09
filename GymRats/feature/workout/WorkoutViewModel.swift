@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import GooglePlaces
 
 final class WorkoutViewModel: ViewModel {
   private let disposeBag = DisposeBag()
@@ -75,11 +76,15 @@ final class WorkoutViewModel: ViewModel {
     input.viewDidLoad
       .flatMap { Observable.merge(.just([]), comments) }
       .map { comments -> [WorkoutSection] in
-        let headerRows: [WorkoutRow] = [
+        var headerRows: [WorkoutRow] = [
           .image(url: self.workout.photoUrl ?? ""),
           .account(self.workout),
-          .details(self.workout)
+          .details(self.workout),
         ]
+        
+        if let place = self.workout.googlePlaceId {
+          headerRows.append(.location(placeID: place))
+        }
         
         let headerSection = WorkoutSection(model: .instance, items: headerRows)
 
@@ -105,6 +110,15 @@ final class WorkoutViewModel: ViewModel {
       .bind(to: output.navigation)
       .disposed(by: disposeBag)
     
+    input.tappedRow
+      .filter { $0.section == 0  && $0.row == 3 }
+      .subscribe(onNext: { _ in
+        guard let place = self.workout.googlePlaceId else { return }
+        
+        // stop being lazy
+      })
+      .disposed(by: disposeBag)
+
       input.tappedRow
         .filter { $0.section == 1 }
         .withLatestFrom(fetchComments.compactMap { $0.object }) { ($0, $1) }

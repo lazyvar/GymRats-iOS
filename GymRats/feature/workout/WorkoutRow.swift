@@ -13,6 +13,7 @@ enum WorkoutRow: Equatable, IdentifiableType {
   case image(url: String)
   case account(Workout)
   case details(Workout)
+  case location(placeID: String)
   case comment(Comment, onMenuTap: (Comment) -> Void)
   case newComment(onSubmit: (String) -> Void)
 
@@ -22,6 +23,8 @@ enum WorkoutRow: Equatable, IdentifiableType {
       return url1 == url2
     case (.account(let w1), .account(let w2)):
       return w1 == w2
+    case (.location(let p1), .location(placeID: let p2)):
+      return p1 == p2
     case (.details(let w1), .details(let w2)):
       return w1 == w2
     case (.comment(let c1, _), .comment(let c2, _)):
@@ -32,6 +35,7 @@ enum WorkoutRow: Equatable, IdentifiableType {
   
   var identity: String {
     switch self {
+    case .location(placeID: let place): return "location-\(place)"
     case .image(let url): return "image-\(url)"
     case .account(let workout): return "account-\(workout.id)"
     case .details(let workout): return "details-\(workout.id)"
