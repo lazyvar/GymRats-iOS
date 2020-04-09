@@ -2,182 +2,71 @@
 //  UpcomingChallengeViewController.swift
 //  GymRats
 //
-//  Created by Mack on 6/4/19.
-//  Copyright © 2019 Mack Hasz. All rights reserved.
+//  Created by mack on 4/9/20.
+//  Copyright © 2020 Mack Hasz. All rights reserved.
 //
 
 import UIKit
+import RxDataSources
 import RxSwift
-import MessageUI
 
-class UpcomingChallengeViewController: UICollectionViewController {
-
-    let challenge: Challenge
-    var users: [Account] = []
-    
-    private let disposeBag = DisposeBag()
-    
-    lazy var chatItem = UIBarButtonItem (
-        image: UIImage(named: "chat")?.withRenderingMode(.alwaysTemplate),
-        style: .plain,
-        target: self,
-        action: #selector(openChat)
-    )
-
-    init(challenge: Challenge) {
-        self.challenge = challenge
-        
-        super.init(collectionViewLayout: .init())
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    let refreshControl = UIRefreshControl()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        let dummyView = UIView(frame: CGRect(x: 0, y: -view.frame.height, width: view.frame.width, height: view.frame.height))
-        dummyView.backgroundColor = .brand
-        
-        collectionView.addSubview(dummyView)
-        
-        view.backgroundColor = .background
-        collectionView.backgroundColor = .background
-
-        let layout = UICollectionViewFlowLayout()
-        let spacing: CGFloat = 10
-        let width = (view.frame.width - 40) / 3
-        
-        layout.itemSize = CGSize(width: width, height: width)
-        layout.minimumLineSpacing = spacing
-        layout.minimumInteritemSpacing = spacing
-        layout.headerReferenceSize = CGSize(width: view.frame.width, height: 230)
-        
-        collectionView.setCollectionViewLayout(layout, animated: false)
-        collectionView.bounces = true
-        collectionView.isScrollEnabled = true
-        collectionView.alwaysBounceVertical = true
-        
-//        refreshControl.tintColor = .white
-        refreshControl.addTarget(self, action: #selector(fetchUsers), for: .valueChanged)
-
-        collectionView.register(UINib(nibName: "UpcomingCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "UpcomingCell")
-        collectionView.register(UINib(nibName: "UpcomingChallengeCollectionReusableView", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header")
-        collectionView.addSubview(refreshControl)
-
-        setupMenuButton()
-        setupBackButton()
-
-        let add = UIImage(named: "user-plus")!.withRenderingMode(.alwaysTemplate)
-        let edit = UIImage(named: "edit")!.withRenderingMode(.alwaysTemplate)
-        let button = UIBarButtonItem(image: add, style: .plain, target: self, action: #selector(addFriend))
-        let editButton = UIBarButtonItem(image: edit, style: .plain, target: self, action: #selector(editChallenge))
-        
-        navigationItem.rightBarButtonItems = [chatItem, editButton, button]
-      
-      NotificationCenter.default.addObserver(self, selector: #selector(refreshChatIcon), name: .appEnteredForeground, object: nil)
-      
-        fetchUsers()
-    }
-    
-    @objc func refreshChatIcon() {
-      gymRatsAPI.getChatNotificationCount(for: challenge)
-        .subscribe(onNext: { [weak self] result in
-          let count = result.object?.count ?? 0
-          
-          if count == .zero {
-            self?.chatItem.image = .chat
-          } else {
-            self?.chatItem.image = UIImage.chatUnread.withRenderingMode(.alwaysOriginal)
-          }
-        })
-        .disposed(by: disposeBag)
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-      super.viewWillAppear(animated)
-      
-      refreshChatIcon()
-    }
-
-    @objc func editChallenge() {
-      let editViewController = EditChallengeViewController(challenge: self.challenge)
-      
-      self.present(editViewController.inNav(), animated: true, completion: nil)
-    }
-    
-  @objc func addFriend() {
-    ChallengeFlow.invite(to: challenge)
-  }
-    
-  @objc func fetchUsers() {
-      showLoadingBar()
-      refreshControl.beginRefreshing()
-      
-    gymRatsAPI.getMembers(for: challenge)
-      .subscribe(onNext: { result in
-        self.hideLoadingBar()
-        self.refreshControl.endRefreshing()
-      
-        switch result {
-        case .success(let members):
-          self.users = members
-          self.collectionView.reloadData()
-        case .failure(let error):
-          self.presentAlert(with: error)
-        }
-      })
-    .disposed(by: disposeBag)
-  }
-
-  @objc private func showAlert() {
-    ChallengeFlow.leave(challenge)
-  }
-    
-    @objc func openChat() {
-      push(ChatViewController(challenge: challenge))
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return users.count
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UpcomingCell", for: indexPath) as! UpcomingCollectionViewCell
-        let user = users[indexPath.row]
-        
-        cell.user = user
-        
-        return cell
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-      guard kind == UICollectionView.elementKindSectionHeader else { fatalError("Unexpected element kind") }
-      
-      let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "Header", for: indexPath) as! UpcomingChallengeCollectionReusableView
-      view.challenge = challenge
-      
-      if users.count == 1 {
-          view.memberLabel.text = "\(users.count) member"
-      } else {
-          view.memberLabel.text = "\(users.count) members"
-      }
-      
-      view.leaveChallenge.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
-
-      return view
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-    }
+enum UpcomingChallengeRow {
+  case banner(Challenge)
+  case account(Account)
+  case invite(Challenge)
 }
 
-extension UpcomingChallengeViewController: MFMessageComposeViewControllerDelegate {
-    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-        controller.dismissSelf()
+typealias UpcomingChallengeSection = SectionModel<String, UpcomingChallengeRow>
+
+class UpcomingChallengeViewController: BindableViewController {
+  private let viewModel = UpcomingChallengeViewModel()
+  private let disposeBag = DisposeBag()
+  private let challenge: Challenge
+  
+  init(challenge: Challenge) {
+    self.challenge = challenge
+    self.viewModel.configure(challenge: challenge)
+
+    super.init(nibName: Self.xibName, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  @IBOutlet private weak var collectionView: UICollectionView! {
+    didSet {
+      collectionView.registerCellNibForClass(AccountCell.self)
+      collectionView.setCollectionViewLayout(UpcomingChallengeFlowLayout(), animated: false)
+      collectionView.delegate = self
     }
+  }
+
+  private let dataSource = RxCollectionViewSectionedReloadDataSource<UpcomingChallengeSection>(configureCell: { _, collectionView, indexPath, row -> UICollectionViewCell in
+    switch row {
+    case .account(let account): return AccountCell.configure(collectionView: collectionView, indexPath: indexPath, account: account)
+    case .banner(let challenge): return UICollectionViewCell()
+    case .invite(let challenge): return UICollectionViewCell()
+    }
+  })
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+
+    viewModel.input.viewDidLoad.trigger()
+  }
+  
+  override func bindViewModel() {
+    viewModel.output.sections
+      .bind(to: collectionView.rx.items(dataSource: dataSource))
+      .disposed(by: disposeBag)
+  }
+}
+
+extension UpcomingChallengeViewController: UICollectionViewDelegate {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    collectionView.deselectItem(at: indexPath, animated: true)
+    
+    
+  }
 }

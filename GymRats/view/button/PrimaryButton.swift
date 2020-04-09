@@ -16,13 +16,13 @@ class PrimaryButton: UIButton {
     
     setup()
   }
-  
+
   required init?(coder: NSCoder) {
     super.init(coder: coder)
 
     setup()
   }
-  
+
   override func layoutSubviews() {
     super.layoutSubviews()
 
