@@ -142,3 +142,10 @@ func classNameWithoutModule(_ class: AnyClass) -> String {
     .dropFirst()
     .joined(separator: ".")
 }
+
+
+extension Int {
+  var stringify: String {
+    return String(self)
+  }
+}

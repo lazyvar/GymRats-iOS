@@ -71,12 +71,6 @@ class ChallengeViewController: BindableViewController {
         return self?.shouldShowInfScroll ?? false
       }
       tableView.infiniteScrollTriggerOffset = 300
-      tableView.rx.itemSelected
-        .do(onNext: { [weak self] indexPath in
-          self?.tableView.deselectRow(at: indexPath, animated: true)
-        })
-        .bind(to: viewModel.input.tappedRow)
-        .disposed(by: disposeBag)
     }
   }
   
@@ -101,9 +95,7 @@ class ChallengeViewController: BindableViewController {
     action: #selector(statsTapped)
   )
 
-  // MARK: View lifecycle
-  
-  private let members = BehaviorSubject<[Account]>(value: [])
+  // MARK: View lifecycle  
   
   private lazy var dataSource = RxTableViewSectionedReloadDataSource<ChallengeSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
     switch row {
@@ -164,6 +156,13 @@ class ChallengeViewController: BindableViewController {
       .subscribe(onNext: { [weak self] (navigation, screen) in
         self?.navigate(navigation, to: screen.viewController)
       })
+      .disposed(by: disposeBag)
+    
+    tableView.rx.itemSelected
+      .do(onNext: { [weak self] indexPath in
+        self?.tableView.deselectRow(at: indexPath, animated: true)
+      })
+      .bind(to: viewModel.input.tappedRow)
       .disposed(by: disposeBag)
     
     viewModel.output.resetNoMore
