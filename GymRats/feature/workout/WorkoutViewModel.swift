@@ -12,7 +12,8 @@ import RxSwift
 final class WorkoutViewModel: ViewModel {
   private let disposeBag = DisposeBag()
   private var workout: Workout!
-  
+  private var challenge: Challenge?
+
   struct Input {
     let viewDidLoad = PublishSubject<Void>()
     let tappedRow = PublishSubject<IndexPath>()
@@ -30,8 +31,9 @@ final class WorkoutViewModel: ViewModel {
   let input = Input()
   let output = Output()
   
-  func configure(workout: Workout) {
+  func configure(workout: Workout, challenge: Challenge?) {
     self.workout = workout
+    self.challenge = challenge
   }
   
   init() {
@@ -73,19 +75,46 @@ final class WorkoutViewModel: ViewModel {
     input.viewDidLoad
       .flatMap { Observable.merge(.just([]), comments) }
       .map { comments -> [WorkoutSection] in
-        let header: [WorkoutRow] = [
+        let headerRows: [WorkoutRow] = [
           .image(url: self.workout.photoUrl ?? ""),
           .account(self.workout),
           .details(self.workout)
         ]
         
+        let headerSection = WorkoutSection(model: .instance, items: headerRows)
+
+        let commentSection = WorkoutSection(model: .instance, items: comments)
         let newComment = WorkoutRow.newComment { comment in
           self.input.submittedComment.onNext(comment)
         }
         
-        return [.init(model: .instance, items: header + comments + [newComment])]
+        let newCommentSection = WorkoutSection(model: .instance, items: [newComment])
+        
+        return [headerSection, commentSection, newCommentSection]
       }
       .bind(to: output.sections)
       .disposed(by: disposeBag)
+    
+    input.tappedRow
+      .filter { $0.section == 0  && $0.row == 1 }
+      .compactMap { _ -> (Navigation, Screen)? in
+        guard let challenge = self.challenge else { return nil }
+        
+        return (.push(animated: true), .profile(self.workout.account, challenge))
+      }
+      .bind(to: output.navigation)
+      .disposed(by: disposeBag)
+    
+      input.tappedRow
+        .filter { $0.section == 1 }
+        .withLatestFrom(fetchComments.compactMap { $0.object }) { ($0, $1) }
+        .compactMap { indexPath, comments -> (Navigation, Screen)? in
+          guard let comment = comments[safe: indexPath.row] else { return nil }
+          guard let challenge = self.challenge else { return nil }
+
+          return (.push(animated: true), .profile(comment.account, challenge))
+        }
+        .bind(to: output.navigation)
+        .disposed(by: disposeBag)
   }
 }

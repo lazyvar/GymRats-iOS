@@ -107,7 +107,11 @@ class WorkoutDetailsCell: UITableViewCell {
   
   @IBOutlet private weak var dividerView: UIView! {
     didSet {
-      dividerView.backgroundColor = .divider
+      if #available(iOS 13.0, *) {
+        dividerView.backgroundColor = .separator
+      } else {
+        dividerView.backgroundColor = .secondaryText
+      }
     }
   }
     

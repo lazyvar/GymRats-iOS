@@ -40,7 +40,7 @@ class WorkoutViewController: BindableViewController {
   init(workout: Workout, challenge: Challenge?) {
     self.workout = workout
     self.challenge = challenge
-    self.viewModel.configure(workout: workout)
+    self.viewModel.configure(workout: workout, challenge: challenge)
 
     super.init(nibName: nil, bundle: nil)
   }
