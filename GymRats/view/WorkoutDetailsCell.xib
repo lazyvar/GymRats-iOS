@@ -32,7 +32,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="135"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="M8K-0B-KqK">
-                                <rect key="frame" x="10" y="10" width="300" height="61.5"/>
+                                <rect key="frame" x="10" y="10" width="300" height="69"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="djd-Lw-3GX">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="19.5"/>
@@ -41,7 +41,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXy-jJ-9cg">
-                                        <rect key="frame" x="0.0" y="24.5" width="300" height="37"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="300" height="44.5"/>
                                         <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -49,13 +49,6 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TyW-z0-2ml">
-                                <rect key="frame" x="10" y="78.5" width="300" height="0.5"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="0.5" id="QYp-AA-2xI"/>
-                                </constraints>
-                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="CDW-6b-fb5">
                                 <rect key="frame" x="10" y="86" width="300" height="39"/>
                                 <subviews>
@@ -191,7 +184,6 @@
                 <outlet property="dataStack" destination="CDW-6b-fb5" id="bxU-Yn-3wt"/>
                 <outlet property="distanceLabel" destination="4dn-vL-hOm" id="4XQ-0g-0mM"/>
                 <outlet property="distanceLabelLabel" destination="rfx-60-6Ma" id="eel-gr-ZCM"/>
-                <outlet property="dividerView" destination="TyW-z0-2ml" id="gTC-Hz-Qj3"/>
                 <outlet property="durationLabel" destination="mm4-OM-w5k" id="C88-6B-ivd"/>
                 <outlet property="durationLabelLabel" destination="MNe-hL-NCA" id="pbF-ZV-4eP"/>
                 <outlet property="firstStack" destination="UjK-Rx-Brm" id="8ot-D5-c6w"/>

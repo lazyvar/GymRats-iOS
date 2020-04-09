@@ -8,7 +8,6 @@
 
 import Foundation
 import RxSwift
-import GooglePlaces
 
 final class WorkoutViewModel: ViewModel {
   private let disposeBag = DisposeBag()
@@ -112,11 +111,12 @@ final class WorkoutViewModel: ViewModel {
     
     input.tappedRow
       .filter { $0.section == 0  && $0.row == 3 }
-      .subscribe(onNext: { _ in
-        guard let place = self.workout.googlePlaceId else { return }
-        
-        // stop being lazy
-      })
+      .compactMap { _ -> (Navigation, Screen)? in
+        guard let place = self.workout.googlePlaceId else { return nil }
+
+        return (.presentInNav(animated: true), .map(placeID: place))
+      }
+      .bind(to: output.navigation)
       .disposed(by: disposeBag)
 
       input.tappedRow

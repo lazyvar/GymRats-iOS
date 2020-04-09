@@ -84,6 +84,8 @@
 		015C071C243FC7E5003E75E9 /* LogWorkoutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 015C071A243FC7E5003E75E9 /* LogWorkoutCell.xib */; };
 		015C071F243FCD11003E75E9 /* MapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015C071D243FCD11003E75E9 /* MapCell.swift */; };
 		015C0720243FCD11003E75E9 /* MapCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 015C071E243FCD11003E75E9 /* MapCell.xib */; };
+		015C0724243FD35B003E75E9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015C0722243FD35B003E75E9 /* MapViewController.swift */; };
+		015C0725243FD35B003E75E9 /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 015C0723243FD35B003E75E9 /* MapViewController.xib */; };
 		015E2A8D243CEFD700307B21 /* TodaysGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015E2A8B243CEFD700307B21 /* TodaysGoalViewController.swift */; };
 		015E2A8E243CEFD700307B21 /* TodaysGoalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 015E2A8C243CEFD700307B21 /* TodaysGoalViewController.xib */; };
 		015E2A95243CF08600307B21 /* ChoiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015E2A93243CF08600307B21 /* ChoiceCell.swift */; };
@@ -343,6 +345,8 @@
 		015C071A243FC7E5003E75E9 /* LogWorkoutCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogWorkoutCell.xib; sourceTree = "<group>"; };
 		015C071D243FCD11003E75E9 /* MapCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCell.swift; sourceTree = "<group>"; };
 		015C071E243FCD11003E75E9 /* MapCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapCell.xib; sourceTree = "<group>"; };
+		015C0722243FD35B003E75E9 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		015C0723243FD35B003E75E9 /* MapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
 		015E2A8B243CEFD700307B21 /* TodaysGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaysGoalViewController.swift; sourceTree = "<group>"; };
 		015E2A8C243CEFD700307B21 /* TodaysGoalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodaysGoalViewController.xib; sourceTree = "<group>"; };
 		015E2A93243CF08600307B21 /* ChoiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceCell.swift; sourceTree = "<group>"; };
@@ -1134,6 +1138,8 @@
 				01611D43243E954600D1DAA4 /* WorkoutViewController.xib */,
 				015C0719243FC7E5003E75E9 /* LogWorkoutCell.swift */,
 				015C071A243FC7E5003E75E9 /* LogWorkoutCell.xib */,
+				015C0722243FD35B003E75E9 /* MapViewController.swift */,
+				015C0723243FD35B003E75E9 /* MapViewController.xib */,
 			);
 			path = workout;
 			sourceTree = "<group>";
@@ -1294,6 +1300,7 @@
 				74118063220C58C300EB9D11 /* Lato-Hairline.ttf in Resources */,
 				01297D942329E79000CA9E41 /* SF-Pro-Rounded-Medium.otf in Resources */,
 				01D5D371243BDA7D0044E459 /* ErrorLabelCell.xib in Resources */,
+				015C0725243FD35B003E75E9 /* MapViewController.xib in Resources */,
 				0107AE372325E3D300944D11 /* WorkoutListCell.xib in Resources */,
 				0176B66F243B99E50022B65F /* WelcomeViewController.xib in Resources */,
 				015E2A8E243CEFD700307B21 /* TodaysGoalViewController.xib in Resources */,
@@ -1585,6 +1592,7 @@
 				01BFF909223DB1C30044F802 /* ChatMessage.swift in Sources */,
 				74A01B4E220A83FD00431ABD /* UIDate+Extension.swift in Sources */,
 				01319ED524187790005E65D2 /* NewWorkout.swift in Sources */,
+				015C0724243FD35B003E75E9 /* MapViewController.swift in Sources */,
 				74A01B27220A0BBF00431ABD /* Challenge.swift in Sources */,
 				0176B671243B99F30022B65F /* WelcomeViewModel.swift in Sources */,
 				01AC5F5E23CA3A4A00FFAE4D /* SegmentedCell.swift in Sources */,

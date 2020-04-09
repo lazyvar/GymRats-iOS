@@ -40,14 +40,14 @@ class MapCell: UITableViewCell {
   override func prepareForReuse() {
     super.prepareForReuse()
     
-    locationLabel.text = ""
+    locationLabel.text = "Location"
   }
   
   private func loadPlace(_ placeID: String) {
     GService.getPlaceInformation(forPlaceId: placeID)
       .subscribe { [weak self] event in
         guard let self = self else { return }
-          
+        
         if let place = event.element {
           self.locationLabel.text = place.name
         }

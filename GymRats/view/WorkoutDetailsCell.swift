@@ -104,16 +104,6 @@ class WorkoutDetailsCell: UITableViewCell {
       workoutTitleLabel.font = .h4Bold
     }
   }
-  
-  @IBOutlet private weak var dividerView: UIView! {
-    didSet {
-      if #available(iOS 13.0, *) {
-        dividerView.backgroundColor = .separator
-      } else {
-        dividerView.backgroundColor = .secondaryText
-      }
-    }
-  }
     
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -126,7 +116,6 @@ class WorkoutDetailsCell: UITableViewCell {
     super.prepareForReuse()
     
     dataStack.isHidden = false
-    dividerView.isHidden = false
     firstStack.isHidden = false
     secondStack.isHidden = false
     durationLabel.text = nil
@@ -184,7 +173,6 @@ class WorkoutDetailsCell: UITableViewCell {
       firstStack.isHidden = true
       secondStack.isHidden = true
       dataStack.isHidden = true
-      dividerView.isHidden = true
     }
     
     if data.count < 4 {
