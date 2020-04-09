@@ -34,7 +34,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="314" height="314"/>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="okg-pS-km8" firstAttribute="centerX" secondItem="W6o-Hf-E66" secondAttribute="centerX" id="6q0-Ro-KG0"/>
                                             <constraint firstItem="okg-pS-km8" firstAttribute="width" secondItem="W6o-Hf-E66" secondAttribute="width" id="Qpp-5s-auN"/>

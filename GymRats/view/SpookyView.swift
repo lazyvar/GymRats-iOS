@@ -34,6 +34,7 @@ class SpookyView: UIView {
   override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
     if keyPath == "bounds" {
       self.shadowLayer?.path = UIBezierPath(roundedRect: bounds, cornerRadius: 4).cgPath
+      self.shadowLayer?.shadowPath = shadowLayer?.path
     } else {
       super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
     }

@@ -17,6 +17,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hyt-Uk-O4H">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A9m-4l-ZMN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
                     </imageView>
@@ -25,12 +29,17 @@
                     <constraint firstAttribute="bottom" secondItem="A9m-4l-ZMN" secondAttribute="bottom" id="2BA-3x-MWv"/>
                     <constraint firstAttribute="trailing" secondItem="A9m-4l-ZMN" secondAttribute="trailing" id="6CT-Zd-nIm"/>
                     <constraint firstItem="A9m-4l-ZMN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Jlf-ba-exB"/>
+                    <constraint firstAttribute="trailing" secondItem="hyt-Uk-O4H" secondAttribute="trailing" id="Nov-JW-utA"/>
+                    <constraint firstAttribute="bottom" secondItem="hyt-Uk-O4H" secondAttribute="bottom" id="PbP-g1-1Ox"/>
                     <constraint firstItem="A9m-4l-ZMN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="RGA-Xm-eDo"/>
+                    <constraint firstItem="hyt-Uk-O4H" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="SJz-lk-LhJ"/>
+                    <constraint firstItem="hyt-Uk-O4H" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="tQt-WU-12r"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="_imageView" destination="A9m-4l-ZMN" id="LIY-fT-C72"/>
+                <outlet property="skeletonView" destination="hyt-Uk-O4H" id="JD6-2X-6Bo"/>
             </connections>
             <point key="canvasLocation" x="131.8840579710145" y="107.8125"/>
         </tableViewCell>

@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxDataSources
+import Kingfisher
 
 typealias WorkoutSection = SectionModel<Void, WorkoutRow>
 
@@ -22,6 +23,7 @@ class WorkoutViewController: BindableViewController {
     didSet {
       tableView.backgroundColor = .clear
       tableView.separatorStyle = .none
+      tableView.clipsToBounds = false
       tableView.showsVerticalScrollIndicator = false
       tableView.registerCellNibForClass(WorkoutDetailsCell.self)
       tableView.registerCellNibForClass(ImageViewCell.self)
@@ -86,7 +88,7 @@ class WorkoutViewController: BindableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+        
     let spookyView = SpookyView().apply {
       $0.translatesAutoresizingMaskIntoConstraints = false
       $0.isUserInteractionEnabled = false
@@ -118,7 +120,6 @@ class WorkoutViewController: BindableViewController {
 
     tableView.rx.observe(CGSize.self, "contentSize")
       .map { $0?.height ?? 0 }
-      .do(onNext: { print("height \($0)") })
       .bind(to: height.rx.constant)
       .disposed(by: disposeBag)
     
