@@ -1,5 +1,5 @@
 //
-//  LogWorkoutListCell.swift
+//  LogWorkoutCell.swift
 //  GymRats
 //
 //  Created by mack on 1/5/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LogWorkoutListCell: UITableViewCell {
+class LogWorkoutCell: UITableViewCell {
 
     @IBOutlet weak var chooseFromLibraryView: UIView!
     @IBOutlet weak var takePictureView: UIView!
