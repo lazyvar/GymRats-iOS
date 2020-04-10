@@ -33,3 +33,17 @@ extension UITableView {
     return dequeueReusableCell(withIdentifier: name, for: indexPath) as! CellClass
   }
 }
+
+extension UICollectionView {
+  func registerCellNibForClass<CellClass: UICollectionViewCell> (_ cellClass: CellClass.Type) {
+    let name = classNameWithoutModule(cellClass)
+
+    register(UINib(nibName: name, bundle: nil), forCellWithReuseIdentifier: name)
+  }
+
+  func dequeueReusableCell<CellClass: UICollectionViewCell>(withType cellClass: CellClass.Type, for indexPath: IndexPath) -> CellClass {
+    let name = classNameWithoutModule(cellClass)
+
+    return dequeueReusableCell(withReuseIdentifier: name, for: indexPath) as! CellClass
+  }
+}

@@ -37,4 +37,6 @@ extension UIImage {
   static let menu = UIImage(named: "menu")!
   static let big = UIImage(named: "big")!
   static let list = UIImage(named: "list")!
+  static let plus = UIImage(named: "plus")!
+  static let code = UIImage(named: "code")!
 }
