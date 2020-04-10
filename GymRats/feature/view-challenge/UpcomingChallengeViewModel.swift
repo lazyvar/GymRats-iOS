@@ -14,6 +14,7 @@ final class UpcomingChallengeViewModel: ViewModel {
   private var challenge: Challenge!
 
   struct Input {
+    let refresh = PublishSubject<Void>()
     let viewDidLoad = PublishSubject<Void>()
     let selectedItem = PublishSubject<IndexPath>()
   }
@@ -32,7 +33,7 @@ final class UpcomingChallengeViewModel: ViewModel {
   }
 
   init() {
-    let fetchMembers = input.viewDidLoad
+    let fetchMembers = Observable.merge(input.viewDidLoad, input.refresh)
       .flatMap { gymRatsAPI.getMembers(for: self.challenge) }
       .share()
     
