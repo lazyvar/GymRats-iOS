@@ -10,7 +10,6 @@ import UIKit
 import ESTabBarController_swift
 import RxSwift
 
-
 class ChallengeTabBarController: ESTabBarController {
 
   // MARK: Init

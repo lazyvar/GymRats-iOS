@@ -53,7 +53,7 @@ class ChallengeViewController: BindableViewController {
       tableView.registerCellNibForClass(NoWorkoutsCell.self)
       tableView.registerCellNibForClass(ChallengeBannerCell.self)
       tableView.rx.setDelegate(self).disposed(by: disposeBag)
-      tableView.infiniteScrollTriggerOffset = 300
+      tableView.infiniteScrollTriggerOffset = 500
 
       tableView.infiniteScrollIndicatorStyle = {
         if #available(iOS 12.0, *) {

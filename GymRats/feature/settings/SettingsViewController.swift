@@ -27,6 +27,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
       setupMenuButton()
     }
     
+    navigationItem.largeTitleDisplayMode = .never
     setupBackButton()
     
     tableView.separatorInset = .zero
