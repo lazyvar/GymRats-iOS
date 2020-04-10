@@ -36,7 +36,9 @@ class UpcomingChallengeViewController: BindableViewController {
   
   @IBOutlet private weak var collectionView: UICollectionView! {
     didSet {
+      collectionView.backgroundColor = .background
       collectionView.registerCellNibForClass(AccountCell.self)
+      collectionView.registerCellNibForClass(InviteCell.self)
       collectionView.setCollectionViewLayout(UpcomingChallengeFlowLayout(), animated: false)
       collectionView.delegate = self
     }
@@ -46,17 +48,30 @@ class UpcomingChallengeViewController: BindableViewController {
     switch row {
     case .account(let account): return AccountCell.configure(collectionView: collectionView, indexPath: indexPath, account: account)
     case .banner(let challenge): return UICollectionViewCell()
-    case .invite(let challenge): return UICollectionViewCell()
+    case .invite(let challenge): return InviteCell.configure(collectionView: collectionView, indexPath: indexPath)
     }
   })
   
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    title = challenge.name
+    
     viewModel.input.viewDidLoad.trigger()
   }
   
   override func bindViewModel() {
+    viewModel.output.error
+      .do(onNext: { _ in self.hideLoadingBar() })
+      .flatMap { UIAlertController.present($0) }
+      .ignore(disposedBy: disposeBag)
+
+    viewModel.output.navigation
+      .subscribe(onNext: { [weak self] (navigation, screen) in
+        self?.navigate(navigation, to: screen.viewController)
+      })
+      .disposed(by: disposeBag)
+
     viewModel.output.sections
       .bind(to: collectionView.rx.items(dataSource: dataSource))
       .disposed(by: disposeBag)
@@ -66,7 +81,7 @@ class UpcomingChallengeViewController: BindableViewController {
 extension UpcomingChallengeViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     collectionView.deselectItem(at: indexPath, animated: true)
-    
-    
+      
+    viewModel.input.selectedItem.onNext(indexPath)
   }
 }

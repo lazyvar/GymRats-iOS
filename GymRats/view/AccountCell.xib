@@ -48,7 +48,7 @@
                 <outlet property="accountImageView" destination="lv0-Yd-Ppm" id="t5f-CN-iaQ"/>
                 <outlet property="accountNameLabel" destination="5Kr-j3-Sca" id="Gfa-Mk-7Pd"/>
             </connections>
-            <point key="canvasLocation" x="116.66666666666667" y="266.85267857142856"/>
+            <point key="canvasLocation" x="118" y="254"/>
         </collectionViewCell>
     </objects>
 </document>

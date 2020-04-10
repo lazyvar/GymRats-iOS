@@ -15,7 +15,7 @@ final class UpcomingChallengeViewModel: ViewModel {
 
   struct Input {
     let viewDidLoad = PublishSubject<Void>()
-    
+    let selectedItem = PublishSubject<IndexPath>()
   }
 
   struct Output {
@@ -32,15 +32,34 @@ final class UpcomingChallengeViewModel: ViewModel {
   }
 
   init() {
-    input.viewDidLoad
+    let fetchMembers = input.viewDidLoad
       .flatMap { gymRatsAPI.getMembers(for: self.challenge) }
+      .share()
+    
+    fetchMembers
+      .compactMap { $0.error }
+      .bind(to:output.error)
+      .disposed(by: disposeBag)
+
+    let members = fetchMembers
       .compactMap { $0.object }
+      .share()
+    
+    members
       .map { members in
-        let items = members.map { UpcomingChallengeRow.account($0) } + [UpcomingChallengeRow.invite(challenge)]
+        let items = members.map { UpcomingChallengeRow.account($0) } + [UpcomingChallengeRow.invite(self.challenge)]
         
         return [UpcomingChallengeSection(model: "", items: items)]
       }
       .bind(to: output.sections)
+      .disposed(by: disposeBag)
+
+    input.selectedItem
+      .withLatestFrom(members) { ($0, $1) }
+      .filter { $0.row == $1.count }
+      .subscribe { _ in
+        ChallengeFlow.invite(to: self.challenge)
+      }
       .disposed(by: disposeBag)
   }
 }
