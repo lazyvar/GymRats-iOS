@@ -106,9 +106,11 @@ class CreateAccountViewController: GRFormViewController {
       label.isUserInteractionEnabled = true
       label.delegate = self
       label.text = disclosure
+      
       label.activeLinkAttributes = [
         NSAttributedString.Key.foregroundColor: UIColor.brand,
       ]
+      
       label.linkAttributes = [
         NSAttributedString.Key.foregroundColor: UIColor.brand.darker,
       ]
