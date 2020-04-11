@@ -178,6 +178,10 @@ class CreateAccountViewController: GRFormViewController {
     .cellSetup({ cell, row in
       cell.shadowTextField.autocorrectionType = .no
       cell.shadowTextField.autocapitalizationType = .none
+      
+      if #available(iOS 12.0, *) {
+        cell.shadowTextField.textContentType = .newPassword
+      }
     })
     .onRowValidationChanged(self.handleRowValidationChange)
   }()

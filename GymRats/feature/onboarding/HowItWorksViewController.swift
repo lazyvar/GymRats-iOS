@@ -13,7 +13,7 @@ class HowItWorksViewController: UIViewController {
   private let disposeBag = DisposeBag()
   private let code: String? = UserDefaults.standard.string(forKey: "join-code")
   
-  @IBOutlet weak var content: UILabel! {
+  @IBOutlet private weak var content: UILabel! {
     didSet {
       content.textColor = .primaryText
       content.font = .body
@@ -24,7 +24,6 @@ class HowItWorksViewController: UIViewController {
     super.viewDidLoad()
 
     title = "How it works"
-
     view.backgroundColor = .background
     
     setupBackButton()
