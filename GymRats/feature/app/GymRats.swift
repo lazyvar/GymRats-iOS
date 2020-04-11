@@ -55,9 +55,6 @@ enum GymRats {
     coldStartNotification = launchOptions?[.remoteNotification] as? [AnyHashable: Any]
     currentAccount = Account.loadCurrent()
     
-    UINavigationBar.appearance().barTintColor = .primaryText
-    UINavigationBar.appearance().tintColor = .background
-    
     window.rootViewController = {
       if currentAccount != nil {
         if UserDefaults.standard.bool(forKey: "account-is-onboarding") {
@@ -69,7 +66,7 @@ enum GymRats {
         return WelcomeViewController().inNav()
       }
     }()
-    
+
     if currentAccount != nil {
       Track.currentUser()
       registerForNotifications()

@@ -106,9 +106,11 @@ class CreateAccountViewController: GRFormViewController {
       label.isUserInteractionEnabled = true
       label.delegate = self
       label.text = disclosure
+      
       label.activeLinkAttributes = [
         NSAttributedString.Key.foregroundColor: UIColor.brand,
       ]
+      
       label.linkAttributes = [
         NSAttributedString.Key.foregroundColor: UIColor.brand.darker,
       ]
@@ -176,6 +178,10 @@ class CreateAccountViewController: GRFormViewController {
     .cellSetup({ cell, row in
       cell.shadowTextField.autocorrectionType = .no
       cell.shadowTextField.autocapitalizationType = .none
+      
+      if #available(iOS 12.0, *) {
+        cell.shadowTextField.textContentType = .newPassword
+      }
     })
     .onRowValidationChanged(self.handleRowValidationChange)
   }()

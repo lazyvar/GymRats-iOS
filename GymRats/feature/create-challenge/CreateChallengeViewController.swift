@@ -37,6 +37,8 @@ class CreateChallengeViewController: GRFormViewController {
     submitButton.tintColor = .brand
     LabelRow.defaultCellUpdate = nil
     
+    tableView.backgroundColor = .background
+    
     navigationItem.rightBarButtonItem = submitButton
     navigationItem.leftBarButtonItem = UIBarButtonItem (
       title: "Cancel",

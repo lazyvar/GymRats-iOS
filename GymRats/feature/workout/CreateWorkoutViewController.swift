@@ -90,7 +90,11 @@ class CreateWorkoutViewController: GRFormViewController {
 
         title = "Log Workout"
         
-        LabelRow.defaultCellUpdate = nil
+        tableView.backgroundColor = .background
+
+      navigationItem.largeTitleDisplayMode = .never
+      
+      LabelRow.defaultCellUpdate = nil
 
       let activeChallenges = (Challenge.State.all.state?.object ?? []).getActiveChallenges()
       
