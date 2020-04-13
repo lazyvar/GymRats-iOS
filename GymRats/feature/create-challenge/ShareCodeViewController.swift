@@ -37,7 +37,7 @@ class ShareCodeViewController: UIViewController {
         textView.font = UIFont(name: "SFProRounded-Regular", size: 44)!
         textView.isEditable = false
         textView.isScrollEnabled = false
-        
+         
         textView.rx.tapGesture().when(.recognized).subscribe { [weak self] e in
             guard let self = self else { return }
             
