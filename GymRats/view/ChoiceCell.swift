@@ -11,25 +11,25 @@ import UIKit
 class ChoiceCell: UITableViewCell {
   private var shadowLayer: CAShapeLayer!
 
-  @IBOutlet weak var bgView: UIView! {
-    didSet { bgView.backgroundColor = .foreground }
+  @IBOutlet private weak var bgView: UIView! {
+    didSet { bgView.backgroundColor = .clear }
   }
   
-  @IBOutlet weak var bigLabel: UILabel! {
+  @IBOutlet private weak var bigLabel: UILabel! {
     didSet {
       bigLabel.font = .h4Bold
       bigLabel.textColor = .primaryText
     }
   }
   
-  @IBOutlet weak var smallLabel: UILabel! {
+  @IBOutlet private weak var smallLabel: UILabel! {
     didSet {
       smallLabel.font = .body
       smallLabel.textColor = .primaryText
     }
   }
   
-  @IBOutlet weak var chevron: UIImageView! {
+  @IBOutlet private weak var chevron: UIImageView! {
     didSet { chevron.tintColor = .primaryText }
   }
   
@@ -80,6 +80,13 @@ class ChoiceCell: UITableViewCell {
     return tableView.dequeueReusableCell(withType: ChoiceCell.self, for: indexPath).apply {
       $0.bigLabel.text = goal.title
       $0.smallLabel.text = goal.description
+    }
+  }
+
+  static func configure(tableView: UITableView, indexPath: IndexPath, mode: ChallengeMode) -> UITableViewCell {
+    return tableView.dequeueReusableCell(withType: ChoiceCell.self, for: indexPath).apply {
+      $0.bigLabel.text = mode.title
+      $0.smallLabel.text = mode.subtitle
     }
   }
 }

@@ -48,7 +48,7 @@ final class NoChallengesViewModel: ViewModel {
       .disposed(by: disposeBag)
 
     input.tappedStartChallenge
-      .map { challenge -> (Navigation, Screen) in (.presentInNav(animated: true), .createChallenge) }
+      .map { challenge -> (Navigation, Screen) in (.presentInNav(animated: true), .chooseChallengeMode) }
       .bind(to: output.navigation)
       .disposed(by: disposeBag)
   }

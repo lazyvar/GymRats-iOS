@@ -28,10 +28,10 @@ extension UIView {
     }
     
     func fill(in view: UIView, top: CGFloat = 0, bottom: CGFloat = 0, left: CGFloat = 0, right: CGFloat = 0) {
-      self.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-      self.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-      self.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-      self.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+      self.leftAnchor.constraint(equalTo: view.leftAnchor, constant: left).isActive = true
+      self.rightAnchor.constraint(equalTo: view.rightAnchor, constant: right).isActive = true
+      self.topAnchor.constraint(equalTo: view.topAnchor, constant: top).isActive = true
+      self.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: bottom).isActive = true
     }
   
     /// Fills the view to all the anchors of the parent view.
