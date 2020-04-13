@@ -1210,6 +1210,7 @@
 			buildConfigurationList = 747D6FB32208DB330062BB39 /* Build configuration list for PBXNativeTarget "GymRats" */;
 			buildPhases = (
 				8DD4422FC73F0F28B5B33D37 /* [CP] Check Pods Manifest.lock */,
+				01F65A062445308200E26539 /* Copy secrets */,
 				747D6F922208DB310062BB39 /* Sources */,
 				747D6F932208DB310062BB39 /* Frameworks */,
 				747D6F942208DB310062BB39 /* Resources */,
@@ -1378,6 +1379,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		01F65A062445308200E26539 /* Copy secrets */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy secrets";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "source ~/gym-rats-ios.env\n./copy_secrets.sh\n";
+			showEnvVarsInLog = 0;
+		};
 		2B9BAF707FD52821A7508A59 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
