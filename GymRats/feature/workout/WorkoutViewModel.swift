@@ -114,7 +114,7 @@ final class WorkoutViewModel: ViewModel {
       .compactMap { _ -> (Navigation, Screen)? in
         guard let place = self.workout.googlePlaceId else { return nil }
 
-        return (.push(animated: true), .map(placeID: place))
+        return (.presentInNav(animated: true), .map(placeID: place))
       }
       .bind(to: output.navigation)
       .disposed(by: disposeBag)
