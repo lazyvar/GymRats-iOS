@@ -203,6 +203,10 @@
 		01F5296524184B0000FA96E0 /* SecondaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5296424184B0000FA96E0 /* SecondaryButton.swift */; };
 		01F5296924184BE600FA96E0 /* HeaderTwoLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5296824184BE600FA96E0 /* HeaderTwoLabel.swift */; };
 		01F5296B24184CDA00FA96E0 /* NoChallengesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F5296A24184CDA00FA96E0 /* NoChallengesViewModel.swift */; };
+		01F659FC2445138700E26539 /* CreateChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F659FA2445138700E26539 /* CreateChallengeViewController.swift */; };
+		01F65A00244513FA00E26539 /* ChallengeBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F659FE244513FA00E26539 /* ChallengeBannerViewController.swift */; };
+		01F65A01244513FA00E26539 /* ChallengeBannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F659FF244513FA00E26539 /* ChallengeBannerViewController.xib */; };
+		01F65A032445144300E26539 /* ChallengeBannerChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F65A022445144300E26539 /* ChallengeBannerChoice.swift */; };
 		01F7D7662422899000B2D5D8 /* NoWorkoutsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F7D7642422899000B2D5D8 /* NoWorkoutsCell.swift */; };
 		01F7D7672422899000B2D5D8 /* NoWorkoutsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F7D7652422899000B2D5D8 /* NoWorkoutsCell.xib */; };
 		01FF413424205FDA007D316A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF413224205FDA007D316A /* ProfileViewController.swift */; };
@@ -473,6 +477,10 @@
 		01F5296424184B0000FA96E0 /* SecondaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButton.swift; sourceTree = "<group>"; };
 		01F5296824184BE600FA96E0 /* HeaderTwoLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderTwoLabel.swift; sourceTree = "<group>"; };
 		01F5296A24184CDA00FA96E0 /* NoChallengesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoChallengesViewModel.swift; sourceTree = "<group>"; };
+		01F659FA2445138700E26539 /* CreateChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChallengeViewController.swift; sourceTree = "<group>"; };
+		01F659FE244513FA00E26539 /* ChallengeBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeBannerViewController.swift; sourceTree = "<group>"; };
+		01F659FF244513FA00E26539 /* ChallengeBannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeBannerViewController.xib; sourceTree = "<group>"; };
+		01F65A022445144300E26539 /* ChallengeBannerChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeBannerChoice.swift; sourceTree = "<group>"; };
 		01F7D7642422899000B2D5D8 /* NoWorkoutsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoWorkoutsCell.swift; sourceTree = "<group>"; };
 		01F7D7652422899000B2D5D8 /* NoWorkoutsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoWorkoutsCell.xib; sourceTree = "<group>"; };
 		01FF413224205FDA007D316A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -1108,6 +1116,10 @@
 				01928B77244508BB00F56F76 /* ChallengeMode.swift */,
 				0146D3EB24450BC1008D990E /* ChooseChallengeModeViewController.swift */,
 				0146D3EC24450BC1008D990E /* ChooseChallengeModeViewController.xib */,
+				01F659FA2445138700E26539 /* CreateChallengeViewController.swift */,
+				01F659FE244513FA00E26539 /* ChallengeBannerViewController.swift */,
+				01F659FF244513FA00E26539 /* ChallengeBannerViewController.xib */,
+				01F65A022445144300E26539 /* ChallengeBannerChoice.swift */,
 			);
 			path = "create-challenge";
 			sourceTree = "<group>";
@@ -1340,6 +1352,7 @@
 				01297D8F2329E79000CA9E41 /* SF-Pro-Rounded-Regular.otf in Resources */,
 				01AC5F5F23CA3A4A00FFAE4D /* SegmentedCell.xib in Resources */,
 				015C071C243FC7E5003E75E9 /* LogWorkoutCell.xib in Resources */,
+				01F65A01244513FA00E26539 /* ChallengeBannerViewController.xib in Resources */,
 				01611D3D243E777600D1DAA4 /* WorkoutBigCell.xib in Resources */,
 				01297D962329E79000CA9E41 /* SF-Pro-Rounded-Heavy.otf in Resources */,
 				01297D8B2329E79000CA9E41 /* SF-Compact-Rounded-Black.otf in Resources */,
@@ -1472,6 +1485,7 @@
 				0176B677243B9EAD0022B65F /* UIDevice+Extension.swift in Sources */,
 				013D023F24193B440063F189 /* ChallengeViewModel.swift in Sources */,
 				01AB95AB243F90D30066C7DA /* SpookyView.swift in Sources */,
+				01F65A032445144300E26539 /* ChallengeBannerChoice.swift in Sources */,
 				0146D3ED24450BC1008D990E /* ChooseChallengeModeViewController.swift in Sources */,
 				01C926E8233FB96E00C1C128 /* ShareCodeViewController.swift in Sources */,
 				746764E7220BAE44000CFB1B /* CreateWorkoutViewController.swift in Sources */,
@@ -1506,6 +1520,7 @@
 				01AB95A8243F8F620066C7DA /* WorkoutDetailsCell.swift in Sources */,
 				01A3EB19237747D30097FC2A /* CVCalendarViewDelegate.swift in Sources */,
 				01A3EB27237747D30097FC2A /* CVCalendarDayViewControlCoordinator.swift in Sources */,
+				01F659FC2445138700E26539 /* CreateChallengeViewController.swift in Sources */,
 				015A1A5E2421A2B500D2EF5A /* NotificationHandler.swift in Sources */,
 				0107C7E4241B0200005650FB /* MenuViewController.swift in Sources */,
 				0107AE362325E3D300944D11 /* WorkoutListCell.swift in Sources */,
@@ -1535,6 +1550,7 @@
 				013D024124193BE30063F189 /* UIImage+Assets.swift in Sources */,
 				01A3EB21237747D30097FC2A /* CVCalendarTouchController.swift in Sources */,
 				01611D3C243E777600D1DAA4 /* WorkoutBigCell.swift in Sources */,
+				01F65A00244513FA00E26539 /* ChallengeBannerViewController.swift in Sources */,
 				01CA128F243FE9AE00540402 /* UpcomingChallengeFlowLayout.swift in Sources */,
 				01319ED124184FAC005E65D2 /* Screen.swift in Sources */,
 				01A3EB11237747D30097FC2A /* CVCalendarMonthView.swift in Sources */,

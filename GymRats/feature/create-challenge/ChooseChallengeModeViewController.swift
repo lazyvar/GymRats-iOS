@@ -50,7 +50,7 @@ class ChooseChallengeModeViewController: BindableViewController {
         self?.tableView.deselectRow(at: indexPath, animated: true)
         
         switch indexPath.row {
-        case 0: self?.push(JoinChallengeViewController())
+        case 0: self?.push(ChallengeBannerViewController())
         case 1: self?.push(JoinChallengeViewController())
         default: fatalError("Unhandled row.")
         }
@@ -78,12 +78,12 @@ extension ChooseChallengeModeViewController: UITableViewDelegate {
     
     container.addSubview(text)
     
-    text.fill(in: container, top: 5, bottom: -5, left: 20, right: -20)
+    text.fill(in: container, top: 0, bottom: -5, left: 20, right: -20)
     
     return container
   }
   
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    return 75
+    return 60
   }
 }

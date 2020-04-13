@@ -89,4 +89,11 @@ class ChoiceCell: UITableViewCell {
       $0.smallLabel.text = mode.subtitle
     }
   }
+
+  static func configure(tableView: UITableView, indexPath: IndexPath, choice: ChallengeBannerChoice) -> UITableViewCell {
+    return tableView.dequeueReusableCell(withType: ChoiceCell.self, for: indexPath).apply {
+      $0.bigLabel.text = choice.title
+      $0.smallLabel.isHidden = true
+    }
+  }
 }
