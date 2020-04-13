@@ -1,5 +1,5 @@
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '10.0'
+platform :ios, '11.0'
 use_frameworks!
 
 target 'GymRats' do
@@ -36,6 +36,7 @@ target 'GymRats' do
     pod 'JVFloatLabeledTextField'
     pod 'LetterAvatarKit', '1.2.2'
     pod 'RxKeyboard'
+    pod 'UnsplashPhotoPicker', '~> 1.1.1'
 
     target 'GymRatsTests' do
         inherit! :search_paths

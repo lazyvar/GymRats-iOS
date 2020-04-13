@@ -207,6 +207,7 @@
 		01F65A00244513FA00E26539 /* ChallengeBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F659FE244513FA00E26539 /* ChallengeBannerViewController.swift */; };
 		01F65A01244513FA00E26539 /* ChallengeBannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F659FF244513FA00E26539 /* ChallengeBannerViewController.xib */; };
 		01F65A032445144300E26539 /* ChallengeBannerChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F65A022445144300E26539 /* ChallengeBannerChoice.swift */; };
+		01F65A0524452BAE00E26539 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F65A0424452BAE00E26539 /* Secrets.swift */; };
 		01F7D7662422899000B2D5D8 /* NoWorkoutsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F7D7642422899000B2D5D8 /* NoWorkoutsCell.swift */; };
 		01F7D7672422899000B2D5D8 /* NoWorkoutsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F7D7652422899000B2D5D8 /* NoWorkoutsCell.xib */; };
 		01FF413424205FDA007D316A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF413224205FDA007D316A /* ProfileViewController.swift */; };
@@ -481,6 +482,7 @@
 		01F659FE244513FA00E26539 /* ChallengeBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeBannerViewController.swift; sourceTree = "<group>"; };
 		01F659FF244513FA00E26539 /* ChallengeBannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeBannerViewController.xib; sourceTree = "<group>"; };
 		01F65A022445144300E26539 /* ChallengeBannerChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeBannerChoice.swift; sourceTree = "<group>"; };
+		01F65A0424452BAE00E26539 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		01F7D7642422899000B2D5D8 /* NoWorkoutsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoWorkoutsCell.swift; sourceTree = "<group>"; };
 		01F7D7652422899000B2D5D8 /* NoWorkoutsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoWorkoutsCell.xib; sourceTree = "<group>"; };
 		01FF413224205FDA007D316A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -985,6 +987,7 @@
 				01863FB8241C66E2001B3CE2 /* Alert.swift */,
 				0158FF272423F73F00EDC584 /* Coding.swift */,
 				01611D3E243E859E00D1DAA4 /* FeedStyle.swift */,
+				01F65A0424452BAE00E26539 /* Secrets.swift */,
 			);
 			path = foundation;
 			sourceTree = "<group>";
@@ -1495,6 +1498,7 @@
 				01BFF90E223DE26C0044F802 /* APS.swift in Sources */,
 				01A3EAEB2377471B0097FC2A /* BindableObserver.swift in Sources */,
 				747D6FD82208E8130062BB39 /* KeychainErrors.swift in Sources */,
+				01F65A0524452BAE00E26539 /* Secrets.swift in Sources */,
 				01A3EB18237747D30097FC2A /* CVCalendarView.swift in Sources */,
 				01A3EB29237747D30097FC2A /* CVCalendarManager.swift in Sources */,
 				01A3EB22237747D30097FC2A /* CVCalendarMonthContentViewController.swift in Sources */,

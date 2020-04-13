@@ -145,6 +145,7 @@ PODS:
     - Starscream (~> 3.1.0)
   - TTTAttributedLabel (2.0.0)
   - UIScrollView-InfiniteScroll (1.1.0)
+  - UnsplashPhotoPicker (1.1.1)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
@@ -180,6 +181,7 @@ DEPENDENCIES:
   - SwiftPhoenixClient
   - TTTAttributedLabel
   - UIScrollView-InfiniteScroll (~> 1.1.0)
+  - UnsplashPhotoPicker (~> 1.1.1)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -235,6 +237,7 @@ SPEC REPOS:
     - SwiftPhoenixClient
     - TTTAttributedLabel
     - UIScrollView-InfiniteScroll
+    - UnsplashPhotoPicker
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
@@ -289,7 +292,8 @@ SPEC CHECKSUMS:
   SwiftPhoenixClient: ba22ba809b345522afe478817d7cb51ee3d49365
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UIScrollView-InfiniteScroll: 3ef456bcbe759c19f510a383cff96e6647c98c98
+  UnsplashPhotoPicker: 86520e34cfded8fb4a41910bf87afe571906b4e3
 
-PODFILE CHECKSUM: e27faa04cc7ba9585392f487c0a08583450def90
+PODFILE CHECKSUM: 8c9deef988339dfd34bfba28af419c22b5e034a5
 
 COCOAPODS: 1.9.1

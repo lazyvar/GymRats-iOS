@@ -35,4 +35,5 @@ ${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework
 ${BUILT_PRODUCTS_DIR}/SwiftPhoenixClient/SwiftPhoenixClient.framework
 ${BUILT_PRODUCTS_DIR}/TTTAttributedLabel/TTTAttributedLabel.framework
 ${BUILT_PRODUCTS_DIR}/UIScrollView-InfiniteScroll/UIScrollView_InfiniteScroll.framework
+${BUILT_PRODUCTS_DIR}/UnsplashPhotoPicker/UnsplashPhotoPicker.framework
 ${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework

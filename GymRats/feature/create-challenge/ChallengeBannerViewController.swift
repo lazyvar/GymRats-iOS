@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxDataSources
+import UnsplashPhotoPicker
 
 typealias ChallengeBannerSection = SectionModel<Void, ChallengeBannerChoice>
 
@@ -44,7 +45,7 @@ class ChallengeBannerViewController: BindableViewController {
     tableView.rx.itemSelected
       .subscribe(onNext: { [weak self] indexPath in
         self?.tableView.deselectRow(at: indexPath, animated: true)
-        
+
         switch indexPath.row {
         case 0: self?.uploadOwn()
         case 1: self?.choosePreset()
@@ -61,16 +62,16 @@ class ChallengeBannerViewController: BindableViewController {
     imagePicker.allowsEditing = true
     
     let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-    let photoLibrary = UIAlertAction(title: "Choose from photo library", style: .default) { _ in
+    let photoLibrary = UIAlertAction(title: "Photo library", style: .default) { _ in
       imagePicker.sourceType = .photoLibrary
       self.present(imagePicker, animated: true, completion: nil)
     }
     
-    let camera = UIAlertAction(title: "Take photo from camera", style: .default) { _ in
+    let camera = UIAlertAction(title: "Camera", style: .default) { _ in
       imagePicker.sourceType = .camera
       self.present(imagePicker, animated: true, completion: nil)
     }
-    
+
     let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
     
     alert.addAction(photoLibrary)
@@ -79,9 +80,28 @@ class ChallengeBannerViewController: BindableViewController {
     
     present(alert, animated: true, completion: nil)
   }
-  
+
   private func choosePreset() {
+    let configuration = UnsplashPhotoPickerConfiguration(
+      accessKey: Secrets.Unsplash.accessKey,
+      secretKey: Secrets.Unsplash.secretKey,
+      allowsMultipleSelection: false
+    )
     
+    let unsplashPhotoPicker = UnsplashPhotoPicker(configuration: configuration)
+    unsplashPhotoPicker.photoPickerDelegate = self
+
+    present(unsplashPhotoPicker, animated: true, completion: nil)
+  }
+}
+
+extension ChallengeBannerViewController: UnsplashPhotoPickerDelegate {
+  func unsplashPhotoPicker(_ photoPicker: UnsplashPhotoPicker, didSelectPhotos photos: [UnsplashPhoto]) {
+    // ...
+  }
+  
+  func unsplashPhotoPickerDidCancel(_ photoPicker: UnsplashPhotoPicker) {
+    // ...
   }
 }
 
