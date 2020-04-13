@@ -119,7 +119,7 @@ final class MenuViewModel: ViewModel {
         switch indexPath.row {
         case 0: return (.replaceDrawerCenterInNav(animated: true), .completedChallenges)
         case 1: return nil
-        case 2: return (.presentInNav(animated: true), .createChallenge(self))
+        case 2: return (.presentInNav(animated: true), .createChallenge)
         case 3: return (.replaceDrawerCenterInNav(animated: true), .settings)
         case 4: return (.replaceDrawerCenterInNav(animated: true), .about)
         default: fatalError("Unhandled row")
@@ -131,15 +131,16 @@ final class MenuViewModel: ViewModel {
   }
 }
 
-extension MenuViewModel: CreateChallengeDelegate {
-  func challengeCreated(challenge: Challenge) {
-    Challenge.State.all.fetch().ignore(disposedBy: disposeBag)
-    UserDefaults.standard.set(challenge.id, forKey: "last_opened_challenge")
-    
-    if challenge.isActive {
-      output.navigation.on(.next((.replaceDrawerCenter(animated: true), .activeChallenge(challenge))))
-    } else {
-      output.navigation.on(.next((.replaceDrawerCenterInNav(animated: true), .upcomingChallenge(challenge))))
-    }
-  }
-}
+//
+//extension MenuViewModel: CreateChallengeDelegate {
+//  func challengeCreated(challenge: Challenge) {
+//    Challenge.State.all.fetch().ignore(disposedBy: disposeBag)
+//    UserDefaults.standard.set(challenge.id, forKey: "last_opened_challenge")
+//
+//    if challenge.isActive {
+//      output.navigation.on(.next((.replaceDrawerCenter(animated: true), .activeChallenge(challenge))))
+//    } else {
+//      output.navigation.on(.next((.replaceDrawerCenterInNav(animated: true), .upcomingChallenge(challenge))))
+//    }
+//  }
+//}

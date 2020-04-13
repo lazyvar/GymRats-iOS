@@ -266,9 +266,9 @@ extension ChatViewController: MessagesDisplayDelegate {
     case .emoji:
       return .clear
     default:
-      guard let dataSource = messagesCollectionView.messagesDataSource else { return .newWhite }
+      guard let dataSource = messagesCollectionView.messagesDataSource else { return .white }
       
-      return dataSource.isFromCurrentSender(message: message) ? .newWhite : .primaryText
+      return dataSource.isFromCurrentSender(message: message) ? .white : .primaryText
     }
   }
 }

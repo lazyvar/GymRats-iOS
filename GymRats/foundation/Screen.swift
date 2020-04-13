@@ -13,7 +13,7 @@ enum Screen {
   case activeChallenge(Challenge)
   case noChallenges
   case home
-  case createChallenge(CreateChallengeDelegate)
+  case createChallenge
   case workout(Workout, Challenge?)
   case profile(Account, Challenge)
   case currentAccount(Account)
@@ -41,11 +41,8 @@ enum Screen {
       return ChallengeTabBarController(challenge: challenge)
     case .challengeStats(let challenge):
       return ChallengeStatsViewController(challenge: challenge)
-    case .createChallenge(let delegate):
-      let createChallengeViewController = CreateChallengeViewController()
-      createChallengeViewController.delegate = delegate
-      
-      return createChallengeViewController
+    case .createChallenge:
+      return UIViewController()
     case .workout(let workout, let challenge):
       return WorkoutViewController(workout: workout, challenge: challenge)
     case .profile(let account, let challenge):

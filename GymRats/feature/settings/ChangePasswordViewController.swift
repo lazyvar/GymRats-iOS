@@ -53,8 +53,8 @@ class ChangePasswordController: GRFormViewController {
                     let signUpButton = UIButton(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 44))
                     signUpButton.titleLabel?.font = .body
                     signUpButton.setTitle("SAVE", for: .normal)
-                    signUpButton.setTitleColor(UIColor.newWhite, for: .normal)
-                    signUpButton.setTitleColor(UIColor.newWhite, for: .highlighted)
+                    signUpButton.setTitleColor(UIColor.white, for: .normal)
+                    signUpButton.setTitleColor(UIColor.white, for: .highlighted)
                     signUpButton.setBackgroundImage(.init(color: .greenSea), for: .normal)
                     signUpButton.setBackgroundImage(.init(color: UIColor.greenSea.darker), for: .highlighted)
                     signUpButton.addTarget(self, action: #selector(self.doSave), for: .touchUpInside)

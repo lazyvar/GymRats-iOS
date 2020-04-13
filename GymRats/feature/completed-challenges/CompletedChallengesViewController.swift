@@ -16,7 +16,6 @@ class CompletedChallengesViewController: UITableViewController {
     
     let disposeBag = DisposeBag()
     let refresher = UIRefreshControl()
-    let retryButton: UIButton = .secondary(text: "Retry")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,16 +35,11 @@ class CompletedChallengesViewController: UITableViewController {
         refresher.addTarget(self, action: #selector(fetchAllChallenges), for: .valueChanged)
         
         tableView.addSubview(refresher)
-        
-        retryButton.onTouchUpInside { [weak self] in
-            self?.fetchAllChallenges()
-        }.disposed(by: disposeBag)
-        
+
         fetchAllChallenges()
     }
     
     @objc func fetchAllChallenges() {
-      retryButton.isHidden = true
       showLoadingBar()
       
       Challenge.State.all.fetch()

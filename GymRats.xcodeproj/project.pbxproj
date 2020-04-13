@@ -243,7 +243,6 @@
 		74A01B25220A0AFB00431ABD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B24220A0AFB00431ABD /* HomeViewController.swift */; };
 		74A01B27220A0BBF00431ABD /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B26220A0BBF00431ABD /* Challenge.swift */; };
 		74A01B2C220A1A5B00431ABD /* SimpleError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B2B220A1A5B00431ABD /* SimpleError.swift */; };
-		74A01B2F220A1CD900431ABD /* CreateChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B2E220A1CD900431ABD /* CreateChallengeViewController.swift */; };
 		74A01B34220A3B2000431ABD /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B33220A3B2000431ABD /* Workout.swift */; };
 		74A01B3B220A544F00431ABD /* UserWorkoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A01B39220A544F00431ABD /* UserWorkoutTableViewCell.swift */; };
 		74A01B3C220A544F00431ABD /* UserWorkoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 74A01B3A220A544F00431ABD /* UserWorkoutTableViewCell.xib */; };
@@ -521,7 +520,6 @@
 		74A01B24220A0AFB00431ABD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		74A01B26220A0BBF00431ABD /* Challenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
 		74A01B2B220A1A5B00431ABD /* SimpleError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleError.swift; sourceTree = "<group>"; };
-		74A01B2E220A1CD900431ABD /* CreateChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChallengeViewController.swift; sourceTree = "<group>"; };
 		74A01B33220A3B2000431ABD /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		74A01B39220A544F00431ABD /* UserWorkoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserWorkoutTableViewCell.swift; sourceTree = "<group>"; };
 		74A01B3A220A544F00431ABD /* UserWorkoutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserWorkoutTableViewCell.xib; sourceTree = "<group>"; };
@@ -1099,7 +1097,6 @@
 		74A01B2D220A1CC800431ABD /* create-challenge */ = {
 			isa = PBXGroup;
 			children = (
-				74A01B2E220A1CD900431ABD /* CreateChallengeViewController.swift */,
 				01A1CD23233AF6B8005871F4 /* EditChallengeViewController.swift */,
 				01C926E7233FB96E00C1C128 /* ShareCodeViewController.swift */,
 			);
@@ -1465,7 +1462,6 @@
 				0176B677243B9EAD0022B65F /* UIDevice+Extension.swift in Sources */,
 				013D023F24193B440063F189 /* ChallengeViewModel.swift in Sources */,
 				01AB95AB243F90D30066C7DA /* SpookyView.swift in Sources */,
-				74A01B2F220A1CD900431ABD /* CreateChallengeViewController.swift in Sources */,
 				01C926E8233FB96E00C1C128 /* ShareCodeViewController.swift in Sources */,
 				746764E7220BAE44000CFB1B /* CreateWorkoutViewController.swift in Sources */,
 				01107DC9243CE665005AA8F3 /* HowItWorksViewController.swift in Sources */,

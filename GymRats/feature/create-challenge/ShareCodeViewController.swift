@@ -17,8 +17,6 @@ class ShareCodeViewController: UIViewController {
 
     var challenge: Challenge!
     
-    weak var delegate: CreateChallengeDelegate?
-    
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var textView: UITextView!
@@ -66,7 +64,6 @@ class ShareCodeViewController: UIViewController {
 
     @objc func close() {
         self.dismissSelf()
-        self.delegate?.challengeCreated(challenge: challenge)
     }
     
   func invite() {
