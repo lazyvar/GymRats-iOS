@@ -75,11 +75,12 @@ class CreateChallengeViewController: GRFormViewController {
     }
   }()
 
-  private lazy var durationRow: TextFieldRow = {
-    return TextFieldRow() { textRow in
+  private lazy var durationRow: IntegerPickerRow = {
+    return IntegerPickerRow() { textRow in
       textRow.placeholder = "Duration"
       textRow.icon = .clock
-      textRow.keyboardType = .decimalPad
+      textRow.value = 30
+      textRow.numberOfRows = 1000.years.in(.day) ?? 0
     }
   }()
 
@@ -95,12 +96,15 @@ class CreateChallengeViewController: GRFormViewController {
     }
   }()
 
-  private lazy var scoreRow: TextFieldRow = {
-    return TextFieldRow() { textRow in
+  private lazy var scoreRow: IntegerPickerRow = {
+    return IntegerPickerRow() { textRow in
       textRow.placeholder = "Score by"
       textRow.tag = "score_by"
       textRow.add(rule: RuleRequired(msg: "Score is required."))
       textRow.icon = .star
+      textRow.value = 0
+      textRow.numberOfRows = ScoreBy.allCases.count
+      textRow.displayInt = { ScoreBy.init(rawValue: $0)?.display ?? "" }
     }
   }()
 
