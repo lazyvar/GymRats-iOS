@@ -268,7 +268,7 @@ class CreateWorkoutViewController: GRFormViewController {
     }
     
     @objc func postWorkout() {
-      guard (title.value ?? "").isNotEmpty else { presentAlert(title: "Uh-oh", message: "A title is required."); return }
+      guard (title.value ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isNotEmpty else { presentAlert(title: "Uh-oh", message: "A title is required."); return }
 
       showLoadingBar(disallowUserInteraction: true)
         

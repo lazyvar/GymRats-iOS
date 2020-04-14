@@ -12,10 +12,10 @@ import Eureka
 
 class LoginViewController: GRFormViewController {
     
-  let disposeBag = DisposeBag()
+  private let disposeBag = DisposeBag()
   
-  let loginButton = PrimaryButton()
-  let resetPasswordButton = SecondaryButton()
+  private let loginButton = PrimaryButton()
+  private let resetPasswordButton = SecondaryButton()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -95,13 +95,13 @@ class LoginViewController: GRFormViewController {
       .disposed(by: disposeBag)
   }
     
-  lazy var section: Section = {
+  private lazy var section: Section = {
     return Section() { section in
       section.footer = self.sectionFooter
     }
   }()
   
-  let emailRow: TextFieldRow = {
+  private let emailRow: TextFieldRow = {
     return TextFieldRow() { textRow in
       textRow.placeholder = "Email"
       textRow.tag = "email"
@@ -114,7 +114,7 @@ class LoginViewController: GRFormViewController {
     })
   }()
   
-  let passwordRow: TextFieldRow = {
+  private let passwordRow: TextFieldRow = {
     return TextFieldRow() { passwordRow in
       passwordRow.placeholder = "Password"
       passwordRow.secure = true
@@ -128,7 +128,7 @@ class LoginViewController: GRFormViewController {
     })
   }()
   
-  lazy var sectionFooter: HeaderFooterView<UIView> = {
+  private lazy var sectionFooter: HeaderFooterView<UIView> = {
     let footerBuilder = { () -> UIView in
       let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 96))
       

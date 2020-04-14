@@ -49,11 +49,13 @@ enum ChallengeFlow {
   }
   
   static func join(code: String) {
-    UIViewController.topmost().showLoadingBar()
+    let topmost = UIViewController.topmost()
+
+    topmost.showLoadingBar()
   
     gymRatsAPI.getChallenge(code: code)
       .subscribe(onNext: { result in
-        UIViewController.topmost().hideLoadingBar()
+        topmost.hideLoadingBar()
         
         switch result {
         case .success(let challenges):
@@ -69,9 +71,9 @@ enum ChallengeFlow {
             action: #selector(UIViewController.dismissSelf)
           )
           
-          UIViewController.topmost().present(nav, animated: true, completion: nil)
+          topmost.present(nav, animated: true, completion: nil)
         case .failure(let error):
-          UIViewController.topmost().presentAlert(with: error)
+          topmost.presentAlert(with: error)
         }
       })
       .disposed(by: disposeBag)
@@ -81,7 +83,13 @@ enum ChallengeFlow {
     return .create { observer in
       let joinChallengeViewController = JoinChallengeViewController()
       let nav = joinChallengeViewController.inNav()
+      let topmost = UIViewController.topmost()
+      let drawer = topmost.mm_drawerController
       
+      if drawer?.openSide == .left {
+        drawer?.closeDrawer(animated: true, completion: nil)
+      }
+
       joinChallengeViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(
         image: .close,
         style: .plain,
@@ -89,7 +97,7 @@ enum ChallengeFlow {
         action: #selector(UIViewController.dismissSelf)
       )
       
-      UIViewController.topmost().present(nav, animated: true, completion: nil)
+      topmost.present(nav, animated: true, completion: nil)
 
       return NotificationCenter.default.rx.notification(.joinedChallenge)
         .subscribe { event in

@@ -51,7 +51,7 @@ class ChooseChallengeModeViewController: BindableViewController {
         
         switch indexPath.row {
         case 0: self?.push(ChallengeBannerViewController())
-        case 1: self?.push(JoinChallengeViewController())
+        case 1: self?.push(CreateChallengeViewController())
         default: fatalError("Unhandled row.")
         }
       })

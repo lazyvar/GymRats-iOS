@@ -21,6 +21,14 @@ enum Navigation {
 extension UIViewController {
   func navigate(_ navigation: Navigation, to viewController: UIViewController) {
     switch navigation {
+    case .present, .presentInNav:
+      if mm_drawerController?.openSide == .left {
+        mm_drawerController?.closeDrawer(animated: true, completion: nil)
+      }
+    default: break
+    }
+    
+    switch navigation {
     case .push(animated: let animated):
       push(viewController, animated: animated)
     case .present(animated: let animated):
