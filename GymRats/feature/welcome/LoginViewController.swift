@@ -97,10 +97,32 @@ class LoginViewController: GRFormViewController {
     
   private lazy var section: Section = {
     return Section() { section in
+      section.header = self.sectionHeader
       section.footer = self.sectionFooter
     }
   }()
   
+  private lazy var sectionHeader: HeaderFooterView<UIView> = {
+    let headerBuilder = { () -> UIView in
+      let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
+
+      let label = UILabel()
+      label.font = .body
+      label.text = "Welcome back."
+      label.frame = CGRect(x: 20, y: 0, width: self.view.frame.width - 40, height: 20)
+      label.sizeToFit()
+      
+      container.addSubview(label)
+      
+      return container
+    }
+      
+    var footer = HeaderFooterView<UIView>(.callback(headerBuilder))
+    footer.height = { 40 }
+    
+    return footer
+  }()
+
   private let emailRow: TextFieldRow = {
     return TextFieldRow() { textRow in
       textRow.placeholder = "Email"

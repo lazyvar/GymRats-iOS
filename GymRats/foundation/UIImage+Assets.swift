@@ -12,7 +12,7 @@ extension UIImage {
   static let moreVertical       = UIImage(named: "more-vertical")!
   static let chat               = UIImage(named: "chat")!
   static let chatUnread         = UIImage(named: "chat-unread")!
-  static let standings          = UIImage(named: "standings")!
+  static let award              = UIImage(named: "award")!
   static let activityLargeWhite = UIImage(named: "activity-large-white")!
   static let activity           = UIImage(named: "activity")!
   static let archive            = UIImage(named: "archive")!

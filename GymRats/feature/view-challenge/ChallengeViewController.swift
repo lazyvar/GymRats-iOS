@@ -92,7 +92,7 @@ class ChallengeViewController: BindableViewController {
   )
 
   private lazy var statsBarButtonItem = UIBarButtonItem(
-    image: .standings,
+    image: .award,
     style: .plain,
     target: self,
     action: #selector(statsTapped)

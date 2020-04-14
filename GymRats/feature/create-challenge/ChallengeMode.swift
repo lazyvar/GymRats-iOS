@@ -21,7 +21,7 @@ enum ChallengeMode: CaseIterable {
   
   var subtitle: String {
     switch self {
-    case .classic: return "The award winning mode."
+    case .classic: return "Become a rat."
     case .custom: return "Pick and choose your settings."
     }
   }
