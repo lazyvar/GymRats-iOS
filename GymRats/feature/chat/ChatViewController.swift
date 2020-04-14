@@ -222,18 +222,20 @@ extension ChatViewController: MessagesDataSource {
     return chats.count
   }
   
-//  func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-//    if indexPath.section == 0 {
-//      return NSAttributedString(string: MessageKitDateFormatter.shared.string(from: message.sentDate),
-//       attributes: [
-//        .font: UIFont.detailsBold,
-//        .foregroundColor: UIColor.secondaryText
-//      ])
-//    }
-//
-//    return nil
-//  }
-//
+  func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+    let show = indexPath.section == 0 || abs(chats[indexPath.section - 1].sentDate.utcDateIsDaysApartFromUtcDate(chats[indexPath.section].sentDate)) >= 1
+    
+    if show {
+      return NSAttributedString(string: MessageKitDateFormatter.shared.string(from: message.sentDate),
+       attributes: [
+        .font: UIFont.detailsBold,
+        .foregroundColor: UIColor.secondaryText
+      ])
+    }
+
+    return nil
+  }
+
 //  func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
 //    let name = message.sender.displayName
 //
@@ -261,9 +263,11 @@ extension ChatViewController: MessageCellDelegate {
 }
 
 extension ChatViewController: MessagesLayoutDelegate {
-//  func cellTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-//    return 0
-//  }
+  func cellTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+    let show = indexPath.section == 0 || abs(chats[indexPath.section - 1].sentDate.utcDateIsDaysApartFromUtcDate(chats[indexPath.section].sentDate)) >= 1
+
+    return show ? 30 : 0
+  }
 //
 //  func messageTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
 //    return 25
@@ -324,8 +328,8 @@ extension ChatViewController: MessagesDisplayDelegate {
       ]
     } else {
       return [
-        .foregroundColor: UIColor.secondaryText,
-        .underlineColor: UIColor.secondaryText,
+        .foregroundColor: UIColor.brand,
+        .underlineColor: UIColor.brand,
         .underlineStyle: NSUnderlineStyle.single.rawValue
       ]
     }
