@@ -54,9 +54,22 @@ class CreateChallengeViewController: GRFormViewController {
   }
     
   @objc private func nextTapped() {
-    guard form.validate().count == 0 else { return }
+    let values = form.values()
     
-    print(form.values())
+    guard form.validate().count == 0 else { return }
+    guard let score = values["score_by"] as? Int else { return }
+    guard let scoreBy = ScoreBy(rawValue: score) else { return }
+    
+    let newChallenge = NewChallenge(
+      name: values["name"] as? String ?? "",
+      description: values["description"] as? String,
+      startDate: values["start_date"] as? Date ?? Date(),
+      endDate: values["end_date"] as? Date ?? Date(),
+      scoreBy: scoreBy,
+      banner: nil
+    )
+    
+    push(ChallengeBannerViewController(newChallenge), animated: true)
   }
     
   // MARK: Eurekah

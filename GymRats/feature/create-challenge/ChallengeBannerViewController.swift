@@ -15,6 +15,17 @@ typealias ChallengeBannerSection = SectionModel<Void, ChallengeBannerChoice>
 
 class ChallengeBannerViewController: BindableViewController {
   private let disposeBag = DisposeBag()
+  private var newChallenge: NewChallenge
+  
+  init(_ newChallenge: NewChallenge) {
+    self.newChallenge = newChallenge
+    
+    super.init(nibName: Self.xibName, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   
   @IBOutlet private weak var tableView: UITableView! {
     didSet {

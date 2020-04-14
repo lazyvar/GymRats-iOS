@@ -50,8 +50,8 @@ class ChooseChallengeModeViewController: BindableViewController {
         self?.tableView.deselectRow(at: indexPath, animated: true)
         
         switch indexPath.row {
-        case 0: self?.push(ChallengeBannerViewController())
-        case 1: self?.push(CreateChallengeViewController())
+        case 0: self?.push(UIViewController(), animated: true)
+        case 1: self?.push(CreateChallengeViewController(), animated: true)
         default: fatalError("Unhandled row.")
         }
       })

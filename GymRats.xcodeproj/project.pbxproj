@@ -195,6 +195,7 @@
 		01D70BD324465CB000F6F33A /* IntegerPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D70BD124465CB000F6F33A /* IntegerPickerCell.swift */; };
 		01D70BD424465CB000F6F33A /* IntegerPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D70BD224465CB000F6F33A /* IntegerPickerCell.xib */; };
 		01D70BD624465FFF00F6F33A /* ScoreBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D70BD524465FFF00F6F33A /* ScoreBy.swift */; };
+		01D70BD8244676D600F6F33A /* NewChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D70BD7244676D600F6F33A /* NewChallenge.swift */; };
 		01E833E42325BF7300C66C72 /* ChallengeBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E833E22325BF7300C66C72 /* ChallengeBannerCell.swift */; };
 		01E833E52325BF7300C66C72 /* ChallengeBannerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01E833E32325BF7300C66C72 /* ChallengeBannerCell.xib */; };
 		01EED5CD24253A3E005E0249 /* ChatNotificationCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EED5CC24253A3E005E0249 /* ChatNotificationCount.swift */; };
@@ -477,6 +478,7 @@
 		01D70BD124465CB000F6F33A /* IntegerPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerPickerCell.swift; sourceTree = "<group>"; };
 		01D70BD224465CB000F6F33A /* IntegerPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntegerPickerCell.xib; sourceTree = "<group>"; };
 		01D70BD524465FFF00F6F33A /* ScoreBy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreBy.swift; sourceTree = "<group>"; };
+		01D70BD7244676D600F6F33A /* NewChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChallenge.swift; sourceTree = "<group>"; };
 		01E833E22325BF7300C66C72 /* ChallengeBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeBannerCell.swift; sourceTree = "<group>"; };
 		01E833E32325BF7300C66C72 /* ChallengeBannerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeBannerCell.xib; sourceTree = "<group>"; };
 		01EED5CC24253A3E005E0249 /* ChatNotificationCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNotificationCount.swift; sourceTree = "<group>"; };
@@ -1096,6 +1098,7 @@
 				01319EDA241879FD005E65D2 /* UpdateUser.swift */,
 				01EED5CC24253A3E005E0249 /* ChatNotificationCount.swift */,
 				01610147242ABC2800731E30 /* ChallengeInfo.swift */,
+				01D70BD7244676D600F6F33A /* NewChallenge.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1548,6 +1551,7 @@
 				01A3EB29237747D30097FC2A /* CVCalendarManager.swift in Sources */,
 				01A3EB22237747D30097FC2A /* CVCalendarMonthContentViewController.swift in Sources */,
 				015E2A95243CF08600307B21 /* ChoiceCell.swift in Sources */,
+				01D70BD8244676D600F6F33A /* NewChallenge.swift in Sources */,
 				01F5295424180AB600FA96E0 /* BindableViewController.swift in Sources */,
 				74BE97BC220C9F2800D550CA /* ImageCell.swift in Sources */,
 				747D6FE92208EDAF0062BB39 /* Colors.swift in Sources */,
