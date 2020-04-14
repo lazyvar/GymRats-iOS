@@ -110,7 +110,7 @@ class ChatViewController: MessagesViewController {
   }
   
   @objc private func disconnectSocket() {
-    channel.leave()
+    channel?.leave()
     socket.disconnect()
   }
   
