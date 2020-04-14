@@ -48,8 +48,7 @@ extension Account: Avatar {
   var avatarImageURL: String? { return profilePictureUrl }
 }
 
-extension Account {
-  var asSender: Sender {
-    return Sender(id: "\(id)", displayName: fullName)
-  }
+extension Account: SenderType {
+  var senderId: String { return "\(id)" }
+  var displayName: String { return fullName }
 }

@@ -15,6 +15,8 @@ class SpookyView: UIView {
     super.layoutSubviews()
 
     if shadowLayer == nil {
+      backgroundColor = .clear
+      
       shadowLayer = CAShapeLayer()
       shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: 4).cgPath
       shadowLayer.fillColor = UIColor.foreground.cgColor

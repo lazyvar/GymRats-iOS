@@ -23,7 +23,7 @@ struct ChatMessage: Codable, Hashable {
 
 extension ChatMessage: MessageType {
   var sender: SenderType {
-    return account.asSender
+    return account
   }
   
   var messageId: String {
@@ -35,6 +35,14 @@ extension ChatMessage: MessageType {
   }
   
   var kind: MessageKind {
-      return .text(content)
+    let color: UIColor
+    
+    if account.id == GymRats.currentAccount.id {
+      color = .white
+    } else {
+      color = .primaryText
+    }
+    
+    return .attributedText(.init(string: content, attributes: [.font: UIFont.body, .foregroundColor: color]))
   }
 }
