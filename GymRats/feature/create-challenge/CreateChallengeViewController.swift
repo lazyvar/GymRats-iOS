@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import Eureka
+import SwiftDate
 
 class CreateChallengeViewController: GRFormViewController {
   private let disposeBag = DisposeBag()
@@ -63,12 +64,14 @@ class CreateChallengeViewController: GRFormViewController {
     }
   }()
 
-  private lazy var startDateRow: TextFieldRow = {
-    return TextFieldRow() { textRow in
+  private lazy var startDateRow: PickDateRow = {
+    return PickDateRow() { textRow in
       textRow.placeholder = "Start date"
       textRow.tag = "start_date"
       textRow.icon = .cal
       textRow.add(rule: RuleRequired(msg: "Start date is required."))
+      textRow.value = Date()
+      textRow.startDate = Date()
     }
   }()
 
@@ -76,15 +79,19 @@ class CreateChallengeViewController: GRFormViewController {
     return TextFieldRow() { textRow in
       textRow.placeholder = "Duration"
       textRow.icon = .clock
+      textRow.keyboardType = .decimalPad
     }
   }()
 
-  private lazy var endDateRow: TextFieldRow = {
-    return TextFieldRow() { textRow in
+  private lazy var endDateRow: PickDateRow = {
+    return PickDateRow() { textRow in
       textRow.placeholder = "End date"
       textRow.tag = "end_date"
       textRow.icon = .cal
       textRow.add(rule: RuleRequired(msg: "End date is required."))
+      textRow.startDate = Date()
+      textRow.value = Date() + 30.days
+      textRow.endDate = Date() + 1000.years
     }
   }()
 

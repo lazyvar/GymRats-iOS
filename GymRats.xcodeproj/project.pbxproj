@@ -190,6 +190,8 @@
 		01D5D36D243BD32A0044E459 /* ShadowTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5D36C243BD32A0044E459 /* ShadowTextField.swift */; };
 		01D5D370243BDA7D0044E459 /* ErrorLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5D36E243BDA7D0044E459 /* ErrorLabelCell.swift */; };
 		01D5D371243BDA7D0044E459 /* ErrorLabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D5D36F243BDA7D0044E459 /* ErrorLabelCell.xib */; };
+		01D70BCF2446558B00F6F33A /* PickDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D70BCD2446558B00F6F33A /* PickDateCell.swift */; };
+		01D70BD02446558B00F6F33A /* PickDateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D70BCE2446558B00F6F33A /* PickDateCell.xib */; };
 		01E833E42325BF7300C66C72 /* ChallengeBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E833E22325BF7300C66C72 /* ChallengeBannerCell.swift */; };
 		01E833E52325BF7300C66C72 /* ChallengeBannerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01E833E32325BF7300C66C72 /* ChallengeBannerCell.xib */; };
 		01EED5CD24253A3E005E0249 /* ChatNotificationCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EED5CC24253A3E005E0249 /* ChatNotificationCount.swift */; };
@@ -467,6 +469,8 @@
 		01D5D36C243BD32A0044E459 /* ShadowTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowTextField.swift; sourceTree = "<group>"; };
 		01D5D36E243BDA7D0044E459 /* ErrorLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabelCell.swift; sourceTree = "<group>"; };
 		01D5D36F243BDA7D0044E459 /* ErrorLabelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ErrorLabelCell.xib; sourceTree = "<group>"; };
+		01D70BCD2446558B00F6F33A /* PickDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickDateCell.swift; sourceTree = "<group>"; };
+		01D70BCE2446558B00F6F33A /* PickDateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickDateCell.xib; sourceTree = "<group>"; };
 		01E833E22325BF7300C66C72 /* ChallengeBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeBannerCell.swift; sourceTree = "<group>"; };
 		01E833E32325BF7300C66C72 /* ChallengeBannerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeBannerCell.xib; sourceTree = "<group>"; };
 		01EED5CC24253A3E005E0249 /* ChatNotificationCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNotificationCount.swift; sourceTree = "<group>"; };
@@ -825,6 +829,8 @@
 				01CA1295243FF93100540402 /* UpcomingChallengeHeaderView.xib */,
 				01F65A07244543BC00E26539 /* TextViewCell.swift */,
 				01F65A08244543BC00E26539 /* TextViewCell.xib */,
+				01D70BCD2446558B00F6F33A /* PickDateCell.swift */,
+				01D70BCE2446558B00F6F33A /* PickDateCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1364,6 +1370,7 @@
 				01AC5F5F23CA3A4A00FFAE4D /* SegmentedCell.xib in Resources */,
 				015C071C243FC7E5003E75E9 /* LogWorkoutCell.xib in Resources */,
 				01F65A01244513FA00E26539 /* ChallengeBannerViewController.xib in Resources */,
+				01D70BD02446558B00F6F33A /* PickDateCell.xib in Resources */,
 				01611D3D243E777600D1DAA4 /* WorkoutBigCell.xib in Resources */,
 				01297D962329E79000CA9E41 /* SF-Pro-Rounded-Heavy.otf in Resources */,
 				01297D8B2329E79000CA9E41 /* SF-Compact-Rounded-Black.otf in Resources */,
@@ -1654,6 +1661,7 @@
 				747D6FE52208ED6F0062BB39 /* LoginViewController.swift in Sources */,
 				011EEB90241A8C4000CC9F9E /* TrackMessageDelegate.swift in Sources */,
 				014B6772241882C000F356EB /* ChallengeViewController.swift in Sources */,
+				01D70BCF2446558B00F6F33A /* PickDateCell.swift in Sources */,
 				01A3EB1B237747D30097FC2A /* CVSelectionType.swift in Sources */,
 				01A3EB25237747D30097FC2A /* CVCalendarViewAnimatorDelegate.swift in Sources */,
 				01BFF909223DB1C30044F802 /* ChatMessage.swift in Sources */,
