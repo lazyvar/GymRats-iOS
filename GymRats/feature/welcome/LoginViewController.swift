@@ -105,7 +105,7 @@ class LoginViewController: GRFormViewController {
     return TextFieldRow() { textRow in
       textRow.placeholder = "Email"
       textRow.tag = "email"
-      textRow.icon = UIDevice.contentMode == .dark ? .mailWhite : .mailBlack
+      textRow.icon = .mail
       textRow.keyboardType = .emailAddress
       textRow.contentType = .emailAddress
     }
@@ -118,7 +118,7 @@ class LoginViewController: GRFormViewController {
     return TextFieldRow() { passwordRow in
       passwordRow.placeholder = "Password"
       passwordRow.secure = true
-      passwordRow.icon = UIDevice.contentMode == .dark ? .lockWhite : .lockBlack
+      passwordRow.icon = .lock
       passwordRow.contentType = .password
       passwordRow.tag = "password"
     }

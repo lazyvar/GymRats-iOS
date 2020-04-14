@@ -25,11 +25,11 @@ class ShadowTextField: JVFloatLabeledTextField {
   }
   
   override func textRect(forBounds bounds: CGRect) -> CGRect {
-    return super.textRect(forBounds: bounds).insetBy(dx: 10, dy: 4)
+    return super.textRect(forBounds: bounds).insetBy(dx: 10, dy: 6)
   }
 
   override func editingRect(forBounds bounds: CGRect) -> CGRect {
-    return super.editingRect(forBounds: bounds).insetBy(dx: 10, dy: 4)
+    return super.editingRect(forBounds: bounds).insetBy(dx: 10, dy: 6)
   }
 
   override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
@@ -67,8 +67,9 @@ class ShadowTextField: JVFloatLabeledTextField {
   }
 
   private func setup() {
-    floatingLabelYPadding = 7
-    floatingLabelTextColor = .primaryText
+    font = .body
+    floatingLabelYPadding = 9
+    floatingLabelTextColor = .secondaryText
     floatingLabelActiveTextColor = .brand
     floatingLabelFont = .details
     clearButtonMode = .whileEditing

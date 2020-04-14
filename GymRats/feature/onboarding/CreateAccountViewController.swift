@@ -150,7 +150,7 @@ class CreateAccountViewController: GRFormViewController {
       passwordRow.placeholder = "Password"
       passwordRow.tag = "password"
       passwordRow.secure = true
-      passwordRow.icon = UIDevice.contentMode == .dark ? .lockWhite : .lockBlack
+      passwordRow.icon = .lock
       
       if #available(iOS 12.0, *) {
         passwordRow.contentType = .newPassword
@@ -172,7 +172,7 @@ class CreateAccountViewController: GRFormViewController {
       passwordRow.placeholder = "Confirm password"
       passwordRow.tag = "confirm_pass"
       passwordRow.secure = true
-      passwordRow.icon = UIDevice.contentMode == .dark ? .checkWhite : .checkBlack
+      passwordRow.icon = .check
       passwordRow.add(rule: RuleEqualsToRow(form: form, tag: "password", msg: "Passwords don't match."))
     }
     .cellSetup({ cell, row in
@@ -190,7 +190,7 @@ class CreateAccountViewController: GRFormViewController {
     return TextFieldRow() { textRow in
       textRow.placeholder = "Name"
       textRow.tag = "full_name"
-      textRow.icon = UIDevice.contentMode == .dark ? .nameWhite : .nameBlack
+      textRow.icon = .name
       textRow.contentType = .givenName
       textRow.add(rule: RuleRequired(msg: "Name is required."))
     }
@@ -199,7 +199,7 @@ class CreateAccountViewController: GRFormViewController {
   
   private lazy var emailRow: TextFieldRow = {
     return TextFieldRow() { emailRow in
-      emailRow.icon = UIDevice.contentMode == .dark ? .mailWhite : .mailBlack
+      emailRow.icon = .mail
       emailRow.placeholder = "Email"
       emailRow.tag = "email"
       emailRow.keyboardType = .emailAddress

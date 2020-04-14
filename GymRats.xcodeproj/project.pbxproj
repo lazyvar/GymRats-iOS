@@ -208,6 +208,8 @@
 		01F65A01244513FA00E26539 /* ChallengeBannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F659FF244513FA00E26539 /* ChallengeBannerViewController.xib */; };
 		01F65A032445144300E26539 /* ChallengeBannerChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F65A022445144300E26539 /* ChallengeBannerChoice.swift */; };
 		01F65A0524452BAE00E26539 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F65A0424452BAE00E26539 /* Secrets.swift */; };
+		01F65A09244543BC00E26539 /* TextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F65A07244543BC00E26539 /* TextViewCell.swift */; };
+		01F65A0A244543BC00E26539 /* TextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F65A08244543BC00E26539 /* TextViewCell.xib */; };
 		01F7D7662422899000B2D5D8 /* NoWorkoutsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F7D7642422899000B2D5D8 /* NoWorkoutsCell.swift */; };
 		01F7D7672422899000B2D5D8 /* NoWorkoutsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F7D7652422899000B2D5D8 /* NoWorkoutsCell.xib */; };
 		01FF413424205FDA007D316A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF413224205FDA007D316A /* ProfileViewController.swift */; };
@@ -483,6 +485,8 @@
 		01F659FF244513FA00E26539 /* ChallengeBannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeBannerViewController.xib; sourceTree = "<group>"; };
 		01F65A022445144300E26539 /* ChallengeBannerChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeBannerChoice.swift; sourceTree = "<group>"; };
 		01F65A0424452BAE00E26539 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		01F65A07244543BC00E26539 /* TextViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewCell.swift; sourceTree = "<group>"; };
+		01F65A08244543BC00E26539 /* TextViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextViewCell.xib; sourceTree = "<group>"; };
 		01F7D7642422899000B2D5D8 /* NoWorkoutsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoWorkoutsCell.swift; sourceTree = "<group>"; };
 		01F7D7652422899000B2D5D8 /* NoWorkoutsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoWorkoutsCell.xib; sourceTree = "<group>"; };
 		01FF413224205FDA007D316A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -819,6 +823,8 @@
 				01CA1291243FEF6E00540402 /* InviteCell.xib */,
 				01CA1294243FF93100540402 /* UpcomingChallengeHeaderView.swift */,
 				01CA1295243FF93100540402 /* UpcomingChallengeHeaderView.xib */,
+				01F65A07244543BC00E26539 /* TextViewCell.swift */,
+				01F65A08244543BC00E26539 /* TextViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1329,6 +1335,7 @@
 				019066C0243D09C6007103D9 /* JoinChallengeViewController.xib in Resources */,
 				018E9F4D229F7D7E008AB016 /* Challenge.storyboard in Resources */,
 				74118060220C58C300EB9D11 /* Lato-BlackItalic.ttf in Resources */,
+				01F65A0A244543BC00E26539 /* TextViewCell.xib in Resources */,
 				74118063220C58C300EB9D11 /* Lato-Hairline.ttf in Resources */,
 				01CA1297243FF93100540402 /* UpcomingChallengeHeaderView.xib in Resources */,
 				01297D942329E79000CA9E41 /* SF-Pro-Rounded-Medium.otf in Resources */,
@@ -1563,6 +1570,7 @@
 				01A3EB1E237747D30097FC2A /* CVCalendarMenuView.swift in Sources */,
 				0118C24E23C2B704002FB84D /* CreateWorkoutHeaderCell.swift in Sources */,
 				0166083C239C61B800FCFD26 /* DateProgressCell.swift in Sources */,
+				01F65A09244543BC00E26539 /* TextViewCell.swift in Sources */,
 				01A3EB28237747D30097FC2A /* CVCalendarWeekday.swift in Sources */,
 				01F5295624180ED200FA96E0 /* UIAlertViewController+Rx.swift in Sources */,
 				01D5D370243BDA7D0044E459 /* ErrorLabelCell.swift in Sources */,

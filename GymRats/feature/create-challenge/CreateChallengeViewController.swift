@@ -55,8 +55,8 @@ class CreateChallengeViewController: GRFormViewController {
     .onRowValidationChanged(self.handleRowValidationChange)
   }()
 
-  private lazy var descriptionRow: TextFieldRow = {
-    return TextFieldRow() { textRow in
+  private lazy var descriptionRow: TextViewRow = {
+    return TextViewRow() { textRow in
       textRow.placeholder = "Descripton (optional)"
       textRow.tag = "descripton"
       textRow.icon = .clipboard

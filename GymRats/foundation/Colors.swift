@@ -25,7 +25,12 @@ extension UIColor {
   static var secondaryText: UIColor {
     switch UIDevice.contentMode {
     case .light: return .hex("#000000", alpha: 0.25)
-    case .dark:  return .hex("#FFFFFF") // Dark mode todo
+    case .dark:
+      if #available(iOS 13.0, *) {
+        return .placeholderText
+      } else {
+        return .hex("#EAEAF5", alpha: 0.3)
+      }
     }
   }
 
