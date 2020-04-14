@@ -10,14 +10,17 @@ import UIKit
 import JVFloatLabeledTextField
 import Eureka
 
-class TextViewCell: Cell<String>, CellType {
-  @IBOutlet weak var textView: JVFloatLabeledTextView! {
+class TextViewCell: Cell<String>, CellType, AreaCell {
+  var textView: UITextView! { return floatTextView }
+  
+  @IBOutlet weak var floatTextView: JVFloatLabeledTextView! {
     didSet {
-      textView.backgroundColor = .clear
-      textView.floatingLabelTextColor = .secondaryText
-      textView.floatingLabelActiveTextColor = .brand
-      textView.floatingLabelFont = .details
-      textView.font = .body
+      floatTextView.backgroundColor = .clear
+      floatTextView.floatingLabelTextColor = .secondaryText
+      floatTextView.floatingLabelActiveTextColor = .brand
+      floatTextView.floatingLabelFont = .details
+      floatTextView.font = .body
+      floatTextView.delegate = self
     }
   }
   
@@ -35,18 +38,64 @@ class TextViewCell: Cell<String>, CellType {
   public override func update() {
     super.update()
     
-    textView.placeholder = (self.row as? TextViewRow)?.placeholder
+    floatTextView.placeholder = (self.row as? TextViewRow)?.placeholder
     iconImageView.image = (self.row as? TextViewRow)?.icon
+  }
+  
+  open override func cellCanBecomeFirstResponder() -> Bool {
+    return !row.isDisabled && floatTextView?.canBecomeFirstResponder == true
+  }
+
+  open override func cellBecomeFirstResponder(withDirection: Direction) -> Bool {
+    return floatTextView?.becomeFirstResponder() ?? false
+  }
+
+  open override func cellResignFirstResponder() -> Bool {
+    return floatTextView?.resignFirstResponder() ?? true
+  }
+  
+  @objc private func textChanged() {
+    row.value = floatTextView?.text
   }
 }
 
 extension TextViewCell: UITextViewDelegate {
+  func textViewDidBeginEditing(_ textView: UITextView) {
+    formViewController()?.beginEditing(of: self)
+    formViewController()?.textInputDidBeginEditing(textView, cell: self)
+  }
+
+  func textViewDidEndEditing(_ textView: UITextView) {
+    formViewController()?.endEditing(of: self)
+    formViewController()?.textInputDidEndEditing(textView, cell: self)
+    textChanged()
+  }
+  
   func textViewDidChange(_ textView: UITextView) {
-    row.value = textView.text
+    textChanged()
+  }
+
+  func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    return formViewController()?.textInput(textView, shouldChangeCharactersInRange: range, replacementString: text, cell: self) ?? true
+  }
+
+  func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+    return formViewController()?.textInputShouldBeginEditing(textView, cell: self) ?? true
+  }
+
+  func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+    return formViewController()?.textInputShouldEndEditing(textView, cell: self) ?? true
   }
 }
 
-final class TextViewRow: Row<TextViewCell>, RowType {
+final class TextViewRow: Row<TextViewCell>, RowType, FieldRowConformance, KeyboardReturnHandler {
+  var titlePercentage: CGFloat?
+  var placeholderColor: UIColor?
+  var keyboardReturnType: KeyboardReturnTypeConfiguration?
+  var formatter: Formatter?
+  var useFormatterDuringInput: Bool = false
+  var useFormatterOnDidBeginEditing: Bool?
+  
   var placeholder: String?
   var icon: UIImage?
   

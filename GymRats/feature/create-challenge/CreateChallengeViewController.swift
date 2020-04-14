@@ -35,7 +35,7 @@ class CreateChallengeViewController: GRFormViewController {
   @objc private func nextTapped() {
     guard form.validate().count == 0 else { return }
     
-    
+    print(form.values())
   }
     
   // MARK: Eurekah
