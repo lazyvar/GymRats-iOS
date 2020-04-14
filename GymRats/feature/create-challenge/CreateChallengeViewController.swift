@@ -30,6 +30,27 @@ class CreateChallengeViewController: GRFormViewController {
         <<< durationRow
         <<< endDateRow
         <<< scoreRow
+  
+    let startDate = startDateRow.rx.value
+    let endDate = endDateRow.rx.value
+    
+    let numberOfDays = Observable<Int>.combineLatest(startDate, endDate) { startDateVal, endDateVal in
+      return Int(startDateVal!.getInterval(toDate: endDateVal!, component: .day))
+    }
+
+    numberOfDays
+      .subscribe(onNext: { val in
+        self.durationRow.value = val
+        self.durationRow.cell.update()
+      })
+      .disposed(by: disposeBag)
+  
+    durationRow.rx.value
+      .subscribe(onNext: { val in
+        self.endDateRow.value = (self.startDateRow.value ?? Date()) + (val ?? 0).days
+        self.endDateRow.cell.update()
+      })
+      .disposed(by: disposeBag)
   }
     
   @objc private func nextTapped() {
