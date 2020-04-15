@@ -60,7 +60,7 @@ class ChallengeBannerViewController: BindableViewController {
         switch indexPath.row {
         case 0: self?.uploadOwn()
         case 1: self?.choosePreset()
-        case 2: self?.push(UIViewController())
+        case 2: self?.skip()
         default: fatalError("Unhandled row.")
         }
       })
@@ -104,11 +104,23 @@ class ChallengeBannerViewController: BindableViewController {
 
     present(unsplashPhotoPicker, animated: true, completion: nil)
   }
+  
+  private func skip() {
+    newChallenge.banner = nil
+    
+    push(CreateChallengerReviewViewController(newChallenge: newChallenge), animated: true)
+  }
 }
 
 extension ChallengeBannerViewController: UnsplashPhotoPickerDelegate {
   func unsplashPhotoPicker(_ photoPicker: UnsplashPhotoPicker, didSelectPhotos photos: [UnsplashPhoto]) {
-    // ...
+    guard let photo = photos.first else { return }
+    
+    newChallenge.banner = .right(photo.urls[.regular]?.absoluteString ?? "")
+
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+      self.push(CreateChallengerReviewViewController(newChallenge: self.newChallenge), animated: true)
+    }
   }
   
   func unsplashPhotoPickerDidCancel(_ photoPicker: UnsplashPhotoPicker) {
@@ -120,9 +132,11 @@ extension ChallengeBannerViewController: UIImagePickerControllerDelegate, UINavi
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
     picker.dismissSelf()
 
-    guard let image = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage else { return }
+    guard let image = info[.originalImage] as? UIImage else { return }
     
+    newChallenge.banner = .left(image)
     
+    push(CreateChallengerReviewViewController(newChallenge: newChallenge), animated: true)
   }
 }
 

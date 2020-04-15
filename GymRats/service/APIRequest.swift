@@ -18,7 +18,7 @@ enum APIRequest {
   case getAllChallenges
   case getCompletedChallenges
   case joinChallenge(code: String)
-  case createChallenge(startDate: Date, endDate: Date, challengeName: String, photoUrl: String?)
+  case createChallenge(startDate: Date, endDate: Date, name: String, bannerURL: String?, description: String?, scoreBy: ScoreBy)
   case getWorkoutsForChallenge(challenge: Challenge, page: Int)
   case getAllWorkouts(challenge: Challenge)
   case getAllWorkoutsForUser(user: Account)
@@ -70,16 +70,21 @@ enum APIRequest {
       return (.post, "memberships", ["code": code])
     case .deleteComment(id: let id):
       return (.delete, "comments/\(id)", nil)
-    case .createChallenge(startDate: let startDate, endDate: let endDate, challengeName: let challengeName, photoUrl: let photoUrl):
+    case .createChallenge(let startDate, let endDate, let name, let bannerURL, let description, let scoreBy):
       var params: Parameters =  [
         "start_date": startDate.toISO(),
         "end_date": endDate.toISO(),
-        "name": challengeName,
-        "time_zone": TimeZone.current.abbreviation()!
+        "name": name,
+        "time_zone": TimeZone.current.abbreviation()!,
+        "score_by": scoreBy.endpointValue
       ]
       
-      if let photoUrl = photoUrl {
-        params["profile_picture_url"] = photoUrl
+      if let bannerURL = bannerURL {
+        params["profile_picture_url"] = bannerURL
+      }
+      
+      if let description = description {
+        params["description"] = description
       }
       
       return (.post, "challenges", params)

@@ -42,7 +42,7 @@ extension ImageRowSourceTypes {
     var localizedString: String {
         switch self {
         case ImageRowSourceTypes.Camera:
-            return NSLocalizedString("Take photo", comment: "") 
+            return NSLocalizedString("Camera", comment: "")
         case ImageRowSourceTypes.PhotoLibrary:
             return NSLocalizedString("Photo library", comment: "")
         case ImageRowSourceTypes.SavedPhotosAlbum:

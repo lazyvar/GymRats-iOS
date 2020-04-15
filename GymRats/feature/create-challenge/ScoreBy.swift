@@ -26,4 +26,15 @@ enum ScoreBy: Int, CaseIterable {
     case .points: return "Points"
     }
   }
+  
+  var endpointValue: String {
+    switch self {
+    case .totalWorkouts: return "workouts"
+    case .exerciseMinutes: return "minutes"
+    case .miles: return "miles"
+    case .steps: return "steps"
+    case .calories: return "calories"
+    case .points: return "points"
+    }
+  }
 }

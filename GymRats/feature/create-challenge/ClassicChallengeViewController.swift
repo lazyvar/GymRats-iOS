@@ -1,8 +1,8 @@
 //
-//  CreateChallengeViewController.swift
+//  ClassicChallengeViewController.swift
 //  GymRats
 //
-//  Created by mack on 4/13/20.
+//  Created by mack on 4/14/20.
 //  Copyright © 2020 Mack Hasz. All rights reserved.
 //
 
@@ -11,13 +11,13 @@ import RxSwift
 import Eureka
 import SwiftDate
 
-class CreateChallengeViewController: GRFormViewController {
+class ClassicChallengeViewController: GRFormViewController {
   private let disposeBag = DisposeBag()
   
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    title = "Create challenge"
+    title = "Classic challenge"
     
     tableView.backgroundColor = .background
     tableView.separatorStyle = .none
@@ -29,50 +29,23 @@ class CreateChallengeViewController: GRFormViewController {
         <<< nameRow
         <<< descriptionRow
         <<< startDateRow
-        <<< durationRow
-        <<< endDateRow
-        <<< scoreRow
-  
-    let startDate = startDateRow.rx.value
-    let endDate = endDateRow.rx.value
-    
-    let numberOfDays = Observable<Int>.combineLatest(startDate, endDate) { startDateVal, endDateVal in
-      return Int(startDateVal!.getInterval(toDate: endDateVal!, component: .day))
-    }
-
-    numberOfDays
-      .subscribe(onNext: { val in
-        self.durationRow.value = val
-        self.durationRow.cell.update()
-      })
-      .disposed(by: disposeBag)
-  
-    durationRow.rx.value
-      .subscribe(onNext: { val in
-        self.endDateRow.value = (self.startDateRow.value ?? Date()) + (val ?? 0).days
-        self.endDateRow.cell.update()
-      })
-      .disposed(by: disposeBag)
   }
     
   @objc private func nextTapped() {
     let values = form.values()
     
     guard form.validate().count == 0 else { return }
-    guard let score = values["score_by"] as? Int else { return }
-    guard let scoreBy = ScoreBy(rawValue: score) else { return }
     guard let start = values["start_date"] as? Date else { return }
-    guard let end = values["end_date"] as? Date else { return }
 
     let startDate = DateInRegion(start, region: .current).dateAtStartOf(.day).date
-    let endDate = DateInRegion(end, region: .current).dateAtStartOf(.day).date
+    let endDate = DateInRegion(Date() + 30.days, region: .current).dateAtStartOf(.day).date
 
     let newChallenge = NewChallenge(
       name: values["name"] as? String ?? "",
       description: values["description"] as? String,
       startDate: startDate,
       endDate: endDate,
-      scoreBy: scoreBy,
+      scoreBy: .totalWorkouts,
       banner: nil
     )
     
@@ -97,14 +70,6 @@ class CreateChallengeViewController: GRFormViewController {
     .onRowValidationChanged(self.handleRowValidationChange)
   }()
 
-  private lazy var descriptionRow: TextViewRow = {
-    return TextViewRow() { textRow in
-      textRow.placeholder = "Descripton (optional)"
-      textRow.tag = "description"
-      textRow.icon = .clipboard
-    }
-  }()
-
   private lazy var startDateRow: PickDateRow = {
     return PickDateRow() { textRow in
       textRow.placeholder = "Start date"
@@ -116,37 +81,11 @@ class CreateChallengeViewController: GRFormViewController {
     }
   }()
 
-  private lazy var durationRow: IntegerPickerRow = {
-    return IntegerPickerRow() { textRow in
-      textRow.placeholder = "Duration"
-      textRow.icon = .clock
-      textRow.value = 30
-      textRow.numberOfRows = 1000.years.in(.day) ?? 0
-      textRow.displayInt = { "\($0) days" }
-    }
-  }()
-
-  private lazy var endDateRow: PickDateRow = {
-    return PickDateRow() { textRow in
-      textRow.placeholder = "End date"
-      textRow.tag = "end_date"
-      textRow.icon = .cal
-      textRow.add(rule: RuleRequired(msg: "End date is required."))
-      textRow.startDate = Date()
-      textRow.value = Date() + 30.days
-      textRow.endDate = Date() + 1000.years
-    }
-  }()
-
-  private lazy var scoreRow: IntegerPickerRow = {
-    return IntegerPickerRow() { textRow in
-      textRow.placeholder = "Score by"
-      textRow.tag = "score_by"
-      textRow.add(rule: RuleRequired(msg: "Score is required."))
-      textRow.icon = .star
-      textRow.value = 0
-      textRow.numberOfRows = ScoreBy.allCases.count
-      textRow.displayInt = { ScoreBy.init(rawValue: $0)?.display ?? "" }
+  private lazy var descriptionRow: TextViewRow = {
+    return TextViewRow() { textRow in
+      textRow.placeholder = "Descripton (optional)"
+      textRow.tag = "description"
+      textRow.icon = .clipboard
     }
   }()
 

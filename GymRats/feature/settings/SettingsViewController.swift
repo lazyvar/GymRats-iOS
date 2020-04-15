@@ -117,7 +117,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     func chooseProfilePic() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let cam = UIAlertAction(title: "Take picture from camera", style: .default) { (alert) in
+        let cam = UIAlertAction(title: "Camera", style: .default) { (alert) in
             let imagePicker = UIImagePickerController()
             imagePicker.sourceType = .camera
             imagePicker.delegate = self
@@ -126,7 +126,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
             self.present(imagePicker, animated: true, completion: nil)
         }
         
-        let library = UIAlertAction(title: "Choose from library", style: .default) { (alert) in
+        let library = UIAlertAction(title: "Photo library", style: .default) { (alert) in
             let imagePicker = UIImagePickerController()
             imagePicker.sourceType = .photoLibrary
             imagePicker.delegate = self
