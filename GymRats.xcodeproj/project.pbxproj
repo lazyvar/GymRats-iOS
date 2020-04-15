@@ -1435,7 +1435,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "source ~/gym-rats-ios.env\n./copy_secrets.sh\n";
+			shellScript = "git update-index --assume-unchanged GymRats/foundation/Secrets.swift\nsource ~/gym-rats-ios.env\n./copy_secrets.sh\n";
 			showEnvVarsInLog = 0;
 		};
 		2B9BAF707FD52821A7508A59 /* [CP] Embed Pods Frameworks */ = {
