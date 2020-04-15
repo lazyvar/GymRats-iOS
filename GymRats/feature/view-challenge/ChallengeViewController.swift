@@ -224,7 +224,11 @@ class ChallengeViewController: BindableViewController {
       
       self.present(editViewController.inNav(), animated: true, completion: nil)
     }
-    
+
+    let changeBanner = UIAlertAction(title: "Change banner", style: .default) { _ in
+      // ...
+    }
+
     let deleteAction = UIAlertAction(title: "Leave", style: .destructive) { _ in
       self.leaveChallenge()
     }

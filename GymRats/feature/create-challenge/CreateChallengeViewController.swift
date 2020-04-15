@@ -64,6 +64,13 @@ class CreateChallengeViewController: GRFormViewController {
     guard let start = values["start_date"] as? Date else { return }
     guard let end = values["end_date"] as? Date else { return }
 
+    let difference = start.getInterval(toDate: end, component: .day)
+
+    guard difference > 0 else {
+      presentAlert(title: "", message: "The ending date must be further ahead in time than the starting date.")
+      return
+    }
+    
     let newChallenge = NewChallenge(
       name: values["name"] as? String ?? "",
       description: values["description"] as? String,

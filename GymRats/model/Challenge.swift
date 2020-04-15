@@ -62,23 +62,25 @@ extension Challenge: Avatar {
 
 extension Challenge {
 
-    var days: [Date] {
-        let daysGone: Int
-        
-        if Date().localDateIsLessThanUTCDate(endDate) {
-            daysGone = abs(startDate.utcDateIsDaysApartFromLocalDate(Date()))
-        } else {
-            daysGone = abs(startDate.utcDateIsDaysApartFromUtcDate(endDate))
-        }
-        
-        return (0..<(daysGone + 1)).map { startDate + Int($0).days }
+  var days: [Date] {
+    let daysGone: Int
+
+    if Date().localDateIsLessThanUTCDate(startDate) {
+      daysGone = abs(startDate.utcDateIsDaysApartFromUtcDate(endDate))
+    } else if Date().localDateIsLessThanUTCDate(endDate) {
+      daysGone = abs(startDate.utcDateIsDaysApartFromLocalDate(Date()))
+    } else {
+      daysGone = abs(startDate.utcDateIsDaysApartFromUtcDate(endDate))
     }
+      
+    return (0..<(daysGone + 1)).map { startDate + Int($0).days }
+  }
     
-    func daysWithWorkouts(workouts: [Workout]) -> [Date] {
-        return days.reversed().filter({ date -> Bool in
-            return workouts.workoutsExist(on: date)
-        })
-    }
+  func daysWithWorkouts(workouts: [Workout]) -> [Date] {
+    return days.reversed().filter({ date -> Bool in
+      return workouts.workoutsExist(on: date)
+    })
+  }
   
   func bucket(_ workouts: [Workout]) -> [(Date, [Workout])] {
     return days.reversed().compactMap({ day -> (Date, [Workout])? in

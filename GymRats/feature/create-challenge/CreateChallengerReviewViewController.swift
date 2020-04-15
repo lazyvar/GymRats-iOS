@@ -58,7 +58,21 @@ class CreateChallengerReviewViewController: UIViewController {
     didSet {
       startDateLabel.font = .body
       startDateLabel.textColor = .primaryText
-      startDateLabel.text = "Starts \(newChallenge.startDate.toFormat("MMMM d"))"
+      startDateLabel.text = {
+        let date: String = {
+          if newChallenge.startDate.isToday {
+            return "today"
+          } else if newChallenge.startDate.isYesterday {
+            return "yesterday"
+          } else if newChallenge.startDate.isTomorrow {
+            return "tomorrow"
+          } else {
+            return newChallenge.startDate.toFormat("MMMM d")
+          }
+        }()
+        
+        return "Starts \(date)"
+      }()
     }
   }
   

@@ -92,11 +92,16 @@ enum APIRequest {
       var params: Parameters =  [
         "start_date": challenge.startDate.toISO(),
         "end_date": challenge.endDate.toISO(),
-        "name": challenge.name
+        "name": challenge.name,
+        "score_by": challenge.scoreBy.rawValue
       ]
       
-      if let photoUrl = challenge.profilePictureUrl {
+      if let photoUrl = challenge.banner {
         params["profile_picture_url"] = photoUrl
+      }
+      
+      if let description = challenge.description {
+        params["description"] = description
       }
       
       return (.put, "challenges/\(challenge.id)", params)

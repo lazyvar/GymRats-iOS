@@ -70,7 +70,6 @@ class ChallengeBannerViewController: BindableViewController {
   private func uploadOwn() {
     let imagePicker = UIImagePickerController()
     imagePicker.delegate = self
-    imagePicker.allowsEditing = true
     
     let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     let photoLibrary = UIAlertAction(title: "Photo library", style: .default) { _ in

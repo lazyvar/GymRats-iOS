@@ -26,6 +26,8 @@ class PickDateCell: Cell<Date>, Eureka.TextFieldCell, CellType {
     shadowTextField.delegate = self
     datePicker.datePickerMode = .date
     datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
+    datePicker.date = row.value ?? Date()
+    datePicker.timeZone = .utc
   }
   
   public override func update() {
