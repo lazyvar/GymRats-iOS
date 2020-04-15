@@ -9,6 +9,8 @@
 import Foundation
 import SwiftDate
 
+typealias ScoreBy = Challenge.ScoreBy
+
 struct Challenge: Codable, Equatable {
   let id: Int
   let name: String
@@ -16,6 +18,41 @@ struct Challenge: Codable, Equatable {
   let profilePictureUrl: String?
   let startDate: Date
   let endDate: Date
+  let description: String?
+  let scoreBy: ScoreBy
+  
+  enum ScoreBy: String, Codable, CaseIterable {
+    case workouts
+    case miles
+    case minutes
+    case steps
+    case calories
+    case points
+  }
+}
+
+extension ScoreBy {
+  init?(intValue: Int) {
+    switch intValue {
+    case 0: self = .workouts
+    case 1: self = .minutes
+    case 2: self = .miles
+    case 3: self = .steps
+    case 4: self = .calories
+    case 5: self = .points
+    default: return nil
+    }
+  }
+  var display: String {
+    switch self {
+    case .workouts: return "Total workouts"
+    case .minutes: return "Minutes"
+    case .miles: return "Miles"
+    case .steps: return "Steps"
+    case .calories: return "Calories"
+    case .points: return "Points"
+    }
+  }
 }
 
 extension Challenge: Avatar {

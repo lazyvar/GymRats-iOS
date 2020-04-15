@@ -94,6 +94,12 @@ class CreateChallengerReviewViewController: UIViewController {
     }
   }
   
+  @IBOutlet private weak var lastDivider: UIStackView! {
+    didSet {
+      lastDivider.isHidden = newChallenge.description == nil || newChallenge.description == ""
+    }
+  }
+
   @IBOutlet private weak var descriptionStackView: UIStackView! {
     didSet {
       descriptionStackView.isHidden = newChallenge.description == nil || newChallenge.description == ""

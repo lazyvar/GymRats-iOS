@@ -60,7 +60,7 @@ class CreateChallengeViewController: GRFormViewController {
     
     guard form.validate().count == 0 else { return }
     guard let score = values["score_by"] as? Int else { return }
-    guard let scoreBy = ScoreBy(rawValue: score) else { return }
+    guard let scoreBy = ScoreBy(intValue: score) else { return }
     guard let start = values["start_date"] as? Date else { return }
     guard let end = values["end_date"] as? Date else { return }
 
@@ -143,7 +143,7 @@ class CreateChallengeViewController: GRFormViewController {
       textRow.icon = .star
       textRow.value = 0
       textRow.numberOfRows = ScoreBy.allCases.count
-      textRow.displayInt = { ScoreBy.init(rawValue: $0)?.display ?? "" }
+      textRow.displayInt = { ScoreBy.init(intValue: $0)?.display ?? "" }
     }
   }()
 

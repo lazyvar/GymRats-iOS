@@ -197,7 +197,6 @@
 		01D70BD02446558B00F6F33A /* PickDateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D70BCE2446558B00F6F33A /* PickDateCell.xib */; };
 		01D70BD324465CB000F6F33A /* IntegerPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D70BD124465CB000F6F33A /* IntegerPickerCell.swift */; };
 		01D70BD424465CB000F6F33A /* IntegerPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D70BD224465CB000F6F33A /* IntegerPickerCell.xib */; };
-		01D70BD624465FFF00F6F33A /* ScoreBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D70BD524465FFF00F6F33A /* ScoreBy.swift */; };
 		01D70BD8244676D600F6F33A /* NewChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D70BD7244676D600F6F33A /* NewChallenge.swift */; };
 		01D70BDB24467B9400F6F33A /* ClassicChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D70BD924467B9400F6F33A /* ClassicChallengeViewController.swift */; };
 		01E833E42325BF7300C66C72 /* ChallengeBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E833E22325BF7300C66C72 /* ChallengeBannerCell.swift */; };
@@ -484,7 +483,6 @@
 		01D70BCE2446558B00F6F33A /* PickDateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickDateCell.xib; sourceTree = "<group>"; };
 		01D70BD124465CB000F6F33A /* IntegerPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerPickerCell.swift; sourceTree = "<group>"; };
 		01D70BD224465CB000F6F33A /* IntegerPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntegerPickerCell.xib; sourceTree = "<group>"; };
-		01D70BD524465FFF00F6F33A /* ScoreBy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreBy.swift; sourceTree = "<group>"; };
 		01D70BD7244676D600F6F33A /* NewChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChallenge.swift; sourceTree = "<group>"; };
 		01D70BD924467B9400F6F33A /* ClassicChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicChallengeViewController.swift; sourceTree = "<group>"; };
 		01E833E22325BF7300C66C72 /* ChallengeBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeBannerCell.swift; sourceTree = "<group>"; };
@@ -1155,7 +1153,6 @@
 				01F659FE244513FA00E26539 /* ChallengeBannerViewController.swift */,
 				01F659FF244513FA00E26539 /* ChallengeBannerViewController.xib */,
 				01F65A022445144300E26539 /* ChallengeBannerChoice.swift */,
-				01D70BD524465FFF00F6F33A /* ScoreBy.swift */,
 				01D70BD924467B9400F6F33A /* ClassicChallengeViewController.swift */,
 				01111DA7244686730033170A /* CreateChallengerReviewViewController.swift */,
 				01111DA8244686730033170A /* CreateChallengerReviewViewController.xib */,
@@ -1543,7 +1540,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				01A3EAEC2377471B0097FC2A /* RxEureka.swift in Sources */,
-				01D70BD624465FFF00F6F33A /* ScoreBy.swift in Sources */,
 				01319EDB241879FD005E65D2 /* UpdateUser.swift in Sources */,
 				74A01B40220A560800431ABD /* RingView.swift in Sources */,
 				0176B677243B9EAD0022B65F /* UIDevice+Extension.swift in Sources */,

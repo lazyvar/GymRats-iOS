@@ -76,7 +76,7 @@ enum APIRequest {
         "end_date": endDate.toISO(),
         "name": name,
         "time_zone": TimeZone.current.abbreviation()!,
-        "score_by": scoreBy.endpointValue
+        "score_by": scoreBy.rawValue
       ]
       
       if let bannerURL = bannerURL {

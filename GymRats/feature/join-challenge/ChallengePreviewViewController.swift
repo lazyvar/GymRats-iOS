@@ -31,6 +31,14 @@ class ChallengePreviewViewController: UIViewController {
     didSet { clockImageView.tintColor = .primaryText }
   }
 
+  @IBOutlet private weak var starImageView: UIImageView! {
+    didSet { starImageView.tintColor = .primaryText }
+  }
+  
+  @IBOutlet private weak var clipboardImageView: UIImageView! {
+    didSet { clipboardImageView.tintColor = .primaryText }
+  }
+
   @IBOutlet private weak var startDateLabel: UILabel! {
     didSet {
       startDateLabel.font = .body
@@ -64,6 +72,34 @@ class ChallengePreviewViewController: UIViewController {
       durationLabel.text = "Lasts \(challenge.days.count) days"
       durationLabel.font = .body
       durationLabel.textColor = .primaryText
+    }
+  }
+  
+  @IBOutlet private weak var scoreByLabel: UILabel! {
+    didSet {
+      scoreByLabel.font = .body
+      scoreByLabel.textColor = .primaryText
+      scoreByLabel.text = "Scored by most \(challenge.scoreBy.display.lowercased())"
+    }
+  }
+  
+  @IBOutlet private weak var lastDivider: UIStackView! {
+    didSet {
+      lastDivider.isHidden = challenge.description == nil || challenge.description == ""
+    }
+  }
+  
+  @IBOutlet private weak var descriptionLabel: UILabel! {
+    didSet {
+      descriptionLabel.text = challenge.description
+      descriptionLabel.textColor = .primaryText
+      descriptionLabel.font = .body
+    }
+  }
+  
+  @IBOutlet private weak var descriptionStackView: UIStackView! {
+    didSet {
+      descriptionStackView.isHidden = challenge.description == nil || challenge.description == ""
     }
   }
   
