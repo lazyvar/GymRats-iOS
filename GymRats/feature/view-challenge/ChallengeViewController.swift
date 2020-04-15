@@ -226,7 +226,7 @@ class ChallengeViewController: BindableViewController {
     }
 
     let changeBanner = UIAlertAction(title: "Change banner", style: .default) { _ in
-      // ...
+      self.present(ChangeBannerViewController(challenge: self.challenge))
     }
 
     let deleteAction = UIAlertAction(title: "Leave", style: .destructive) { _ in
@@ -237,6 +237,7 @@ class ChallengeViewController: BindableViewController {
     
     alertViewController.addAction(inviteAction)
     alertViewController.addAction(editAction)
+    alertViewController.addAction(changeBanner)
     alertViewController.addAction(deleteAction)
     alertViewController.addAction(cancelAction)
     

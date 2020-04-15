@@ -161,6 +161,10 @@ class UpcomingChallengeViewController: BindableViewController {
       self.present(editViewController.inNav(), animated: true, completion: nil)
     }
     
+    let changeBanner = UIAlertAction(title: "Change banner", style: .default) { _ in
+      self.present(ChangeBannerViewController(challenge: self.challenge))
+    }
+    
     let deleteAction = UIAlertAction(title: "Leave", style: .destructive) { _ in
       ChallengeFlow.leave(self.challenge)
     }
@@ -169,6 +173,7 @@ class UpcomingChallengeViewController: BindableViewController {
     
     alertViewController.addAction(inviteAction)
     alertViewController.addAction(editAction)
+    alertViewController.addAction(changeBanner)
     alertViewController.addAction(deleteAction)
     alertViewController.addAction(cancelAction)
     

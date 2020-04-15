@@ -38,6 +38,7 @@ enum APIRequest {
   case leaveChallenge(_ challenge: Challenge)
   case editChallenge(_ challenge: UpdateChallenge)
   case deleteComment(id: Int)
+  case changeBanner(challenge: Challenge, imageURL: String?)
   case getMembersForChallenge(_ challenge: Challenge)
   case challengeInfo(challenge: Challenge)
   case getChallengeForCode(code: String)
@@ -103,6 +104,12 @@ enum APIRequest {
       if let description = challenge.description {
         params["description"] = description
       }
+      
+      return (.put, "challenges/\(challenge.id)", params)
+    case .changeBanner(let challenge, let imageURL):
+      let params: Parameters = [
+        "profile_picture_url": imageURL
+      ]
       
       return (.put, "challenges/\(challenge.id)", params)
     case .getAllWorkouts(challenge: let challenge):

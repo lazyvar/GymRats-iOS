@@ -70,6 +70,21 @@ class GymRatsAPI {
     return self.requestObject(.editChallenge(challenge))
   }
   
+  func changeBanner(challenge: Challenge, imageOrURL: Either<UIImage, String>?) -> Observable<NetworkResult<Challenge>> {
+    return Observable<Either<UIImage, String>?>.just(imageOrURL)
+      .flatMap { image -> Observable<String?> in
+        guard let image = image else { return .just(nil) }
+      
+        switch image {
+        case .left(let left): return ImageService.uploadImageToFirebase(image: left).map { url -> String? in url }
+        case .right(let right): return .just(right)
+        }
+      }
+      .flatMap { url in
+        return self.requestObject(.changeBanner(challenge: challenge, imageURL: url))
+      }
+  }
+  
   func getChallenge(id: Int) -> Observable<NetworkResult<Challenge>> {
     return requestObject(.getChallenge(id: id))
   }

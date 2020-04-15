@@ -20,4 +20,12 @@ enum ChallengeBannerChoice: CaseIterable {
     case .skip: return "Skip"
     }
   }
+
+  var titleForChange: String {
+    switch self {
+    case .upload: return "Upload my own"
+    case .preset: return "Choose a preset"
+    case .skip: return "Remove banner"
+    }
+  }
 }
