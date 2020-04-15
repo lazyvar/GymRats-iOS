@@ -96,4 +96,11 @@ class ChoiceCell: UITableViewCell {
       $0.smallLabel.isHidden = true
     }
   }
+
+  static func configureForChange(tableView: UITableView, indexPath: IndexPath, choice: ChallengeBannerChoice) -> UITableViewCell {
+    return tableView.dequeueReusableCell(withType: ChoiceCell.self, for: indexPath).apply {
+      $0.bigLabel.text = choice.titleForChange
+      $0.smallLabel.isHidden = true
+    }
+  }
 }

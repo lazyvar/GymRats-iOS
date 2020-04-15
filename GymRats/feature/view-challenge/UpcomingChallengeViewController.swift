@@ -43,7 +43,7 @@ class UpcomingChallengeViewController: BindableViewController {
       collectionView.registerCellNibForClass(InviteCell.self)
       collectionView.refreshControl = UIRefreshControl()
       collectionView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
-      collectionView.setCollectionViewLayout(UpcomingChallengeFlowLayout(headerHeight: challenge.profilePictureUrl == nil ? 150 : 300), animated: false)
+      collectionView.setCollectionViewLayout(UpcomingChallengeFlowLayout(challenge: challenge), animated: false)
       collectionView.register(UINib(nibName: "UpcomingChallengeHeaderView", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "UpcomingChallengeHeaderView")
       collectionView.delegate = self
     }
@@ -161,6 +161,10 @@ class UpcomingChallengeViewController: BindableViewController {
       self.present(editViewController.inNav(), animated: true, completion: nil)
     }
     
+    let changeBanner = UIAlertAction(title: "Change banner", style: .default) { _ in
+      self.present(ChangeBannerViewController(challenge: self.challenge))
+    }
+    
     let deleteAction = UIAlertAction(title: "Leave", style: .destructive) { _ in
       ChallengeFlow.leave(self.challenge)
     }
@@ -169,6 +173,7 @@ class UpcomingChallengeViewController: BindableViewController {
     
     alertViewController.addAction(inviteAction)
     alertViewController.addAction(editAction)
+    alertViewController.addAction(changeBanner)
     alertViewController.addAction(deleteAction)
     alertViewController.addAction(cancelAction)
     
@@ -176,19 +181,7 @@ class UpcomingChallengeViewController: BindableViewController {
   }
 }
 
-extension UpcomingChallengeViewController: UICollectionViewDelegate {
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-    if let headerView = collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader).first as? UpcomingChallengeHeaderView {
-      headerView.layoutIfNeeded()
-
-      let height = headerView.systemLayoutSizeFitting(UIView.layoutFittingExpandedSize).height
-
-      return CGSize(width: collectionView.frame.width, height: height)
-    }
-
-    return CGSize(width: 1, height: 1)
-  }
-  
+extension UpcomingChallengeViewController: UICollectionViewDelegate {  
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     collectionView.deselectItem(at: indexPath, animated: true)
       

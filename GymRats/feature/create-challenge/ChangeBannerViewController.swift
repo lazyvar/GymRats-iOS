@@ -1,8 +1,8 @@
 //
-//  ChallengeBannerViewController.swift
+//  ChangeBannerViewController.swift
 //  GymRats
 //
-//  Created by mack on 4/13/20.
+//  Created by mack on 4/15/20.
 //  Copyright © 2020 Mack Hasz. All rights reserved.
 //
 
@@ -11,14 +11,12 @@ import RxSwift
 import RxDataSources
 import UnsplashPhotoPicker
 
-typealias ChallengeBannerSection = SectionModel<Void, ChallengeBannerChoice>
-
-class ChallengeBannerViewController: BindableViewController {
+class ChangeBannerViewController: BindableViewController {
   private let disposeBag = DisposeBag()
-  private var newChallenge: NewChallenge
+  private var challenge: Challenge
   
-  init(_ newChallenge: NewChallenge) {
-    self.newChallenge = newChallenge
+  init(challenge: Challenge) {
+    self.challenge = challenge
     
     super.init(nibName: Self.xibName, bundle: nil)
   }
@@ -33,18 +31,19 @@ class ChallengeBannerViewController: BindableViewController {
       tableView.separatorStyle = .none
       tableView.showsVerticalScrollIndicator = false
       tableView.registerCellNibForClass(ChoiceCell.self)
-      tableView.delegate = self
     }
   }
 
   private let dataSource = RxTableViewSectionedReloadDataSource<ChallengeBannerSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
-    return ChoiceCell.configure(tableView: tableView, indexPath: indexPath, choice: row)
+    return ChoiceCell.configureForChange(tableView: tableView, indexPath: indexPath, choice: row)
   })
 
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    title = "Banner image"
+    navigationItem.leftBarButtonItem = UIBarButtonItem(image: .close, style: .plain, target: self, action: #selector(dismissSelf))
+    
+    title = "Change banner image"
   }
 
   override func bindViewModel() {
@@ -60,7 +59,7 @@ class ChallengeBannerViewController: BindableViewController {
         switch indexPath.row {
         case 0: self?.uploadOwn()
         case 1: self?.choosePreset()
-        case 2: self?.skip()
+        case 2: self?.remove()
         default: fatalError("Unhandled row.")
         }
       })
@@ -104,22 +103,33 @@ class ChallengeBannerViewController: BindableViewController {
     present(unsplashPhotoPicker, animated: true, completion: nil)
   }
   
-  private func skip() {
-    newChallenge.banner = nil
+  private func remove() {
+    changeBanner(to: nil)
+  }
+  
+  private func changeBanner(to imageOrURL: Either<UIImage, String>?) {
+    showLoadingBar()
     
-    push(CreateChallengerReviewViewController(newChallenge: newChallenge), animated: true)
+    gymRatsAPI.changeBanner(challenge: challenge, imageOrURL: imageOrURL)
+      .subscribe(onNext: { [weak self] result in
+        self?.hideLoadingBar()
+        
+        switch result {
+        case .success:
+          self?.dismissSelf()
+        case .failure(let error):
+          self?.presentAlert(with: error)
+        }
+      })
+      .disposed(by: disposeBag)
   }
 }
 
-extension ChallengeBannerViewController: UnsplashPhotoPickerDelegate {
+extension ChangeBannerViewController: UnsplashPhotoPickerDelegate {
   func unsplashPhotoPicker(_ photoPicker: UnsplashPhotoPicker, didSelectPhotos photos: [UnsplashPhoto]) {
     guard let photo = photos.first else { return }
-    
-    newChallenge.banner = .right(photo.urls[.regular]?.absoluteString ?? "")
 
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-      self.push(CreateChallengerReviewViewController(newChallenge: self.newChallenge), animated: true)
-    }
+    changeBanner(to: .right(photo.urls[.regular]?.absoluteString ?? ""))
   }
   
   func unsplashPhotoPickerDidCancel(_ photoPicker: UnsplashPhotoPicker) {
@@ -127,43 +137,12 @@ extension ChallengeBannerViewController: UnsplashPhotoPickerDelegate {
   }
 }
 
-extension ChallengeBannerViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension ChangeBannerViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
     picker.dismissSelf()
 
     guard let image = info[.originalImage] as? UIImage else { return }
-    
-    newChallenge.banner = .left(image)
-    
-    push(CreateChallengerReviewViewController(newChallenge: newChallenge), animated: true)
-  }
-}
 
-extension ChallengeBannerViewController: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    let container = UIView().apply {
-      $0.backgroundColor = .clear
-      $0.constrainHeight(75)
-    }
-    
-    let text = UILabel().apply {
-      $0.text = """
-      Last step is to upload an optional banner image. Pick your own or choose from one of the presets.
-      """
-      $0.textColor = .primaryText
-      $0.font = .body
-      $0.numberOfLines = 0
-      $0.translatesAutoresizingMaskIntoConstraints = false
-    }
-    
-    container.addSubview(text)
-    
-    text.fill(in: container, top: 5, bottom: -5, left: 20, right: -20)
-    
-    return container
-  }
-  
-  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    return 75
+    changeBanner(to: .left(image))
   }
 }

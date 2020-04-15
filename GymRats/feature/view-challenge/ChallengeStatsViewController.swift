@@ -118,6 +118,30 @@ class ChallengeStatsViewController: UITableViewController {
     tableView.refreshControl = UIRefreshControl()
     tableView.refreshControl?.addTarget(self, action: #selector(fetch), for: .valueChanged)
 
+    if let description = challenge.description {
+      let header = UIView()
+      header.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50)
+
+      let label = UILabel().apply {
+        $0.text = description
+        $0.textColor = .primaryText
+        $0.font = .body
+        $0.numberOfLines = 0
+        $0.translatesAutoresizingMaskIntoConstraints = false
+      }
+
+      header.addSubview(label)
+      
+      label.leadingAnchor.constraint(equalTo: header.leadingAnchor, constant: 20).isActive = true
+      label.trailingAnchor.constraint(equalTo: header.trailingAnchor, constant: 20).isActive = true
+      label.bottomAnchor.constraint(equalTo: header.topAnchor, constant: 5).isActive = true
+      label.topAnchor.constraint(equalTo: header.topAnchor, constant: 5).isActive = true
+
+      tableView.tableHeaderView = header
+    }
+    
+    title = challenge.name
+    
     navigationItem.largeTitleDisplayMode = .never
     
     self.showLoadingBar()

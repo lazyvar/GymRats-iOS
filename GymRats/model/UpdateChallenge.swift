@@ -9,9 +9,11 @@
 import Foundation
 
 struct UpdateChallenge: Codable {
-  let id: Int
-  let name: String
-  let profilePictureUrl: String?
-  let startDate: Date
-  let endDate: Date
+  var id: Int
+  var name: String
+  var description: String?
+  var startDate: Date
+  var endDate: Date
+  var scoreBy: ScoreBy
+  var banner: String?
 }

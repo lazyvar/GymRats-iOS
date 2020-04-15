@@ -18,6 +18,7 @@
                 <outlet property="descriptionStackView" destination="rMW-V8-fmJ" id="PqX-PL-rnv"/>
                 <outlet property="durationLabel" destination="zLh-4B-aeZ" id="YkB-1O-jkB"/>
                 <outlet property="imageViewHeightConstraint" destination="Y4X-su-hTh" id="RZk-AN-lyL"/>
+                <outlet property="lastDivider" destination="xsw-TW-9YJ" id="Fzr-ZH-csn"/>
                 <outlet property="scoreByLabel" destination="7xo-HQ-p1i" id="PMm-mo-TeI"/>
                 <outlet property="starImageView" destination="MvD-SQ-sjj" id="fc7-qV-llL"/>
                 <outlet property="startDateLabel" destination="f8J-K8-IG1" id="0LV-Kd-CEH"/>

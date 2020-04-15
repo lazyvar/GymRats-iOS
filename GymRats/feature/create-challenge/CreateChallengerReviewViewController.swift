@@ -58,7 +58,21 @@ class CreateChallengerReviewViewController: UIViewController {
     didSet {
       startDateLabel.font = .body
       startDateLabel.textColor = .primaryText
-      startDateLabel.text = "Starts \(newChallenge.startDate.toFormat("MMMM d"))"
+      startDateLabel.text = {
+        let date: String = {
+          if newChallenge.startDate.isToday {
+            return "today"
+          } else if newChallenge.startDate.isYesterday {
+            return "yesterday"
+          } else if newChallenge.startDate.isTomorrow {
+            return "tomorrow"
+          } else {
+            return newChallenge.startDate.toFormat("MMMM d")
+          }
+        }()
+        
+        return "Starts \(date)"
+      }()
     }
   }
   
@@ -94,6 +108,12 @@ class CreateChallengerReviewViewController: UIViewController {
     }
   }
   
+  @IBOutlet private weak var lastDivider: UIStackView! {
+    didSet {
+      lastDivider.isHidden = newChallenge.description == nil || newChallenge.description == ""
+    }
+  }
+
   @IBOutlet private weak var descriptionStackView: UIStackView! {
     didSet {
       descriptionStackView.isHidden = newChallenge.description == nil || newChallenge.description == ""

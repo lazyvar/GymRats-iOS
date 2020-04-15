@@ -115,6 +115,8 @@
 		0176B677243B9EAD0022B65F /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176B676243B9EAD0022B65F /* UIDevice+Extension.swift */; };
 		0176B67A243BAF740022B65F /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0176B679243BAF740022B65F /* CreateAccountViewController.swift */; };
 		017E10B32429674600CBBB92 /* ChallengeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 017E10B22429674600CBBB92 /* ChallengeRow.swift */; };
+		018510032447A3C700C4F1A6 /* ChangeBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018510012447A3C700C4F1A6 /* ChangeBannerViewController.swift */; };
+		018510042447A3C700C4F1A6 /* ChangeBannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 018510022447A3C700C4F1A6 /* ChangeBannerViewController.xib */; };
 		01863FB9241C66E2001B3CE2 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01863FB8241C66E2001B3CE2 /* Alert.swift */; };
 		018E9F4D229F7D7E008AB016 /* Challenge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 018E9F4C229F7D7E008AB016 /* Challenge.storyboard */; };
 		018E9F4F229F7DB1008AB016 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */; };
@@ -197,7 +199,6 @@
 		01D70BD02446558B00F6F33A /* PickDateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D70BCE2446558B00F6F33A /* PickDateCell.xib */; };
 		01D70BD324465CB000F6F33A /* IntegerPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D70BD124465CB000F6F33A /* IntegerPickerCell.swift */; };
 		01D70BD424465CB000F6F33A /* IntegerPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D70BD224465CB000F6F33A /* IntegerPickerCell.xib */; };
-		01D70BD624465FFF00F6F33A /* ScoreBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D70BD524465FFF00F6F33A /* ScoreBy.swift */; };
 		01D70BD8244676D600F6F33A /* NewChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D70BD7244676D600F6F33A /* NewChallenge.swift */; };
 		01D70BDB24467B9400F6F33A /* ClassicChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D70BD924467B9400F6F33A /* ClassicChallengeViewController.swift */; };
 		01E833E42325BF7300C66C72 /* ChallengeBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E833E22325BF7300C66C72 /* ChallengeBannerCell.swift */; };
@@ -398,6 +399,8 @@
 		0176B676243B9EAD0022B65F /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		0176B679243BAF740022B65F /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		017E10B22429674600CBBB92 /* ChallengeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeRow.swift; sourceTree = "<group>"; };
+		018510012447A3C700C4F1A6 /* ChangeBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeBannerViewController.swift; sourceTree = "<group>"; };
+		018510022447A3C700C4F1A6 /* ChangeBannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangeBannerViewController.xib; sourceTree = "<group>"; };
 		01863FB8241C66E2001B3CE2 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		018E9F4C229F7D7E008AB016 /* Challenge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Challenge.storyboard; sourceTree = "<group>"; };
 		018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
@@ -484,7 +487,6 @@
 		01D70BCE2446558B00F6F33A /* PickDateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickDateCell.xib; sourceTree = "<group>"; };
 		01D70BD124465CB000F6F33A /* IntegerPickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerPickerCell.swift; sourceTree = "<group>"; };
 		01D70BD224465CB000F6F33A /* IntegerPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntegerPickerCell.xib; sourceTree = "<group>"; };
-		01D70BD524465FFF00F6F33A /* ScoreBy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreBy.swift; sourceTree = "<group>"; };
 		01D70BD7244676D600F6F33A /* NewChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChallenge.swift; sourceTree = "<group>"; };
 		01D70BD924467B9400F6F33A /* ClassicChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicChallengeViewController.swift; sourceTree = "<group>"; };
 		01E833E22325BF7300C66C72 /* ChallengeBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeBannerCell.swift; sourceTree = "<group>"; };
@@ -1155,10 +1157,11 @@
 				01F659FE244513FA00E26539 /* ChallengeBannerViewController.swift */,
 				01F659FF244513FA00E26539 /* ChallengeBannerViewController.xib */,
 				01F65A022445144300E26539 /* ChallengeBannerChoice.swift */,
-				01D70BD524465FFF00F6F33A /* ScoreBy.swift */,
 				01D70BD924467B9400F6F33A /* ClassicChallengeViewController.swift */,
 				01111DA7244686730033170A /* CreateChallengerReviewViewController.swift */,
 				01111DA8244686730033170A /* CreateChallengerReviewViewController.xib */,
+				018510012447A3C700C4F1A6 /* ChangeBannerViewController.swift */,
+				018510022447A3C700C4F1A6 /* ChangeBannerViewController.xib */,
 			);
 			path = "create-challenge";
 			sourceTree = "<group>";
@@ -1392,6 +1395,7 @@
 				01297D892329E79000CA9E41 /* SF-Compact-Rounded-Semibold.otf in Resources */,
 				01FF413524205FDA007D316A /* ProfileViewController.xib in Resources */,
 				01297D862329E79000CA9E41 /* SF-Compact-Rounded-Light.otf in Resources */,
+				018510042447A3C700C4F1A6 /* ChangeBannerViewController.xib in Resources */,
 				01297D8F2329E79000CA9E41 /* SF-Pro-Rounded-Regular.otf in Resources */,
 				01AC5F5F23CA3A4A00FFAE4D /* SegmentedCell.xib in Resources */,
 				015C071C243FC7E5003E75E9 /* LogWorkoutCell.xib in Resources */,
@@ -1435,7 +1439,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "source ~/gym-rats-ios.env\n./copy_secrets.sh\n";
+			shellScript = "git update-index --assume-unchanged GymRats/foundation/Secrets.swift\nsource ~/gym-rats-ios.env\n./copy_secrets.sh\n";
 			showEnvVarsInLog = 0;
 		};
 		2B9BAF707FD52821A7508A59 /* [CP] Embed Pods Frameworks */ = {
@@ -1543,7 +1547,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				01A3EAEC2377471B0097FC2A /* RxEureka.swift in Sources */,
-				01D70BD624465FFF00F6F33A /* ScoreBy.swift in Sources */,
 				01319EDB241879FD005E65D2 /* UpdateUser.swift in Sources */,
 				74A01B40220A560800431ABD /* RingView.swift in Sources */,
 				0176B677243B9EAD0022B65F /* UIDevice+Extension.swift in Sources */,
@@ -1665,6 +1668,7 @@
 				013D0247241941C90063F189 /* UITableView+Extension.swift in Sources */,
 				01863FB9241C66E2001B3CE2 /* Alert.swift in Sources */,
 				0163A2382377AF19006FDDA2 /* StoreService.swift in Sources */,
+				018510032447A3C700C4F1A6 /* ChangeBannerViewController.swift in Sources */,
 				01D5D36D243BD32A0044E459 /* ShadowTextField.swift in Sources */,
 				747D6FC32208DCAB0062BB39 /* Observable+Extension.swift in Sources */,
 				01660840239C8CA700FCFD26 /* StatsBabyCell.swift in Sources */,
