@@ -64,14 +64,11 @@ class CreateChallengeViewController: GRFormViewController {
     guard let start = values["start_date"] as? Date else { return }
     guard let end = values["end_date"] as? Date else { return }
 
-    let startDate = DateInRegion(start, region: .current).dateAtStartOf(.day).date
-    let endDate = DateInRegion(end, region: .current).dateAtStartOf(.day).date
-
     let newChallenge = NewChallenge(
       name: values["name"] as? String ?? "",
       description: values["description"] as? String,
-      startDate: startDate,
-      endDate: endDate,
+      startDate: start.dateAtStartOf(.day),
+      endDate: end.dateAtStartOf(.day),
       scoreBy: scoreBy,
       banner: nil
     )
