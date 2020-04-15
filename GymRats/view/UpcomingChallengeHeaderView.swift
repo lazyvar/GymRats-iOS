@@ -37,6 +37,14 @@ class UpcomingChallengeHeaderView: UICollectionReusableView {
     }
   }
   
+  @IBOutlet private weak var starImageView: UIImageView! {
+    didSet { starImageView.tintColor = .primaryText }
+  }
+  
+  @IBOutlet private weak var clipboardImageView: UIImageView! {
+    didSet { clipboardImageView.tintColor = .primaryText }
+  }
+  
   @IBOutlet private weak var durationLabel: UILabel! {
     didSet {
       durationLabel.textColor = .primaryText
@@ -50,6 +58,24 @@ class UpcomingChallengeHeaderView: UICollectionReusableView {
        startsLabel.font = .body
      }
    }
+  
+  @IBOutlet private weak var scoreByLabel: UILabel! {
+    didSet {
+      scoreByLabel.font = .body
+      scoreByLabel.textColor = .primaryText
+    }
+  }
+  
+  @IBOutlet private weak var lastDivider: UIStackView!
+  
+  @IBOutlet private weak var descriptionLabel: UILabel! {
+    didSet {
+      descriptionLabel.textColor = .primaryText
+      descriptionLabel.font = .body
+    }
+  }
+  
+  @IBOutlet private weak var descriptionStackView: UIStackView!
   
   @IBOutlet private weak var codeImageView: UIImageView! {
     didSet {
@@ -76,7 +102,11 @@ class UpcomingChallengeHeaderView: UICollectionReusableView {
         return challenge.startDate.toFormat("MMMM d")
       }
     }()
-
+    
+    scoreByLabel.text = "Scored by most \(challenge.scoreBy.display.lowercased())"
+    lastDivider.isHidden = challenge.description == nil || challenge.description == ""
+    descriptionStackView.isHidden = challenge.description == nil || challenge.description == ""
+    descriptionLabel.text = challenge.description
     durationLabel.text = "Lasts \(challenge.days.count) days"
     startsLabel.text = "Starts \(date)"
     codeLabel.text = challenge.code

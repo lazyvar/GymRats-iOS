@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class UpcomingChallengeFlowLayout: UICollectionViewFlowLayout {
-  init(headerHeight: CGFloat) {
+  init(challenge: Challenge) {
     super.init()
     
     let spacing: CGFloat = 20
@@ -25,7 +25,19 @@ class UpcomingChallengeFlowLayout: UICollectionViewFlowLayout {
     minimumLineSpacing = lineSpacing
     minimumInteritemSpacing = interItemSpacing
     sectionInset = sectionInsets
-    headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: headerHeight)
+    headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: {
+      var height: CGFloat = 185
+      
+      if challenge.profilePictureUrl != nil {
+        height += 150
+      }
+      
+      if challenge.description != nil {
+        height += 35
+      }
+      
+      return height
+    }())
   }
   
   required init?(coder: NSCoder) {
