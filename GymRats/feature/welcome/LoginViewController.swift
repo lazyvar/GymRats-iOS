@@ -12,10 +12,10 @@ import Eureka
 
 class LoginViewController: GRFormViewController {
     
-  let disposeBag = DisposeBag()
+  private let disposeBag = DisposeBag()
   
-  let loginButton = PrimaryButton()
-  let resetPasswordButton = SecondaryButton()
+  private let loginButton = PrimaryButton()
+  private let resetPasswordButton = SecondaryButton()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -95,17 +95,39 @@ class LoginViewController: GRFormViewController {
       .disposed(by: disposeBag)
   }
     
-  lazy var section: Section = {
+  private lazy var section: Section = {
     return Section() { section in
+      section.header = self.sectionHeader
       section.footer = self.sectionFooter
     }
   }()
   
-  let emailRow: TextFieldRow = {
+  private lazy var sectionHeader: HeaderFooterView<UIView> = {
+    let headerBuilder = { () -> UIView in
+      let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
+
+      let label = UILabel()
+      label.font = .body
+      label.text = "Welcome back."
+      label.frame = CGRect(x: 20, y: 0, width: self.view.frame.width - 40, height: 20)
+      label.sizeToFit()
+      
+      container.addSubview(label)
+      
+      return container
+    }
+      
+    var footer = HeaderFooterView<UIView>(.callback(headerBuilder))
+    footer.height = { 40 }
+    
+    return footer
+  }()
+
+  private let emailRow: TextFieldRow = {
     return TextFieldRow() { textRow in
       textRow.placeholder = "Email"
       textRow.tag = "email"
-      textRow.icon = UIDevice.contentMode == .dark ? .mailWhite : .mailBlack
+      textRow.icon = .mail
       textRow.keyboardType = .emailAddress
       textRow.contentType = .emailAddress
     }
@@ -114,11 +136,11 @@ class LoginViewController: GRFormViewController {
     })
   }()
   
-  let passwordRow: TextFieldRow = {
+  private let passwordRow: TextFieldRow = {
     return TextFieldRow() { passwordRow in
       passwordRow.placeholder = "Password"
       passwordRow.secure = true
-      passwordRow.icon = UIDevice.contentMode == .dark ? .lockWhite : .lockBlack
+      passwordRow.icon = .lock
       passwordRow.contentType = .password
       passwordRow.tag = "password"
     }
@@ -128,7 +150,7 @@ class LoginViewController: GRFormViewController {
     })
   }()
   
-  lazy var sectionFooter: HeaderFooterView<UIView> = {
+  private lazy var sectionFooter: HeaderFooterView<UIView> = {
     let footerBuilder = { () -> UIView in
       let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 96))
       

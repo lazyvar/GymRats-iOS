@@ -21,6 +21,7 @@ class ChatViewController: MessagesViewController {
   private var currentPage = 0
   private var canLoadMorePosts = true
   private var loading = true
+  private var retries = 3
 
   init(challenge: Challenge) {
     self.challenge = challenge
@@ -38,8 +39,13 @@ class ChatViewController: MessagesViewController {
     fatalError("init(coder:) has not been implemented")
   }
 
-  var retries = 3
-  
+  private let formatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .medium
+    
+    return formatter
+  }()
+
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -110,7 +116,7 @@ class ChatViewController: MessagesViewController {
   }
   
   @objc private func disconnectSocket() {
-    channel.leave()
+    channel?.leave()
     socket.disconnect()
   }
   
@@ -205,7 +211,7 @@ class ChatViewController: MessagesViewController {
 
 extension ChatViewController: MessagesDataSource {
   func currentSender() -> SenderType {
-    return GymRats.currentAccount.asSender
+    return GymRats.currentAccount
   }
     
   func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
@@ -215,6 +221,29 @@ extension ChatViewController: MessagesDataSource {
   func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
     return chats.count
   }
+  
+  func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+    let show = indexPath.section == 0 || abs(chats[indexPath.section - 1].sentDate.utcDateIsDaysApartFromUtcDate(chats[indexPath.section].sentDate)) >= 1
+    
+    if show {
+      return NSAttributedString(string: MessageKitDateFormatter.shared.string(from: message.sentDate),
+       attributes: [
+        .font: UIFont.detailsBold,
+        .foregroundColor: UIColor.secondaryText
+      ])
+    }
+
+    return nil
+  }
+
+//  func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+//    let name = message.sender.displayName
+//
+//    return NSAttributedString(string: name, attributes: [
+//      .font: UIFont.details,
+//      .foregroundColor: UIColor.secondaryText
+//    ])
+//  }
 }
 
 extension ChatViewController: InputBarAccessoryViewDelegate {
@@ -233,7 +262,17 @@ extension ChatViewController: MessageCellDelegate {
   }
 }
 
-extension ChatViewController: MessagesLayoutDelegate { }
+extension ChatViewController: MessagesLayoutDelegate {
+  func cellTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+    let show = indexPath.section == 0 || abs(chats[indexPath.section - 1].sentDate.utcDateIsDaysApartFromUtcDate(chats[indexPath.section].sentDate)) >= 1
+
+    return show ? 30 : 0
+  }
+//
+//  func messageTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+//    return 25
+//  }
+}
 
 extension ChatViewController: MessagesDisplayDelegate {
   func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
@@ -266,24 +305,48 @@ extension ChatViewController: MessagesDisplayDelegate {
     case .emoji:
       return .clear
     default:
-      guard let dataSource = messagesCollectionView.messagesDataSource else { return .newWhite }
+      guard let dataSource = messagesCollectionView.messagesDataSource else { return .white }
       
-      return dataSource.isFromCurrentSender(message: message) ? .newWhite : .primaryText
+      return dataSource.isFromCurrentSender(message: message) ? .white : .primaryText
+    }
+  }
+  
+  func enabledDetectors(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> [DetectorType] {
+    return [.url]
+  }
+  
+  func didSelectURL(_ url: URL) {
+    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+  }
+  
+  func detectorAttributes(for detector: DetectorType, and message: MessageType, at indexPath: IndexPath) -> [NSAttributedString.Key : Any] {
+    if chats[indexPath.section].account.id == GymRats.currentAccount.id {
+      return [
+        .foregroundColor: UIColor.white,
+        .underlineColor: UIColor.white,
+        .underlineStyle: NSUnderlineStyle.single.rawValue
+      ]
+    } else {
+      return [
+        .foregroundColor: UIColor.brand,
+        .underlineColor: UIColor.brand,
+        .underlineStyle: NSUnderlineStyle.single.rawValue
+      ]
     }
   }
 }
 
 extension UIView {
+  func addConstraintsWithFormat(format: String, views: UIView...) {
+    var viewsDictionary = [String: UIView]()
     
-    func addConstraintsWithFormat(format: String, views: UIView...) {
-        var viewsDictionary = [String: UIView]()
-        for (index, view) in views.enumerated() {
-            let key = "v\(index)"
-            viewsDictionary[key] = view
-            view.translatesAutoresizingMaskIntoConstraints = false
-        }
-        
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: viewsDictionary))
+    for (index, view) in views.enumerated() {
+      let key = "v\(index)"
+      
+      viewsDictionary[key] = view
+      view.translatesAutoresizingMaskIntoConstraints = false
     }
     
+    addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: viewsDictionary))
+  }
 }

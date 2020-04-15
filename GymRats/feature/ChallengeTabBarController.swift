@@ -34,7 +34,7 @@ class ChallengeTabBarController: ESTabBarController {
     
     viewControllers = [
       UIViewController().apply {
-        $0.tabBarItem = UITabBarItem(title: nil, image: .standings, selectedImage: .standings)
+        $0.tabBarItem = UITabBarItem(title: nil, image: .award, selectedImage: .award)
       },
       challengeViewController.inNav().apply {
         $0.tabBarItem = ESTabBarItem(BigContentView(), title: nil, image: .activityLargeWhite, selectedImage: .activityLargeWhite)
@@ -121,6 +121,7 @@ private extension ChallengeTabBarController {
     tabBar.layer.shadowOpacity = 0.5
     tabBar.barTintColor = .background
     tabBar.tintColor = .primaryText
+    tabBar.unselectedItemTintColor = .primaryText
     tabBar.addSubview(pxWhiteThing)
     tabBar.sendSubviewToBack(pxWhiteThing)
   }

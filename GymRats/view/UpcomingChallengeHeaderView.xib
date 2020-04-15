@@ -153,6 +153,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="Jz5-uo-hKo" secondAttribute="trailing" constant="20" id="EVz-sR-BHo"/>
                 <constraint firstItem="Jz5-uo-hKo" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="20" id="Qq9-9d-8lJ"/>

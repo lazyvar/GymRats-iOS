@@ -127,8 +127,8 @@ class ProfileChangeController: UIViewController, UITextFieldDelegate {
     let saveButton: UIButton = {
         let button = UIButton()
         button.setTitle("SAVE", for: .normal)
-        button.setTitleColor(UIColor.newWhite, for: .normal)
-        button.setTitleColor(UIColor.newWhite, for: .highlighted)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(UIColor.white, for: .highlighted)
         button.setBackgroundImage(.init(color: .greenSea), for: .normal)
         button.setBackgroundImage(.init(color: UIColor.greenSea.darker), for: .highlighted)
 

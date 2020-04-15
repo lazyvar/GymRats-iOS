@@ -2,161 +2,194 @@
 //  CreateChallengeViewController.swift
 //  GymRats
 //
-//  Created by Mack Hasz on 2/5/19.
-//  Copyright © 2019 Mack Hasz. All rights reserved.
+//  Created by mack on 4/13/20.
+//  Copyright © 2020 Mack Hasz. All rights reserved.
 //
 
 import UIKit
-import SwiftDate
 import RxSwift
-import RxCocoa
-import GradientLoadingBar
 import Eureka
-
-protocol CreateChallengeDelegate: class {
-  func challengeCreated(challenge: Challenge)
-}
+import SwiftDate
 
 class CreateChallengeViewController: GRFormViewController {
-
-  weak var delegate: CreateChallengeDelegate?
+  private let disposeBag = DisposeBag()
   
-  let disposeBag = DisposeBag()
-
-  let name = BehaviorRelay<String?>(value: nil)
-  let startDate = BehaviorRelay<Date?>(value: nil)
-  let endDate = BehaviorRelay<Date?>(value: nil)
-  let photo = BehaviorRelay<UIImage?>(value: nil)
-
-  lazy var submitButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(createChallenge))
-
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    title = "Start Challenge"
-    submitButton.tintColor = .brand
-    LabelRow.defaultCellUpdate = nil
+    title = "Create challenge"
     
     tableView.backgroundColor = .background
+    tableView.separatorStyle = .none
     
-    navigationItem.rightBarButtonItem = submitButton
-    navigationItem.leftBarButtonItem = UIBarButtonItem (
-      title: "Cancel",
-      style: .plain,
-      target: self,
-      action: #selector(UIViewController.dismissSelf)
-    )
+    setupBackButton()
     
-    let nameRow = TextRow("name") {
-      $0.title = "Name"
-      $0.placeholder = "Super Rats"
-    }.cellSetup { cell, _ in
-      cell.textLabel?.font = .body
-      cell.titleLabel?.font = .body
-      cell.height = { return 48 }
-      cell.tintColor = .brand
-    }
+    form = form
+      +++ mainSection
+        <<< nameRow
+        <<< descriptionRow
+        <<< startDateRow
+        <<< durationRow
+        <<< endDateRow
+        <<< scoreRow
+  
+    let startDate = startDateRow.rx.value
+    let endDate = endDateRow.rx.value
     
-    let pictureRow = ImageRow("photo") {
-      $0.title = "Banner photo"
-      $0.placeholderImage = UIImage(named: "photo")?.withRenderingMode(.alwaysTemplate)
-      $0.sourceTypes = [.Camera, .PhotoLibrary]
-    }.cellSetup { cell, _ in
-      cell.textLabel?.font = .body
-      cell.tintColor = .primaryText
-      cell.height = { return 48 }
-    }
-    
-    let startDateRow = DateRow() {
-      $0.value = Date()
-      $0.title = "Start date"
-      $0.minimumDate = Date()
-    }.cellSetup { cell, _ in
-      cell.tintColor = .brand
-      cell.textLabel?.font = .body
-      cell.height = { return 48 }
+    let numberOfDays = Observable<Int>.combineLatest(startDate, endDate) { startDateVal, endDateVal in
+      return Int(startDateVal!.getInterval(toDate: endDateVal!, component: .day))
     }
 
-    let endDateRow = DateRow() {
-      $0.value = Date() + 30.days
-      $0.minimumDate = Date()
-      $0.title = "End date"
-    }.cellSetup { cell, _ in
-      cell.tintColor = .brand
-      cell.textLabel?.font = .body
-      cell.height = { return 48 }
-    }
-    
-    let numberOfDayslabel = LabelRow() {
-      $0.title = "Total days"
-      $0.value = "30"
-    }.cellSetup { cell, _ in
-      cell.textLabel?.font = .body
-      cell.height = { return 48 }
-    }
-
-    form +++ Section()
-      <<< nameRow
-      <<< startDateRow
-      <<< endDateRow
-      <<< numberOfDayslabel
-      <<< pictureRow
-
-    nameRow.rx.value.bind(to: self.name).disposed(by: disposeBag)
-    startDateRow.rx.value.bind(to: self.startDate).disposed(by: disposeBag)
-    endDateRow.rx.value.bind(to: self.endDate).disposed(by: disposeBag)
-    pictureRow.rx.value.bind(to: self.photo).disposed(by: disposeBag)
-
-    name.asObservable()
-        .isPresent
-        .bind(to: submitButton.rx.isEnabled)
-        .disposed(by: disposeBag)
-
-    let numberOfDays = Observable<String>.combineLatest(startDate, endDate) { startDateVal, endDateVal in
-      return "\(startDateVal!.getInterval(toDate: endDateVal!, component: .day))"
-    }
-
-    numberOfDays.subscribe(onNext: { val in
-      numberOfDayslabel.value = val
-      numberOfDayslabel.reload()
-    }).disposed(by: disposeBag)
+    numberOfDays
+      .subscribe(onNext: { val in
+        self.durationRow.value = val
+        self.durationRow.cell.update()
+      })
+      .disposed(by: disposeBag)
+  
+    durationRow.rx.value
+      .subscribe(onNext: { val in
+        self.endDateRow.value = (self.startDateRow.value ?? Date()) + (val ?? 0).days
+        self.endDateRow.cell.update()
+      })
+      .disposed(by: disposeBag)
   }
     
-  @objc func createChallenge() {
-    let difference = startDate.value!.getInterval(toDate: endDate.value!, component: .day)
+  @objc private func nextTapped() {
+    let values = form.values()
+    
+    guard form.validate().count == 0 else { return }
+    guard let score = values["score_by"] as? Int else { return }
+    guard let scoreBy = ScoreBy(rawValue: score) else { return }
+    guard let start = values["start_date"] as? Date else { return }
+    guard let end = values["end_date"] as? Date else { return }
 
-    guard difference > 0 else {
-      presentAlert(title: "Number of Days Error", message: "The ending date must be further ahead in time than the starting date.")
-        
-      return
-    }
-    
-    showLoadingBar(disallowUserInteraction: true)
-    
-    let start = DateInRegion(startDate.value!, region: .current).dateAtStartOf(.day).date
-    let end = DateInRegion(endDate.value!, region: .current).dateAtStartOf(.day).date
-        
-    gymRatsAPI.createChallenge (
+    let newChallenge = NewChallenge(
+      name: values["name"] as? String ?? "",
+      description: values["description"] as? String,
       startDate: start.dateAtStartOf(.day),
       endDate: end.dateAtStartOf(.day),
-      challengeName: name.value!,
-      photo: photo.value
+      scoreBy: scoreBy,
+      banner: nil
     )
-    .subscribe(onNext: { [weak self] result in
-      self?.hideLoadingBar()
-      
-      switch result {
-      case .success(let challenge):
-        Track.event(.challengeCreated)
+    
+    push(ChallengeBannerViewController(newChallenge), animated: true)
+  }
+    
+  // MARK: Eurekah
 
-        let share = ShareCodeViewController.loadFromNib(from: .challenge)
-        share.challenge = challenge
-        share.delegate = self?.delegate
-        self?.navigationController?.setViewControllers([share], animated: true)
-      case .failure(let error):
-        self?.presentAlert(with: error)
+  private lazy var mainSection: Section = {
+    return Section() { section in
+      section.footer = self.sectionFooter
+    }
+  }()
+  
+  private lazy var nameRow: TextFieldRow = {
+    return TextFieldRow() { textRow in
+      textRow.placeholder = "Group name"
+      textRow.tag = "name"
+      textRow.icon = .people
+      textRow.add(rule: RuleRequired(msg: "Name is required."))
+    }
+    .onRowValidationChanged(self.handleRowValidationChange)
+  }()
+
+  private lazy var descriptionRow: TextViewRow = {
+    return TextViewRow() { textRow in
+      textRow.placeholder = "Descripton (optional)"
+      textRow.tag = "description"
+      textRow.icon = .clipboard
+    }
+  }()
+
+  private lazy var startDateRow: PickDateRow = {
+    return PickDateRow() { textRow in
+      textRow.placeholder = "Start date"
+      textRow.tag = "start_date"
+      textRow.icon = .cal
+      textRow.add(rule: RuleRequired(msg: "Start date is required."))
+      textRow.value = Date()
+      textRow.startDate = Date()
+    }
+  }()
+
+  private lazy var durationRow: IntegerPickerRow = {
+    return IntegerPickerRow() { textRow in
+      textRow.placeholder = "Duration"
+      textRow.icon = .clock
+      textRow.value = 30
+      textRow.numberOfRows = 1000.years.in(.day) ?? 0
+      textRow.displayInt = { "\($0) days" }
+    }
+  }()
+
+  private lazy var endDateRow: PickDateRow = {
+    return PickDateRow() { textRow in
+      textRow.placeholder = "End date"
+      textRow.tag = "end_date"
+      textRow.icon = .cal
+      textRow.add(rule: RuleRequired(msg: "End date is required."))
+      textRow.startDate = Date()
+      textRow.value = Date() + 30.days
+      textRow.endDate = Date() + 1000.years
+    }
+  }()
+
+  private lazy var scoreRow: IntegerPickerRow = {
+    return IntegerPickerRow() { textRow in
+      textRow.placeholder = "Score by"
+      textRow.tag = "score_by"
+      textRow.add(rule: RuleRequired(msg: "Score is required."))
+      textRow.icon = .star
+      textRow.value = 0
+      textRow.numberOfRows = ScoreBy.allCases.count
+      textRow.displayInt = { ScoreBy.init(rawValue: $0)?.display ?? "" }
+    }
+  }()
+
+  private lazy var sectionFooter: HeaderFooterView<UIView> = {
+    let footerBuilder = { () -> UIView in
+      let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 70))
+      let goButton = PrimaryButton().apply {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.setTitle("Next", for: .normal)
       }
-    })
-    .disposed(by: disposeBag)
+
+      container.addSubview(goButton)
+
+      goButton.addTarget(self, action: #selector(self.nextTapped), for: .touchUpInside)
+      goButton.constrainWidth(250)
+      goButton.constrainHeight(48)
+      goButton.horizontallyCenter(in: container)
+      goButton.topAnchor.constraint(equalTo: container.topAnchor, constant: 10).isActive = true
+
+      return container
+    }
+    
+    var footer = HeaderFooterView<UIView>(.callback(footerBuilder))
+    footer.height = { 100 }
+    
+    return footer
+  }()
+  
+  private func handleRowValidationChange(cell: UITableViewCell, row: TextFieldRow) {
+    guard let textRowNumber = row.indexPath?.row, var section = row.section else { return }
+    
+    let validationLabelRowNumber = textRowNumber + 1
+    
+    while validationLabelRowNumber < section.count && section[validationLabelRowNumber] is ErrorLabelRow {
+      section.remove(at: validationLabelRowNumber)
+    }
+    
+    if row.isValid { return }
+    
+    for (index, validationMessage) in row.validationErrors.map({ $0.msg }).enumerated() {
+      let labelRow = ErrorLabelRow()
+        .cellSetup { cell, _ in
+          cell.errorLabel.text = validationMessage
+        }
+      
+      section.insert(labelRow, at: validationLabelRowNumber + index)
+    }
   }
 }

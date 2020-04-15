@@ -53,12 +53,14 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="WxH-nH-P3Y" secondAttribute="bottom" constant="10" id="0Uq-1K-Jjk"/>
                     <constraint firstItem="WxH-nH-P3Y" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="2sh-UH-tFH"/>
                     <constraint firstItem="WxH-nH-P3Y" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="sQy-KV-ohv"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="bgView" destination="WxH-nH-P3Y" id="4Eb-pl-rDx"/>

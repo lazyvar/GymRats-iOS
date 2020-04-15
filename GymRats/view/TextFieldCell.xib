@@ -35,7 +35,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="shadowTextField" destination="3Nf-Jo-V5e" id="35Z-JQ-lVv"/>
+                <outlet property="shadowTextField" destination="3Nf-Jo-V5e" id="6JL-gG-kZP"/>
             </connections>
             <point key="canvasLocation" x="197.82608695652175" y="155.35714285714286"/>
         </tableViewCell>
