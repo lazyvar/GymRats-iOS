@@ -41,6 +41,8 @@ extension Account {
   static func removeCurrent() {
     UserDefaults.standard.removeObject(forKey: "gym_rats_account")
   }
+  
+  static let dummy = Account(id: 0, email: "", fullName: "", profilePictureUrl: "", token: "")
 }
 
 extension Account: Avatar {

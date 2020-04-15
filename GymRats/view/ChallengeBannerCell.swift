@@ -9,13 +9,10 @@
 import UIKit
 
 class ChallengeBannerCell: UITableViewCell {
-  @IBOutlet weak var calendarStackView: UIStackView!
-  @IBOutlet weak var membersLabel: UILabel!
-  @IBOutlet weak var calendarLabel: UILabel!
-  @IBOutlet weak var activityLabel: UILabel!
-  @IBOutlet weak var pictureHeight: NSLayoutConstraint!
+  @IBOutlet private weak var calendarStackView: UIStackView!
+  @IBOutlet private weak var pictureHeight: NSLayoutConstraint!
   
-  @IBOutlet weak var bannerImageView: UIImageView! {
+  @IBOutlet private weak var bannerImageView: UIImageView! {
     didSet {
       bannerImageView.contentMode = .scaleAspectFill
       bannerImageView.layer.cornerRadius = 4
@@ -23,11 +20,18 @@ class ChallengeBannerCell: UITableViewCell {
     }
   }
   
-  @IBOutlet weak var bg: UIView! {
+  @IBOutlet private weak var bg: UIView! {
     didSet {
       bg.backgroundColor = .clear
     }
   }
+  
+  @IBOutlet private weak var leaderAvatar: UserImageView!
+  @IBOutlet private weak var leaderLabel: UILabel!
+  @IBOutlet private weak var currentAccountAvatar: UserImageView!
+  @IBOutlet private weak var currentAccountLabel: UILabel!
+  
+  @IBOutlet weak var calendarLabel: UILabel!
   
   private var shadowLayer: CAShapeLayer!
 
@@ -88,22 +92,12 @@ class ChallengeBannerCell: UITableViewCell {
       }
       
       $0.selectionStyle = .none
-      
-      if challengeInfo.memberCount == .zero {
-        $0.membersLabel.text = "-\nmembers"
-      } else if challengeInfo.memberCount == 1 {
-        $0.membersLabel.text = "Solo\nchallenge"
-      } else {
-        $0.membersLabel.text = "\(challengeInfo.memberCount)\nmembers"
-      }
 
-      if challengeInfo.workoutCount == .zero {
-        $0.activityLabel.text = "-\nworkouts"
-      } else if challengeInfo.workoutCount == 1 {
-        $0.activityLabel.text = "1\nworkout"
-      } else {
-        $0.activityLabel.text = "\(challengeInfo.workoutCount)\nworkouts"
-      }
+      $0.currentAccountAvatar.load(GymRats.currentAccount)
+      $0.leaderAvatar.load(challengeInfo.leader)
+      
+      $0.currentAccountLabel.text = "\(challengeInfo.currentAccountScore)\nMe"
+      $0.leaderLabel.text = "\(challengeInfo.leaderScore)\nLeader"
 
       $0.calendarLabel.text = {
         let daysLeft = challenge.daysLeft.split(separator: " ")
