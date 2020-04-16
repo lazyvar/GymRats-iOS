@@ -54,6 +54,9 @@
                                                 <constraint firstAttribute="height" constant="48" id="emy-7Y-Mhl"/>
                                             </constraints>
                                             <state key="normal" title="Share code"/>
+                                            <connections>
+                                                <action selector="shareCode:" destination="-1" eventType="touchUpInside" id="8Jh-mS-1Hm"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qRP-RH-arT" customClass="SecondaryButton" customModule="GymRats" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="58" width="250" height="48"/>

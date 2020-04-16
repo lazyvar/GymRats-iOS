@@ -46,7 +46,7 @@ extension ScoreBy {
 
   var display: String {
     switch self {
-    case .workouts: return "Total workouts"
+    case .workouts: return "Number of workouts"
     case .duration: return "Minutes"
     case .distance: return "Miles"
     case .steps: return "Steps"

@@ -63,7 +63,7 @@ extension ChooseChallengeModeViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let container = UIView().apply {
       $0.backgroundColor = .clear
-      $0.constrainHeight(75)
+      $0.constrainHeight(60)
     }
     
     let text = UILabel().apply {
@@ -78,7 +78,11 @@ extension ChooseChallengeModeViewController: UITableViewDelegate {
     
     container.addSubview(text)
     
-    text.fill(in: container, top: 0, bottom: -5, left: 20, right: -20)
+    text.topAnchor.constraint(equalTo: container.topAnchor, constant: 0).isActive = true
+    text.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 20).isActive = true
+    text.rightAnchor.constraint(equalTo: container.rightAnchor, constant: -20).isActive = true
+    
+    text.sizeToFit()
     
     return container
   }

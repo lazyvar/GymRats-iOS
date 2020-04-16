@@ -96,8 +96,17 @@ class ChallengeBannerCell: UITableViewCell {
       $0.currentAccountAvatar.load(GymRats.currentAccount)
       $0.leaderAvatar.load(challengeInfo.leader)
       
-      $0.currentAccountLabel.text = "\(challengeInfo.currentAccountScore)\nMe"
-      $0.leaderLabel.text = "\(challengeInfo.leaderScore)\nLeader"
+      if let score = challengeInfo.currentAccountScore.split(separator: ".").first {
+        $0.currentAccountLabel.text = "\(score)\nMe"
+      } else {
+        $0.currentAccountLabel.text = "\(challengeInfo.currentAccountScore)\nMe"
+      }
+
+      if let score = challengeInfo.currentAccountScore.split(separator: ".").first {
+        $0.leaderLabel.text = "\(score)\nMe"
+      } else {
+        $0.leaderLabel.text = "\(challengeInfo.currentAccountScore)\nMe"
+      }
 
       $0.calendarLabel.text = {
         let daysLeft = challenge.daysLeft.split(separator: " ")

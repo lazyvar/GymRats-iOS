@@ -211,7 +211,7 @@
                                         <constraint firstAttribute="width" constant="250" id="20g-bW-WKO"/>
                                         <constraint firstAttribute="height" constant="48" id="hqe-8V-yHr"/>
                                     </constraints>
-                                    <state key="normal" title="Let's do this!"/>
+                                    <state key="normal" title="Let's do this."/>
                                     <connections>
                                         <action selector="accept:" destination="-1" eventType="touchUpInside" id="Aiw-d6-h1O"/>
                                     </connections>
