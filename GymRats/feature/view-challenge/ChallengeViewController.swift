@@ -200,10 +200,11 @@ class ChallengeViewController: BindableViewController {
     
     if let tabBarController = tabBarController, navigationController?.children.first == self {
       let insets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: tabBarController.tabBar.frame.height, right: 0)
-      
       tableView.contentInset = insets
       tableView.scrollIndicatorInsets = insets
     }
+    
+    Membership.State.fetch(for: challenge)
     
     viewModel.input.viewDidLoad.trigger()
   }
@@ -236,8 +237,12 @@ class ChallengeViewController: BindableViewController {
     let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     
     alertViewController.addAction(inviteAction)
-    alertViewController.addAction(editAction)
-    alertViewController.addAction(changeBanner)
+    
+    if Membership.State.owner(of: challenge) {
+      alertViewController.addAction(editAction)
+      alertViewController.addAction(changeBanner)
+    }
+    
     alertViewController.addAction(deleteAction)
     alertViewController.addAction(cancelAction)
     

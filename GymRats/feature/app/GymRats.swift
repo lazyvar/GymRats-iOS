@@ -160,6 +160,7 @@ enum GymRats {
     UserDefaults.standard.removeObject(forKey: "join-code")
     currentAccount = nil
     Account.removeCurrent()
+    Membership.State.clear()
     window.rootViewController = WelcomeViewController().inNav()
   }
   
