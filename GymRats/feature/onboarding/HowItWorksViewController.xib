@@ -61,6 +61,7 @@
                 <constraint firstItem="h4b-Kx-DdP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="EVp-kc-Pi7"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="h4b-Kx-DdP" secondAttribute="trailing" constant="20" id="SJo-7Q-ZJn"/>
                 <constraint firstItem="h4b-Kx-DdP" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="bVf-LD-D78"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="tXf-SF-gaW" secondAttribute="bottom" constant="10" id="xPk-k9-Rpe"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="72" y="6"/>

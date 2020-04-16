@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InviteToChallengeViewController" customModule="GymRats" customModuleProvider="target">
+            <connections>
+                <outlet property="label" destination="8G2-yC-LsT" id="aBK-TM-12y"/>
+                <outlet property="textView" destination="meW-0s-4U9" id="hOS-aI-hcT"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="PZW-KS-Hy9">
+                    <rect key="frame" x="20" y="44" width="374" height="315"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8G2-yC-LsT">
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="61"/>
+                            <string key="text">Challenge created! Invite others using the code below. Tap share code to send a link for easiest sharing. You can always do this later.</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="YIP-p9-nhz">
+                            <rect key="frame" x="0.0" y="111" width="374" height="204"/>
+                            <subviews>
+                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="CODE" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="meW-0s-4U9">
+                                    <rect key="frame" x="62" y="0.0" width="250" height="48"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="48" id="bXe-13-jpF"/>
+                                        <constraint firstAttribute="width" constant="250" id="cIB-iR-oa2"/>
+                                    </constraints>
+                                    <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                </textView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YAE-bf-qUj">
+                                    <rect key="frame" x="62" y="98" width="250" height="106"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHZ-t1-TsD" customClass="PrimaryButton" customModule="GymRats" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="250" height="48"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="250" id="S0i-yJ-eAb"/>
+                                                <constraint firstAttribute="height" constant="48" id="emy-7Y-Mhl"/>
+                                            </constraints>
+                                            <state key="normal" title="Share code"/>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qRP-RH-arT" customClass="SecondaryButton" customModule="GymRats" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="58" width="250" height="48"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="250" id="HPa-eI-g3X"/>
+                                                <constraint firstAttribute="height" constant="48" id="wMu-0E-580"/>
+                                            </constraints>
+                                            <state key="normal" title="Continue"/>
+                                            <connections>
+                                                <action selector="continue:" destination="-1" eventType="touchUpInside" id="AYq-6y-K6g"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="PZW-KS-Hy9" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="28r-8X-WOc"/>
+                <constraint firstAttribute="trailing" secondItem="PZW-KS-Hy9" secondAttribute="trailing" constant="20" id="Tt8-X1-3tn"/>
+                <constraint firstItem="PZW-KS-Hy9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="UcS-QI-6p6"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="120" y="15"/>
+        </view>
+    </objects>
+</document>
