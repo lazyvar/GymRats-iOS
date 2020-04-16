@@ -11,4 +11,7 @@ import Foundation
 struct ChallengeInfo: Decodable, Equatable {
   let memberCount: Int
   let workoutCount: Int
+  let leader: Account
+  let leaderScore: String
+  let currentAccountScore: String
 }

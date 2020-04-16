@@ -23,8 +23,8 @@ struct Challenge: Codable, Equatable {
   
   enum ScoreBy: String, Codable, CaseIterable {
     case workouts
-    case miles
-    case minutes
+    case duration
+    case distance
     case steps
     case calories
     case points
@@ -35,19 +35,20 @@ extension ScoreBy {
   init?(intValue: Int) {
     switch intValue {
     case 0: self = .workouts
-    case 1: self = .minutes
-    case 2: self = .miles
+    case 1: self = .duration
+    case 2: self = .distance
     case 3: self = .steps
     case 4: self = .calories
     case 5: self = .points
     default: return nil
     }
   }
+
   var display: String {
     switch self {
     case .workouts: return "Total workouts"
-    case .minutes: return "Minutes"
-    case .miles: return "Miles"
+    case .duration: return "Minutes"
+    case .distance: return "Miles"
     case .steps: return "Steps"
     case .calories: return "Calories"
     case .points: return "Points"

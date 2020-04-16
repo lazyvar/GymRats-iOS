@@ -31,26 +31,27 @@
                                     <constraint firstAttribute="height" constant="150" id="Y7S-dD-kNg"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="KXn-vf-IKq">
-                                <rect key="frame" x="78" y="165" width="302" height="59"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="KXn-vf-IKq">
+                                <rect key="frame" x="74" y="165" width="312" height="59"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YQs-qi-n9G">
-                                        <rect key="frame" x="0.0" y="17" width="84" height="25"/>
+                                        <rect key="frame" x="0.0" y="17.5" width="94" height="24"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="users" translatesAutoresizingMaskIntoConstraints="NO" id="4In-H6-IIg">
-                                                <rect key="frame" x="0.0" y="0.0" width="24" height="25"/>
-                                                <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ue-U8-G3h" customClass="UserImageView" customModule="GymRats" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="24" id="vnm-QC-PaW"/>
+                                                    <constraint firstAttribute="height" constant="24" id="Ogj-SU-HzM"/>
+                                                    <constraint firstAttribute="width" constant="24" id="d7B-ak-HXJ"/>
                                                 </constraints>
-                                            </imageView>
+                                            </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0X2-X3-Le7">
-                                                <rect key="frame" x="29" y="0.0" width="55" height="25"/>
+                                                <rect key="frame" x="29" y="0.0" width="65" height="24"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="55" id="xJ5-ut-qgx"/>
+                                                    <constraint firstAttribute="width" constant="65" id="xJ5-ut-qgx"/>
                                                 </constraints>
-                                                <string key="text">3
-members</string>
+                                                <string key="text">-
+Leader</string>
                                                 <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="10"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -58,22 +59,23 @@ members</string>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="T8Y-aH-3Cs">
-                                        <rect key="frame" x="104" y="17" width="89" height="25"/>
+                                        <rect key="frame" x="119" y="17.5" width="79" height="24"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="activity" translatesAutoresizingMaskIntoConstraints="NO" id="D0i-7O-bVa">
-                                                <rect key="frame" x="0.0" y="0.0" width="24" height="25"/>
-                                                <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a6R-An-4Tg" customClass="UserImageView" customModule="GymRats" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="24" id="944-kX-bZN"/>
+                                                    <constraint firstAttribute="width" constant="24" id="1cS-Of-LxU"/>
+                                                    <constraint firstAttribute="height" constant="24" id="8zW-Th-mUJ"/>
                                                 </constraints>
-                                            </imageView>
+                                            </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tdi-91-COX">
-                                                <rect key="frame" x="29" y="0.0" width="60" height="25"/>
+                                                <rect key="frame" x="29" y="0.0" width="50" height="24"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="60" id="0LE-yX-LVN"/>
+                                                    <constraint firstAttribute="width" constant="50" id="0LE-yX-LVN"/>
                                                 </constraints>
-                                                <string key="text">10
-workouts</string>
+                                                <string key="text">-
+Me</string>
                                                 <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="10"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -81,7 +83,7 @@ workouts</string>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="eFP-HO-iSE">
-                                        <rect key="frame" x="213" y="17" width="89" height="25"/>
+                                        <rect key="frame" x="223" y="17" width="89" height="25"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cal" translatesAutoresizingMaskIntoConstraints="NO" id="dmL-91-N7H">
                                                 <rect key="frame" x="0.0" y="0.0" width="24" height="25"/>
@@ -114,7 +116,7 @@ days left</string>
                             <constraint firstItem="KXn-vf-IKq" firstAttribute="top" secondItem="PYE-vo-RpP" secondAttribute="bottom" constant="15" id="UJp-tE-BDW"/>
                             <constraint firstItem="KXn-vf-IKq" firstAttribute="top" secondItem="PYE-vo-RpP" secondAttribute="bottom" constant="15" id="XgL-6J-Foh"/>
                             <constraint firstAttribute="trailing" secondItem="PYE-vo-RpP" secondAttribute="trailing" id="o2s-p6-lyV"/>
-                            <constraint firstItem="KXn-vf-IKq" firstAttribute="centerX" secondItem="d6N-Vd-grd" secondAttribute="centerX" constant="9" id="oKd-V7-6Hc"/>
+                            <constraint firstItem="KXn-vf-IKq" firstAttribute="centerX" secondItem="d6N-Vd-grd" secondAttribute="centerX" constant="10" id="oKd-V7-6Hc"/>
                             <constraint firstAttribute="bottom" secondItem="KXn-vf-IKq" secondAttribute="bottom" constant="15" id="vob-77-4lL"/>
                         </constraints>
                     </view>
@@ -129,20 +131,20 @@ days left</string>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="activityLabel" destination="Tdi-91-COX" id="0LK-Q8-A2s"/>
                 <outlet property="bannerImageView" destination="PYE-vo-RpP" id="VX2-Ah-IPe"/>
                 <outlet property="bg" destination="d6N-Vd-grd" id="SaJ-XF-CBl"/>
-                <outlet property="calendarLabel" destination="4bk-Xq-9Zy" id="q5W-fD-ruY"/>
+                <outlet property="calendarLabel" destination="4bk-Xq-9Zy" id="iH2-W4-0ZU"/>
                 <outlet property="calendarStackView" destination="eFP-HO-iSE" id="ThY-Dz-4ba"/>
-                <outlet property="membersLabel" destination="0X2-X3-Le7" id="P8Y-hz-a3L"/>
+                <outlet property="currentAccountAvatar" destination="a6R-An-4Tg" id="JAr-Kp-tgM"/>
+                <outlet property="currentAccountLabel" destination="Tdi-91-COX" id="UK3-R2-vEu"/>
+                <outlet property="leaderAvatar" destination="2ue-U8-G3h" id="DBZ-kx-mdn"/>
+                <outlet property="leaderLabel" destination="0X2-X3-Le7" id="h1M-F3-cX4"/>
                 <outlet property="pictureHeight" destination="Y7S-dD-kNg" id="KYr-tb-yrO"/>
             </connections>
-            <point key="canvasLocation" x="247.82608695652175" y="133.92857142857142"/>
+            <point key="canvasLocation" x="209" y="141"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="activity" width="25" height="25"/>
         <image name="cal" width="25" height="25"/>
-        <image name="users" width="25" height="25"/>
     </resources>
 </document>
