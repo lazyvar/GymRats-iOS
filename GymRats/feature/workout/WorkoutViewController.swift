@@ -151,12 +151,20 @@ class WorkoutViewController: BindableViewController {
     
     view.addGestureRecognizer(tapToHideKeyboard)
 
-    navigationItem.rightBarButtonItem = UIBarButtonItem (
+    let menu =  UIBarButtonItem (
       image: .moreVertical,
       style: .plain,
       target: self,
       action: #selector(showWorkoutMenu)
     )
+    
+    if let challenge = challenge {
+      if Membership.State.owner(of: challenge) || workout.account.id == GymRats.currentAccount.id {
+        navigationItem.rightBarButtonItem = menu
+      }
+    } else {
+      navigationItem.rightBarButtonItem = menu
+    }
     
     viewModel.input.viewDidLoad.trigger()
   }

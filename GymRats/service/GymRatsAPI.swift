@@ -133,6 +133,10 @@ class GymRatsAPI {
     return requestArray(.getMembersForChallenge(challenge))
   }
   
+  func getMembership(for challenge: Challenge) -> Observable<NetworkResult<Membership>> {
+    return requestObject(.getMembership(challenge: challenge))
+  }
+  
   func updateUser(email: String?, name: String?, password: String?, profilePicture: UIImage?, currentPassword: String?) -> Observable<NetworkResult<Account>> {
     return Observable<UIImage?>.just(profilePicture)
       .flatMap { image -> Observable<String?> in

@@ -36,6 +36,7 @@
 		011FB63022A33C14004D5B8E /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011FB62E22A33C14004D5B8E /* ItemCell.xib */; };
 		011FB63322A37387004D5B8E /* CompletedChallengesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB63222A37387004D5B8E /* CompletedChallengesViewController.swift */; };
 		01213CE2241E9C62008461B0 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01213CE1241E9C62008461B0 /* ChatViewController.swift */; };
+		0127B08C24490240000A48CB /* Membership.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0127B08B24490240000A48CB /* Membership.swift */; };
 		01297D842329E79000CA9E41 /* SF-Compact-Rounded-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01297D6F2329E79000CA9E41 /* SF-Compact-Rounded-Medium.otf */; };
 		01297D852329E79000CA9E41 /* SF-Compact-Rounded-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01297D702329E79000CA9E41 /* SF-Compact-Rounded-Heavy.otf */; };
 		01297D862329E79000CA9E41 /* SF-Compact-Rounded-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01297D712329E79000CA9E41 /* SF-Compact-Rounded-Light.otf */; };
@@ -320,6 +321,7 @@
 		011FB62E22A33C14004D5B8E /* ItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
 		011FB63222A37387004D5B8E /* CompletedChallengesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedChallengesViewController.swift; sourceTree = "<group>"; };
 		01213CE1241E9C62008461B0 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		0127B08B24490240000A48CB /* Membership.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Membership.swift; sourceTree = "<group>"; };
 		01297D6F2329E79000CA9E41 /* SF-Compact-Rounded-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Medium.otf"; sourceTree = "<group>"; };
 		01297D702329E79000CA9E41 /* SF-Compact-Rounded-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Heavy.otf"; sourceTree = "<group>"; };
 		01297D712329E79000CA9E41 /* SF-Compact-Rounded-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Compact-Rounded-Light.otf"; sourceTree = "<group>"; };
@@ -1110,6 +1112,7 @@
 				01EED5CC24253A3E005E0249 /* ChatNotificationCount.swift */,
 				01610147242ABC2800731E30 /* ChallengeInfo.swift */,
 				01D70BD7244676D600F6F33A /* NewChallenge.swift */,
+				0127B08B24490240000A48CB /* Membership.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1665,6 +1668,7 @@
 				0176B675243B9AD00022B65F /* UIImage+Extension.swift in Sources */,
 				013D02452419401F0063F189 /* Apply.swift in Sources */,
 				01610148242ABC2800731E30 /* ChallengeInfo.swift in Sources */,
+				0127B08C24490240000A48CB /* Membership.swift in Sources */,
 				013D0247241941C90063F189 /* UITableView+Extension.swift in Sources */,
 				01863FB9241C66E2001B3CE2 /* Alert.swift in Sources */,
 				0163A2382377AF19006FDDA2 /* StoreService.swift in Sources */,
