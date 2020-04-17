@@ -138,8 +138,7 @@ class CreateChallengerReviewViewController: UIViewController {
         case .success(let challenge):
           Track.event(.challengeCreated)
 
-          let share = ShareCodeViewController.loadFromNib(from: .challenge)
-          share.challenge = challenge
+          let share = InviteToChallengeViewController(challenge: challenge)
           
           self?.navigationController?.setViewControllers([share], animated: true)
         case .failure(let error):

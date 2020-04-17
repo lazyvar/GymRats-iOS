@@ -79,13 +79,17 @@ class EditChallengeViewController: GRFormViewController {
     
     gymRatsAPI.updateChallenge(updateChallenge)
       .subscribe(onNext: { [weak self] result in
-        self?.hideLoadingBar()
+        guard let self = self else { return }
+        
+        self.hideLoadingBar()
         
         switch result {
-        case .success:
-          self?.dismissSelf()
+        case .success(let challenge):
+          Challenge.State.all.fetch().ignore(disposedBy: self.disposeBag)
+          NotificationCenter.default.post(name: .joinedChallenge, object: challenge)
+          self.dismissSelf()
         case .failure(let error):
-          self?.presentAlert(with: error)
+          self.presentAlert(with: error)
         }
       })
       .disposed(by: disposeBag)

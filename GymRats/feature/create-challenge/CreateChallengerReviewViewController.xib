@@ -210,7 +210,7 @@
                                         <constraint firstAttribute="height" constant="48" id="LaA-2h-emQ"/>
                                         <constraint firstAttribute="width" constant="250" id="ZQj-GT-1HK"/>
                                     </constraints>
-                                    <state key="normal" title="Start!"/>
+                                    <state key="normal" title="Create challenge"/>
                                     <connections>
                                         <action selector="startTapped:" destination="-1" eventType="touchUpInside" id="YlO-S9-Axs"/>
                                     </connections>

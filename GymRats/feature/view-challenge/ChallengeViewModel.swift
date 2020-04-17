@@ -59,6 +59,7 @@ final class ChallengeViewModel: ViewModel {
     let cleanRefreshWorkouts = cleanRefresh
       .do(onNext: { self.page = 0 })
       .flatMap { gymRatsAPI.getWorkouts(for: self.challenge, page: self.page) }
+      .executeFor(atLeast: .milliseconds(300), scheduler: MainScheduler.instance)
       .share()
     
     let loadNextPage = input.infiniteScrollTriggered
@@ -66,11 +67,9 @@ final class ChallengeViewModel: ViewModel {
       .flatMap { gymRatsAPI.getWorkouts(for: self.challenge, page: self.page) }
       .share()
 
-    let challengeInfoFetchPure = Observable.merge(cleanRefresh)
+    let challengeInfoFetch = Observable.merge(cleanRefresh)
       .flatMap { gymRatsAPI.challengeInfo(self.challenge) }
-      
-    let challengeInfoFetch = challengeInfoFetchPure
-      .executeFor(atLeast: .milliseconds(300), scheduler: MainScheduler.instance)
+      .share()
     
     let challengeInfo = challengeInfoFetch.compactMap { $0.object }.share()
 
@@ -123,24 +122,33 @@ final class ChallengeViewModel: ViewModel {
         ]
       }
 
-    let realSections = Observable.combineLatest(challengeInfo, bucketsYWorkouts)
-      .map { challengeInfo, bucketsYWorkouts -> [ChallengeSection] in
-        let bucketedWorkouts = bucketsYWorkouts.0
-        let workouts = bucketsYWorkouts.1
+    let challengeInfoSection = challengeInfo
+      .map { challengeInfo -> [ChallengeSection] in
         let banner = ChallengeSection(model: .init(date: nil, skeleton: false), items: [.banner(self.challenge, challengeInfo)])
-        let workoutSections = bucketedWorkouts
-          .map { date, workouts in
-            ChallengeSection(model: .init(date: date, skeleton: false), items: workouts.map { ChallengeRow.workout($0) })
-          }
         
-        let noWorkouts  = ChallengeSection(model:.init(date: nil, skeleton: false), items: [
-          ChallengeRow.noWorkouts(self.challenge)
-        ])
-        
-        return [banner] + workoutSections + (workouts.isEmpty ? [noWorkouts] : [])
+        return [banner]
       }
-      .distinctUntilChanged(==)
     
+    let workoutSections = bucketsYWorkouts
+      .map { bucketsYWorkouts -> [ChallengeSection] in
+          let bucketedWorkouts = bucketsYWorkouts.0
+          let workouts = bucketsYWorkouts.1
+          let workoutSections = bucketedWorkouts
+            .map { date, workouts in
+              ChallengeSection(model: .init(date: date, skeleton: false), items: workouts.map { ChallengeRow.workout($0) })
+            }
+          
+          let noWorkouts  = ChallengeSection(model:.init(date: nil, skeleton: false), items: [
+            ChallengeRow.noWorkouts(self.challenge)
+          ])
+          
+          return workoutSections + (workouts.isEmpty ? [noWorkouts] : [])
+        }
+        .distinctUntilChanged(==)
+    
+    let realSections = Observable.combineLatest(challengeInfoSection, workoutSections)
+      .map { $0 + $1 }
+
     Observable.merge(ghostSections, realSections)
       .bind(to: output.sections)
       .disposed(by: disposeBag)

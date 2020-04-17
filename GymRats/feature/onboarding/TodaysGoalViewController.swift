@@ -14,6 +14,8 @@ typealias Goal = (title: String, description: String)
 typealias GoalSection = SectionModel<Void, Goal>
 
 class TodaysGoalViewController: BindableViewController {
+  private let disposeBag = DisposeBag()
+
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
       tableView.backgroundColor = .background
@@ -23,8 +25,6 @@ class TodaysGoalViewController: BindableViewController {
     }
   }
     
-  private let disposeBag = DisposeBag()
-  
   private let dataSource = RxTableViewSectionedReloadDataSource<GoalSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
     return ChoiceCell.configure(tableView: tableView, indexPath: indexPath, goal: row)
   })
@@ -50,7 +50,7 @@ class TodaysGoalViewController: BindableViewController {
         self?.tableView.deselectRow(at: indexPath, animated: true)
         
         switch indexPath.row {
-        case 0: return
+        case 0: self?.push(ChooseChallengeModeViewController())
         case 1: self?.push(JoinChallengeViewController())
         case 2: GymRats.completeOnboarding()
         default: fatalError("Unhandled row.")

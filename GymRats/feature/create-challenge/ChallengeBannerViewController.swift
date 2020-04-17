@@ -143,7 +143,7 @@ extension ChallengeBannerViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let container = UIView().apply {
       $0.backgroundColor = .clear
-      $0.constrainHeight(75)
+      $0.constrainHeight(60)
     }
     
     let text = UILabel().apply {
@@ -158,12 +158,18 @@ extension ChallengeBannerViewController: UITableViewDelegate {
     
     container.addSubview(text)
     
-    text.fill(in: container, top: 5, bottom: -5, left: 20, right: -20)
+    container.addSubview(text)
     
+    text.topAnchor.constraint(equalTo: container.topAnchor, constant: 0).isActive = true
+    text.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 20).isActive = true
+    text.rightAnchor.constraint(equalTo: container.rightAnchor, constant: -20).isActive = true
+    
+    text.sizeToFit()
+
     return container
   }
   
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    return 75
+    return 60
   }
 }

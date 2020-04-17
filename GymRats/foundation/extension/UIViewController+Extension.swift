@@ -57,7 +57,7 @@ extension UIViewController {
     
     func showLoadingBar(disallowUserInteraction: Bool = false) {
       let center = UIApplication.shared.keyWindow!.center
-      let thing = NVActivityIndicatorView(frame: CGRect(x: center.x-50, y: center.y-300, width: 100, height: 100), type: .ballPulseSync, color: .brand, padding: 20)
+      let thing = NVActivityIndicatorView(frame: CGRect(x: center.x-50, y: center.y-270, width: 100, height: 100), type: .ballPulseSync, color: .brand, padding: 20)
       thing.backgroundColor = .foreground
       thing.layer.cornerRadius = 10
       thing.layer.shadowRadius = 7
