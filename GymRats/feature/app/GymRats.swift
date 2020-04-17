@@ -175,10 +175,7 @@ enum GymRats {
 
 private extension GymRats {
   private static func branchCallback(params: [AnyHashable: Any]?, error: Error?) {
-    guard let nonBranchLink = params?["+non_branch_link"] as? String else { return }
-    guard let codeSubstring = nonBranchLink.split(separator: "/").last else { return }
-
-    let code = String(codeSubstring)
+    guard let code = params?["code"] as? String else { return }
     
     if Account.loadCurrent() != nil {
       ChallengeFlow.join(code: code)
