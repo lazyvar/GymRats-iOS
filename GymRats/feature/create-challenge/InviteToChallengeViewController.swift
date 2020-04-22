@@ -21,13 +21,13 @@ class InviteToChallengeViewController: UIViewController {
   
   @IBOutlet private weak var textView: UITextView! {
     didSet {
-      textView.font = .h4
+      textView.font = .proRoundedBold(size: 40)
       textView.textColor = .primaryText
       textView.backgroundColor = .foreground
       textView.layer.cornerRadius = 4
       textView.clipsToBounds = true
       textView.isEditable = false
-      textView.contentInset = .init(top: 5, left: 0, bottom: 0, right: 0)
+      textView.contentInset = .init(top: 20, left: 0, bottom: 0, right: 0)
     }
   }
   
