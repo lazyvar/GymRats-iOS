@@ -102,10 +102,10 @@ class ChallengeBannerCell: UITableViewCell {
         $0.currentAccountLabel.text = "\(challengeInfo.currentAccountScore)\nMe"
       }
 
-      if let score = challengeInfo.currentAccountScore.split(separator: ".").first {
-        $0.leaderLabel.text = "\(score)\nMe"
+      if let score = challengeInfo.leaderScore.split(separator: ".").first {
+        $0.leaderLabel.text = "\(score)\nLeader"
       } else {
-        $0.leaderLabel.text = "\(challengeInfo.currentAccountScore)\nMe"
+        $0.leaderLabel.text = "\(challengeInfo.leaderScore)\nLeader"
       }
 
       $0.calendarLabel.text = {
