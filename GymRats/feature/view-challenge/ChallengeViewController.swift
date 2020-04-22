@@ -335,7 +335,7 @@ extension ChallengeViewController: UITableViewDelegate {
       label.showAnimatedSkeleton()
     }
     
-    if section == 1 {
+    if section == 1 && false {
       headerView.addSubview(feedStyleButton)
       
       feedStyleButton.addTarget(self, action: #selector(self.tappedChangeFeedStyle), for: .touchUpInside)
