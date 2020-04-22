@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WebKit
 
 class WebViewController: UIViewController {
     
@@ -29,14 +30,14 @@ class WebViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let webView = UIWebView()
+        let webView = WKWebView()
         
         view.addSubview(webView)
         
         view.addConstraintsWithFormat(format: "H:|[v0]|", views: webView)
         view.addConstraintsWithFormat(format: "V:|[v0]|", views: webView)
 
-        webView.loadRequest(URLRequest(url: url))
+        webView.load(URLRequest(url: url))
         
         navigationItem.leftBarButtonItem = UIBarButtonItem (
             barButtonSystemItem: .done,
