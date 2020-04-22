@@ -10,45 +10,13 @@ import UIKit
 import RxSwift
 
 class ChallengeStatsViewController: UITableViewController {
-  enum SortBy: Int, CaseIterable {
-    case workouts
-    case duration
-    case distance
-    case steps
-    case calories
-    case points
-    
-    var title: String {
-      switch self {
-      case .workouts: return "workouts"
-      case .steps:    return "steps"
-      case .calories: return "calories"
-      case .points:   return "points"
-      case .duration: return "duration"
-      case .distance: return "distance"
-      }
-    }
-    
-    var description: String {
-      switch self {
-      case .workouts: return "workouts"
-      case .steps:    return "steps"
-      case .calories: return "calories"
-      case .points:   return "points"
-      case .duration: return "minutes"
-      case .distance: return "miles"
-      }
-    }
-  }
-  
   private let disposeBag = DisposeBag()
-  
   private let challenge: Challenge
 
   private var _users: [Int: Account] = [:]
   private var users: [Account] {
     get {
-      switch self.sortby {
+      switch self.scoreBy {
       case .workouts:
         return usersSortedByWorkouts
       case .duration:
@@ -66,19 +34,9 @@ class ChallengeStatsViewController: UITableViewController {
   }
     
   private var workouts: [Workout] = []
-  private var sortby: SortBy {
-    get {
-      let cached = UserDefaults.standard.integer(forKey: "challenge_stats_\(challenge.id)_sort_by_integer")
-      
-      return SortBy(rawValue: cached) ?? .workouts
-    }
-    set {
-      UserDefaults.standard.set(newValue.rawValue, forKey: "challenge_stats_\(challenge.id)_sort_by_integer")
-    }
-  }
-    
-  private lazy var selectedSortBy: SortBy = self.sortby
-  
+  private lazy var scoreBy: ScoreBy = self.challenge.scoreBy
+  private lazy var selectedScoreBy: ScoreBy = self.challenge.scoreBy
+
   private var userToWorkoutTotalCache: [Int: Int] = [:]
   private var userToDurationTotalCache: [Int: Int] = [:]
   private var userToDistanceTotalCache: [Int: Double] = [:]
@@ -120,7 +78,7 @@ class ChallengeStatsViewController: UITableViewController {
 
     if let description = challenge.description {
       let header = UIView()
-      header.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 50)
+      header.frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 75)
 
       let label = UILabel().apply {
         $0.text = description
@@ -133,19 +91,17 @@ class ChallengeStatsViewController: UITableViewController {
       header.addSubview(label)
       
       label.leadingAnchor.constraint(equalTo: header.leadingAnchor, constant: 20).isActive = true
-      label.trailingAnchor.constraint(equalTo: header.trailingAnchor, constant: 20).isActive = true
-      label.bottomAnchor.constraint(equalTo: header.topAnchor, constant: 5).isActive = true
+      label.trailingAnchor.constraint(equalTo: header.trailingAnchor, constant: -20).isActive = true
+      label.bottomAnchor.constraint(equalTo: header.bottomAnchor, constant: -5).isActive = true
       label.topAnchor.constraint(equalTo: header.topAnchor, constant: 5).isActive = true
 
       tableView.tableHeaderView = header
     }
     
     title = challenge.name
-    
     navigationItem.largeTitleDisplayMode = .never
     
-    self.showLoadingBar()
-    
+    showLoadingBar()
     fetch()
   }
 
@@ -266,7 +222,7 @@ class ChallengeStatsViewController: UITableViewController {
     
     push(profile)
   }
-  
+
   override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let label = UILabel()
     label.frame = CGRect(x: 15, y: 0, width: view.frame.width - 30, height: 30)
@@ -275,11 +231,11 @@ class ChallengeStatsViewController: UITableViewController {
     
     switch section {
     case 0:
-        label.text = "Stats"
+      label.text = "Stats"
     case 1:
-        label.text = "Rats"
+      label.text = "Rats"
     default:
-        fatalError("5 minutes")
+      fatalError("5 minutes")
     }
     
     let headerView = UIView()
@@ -315,10 +271,10 @@ class ChallengeStatsViewController: UITableViewController {
   func cellycell() -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "celly") as! SegmentedCell
     cell.selectionStyle = .none
-    cell.sortbyTextField.text = self.sortby.title.capitalized
+    cell.sortbyTextField.text = self.scoreBy.title.capitalized
     cell.picker.delegate = self
     cell.picker.dataSource = self
-    cell.picker.selectRow(SortBy.allCases.enumerated().first(where: { $0.element == self.sortby })!.offset, inComponent: 0, animated: false)
+    cell.picker.selectRow(ScoreBy.allCases.enumerated().first(where: { $0.element == self.scoreBy })!.offset, inComponent: 0, animated: false)
       
     let toolBar = UIToolbar()
     toolBar.barStyle = .default
@@ -339,13 +295,13 @@ class ChallengeStatsViewController: UITableViewController {
   }
   
   @objc func donePicker() {
-    self.sortby = selectedSortBy
+    self.scoreBy = selectedScoreBy
     self.tableView.reloadSections(IndexSet(arrayLiteral: 1), with: .fade)
   }
   
   @objc func cancelPicker() {
     self.view.endEditing(true)
-    self.selectedSortBy = self.sortby
+    self.selectedScoreBy = self.scoreBy
   }
   
   func dateCell(tableView: UITableView) -> UITableViewCell {
@@ -369,7 +325,7 @@ class ChallengeStatsViewController: UITableViewController {
     cell.selectionStyle = .default
     
     let score: String
-    switch sortby {
+    switch scoreBy {
     case .workouts:
       score = String(self.userToWorkoutTotalCache[user.id, default: 0])
     case .duration:
@@ -384,7 +340,7 @@ class ChallengeStatsViewController: UITableViewController {
       score = String(self.userToPointsCache[user.id, default: 0])
     }
     
-    cell.configure(withHuman: user, score: score, scoredBy: sortby)
+    cell.configure(withHuman: user, score: score, scoredBy: scoreBy)
     
     return cell
   }
@@ -396,14 +352,14 @@ extension ChallengeStatsViewController: UIPickerViewDelegate, UIPickerViewDataSo
   }
   
   func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-    return SortBy.allCases.count
+    return ScoreBy.allCases.count
   }
   
   func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-    return SortBy.allCases[row].title.capitalized
+    return ScoreBy.allCases[row].title.capitalized
   }
   
   func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    selectedSortBy = SortBy.allCases[row]
+    selectedScoreBy = ScoreBy.allCases[row]
   }
 }

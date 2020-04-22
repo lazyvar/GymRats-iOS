@@ -54,6 +54,28 @@ extension ScoreBy {
     case .points: return "Points"
     }
   }
+  
+  var title: String {
+    switch self {
+    case .workouts: return "workouts"
+    case .steps:    return "steps"
+    case .calories: return "calories"
+    case .points:   return "points"
+    case .duration: return "duration"
+    case .distance: return "distance"
+    }
+  }
+  
+  var description: String {
+    switch self {
+    case .workouts: return "workouts"
+    case .steps:    return "steps"
+    case .calories: return "calories"
+    case .points:   return "points"
+    case .duration: return "minutes"
+    case .distance: return "miles"
+    }
+  }
 }
 
 extension Challenge: Avatar {

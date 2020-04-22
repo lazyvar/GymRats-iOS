@@ -181,7 +181,6 @@ class ChallengeViewController: BindableViewController {
     super.viewDidLoad()
     
     extendedLayoutIncludesOpaqueBars = true
-
     navigationItem.title = challenge.name
     navigationItem.rightBarButtonItems = {
       if challenge.isPast {

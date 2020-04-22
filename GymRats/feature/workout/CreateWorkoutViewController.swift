@@ -88,7 +88,7 @@ class CreateWorkoutViewController: GRFormViewController {
         navigationItem.rightBarButtonItem = submitButton
         navigationItem.leftBarButtonItem = cancelButton
 
-        title = "Log Workout"
+        title = "Log workout"
         
         tableView.backgroundColor = .background
 
@@ -163,12 +163,12 @@ class CreateWorkoutViewController: GRFormViewController {
             $0.tag = "the-form"
         }
             <<< headerRow
+            <<< placeButtonRow
             <<< durationRow
             <<< distanceRow
             <<< stepsRow
             <<< caloriesRow
             <<< pointsRow
-            <<< placeButtonRow
         
         activeChallenges.forEach { challenge in
             let row = SwitchRow("challenge_\(challenge.id)") {
@@ -257,9 +257,9 @@ class CreateWorkoutViewController: GRFormViewController {
               let places = placeLikelihoods?.sorted(by: { $0.likelihood > $1.likelihood }).map({ Place(from: $0.place) })
             else { return }
 
-            self.form.sectionBy(tag: "the-form")?.remove(at: 6) // yikes
+            self.form.sectionBy(tag: "the-form")?.remove(at: 1) // yikes
             var section = self.form.sectionBy(tag: "the-form")
-            section?.insert(self.placeRow, at: 6)
+            section?.insert(self.placeRow, at: 1)
   
             var seen: [String: Bool] = [:]
           

@@ -21,7 +21,7 @@ struct NewChallenge {
 
 extension NewChallenge {
   var days: Int {
-    let daysGone: Int = abs(startDate.utcDateIsDaysApartFromUtcDate(endDate))
+    let daysGone: Int = abs(startDate.utcDateIsDaysApartFromUtcDate(endDate)) + 1
     
     return daysGone
   }
