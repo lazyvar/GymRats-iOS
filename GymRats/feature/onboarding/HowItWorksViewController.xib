@@ -64,7 +64,7 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="tXf-SF-gaW" secondAttribute="bottom" constant="10" id="xPk-k9-Rpe"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="7" y="5"/>
+            <point key="canvasLocation" x="38" y="-24"/>
         </view>
     </objects>
     <resources>
