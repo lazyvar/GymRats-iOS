@@ -20,7 +20,8 @@ extension UIFont {
   static let h2Bold      = UIFont(name: "SFProRounded-Bold",    size: 24)!
   static let h3          = UIFont(name: "SFProRounded-Regular", size: 20)!
   static let h4          = UIFont(name: "SFProRounded-Regular", size: 18)!
-  
+  static let title       = UIFont(name: "SFProRounded-Bold",    size: 28)!
+
   static func proRoundedRegular(size: CGFloat) -> UIFont {
     return UIFont(name: "SFProRounded-Regular", size: size)!
   }

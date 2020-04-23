@@ -194,16 +194,18 @@ class ChallengeViewController: BindableViewController {
       setupMenuButton()
     }
     
+    Membership.State.fetch(for: challenge)
+    adjustLargeTitleSize()
+    
     refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
     tableView.refreshControl = refreshControl
     
     if let tabBarController = tabBarController, navigationController?.children.first == self {
       let insets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: tabBarController.tabBar.frame.height, right: 0)
+      
       tableView.contentInset = insets
       tableView.scrollIndicatorInsets = insets
     }
-    
-    Membership.State.fetch(for: challenge)
     
     viewModel.input.viewDidLoad.trigger()
   }

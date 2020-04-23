@@ -30,7 +30,7 @@
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EXk-8U-3Id">
                             <rect key="frame" x="0.0" y="280" width="374" height="184"/>
-                            <mutableString key="text">Welcome to GymRats! Quick overview before getting started.  The default challenge mode is where the winner is determined by the most number of workouts. Since this is a competition, a photo is required to prove you actually did a workout. The picture can be of the gym, your sweaty self, or whatever your group deems acceptable.  The point is just to get to the gym more often and the photos make it fun. Good luck!</mutableString>
+                            <mutableString key="text">Welcome to GymRats! A quick overview before getting started.  The default challenge mode is where the winner is determined by the most number of workouts. Since this is a competition, a photo is required to prove you actually did a workout. The picture can be of the gym, your sweaty self, or whatever your group deems acceptable.  The point is just to get to the gym more often and the photos make it fun. Good luck!</mutableString>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
