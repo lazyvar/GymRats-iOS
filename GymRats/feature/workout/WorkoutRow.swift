@@ -44,13 +44,3 @@ enum WorkoutRow: Equatable, IdentifiableType {
     }
   }
 }
-
-struct Nothing: Hashable {
-  static let instance: Nothing = .init()
-  
-  private init() { }
-}
-
-extension Nothing: IdentifiableType {
-  var identity: Nothing { return .instance }
-}

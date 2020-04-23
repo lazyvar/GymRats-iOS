@@ -12,7 +12,7 @@ import RxDataSources
 import Kingfisher
 import RxKeyboard
 
-typealias WorkoutSection = AnimatableSectionModel<Nothing, WorkoutRow>
+typealias WorkoutSection = AnimatableSectionModel<Int, WorkoutRow>
 
 class WorkoutViewController: BindableViewController {
   private let viewModel = WorkoutViewModel()

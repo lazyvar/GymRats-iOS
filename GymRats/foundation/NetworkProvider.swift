@@ -38,7 +38,7 @@ class ProductionNetworkProvider: NetworkProvider {
 }
 
 class PreProductionNetworkProvider: NetworkProvider {
-  private let baseUrl: String = "https://8d4f0bad.ngrok.io"
+  private let baseUrl: String = "https://gym-rats-api-pre-production.gigalixirapp.com"
   
   func buildUrl(forPath path: String) -> String {
     return "\(baseUrl)/\(path)"

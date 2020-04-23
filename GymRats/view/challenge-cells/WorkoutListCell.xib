@@ -104,7 +104,7 @@
                 <outlet property="workoutImageWidth" destination="wmI-wU-5J3" id="Y0C-uL-nyP"/>
                 <outlet property="workoutTitleLabel" destination="e7m-oe-Bxd" id="4Be-ve-ICA"/>
             </connections>
-            <point key="canvasLocation" x="22" y="140"/>
+            <point key="canvasLocation" x="-301" y="96"/>
         </tableViewCell>
     </objects>
 </document>

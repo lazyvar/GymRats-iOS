@@ -32,7 +32,7 @@ extension GymRats {
     var ws: String {
       switch self {
       case .production:    return "wss://www.gymratsapi.com/chat/websocket"
-      case .preProduction: return "wss://8d4f0bad.ngrok.io/chat/websocket"
+      case .preProduction: return "wss://gym-rats-api-pre-production.gigalixirapp.com/chat/websocket"
       case .development:   return "ws://localhost:4000/chat/websocket"
       }
     }
