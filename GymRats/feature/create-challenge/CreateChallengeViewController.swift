@@ -37,7 +37,7 @@ class CreateChallengeViewController: GRFormViewController {
     let endDate = endDateRow.rx.value
     
     let numberOfDays = Observable<Int>.combineLatest(startDate, endDate) { startDateVal, endDateVal in
-      return Int(startDateVal!.getInterval(toDate: endDateVal!, component: .day)) + 1
+      return Int(startDateVal!.getInterval(toDate: endDateVal!, component: .day))
     }
 
     numberOfDays
@@ -126,7 +126,7 @@ class CreateChallengeViewController: GRFormViewController {
       textRow.icon = .clock
       textRow.value = 30
       textRow.numberOfRows = 1000.years.in(.day) ?? 0
-      textRow.displayInt = { "\($0) days" }
+      textRow.displayInt = { "\($0 + 1) days" }
     }
   }()
 
@@ -137,7 +137,7 @@ class CreateChallengeViewController: GRFormViewController {
       textRow.icon = .cal
       textRow.add(rule: RuleRequired(msg: "End date is required."))
       textRow.startDate = Date()
-      textRow.value = Date() + 30.days
+      textRow.value = Date() + 29.days
       textRow.endDate = Date() + 1000.years
     }
   }()
