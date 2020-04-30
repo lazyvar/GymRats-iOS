@@ -41,7 +41,7 @@ class ClassicChallengeViewController: GRFormViewController {
       name: values["name"] as? String ?? "",
       description: values["description"] as? String,
       startDate: start.dateAtStartOf(.day),
-      endDate: (Date() + 30.days).dateAtStartOf(.day),
+      endDate: (start + 29.days).dateAtStartOf(.day),
       scoreBy: .workouts,
       banner: nil
     )

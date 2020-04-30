@@ -110,6 +110,23 @@ extension UIViewController {
     return classNameWithoutModule(Self.self)
   }
   
+  func adjustLargeTitleSize() {
+    guard let title = navigationItem.title else { return }
+
+    let maxWidth = UIScreen.main.bounds.size.width - 40
+    var fontSize = UIFont.title.pointSize
+    var width = title.size(withAttributes: [NSAttributedString.Key.font: UIFont.proRoundedBold(size: fontSize)]).width
+
+    while width > maxWidth {
+      fontSize -= 1
+      width = title.size(withAttributes: [NSAttributedString.Key.font: UIFont.proRoundedBold(size: fontSize)]).width
+    }
+
+    navigationController?.navigationBar.largeTitleTextAttributes = [
+      NSAttributedString.Key.font: UIFont.proRoundedBold(size: fontSize)
+    ]
+  }
+  
   func presentAlert(title: String, message: String) {
     DispatchQueue.main.async {
       let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)

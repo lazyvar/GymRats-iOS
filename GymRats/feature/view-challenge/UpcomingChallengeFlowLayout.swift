@@ -26,7 +26,7 @@ class UpcomingChallengeFlowLayout: UICollectionViewFlowLayout {
     minimumInteritemSpacing = interItemSpacing
     sectionInset = sectionInsets
     headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: {
-      var height: CGFloat = 185
+      var height: CGFloat = 195
       
       if challenge.profilePictureUrl != nil {
         height += 150
@@ -39,7 +39,7 @@ class UpcomingChallengeFlowLayout: UICollectionViewFlowLayout {
       return height
     }())
   }
-  
+
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }

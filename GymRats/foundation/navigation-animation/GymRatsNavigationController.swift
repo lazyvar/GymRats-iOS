@@ -28,7 +28,7 @@ class GymRatsNavigationController: UINavigationController, UINavigationBarDelega
     navigationBar.prefersLargeTitles = true
     
     navigationBar.largeTitleTextAttributes = [
-      NSAttributedString.Key.font: UIFont.h1Bold,
+      NSAttributedString.Key.font: UIFont.title,
       NSAttributedString.Key.foregroundColor: UIColor.primaryText
     ]
     

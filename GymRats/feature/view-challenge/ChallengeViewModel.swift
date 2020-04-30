@@ -58,8 +58,10 @@ final class ChallengeViewModel: ViewModel {
     
     let cleanRefreshWorkouts = cleanRefresh
       .do(onNext: { self.page = 0 })
-      .flatMap { gymRatsAPI.getWorkouts(for: self.challenge, page: self.page) }
-      .executeFor(atLeast: .milliseconds(300), scheduler: MainScheduler.instance)
+      .flatMap {
+        gymRatsAPI.getWorkouts(for: self.challenge, page: self.page)
+          .executeFor(atLeast: .milliseconds(300), scheduler: MainScheduler.instance)
+      }
       .share()
     
     let loadNextPage = input.infiniteScrollTriggered

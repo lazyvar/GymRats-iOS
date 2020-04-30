@@ -17,14 +17,14 @@ class UpcomingChallengeHeaderView: UICollectionReusableView {
       bannerImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
   }
-  
+
   @IBOutlet private weak var titleLabel: UILabel! {
     didSet {
       titleLabel.textColor = .primaryText
-      titleLabel.font = .h4Bold
+      titleLabel.font = .h2Bold
     }
   }
-  
+
   @IBOutlet private weak var calendarImageView: UIImageView! {
     didSet {
       calendarImageView.tintColor = .primaryText

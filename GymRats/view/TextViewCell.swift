@@ -38,6 +38,7 @@ class TextViewCell: Cell<String>, CellType, AreaCell {
   public override func update() {
     super.update()
     
+    floatTextView.text = row.value
     floatTextView.placeholder = (self.row as? TextViewRow)?.placeholder
     iconImageView.image = (self.row as? TextViewRow)?.icon
   }

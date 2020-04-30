@@ -19,7 +19,7 @@ class ProfilePictureCell: Cell<UIImage>, CellType {
     editingAccessoryView = .none
     backgroundColor = .clear
     profilePictureImageVIew.tintColor = .hex("#000000", alpha: 0.85)
-    profilePictureImageVIew.backgroundColor = UIColor(red: 235/250, green: 235/250, blue: 235/250, alpha: 1)
+    profilePictureImageVIew.backgroundColor = UIColor(red: 225/250, green: 225/250, blue: 225/250, alpha: 1)
     profilePictureImageVIew.contentMode = .center
     profilePictureImageVIew.clipsToBounds = true
     profilePictureImageVIew.layer.cornerRadius = 56

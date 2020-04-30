@@ -85,14 +85,14 @@ final class WorkoutViewModel: ViewModel {
           headerRows.append(.location(placeID: place))
         }
         
-        let headerSection = WorkoutSection(model: .instance, items: headerRows)
+        let headerSection = WorkoutSection(model: 0, items: headerRows)
 
-        let commentSection = WorkoutSection(model: .instance, items: comments)
+        let commentSection = WorkoutSection(model: 1, items: comments)
         let newComment = WorkoutRow.newComment { comment in
           self.input.submittedComment.onNext(comment)
         }
         
-        let newCommentSection = WorkoutSection(model: .instance, items: [newComment])
+        let newCommentSection = WorkoutSection(model: 2, items: [newComment])
         
         return [headerSection, commentSection, newCommentSection]
       }

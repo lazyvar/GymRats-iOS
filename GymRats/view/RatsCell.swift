@@ -9,11 +9,11 @@
 import UIKit
 
 class RatsCell: UITableViewCell {
-  @IBOutlet weak var userImageView: UserImageView!
-  @IBOutlet weak var nameLabel: UILabel!
-  @IBOutlet weak var descLabel: UILabel!
+  @IBOutlet private weak var userImageView: UserImageView!
+  @IBOutlet private weak var nameLabel: UILabel!
+  @IBOutlet private weak var descLabel: UILabel!
   
-  func configure(withHuman human: Account, score: String, scoredBy: ChallengeStatsViewController.SortBy) {
+  func configure(withHuman human: Account, score: String, scoredBy: ScoreBy) {
     userImageView.load(human)
     nameLabel.text = "\(human.fullName)"
     descLabel.text = "\(score) \(scoredBy.description)"

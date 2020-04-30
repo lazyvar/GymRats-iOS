@@ -126,7 +126,7 @@ class CreateChallengeViewController: GRFormViewController {
       textRow.icon = .clock
       textRow.value = 30
       textRow.numberOfRows = 1000.years.in(.day) ?? 0
-      textRow.displayInt = { "\($0) days" }
+      textRow.displayInt = { "\($0 + 1) days" }
     }
   }()
 
@@ -137,7 +137,7 @@ class CreateChallengeViewController: GRFormViewController {
       textRow.icon = .cal
       textRow.add(rule: RuleRequired(msg: "End date is required."))
       textRow.startDate = Date()
-      textRow.value = Date() + 30.days
+      textRow.value = Date() + 29.days
       textRow.endDate = Date() + 1000.years
     }
   }()
