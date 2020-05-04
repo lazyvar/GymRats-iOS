@@ -202,6 +202,7 @@
 		01D70BD424465CB000F6F33A /* IntegerPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D70BD224465CB000F6F33A /* IntegerPickerCell.xib */; };
 		01D70BD8244676D600F6F33A /* NewChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D70BD7244676D600F6F33A /* NewChallenge.swift */; };
 		01D70BDB24467B9400F6F33A /* ClassicChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D70BD924467B9400F6F33A /* ClassicChallengeViewController.swift */; };
+		01E700DE2460ACB50059017A /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01E700DD2460ACB50059017A /* HealthKit.framework */; };
 		01E833E42325BF7300C66C72 /* ChallengeBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E833E22325BF7300C66C72 /* ChallengeBannerCell.swift */; };
 		01E833E52325BF7300C66C72 /* ChallengeBannerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01E833E32325BF7300C66C72 /* ChallengeBannerCell.xib */; };
 		01EED5CD24253A3E005E0249 /* ChatNotificationCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EED5CC24253A3E005E0249 /* ChatNotificationCount.swift */; };
@@ -491,6 +492,7 @@
 		01D70BD224465CB000F6F33A /* IntegerPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntegerPickerCell.xib; sourceTree = "<group>"; };
 		01D70BD7244676D600F6F33A /* NewChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChallenge.swift; sourceTree = "<group>"; };
 		01D70BD924467B9400F6F33A /* ClassicChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicChallengeViewController.swift; sourceTree = "<group>"; };
+		01E700DD2460ACB50059017A /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		01E833E22325BF7300C66C72 /* ChallengeBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeBannerCell.swift; sourceTree = "<group>"; };
 		01E833E32325BF7300C66C72 /* ChallengeBannerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeBannerCell.xib; sourceTree = "<group>"; };
 		01EED5CC24253A3E005E0249 /* ChatNotificationCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNotificationCount.swift; sourceTree = "<group>"; };
@@ -586,6 +588,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A02F4B0274FC477C5963CDDD /* Pods_GymRats.framework in Frameworks */,
+				01E700DE2460ACB50059017A /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -877,6 +880,7 @@
 		3C8DE20AD9E7BCFA336F569C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				01E700DD2460ACB50059017A /* HealthKit.framework */,
 				45AE0586E2D3E12AB034ED36 /* Pods_GymRats.framework */,
 				66C09C458F3D0EC49A95802E /* Pods_GymRatsTests.framework */,
 			);
