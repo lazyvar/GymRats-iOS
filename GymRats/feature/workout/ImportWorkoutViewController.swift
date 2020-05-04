@@ -35,7 +35,8 @@ class ImportWorkoutViewController: BindableViewController {
       tableView.registerCellNibForClass(NoWorkoutsCell.self)
       tableView.registerCellNibForClass(ChallengeBannerCell.self)
       tableView.infiniteScrollTriggerOffset = 500
-
+      tableView.separatorStyle = .none
+      
       tableView.infiniteScrollIndicatorStyle = {
         if #available(iOS 12.0, *) {
           if traitCollection.userInterfaceStyle == .dark {
@@ -82,6 +83,7 @@ class ImportWorkoutViewController: BindableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     
   }
 }

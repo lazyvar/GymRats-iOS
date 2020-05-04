@@ -75,37 +75,23 @@ class LogWorkoutModalViewController: UITableViewController {
     cell.onHealth = { [weak self] in
       guard let self = self else { return }
       
-      switch HealthService.store.authorizationStatus(for: HKObjectType.workoutType()) {
-      case .notDetermined:
-        HealthService.requestAuthorization(toShare: nil, read: Set([HKObjectType.workoutType()]))
-          .subscribe(onSuccess: { granted in
-            DispatchQueue.main.async {
-              switch HealthService.store.authorizationStatus(for: HKObjectType.workoutType()) {
-              case .sharingAuthorized:
-                let importWorkoutViewController = ImportWorkoutViewController()
-                
-                self.present(importWorkoutViewController)
-              case .sharingDenied:
-                let healthAppPermissionsViewController = HealthAppPermissionsViewController()
-                
-                self.present(healthAppPermissionsViewController, animated: true, completion: nil)
-              default: break
-              }
-            }
-          }, onError: { error in
-            print(error)
-          })
-          .disposed(by: self.disposeBag)
-      case .sharingAuthorized:
-        let importWorkoutViewController = ImportWorkoutViewController()
-        
-        self.present(importWorkoutViewController)
-      case .sharingDenied:
-        let healthAppPermissionsViewController = HealthAppPermissionsViewController()
-        
-        self.present(healthAppPermissionsViewController, animated: true, completion: nil)
-      default: break
+      guard HKHealthStore.isHealthDataAvailable() else {        
+        self.present(HealthAppPermissionsViewController(), animated: true, completion: nil)
+      
+        return
       }
+      
+      HealthService.requestAuthorization(toShare: nil, read: Set([HKObjectType.workoutType()]))
+        .subscribe(onSuccess: { granted in
+          DispatchQueue.main.async {
+            let importWorkoutViewController = ImportWorkoutViewController()
+            
+            self.present(importWorkoutViewController)
+          }
+        }, onError: { error in
+          print(error)
+        })
+        .disposed(by: self.disposeBag)
     }
 
     return cell
