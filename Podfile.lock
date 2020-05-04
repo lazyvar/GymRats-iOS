@@ -4,18 +4,20 @@ PODS:
     - Branch/Core (= 0.31.4)
   - Branch/Core (0.31.4)
   - Cache (5.2.0)
-  - Crashlytics (3.12.0):
-    - Fabric (~> 1.9.0)
   - Differentiator (4.0.1)
   - EasyNotificationBadge (1.2.0)
   - ESTabBarController-swift (2.8.0)
   - Eureka (5.2.1)
-  - Fabric (1.9.0)
+  - Firebase/Analytics (6.21.0):
+    - Firebase/Core
   - Firebase/Core (6.21.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 6.4.0)
   - Firebase/CoreOnly (6.21.0):
     - FirebaseCore (= 6.6.5)
+  - Firebase/Crashlytics (6.21.0):
+    - Firebase/CoreOnly
+    - FirebaseCrashlytics (~> 4.0.0-beta.6)
   - Firebase/Storage (6.21.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 3.6.0)
@@ -28,6 +30,7 @@ PODS:
     - GoogleUtilities/Network (~> 6.0)
     - "GoogleUtilities/NSData+zlib (~> 6.0)"
     - nanopb (= 0.3.9011)
+  - FirebaseAnalyticsInterop (1.5.0)
   - FirebaseAuthInterop (1.1.0)
   - FirebaseCore (6.6.5):
     - FirebaseCoreDiagnostics (~> 1.2)
@@ -41,6 +44,14 @@ PODS:
     - GoogleUtilities/Logger (~> 6.5)
     - nanopb (~> 0.3.901)
   - FirebaseCoreDiagnosticsInterop (1.2.0)
+  - FirebaseCrashlytics (4.0.0-beta.6):
+    - FirebaseAnalyticsInterop (~> 1.2)
+    - FirebaseCore (~> 6.6)
+    - FirebaseInstallations (~> 1.1)
+    - GoogleDataTransport (~> 5.1)
+    - GoogleDataTransportCCTSupport (>= 2.0.1, ~> 2.0)
+    - nanopb (~> 0.3.901)
+    - PromisesObjC (~> 1.2)
   - FirebaseInstallations (1.1.1):
     - FirebaseCore (~> 6.6)
     - GoogleUtilities/UserDefaults (~> 6.5)
@@ -151,12 +162,12 @@ DEPENDENCIES:
   - Alamofire (~> 4.7)
   - Branch
   - Cache
-  - Crashlytics (~> 3.12.0)
   - EasyNotificationBadge
   - ESTabBarController-swift
   - Eureka
-  - Fabric (~> 1.9.0)
+  - Firebase/Analytics
   - Firebase/Core
+  - Firebase/Crashlytics
   - Firebase/Storage
   - GooglePlaces
   - GradientLoadingBar (~> 1.0)
@@ -188,18 +199,18 @@ SPEC REPOS:
     - Alamofire
     - Branch
     - Cache
-    - Crashlytics
     - Differentiator
     - EasyNotificationBadge
     - ESTabBarController-swift
     - Eureka
-    - Fabric
     - Firebase
     - FirebaseAnalytics
+    - FirebaseAnalyticsInterop
     - FirebaseAuthInterop
     - FirebaseCore
     - FirebaseCoreDiagnostics
     - FirebaseCoreDiagnosticsInterop
+    - FirebaseCrashlytics
     - FirebaseInstallations
     - FirebaseStorage
     - GoogleAppMeasurement
@@ -243,18 +254,18 @@ SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   Branch: 5180bca89b8942dd0fe8175d7ecb8a8a451cf5b0
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
-  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   EasyNotificationBadge: afeb15ed6f9a4262d626a2b745297e96afa26c2e
   ESTabBarController-swift: 05593a6ad64700b03c0eb60ff625916370aa4136
   Eureka: c883105488e05bc65539f583246ecf9657cabbfe
-  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   Firebase: f378c80340dd41c0ad0914af740c021eb282a04b
   FirebaseAnalytics: a1a0b3327ceb5cd5b4bacffdb293f6c909aa087d
+  FirebaseAnalyticsInterop: 3f86269c38ae41f47afeb43ebf32a001f58fcdae
   FirebaseAuthInterop: a0f37ae05833af156e72028f648d313f7e7592e9
   FirebaseCore: 9f495d3afacb7b558711e6218ebb14b1c51b5802
   FirebaseCoreDiagnostics: e9b4cd8ba60dee0f2d13347332e4b7898cca5b61
   FirebaseCoreDiagnosticsInterop: 296e2c5f5314500a850ad0b83e9e7c10b011a850
+  FirebaseCrashlytics: b9e729da8b80d9c45f234f791a73b5fe647d4c31
   FirebaseInstallations: acb3216eb9784d3b1d2d2d635ff74fa892cc0c44
   FirebaseStorage: b43ee271294227e1a3225544b073f3b49b427f46
   GoogleAppMeasurement: 6e68a94d0eaeb1d73ef6b0ed4f7334e29d63ae29
@@ -294,6 +305,6 @@ SPEC CHECKSUMS:
   UIScrollView-InfiniteScroll: 3ef456bcbe759c19f510a383cff96e6647c98c98
   UnsplashPhotoPicker: 86520e34cfded8fb4a41910bf87afe571906b4e3
 
-PODFILE CHECKSUM: 8c9deef988339dfd34bfba28af419c22b5e034a5
+PODFILE CHECKSUM: c0882722cc1b9793416e664c9790eb74006f0948
 
 COCOAPODS: 1.9.1
