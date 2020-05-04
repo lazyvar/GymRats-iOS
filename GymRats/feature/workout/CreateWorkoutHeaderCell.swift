@@ -79,7 +79,6 @@ class CreateWorkoutHeaderCell: Cell<WorkoutHeaderInfo>, CellType {
             self.row.value = WorkoutHeaderInfo(image: image, title: currentValue.title, description: currentValue.description)
             self.update()
         }
-        picka.showText = false
         
         UIViewController.topmost().presentPanModal(picka)
     }
