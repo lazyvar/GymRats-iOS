@@ -9,8 +9,10 @@
 import UIKit
 import PanModal
 import HealthKit
+import RxSwift
 
 class LogWorkoutModalViewController: UITableViewController {
+  private let disposeBag = DisposeBag()
   private let onPickSource: (Either<UIImage, HKWorkout>) -> Void
   private var showText = true
     
@@ -73,7 +75,37 @@ class LogWorkoutModalViewController: UITableViewController {
     cell.onHealth = { [weak self] in
       guard let self = self else { return }
       
-      // ...
+      switch HealthService.store.authorizationStatus(for: HKObjectType.workoutType()) {
+      case .notDetermined:
+        HealthService.requestAuthorization(toShare: nil, read: Set([HKObjectType.workoutType()]))
+          .subscribe(onSuccess: { granted in
+            DispatchQueue.main.async {
+              switch HealthService.store.authorizationStatus(for: HKObjectType.workoutType()) {
+              case .sharingAuthorized:
+                let importWorkoutViewController = ImportWorkoutViewController()
+                
+                self.present(importWorkoutViewController)
+              case .sharingDenied:
+                let healthAppPermissionsViewController = HealthAppPermissionsViewController()
+                
+                self.present(healthAppPermissionsViewController, animated: true, completion: nil)
+              default: break
+              }
+            }
+          }, onError: { error in
+            print(error)
+          })
+          .disposed(by: self.disposeBag)
+      case .sharingAuthorized:
+        let importWorkoutViewController = ImportWorkoutViewController()
+        
+        self.present(importWorkoutViewController)
+      case .sharingDenied:
+        let healthAppPermissionsViewController = HealthAppPermissionsViewController()
+        
+        self.present(healthAppPermissionsViewController, animated: true, completion: nil)
+      default: break
+      }
     }
 
     return cell
