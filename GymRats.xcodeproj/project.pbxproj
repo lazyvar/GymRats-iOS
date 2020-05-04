@@ -203,6 +203,9 @@
 		01D70BD8244676D600F6F33A /* NewChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D70BD7244676D600F6F33A /* NewChallenge.swift */; };
 		01D70BDB24467B9400F6F33A /* ClassicChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D70BD924467B9400F6F33A /* ClassicChallengeViewController.swift */; };
 		01E700DE2460ACB50059017A /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01E700DD2460ACB50059017A /* HealthKit.framework */; };
+		01E700E12460B30B0059017A /* ImportWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E700DF2460B30B0059017A /* ImportWorkoutViewController.swift */; };
+		01E700E22460B30B0059017A /* ImportWorkoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01E700E02460B30B0059017A /* ImportWorkoutViewController.xib */; };
+		01E700E42460B34A0059017A /* ImportWorkoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E700E32460B34A0059017A /* ImportWorkoutViewModel.swift */; };
 		01E833E42325BF7300C66C72 /* ChallengeBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E833E22325BF7300C66C72 /* ChallengeBannerCell.swift */; };
 		01E833E52325BF7300C66C72 /* ChallengeBannerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01E833E32325BF7300C66C72 /* ChallengeBannerCell.xib */; };
 		01EED5CD24253A3E005E0249 /* ChatNotificationCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EED5CC24253A3E005E0249 /* ChatNotificationCount.swift */; };
@@ -493,6 +496,9 @@
 		01D70BD7244676D600F6F33A /* NewChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChallenge.swift; sourceTree = "<group>"; };
 		01D70BD924467B9400F6F33A /* ClassicChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicChallengeViewController.swift; sourceTree = "<group>"; };
 		01E700DD2460ACB50059017A /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		01E700DF2460B30B0059017A /* ImportWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWorkoutViewController.swift; sourceTree = "<group>"; };
+		01E700E02460B30B0059017A /* ImportWorkoutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportWorkoutViewController.xib; sourceTree = "<group>"; };
+		01E700E32460B34A0059017A /* ImportWorkoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWorkoutViewModel.swift; sourceTree = "<group>"; };
 		01E833E22325BF7300C66C72 /* ChallengeBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeBannerCell.swift; sourceTree = "<group>"; };
 		01E833E32325BF7300C66C72 /* ChallengeBannerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeBannerCell.xib; sourceTree = "<group>"; };
 		01EED5CC24253A3E005E0249 /* ChatNotificationCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNotificationCount.swift; sourceTree = "<group>"; };
@@ -1216,6 +1222,9 @@
 				015C071A243FC7E5003E75E9 /* LogWorkoutCell.xib */,
 				015C0722243FD35B003E75E9 /* MapViewController.swift */,
 				015C0723243FD35B003E75E9 /* MapViewController.xib */,
+				01E700E32460B34A0059017A /* ImportWorkoutViewModel.swift */,
+				01E700DF2460B30B0059017A /* ImportWorkoutViewController.swift */,
+				01E700E02460B30B0059017A /* ImportWorkoutViewController.xib */,
 			);
 			path = workout;
 			sourceTree = "<group>";
@@ -1381,6 +1390,7 @@
 				74118063220C58C300EB9D11 /* Lato-Hairline.ttf in Resources */,
 				01CA1297243FF93100540402 /* UpcomingChallengeHeaderView.xib in Resources */,
 				01297D942329E79000CA9E41 /* SF-Pro-Rounded-Medium.otf in Resources */,
+				01E700E22460B30B0059017A /* ImportWorkoutViewController.xib in Resources */,
 				01D5D371243BDA7D0044E459 /* ErrorLabelCell.xib in Resources */,
 				015C0725243FD35B003E75E9 /* MapViewController.xib in Resources */,
 				0107AE372325E3D300944D11 /* WorkoutListCell.xib in Resources */,
@@ -1582,6 +1592,7 @@
 				747D6FE02208ECDD0062BB39 /* Styles.swift in Sources */,
 				01F5295D2418367B00FA96E0 /* Resource.swift in Sources */,
 				01F5296B24184CDA00FA96E0 /* NoChallengesViewModel.swift in Sources */,
+				01E700E42460B34A0059017A /* ImportWorkoutViewModel.swift in Sources */,
 				011FB62F22A33C14004D5B8E /* ItemCell.swift in Sources */,
 				01319ED9241878EA005E65D2 /* UpdateChallenge.swift in Sources */,
 				01F529502417FD0200FA96E0 /* ViewModel.swift in Sources */,
@@ -1678,6 +1689,7 @@
 				0163A2382377AF19006FDDA2 /* StoreService.swift in Sources */,
 				018510032447A3C700C4F1A6 /* ChangeBannerViewController.swift in Sources */,
 				01D5D36D243BD32A0044E459 /* ShadowTextField.swift in Sources */,
+				01E700E12460B30B0059017A /* ImportWorkoutViewController.swift in Sources */,
 				747D6FC32208DCAB0062BB39 /* Observable+Extension.swift in Sources */,
 				01660840239C8CA700FCFD26 /* StatsBabyCell.swift in Sources */,
 				01D5D366243BBA9F0044E459 /* NavigationTransitionCoordinator.swift in Sources */,

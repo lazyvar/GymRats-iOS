@@ -8,14 +8,15 @@
 
 import UIKit
 import PanModal
+import HealthKit
 
 class LogWorkoutModalViewController: UITableViewController {
-  private let onPickImage: (UIImage) -> Void
+  private let onPickSource: (Either<UIImage, HKWorkout>) -> Void
   private var showText = true
     
-  init(onPickImage: @escaping (UIImage) -> Void) {
-    self.onPickImage = onPickImage
-        
+  init(onPickSource: @escaping (Either<UIImage, HKWorkout>) -> Void) {
+    self.onPickSource = onPickSource
+
     super.init(style: .plain)
   }
     
@@ -32,76 +33,73 @@ class LogWorkoutModalViewController: UITableViewController {
     tableView.register(UINib(nibName: "LogWorkoutCell", bundle: nil), forCellReuseIdentifier: "log")
   }
     
-    override func numberOfSections(in tableView: UITableView) -> Int { return 1 }
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return 1 }
+  override func numberOfSections(in tableView: UITableView) -> Int { return 1 }
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return 1 }
+  
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "log") as! LogWorkoutCell
+    cell.textStackView.isHidden = !showText
+    cell.onTakePicture = { [weak self] in
+      guard let self = self else { return }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "log") as! LogWorkoutCell
-        cell.textStackView.isHidden = !showText
-        cell.onTakePicture = { [weak self] in
-            guard let self = self else { return }
-            
-            guard UIImagePickerController.isCameraDeviceAvailable(.front) || UIImagePickerController.isCameraDeviceAvailable(.rear) else {
-                self.presentAlert(title: "Uh-oh", message: "Your device needs a camera to do that.")
-                return
-            }
+      guard UIImagePickerController.isCameraDeviceAvailable(.front) || UIImagePickerController.isCameraDeviceAvailable(.rear) else {
+        self.presentAlert(title: "Uh-oh", message: "Your device needs a camera to do that.")
+        return
+      }
 
-                let imagePicker = UIImagePickerController()
-                imagePicker.sourceType = .camera
-                imagePicker.delegate = self
-                UINavigationBar.appearance().isTranslucent = false
-                UINavigationBar.appearance().barTintColor = .background
-                UINavigationBar.appearance().tintColor = .primaryText
-                
-                self.present(imagePicker, animated: true, completion: nil)
-            
-        }
-        cell.onChooseFromLibrary = { [weak self] in
-            guard let self = self else { return }
-            
-                let imagePicker = UIImagePickerController()
-                imagePicker.sourceType = .photoLibrary
-                imagePicker.delegate = self
-                UINavigationBar.appearance().isTranslucent = false
-                UINavigationBar.appearance().barTintColor = .background
-                UINavigationBar.appearance().tintColor = .primaryText
+      let imagePicker = UIImagePickerController()
+      imagePicker.sourceType = .camera
+      imagePicker.delegate = self
+      UINavigationBar.appearance().isTranslucent = false
+      UINavigationBar.appearance().barTintColor = .background
+      UINavigationBar.appearance().tintColor = .primaryText
+      
+      self.present(imagePicker, animated: true, completion: nil)
+  }
+    
+    cell.onChooseFromLibrary = { [weak self] in
+      guard let self = self else { return }
+        
+      let imagePicker = UIImagePickerController()
+      imagePicker.sourceType = .photoLibrary
+      imagePicker.delegate = self
+      UINavigationBar.appearance().isTranslucent = false
+      UINavigationBar.appearance().barTintColor = .background
+      UINavigationBar.appearance().tintColor = .primaryText
 
-                self.present(imagePicker, animated: true, completion: nil)
-            
-        }
-
-        return cell
+      self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    cell.onHealth = { [weak self] in
+      guard let self = self else { return }
+      
+      // ...
     }
 
+    return cell
+  }
 }
 
-extension LogWorkoutModalViewController: UINavigationControllerDelegate {
-
-}
+extension LogWorkoutModalViewController: UINavigationControllerDelegate { }
 
 extension LogWorkoutModalViewController: UIImagePickerControllerDelegate {
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true) {
-            self.dismiss(animated: true) {
-                if let img = info[.originalImage] as? UIImage {
-                    self.onPickImage(img)
-                }
-            }
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    picker.dismiss(animated: true) {
+      self.dismiss(animated: true) {
+        if let img = info[.originalImage] as? UIImage {
+          self.onPickSource(.left(img))
         }
+      }
     }
-    
+  }
 }
 
 extension LogWorkoutModalViewController: PanModalPresentable {
-    
-    var panScrollable: UIScrollView? {
-        return tableView
-    }
-    
-    var showDragIndicator: Bool {
-        return false
-    }
-    
-    
+  var panScrollable: UIScrollView? {
+    return tableView
+  }
+  
+  var showDragIndicator: Bool {
+    return false
+  }
 }

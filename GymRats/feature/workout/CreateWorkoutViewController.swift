@@ -11,13 +11,13 @@ import RxSwift
 import RxCocoa
 import GooglePlaces
 import Eureka
+import HealthKit
 
 protocol CreatedWorkoutDelegate: class {
   func createWorkoutController(_ createWorkoutController: CreateWorkoutViewController, created workout: Workout)
 }
 
 class CreateWorkoutViewController: GRFormViewController {
-    
     weak var delegate: CreatedWorkoutDelegate?
 
     let disposeBag = DisposeBag()
@@ -41,7 +41,7 @@ class CreateWorkoutViewController: GRFormViewController {
     let workoutHeader = BehaviorRelay<WorkoutHeaderInfo?>(value: nil)
     
     var challenges: [Int: BehaviorRelay<Bool>] = [:]
-    var workoutImage: UIImage
+    var source: Either<UIImage, HKWorkout>
     
     lazy var submitButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(postWorkout))
     lazy var cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissSelf))
@@ -71,11 +71,11 @@ class CreateWorkoutViewController: GRFormViewController {
         self?.showLoadingBar()
     }
     
-    init(workoutImage: UIImage) {
-        self.workoutImage = workoutImage
-        
-        super.init(nibName: nil, bundle: nil)
-    }
+  init(source: Either<UIImage, HKWorkout>) {
+    self.source = source
+    
+    super.init(nibName: nil, bundle: nil)
+  }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -99,7 +99,9 @@ class CreateWorkoutViewController: GRFormViewController {
       let activeChallenges = (Challenge.State.all.state?.object ?? []).getActiveChallenges()
       
         let headerRow = CreateWorkoutHeaderRow("workout_header") {
-          $0.value = WorkoutHeaderInfo(image: workoutImage, title: "", description: "")
+          guard let image = source.left else { return }
+          
+          $0.value = WorkoutHeaderInfo(image: image, title: "", description: "")
         }
 
         let durationRow = TextRow("duration") {

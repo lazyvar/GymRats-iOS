@@ -72,27 +72,19 @@ class CreateWorkoutHeaderCell: Cell<WorkoutHeaderInfo>, CellType {
         row.value = WorkoutHeaderInfo(image: currentValue.image, title: title, description: currentValue.description)
     }
     
-    @objc func editButtonTapped() {
-        let picka = LogWorkoutModalViewController() { image in
-            let currentValue: WorkoutHeaderInfo = self.row.value!
-            
-            self.row.value = WorkoutHeaderInfo(image: image, title: currentValue.title, description: currentValue.description)
-            self.update()
-        }
-        
-        UIViewController.topmost().presentPanModal(picka)
-    }
+  @objc func editButtonTapped() {
+    // TODO: edit workout image
+  }
     
-    public override func update() {
-        super.update()
+  public override func update() {
+      super.update()
 
-        let currentValue: WorkoutHeaderInfo = row.value!
+      let currentValue: WorkoutHeaderInfo = row.value!
 
-        workoutImageView.image = currentValue.image
-        titleTextField.text = currentValue.title
-        descTextView.text = currentValue.description
-    }
-
+      workoutImageView.image = currentValue.image
+      titleTextField.text = currentValue.title
+      descTextView.text = currentValue.description
+  }
 }
 
 extension CreateWorkoutHeaderCell: UITextViewDelegate {

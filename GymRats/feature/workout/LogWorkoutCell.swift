@@ -78,12 +78,12 @@ class LogWorkoutCell: UITableViewCell {
   @objc func handleHealth(shortPress: UILongPressGestureRecognizer) {
     switch shortPress.state {
     case .began:
-      animateScalePicture(0.925)
+      animateScaleHealth(0.925)
     case .ended, .failed:
-      self.onTakePicture?()
+      self.onHealth?()
       fallthrough
     case .cancelled:
-      animateScalePicture(1.0)
+      animateScaleHealth(1.0)
     default:
       break
     }
@@ -110,9 +110,7 @@ class LogWorkoutCell: UITableViewCell {
     healthAppView.addGestureRecognizer(shortPressHealth)
   }
     
-  override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                         shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool
-  {
+  override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
     return true
   }
 
@@ -127,6 +125,14 @@ class LogWorkoutCell: UITableViewCell {
   func animateScalePicture(_ scale: CGFloat, onCompletion: (() -> Void)? = nil) {
     UIView.animate(withDuration: 0.15, delay: 0, options: .curveLinear, animations: {
       self.takePictureView.transform = CGAffineTransform(scaleX: scale, y: scale)
+    }, completion: { _ in
+        onCompletion?()
+    })
+  }
+
+  func animateScaleHealth(_ scale: CGFloat, onCompletion: (() -> Void)? = nil) {
+    UIView.animate(withDuration: 0.15, delay: 0, options: .curveLinear, animations: {
+      self.healthAppView.transform = CGAffineTransform(scaleX: scale, y: scale)
     }, completion: { _ in
         onCompletion?()
     })
