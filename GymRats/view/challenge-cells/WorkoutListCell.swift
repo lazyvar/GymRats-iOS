@@ -116,7 +116,9 @@ class WorkoutListCell: UITableViewCell {
   }
 
   static func skeleton(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-    return tableView.dequeueSkeletonCell(withType: WorkoutListCell.self, for: indexPath).apply {      
+    return tableView.dequeueSkeletonCell(withType: WorkoutListCell.self, for: indexPath).apply {
+      $0.timeLabel.text = "9:11 am"
+
       $0.accountNameLabel.isSkeletonable = true
       $0.workoutImageView.isSkeletonable = true
       $0.workoutTitleLabel.isSkeletonable = true
@@ -140,7 +142,7 @@ class WorkoutListCell: UITableViewCell {
       }) {
         $0.workoutTitleLabel.removeConstraint(width)
       }
-
+      
       $0.accountNameLabel.constrainWidth(CGFloat.random(in: 55...125))
       $0.workoutTitleLabel.constrainWidth(CGFloat.random(in: 95...200))
 
