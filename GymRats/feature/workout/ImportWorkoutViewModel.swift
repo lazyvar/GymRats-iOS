@@ -10,6 +10,11 @@ import Foundation
 import HealthKit
 import RxSwift
 
+enum ImportWorkoutRow {
+  case workout(HKWorkout)
+  case noWorkouts
+}
+
 final class ImportWorkoutViewModel: ViewModel {
   private let disposeBag = DisposeBag()
   
@@ -34,7 +39,11 @@ final class ImportWorkoutViewModel: ViewModel {
     input.viewDidLoad
       .flatMap { workouts }
       .map { workouts in
-        return [ImportWorkoutSection(model: (), items: workouts)]
+        if workouts.isEmpty {
+          return [ImportWorkoutSection(model: (), items: [.noWorkouts])]
+        } else {
+          return [ImportWorkoutSection(model: (), items: workouts.map { ImportWorkoutRow.workout($0) })]
+        }
       }
       .bind(to: output.sections)
       .disposed(by: disposeBag)

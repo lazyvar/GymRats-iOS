@@ -18,19 +18,19 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Gw-l4-6MM" customClass="SpookyView" customModule="GymRats" customModuleProvider="target">
-                        <rect key="frame" x="10" y="10" width="538" height="160"/>
+                        <rect key="frame" x="20" y="5" width="518" height="170"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="yjs-Ut-fVa">
-                                <rect key="frame" x="0.0" y="0.0" width="538" height="160"/>
+                                <rect key="frame" x="0.0" y="0.0" width="518" height="170"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7zD-LI-hZh">
-                                        <rect key="frame" x="10" y="10" width="518" height="114.5"/>
+                                        <rect key="frame" x="10" y="10" width="498" height="124.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jOQ-ff-BRw">
-                                        <rect key="frame" x="10" y="129.5" width="518" height="20.5"/>
+                                        <rect key="frame" x="10" y="139.5" width="498" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -49,10 +49,10 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="4Gw-l4-6MM" secondAttribute="trailing" constant="10" id="LB5-Sb-h2U"/>
-                    <constraint firstItem="4Gw-l4-6MM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="fa7-Jt-JLj"/>
-                    <constraint firstAttribute="bottom" secondItem="4Gw-l4-6MM" secondAttribute="bottom" constant="10" id="sOt-QU-niX"/>
-                    <constraint firstItem="4Gw-l4-6MM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="wum-BP-Y4D"/>
+                    <constraint firstAttribute="trailing" secondItem="4Gw-l4-6MM" secondAttribute="trailing" constant="20" id="LB5-Sb-h2U"/>
+                    <constraint firstItem="4Gw-l4-6MM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="fa7-Jt-JLj"/>
+                    <constraint firstAttribute="bottom" secondItem="4Gw-l4-6MM" secondAttribute="bottom" constant="5" id="sOt-QU-niX"/>
+                    <constraint firstItem="4Gw-l4-6MM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="wum-BP-Y4D"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

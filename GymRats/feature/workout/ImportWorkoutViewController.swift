@@ -11,7 +11,7 @@ import HealthKit
 import RxSwift
 import RxDataSources
 
-typealias ImportWorkoutSection = SectionModel<Void, HKWorkout>
+typealias ImportWorkoutSection = SectionModel<Void, ImportWorkoutRow>
 
 protocol ImportWorkoutViewControllerDelegate: class {
   func importWorkoutViewController(_ importWorkoutViewController: ImportWorkoutViewController, imported workout: HKWorkout)
@@ -33,7 +33,16 @@ class ImportWorkoutViewController: BindableViewController {
   }
   
   private lazy var dataSource = RxTableViewSectionedReloadDataSource<ImportWorkoutSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
-    return HealthAppWorkoutCell.configure(tableView: tableView, indexPath: indexPath, workout: row)
+    switch row {
+    case .workout(let workout):
+      return HealthAppWorkoutCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
+    case .noWorkouts:
+      return UITableViewCell().apply {
+        $0.textLabel?.text = "There are no workouts to import. Add some workouts to the Health App and they will show here."
+        $0.backgroundColor = .clear
+        $0.textLabel?.numberOfLines = 0
+      }
+    }
   })
 
   override func bindViewModel() {

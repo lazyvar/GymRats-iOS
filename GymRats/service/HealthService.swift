@@ -28,7 +28,9 @@ enum HealthService {
     return Single.create { observer in
       let allWorkouts = HKQuery.predicateForWorkouts(with: .greaterThan, duration: 0)
       let sortByStartDate = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
-      let query = HKSampleQuery(sampleType: .workoutType(), predicate: allWorkouts, limit: 100, sortDescriptors: [sortByStartDate]) { _, samples, error in
+      let noManualEntryAllowed = NSPredicate(format: "metadata.%K != YES", HKMetadataKeyWasUserEntered)
+      let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [allWorkouts, noManualEntryAllowed])
+      let query = HKSampleQuery(sampleType: .workoutType(), predicate: compoundPredicate, limit: 100, sortDescriptors: [sortByStartDate]) { _, samples, error in
         if let error = error {
           observer(.error(error))
         } else {

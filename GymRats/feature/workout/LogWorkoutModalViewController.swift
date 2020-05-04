@@ -85,6 +85,7 @@ class LogWorkoutModalViewController: UITableViewController {
         .subscribe(onSuccess: { granted in
           DispatchQueue.main.async {
             let importWorkoutViewController = ImportWorkoutViewController()
+            importWorkoutViewController.delegate = self
             
             self.present(importWorkoutViewController)
           }
@@ -101,7 +102,8 @@ class LogWorkoutModalViewController: UITableViewController {
 extension LogWorkoutModalViewController: ImportWorkoutViewControllerDelegate {
   func importWorkoutViewController(_ importWorkoutViewController: ImportWorkoutViewController, imported workout: HKWorkout) {
     importWorkoutViewController.dismissSelf()
-    self.dismiss(animated: true) {
+    
+    dismiss(animated: true) {
       self.onPickSource(.right(workout))
     }
   }
