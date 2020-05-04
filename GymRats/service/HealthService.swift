@@ -9,6 +9,7 @@
 import Foundation
 import HealthKit
 import RxSwift
+import RxCocoa
 
 enum HealthService {
   static let store = HKHealthStore()
@@ -21,5 +22,23 @@ enum HealthService {
       
       return Disposables.create { }
     }
+  }
+  
+  static func allWorkouts() -> Driver<[HKWorkout]> {
+    return Single.create { observer in
+      let allWorkouts = HKQuery.predicateForWorkouts(with: .greaterThan, duration: 0)
+      let sortByStartDate = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+      let query = HKSampleQuery(sampleType: .workoutType(), predicate: allWorkouts, limit: 100, sortDescriptors: [sortByStartDate]) { _, samples, error in
+        if let error = error {
+          observer(.error(error))
+        } else {
+          observer(.success((samples ?? []).compactMap { $0 as? HKWorkout }))
+        }
+      }
+
+      store.execute(query)
+      
+      return Disposables.create { }
+    }.asDriver(onErrorJustReturn: [])
   }
 }

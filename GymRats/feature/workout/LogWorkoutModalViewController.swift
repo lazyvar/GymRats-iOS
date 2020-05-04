@@ -75,7 +75,7 @@ class LogWorkoutModalViewController: UITableViewController {
     cell.onHealth = { [weak self] in
       guard let self = self else { return }
       
-      guard HKHealthStore.isHealthDataAvailable() else {        
+      guard HKHealthStore.isHealthDataAvailable() else {
         self.present(HealthAppPermissionsViewController(), animated: true, completion: nil)
       
         return
@@ -95,6 +95,15 @@ class LogWorkoutModalViewController: UITableViewController {
     }
 
     return cell
+  }
+}
+
+extension LogWorkoutModalViewController: ImportWorkoutViewControllerDelegate {
+  func importWorkoutViewController(_ importWorkoutViewController: ImportWorkoutViewController, imported workout: HKWorkout) {
+    importWorkoutViewController.dismissSelf()
+    self.dismiss(animated: true) {
+      self.onPickSource(.right(workout))
+    }
   }
 }
 
