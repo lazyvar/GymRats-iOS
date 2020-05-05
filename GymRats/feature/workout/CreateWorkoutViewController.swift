@@ -199,11 +199,12 @@ class CreateWorkoutViewController: GRFormViewController {
           cell.tintColor = .primaryText
           cell.height = { return 48 }
           cell.imageView?.image = .smallAppleHealth
-        cell.accessoryType = .disclosureIndicator
+          cell.accessoryType = .disclosureIndicator
       }.onCellSelection { [weak self] _, _ in
         self?.importWorkout()
       }.cellUpdate { cell, row in
         cell.textLabel?.textAlignment = .left
+        cell.accessoryType = .disclosureIndicator
       }
       
       if let workout = healthKitWorkout.value {
