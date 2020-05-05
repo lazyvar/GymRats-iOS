@@ -33,7 +33,7 @@ class CreateWorkoutHeaderCell: Cell<WorkoutHeaderInfo>, CellType {
     titleTextField.addTarget(self, action: #selector(titleChanged), for: .editingChanged)
     descTextView.delegate = self
     editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
-    descTextView.placeholder = "Description"
+    descTextView.placeholder = "Description (optional)"
     titleTextField.font = .body
     descTextView.font = .body
     descTextView.tintColor = .none
@@ -58,7 +58,7 @@ class CreateWorkoutHeaderCell: Cell<WorkoutHeaderInfo>, CellType {
     let currentValue: WorkoutHeaderInfo = row.value!
     
     if currentValue.image != nil {
-      editButton.setTitle("EDIT", for: .normal)
+      editButton.setTitle("CHANGE", for: .normal)
       workoutImageView.backgroundColor = .clear
       workoutImageView.contentMode = .scaleAspectFill
       workoutImageView.layer.borderWidth = 0
@@ -126,7 +126,7 @@ class CreateWorkoutHeaderCell: Cell<WorkoutHeaderInfo>, CellType {
     descTextView.text = currentValue.description
     
     if currentValue.image != nil {
-      editButton.setTitle("EDIT", for: .normal)
+      editButton.setTitle("CHANGE", for: .normal)
       workoutImageView.backgroundColor = .clear
       workoutImageView.contentMode = .scaleAspectFill
       workoutImageView.layer.borderWidth = 0
