@@ -18,4 +18,8 @@ struct NewWorkout {
   let steps: Int?
   let calories: Int?
   let points: Int?
+  let appleDeviceName: String?
+  let appleSourceName: String?
+  let appleWorkoutUuid: String?
+  let activityType: Workout.Activity?
 }

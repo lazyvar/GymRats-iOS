@@ -324,7 +324,11 @@ class CreateWorkoutViewController: GRFormViewController {
         distance: distance.value,
         steps: steps.value.map { Int($0) } ?? nil,
         calories: calories.value.map { Int($0) } ?? nil,
-        points: points.value.map { Int($0) } ?? nil
+        points: points.value.map { Int($0) } ?? nil,
+        appleDeviceName: healthKitWorkout?.device?.name,
+        appleSourceName: healthKitWorkout?.sourceRevision.source.name,
+        appleWorkoutUuid: healthKitWorkout?.uuid.uuidString,
+        activityType: healthKitWorkout?.workoutActivityType.activityify
       )
       
       gymRatsAPI.postWorkout(newWorkout, challenges: challenges)

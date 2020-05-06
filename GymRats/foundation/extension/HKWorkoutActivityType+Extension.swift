@@ -10,7 +10,17 @@ import Foundation
 import HealthKit
 
 extension HKWorkoutActivityType {
-
+  var activityify: Workout.Activity {
+    switch self {
+    case .walking: return .walking
+    case .running: return .running
+    case .cycling: return .cycling
+    case .highIntensityIntervalTraining: return .hiit
+    case .yoga: return .yoga
+    case .hiking: return .hiking
+    default: return .other
+    }
+  }
   var name: String {
     switch self {
     case .americanFootball:             return "American Football"
