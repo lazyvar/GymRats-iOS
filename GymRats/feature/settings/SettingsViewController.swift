@@ -232,7 +232,8 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         theCell.detailTextLabel?.text = ""
         theCell.accessoryType = .none
         theCell.accessoryView = nil
-        
+        theCell.accessoryType = .disclosureIndicator
+      
         switch indexPath.section {
         case 0:
             switch indexPath.row {
