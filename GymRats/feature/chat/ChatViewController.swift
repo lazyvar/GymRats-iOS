@@ -11,6 +11,7 @@ import MessageKit
 import RxSwift
 import SwiftPhoenixClient
 import InputBarAccessoryView
+import ImageViewer_swift
 
 class ChatViewController: MessagesViewController {
   private let challenge: Challenge
@@ -276,6 +277,20 @@ extension ChatViewController: MessageCellDelegate {
       
     push(ProfileViewController(account: chat.account, challenge: challenge))
   }
+  
+  func didTapImage(in cell: MessageCollectionViewCell) {
+    guard let cell = cell as? MediaMessageCell else { return }
+    
+    let image = SingleImage(image: cell.imageView.image, url: cell.imageView.kf.webURL)
+    let imageCarousel = ImageCarouselViewController.create(
+      sourceView: cell.imageView,
+      imageDataSource: image,
+      options: [],
+      initialIndex: 0
+    )
+    
+    self.present(imageCarousel, animated: true, completion: nil)
+  }
 }
 
 extension ChatViewController: MessagesLayoutDelegate {
@@ -422,3 +437,27 @@ extension UIView {
   }
 }
 
+
+class SingleImage: ImageDataSource {
+  let image: UIImage?
+  let url: URL?
+  
+  init(image: UIImage?, url: URL?) {
+    self.image = image
+    self.url = url
+  }
+  
+  func numberOfImages() -> Int {
+    return 1
+  }
+  
+  func imageItem(at index:Int) -> ImageItem {
+    if let image = image {
+      return .image(image)
+    } else if let url = url {
+      return .url(url, placeholder: UIImage(color: .lightGray))
+    } else {
+      return .image(nil)
+    }
+  }
+}

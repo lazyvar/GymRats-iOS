@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import ImageViewer_swift
 
 class ImageViewCell: UITableViewCell {
   @IBOutlet private weak var skeletonView: UIView! {
@@ -54,6 +55,7 @@ class ImageViewCell: UITableViewCell {
   private func setImage(_ image: UIImage) {
     setAspectRatio(image.size.height / image.size.width)
     _imageView.image = image
+    _imageView.setupImageViewer()
   }
   
   override func awakeFromNib() {
