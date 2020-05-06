@@ -56,6 +56,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>For taking picture of workout.</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Import workouts from the Health app.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>To find gyms near you.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -102,7 +104,5 @@
 		<string>gym-rats.test-app.link</string>
 		<string>gym-rats.app.link</string>
 	</array>
-	<key>NSHealthShareUsageDescription</key>
-	<string>Import workouts from the Health app.</string>
 </dict>
 </plist>
