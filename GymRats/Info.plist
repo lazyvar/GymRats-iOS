@@ -102,5 +102,7 @@
 		<string>gym-rats.test-app.link</string>
 		<string>gym-rats.app.link</string>
 	</array>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Import workouts from the Health app.</string>
 </dict>
 </plist>

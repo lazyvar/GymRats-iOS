@@ -164,6 +164,22 @@ enum APIRequest {
       if let points = workout.points {
         params["points"] = points
       }
+      
+      if let appleDeviceName = workout.appleDeviceName {
+        params["apple_device_name"] = appleDeviceName
+      }
+      
+      if let appleSourceName = workout.appleSourceName {
+        params["apple_source_name"] = appleSourceName
+      }
+      
+      if let appleWorkoutUuid = workout.appleWorkoutUuid {
+        params["apple_workout_uuid"] = appleWorkoutUuid
+      }
+      
+      if let activityType = workout.activityType {
+        params["activity_type"] = activityType.rawValue
+      }
 
       return (.post, "workouts", params)
     case .updateUser(let email, let name, let password, let profilePictureUrl, let currentPassword):

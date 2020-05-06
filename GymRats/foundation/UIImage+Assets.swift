@@ -41,4 +41,6 @@ extension UIImage {
   static let star               = UIImage(named: "star")!
   static let pencil             = UIImage(named: "pencil")!
   static let cal                = UIImage(named: "cal")!
+  static let smallAppleHealth   = UIImage(named: "small-apple-health")!
+  static let map                = UIImage(named: "map")!
 }

@@ -202,6 +202,16 @@
 		01D70BD424465CB000F6F33A /* IntegerPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D70BD224465CB000F6F33A /* IntegerPickerCell.xib */; };
 		01D70BD8244676D600F6F33A /* NewChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D70BD7244676D600F6F33A /* NewChallenge.swift */; };
 		01D70BDB24467B9400F6F33A /* ClassicChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D70BD924467B9400F6F33A /* ClassicChallengeViewController.swift */; };
+		01E700DE2460ACB50059017A /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01E700DD2460ACB50059017A /* HealthKit.framework */; };
+		01E700E12460B30B0059017A /* ImportWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E700DF2460B30B0059017A /* ImportWorkoutViewController.swift */; };
+		01E700E22460B30B0059017A /* ImportWorkoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01E700E02460B30B0059017A /* ImportWorkoutViewController.xib */; };
+		01E700E42460B34A0059017A /* ImportWorkoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E700E32460B34A0059017A /* ImportWorkoutViewModel.swift */; };
+		01E700E62460B45C0059017A /* HealthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E700E52460B45C0059017A /* HealthService.swift */; };
+		01E700E92460B6140059017A /* HealthAppPermissionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E700E72460B6140059017A /* HealthAppPermissionsViewController.swift */; };
+		01E700EA2460B6140059017A /* HealthAppPermissionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01E700E82460B6140059017A /* HealthAppPermissionsViewController.xib */; };
+		01E700EF2460CA990059017A /* HealthAppWorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E700ED2460CA990059017A /* HealthAppWorkoutCell.swift */; };
+		01E700F02460CA990059017A /* HealthAppWorkoutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01E700EE2460CA990059017A /* HealthAppWorkoutCell.xib */; };
+		01E700F22460D57C0059017A /* HKWorkoutActivityType+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E700F12460D57C0059017A /* HKWorkoutActivityType+Extension.swift */; };
 		01E833E42325BF7300C66C72 /* ChallengeBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E833E22325BF7300C66C72 /* ChallengeBannerCell.swift */; };
 		01E833E52325BF7300C66C72 /* ChallengeBannerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01E833E32325BF7300C66C72 /* ChallengeBannerCell.xib */; };
 		01EED5CD24253A3E005E0249 /* ChatNotificationCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01EED5CC24253A3E005E0249 /* ChatNotificationCount.swift */; };
@@ -491,6 +501,16 @@
 		01D70BD224465CB000F6F33A /* IntegerPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntegerPickerCell.xib; sourceTree = "<group>"; };
 		01D70BD7244676D600F6F33A /* NewChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChallenge.swift; sourceTree = "<group>"; };
 		01D70BD924467B9400F6F33A /* ClassicChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicChallengeViewController.swift; sourceTree = "<group>"; };
+		01E700DD2460ACB50059017A /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		01E700DF2460B30B0059017A /* ImportWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWorkoutViewController.swift; sourceTree = "<group>"; };
+		01E700E02460B30B0059017A /* ImportWorkoutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportWorkoutViewController.xib; sourceTree = "<group>"; };
+		01E700E32460B34A0059017A /* ImportWorkoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWorkoutViewModel.swift; sourceTree = "<group>"; };
+		01E700E52460B45C0059017A /* HealthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthService.swift; sourceTree = "<group>"; };
+		01E700E72460B6140059017A /* HealthAppPermissionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthAppPermissionsViewController.swift; sourceTree = "<group>"; };
+		01E700E82460B6140059017A /* HealthAppPermissionsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HealthAppPermissionsViewController.xib; sourceTree = "<group>"; };
+		01E700ED2460CA990059017A /* HealthAppWorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthAppWorkoutCell.swift; sourceTree = "<group>"; };
+		01E700EE2460CA990059017A /* HealthAppWorkoutCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HealthAppWorkoutCell.xib; sourceTree = "<group>"; };
+		01E700F12460D57C0059017A /* HKWorkoutActivityType+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HKWorkoutActivityType+Extension.swift"; sourceTree = "<group>"; };
 		01E833E22325BF7300C66C72 /* ChallengeBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeBannerCell.swift; sourceTree = "<group>"; };
 		01E833E32325BF7300C66C72 /* ChallengeBannerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeBannerCell.xib; sourceTree = "<group>"; };
 		01EED5CC24253A3E005E0249 /* ChatNotificationCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatNotificationCount.swift; sourceTree = "<group>"; };
@@ -586,6 +606,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A02F4B0274FC477C5963CDDD /* Pods_GymRats.framework in Frameworks */,
+				01E700DE2460ACB50059017A /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -853,6 +874,8 @@
 				01D70BCE2446558B00F6F33A /* PickDateCell.xib */,
 				01D70BD124465CB000F6F33A /* IntegerPickerCell.swift */,
 				01D70BD224465CB000F6F33A /* IntegerPickerCell.xib */,
+				01E700ED2460CA990059017A /* HealthAppWorkoutCell.swift */,
+				01E700EE2460CA990059017A /* HealthAppWorkoutCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -877,6 +900,7 @@
 		3C8DE20AD9E7BCFA336F569C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				01E700DD2460ACB50059017A /* HealthKit.framework */,
 				45AE0586E2D3E12AB034ED36 /* Pods_GymRats.framework */,
 				66C09C458F3D0EC49A95802E /* Pods_GymRatsTests.framework */,
 			);
@@ -1061,6 +1085,7 @@
 				0163A2372377AF19006FDDA2 /* StoreService.swift */,
 				01975EAB23C1204F0031E23A /* Track.swift */,
 				01319ED22418746C005E65D2 /* GymRatsAPI.swift */,
+				01E700E52460B45C0059017A /* HealthService.swift */,
 			);
 			path = service;
 			sourceTree = "<group>";
@@ -1090,6 +1115,7 @@
 				0176B672243B9AA20022B65F /* UIColor+Extension.swift */,
 				0176B674243B9AD00022B65F /* UIImage+Extension.swift */,
 				0176B676243B9EAD0022B65F /* UIDevice+Extension.swift */,
+				01E700F12460D57C0059017A /* HKWorkoutActivityType+Extension.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -1212,6 +1238,11 @@
 				015C071A243FC7E5003E75E9 /* LogWorkoutCell.xib */,
 				015C0722243FD35B003E75E9 /* MapViewController.swift */,
 				015C0723243FD35B003E75E9 /* MapViewController.xib */,
+				01E700E32460B34A0059017A /* ImportWorkoutViewModel.swift */,
+				01E700DF2460B30B0059017A /* ImportWorkoutViewController.swift */,
+				01E700E02460B30B0059017A /* ImportWorkoutViewController.xib */,
+				01E700E72460B6140059017A /* HealthAppPermissionsViewController.swift */,
+				01E700E82460B6140059017A /* HealthAppPermissionsViewController.xib */,
 			);
 			path = workout;
 			sourceTree = "<group>";
@@ -1363,6 +1394,7 @@
 				74118065220C58C300EB9D11 /* Lato-Italic.ttf in Resources */,
 				015E2A96243CF08600307B21 /* ChoiceCell.xib in Resources */,
 				01297D952329E79000CA9E41 /* SF-Pro-Rounded-Ultralight.otf in Resources */,
+				01E700F02460CA990059017A /* HealthAppWorkoutCell.xib in Resources */,
 				74118062220C58C300EB9D11 /* Lato-BoldItalic.ttf in Resources */,
 				015C0729243FE0FE003E75E9 /* UpcomingChallengeViewController.xib in Resources */,
 				01297D932329E79000CA9E41 /* SF-Pro-Rounded-Thin.otf in Resources */,
@@ -1377,6 +1409,7 @@
 				74118063220C58C300EB9D11 /* Lato-Hairline.ttf in Resources */,
 				01CA1297243FF93100540402 /* UpcomingChallengeHeaderView.xib in Resources */,
 				01297D942329E79000CA9E41 /* SF-Pro-Rounded-Medium.otf in Resources */,
+				01E700E22460B30B0059017A /* ImportWorkoutViewController.xib in Resources */,
 				01D5D371243BDA7D0044E459 /* ErrorLabelCell.xib in Resources */,
 				015C0725243FD35B003E75E9 /* MapViewController.xib in Resources */,
 				0107AE372325E3D300944D11 /* WorkoutListCell.xib in Resources */,
@@ -1396,6 +1429,7 @@
 				01974541243F8700004ACB71 /* ImageViewCell.xib in Resources */,
 				74118067220C58C300EB9D11 /* Lato-LightItalic.ttf in Resources */,
 				01297D892329E79000CA9E41 /* SF-Compact-Rounded-Semibold.otf in Resources */,
+				01E700EA2460B6140059017A /* HealthAppPermissionsViewController.xib in Resources */,
 				01FF413524205FDA007D316A /* ProfileViewController.xib in Resources */,
 				01297D862329E79000CA9E41 /* SF-Compact-Rounded-Light.otf in Resources */,
 				018510042447A3C700C4F1A6 /* ChangeBannerViewController.xib in Resources */,
@@ -1566,6 +1600,7 @@
 				01A3EAEB2377471B0097FC2A /* BindableObserver.swift in Sources */,
 				747D6FD82208E8130062BB39 /* KeychainErrors.swift in Sources */,
 				01F65A0524452BAE00E26539 /* Secrets.swift in Sources */,
+				01E700E92460B6140059017A /* HealthAppPermissionsViewController.swift in Sources */,
 				01A3EB18237747D30097FC2A /* CVCalendarView.swift in Sources */,
 				01A3EB29237747D30097FC2A /* CVCalendarManager.swift in Sources */,
 				01A3EB22237747D30097FC2A /* CVCalendarMonthContentViewController.swift in Sources */,
@@ -1578,6 +1613,7 @@
 				747D6FE02208ECDD0062BB39 /* Styles.swift in Sources */,
 				01F5295D2418367B00FA96E0 /* Resource.swift in Sources */,
 				01F5296B24184CDA00FA96E0 /* NoChallengesViewModel.swift in Sources */,
+				01E700E42460B34A0059017A /* ImportWorkoutViewModel.swift in Sources */,
 				011FB62F22A33C14004D5B8E /* ItemCell.swift in Sources */,
 				01319ED9241878EA005E65D2 /* UpdateChallenge.swift in Sources */,
 				01F529502417FD0200FA96E0 /* ViewModel.swift in Sources */,
@@ -1628,6 +1664,7 @@
 				01319ED124184FAC005E65D2 /* Screen.swift in Sources */,
 				01A3EB11237747D30097FC2A /* CVCalendarMonthView.swift in Sources */,
 				74A01B25220A0AFB00431ABD /* HomeViewController.swift in Sources */,
+				01E700E62460B45C0059017A /* HealthService.swift in Sources */,
 				01CA1296243FF93100540402 /* UpcomingChallengeHeaderView.swift in Sources */,
 				01975EAC23C1204F0031E23A /* Track.swift in Sources */,
 				01CA1292243FEF6E00540402 /* InviteCell.swift in Sources */,
@@ -1657,6 +1694,7 @@
 				01319ED724187876005E65D2 /* NewUser.swift in Sources */,
 				015C071B243FC7E5003E75E9 /* LogWorkoutCell.swift in Sources */,
 				0176B673243B9AA20022B65F /* UIColor+Extension.swift in Sources */,
+				01E700EF2460CA990059017A /* HealthAppWorkoutCell.swift in Sources */,
 				01A3EB0F237747D30097FC2A /* CVWeekdaySymbolType.swift in Sources */,
 				747D6FC92208DCE60062BB39 /* AlamofireNetworkActivityLogger.swift in Sources */,
 				748DFB8E2210B2EA007220C7 /* Place.swift in Sources */,
@@ -1674,6 +1712,7 @@
 				0163A2382377AF19006FDDA2 /* StoreService.swift in Sources */,
 				018510032447A3C700C4F1A6 /* ChangeBannerViewController.swift in Sources */,
 				01D5D36D243BD32A0044E459 /* ShadowTextField.swift in Sources */,
+				01E700E12460B30B0059017A /* ImportWorkoutViewController.swift in Sources */,
 				747D6FC32208DCAB0062BB39 /* Observable+Extension.swift in Sources */,
 				01660840239C8CA700FCFD26 /* StatsBabyCell.swift in Sources */,
 				01D5D366243BBA9F0044E459 /* NavigationTransitionCoordinator.swift in Sources */,
@@ -1715,6 +1754,7 @@
 				74BE97BE220C9F2800D550CA /* ImageRow.swift in Sources */,
 				748DFB8C220FD882007220C7 /* GService.swift in Sources */,
 				01AC5F6123CA414800FFAE4D /* ReadOnlyTextField.swift in Sources */,
+				01E700F22460D57C0059017A /* HKWorkoutActivityType+Extension.swift in Sources */,
 				01C25C23243F700A0021D617 /* CommentCell.swift in Sources */,
 				01A3EB26237747D30097FC2A /* CVCalendarViewAnimator.swift in Sources */,
 				74A01B34220A3B2000431ABD /* Workout.swift in Sources */,
