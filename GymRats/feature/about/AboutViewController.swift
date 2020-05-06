@@ -8,6 +8,7 @@
 
 import UIKit
 import TTTAttributedLabel
+import SafariServices
 
 class AboutViewController: UIViewController {
     
@@ -15,21 +16,33 @@ class AboutViewController: UIViewController {
     super.viewDidLoad()
     
     let text = """
-    Hello!
+    What's up rats!
     
-    This app's goal is to act as a social motivator for fitness and health. Whether it's a personal or group challenge, it is important to track workouts and hold yourself accountable. I hope it is finding use. If you have any ideas on how to improve the app, please send me an email. Also, if you are interested in following the development process you can check out the public trello board.
+    This app's goal is to act as a social motivator for fitness and health. Whether for a personal or group challenge, it is important to track workouts and hold yourself accountable. I hope you're finding it useful!
+
+    The app's source code is open and freely available to view and do with what you like. New features are added roughly on a monthly basis. You can view the progress of ongoing work by taking a look at active milestones, the list of open issues, or the kanban board.
+
+    If you have any ideas or suggestions on how to improve the app, please feel free to email me. I also love app store reviews, both positive and negative, so any feedback you have goes a long way.
     
     Happy ratting,
 
-    Mack
+    Mack Hasz
     CPO (Chief Protein Officer)
     """
-    let label = TTTAttributedLabel(frame: CGRect(x: 15, y: 15, width: self.view.frame.width-30, height: 500))
-    let range = (text as NSString).range(of: "email")
-    let url = URL(string: "mailto:suggestion@gymrats.app")!
-    let range2 = (text as NSString).range(of: "trello board")
-    let url2 = URL(string: "https://trello.com/b/P5ibjXHs/development")!
-        
+    let label = TTTAttributedLabel(frame: CGRect(x: 20, y: 5, width: self.view.frame.width-40, height: 500))
+    let viewRange = (text as NSString).range(of: "view")
+    let gitlabProject = URL(string: "https://gitlab.com/gym-rats")!
+    let issuesRange = (text as NSString).range(of: "issues")
+    let issues = URL(string: "https://gitlab.com/groups/gym-rats/-/issues")!
+    let milestoneRange = (text as NSString).range(of: "milestones")
+    let milestones = URL(string: "https://gitlab.com/groups/gym-rats/-/milestones")!
+    let boardRange = (text as NSString).range(of: "kanban board")
+    let board = URL(string: "https://gitlab.com/groups/gym-rats/-/boards")!
+    let emailRange = (text as NSString).range(of: "email")
+    let email = URL(string: "mailto:suggestion@gymrats.app")!
+    let appStoreReviewRange = (text as NSString).range(of: "app store reviews")
+    let appStoreReview = URL(string: "https://itunes.apple.com/app/id1453444814?action=write-review")!
+
     label.font = .body
     label.textAlignment = .left
     label.textColor = .primaryText
@@ -38,10 +51,7 @@ class AboutViewController: UIViewController {
     label.isUserInteractionEnabled = true
     label.delegate = self
     label.text = text
-    label.addLink(to: url, with: range)
-    label.addLink(to: url2, with: range2)
-    label.sizeToFit()
-  
+
     label.activeLinkAttributes = [
       NSAttributedString.Key.foregroundColor: UIColor.brand,
     ]
@@ -49,6 +59,15 @@ class AboutViewController: UIViewController {
     label.linkAttributes = [
       NSAttributedString.Key.foregroundColor: UIColor.brand.darker,
     ]
+
+    label.addLink(to: gitlabProject, with: viewRange)
+    label.addLink(to: issues, with: issuesRange)
+    label.addLink(to: milestones, with: milestoneRange)
+    label.addLink(to: board, with: boardRange)
+    label.addLink(to: email, with: emailRange)
+    label.addLink(to: appStoreReview, with: appStoreReviewRange)
+
+    label.sizeToFit()
 
     view.isUserInteractionEnabled = true
     view.backgroundColor = .background
@@ -62,6 +81,12 @@ class AboutViewController: UIViewController {
 
 extension AboutViewController: TTTAttributedLabelDelegate {
   func attributedLabel(_ label: TTTAttributedLabel!, didSelectLinkWith url: URL!) {
-    UIApplication.shared.openURL(url)
+    if url.absoluteString.contains("mailto:") || url.absoluteString.contains("itunes.apple.com") {
+      UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    } else {
+      let ok = SFSafariViewController(url: url)
+    
+      self.present(ok, animated: true, completion: nil)
+    }
   }
 }
