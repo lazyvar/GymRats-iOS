@@ -17,6 +17,17 @@ class WorkoutDetailsCell: UITableViewCell {
     case points
   }
   
+  @IBOutlet private weak var healthAppImageView: UIImageView! {
+    didSet {
+      healthAppImageView.layer.borderWidth = 1
+      healthAppImageView.clipsToBounds = true
+      healthAppImageView.layer.cornerRadius = 4
+      healthAppImageView.layer.borderColor = UIColor.background.cgColor
+    }
+  }
+  
+  @IBOutlet private weak var dataStack: UIStackView!
+  
   @IBOutlet private weak var durationLabel: UILabel! {
     didSet {
       durationLabel.textColor = .primaryText
@@ -51,46 +62,14 @@ class WorkoutDetailsCell: UITableViewCell {
       pointsLabel.font = .details
     }
   }
-  
-  @IBOutlet private weak var durationLabelLabel: UILabel! {
+
+  @IBOutlet private weak var appleHealthLabel: UILabel! {
     didSet {
-      durationLabelLabel.textColor = .primaryText
-      durationLabelLabel.font = .detailsBold
+      appleHealthLabel.textColor = .primaryText
+      appleHealthLabel.font = .details
     }
   }
-  
-  @IBOutlet private weak var distanceLabelLabel: UILabel! {
-    didSet {
-      distanceLabelLabel.textColor = .primaryText
-      distanceLabelLabel.font = .detailsBold
-    }
-  }
-  
-  @IBOutlet private weak var stepsLabelLabel: UILabel! {
-    didSet {
-      stepsLabelLabel.textColor = .primaryText
-      stepsLabelLabel.font = .detailsBold
-    }
-  }
-  
-  @IBOutlet private weak var caloriesLabelLabel: UILabel! {
-    didSet {
-      caloriesLabelLabel.textColor = .primaryText
-      caloriesLabelLabel.font = .detailsBold
-    }
-  }
-  
-  @IBOutlet private weak var pointsLabelLabel: UILabel! {
-    didSet {
-      pointsLabelLabel.textColor = .primaryText
-      pointsLabelLabel.font = .detailsBold
-    }
-  }
-  
-  @IBOutlet private weak var dataStack: UIStackView!
-  @IBOutlet private weak var firstStack: UIStackView!
-  @IBOutlet private weak var secondStack: UIStackView!
-  
+
   @IBOutlet private weak var workoutDescriptionLabel: UILabel! {
     didSet {
       workoutDescriptionLabel.textColor = .primaryText
@@ -104,7 +83,9 @@ class WorkoutDetailsCell: UITableViewCell {
       workoutTitleLabel.font = .h4Bold
     }
   }
-    
+  
+  @IBOutlet private weak var appleHealthStack: UIStackView!
+  
   override func awakeFromNib() {
     super.awakeFromNib()
 
@@ -115,76 +96,65 @@ class WorkoutDetailsCell: UITableViewCell {
   override func prepareForReuse() {
     super.prepareForReuse()
     
-    dataStack.isHidden = false
-    firstStack.isHidden = false
-    secondStack.isHidden = false
     durationLabel.text = nil
     distanceLabel.text = nil
     stepsLabel.text = nil
     caloriesLabel.text = nil
     pointsLabel.text = nil
-    durationLabelLabel.text = nil
-    distanceLabelLabel.text = nil
-    stepsLabelLabel.text = nil
-    caloriesLabelLabel.text = nil
-    pointsLabelLabel.text = nil
+    durationLabel.isHidden = true
+    distanceLabel.isHidden = true
+    stepsLabel.isHidden = true
+    caloriesLabel.isHidden = true
+    pointsLabel.isHidden = true
+    appleHealthStack.isHidden = true
+  }
+
+  private func makeGood(_ workout: Workout) {
+    durationLabel.isHidden = workout.duration == nil
+    distanceLabel.isHidden = workout.distance == nil
+    stepsLabel.isHidden = workout.steps == nil
+    caloriesLabel.isHidden = workout.calories == nil
+    pointsLabel.isHidden = workout.points == nil
+  
+    if let duration = workout.duration {
+      durationLabel.text = "Active for \(duration) minutes"
+    }
+    
+    if let distance = workout.distance {
+      distanceLabel.text = "Traveled \(distance) miles"
+    }
+    
+    if let steps = workout.steps {
+      stepsLabel.text = "Strode \(steps) steps"
+    }
+    
+    if let calories = workout.calories {
+      caloriesLabel.text = "Burned \(calories) calories"
+    }
+    
+    if let points = workout.points {
+      pointsLabel.text = "Earned \(points) points"
+    }
+    
+    if let activity = workout.activityType, let deviceName = workout.appleDeviceName {
+      appleHealthStack.isHidden = false
+      appleHealthLabel.text = "\(activity.title.capitalized) | \(deviceName)"
+    } else {
+      appleHealthStack.isHidden = true
+    }
+    
+    if workout.duration == nil && workout.distance == nil && workout.steps == nil && workout.calories == nil && workout.points == nil {
+      dataStack.isHidden = true
+    } else {
+      dataStack.isHidden = false
+    }
   }
   
-  private func configureStacks(_ workout: Workout) {
-    let possibleData: [(dataType: WorkoutData, value: String?)] = [
-      (.duration, workout.duration?.stringify),
-      (.distance, workout.distance),
-      (.steps, workout.steps?.stringify),
-      (.calories, workout.calories?.stringify),
-      (.points, workout.points?.stringify),
-    ]
-      
-    let data = possibleData.compactMap { data -> (dataType: WorkoutData, value: String)? in
-      guard let value = data.value else { return nil }
-          
-      return (data.dataType, value)
-    }
-
-    for data in data.enumerated() {
-      let dataType = data.element.dataType.rawValue.capitalized
-      let dataValue = data.element.value
-      
-      switch data.offset {
-      case 0:
-        durationLabelLabel.text = dataType
-        durationLabel.text = dataValue
-      case 1:
-        distanceLabelLabel.text = dataType
-        distanceLabel.text = dataValue
-      case 2:
-        stepsLabelLabel.text = dataType
-        stepsLabel.text = dataValue
-      case 3:
-        caloriesLabelLabel.text = dataType
-        caloriesLabel.text = dataValue
-      case 4:
-        pointsLabelLabel.text = dataType
-        pointsLabel.text = dataValue
-      default: break
-      }
-    }
-    
-    if data.isEmpty {
-      firstStack.isHidden = true
-      secondStack.isHidden = true
-      dataStack.isHidden = true
-    }
-    
-    if data.count < 4 {
-      secondStack.isHidden = true
-    }
-  }
-
   static func configure(tableView: UITableView, indexPath: IndexPath, workout: Workout) -> UITableViewCell {
     return tableView.dequeueReusableCell(withType: WorkoutDetailsCell.self, for: indexPath).apply { cell in
       cell.workoutTitleLabel.text = workout.title
       cell.workoutDescriptionLabel.text = workout.description
-      cell.configureStacks(workout)
+      cell.makeGood(workout)
     }
   }
 }

@@ -21,6 +21,7 @@ extension HKWorkoutActivityType {
     default: return .other
     }
   }
+  
   var name: String {
     switch self {
     case .americanFootball:             return "American Football"

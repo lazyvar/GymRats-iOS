@@ -43,6 +43,13 @@ struct Workout: Codable, Hashable {
     case yoga
     case hiking
     case other
+    
+    var title: String {
+      switch self {
+      case .hiit: return "HIIT"
+      default: return rawValue
+      }
+    }
   }
 }
 

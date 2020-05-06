@@ -301,10 +301,23 @@ class CreateWorkoutViewController: GRFormViewController {
     }
   
   func importWorkout() {
-    let importWorkoutViewController = ImportWorkoutViewController()
-    importWorkoutViewController.delegate = self
-    
-    self.present(importWorkoutViewController)
+    HealthService.requestAuthorization(toShare: nil, read: Set([.workoutType()]))
+      .subscribe(onSuccess: { _ in
+        DispatchQueue.main.async {
+          let importWorkoutViewController = ImportWorkoutViewController()
+          importWorkoutViewController.delegate = self
+          
+          self.present(importWorkoutViewController)
+        }
+      }, onError: { error in
+        DispatchQueue.main.async {
+          let importWorkoutViewController = ImportWorkoutViewController()
+          importWorkoutViewController.delegate = self
+          
+          self.present(importWorkoutViewController)
+        }
+      })
+      .disposed(by: disposeBag)
   }
   
     @objc func postWorkout() {
@@ -373,7 +386,7 @@ extension CreateWorkoutViewController: ImportWorkoutViewControllerDelegate {
     (form.rowBy(tag: "duration")?.baseCell as? TextCell)?.textField.delegate = self
     
     if let row = form.rowBy(tag: "import-data-row") {
-      row.title = "\(workout.workoutActivityType.name) | \(workout.sourceRevision.source.name)"
+      row.title = "\(workout.workoutActivityType.name) | \(workout.device?.name ?? workout.sourceRevision.source.name)"
       row.baseCell.textLabel?.numberOfLines = 0
     }
     
