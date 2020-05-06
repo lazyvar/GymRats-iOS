@@ -11,6 +11,7 @@ import MessageKit
 import RxSwift
 import SwiftPhoenixClient
 import InputBarAccessoryView
+import ImageViewer_swift
 
 class ChatViewController: MessagesViewController {
   private let challenge: Challenge
@@ -65,6 +66,26 @@ class ChatViewController: MessagesViewController {
     messageInputBar.sendButton.setTitleColor(.brand, for: .highlighted)
     messageInputBar.delegate = self
 
+    let photoButton = InputBarButtonItem()
+      .configure {
+        $0.spacing = .fixed(10)
+        $0.image = .image
+        $0.setSize(CGSize(width: 25, height: 25), animated: false)
+        $0.tintColor = .primaryText
+      }.onSelected {
+        $0.tintColor = .brand
+      }.onDeselected {
+        $0.tintColor = .primaryText
+      }.onTouchUpInside { _ in
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        
+        self.present(imagePicker, animated: true, completion: nil)
+      }
+    
+    messageInputBar.setStackViewItems([photoButton, .flexibleSpace], forStack: .bottom, animated: false)
+    
     messagesCollectionView.messagesDataSource = self
     messagesCollectionView.messagesLayoutDelegate = self
     messagesCollectionView.messageCellDelegate = self
@@ -130,14 +151,10 @@ class ChatViewController: MessagesViewController {
   }
 
   private func loadChats(page: Int, clear: Bool = false) {
-    guard canLoadMorePosts else { return /* hide loading bar */ }
-    
-    // TODO showLoadingBar()
-        
+    guard canLoadMorePosts else { return }
+            
     gymRatsAPI.getChatMessages(for: challenge, page: page)
       .subscribe(onNext: { result in
-        // self.hideLoadingBar()
-
         switch result {
         case .success(let messages):
           self.handleFetchResponse(loadedMessages: messages, page: page, clear: clear)
@@ -236,14 +253,14 @@ extension ChatViewController: MessagesDataSource {
     return nil
   }
 
-//  func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-//    let name = message.sender.displayName
-//
-//    return NSAttributedString(string: name, attributes: [
-//      .font: UIFont.details,
-//      .foregroundColor: UIColor.secondaryText
-//    ])
-//  }
+  func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+    let name = message.sender.displayName
+
+    return NSAttributedString(string: name, attributes: [
+      .font: UIFont.details,
+      .foregroundColor: UIColor.secondaryText
+    ])
+  }
 }
 
 extension ChatViewController: InputBarAccessoryViewDelegate {
@@ -259,6 +276,20 @@ extension ChatViewController: MessageCellDelegate {
     guard let chat = chats[safe: indexPath.section] else { return }
       
     push(ProfileViewController(account: chat.account, challenge: challenge))
+  }
+  
+  func didTapImage(in cell: MessageCollectionViewCell) {
+    guard let cell = cell as? MediaMessageCell else { return }
+    
+    let image = SingleImage(image: cell.imageView.image, url: cell.imageView.kf.webURL)
+    let imageCarousel = ImageCarouselViewController.create(
+      sourceView: cell.imageView,
+      imageDataSource: image,
+      options: [],
+      initialIndex: 0
+    )
+    
+    self.present(imageCarousel, animated: true, completion: nil)
   }
 }
 
@@ -289,6 +320,22 @@ extension ChatViewController: MessagesDisplayDelegate {
     userImageView.load(chat.account)
   }
   
+  func configureMediaMessageImageView(_ imageView: UIImageView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+    switch message.kind {
+    case .photo(let mediaItem):
+      if let url = mediaItem.url {
+        let skeletonView = UIView()
+        skeletonView.isSkeletonable = true
+        skeletonView.showAnimatedSkeleton()
+        skeletonView.showSkeleton()
+
+        imageView.kf.setImage(with: url, placeholder: skeletonView, options: [.transition(.fade(0.2))])
+      }
+    default:
+      break
+    }
+  }
+
   func backgroundColor(for message: MessageType, at  indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
     switch message.kind {
     case .emoji:
@@ -336,6 +383,45 @@ extension ChatViewController: MessagesDisplayDelegate {
   }
 }
 
+extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    picker.dismissSelf()
+    
+    guard let image = info[.originalImage] as? UIImage else { return }
+    
+    let showAlert = UIAlertController(title: "Send image to group?", message: nil, preferredStyle: .alert)
+    let imageView = UIImageView(frame: CGRect(x: 10, y: 50, width: 250, height: 250))
+    imageView.image = image
+    imageView.contentMode = .scaleAspectFill
+    imageView.clipsToBounds = true
+    imageView.layer.cornerRadius = 4
+    
+    showAlert.view.addSubview(imageView)
+    
+    let height = NSLayoutConstraint(item: showAlert.view!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 360)
+    showAlert.view.addConstraint(height)
+    
+    showAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+      self.showLoadingBar()
+        
+      ImageService.uploadImageToFirebase(image: image)
+        .subscribe { event in
+          self.hideLoadingBar()
+          
+          if let url = event.element {
+            self.channel?.push("new_msg", payload: ["image_url": url])
+          } else if let error = event.error {
+            self.presentAlert(with: error)
+          }
+        }
+      .disposed(by: self.disposeBag)
+    }))
+    showAlert.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
+    
+    present(showAlert, animated: true, completion: nil)
+  }
+}
+
 extension UIView {
   func addConstraintsWithFormat(format: String, views: UIView...) {
     var viewsDictionary = [String: UIView]()
@@ -348,5 +434,30 @@ extension UIView {
     }
     
     addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: viewsDictionary))
+  }
+}
+
+
+class SingleImage: ImageDataSource {
+  let image: UIImage?
+  let url: URL?
+  
+  init(image: UIImage?, url: URL?) {
+    self.image = image
+    self.url = url
+  }
+  
+  func numberOfImages() -> Int {
+    return 1
+  }
+  
+  func imageItem(at index:Int) -> ImageItem {
+    if let image = image {
+      return .image(image)
+    } else if let url = url {
+      return .url(url, placeholder: UIImage(color: .lightGray))
+    } else {
+      return .image(nil)
+    }
   }
 }

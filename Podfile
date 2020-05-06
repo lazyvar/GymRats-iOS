@@ -37,6 +37,7 @@ target 'GymRats' do
     pod 'LetterAvatarKit', '1.2.2'
     pod 'RxKeyboard'
     pod 'UnsplashPhotoPicker', '~> 1.1.1'
+    pod 'ImageViewer.swift', '~> 3.0'
 
     target 'GymRatsTests' do
         inherit! :search_paths
