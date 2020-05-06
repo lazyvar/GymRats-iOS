@@ -65,6 +65,26 @@ class ChatViewController: MessagesViewController {
     messageInputBar.sendButton.setTitleColor(.brand, for: .highlighted)
     messageInputBar.delegate = self
 
+    let photoButton = InputBarButtonItem()
+      .configure {
+        $0.spacing = .fixed(10)
+        $0.image = .image
+        $0.setSize(CGSize(width: 25, height: 25), animated: false)
+        $0.tintColor = .primaryText
+      }.onSelected {
+        $0.tintColor = .brand
+      }.onDeselected {
+        $0.tintColor = .primaryText
+      }.onTouchUpInside { _ in
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        
+        self.present(imagePicker, animated: true, completion: nil)
+      }
+    
+    messageInputBar.setStackViewItems([photoButton, .flexibleSpace], forStack: .bottom, animated: false)
+    
     messagesCollectionView.messagesDataSource = self
     messagesCollectionView.messagesLayoutDelegate = self
     messagesCollectionView.messageCellDelegate = self
@@ -130,14 +150,10 @@ class ChatViewController: MessagesViewController {
   }
 
   private func loadChats(page: Int, clear: Bool = false) {
-    guard canLoadMorePosts else { return /* hide loading bar */ }
-    
-    // TODO showLoadingBar()
-        
+    guard canLoadMorePosts else { return }
+            
     gymRatsAPI.getChatMessages(for: challenge, page: page)
       .subscribe(onNext: { result in
-        // self.hideLoadingBar()
-
         switch result {
         case .success(let messages):
           self.handleFetchResponse(loadedMessages: messages, page: page, clear: clear)
@@ -236,14 +252,14 @@ extension ChatViewController: MessagesDataSource {
     return nil
   }
 
-//  func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-//    let name = message.sender.displayName
-//
-//    return NSAttributedString(string: name, attributes: [
-//      .font: UIFont.details,
-//      .foregroundColor: UIColor.secondaryText
-//    ])
-//  }
+  func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+    let name = message.sender.displayName
+
+    return NSAttributedString(string: name, attributes: [
+      .font: UIFont.details,
+      .foregroundColor: UIColor.secondaryText
+    ])
+  }
 }
 
 extension ChatViewController: InputBarAccessoryViewDelegate {
@@ -336,6 +352,45 @@ extension ChatViewController: MessagesDisplayDelegate {
   }
 }
 
+extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    picker.dismissSelf()
+    
+    guard let image = info[.originalImage] as? UIImage else { return }
+    
+    let showAlert = UIAlertController(title: "Send image to group?", message: nil, preferredStyle: .alert)
+    let imageView = UIImageView(frame: CGRect(x: 10, y: 50, width: 250, height: 250))
+    imageView.image = image
+    imageView.contentMode = .scaleAspectFill
+    imageView.clipsToBounds = true
+    imageView.layer.cornerRadius = 4
+    
+    showAlert.view.addSubview(imageView)
+    
+    let height = NSLayoutConstraint(item: showAlert.view!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 360)
+    showAlert.view.addConstraint(height)
+    
+    showAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+      self.showLoadingBar()
+        
+      ImageService.uploadImageToFirebase(image: image)
+        .subscribe { event in
+          self.hideLoadingBar()
+          
+          if let url = event.element {
+            self.channel?.push("new_msg", payload: ["image_url": url])
+          } else if let error = event.error {
+            self.presentAlert(with: error)
+          }
+        }
+      .disposed(by: self.disposeBag)
+    }))
+    showAlert.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
+    
+    present(showAlert, animated: true, completion: nil)
+  }
+}
+
 extension UIView {
   func addConstraintsWithFormat(format: String, views: UIView...) {
     var viewsDictionary = [String: UIView]()
@@ -350,3 +405,4 @@ extension UIView {
     addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: viewsDictionary))
   }
 }
+
