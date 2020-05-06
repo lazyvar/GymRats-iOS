@@ -305,6 +305,22 @@ extension ChatViewController: MessagesDisplayDelegate {
     userImageView.load(chat.account)
   }
   
+  func configureMediaMessageImageView(_ imageView: UIImageView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+    switch message.kind {
+    case .photo(let mediaItem):
+      if let url = mediaItem.url {
+        let skeletonView = UIView()
+        skeletonView.isSkeletonable = true
+        skeletonView.showAnimatedSkeleton()
+        skeletonView.showSkeleton()
+
+        imageView.kf.setImage(with: url, placeholder: skeletonView, options: [.transition(.fade(0.2))])
+      }
+    default:
+      break
+    }
+  }
+
   func backgroundColor(for message: MessageType, at  indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
     switch message.kind {
     case .emoji:
