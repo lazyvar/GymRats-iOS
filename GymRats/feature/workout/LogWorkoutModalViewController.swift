@@ -113,12 +113,10 @@ extension LogWorkoutModalViewController: UINavigationControllerDelegate { }
 
 extension LogWorkoutModalViewController: UIImagePickerControllerDelegate {
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-    picker.dismiss(animated: true) {
-      self.dismiss(animated: true) {
-        if let img = info[.originalImage] as? UIImage {
-          self.onPickSource(.left(img))
-        }
-      }
+    picker.dismiss(animated: true, completion: nil)
+    dismiss(animated: true, completion: nil)
+    if let img = info[.originalImage] as? UIImage {
+      self.onPickSource(.left(img))
     }
   }
 }

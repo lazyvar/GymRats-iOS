@@ -57,6 +57,10 @@ class CreateWorkoutViewController: GRFormViewController {
         cell.textLabel?.font = .body
         cell.detailTextLabel?.font = .body
     }
+    .cellUpdate({ cell, _ in
+        cell.textLabel?.textAlignment = .left
+        cell.accessoryType = .disclosureIndicator
+    })
     .onPresent { _, selector in
         selector.enableDeselection = false
     }
@@ -199,6 +203,10 @@ class CreateWorkoutViewController: GRFormViewController {
           cell.tintColor = .primaryText
           cell.height = { return 48 }
           cell.imageView?.image = .smallAppleHealth
+          cell.imageView?.layer.borderWidth = 1
+          cell.imageView?.clipsToBounds = true
+          cell.imageView?.layer.cornerRadius = 2
+          cell.imageView?.layer.borderColor = UIColor.lightGray.cgColor
           cell.accessoryType = .disclosureIndicator
       }.onCellSelection { [weak self] _, _ in
         self?.importWorkout()
@@ -364,7 +372,11 @@ class CreateWorkoutViewController: GRFormViewController {
       $0.title = "\(workout.workoutActivityType.name) | \(workout.sourceRevision.source.name)"
       $0.baseCell.textLabel?.numberOfLines = 0
       $0.cell.imageView?.image = .smallAppleHealth
-
+      $0.cell.imageView?.layer.borderWidth = 1
+      $0.cell.imageView?.clipsToBounds = true
+      $0.cell.imageView?.layer.cornerRadius = 2
+      $0.cell.imageView?.layer.borderColor = UIColor.lightGray.cgColor
+      
       if let calories = healthKitWorkout.value?.totalEnergyBurned {
         form.rowBy(tag: "cals")?.value = String(Int(calories.doubleValue(for: .kilocalorie()).rounded()))
         form.rowBy(tag: "cals")?.baseCell.isUserInteractionEnabled = false
