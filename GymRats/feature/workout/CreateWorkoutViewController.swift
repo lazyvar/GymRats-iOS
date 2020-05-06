@@ -103,6 +103,7 @@ class CreateWorkoutViewController: GRFormViewController {
       let activeChallenges = (Challenge.State.all.state?.object ?? []).getActiveChallenges()
       
         let headerRow = CreateWorkoutHeaderRow("workout_header") {
+          $0.tag = "header_row"
           $0.value = WorkoutHeaderInfo(image: workoutImage, title: "", description: "")
         }
 
@@ -178,7 +179,7 @@ class CreateWorkoutViewController: GRFormViewController {
       let extra = Section() { $0.tag = "extra" }
       
       let importDataRow = ButtonRow("import-data") {
-        $0.title = "Import workout from the Apple Health App"
+        $0.title = "Import workout from the Health App"
         $0.tag = "import-data-row"
       }.cellSetup { cell, _ in
           cell.textLabel?.font = .body
@@ -355,27 +356,32 @@ extension CreateWorkoutViewController: ImportWorkoutViewControllerDelegate {
     importWorkoutViewController.dismissSelf()
     healthKitWorkout = workout
     
-    if let calories = healthKitWorkout.value?.totalEnergyBurned {
+    if let calories = workout.totalEnergyBurned {
       form.rowBy(tag: "cals")?.value = String(Int(calories.doubleValue(for: .kilocalorie()).rounded()))
       form.rowBy(tag: "cals")?.baseCell.isUserInteractionEnabled = false
       (form.rowBy(tag: "cals")?.baseCell as? TextCell)?.textField.delegate = self
     }
     
-    if let distance = healthKitWorkout.value?.totalDistance {
+    if let distance = workout.totalDistance {
       form.rowBy(tag: "distance")?.value = String(Int(distance.doubleValue(for: .mile()).rounded()))
       form.rowBy(tag: "distance")?.baseCell.isUserInteractionEnabled = false
       (form.rowBy(tag: "distance")?.baseCell as? TextCell)?.textField.delegate = self
     }
     
-    if let duration = healthKitWorkout.value?.duration {
-      form.rowBy(tag: "duration")?.value = Int(duration / 60).stringify
-      form.rowBy(tag: "duration")?.baseCell.isUserInteractionEnabled = false
-      (form.rowBy(tag: "duration")?.baseCell as? TextCell)?.textField.delegate = self
-    }
+    form.rowBy(tag: "duration")?.value = Int(workout.duration / 60).stringify
+    form.rowBy(tag: "duration")?.baseCell.isUserInteractionEnabled = false
+    (form.rowBy(tag: "duration")?.baseCell as? TextCell)?.textField.delegate = self
     
     if let row = form.rowBy(tag: "import-data-row") {
       row.title = "\(workout.workoutActivityType.name) | \(workout.sourceRevision.source.name)"
       row.baseCell.textLabel?.numberOfLines = 0
+    }
+    
+    if let header = workoutHeader.value, header.title == "" {
+      let new = WorkoutHeaderInfo(image: header.image, title: workout.workoutActivityType.name, description: header.description)
+      workoutHeader.accept(new)
+      
+      (form.rowBy(tag: "header_row") as? CreateWorkoutHeaderRow)?.value = new
     }
   }
 }
