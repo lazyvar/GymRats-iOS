@@ -262,7 +262,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         case 1:
             switch indexPath.row {
             case 0:
-                theCell.textLabel?.text = "App Store"
+                theCell.textLabel?.text = "App Store page"
             case 1:
                 theCell.textLabel?.text = "Terms of Service"
             case 2:
