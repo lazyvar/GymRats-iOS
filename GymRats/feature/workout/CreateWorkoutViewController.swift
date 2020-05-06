@@ -373,7 +373,7 @@ extension CreateWorkoutViewController: ImportWorkoutViewControllerDelegate {
     (form.rowBy(tag: "duration")?.baseCell as? TextCell)?.textField.delegate = self
     
     if let row = form.rowBy(tag: "import-data-row") {
-      row.title = "\(workout.workoutActivityType.name) | \(workout.sourceRevision.source.name)"
+      row.title = "\(workout.workoutActivityType.name) | \(workout.device?.name ?? workout.sourceRevision.source.name)"
       row.baseCell.textLabel?.numberOfLines = 0
     }
     
