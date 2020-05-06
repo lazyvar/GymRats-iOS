@@ -301,10 +301,23 @@ class CreateWorkoutViewController: GRFormViewController {
     }
   
   func importWorkout() {
-    let importWorkoutViewController = ImportWorkoutViewController()
-    importWorkoutViewController.delegate = self
-    
-    self.present(importWorkoutViewController)
+    HealthService.requestAuthorization(toShare: nil, read: Set([.workoutType()]))
+      .subscribe(onSuccess: { _ in
+        DispatchQueue.main.async {
+          let importWorkoutViewController = ImportWorkoutViewController()
+          importWorkoutViewController.delegate = self
+          
+          self.present(importWorkoutViewController)
+        }
+      }, onError: { error in
+        DispatchQueue.main.async {
+          let importWorkoutViewController = ImportWorkoutViewController()
+          importWorkoutViewController.delegate = self
+          
+          self.present(importWorkoutViewController)
+        }
+      })
+      .disposed(by: disposeBag)
   }
   
     @objc func postWorkout() {
