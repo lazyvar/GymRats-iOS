@@ -48,8 +48,7 @@ class CreateWorkoutViewController: GRFormViewController {
     lazy var cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissSelf))
 
     let placeRow = PushRow<Place>() {
-        $0.title = "Current Location"
-        $0.selectorTitle = "Where are you?"
+        $0.title = "Current location"
     }
     .cellSetup { cell, _ in
         cell.tintColor = .primaryText
@@ -67,6 +66,7 @@ class CreateWorkoutViewController: GRFormViewController {
         cell.textLabel?.font = .body
         cell.tintColor = .primaryText
         cell.height = { return 48 }
+        cell.imageView?.image = .map
     }.onCellSelection { [weak self] _, _ in
         self?.pickPlace()
         self?.showLoadingBar()
@@ -167,17 +167,19 @@ class CreateWorkoutViewController: GRFormViewController {
           $0.tag = "the-form"
         }
         <<< headerRow
-        <<< placeButtonRow
           
-      let dataSection = Section("Data") { $0.tag = "data" }
+      let dataSection = Section() { $0.tag = "data" }
           <<< durationRow
           <<< distanceRow
           <<< stepsRow
           <<< caloriesRow
           <<< pointsRow
       
+      let extra = Section() { $0.tag = "extra" }
+      
       let importDataRow = ButtonRow("import-data") {
-        $0.title = "Import data from Apple Health App"
+        $0.title = "Import workout from the Apple Health App"
+        $0.tag = "import-data-row"
       }.cellSetup { cell, _ in
           cell.textLabel?.font = .body
           cell.tintColor = .primaryText
@@ -194,15 +196,13 @@ class CreateWorkoutViewController: GRFormViewController {
         cell.accessoryType = .disclosureIndicator
       }
       
-      if let workout = healthKitWorkout.value {
-        dataSection <<< importedWorkoutRow(workout: workout)
-      } else {
-        dataSection <<< importDataRow
-      }
+      extra <<< importDataRow
+      extra <<< placeButtonRow
       
       form +++ headerSection
+      form +++ extra
       form +++ dataSection
-      
+
         activeChallenges.forEach { challenge in
             let row = SwitchRow("challenge_\(challenge.id)") {
                 $0.title = "\(challenge.name)"
@@ -289,8 +289,8 @@ class CreateWorkoutViewController: GRFormViewController {
               let places = placeLikelihoods?.sorted(by: { $0.likelihood > $1.likelihood }).map({ Place(from: $0.place) })
             else { return }
 
-            self.form.sectionBy(tag: "the-form")?.remove(at: 1) // yikes
-            var section = self.form.sectionBy(tag: "the-form")
+            self.form.sectionBy(tag: "extra")?.remove(at: 1) // yikes
+            var section = self.form.sectionBy(tag: "extra")
             section?.insert(self.placeRow, at: 1)
   
             var seen: [String: Bool] = [:]
@@ -348,36 +348,6 @@ class CreateWorkoutViewController: GRFormViewController {
         })
         .disposed(by: disposeBag)
     }
-  
-  func importedWorkoutRow(workout: HKWorkout) -> LabelRow {
-    return LabelRow() {
-      $0.title = "\(workout.workoutActivityType.name) | \(workout.sourceRevision.source.name)"
-      $0.baseCell.textLabel?.numberOfLines = 0
-      $0.cell.imageView?.image = .smallAppleHealth
-      $0.cell.imageView?.layer.borderWidth = 1
-      $0.cell.imageView?.clipsToBounds = true
-      $0.cell.imageView?.layer.cornerRadius = 4
-      $0.cell.imageView?.layer.borderColor = UIColor.background.cgColor
-
-      if let calories = healthKitWorkout.value?.totalEnergyBurned {
-        form.rowBy(tag: "cals")?.value = String(Int(calories.doubleValue(for: .kilocalorie()).rounded()))
-        form.rowBy(tag: "cals")?.baseCell.isUserInteractionEnabled = false
-        (form.rowBy(tag: "cals")?.baseCell as? TextCell)?.textField.delegate = self
-      }
-      
-      if let distance = healthKitWorkout.value?.totalDistance {
-        form.rowBy(tag: "distance")?.value = String(Int(distance.doubleValue(for: .mile()).rounded()))
-        form.rowBy(tag: "distance")?.baseCell.isUserInteractionEnabled = false
-        (form.rowBy(tag: "distance")?.baseCell as? TextCell)?.textField.delegate = self
-      }
-      
-      if let duration = healthKitWorkout.value?.duration {
-        form.rowBy(tag: "duration")?.value = Int(duration / 60).stringify
-        form.rowBy(tag: "duration")?.baseCell.isUserInteractionEnabled = false
-        (form.rowBy(tag: "duration")?.baseCell as? TextCell)?.textField.delegate = self
-      }
-    }
-  }
 }
 
 extension CreateWorkoutViewController: ImportWorkoutViewControllerDelegate {
@@ -385,9 +355,28 @@ extension CreateWorkoutViewController: ImportWorkoutViewControllerDelegate {
     importWorkoutViewController.dismissSelf()
     healthKitWorkout = workout
     
-    form.sectionBy(tag: "data")?.remove(at: 5) // yikes
-    var section = self.form.sectionBy(tag: "data")
-    section?.insert(self.importedWorkoutRow(workout: workout), at: 5)
+    if let calories = healthKitWorkout.value?.totalEnergyBurned {
+      form.rowBy(tag: "cals")?.value = String(Int(calories.doubleValue(for: .kilocalorie()).rounded()))
+      form.rowBy(tag: "cals")?.baseCell.isUserInteractionEnabled = false
+      (form.rowBy(tag: "cals")?.baseCell as? TextCell)?.textField.delegate = self
+    }
+    
+    if let distance = healthKitWorkout.value?.totalDistance {
+      form.rowBy(tag: "distance")?.value = String(Int(distance.doubleValue(for: .mile()).rounded()))
+      form.rowBy(tag: "distance")?.baseCell.isUserInteractionEnabled = false
+      (form.rowBy(tag: "distance")?.baseCell as? TextCell)?.textField.delegate = self
+    }
+    
+    if let duration = healthKitWorkout.value?.duration {
+      form.rowBy(tag: "duration")?.value = Int(duration / 60).stringify
+      form.rowBy(tag: "duration")?.baseCell.isUserInteractionEnabled = false
+      (form.rowBy(tag: "duration")?.baseCell as? TextCell)?.textField.delegate = self
+    }
+    
+    if let row = form.rowBy(tag: "import-data-row") {
+      row.title = "\(workout.workoutActivityType.name) | \(workout.sourceRevision.source.name)"
+      row.baseCell.textLabel?.numberOfLines = 0
+    }
   }
 }
 
