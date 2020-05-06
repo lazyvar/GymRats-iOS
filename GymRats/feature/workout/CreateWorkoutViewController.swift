@@ -41,8 +41,8 @@ class CreateWorkoutViewController: GRFormViewController {
     let workoutHeader = BehaviorRelay<WorkoutHeaderInfo?>(value: nil)
     
     var challenges: [Int: BehaviorRelay<Bool>] = [:]
-    var image: UIImage?
-    var healthKitWorkout = BehaviorRelay<HKWorkout?>(value: nil)
+    var workoutImage: UIImage
+    var healthKitWorkout: HKWorkout?
   
     lazy var submitButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(postWorkout))
     lazy var cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissSelf))
@@ -57,10 +57,6 @@ class CreateWorkoutViewController: GRFormViewController {
         cell.textLabel?.font = .body
         cell.detailTextLabel?.font = .body
     }
-    .cellUpdate({ cell, _ in
-        cell.textLabel?.textAlignment = .left
-        cell.accessoryType = .disclosureIndicator
-    })
     .onPresent { _, selector in
         selector.enableDeselection = false
     }
@@ -74,14 +70,16 @@ class CreateWorkoutViewController: GRFormViewController {
     }.onCellSelection { [weak self] _, _ in
         self?.pickPlace()
         self?.showLoadingBar()
+    }.cellUpdate { cell, row in
+      cell.textLabel?.textAlignment = .left
+      cell.accessoryType = .disclosureIndicator
     }
     
-  init(source: Either<UIImage, HKWorkout>) {
-    self.image = source.left
-    self.healthKitWorkout.accept(source.right)
-    
-    super.init(nibName: nil, bundle: nil)
-  }
+    init(workoutImage: UIImage) {
+      self.workoutImage = workoutImage
+      
+      super.init(nibName: nil, bundle: nil)
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -105,18 +103,12 @@ class CreateWorkoutViewController: GRFormViewController {
       let activeChallenges = (Challenge.State.all.state?.object ?? []).getActiveChallenges()
       
         let headerRow = CreateWorkoutHeaderRow("workout_header") {
-          $0.value = WorkoutHeaderInfo(image: image, title: "", description: "")
+          $0.value = WorkoutHeaderInfo(image: workoutImage, title: "", description: "")
         }
 
         let durationRow = TextRow("duration") {
           $0.title = "Duration (mins)"
           $0.placeholder = "-"
-          
-          if let duration = healthKitWorkout.value?.duration {
-            $0.value = Int(duration / 60).stringify
-            $0.baseCell.isUserInteractionEnabled = false
-            $0.cell.textField.delegate = self
-          }
         }.cellSetup { cell, _ in
             cell.textLabel?.font = .body
             cell.titleLabel?.font = .body
@@ -128,12 +120,6 @@ class CreateWorkoutViewController: GRFormViewController {
         let distanceRow = TextRow("distance") {
             $0.title = "Distance (miles)"
             $0.placeholder = "-"
-          
-          if let distance = healthKitWorkout.value?.totalDistance {
-            $0.value = String(Int(distance.doubleValue(for: .mile()).rounded()))
-            $0.baseCell.isUserInteractionEnabled = false
-            $0.cell.textField.delegate = self
-          }
         }.cellSetup { cell, _ in
             cell.textLabel?.font = .body
             cell.titleLabel?.font = .body
@@ -156,12 +142,6 @@ class CreateWorkoutViewController: GRFormViewController {
         let caloriesRow = TextRow("cals") {
             $0.title = "Calories"
             $0.placeholder = "-"
-          
-          if let calories = healthKitWorkout.value?.totalEnergyBurned {
-            $0.value = String(Int(calories.doubleValue(for: .kilocalorie()).rounded()))
-            $0.baseCell.isUserInteractionEnabled = false
-            $0.cell.textField.delegate = self
-          }
         }.cellSetup { cell, _ in
             cell.textLabel?.font = .body
             cell.titleLabel?.font = .body
@@ -205,9 +185,8 @@ class CreateWorkoutViewController: GRFormViewController {
           cell.imageView?.image = .smallAppleHealth
           cell.imageView?.layer.borderWidth = 1
           cell.imageView?.clipsToBounds = true
-          cell.imageView?.layer.cornerRadius = 2
-          cell.imageView?.layer.borderColor = UIColor.lightGray.cgColor
-          cell.accessoryType = .disclosureIndicator
+          cell.imageView?.layer.cornerRadius = 4
+          cell.imageView?.layer.borderColor = UIColor.background.cgColor
       }.onCellSelection { [weak self] _, _ in
         self?.importWorkout()
       }.cellUpdate { cell, row in
@@ -273,13 +252,13 @@ class CreateWorkoutViewController: GRFormViewController {
         
         let titlePresent = self.workoutTitle.asObservable().isPresent
         let photoPresent = self.photo.asObservable().isPresent
-        let healthAppWorkoutPresent = self.healthKitWorkout.asObservable().isPresent
-        let atLeastOneChallenge = Observable<Bool>.combineLatest(self.challenges.values) { vals in
+
+      let atLeastOneChallenge = Observable<Bool>.combineLatest(self.challenges.values) { vals in
             return vals.reduce(false) { $0 || $1 }
         }
         
-        Observable<Bool>.combineLatest(titlePresent, photoPresent, healthAppWorkoutPresent, atLeastOneChallenge) { titlePresent, photoPresent, healthAppWorkoutPresent, atLeastOneChallenge in
-            return titlePresent && (photoPresent || healthAppWorkoutPresent) && atLeastOneChallenge
+        Observable<Bool>.combineLatest(titlePresent, photoPresent, atLeastOneChallenge) { titlePresent, photoPresent, atLeastOneChallenge in
+            return titlePresent && photoPresent && atLeastOneChallenge
         }
         .bind(to: self.submitButton.rx.isEnabled).disposed(by: disposeBag)
     }
@@ -287,10 +266,9 @@ class CreateWorkoutViewController: GRFormViewController {
     var locationManager: CLLocationManager?
     
     func pickPlace() {
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        
-        locationManager?.requestWhenInUseAuthorization()
+      locationManager = CLLocationManager()
+      locationManager?.delegate = self
+      locationManager?.requestWhenInUseAuthorization()
     }
     
     func getPlacesForCurrentLocation() {
@@ -374,9 +352,9 @@ class CreateWorkoutViewController: GRFormViewController {
       $0.cell.imageView?.image = .smallAppleHealth
       $0.cell.imageView?.layer.borderWidth = 1
       $0.cell.imageView?.clipsToBounds = true
-      $0.cell.imageView?.layer.cornerRadius = 2
-      $0.cell.imageView?.layer.borderColor = UIColor.lightGray.cgColor
-      
+      $0.cell.imageView?.layer.cornerRadius = 4
+      $0.cell.imageView?.layer.borderColor = UIColor.background.cgColor
+
       if let calories = healthKitWorkout.value?.totalEnergyBurned {
         form.rowBy(tag: "cals")?.value = String(Int(calories.doubleValue(for: .kilocalorie()).rounded()))
         form.rowBy(tag: "cals")?.baseCell.isUserInteractionEnabled = false
@@ -401,7 +379,7 @@ class CreateWorkoutViewController: GRFormViewController {
 extension CreateWorkoutViewController: ImportWorkoutViewControllerDelegate {
   func importWorkoutViewController(_ importWorkoutViewController: ImportWorkoutViewController, imported workout: HKWorkout) {
     importWorkoutViewController.dismissSelf()
-    healthKitWorkout.accept(workout)
+    healthKitWorkout = workout
     
     form.sectionBy(tag: "data")?.remove(at: 5) // yikes
     var section = self.form.sectionBy(tag: "data")
