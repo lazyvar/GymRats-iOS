@@ -58,6 +58,8 @@
 	<string>For taking picture of workout.</string>
 	<key>NSHealthShareUsageDescription</key>
 	<string>Import workouts from the Health app.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Import workouts from the Health app.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>To find gyms near you.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
