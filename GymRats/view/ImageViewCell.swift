@@ -55,7 +55,14 @@ class ImageViewCell: UITableViewCell {
   private func setImage(_ image: UIImage) {
     setAspectRatio(image.size.height / image.size.width)
     _imageView.image = image
-    _imageView.setupImageViewer()
+    _imageView.setupImageViewer(options: [{
+      switch UIDevice.contentMode {
+      case .light:
+        return .theme(.light)
+      case .dark:
+        return .theme(.dark)
+      }
+    }()], from: nil)
   }
   
   override func awakeFromNib() {

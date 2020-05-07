@@ -285,7 +285,14 @@ extension ChatViewController: MessageCellDelegate {
     let imageCarousel = ImageCarouselViewController.create(
       sourceView: cell.imageView,
       imageDataSource: image,
-      options: [],
+      options: [{
+        switch UIDevice.contentMode {
+        case .light:
+          return .theme(.light)
+        case .dark:
+          return .theme(.dark)
+        }
+      }()],
       initialIndex: 0
     )
     
