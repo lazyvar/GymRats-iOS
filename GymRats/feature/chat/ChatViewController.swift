@@ -296,7 +296,7 @@ extension ChatViewController: MessageCellDelegate {
       initialIndex: 0
     )
     
-    self.present(imageCarousel, animated: true, completion: nil)
+    self.present(imageCarousel, animated: false, completion: nil)
   }
 }
 
@@ -396,8 +396,8 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     guard let image = info[.originalImage] as? UIImage else { return }
     
-    let showAlert = UIAlertController(title: "Send image to group?", message: nil, preferredStyle: .alert)
-    let imageView = UIImageView(frame: CGRect(x: 10, y: 50, width: 250, height: 250))
+    let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+    let imageView = UIImageView(frame: CGRect(x: 10, y: 10, width: 250, height: 250))
     imageView.image = image
     imageView.contentMode = .scaleAspectFill
     imageView.clipsToBounds = true
@@ -405,10 +405,10 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     showAlert.view.addSubview(imageView)
     
-    let height = NSLayoutConstraint(item: showAlert.view!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 360)
+    let height = NSLayoutConstraint(item: showAlert.view!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 320)
     showAlert.view.addConstraint(height)
     
-    showAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+    showAlert.addAction(UIAlertAction(title: "Send", style: .default, handler: { action in
       self.showLoadingBar()
         
       ImageService.uploadImageToFirebase(image: image)
