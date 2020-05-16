@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import Alamofire
+import FirebaseCrashlytics
 
 let gymRatsAPI = GymRatsAPI()
 
@@ -209,8 +210,10 @@ extension GymRatsAPI {
     return networkProvider
       .request(method: method, url: url, headers: headers, parameters: params)
       .map { .success($0.1) }
-      .catchError { e -> Observable<NetworkResult<Data>> in
-        return .just(.failure(e.localized()))
+      .catchError { error -> Observable<NetworkResult<Data>> in
+        Crashlytics.crashlytics().record(error: error)
+        
+        return .just(.failure(error.localized()))
       }
   }
   

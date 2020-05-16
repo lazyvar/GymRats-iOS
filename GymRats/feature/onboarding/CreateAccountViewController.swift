@@ -33,6 +33,46 @@ class CreateAccountViewController: GRFormViewController {
   
   @objc private func createAccountButtonTapped() {
     guard form.validate().count == 0 else { return }
+
+    if profilePictureRow.value == nil {
+      presentProfilePictureAlert()
+    } else {
+      doSignUp(profilePicture: nil)
+    }
+  }
+  
+  private func presentProfilePictureAlert() {
+    let alert = UIAlertController(title: "Upload profile picture?", message: nil, preferredStyle: .actionSheet)
+    let cam = UIAlertAction(title: "Camera", style: .default) { (alert) in
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .camera
+        imagePicker.delegate = self
+        imagePicker.cameraCaptureMode = .photo
+        
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    let library = UIAlertAction(title: "Photo library", style: .default) { (alert) in
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    let notRightNow = UIAlertAction(title: "Not right now", style: .cancel) { _ in
+      self.doSignUp(profilePicture: nil)
+    }
+    
+    alert.addAction(cam)
+    alert.addAction(library)
+    alert.addAction(notRightNow)
+    
+    present(alert, animated: true, completion: nil)
+  }
+  
+  private func doSignUp(profilePicture: UIImage?) {
+    guard form.validate().count == 0 else { return }
     
     let valuesDictionary = form.values()
 
@@ -44,7 +84,7 @@ class CreateAccountViewController: GRFormViewController {
     view.endEditing(true)
     showLoadingBar(disallowUserInteraction: true)
     
-    gymRatsAPI.signUp(email: email, password: password, profilePicture: proPic, fullName: fullName)
+    gymRatsAPI.signUp(email: email, password: password, profilePicture: profilePicture ?? proPic, fullName: fullName)
       .subscribe(onNext: { [weak self] result in
         self?.hideLoadingBar()
         
@@ -191,9 +231,11 @@ class CreateAccountViewController: GRFormViewController {
       textRow.placeholder = "Name"
       textRow.tag = "full_name"
       textRow.icon = .name
-      textRow.contentType = .givenName
       textRow.add(rule: RuleRequired(msg: "Name is required."))
     }
+    .cellSetup({ cell, _ in
+      cell.shadowTextField.autocapitalizationType = .words
+    })
     .onRowValidationChanged(self.handleRowValidationChange)
   }()
   
@@ -242,5 +284,12 @@ extension CreateAccountViewController: TTTAttributedLabelDelegate {
     let nav = UINavigationController(rootViewController: webView)
     
     self.present(nav, animated: true, completion: nil)
+  }
+}
+
+extension CreateAccountViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    picker.dismissSelf()
+    doSignUp(profilePicture: info[.originalImage] as? UIImage)
   }
 }

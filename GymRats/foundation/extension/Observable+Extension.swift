@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import Kingfisher
 import RxOptional
+import FirebaseCrashlytics
 
 func requireAll(_ boolValues: Observable<Bool>...) -> Observable<Bool> {
     return Observable<Bool>.combineLatest(boolValues) { collection in
@@ -104,6 +105,12 @@ extension Observable where Element == NetworkResult<Data> {
           return .failure(.init(serviceResponse.error ?? "Something went wrong. Please try agin."))
         }
       } catch let error {
+        if let message = String(data: data, encoding: .utf8) {
+          Crashlytics.crashlytics().log(message)
+        }
+        
+        Crashlytics.crashlytics().record(error: error)
+        
         return .failure(.init(error.localized()))
       }
     }
@@ -123,6 +130,12 @@ extension Observable where Element == NetworkResult<Data> {
           return .failure(.init(serviceResponse.error ?? "Something went wrong. Please try agin."))
         }
       } catch let error {
+        if let message = String(data: data, encoding: .utf8) {
+          Crashlytics.crashlytics().log(message)
+        }
+
+        Crashlytics.crashlytics().record(error: error)
+        
         return .failure(.init(error.localized()))
       }
     }
