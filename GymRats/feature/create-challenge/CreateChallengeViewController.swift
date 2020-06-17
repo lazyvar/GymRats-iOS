@@ -17,7 +17,7 @@ class CreateChallengeViewController: GRFormViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    title = "Create challenge"
+    title = "Custom challenge"
     
     tableView.backgroundColor = .background
     tableView.separatorStyle = .none
@@ -61,9 +61,12 @@ class CreateChallengeViewController: GRFormViewController {
     guard form.validate().count == 0 else { return }
     guard let score = values["score_by"] as? Int else { return }
     guard let scoreBy = ScoreBy(intValue: score) else { return }
-    guard let start = values["start_date"] as? Date else { return }
-    guard let end = values["end_date"] as? Date else { return }
+    guard let start1 = values["start_date"] as? Date else { return }
+    guard let end1 = values["end_date"] as? Date else { return }
 
+    let start = start1.in(region: .current).dateAtStartOf(.day).date.dateAtStartOf(.day)
+    let end = end1.in(region: .current).dateAtStartOf(.day).date.dateAtStartOf(.day)
+    
     let difference = start.getInterval(toDate: end, component: .day)
 
     guard difference > 0 else {
@@ -74,8 +77,8 @@ class CreateChallengeViewController: GRFormViewController {
     let newChallenge = NewChallenge(
       name: values["name"] as? String ?? "",
       description: values["description"] as? String,
-      startDate: start.dateAtStartOf(.day),
-      endDate: end.dateAtStartOf(.day),
+      startDate: start,
+      endDate: end,
       scoreBy: scoreBy,
       banner: nil
     )

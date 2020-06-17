@@ -22,6 +22,10 @@ extension Date {
     return utcDateIsDaysApartFromLocalDate(Date()) == -1
   }
   
+  var serverDateIsTomorrow: Bool {
+    return utcDateIsDaysApartFromLocalDate(Date()) == 1
+  }
+  
   func utcDateIsDaysApartFromUtcDate(_ date: Date) -> Int {
     return inTimeZone(.utc, daysApartFrom: date, inTimeZone: .utc)
   }

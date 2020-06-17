@@ -60,14 +60,14 @@ class CreateChallengerReviewViewController: UIViewController {
       startDateLabel.textColor = .primaryText
       startDateLabel.text = {
         let date: String = {
-          if newChallenge.startDate.isToday {
+          if newChallenge.startDate.serverDateIsToday {
             return "today"
-          } else if newChallenge.startDate.isYesterday {
+          } else if newChallenge.startDate.serverDateIsYesterday {
             return "yesterday"
-          } else if newChallenge.startDate.isTomorrow {
+          } else if newChallenge.startDate.serverDateIsTomorrow {
             return "tomorrow"
           } else {
-            return newChallenge.startDate.toFormat("MMMM d")
+            return newChallenge.startDate.in(region: .current).toFormat("MMMM d")
           }
         }()
         
