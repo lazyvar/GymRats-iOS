@@ -35,12 +35,13 @@ class ClassicChallengeViewController: GRFormViewController {
     let values = form.values()
     
     guard form.validate().count == 0 else { return }
-    guard let start = values["start_date"] as? Date else { return }
-
+    guard let start1 = values["start_date"] as? Date else { return }
+    let start = start1.in(region: .current).dateAtStartOf(.day).date.dateAtStartOf(.day)
+    
     let newChallenge = NewChallenge(
       name: values["name"] as? String ?? "",
       description: values["description"] as? String,
-      startDate: start.dateAtStartOf(.day),
+      startDate: start,
       endDate: (start + 29.days).dateAtStartOf(.day),
       scoreBy: .workouts,
       banner: nil

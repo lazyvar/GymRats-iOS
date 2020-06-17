@@ -147,6 +147,7 @@ extension JSONDecoder {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
     dateFormatter.timeZone = .utc
+    dateFormatter.locale = Locale(identifier: "UTC")
     
     let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = .formatted(dateFormatter)

@@ -376,7 +376,7 @@ extension CreateWorkoutViewController: ImportWorkoutViewControllerDelegate {
     }
     
     if let distance = workout.totalDistance {
-      form.rowBy(tag: "distance")?.value = String(Int(distance.doubleValue(for: .mile()).rounded()))
+      form.rowBy(tag: "distance")?.value = String(distance.doubleValue(for: .mile()).rounded(places: 1))
       form.rowBy(tag: "distance")?.baseCell.isUserInteractionEnabled = false
       (form.rowBy(tag: "distance")?.baseCell as? TextCell)?.textField.delegate = self
     }
@@ -426,5 +426,14 @@ extension CreateWorkoutViewController: CLLocationManagerDelegate {
 extension CreateWorkoutViewController: UITextFieldDelegate {
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     return false
+  }
+}
+
+extension Double {
+  /// Rounds the double to decimal places value
+  func rounded(places: Int) -> Double {
+    let divisor = pow(10.0, Double(places))
+  
+    return (self * divisor).rounded() / divisor
   }
 }
