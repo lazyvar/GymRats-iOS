@@ -39,7 +39,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
   @objc private func currentAccountUpdated() {
     tableView.reloadData()
   }
-    
+  
   override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 36))
     view.backgroundColor = .background
@@ -79,7 +79,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
       case 0: return 4
       case 1: return 4
       case 2: return 1
-      case 3: return 1
+      case 3: return 2
       default: return 0
       }
     }
@@ -200,7 +200,11 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
             }
           }
         case 3:
-          GymRats.logout()
+          switch indexPath.row {
+          case 0: push(NotificationSettingsViewController())
+          case 1: GymRats.logout()
+          default: break
+          }
         default:
           break
         }
@@ -282,6 +286,8 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         case 3:
             switch indexPath.row {
             case 0:
+                theCell.textLabel?.text = "Notifications"
+            case 1:
                 theCell.textLabel?.text = "Sign out"
             default:
                 break
