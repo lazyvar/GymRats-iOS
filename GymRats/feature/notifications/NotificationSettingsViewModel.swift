@@ -20,36 +20,56 @@ final class NotificationSettingsViewModel: ViewModel {
   }
   
   struct Output {
-    let workoutNotificationsEnabled = BehaviorSubject(value: false)
-    let commentNotificationsEnabled = BehaviorSubject(value: false)
-    let chatMessageNotificationsEnabled = BehaviorSubject(value: false)
+    let workoutsEnabled = BehaviorSubject(value: false)
+    let commentsEnabled = BehaviorSubject(value: false)
+    let chatMessagesEnabled = BehaviorSubject(value: false)
+    let permissionDenied = PublishSubject<Bool>()
   }
   
   let input = Input()
   let output = Output()
   
   init() {
-    let fetchNotificationSettings = input.viewDidLoad
-//      .flatMap { gymRatsAPI.notificationSettings() }
-//      .compactMap { $0.object }
-      .map { NotificationSettings(workouts: true, comments: false, chatMessages: true) }
-      .share()
+    func ensurePushSettingEnabled() -> Observable<Bool> {
+      let permission = Observable<Bool>.create { subscriber -> Disposable in
+        let auth = PushNotifications.requestAuthorization().asObservable()
+        let granted = auth
+          .filter { $0 }
+          .subscribe(onNext: { _ in
+            subscriber.onNext(true)
+          })
+        
+        let requested = auth
+          .filter { !$0 }
+          .subscribe(onNext: { enabled in
+            subscriber.onNext(enabled)
+          })
+
+        return Disposables.create(granted, requested)
+      }.share()
+      
+      permission
+        .map { !$0 }
+        .bind(to: output.permissionDenied)
+        .disposed(by: disposeBag)
+      
+      return permission
+    }
     
-    fetchNotificationSettings
-      .map { $0.workouts }
-      .bind(to: output.workoutNotificationsEnabled)
+    let appEnteredForeground = NotificationCenter.default.rx.notification(.appEnteredForeground).map { _ in () }.share()
+    
+    Observable.merge(input.viewDidLoad, appEnteredForeground)
+      .flatMap { PushNotifications.permissionStatus() }
+      .map { $0 == .denied }
+      .bind(to: output.permissionDenied)
       .disposed(by: disposeBag)
-
-    fetchNotificationSettings
-      .map { $0.comments }
-      .bind(to: output.commentNotificationsEnabled)
-      .disposed(by: disposeBag)
-
-    fetchNotificationSettings
-      .map { $0.chatMessages }
-      .bind(to: output.chatMessageNotificationsEnabled)
-      .disposed(by: disposeBag)
-
+    
+    input.workoutSwitchChanged
+      .flatMap { Observable.combineLatest(Observable<Bool>.just($0), ensurePushSettingEnabled()) }
+      .filter { _, enabled in enabled }
+      .flatMap { workouts, _ in gymRatsAPI.updateNotificationSettings(workouts: workouts) }
+      .ignore(disposedBy: disposeBag)
+    
     
   }
 }

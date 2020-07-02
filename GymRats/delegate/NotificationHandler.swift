@@ -11,6 +11,7 @@ import RxSwift
 
 class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
   var coldStartNotification: [AnyHashable: Any]?
+  
   private let disposeBag = DisposeBag()
   
   func userNotificationCenter (_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {

@@ -48,6 +48,7 @@ class NotificationSettingsViewController: BindableViewController {
     }
   }
   
+  @IBOutlet private weak var notificationsStack: UIStackView!
   @IBOutlet private weak var commentSwitch: UISwitch!
   @IBOutlet private weak var workoutSwitch: UISwitch!
   @IBOutlet private weak var chatMessageSwitch: UISwitch!
@@ -55,19 +56,26 @@ class NotificationSettingsViewController: BindableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    navigationItem.largeTitleDisplayMode = .always
+    title = "Notification settings"
+    
     viewModel.input.viewDidLoad.trigger()
   }
   
   override func bindViewModel() {
-    viewModel.output.workoutNotificationsEnabled
+    viewModel.output.permissionDenied
+      .bind(to: notificationsStack.rx.isHidden)
+      .disposed(by: disposeBag)
+    
+    viewModel.output.workoutsEnabled
       .bind(to: workoutSwitch.rx.isOn)
       .disposed(by: disposeBag)
     
-    viewModel.output.commentNotificationsEnabled
+    viewModel.output.commentsEnabled
       .bind(to: commentSwitch.rx.isOn)
       .disposed(by: disposeBag)
     
-    viewModel.output.chatMessageNotificationsEnabled
+    viewModel.output.chatMessagesEnabled
       .bind(to: chatMessageSwitch.rx.isOn)
       .disposed(by: disposeBag)
   }

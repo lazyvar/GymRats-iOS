@@ -37,7 +37,7 @@ class PickDateCell: Cell<Date>, Eureka.TextFieldCell, CellType {
     datePicker.minimumDate = textFieldRow?.startDate
     datePicker.maximumDate = textFieldRow?.endDate
 
-    textField?.text = datePicker.date.in(region: .current).toFormat("EEEE, MMMM d, yyyy")
+    textField?.text = datePicker.date.in(region: .UTC).toFormat("EEEE, MMMM d, yyyy")
     textField?.placeholder = textFieldRow?.placeholder
     textField?.textContentType = textFieldRow?.contentType
     textField?.keyboardType = textFieldRow?.keyboardType ?? .default

@@ -15,6 +15,7 @@
                 <outlet property="commentLabel" destination="h0d-Ds-xrr" id="Ju9-JN-Ps6"/>
                 <outlet property="commentSwitch" destination="mHK-de-0JS" id="xyH-aT-GEo"/>
                 <outlet property="enableAllButton" destination="pNk-4h-C2f" id="sOM-YJ-chc"/>
+                <outlet property="notificationsStack" destination="efh-89-grG" id="FIo-4r-Ems"/>
                 <outlet property="skipButton" destination="wyL-49-etM" id="DMY-Ug-dxo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="workoutLabel" destination="yTO-5R-E91" id="6Vi-Eo-gHq"/>

@@ -15,13 +15,18 @@ struct Account: Codable, Hashable {
   let fullName: String
   let profilePictureUrl: String?
   let token: String?
-
+  let workoutNotificationsEnabled: Bool?
+  let commentNotificationsEnabled: Bool?
+  let chatMessageNotificationsEnabled: Bool?
+  
   func hash(into hasher: inout Hasher) {
     hasher.combine(id)
   }
 }
 
 extension Account {
+  static let dummy = Account(id: 0, email: "", fullName: "", profilePictureUrl: "", token: "", workoutNotificationsEnabled: nil, commentNotificationsEnabled: nil, chatMessageNotificationsEnabled: nil)
+
   static func loadCurrent() -> Account? {
     switch Keychain.gymRats.retrieveObject(forKey: .currentUser) {
     case .success(let account):
@@ -41,8 +46,6 @@ extension Account {
   static func removeCurrent() {
     UserDefaults.standard.removeObject(forKey: "gym_rats_account")
   }
-  
-  static let dummy = Account(id: 0, email: "", fullName: "", profilePictureUrl: "", token: "")
 }
 
 extension Account: Avatar {

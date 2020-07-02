@@ -178,12 +178,8 @@ class GymRatsAPI {
     return requestObject(.registerDevice(deviceToken: deviceToken))
   }
   
-  func notificationSettings() -> Observable<NetworkResult<NotificationSettings>> {
-    return requestObject(.notificationSettings)
-  }
-  
-  func updateNotificationSettings(_ notificationSettings: NotificationSettings) -> Observable<NetworkResult<Bool>> {
-    return requestObject(.updateNotificationSettings(notificationSettings))
+  func updateNotificationSettings(workouts: Bool? = nil, comments: Bool? = nil, chatMessages: Bool? = nil) -> Observable<NetworkResult<Account>> {
+    return requestObject(.updateNotificationSettings(workouts: workouts, comments: comments, chatMessages: chatMessages))
   }
   
   func deleteDevice() -> Observable<NetworkResult<String>> {

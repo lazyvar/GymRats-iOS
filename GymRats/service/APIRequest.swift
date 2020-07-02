@@ -43,8 +43,7 @@ enum APIRequest {
   case challengeInfo(challenge: Challenge)
   case getChallengeForCode(code: String)
   case getMembership(challenge: Challenge)
-  case notificationSettings
-  case updateNotificationSettings(_ notificationSettings: NotificationSettings)
+  case updateNotificationSettings(workouts: Bool?, comments: Bool?, chatMessages: Bool?)
   
   var requestProperties: (method: HTTPMethod, path: String, params: Parameters?) {
     switch self {
@@ -207,7 +206,7 @@ enum APIRequest {
         params["full_name"] = fullName
       }
 
-      return (.put, "accounts/self", params)
+      return (.put, "account", params)
     case .deleteWorkout(let workout):
       return (.delete, "workouts/\(workout.id)", nil)
     case .getCommentsForWorkout(let workout):
@@ -238,16 +237,22 @@ enum APIRequest {
       return (.get, "memberships/\(challenge.id)", nil)
     case .challengeInfo(challenge: let challenge):
       return (.get, "challenges/\(challenge.id)/info", nil)
-    case .notificationSettings:
-      return (.get, "notification_settings", nil)
-    case .updateNotificationSettings(let notificationSettings):
-      let params: Parameters = [
-        "workouts": notificationSettings.workouts,
-        "comments": notificationSettings.comments,
-        "chat_messages": notificationSettings.chatMessages
-      ]
+    case .updateNotificationSettings(let workouts, let comments, let chatMessages):
+      var params: Parameters = [:]
+
+      if let workouts = workouts {
+        params["workout_notifications_enabled"] = workouts
+      }
+
+      if let comments = comments {
+        params["comment_notifications_enabled"] = comments
+      }
       
-      return (.put, "notification_settings", params)
+      if let chatMessages = chatMessages {
+        params["chat_message_notifications_enabled"] = chatMessages
+      }
+      
+      return (.put, "account", params)
     }
   }
 }

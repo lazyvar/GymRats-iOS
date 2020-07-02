@@ -69,7 +69,12 @@ enum GymRats {
 
     if currentAccount != nil {
       Track.currentUser()
-      registerForNotifications()
+      
+      PushNotifications.center.getNotificationSettings { settings in
+        if settings.authorizationStatus == .authorized {
+          registerForNotifications()
+        }
+      }
     }
     
     window.makeKeyAndVisible()
@@ -123,7 +128,8 @@ enum GymRats {
   static func didRegisterForRemoteNotifications(withDeviceToken deviceToken: Data) {
     let deviceTokenString = deviceToken.reduce("", { $0 + String(format: "%02X", $1) })
 
-    gymRatsAPI.registerDevice(deviceToken: deviceTokenString)
+    gymRatsAPI
+      .registerDevice(deviceToken: deviceTokenString)
       .ignore(disposedBy: disposeBag)
   }
   
@@ -154,7 +160,8 @@ enum GymRats {
   
   /// Removes the current account and shows the welcome screen
   static func logout() {
-    gymRatsAPI.deleteDevice()
+    gymRatsAPI
+      .deleteDevice()
       .ignore(disposedBy: disposeBag)
 
     UserDefaults.standard.removeObject(forKey: "join-code")
@@ -185,8 +192,8 @@ private extension GymRats {
   }
   
   private static func registerForNotifications() {
-    UNUserNotificationCenter.current().delegate = notificationHandler
-    UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+    PushNotifications.center.delegate = notificationHandler
+    PushNotifications.center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
       guard granted else { return }
 
       DispatchQueue.main.async { application.registerForRemoteNotifications() }
