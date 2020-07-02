@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import RxSwift
 
 class NotificationSettingsViewController: BindableViewController {
   private let viewModel = NotificationSettingsViewModel()
+  private let disposeBag = DisposeBag()
   
   @IBOutlet private weak var workoutLabel: UILabel! {
     didSet {
@@ -17,6 +19,7 @@ class NotificationSettingsViewController: BindableViewController {
       workoutLabel.font = .body
     }
   }
+  
   
   @IBOutlet private weak var commentLabel: UILabel! {
     didSet {
@@ -32,6 +35,7 @@ class NotificationSettingsViewController: BindableViewController {
     }
   }
   
+  
   @IBOutlet private weak var enableAllButton: UIButton! {
     didSet {
       
@@ -44,6 +48,10 @@ class NotificationSettingsViewController: BindableViewController {
     }
   }
   
+  @IBOutlet private weak var commentSwitch: UISwitch!
+  @IBOutlet private weak var workoutSwitch: UISwitch!
+  @IBOutlet private weak var chatMessageSwitch: UISwitch!
+
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -51,6 +59,28 @@ class NotificationSettingsViewController: BindableViewController {
   }
   
   override func bindViewModel() {
+    viewModel.output.workoutNotificationsEnabled
+      .bind(to: workoutSwitch.rx.isOn)
+      .disposed(by: disposeBag)
     
+    viewModel.output.commentNotificationsEnabled
+      .bind(to: commentSwitch.rx.isOn)
+      .disposed(by: disposeBag)
+    
+    viewModel.output.chatMessageNotificationsEnabled
+      .bind(to: chatMessageSwitch.rx.isOn)
+      .disposed(by: disposeBag)
+  }
+  
+  @IBAction private func workoutSwitchChanged(_ sender: UISwitch) {
+    viewModel.input.workoutSwitchChanged.onNext(sender.isOn)
+  }
+  
+  @IBAction private func commentSwitchChanged(_ sender: UISwitch) {
+    viewModel.input.commentSwitchChanged.onNext(sender.isOn)
+  }
+  
+  @IBAction private func chatMessageSwitchChanged(_ sender: UISwitch) {
+    viewModel.input.chatMessageSwitchChanged.onNext(sender.isOn)
   }
 }

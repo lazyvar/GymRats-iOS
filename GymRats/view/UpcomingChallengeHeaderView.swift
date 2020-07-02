@@ -92,14 +92,14 @@ class UpcomingChallengeHeaderView: UICollectionReusableView {
   
   func configure(_ challenge: Challenge) {
     let date: String = {
-      if challenge.startDate.isToday {
+      if challenge.startDate.serverDateIsToday {
         return "today"
-      } else if challenge.startDate.isYesterday {
+      } else if challenge.startDate.serverDateIsYesterday {
         return "yesterday"
-      } else if challenge.startDate.isTomorrow {
+      } else if challenge.startDate.serverDateIsTomorrow {
         return "tomorrow"
       } else {
-        return challenge.startDate.toFormat("MMMM d")
+        return challenge.startDate.in(region: .UTC).toFormat("MMMM d")
       }
     }()
     

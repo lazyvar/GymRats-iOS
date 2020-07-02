@@ -21,6 +21,7 @@
 		010C05F624AD49AF001B37D7 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010C05F424AD49AF001B37D7 /* NotificationSettingsViewController.swift */; };
 		010C05F724AD49AF001B37D7 /* NotificationSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 010C05F524AD49AF001B37D7 /* NotificationSettingsViewController.xib */; };
 		010C05F924AD4D4F001B37D7 /* NotificationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010C05F824AD4D4F001B37D7 /* NotificationSettingsViewModel.swift */; };
+		010C05FB24AD4ED6001B37D7 /* NotificationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010C05FA24AD4ED6001B37D7 /* NotificationSettings.swift */; };
 		01107DC9243CE665005AA8F3 /* HowItWorksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01107DC7243CE665005AA8F3 /* HowItWorksViewController.swift */; };
 		01107DCA243CE665005AA8F3 /* HowItWorksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01107DC8243CE665005AA8F3 /* HowItWorksViewController.xib */; };
 		01111DA62446855E0033170A /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01111DA52446855E0033170A /* Either.swift */; };
@@ -319,6 +320,7 @@
 		010C05F424AD49AF001B37D7 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		010C05F524AD49AF001B37D7 /* NotificationSettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationSettingsViewController.xib; sourceTree = "<group>"; };
 		010C05F824AD4D4F001B37D7 /* NotificationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewModel.swift; sourceTree = "<group>"; };
+		010C05FA24AD4ED6001B37D7 /* NotificationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettings.swift; sourceTree = "<group>"; };
 		01107DC7243CE665005AA8F3 /* HowItWorksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowItWorksViewController.swift; sourceTree = "<group>"; };
 		01107DC8243CE665005AA8F3 /* HowItWorksViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HowItWorksViewController.xib; sourceTree = "<group>"; };
 		01111DA52446855E0033170A /* Either.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Either.swift; sourceTree = "<group>"; };
@@ -1156,6 +1158,7 @@
 				01610147242ABC2800731E30 /* ChallengeInfo.swift */,
 				01D70BD7244676D600F6F33A /* NewChallenge.swift */,
 				0127B08B24490240000A48CB /* Membership.swift */,
+				010C05FA24AD4ED6001B37D7 /* NotificationSettings.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1741,6 +1744,7 @@
 				0103A99124204FE500B589DA /* PrimaryButton.swift in Sources */,
 				01A3EB10237747D30097FC2A /* CVRange.swift in Sources */,
 				0103A98D24204EB000B589DA /* WorkoutFlow.swift in Sources */,
+				010C05FB24AD4ED6001B37D7 /* NotificationSettings.swift in Sources */,
 				74BE97BD220C9F2800D550CA /* ImagePickerController.swift in Sources */,
 				01A3EB16237747D30097FC2A /* CVCalendarContentViewController.swift in Sources */,
 				0176B66E243B99E50022B65F /* WelcomeViewController.swift in Sources */,

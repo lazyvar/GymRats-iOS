@@ -43,6 +43,8 @@ enum APIRequest {
   case challengeInfo(challenge: Challenge)
   case getChallengeForCode(code: String)
   case getMembership(challenge: Challenge)
+  case notificationSettings
+  case updateNotificationSettings(_ notificationSettings: NotificationSettings)
   
   var requestProperties: (method: HTTPMethod, path: String, params: Parameters?) {
     switch self {
@@ -236,6 +238,16 @@ enum APIRequest {
       return (.get, "memberships/\(challenge.id)", nil)
     case .challengeInfo(challenge: let challenge):
       return (.get, "challenges/\(challenge.id)/info", nil)
+    case .notificationSettings:
+      return (.get, "notification_settings", nil)
+    case .updateNotificationSettings(let notificationSettings):
+      let params: Parameters = [
+        "workouts": notificationSettings.workouts,
+        "comments": notificationSettings.comments,
+        "chat_messages": notificationSettings.chatMessages
+      ]
+      
+      return (.put, "notification_settings", params)
     }
   }
 }

@@ -67,7 +67,7 @@ class CreateChallengerReviewViewController: UIViewController {
           } else if newChallenge.startDate.serverDateIsTomorrow {
             return "tomorrow"
           } else {
-            return newChallenge.startDate.in(region: .current).toFormat("MMMM d")
+            return newChallenge.startDate.in(region: .UTC).toFormat("MMMM d")
           }
         }()
         

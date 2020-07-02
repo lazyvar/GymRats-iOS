@@ -11,11 +11,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NotificationSettingsViewController" customModule="GymRats" customModuleProvider="target">
             <connections>
                 <outlet property="chatMessageLabel" destination="lB7-UT-hNV" id="Nzg-Er-vXN"/>
+                <outlet property="chatMessageSwitch" destination="5xj-gJ-kD4" id="Fi4-s1-abZ"/>
                 <outlet property="commentLabel" destination="h0d-Ds-xrr" id="Ju9-JN-Ps6"/>
+                <outlet property="commentSwitch" destination="mHK-de-0JS" id="xyH-aT-GEo"/>
                 <outlet property="enableAllButton" destination="pNk-4h-C2f" id="sOM-YJ-chc"/>
                 <outlet property="skipButton" destination="wyL-49-etM" id="DMY-Ug-dxo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="workoutLabel" destination="yTO-5R-E91" id="6Vi-Eo-gHq"/>
+                <outlet property="workoutSwitch" destination="nNX-KT-ysD" id="49U-fY-7aC"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -24,7 +27,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="efh-89-grG">
-                    <rect key="frame" x="0.0" y="44" width="414" height="259"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="269"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0DC-lp-2bh">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="46"/>
@@ -38,6 +41,9 @@
                                 </label>
                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nNX-KT-ysD">
                                     <rect key="frame" x="345" y="10" width="51" height="31"/>
+                                    <connections>
+                                        <action selector="workoutSwitchChanged:" destination="-1" eventType="valueChanged" id="LP8-3E-n6X"/>
+                                    </connections>
                                 </switch>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -55,6 +61,9 @@
                                 </label>
                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mHK-de-0JS">
                                     <rect key="frame" x="345" y="10" width="51" height="31"/>
+                                    <connections>
+                                        <action selector="commentSwitchChanged:" destination="-1" eventType="valueChanged" id="aWj-tT-X4m"/>
+                                    </connections>
                                 </switch>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -72,13 +81,16 @@
                                 </label>
                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5xj-gJ-kD4">
                                     <rect key="frame" x="345" y="10" width="51" height="31"/>
+                                    <connections>
+                                        <action selector="chatMessageSwitchChanged:" destination="-1" eventType="valueChanged" id="jgP-3W-YkX"/>
+                                    </connections>
                                 </switch>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <directionalEdgeInsets key="directionalLayoutMargins" top="10" leading="20" bottom="5" trailing="20"/>
                         </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8kf-Jk-Dqq">
-                            <rect key="frame" x="0.0" y="153" width="414" height="106"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8kf-Jk-Dqq">
+                            <rect key="frame" x="0.0" y="153" width="414" height="116"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pNk-4h-C2f" customClass="PrimaryButton" customModule="GymRats" customModuleProvider="target">
                                     <rect key="frame" x="79" y="10" width="256" height="48"/>
@@ -89,7 +101,7 @@
                                     <state key="normal" title="Enable all notifications"/>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wyL-49-etM" customClass="SecondaryButton" customModule="GymRats" customModuleProvider="target">
-                                    <rect key="frame" x="79" y="58" width="256" height="48"/>
+                                    <rect key="frame" x="79" y="68" width="256" height="48"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="48" id="TgT-4Y-d8R"/>
                                         <constraint firstAttribute="width" constant="256" id="rKl-wg-IJI"/>
@@ -111,7 +123,7 @@
                 <constraint firstItem="efh-89-grG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="cOr-bL-9HJ"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="30" y="60"/>
+            <point key="canvasLocation" x="32" y="56"/>
         </view>
     </objects>
 </document>
