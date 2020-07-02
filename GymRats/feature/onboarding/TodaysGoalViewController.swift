@@ -52,7 +52,7 @@ class TodaysGoalViewController: BindableViewController {
         switch indexPath.row {
         case 0: self?.push(ChooseChallengeModeViewController())
         case 1: self?.push(JoinChallengeViewController())
-        case 2: GymRats.completeOnboarding()
+        case 2: GymRats.presentNotificationSettingsInOnboarding()
         default: fatalError("Unhandled row.")
         }
       })

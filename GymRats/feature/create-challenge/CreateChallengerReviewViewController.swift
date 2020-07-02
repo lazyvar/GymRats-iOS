@@ -123,6 +123,7 @@ class CreateChallengerReviewViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    setupBackButton()
     view.backgroundColor = .background
     title = newChallenge.name
   }

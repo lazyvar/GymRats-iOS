@@ -178,7 +178,7 @@ class ChallengePreviewViewController: UIViewController {
           NotificationCenter.default.post(name: .joinedChallenge, object: challenge)
           
           if UserDefaults.standard.bool(forKey: "account-is-onboarding") {
-            GymRats.completeOnboarding()
+            GymRats.presentNotificationSettingsInOnboarding()
           } else {
             self?.dismissSelf()
           }

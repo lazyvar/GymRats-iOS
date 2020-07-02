@@ -71,13 +71,21 @@ class NotificationSettingsViewController: BindableViewController {
     super.viewDidLoad()
     
     navigationItem.largeTitleDisplayMode = .always
-    title = "Notifications"
-    
+    navigationItem.title = "Notifications"
+    setupBackButton()
+
     viewModel.input.viewDidLoad.trigger()
   }
   
   override func bindViewModel() {
     viewModel.output.permissionDenied
+      .do(onNext: { denied in
+        if denied && UserDefaults.standard.bool(forKey: "account-is-onboarding") {
+          DispatchQueue.main.async {
+            GymRats.completeOnboarding()
+          }
+        }
+      })
       .bind(to: notificationsStack.rx.isHidden)
       .disposed(by: disposeBag)
     

@@ -42,8 +42,8 @@ class CreateAccountViewController: GRFormViewController {
   }
   
   private func presentProfilePictureAlert() {
-    let alert = UIAlertController(title: "Upload profile picture?", message: nil, preferredStyle: .actionSheet)
-    let cam = UIAlertAction(title: "Camera", style: .default) { (alert) in
+    let alert = UIAlertController(title: "Include profile picture?", message: nil, preferredStyle: .actionSheet)
+    let cam = UIAlertAction(title: "Take from camera", style: .default) { (alert) in
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .camera
         imagePicker.delegate = self
@@ -52,7 +52,7 @@ class CreateAccountViewController: GRFormViewController {
         self.present(imagePicker, animated: true, completion: nil)
     }
     
-    let library = UIAlertAction(title: "Photo library", style: .default) { (alert) in
+    let library = UIAlertAction(title: "Choose from photo library", style: .default) { (alert) in
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self

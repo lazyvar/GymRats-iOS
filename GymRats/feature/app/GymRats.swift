@@ -25,7 +25,8 @@ enum GymRats {
 
   static private let disposeBag = DisposeBag()
   static private let notificationHandler = NotificationHandler()
-
+  static private let superService = SuperService()
+  
   static private var coldStartNotification: [AnyHashable: Any]? {
     get {
       return notificationHandler.coldStartNotification
@@ -102,6 +103,16 @@ enum GymRats {
     GymRats.login(account)
     UserDefaults.standard.set(true, forKey: "account-is-onboarding")
     GymRats.replaceRoot(with: HowItWorksViewController().inNav())
+  }
+  
+  /// Shows the notification settings screen configured for onboarding
+  static func presentNotificationSettingsInOnboarding() {
+    let topmost = UIViewController.topmost()
+    let notificationSettings = NotificationSettingsViewController().apply {
+      $0.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Skip", style: .plain, target: superService, action: #selector(SuperService.completeOnboarding))
+    }
+
+    topmost.push(notificationSettings)
   }
   
   /// Takes them to the main app and clears `account-is-onboarding`

@@ -49,6 +49,7 @@ class InviteToChallengeViewController: UIViewController {
     view.backgroundColor = .background
     title = "Invite"
     navigationController?.presentationController?.delegate = self
+    setupBackButton()
     
     textView.text = challenge.code
   }
@@ -63,15 +64,9 @@ class InviteToChallengeViewController: UIViewController {
     NotificationCenter.default.post(name: .joinedChallenge, object: challenge)
     
     if UserDefaults.standard.bool(forKey: "account-is-onboarding") {
-      GymRats.completeOnboarding()
+      GymRats.presentNotificationSettingsInOnboarding()
     } else {
       dismissSelf()
-    }
-
-    if presentingViewController != nil {
-      dismissSelf()
-    } else {
-      GymRats.completeOnboarding()
     }
   }
 }
