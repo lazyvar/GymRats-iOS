@@ -56,8 +56,34 @@ final class NotificationSettingsViewModel: ViewModel {
       return permission
     }
     
+    func updateSettings(workouts: Bool? = nil, comments: Bool? = nil, chatMessages: Bool? = nil) -> Observable<NetworkResult<Account>> {
+      return gymRatsAPI.updateNotificationSettings(workouts: workouts, comments: comments, chatMessages: chatMessages)
+        .do(onNext: { result in
+          guard let account = result.object else { return }
+          
+          GymRats.currentAccount = account
+          Account.saveCurrent(account)
+          NotificationCenter.default.post(name: .currentAccountUpdated, object: account)
+        })
+    }
+    
     let appEnteredForeground = NotificationCenter.default.rx.notification(.appEnteredForeground).map { _ in () }.share()
     
+    input.viewDidLoad
+      .map { GymRats.currentAccount.workoutNotificationsEnabled ?? false }
+      .bind(to: output.workoutsEnabled)
+      .disposed(by: disposeBag)
+    
+    input.viewDidLoad
+      .map { GymRats.currentAccount.commentNotificationsEnabled ?? false }
+      .bind(to: output.commentsEnabled)
+      .disposed(by: disposeBag)
+
+    input.viewDidLoad
+      .map { GymRats.currentAccount.chatMessageNotificationsEnabled ?? false }
+      .bind(to: output.chatMessagesEnabled)
+      .disposed(by: disposeBag)
+
     Observable.merge(input.viewDidLoad, appEnteredForeground)
       .flatMap { PushNotifications.permissionStatus() }
       .map { $0 == .denied }
@@ -67,9 +93,19 @@ final class NotificationSettingsViewModel: ViewModel {
     input.workoutSwitchChanged
       .flatMap { Observable.combineLatest(Observable<Bool>.just($0), ensurePushSettingEnabled()) }
       .filter { _, enabled in enabled }
-      .flatMap { workouts, _ in gymRatsAPI.updateNotificationSettings(workouts: workouts) }
+      .flatMap { workouts, _ in updateSettings(workouts: workouts) }
       .ignore(disposedBy: disposeBag)
-    
-    
+
+    input.commentSwitchChanged
+      .flatMap { Observable.combineLatest(Observable<Bool>.just($0), ensurePushSettingEnabled()) }
+      .filter { _, enabled in enabled }
+      .flatMap { comments, _ in updateSettings(comments: comments) }
+      .ignore(disposedBy: disposeBag)
+
+    input.chatMessageSwitchChanged
+      .flatMap { Observable.combineLatest(Observable<Bool>.just($0), ensurePushSettingEnabled()) }
+      .filter { _, enabled in enabled }
+      .flatMap { chatMessages, _ in updateSettings(chatMessages: chatMessages) }
+      .ignore(disposedBy: disposeBag)
   }
 }

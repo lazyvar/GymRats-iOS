@@ -15,8 +15,7 @@ import SafariServices
 private let SettingsCellId = "SettingsCell"
 
 class SettingsViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-  let disposeBag = DisposeBag()
+  private let disposeBag = DisposeBag()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -32,6 +31,16 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     
     tableView.separatorInset = .zero
     tableView.separatorStyle = .none
+    
+    gymRatsAPI.getCurrentAccount()
+      .subscribe(onNext: { result in
+        guard let account = result.object else { return }
+        
+        GymRats.currentAccount = account
+        Account.saveCurrent(account)
+        NotificationCenter.default.post(name: .currentAccountUpdated, object: account)
+      })
+      .disposed(by: disposeBag)
     
     NotificationCenter.default.addObserver(self, selector: #selector(currentAccountUpdated), name: .currentAccountUpdated, object: nil)
   }

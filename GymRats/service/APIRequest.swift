@@ -16,6 +16,7 @@ enum APIRequest {
   case signup(email: String, password: String, profilePictureUrl: String?, fullName: String)
   case resetPassword(email: String)
   case getAllChallenges
+  case getCurrentAccount
   case getCompletedChallenges
   case joinChallenge(code: String)
   case createChallenge(startDate: Date, endDate: Date, name: String, bannerURL: String?, description: String?, scoreBy: ScoreBy)
@@ -128,6 +129,8 @@ enum APIRequest {
       return (.get, "challenges/\(challenge.id)/members/\(user.id)/workouts", nil)
     case .getMembersForChallenge(let challenge):
       return (.get, "challenges/\(challenge.id)/members", nil)
+    case .getCurrentAccount:
+      return (.get, "account", nil)
     case .postWorkout(let workout, let photo, let challenges):
       var params: Parameters = [
         "title": workout.title,

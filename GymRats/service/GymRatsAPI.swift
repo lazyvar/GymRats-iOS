@@ -36,6 +36,10 @@ class GymRatsAPI {
       }
   }
   
+  func getCurrentAccount() -> Observable<NetworkResult<Account>> {
+    return requestObject(.getCurrentAccount)
+  }
+  
   func resetPassword(email: String) -> Observable<NetworkResult<EmptyJSON>> {
     return requestObject(.resetPassword(email: email))
   }
