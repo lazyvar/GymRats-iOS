@@ -16,6 +16,7 @@ final class NotificationSettingsViewModel: ViewModel {
     let viewDidLoad = PublishSubject<Void>()
     let workoutSwitchChanged = PublishSubject<Bool>()
     let commentSwitchChanged = PublishSubject<Bool>()
+    let enableAll = PublishSubject<Void>()
     let chatMessageSwitchChanged = PublishSubject<Bool>()
   }
   
@@ -68,23 +69,39 @@ final class NotificationSettingsViewModel: ViewModel {
     }
     
     let appEnteredForeground = NotificationCenter.default.rx.notification(.appEnteredForeground).map { _ in () }.share()
+    let refresh = Observable.merge(input.viewDidLoad, appEnteredForeground).share()
     
-    input.viewDidLoad
-      .map { GymRats.currentAccount.workoutNotificationsEnabled ?? false }
+    let accountData = refresh
+      .flatMap { PushNotifications.permissionStatus() }
+      .map { settings -> (workouts: Bool, comments: Bool, chatMessages: Bool) in
+        if settings == .notDetermined {
+          return (workouts: false, comments: false, chatMessages: false)
+        } else {
+          return (
+            workouts: GymRats.currentAccount.workoutNotificationsEnabled ?? false,
+            comments: GymRats.currentAccount.commentNotificationsEnabled ?? false,
+            chatMessages: GymRats.currentAccount.chatMessageNotificationsEnabled ?? false
+          )
+        }
+      }
+      .share()
+    
+    accountData
+      .map { $0.workouts }
       .bind(to: output.workoutsEnabled)
       .disposed(by: disposeBag)
     
-    input.viewDidLoad
-      .map { GymRats.currentAccount.commentNotificationsEnabled ?? false }
+    accountData
+      .map { $0.comments }
       .bind(to: output.commentsEnabled)
       .disposed(by: disposeBag)
 
-    input.viewDidLoad
-      .map { GymRats.currentAccount.chatMessageNotificationsEnabled ?? false }
+    accountData
+      .map { $0.chatMessages }
       .bind(to: output.chatMessagesEnabled)
       .disposed(by: disposeBag)
 
-    Observable.merge(input.viewDidLoad, appEnteredForeground)
+    refresh
       .flatMap { PushNotifications.permissionStatus() }
       .map { $0 == .denied }
       .bind(to: output.permissionDenied)
@@ -107,5 +124,19 @@ final class NotificationSettingsViewModel: ViewModel {
       .filter { _, enabled in enabled }
       .flatMap { chatMessages, _ in updateSettings(chatMessages: chatMessages) }
       .ignore(disposedBy: disposeBag)
+    
+    let enableAll = input.enableAll
+      .flatMap { ensurePushSettingEnabled() }
+      .filter { $0 }
+      .map { _ in true }
+      .share()
+      
+    enableAll
+      .flatMap { _ in updateSettings(workouts: true, comments: true, chatMessages: true) }
+      .ignore(disposedBy: disposeBag)
+    
+    enableAll
+      .bind(to: output.workoutsEnabled, output.commentsEnabled, output.chatMessagesEnabled)
+      .disposed(by: disposeBag)
   }
 }

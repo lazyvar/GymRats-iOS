@@ -55,18 +55,23 @@ class NotificationSettingsViewController: BindableViewController {
     }
   }
   
-  @IBOutlet private weak var enableAllButton: UIButton!
-  @IBOutlet private weak var skipButton: UIButton!
+  @IBOutlet private weak var headerLabel: UILabel! {
+    didSet {
+      headerLabel.textColor = .primaryText
+      headerLabel.font = .body
+    }
+  }
+  
   @IBOutlet private weak var notificationsStack: UIStackView!
   @IBOutlet private weak var commentSwitch: UISwitch!
   @IBOutlet private weak var workoutSwitch: UISwitch!
   @IBOutlet private weak var chatMessageSwitch: UISwitch!
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     navigationItem.largeTitleDisplayMode = .always
-    title = "Notification settings"
+    title = "Notifications"
     
     viewModel.input.viewDidLoad.trigger()
   }
@@ -99,5 +104,9 @@ class NotificationSettingsViewController: BindableViewController {
   
   @IBAction private func chatMessageSwitchChanged(_ sender: UISwitch) {
     viewModel.input.chatMessageSwitchChanged.onNext(sender.isOn)
+  }
+  
+  @IBAction private func enableAll(_ sender: Any) {
+    viewModel.input.enableAll.trigger()
   }
 }

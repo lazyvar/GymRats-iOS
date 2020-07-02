@@ -16,9 +16,8 @@
                 <outlet property="commentDetailsLabel" destination="0Go-AM-lH4" id="4q9-8I-Bd7"/>
                 <outlet property="commentLabel" destination="h0d-Ds-xrr" id="Ju9-JN-Ps6"/>
                 <outlet property="commentSwitch" destination="mHK-de-0JS" id="xyH-aT-GEo"/>
-                <outlet property="enableAllButton" destination="pNk-4h-C2f" id="sOM-YJ-chc"/>
+                <outlet property="headerLabel" destination="GYn-ZG-tAq" id="cRU-aB-oJA"/>
                 <outlet property="notificationsStack" destination="efh-89-grG" id="FIo-4r-Ems"/>
-                <outlet property="skipButton" destination="wyL-49-etM" id="DMY-Ug-dxo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="workoutDetailsLabel" destination="HlW-wk-Cnu" id="8Cp-78-XoP"/>
                 <outlet property="workoutLabel" destination="yTO-5R-E91" id="6Vi-Eo-gHq"/>
@@ -31,22 +30,34 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="efh-89-grG">
-                    <rect key="frame" x="0.0" y="44" width="414" height="305"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="338.5"/>
                     <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aUs-zb-Rib">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="35.5"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Configure push notification settings." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GYn-ZG-tAq">
+                                    <rect key="frame" x="20" y="0.0" width="374" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <directionalEdgeInsets key="directionalLayoutMargins" top="0.0" leading="20" bottom="15" trailing="20"/>
+                        </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0DC-lp-2bh">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="58"/>
+                            <rect key="frame" x="0.0" y="40.5" width="414" height="58"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="aBU-No-rZ3">
                                     <rect key="frame" x="20" y="10" width="315" height="43"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Workout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yTO-5R-E91">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Workouts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yTO-5R-E91">
                                             <rect key="frame" x="0.0" y="0.0" width="315" height="20.5"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When someone posts a workout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HlW-wk-Cnu">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When someone posts a workout." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HlW-wk-Cnu">
                                             <rect key="frame" x="0.0" y="22.5" width="315" height="20.5"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -66,20 +77,20 @@
                             <directionalEdgeInsets key="directionalLayoutMargins" top="10" leading="20" bottom="5" trailing="20"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="TuV-c6-9Yh">
-                            <rect key="frame" x="0.0" y="63" width="414" height="58"/>
+                            <rect key="frame" x="0.0" y="103.5" width="414" height="78.5"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="N42-ie-kzn">
-                                    <rect key="frame" x="20" y="10" width="315" height="43"/>
+                                    <rect key="frame" x="20" y="10" width="315" height="63.5"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h0d-Ds-xrr">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h0d-Ds-xrr">
                                             <rect key="frame" x="0.0" y="0.0" width="315" height="20.5"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When someone comments on my workout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Go-AM-lH4">
-                                            <rect key="frame" x="0.0" y="22.5" width="315" height="20.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When someone comments on my workout." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Go-AM-lH4">
+                                            <rect key="frame" x="0.0" y="22.5" width="315" height="41"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -88,7 +99,7 @@
                                     </subviews>
                                 </stackView>
                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mHK-de-0JS">
-                                    <rect key="frame" x="345" y="10" width="51" height="43"/>
+                                    <rect key="frame" x="345" y="10" width="51" height="63.5"/>
                                     <connections>
                                         <action selector="commentSwitchChanged:" destination="-1" eventType="valueChanged" id="aWj-tT-X4m"/>
                                     </connections>
@@ -98,20 +109,20 @@
                             <directionalEdgeInsets key="directionalLayoutMargins" top="10" leading="20" bottom="5" trailing="20"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="NU4-fX-GnP">
-                            <rect key="frame" x="0.0" y="126" width="414" height="58"/>
+                            <rect key="frame" x="0.0" y="187" width="414" height="78.5"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="sVO-Vh-hsA">
-                                    <rect key="frame" x="20" y="10" width="315" height="43"/>
+                                    <rect key="frame" x="20" y="10" width="315" height="63.5"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lB7-UT-hNV">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat messages" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lB7-UT-hNV">
                                             <rect key="frame" x="0.0" y="0.0" width="315" height="20.5"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When someone sends a message to the group chat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HCJ-pt-P8P">
-                                            <rect key="frame" x="0.0" y="22.5" width="315" height="20.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When someone sends a message to the group chat." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HCJ-pt-P8P">
+                                            <rect key="frame" x="0.0" y="22.5" width="315" height="41"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -120,7 +131,7 @@
                                     </subviews>
                                 </stackView>
                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5xj-gJ-kD4">
-                                    <rect key="frame" x="345" y="10" width="51" height="43"/>
+                                    <rect key="frame" x="345" y="10" width="51" height="63.5"/>
                                     <connections>
                                         <action selector="chatMessageSwitchChanged:" destination="-1" eventType="valueChanged" id="jgP-3W-YkX"/>
                                     </connections>
@@ -130,27 +141,22 @@
                             <directionalEdgeInsets key="directionalLayoutMargins" top="10" leading="20" bottom="5" trailing="20"/>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8kf-Jk-Dqq">
-                            <rect key="frame" x="0.0" y="189" width="414" height="116"/>
+                            <rect key="frame" x="0.0" y="270.5" width="414" height="68"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pNk-4h-C2f" customClass="PrimaryButton" customModule="GymRats" customModuleProvider="target">
-                                    <rect key="frame" x="79" y="10" width="256" height="48"/>
+                                    <rect key="frame" x="79" y="20" width="256" height="48"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="256" id="TQg-d0-rLA"/>
                                         <constraint firstAttribute="height" constant="48" id="yL6-9P-vPc"/>
                                     </constraints>
                                     <state key="normal" title="Enable all notifications"/>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wyL-49-etM" customClass="SecondaryButton" customModule="GymRats" customModuleProvider="target">
-                                    <rect key="frame" x="79" y="68" width="256" height="48"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="48" id="TgT-4Y-d8R"/>
-                                        <constraint firstAttribute="width" constant="256" id="rKl-wg-IJI"/>
-                                    </constraints>
-                                    <state key="normal" title="Not now"/>
+                                    <connections>
+                                        <action selector="enableAll:" destination="-1" eventType="touchUpInside" id="mka-ft-3Do"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <directionalEdgeInsets key="directionalLayoutMargins" top="10" leading="0.0" bottom="0.0" trailing="0.0"/>
+                            <directionalEdgeInsets key="directionalLayoutMargins" top="20" leading="0.0" bottom="0.0" trailing="0.0"/>
                         </stackView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -163,7 +169,7 @@
                 <constraint firstItem="efh-89-grG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="cOr-bL-9HJ"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="-46" y="41"/>
+            <point key="canvasLocation" x="-86" y="34"/>
         </view>
     </objects>
 </document>
