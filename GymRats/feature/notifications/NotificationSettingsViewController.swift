@@ -20,11 +20,24 @@ class NotificationSettingsViewController: BindableViewController {
     }
   }
   
+  @IBOutlet private weak var workoutDetailsLabel: UILabel! {
+    didSet {
+      workoutDetailsLabel.textColor = .secondaryText
+      workoutDetailsLabel.font = .details
+    }
+  }
   
   @IBOutlet private weak var commentLabel: UILabel! {
     didSet {
       commentLabel.textColor = .primaryText
       commentLabel.font = .body
+    }
+  }
+
+  @IBOutlet private weak var commentDetailsLabel: UILabel! {
+    didSet {
+      commentDetailsLabel.textColor = .secondaryText
+      commentDetailsLabel.font = .details
     }
   }
 
@@ -35,19 +48,15 @@ class NotificationSettingsViewController: BindableViewController {
     }
   }
   
-  
-  @IBOutlet private weak var enableAllButton: UIButton! {
+  @IBOutlet private weak var chatMessageDetailsLabel: UILabel! {
     didSet {
-      
+      chatMessageDetailsLabel.textColor = .secondaryText
+      chatMessageDetailsLabel.font = .details
     }
   }
   
-  @IBOutlet private weak var skipButton: UIButton! {
-    didSet {
-      
-    }
-  }
-  
+  @IBOutlet private weak var enableAllButton: UIButton!
+  @IBOutlet private weak var skipButton: UIButton!
   @IBOutlet private weak var notificationsStack: UIStackView!
   @IBOutlet private weak var commentSwitch: UISwitch!
   @IBOutlet private weak var workoutSwitch: UISwitch!
