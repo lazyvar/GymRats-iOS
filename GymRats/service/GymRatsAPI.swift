@@ -36,6 +36,10 @@ class GymRatsAPI {
       }
   }
   
+  func getCurrentAccount() -> Observable<NetworkResult<Account>> {
+    return requestObject(.getCurrentAccount)
+  }
+  
   func resetPassword(email: String) -> Observable<NetworkResult<EmptyJSON>> {
     return requestObject(.resetPassword(email: email))
   }
@@ -176,6 +180,10 @@ class GymRatsAPI {
 
   func registerDevice(deviceToken: String) -> Observable<NetworkResult<EmptyJSON>> {
     return requestObject(.registerDevice(deviceToken: deviceToken))
+  }
+  
+  func updateNotificationSettings(workouts: Bool? = nil, comments: Bool? = nil, chatMessages: Bool? = nil) -> Observable<NetworkResult<Account>> {
+    return requestObject(.updateNotificationSettings(workouts: workouts, comments: comments, chatMessages: chatMessages))
   }
   
   func deleteDevice() -> Observable<NetworkResult<String>> {

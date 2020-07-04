@@ -25,7 +25,7 @@ enum GymRats {
 
   static private let disposeBag = DisposeBag()
   static private let notificationHandler = NotificationHandler()
-
+  
   static private var coldStartNotification: [AnyHashable: Any]? {
     get {
       return notificationHandler.coldStartNotification
@@ -58,7 +58,7 @@ enum GymRats {
     window.rootViewController = {
       if currentAccount != nil {
         if UserDefaults.standard.bool(forKey: "account-is-onboarding") {
-          return HowItWorksViewController().inNav()
+          return TodaysGoalViewController().inNav()
         } else {
           return DrawerViewController()
         }
@@ -69,7 +69,14 @@ enum GymRats {
 
     if currentAccount != nil {
       Track.currentUser()
-      registerForNotifications()
+      
+      PushNotifications.center.getNotificationSettings { settings in
+        switch settings.authorizationStatus {
+        case .authorized: registerForNotifications()
+        case .notDetermined: popupPushNotificationSettings()
+        default: break
+        }
+      }
     }
     
     window.makeKeyAndVisible()
@@ -96,7 +103,21 @@ enum GymRats {
   static func startOnboarding(_ account: Account) {
     GymRats.login(account)
     UserDefaults.standard.set(true, forKey: "account-is-onboarding")
-    GymRats.replaceRoot(with: HowItWorksViewController().inNav())
+    GymRats.replaceRoot(with: TodaysGoalViewController().inNav())
+  }
+
+  /// Shows the notification settings screen configured for onboarding
+  static func popupPushNotificationSettings() {
+    guard UserDefaults.standard.integer(forKey: "gym_rats_run_count") >= 2 && !UserDefaults.standard.bool(forKey: "asked_for_notifications") else { return }
+    
+    UserDefaults.standard.set(true, forKey: "asked_for_notifications")
+    
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+      let topmost = UIViewController.topmost()
+      let notificationSettings = NotificationSettingsViewController.forOnboarding()
+
+      topmost.present(notificationSettings)
+    }
   }
   
   /// Takes them to the main app and clears `account-is-onboarding`
@@ -123,7 +144,8 @@ enum GymRats {
   static func didRegisterForRemoteNotifications(withDeviceToken deviceToken: Data) {
     let deviceTokenString = deviceToken.reduce("", { $0 + String(format: "%02X", $1) })
 
-    gymRatsAPI.registerDevice(deviceToken: deviceTokenString)
+    gymRatsAPI
+      .registerDevice(deviceToken: deviceTokenString)
       .ignore(disposedBy: disposeBag)
   }
   
@@ -133,6 +155,9 @@ enum GymRats {
     application.applicationIconBadgeNumber = 0
 
     if currentAccount != nil {
+      let count = UserDefaults.standard.integer(forKey: "gym_rats_run_count")
+      
+      UserDefaults.standard.set(count + 1, forKey: "gym_rats_run_count")
       NotificationCenter.default.post(.appEnteredForeground)
     }
   }
@@ -154,7 +179,8 @@ enum GymRats {
   
   /// Removes the current account and shows the welcome screen
   static func logout() {
-    gymRatsAPI.deleteDevice()
+    gymRatsAPI
+      .deleteDevice()
       .ignore(disposedBy: disposeBag)
 
     UserDefaults.standard.removeObject(forKey: "join-code")
@@ -185,8 +211,8 @@ private extension GymRats {
   }
   
   private static func registerForNotifications() {
-    UNUserNotificationCenter.current().delegate = notificationHandler
-    UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+    PushNotifications.center.delegate = notificationHandler
+    PushNotifications.center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
       guard granted else { return }
 
       DispatchQueue.main.async { application.registerForRemoteNotifications() }

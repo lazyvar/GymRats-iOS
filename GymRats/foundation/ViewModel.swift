@@ -188,3 +188,9 @@ extension UIViewController {
     return window.topmostViewController()
   }
 }
+
+extension UIBarButtonItem {
+  static func close(target: Any?) -> UIBarButtonItem {
+    return UIBarButtonItem(image: .close, style: .plain, target: target, action: #selector(UIViewController.dismissSelf))
+  }
+}

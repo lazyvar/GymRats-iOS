@@ -143,6 +143,7 @@ class ChallengePreviewViewController: UIViewController {
     view.backgroundColor = .background
     view.addSubview(shadowView)
     view.sendSubviewToBack(shadowView)
+    setupBackButton()
     
     shadowView.leftAnchor.constraint(equalTo: bgView.leftAnchor).isActive = true
     shadowView.rightAnchor.constraint(equalTo: bgView.rightAnchor).isActive = true

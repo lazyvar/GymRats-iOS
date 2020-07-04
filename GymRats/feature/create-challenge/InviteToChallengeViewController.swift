@@ -49,6 +49,7 @@ class InviteToChallengeViewController: UIViewController {
     view.backgroundColor = .background
     title = "Invite"
     navigationController?.presentationController?.delegate = self
+    setupBackButton()
     
     textView.text = challenge.code
   }
@@ -66,12 +67,6 @@ class InviteToChallengeViewController: UIViewController {
       GymRats.completeOnboarding()
     } else {
       dismissSelf()
-    }
-
-    if presentingViewController != nil {
-      dismissSelf()
-    } else {
-      GymRats.completeOnboarding()
     }
   }
 }

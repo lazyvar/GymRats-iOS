@@ -19,6 +19,7 @@ struct ApplePushServiceObject: Codable {
     enum NotificationType: String, Codable {
       case workoutComment = "workout_comment"
       case chatMessage = "chat_message"
+      case workout = "workout"
     }
   }
 }

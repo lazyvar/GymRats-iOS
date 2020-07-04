@@ -16,6 +16,7 @@ enum APIRequest {
   case signup(email: String, password: String, profilePictureUrl: String?, fullName: String)
   case resetPassword(email: String)
   case getAllChallenges
+  case getCurrentAccount
   case getCompletedChallenges
   case joinChallenge(code: String)
   case createChallenge(startDate: Date, endDate: Date, name: String, bannerURL: String?, description: String?, scoreBy: ScoreBy)
@@ -43,6 +44,7 @@ enum APIRequest {
   case challengeInfo(challenge: Challenge)
   case getChallengeForCode(code: String)
   case getMembership(challenge: Challenge)
+  case updateNotificationSettings(workouts: Bool?, comments: Bool?, chatMessages: Bool?)
   
   var requestProperties: (method: HTTPMethod, path: String, params: Parameters?) {
     switch self {
@@ -127,6 +129,8 @@ enum APIRequest {
       return (.get, "challenges/\(challenge.id)/members/\(user.id)/workouts", nil)
     case .getMembersForChallenge(let challenge):
       return (.get, "challenges/\(challenge.id)/members", nil)
+    case .getCurrentAccount:
+      return (.get, "account", nil)
     case .postWorkout(let workout, let photo, let challenges):
       var params: Parameters = [
         "title": workout.title,
@@ -205,7 +209,7 @@ enum APIRequest {
         params["full_name"] = fullName
       }
 
-      return (.put, "accounts/self", params)
+      return (.put, "account", params)
     case .deleteWorkout(let workout):
       return (.delete, "workouts/\(workout.id)", nil)
     case .getCommentsForWorkout(let workout):
@@ -236,6 +240,22 @@ enum APIRequest {
       return (.get, "memberships/\(challenge.id)", nil)
     case .challengeInfo(challenge: let challenge):
       return (.get, "challenges/\(challenge.id)/info", nil)
+    case .updateNotificationSettings(let workouts, let comments, let chatMessages):
+      var params: Parameters = [:]
+
+      if let workouts = workouts {
+        params["workout_notifications_enabled"] = workouts
+      }
+
+      if let comments = comments {
+        params["comment_notifications_enabled"] = comments
+      }
+      
+      if let chatMessages = chatMessages {
+        params["chat_message_notifications_enabled"] = chatMessages
+      }
+      
+      return (.put, "account", params)
     }
   }
 }

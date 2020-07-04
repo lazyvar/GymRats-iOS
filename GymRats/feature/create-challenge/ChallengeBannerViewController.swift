@@ -107,7 +107,7 @@ class ChallengeBannerViewController: BindableViewController {
   private func skip() {
     newChallenge.banner = nil
     
-    push(CreateChallengerReviewViewController(newChallenge: newChallenge), animated: true)
+    push(CreateChallengeReviewViewController(newChallenge: newChallenge), animated: true)
   }
 }
 
@@ -118,7 +118,7 @@ extension ChallengeBannerViewController: UnsplashPhotoPickerDelegate {
     newChallenge.banner = .right(photo.urls[.regular]?.absoluteString ?? "")
 
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-      self.push(CreateChallengerReviewViewController(newChallenge: self.newChallenge), animated: true)
+      self.push(CreateChallengeReviewViewController(newChallenge: self.newChallenge), animated: true)
     }
   }
   
@@ -135,7 +135,7 @@ extension ChallengeBannerViewController: UIImagePickerControllerDelegate, UINavi
     
     newChallenge.banner = .left(image)
     
-    push(CreateChallengerReviewViewController(newChallenge: newChallenge), animated: true)
+    push(CreateChallengeReviewViewController(newChallenge: newChallenge), animated: true)
   }
 }
 
@@ -148,7 +148,7 @@ extension ChallengeBannerViewController: UITableViewDelegate {
     
     let text = UILabel().apply {
       $0.text = """
-      Last step is to upload an optional banner image. Pick your own or choose from one of the presets.
+      Optionaly upload a banner image. Pick your own or choose from one of the presets.
       """
       $0.textColor = .primaryText
       $0.font = .body

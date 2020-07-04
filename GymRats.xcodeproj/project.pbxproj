@@ -18,11 +18,14 @@
 		0107C7E4241B0200005650FB /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0107C7E2241B0200005650FB /* MenuViewController.swift */; };
 		0107C7E5241B0200005650FB /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0107C7E3241B0200005650FB /* MenuViewController.xib */; };
 		0107C7EF241B06A2005650FB /* MenuRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0107C7EE241B06A2005650FB /* MenuRow.swift */; };
+		010C05F624AD49AF001B37D7 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010C05F424AD49AF001B37D7 /* NotificationSettingsViewController.swift */; };
+		010C05F724AD49AF001B37D7 /* NotificationSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 010C05F524AD49AF001B37D7 /* NotificationSettingsViewController.xib */; };
+		010C05F924AD4D4F001B37D7 /* NotificationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010C05F824AD4D4F001B37D7 /* NotificationSettingsViewModel.swift */; };
 		01107DC9243CE665005AA8F3 /* HowItWorksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01107DC7243CE665005AA8F3 /* HowItWorksViewController.swift */; };
 		01107DCA243CE665005AA8F3 /* HowItWorksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01107DC8243CE665005AA8F3 /* HowItWorksViewController.xib */; };
 		01111DA62446855E0033170A /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01111DA52446855E0033170A /* Either.swift */; };
-		01111DA9244686730033170A /* CreateChallengerReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01111DA7244686730033170A /* CreateChallengerReviewViewController.swift */; };
-		01111DAA244686730033170A /* CreateChallengerReviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01111DA8244686730033170A /* CreateChallengerReviewViewController.xib */; };
+		01111DA9244686730033170A /* CreateChallengeReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01111DA7244686730033170A /* CreateChallengeReviewViewController.swift */; };
+		01111DAA244686730033170A /* CreateChallengeReviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01111DA8244686730033170A /* CreateChallengeReviewViewController.xib */; };
 		0118A28B239DA7F9006A8A7A /* RatsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0118A289239DA7F9006A8A7A /* RatsCell.swift */; };
 		0118A28C239DA7F9006A8A7A /* RatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0118A28A239DA7F9006A8A7A /* RatsCell.xib */; };
 		0118C24E23C2B704002FB84D /* CreateWorkoutHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0118C24C23C2B704002FB84D /* CreateWorkoutHeaderCell.swift */; };
@@ -232,6 +235,7 @@
 		01F65A0524452BAE00E26539 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F65A0424452BAE00E26539 /* Secrets.swift */; };
 		01F65A09244543BC00E26539 /* TextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F65A07244543BC00E26539 /* TextViewCell.swift */; };
 		01F65A0A244543BC00E26539 /* TextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F65A08244543BC00E26539 /* TextViewCell.xib */; };
+		01F6A17824AE743C00A5B7C2 /* PushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F6A17724AE743C00A5B7C2 /* PushNotifications.swift */; };
 		01F7D7662422899000B2D5D8 /* NoWorkoutsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01F7D7642422899000B2D5D8 /* NoWorkoutsCell.swift */; };
 		01F7D7672422899000B2D5D8 /* NoWorkoutsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F7D7652422899000B2D5D8 /* NoWorkoutsCell.xib */; };
 		01FF413424205FDA007D316A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF413224205FDA007D316A /* ProfileViewController.swift */; };
@@ -313,11 +317,14 @@
 		0107C7E2241B0200005650FB /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		0107C7E3241B0200005650FB /* MenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
 		0107C7EE241B06A2005650FB /* MenuRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuRow.swift; sourceTree = "<group>"; };
+		010C05F424AD49AF001B37D7 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
+		010C05F524AD49AF001B37D7 /* NotificationSettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationSettingsViewController.xib; sourceTree = "<group>"; };
+		010C05F824AD4D4F001B37D7 /* NotificationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewModel.swift; sourceTree = "<group>"; };
 		01107DC7243CE665005AA8F3 /* HowItWorksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowItWorksViewController.swift; sourceTree = "<group>"; };
 		01107DC8243CE665005AA8F3 /* HowItWorksViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HowItWorksViewController.xib; sourceTree = "<group>"; };
 		01111DA52446855E0033170A /* Either.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Either.swift; sourceTree = "<group>"; };
-		01111DA7244686730033170A /* CreateChallengerReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChallengerReviewViewController.swift; sourceTree = "<group>"; };
-		01111DA8244686730033170A /* CreateChallengerReviewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateChallengerReviewViewController.xib; sourceTree = "<group>"; };
+		01111DA7244686730033170A /* CreateChallengeReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChallengeReviewViewController.swift; sourceTree = "<group>"; };
+		01111DA8244686730033170A /* CreateChallengeReviewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateChallengeReviewViewController.xib; sourceTree = "<group>"; };
 		0118A289239DA7F9006A8A7A /* RatsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatsCell.swift; sourceTree = "<group>"; };
 		0118A28A239DA7F9006A8A7A /* RatsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RatsCell.xib; sourceTree = "<group>"; };
 		0118C24C23C2B704002FB84D /* CreateWorkoutHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutHeaderCell.swift; sourceTree = "<group>"; };
@@ -531,6 +538,7 @@
 		01F65A0424452BAE00E26539 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		01F65A07244543BC00E26539 /* TextViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewCell.swift; sourceTree = "<group>"; };
 		01F65A08244543BC00E26539 /* TextViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextViewCell.xib; sourceTree = "<group>"; };
+		01F6A17724AE743C00A5B7C2 /* PushNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotifications.swift; sourceTree = "<group>"; };
 		01F7D7642422899000B2D5D8 /* NoWorkoutsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoWorkoutsCell.swift; sourceTree = "<group>"; };
 		01F7D7652422899000B2D5D8 /* NoWorkoutsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoWorkoutsCell.xib; sourceTree = "<group>"; };
 		01FF413224205FDA007D316A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -621,6 +629,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		010C05F124AD4987001B37D7 /* notifications */ = {
+			isa = PBXGroup;
+			children = (
+				010C05F424AD49AF001B37D7 /* NotificationSettingsViewController.swift */,
+				010C05F524AD49AF001B37D7 /* NotificationSettingsViewController.xib */,
+				010C05F824AD4D4F001B37D7 /* NotificationSettingsViewModel.swift */,
+			);
+			path = notifications;
+			sourceTree = "<group>";
+		};
 		01107DC6243CE636005AA8F3 /* onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -1054,6 +1072,7 @@
 		747D6FBA2208DBD70062BB39 /* feature */ = {
 			isa = PBXGroup;
 			children = (
+				010C05F124AD4987001B37D7 /* notifications */,
 				01987A9524300E7D00835621 /* join-challenge */,
 				01107DC6243CE636005AA8F3 /* onboarding */,
 				011FB63122A3736D004D5B8E /* completed-challenges */,
@@ -1086,6 +1105,7 @@
 				01975EAB23C1204F0031E23A /* Track.swift */,
 				01319ED22418746C005E65D2 /* GymRatsAPI.swift */,
 				01E700E52460B45C0059017A /* HealthService.swift */,
+				01F6A17724AE743C00A5B7C2 /* PushNotifications.swift */,
 			);
 			path = service;
 			sourceTree = "<group>";
@@ -1186,8 +1206,8 @@
 				01F659FF244513FA00E26539 /* ChallengeBannerViewController.xib */,
 				01F65A022445144300E26539 /* ChallengeBannerChoice.swift */,
 				01D70BD924467B9400F6F33A /* ClassicChallengeViewController.swift */,
-				01111DA7244686730033170A /* CreateChallengerReviewViewController.swift */,
-				01111DA8244686730033170A /* CreateChallengerReviewViewController.xib */,
+				01111DA7244686730033170A /* CreateChallengeReviewViewController.swift */,
+				01111DA8244686730033170A /* CreateChallengeReviewViewController.xib */,
 				018510012447A3C700C4F1A6 /* ChangeBannerViewController.swift */,
 				018510022447A3C700C4F1A6 /* ChangeBannerViewController.xib */,
 				0127B08D2449136D000A48CB /* InviteToChallengeViewController.swift */,
@@ -1403,7 +1423,7 @@
 				01E833E52325BF7300C66C72 /* ChallengeBannerCell.xib in Resources */,
 				0166083D239C61B800FCFD26 /* DateProgressCell.xib in Resources */,
 				019066C0243D09C6007103D9 /* JoinChallengeViewController.xib in Resources */,
-				01111DAA244686730033170A /* CreateChallengerReviewViewController.xib in Resources */,
+				01111DAA244686730033170A /* CreateChallengeReviewViewController.xib in Resources */,
 				74118060220C58C300EB9D11 /* Lato-BlackItalic.ttf in Resources */,
 				01F65A0A244543BC00E26539 /* TextViewCell.xib in Resources */,
 				74118063220C58C300EB9D11 /* Lato-Hairline.ttf in Resources */,
@@ -1428,6 +1448,7 @@
 				0118C24F23C2B704002FB84D /* CreateWorkoutHeaderCell.xib in Resources */,
 				01974541243F8700004ACB71 /* ImageViewCell.xib in Resources */,
 				74118067220C58C300EB9D11 /* Lato-LightItalic.ttf in Resources */,
+				010C05F724AD49AF001B37D7 /* NotificationSettingsViewController.xib in Resources */,
 				01297D892329E79000CA9E41 /* SF-Compact-Rounded-Semibold.otf in Resources */,
 				01E700EA2460B6140059017A /* HealthAppPermissionsViewController.xib in Resources */,
 				01FF413524205FDA007D316A /* ProfileViewController.xib in Resources */,
@@ -1669,7 +1690,7 @@
 				01975EAC23C1204F0031E23A /* Track.swift in Sources */,
 				01CA1292243FEF6E00540402 /* InviteCell.swift in Sources */,
 				747D6FDB2208E8130062BB39 /* Keychain.swift in Sources */,
-				01111DA9244686730033170A /* CreateChallengerReviewViewController.swift in Sources */,
+				01111DA9244686730033170A /* CreateChallengeReviewViewController.swift in Sources */,
 				013D02492419454B0063F189 /* GymRats.swift in Sources */,
 				01E833E42325BF7300C66C72 /* ChallengeBannerCell.swift in Sources */,
 				0144BC61241D530200569546 /* UserDefaults+Extension.swift in Sources */,
@@ -1703,6 +1724,7 @@
 				74A01B3B220A544F00431ABD /* UserWorkoutTableViewCell.swift in Sources */,
 				015C0728243FE0FE003E75E9 /* UpcomingChallengeViewController.swift in Sources */,
 				0176B675243B9AD00022B65F /* UIImage+Extension.swift in Sources */,
+				01F6A17824AE743C00A5B7C2 /* PushNotifications.swift in Sources */,
 				013D02452419401F0063F189 /* Apply.swift in Sources */,
 				01610148242ABC2800731E30 /* ChallengeInfo.swift in Sources */,
 				0127B08C24490240000A48CB /* Membership.swift in Sources */,
@@ -1730,6 +1752,7 @@
 				01D5D362243BB8F20044E459 /* GymRatsNavigationController.swift in Sources */,
 				0107C7DB241AEE42005650FB /* State.swift in Sources */,
 				01611D44243E954600D1DAA4 /* WorkoutViewController.swift in Sources */,
+				010C05F624AD49AF001B37D7 /* NotificationSettingsViewController.swift in Sources */,
 				01928B78244508BB00F56F76 /* ChallengeMode.swift in Sources */,
 				01987A9824300E9500835621 /* ChallengePreviewViewController.swift in Sources */,
 				01974544243F8A72004ACB71 /* WorkoutAccountCell.swift in Sources */,
@@ -1760,6 +1783,7 @@
 				74A01B34220A3B2000431ABD /* Workout.swift in Sources */,
 				74F47889220CECFE005CD4E4 /* ImageService.swift in Sources */,
 				017E10B32429674600CBBB92 /* ChallengeRow.swift in Sources */,
+				010C05F924AD4D4F001B37D7 /* NotificationSettingsViewModel.swift in Sources */,
 				014A7657237764B6002CE366 /* GRFormViewController.swift in Sources */,
 				01A3EB1A237747D30097FC2A /* CVCalendarWeekContentViewController.swift in Sources */,
 				019CF1FB232722FF00D884DA /* BigContentView.swift in Sources */,
@@ -1882,7 +1906,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GymRats/GymRats.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_TEAM = 24MV8D7ZU8;
 				INFOPLIST_FILE = GymRats/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1890,7 +1914,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 33;
+				MARKETING_VERSION = 35;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hasz.GymRats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -2043,7 +2067,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GymRats/GymRats.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_TEAM = 24MV8D7ZU8;
 				INFOPLIST_FILE = GymRats/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -2051,7 +2075,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 33;
+				MARKETING_VERSION = 35;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hasz.GymRats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -2066,7 +2090,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GymRats/GymRats.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_TEAM = 24MV8D7ZU8;
 				INFOPLIST_FILE = GymRats/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -2074,7 +2098,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 33;
+				MARKETING_VERSION = 35;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hasz.GymRats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
