@@ -59,7 +59,7 @@ enum GymRats {
     window.rootViewController = {
       if currentAccount != nil {
         if UserDefaults.standard.bool(forKey: "account-is-onboarding") {
-          return HowItWorksViewController().inNav()
+          return TodaysGoalViewController().inNav()
         } else {
           return DrawerViewController()
         }
@@ -72,8 +72,10 @@ enum GymRats {
       Track.currentUser()
       
       PushNotifications.center.getNotificationSettings { settings in
-        if settings.authorizationStatus == .authorized {
-          registerForNotifications()
+        switch settings.authorizationStatus {
+        case .authorized: registerForNotifications()
+        case .notDetermined: popupPushNotificationSettings()
+        default: break
         }
       }
     }
@@ -102,12 +104,21 @@ enum GymRats {
   static func startOnboarding(_ account: Account) {
     GymRats.login(account)
     UserDefaults.standard.set(true, forKey: "account-is-onboarding")
-    GymRats.replaceRoot(with: HowItWorksViewController().inNav())
+    GymRats.replaceRoot(with: TodaysGoalViewController().inNav())
   }
-  
+
   /// Shows the notification settings screen configured for onboarding
-  static func presentNotificationSettingsInOnboarding() {
-    UIViewController.topmost().push(NotificationSettingsViewController.forOnboarding())
+  static func popupPushNotificationSettings() {
+    guard UserDefaults.standard.integer(forKey: "gym_rats_run_count") >= 2 && !UserDefaults.standard.bool(forKey: "asked_for_notifications") else { return }
+    
+    UserDefaults.standard.set(true, forKey: "asked_for_notifications")
+    
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+      let topmost = UIViewController.topmost()
+      let notificationSettings = NotificationSettingsViewController.forOnboarding()
+
+      topmost.present(notificationSettings)
+    }
   }
   
   /// Takes them to the main app and clears `account-is-onboarding`
@@ -145,6 +156,9 @@ enum GymRats {
     application.applicationIconBadgeNumber = 0
 
     if currentAccount != nil {
+      let count = UserDefaults.standard.integer(forKey: "gym_rats_run_count")
+      
+      UserDefaults.standard.set(count + 1, forKey: "gym_rats_run_count")
       NotificationCenter.default.post(.appEnteredForeground)
     }
   }

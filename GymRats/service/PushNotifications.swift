@@ -28,7 +28,7 @@ enum PushNotifications {
       center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
         subscriber(.success(granted))
       }
-      
+
       return Disposables.create()
     }
   }

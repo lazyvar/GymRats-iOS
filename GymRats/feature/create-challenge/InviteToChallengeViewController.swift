@@ -64,7 +64,7 @@ class InviteToChallengeViewController: UIViewController {
     NotificationCenter.default.post(name: .joinedChallenge, object: challenge)
     
     if UserDefaults.standard.bool(forKey: "account-is-onboarding") {
-      GymRats.presentNotificationSettingsInOnboarding()
+      GymRats.completeOnboarding()
     } else {
       dismissSelf()
     }

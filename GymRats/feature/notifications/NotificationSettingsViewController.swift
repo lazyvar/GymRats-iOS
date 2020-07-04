@@ -16,7 +16,7 @@ class NotificationSettingsViewController: BindableViewController {
   
   static func forOnboarding() -> NotificationSettingsViewController {
     return NotificationSettingsViewController().apply {
-      $0.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Skip", style: .plain, target: $0, action: #selector(completeOnboarding))
+      $0.navigationItem.leftBarButtonItem = .close(target: $0)
       $0.header = "Enable push notifications?"
     }
   }
@@ -138,9 +138,5 @@ class NotificationSettingsViewController: BindableViewController {
   
   @IBAction private func openSettings(_ sender: Any) {
     viewModel.input.openSettings.trigger()
-  }
-  
-  @objc private func completeOnboarding() {
-    GymRats.completeOnboarding()
   }
 }
