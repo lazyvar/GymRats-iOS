@@ -25,7 +25,6 @@ enum GymRats {
 
   static private let disposeBag = DisposeBag()
   static private let notificationHandler = NotificationHandler()
-  static private let superService = SuperService()
   
   static private var coldStartNotification: [AnyHashable: Any]? {
     get {
