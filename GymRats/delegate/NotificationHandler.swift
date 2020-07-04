@@ -26,13 +26,11 @@ class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
   
   func handleNotification(userInfo: [AnyHashable: Any], completionHandler: ((UNNotificationPresentationOptions) -> Void)? = nil) {
     let aps: ApplePushServiceObject
-    let viewController = UIViewController.topmost()
     
     guard GymRats.currentAccount != nil else { return }
 
     if let completionHandler = completionHandler {
-      completionHandler(.alert)
-      return
+      completionHandler(.alert); return
     }
 
     do {
@@ -64,11 +62,15 @@ class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
 
             chatViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: chatViewController, action: #selector(UIViewController.dismissSelf))
             
-            viewController.present(nav, animated: true, completion: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+              UIViewController.topmost().present(nav, animated: true, completion: nil)
+            }
           }
           
           if let error = event.element?.error {
-            viewController.presentAlert(with: error)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+              UIViewController.topmost().presentAlert(with: error)
+            }
           }
         }
         .disposed(by: disposeBag)
@@ -86,7 +88,9 @@ class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
 
             workoutViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: workoutViewController, action: #selector(UIViewController.dismissSelf))
             
-            viewController.present(nav, animated: true, completion: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+              UIViewController.topmost().present(nav, animated: true, completion: nil)
+            }
           }
         }
         .disposed(by: disposeBag)
