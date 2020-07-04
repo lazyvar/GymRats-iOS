@@ -107,12 +107,7 @@ enum GymRats {
   
   /// Shows the notification settings screen configured for onboarding
   static func presentNotificationSettingsInOnboarding() {
-    let topmost = UIViewController.topmost()
-    let notificationSettings = NotificationSettingsViewController().apply {
-      $0.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Skip", style: .plain, target: superService, action: #selector(SuperService.completeOnboarding))
-    }
-
-    topmost.push(notificationSettings)
+    UIViewController.topmost().push(NotificationSettingsViewController.forOnboarding())
   }
   
   /// Takes them to the main app and clears `account-is-onboarding`

@@ -17,6 +17,7 @@ final class NotificationSettingsViewModel: ViewModel {
     let workoutSwitchChanged = PublishSubject<Bool>()
     let commentSwitchChanged = PublishSubject<Bool>()
     let enableAll = PublishSubject<Void>()
+    let openSettings = PublishSubject<Void>()
     let chatMessageSwitchChanged = PublishSubject<Bool>()
   }
   
@@ -47,7 +48,8 @@ final class NotificationSettingsViewModel: ViewModel {
           })
 
         return Disposables.create(granted, requested)
-      }.share()
+      }
+      .share()
       
       permission
         .map { !$0 }
@@ -85,6 +87,15 @@ final class NotificationSettingsViewModel: ViewModel {
         }
       }
       .share()
+    
+    input.openSettings
+      .subscribe(onNext: { _ in
+        guard let settings = URL(string: UIApplication.openSettingsURLString) else { return }
+        guard UIApplication.shared.canOpenURL(settings) else { return }
+        
+        UIApplication.shared.open(settings, completionHandler: nil)
+      })
+      .disposed(by: disposeBag)
     
     accountData
       .map { $0.workouts }

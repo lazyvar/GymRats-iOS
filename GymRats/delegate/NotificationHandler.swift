@@ -42,6 +42,17 @@ class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
     }
     
     switch aps.gr.notificationType {
+    case .workout:
+      guard let challengeId = aps.gr.challengeId else { return }
+
+      Challenge.State.all.fetch()
+        .subscribe(onNext: { result in
+          guard let challenges = result.object else { return }
+          guard let challenge = challenges.first(where: { $0.id == challengeId }) else { return }
+          
+          NotificationCenter.default.post(name: .joinedChallenge, object: challenge)
+        })
+        .disposed(by: disposeBag)
     case .chatMessage:
       guard let id = aps.gr.challengeId else { return }
       

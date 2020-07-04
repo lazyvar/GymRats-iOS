@@ -12,6 +12,21 @@ import RxSwift
 class NotificationSettingsViewController: BindableViewController {
   private let viewModel = NotificationSettingsViewModel()
   private let disposeBag = DisposeBag()
+  private var header: String?
+  
+  static func forOnboarding() -> NotificationSettingsViewController {
+    return NotificationSettingsViewController().apply {
+      $0.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Skip", style: .plain, target: $0, action: #selector(completeOnboarding))
+      $0.header = "Enable push notifications?"
+    }
+  }
+  
+  @IBOutlet private weak var allowLabel: UILabel! {
+    didSet {
+      allowLabel.textColor = .primaryText
+      allowLabel.font = .body
+    }
+  }
   
   @IBOutlet private weak var workoutLabel: UILabel! {
     didSet {
@@ -19,7 +34,7 @@ class NotificationSettingsViewController: BindableViewController {
       workoutLabel.font = .body
     }
   }
-  
+
   @IBOutlet private weak var workoutDetailsLabel: UILabel! {
     didSet {
       workoutDetailsLabel.textColor = .secondaryText
@@ -62,6 +77,7 @@ class NotificationSettingsViewController: BindableViewController {
     }
   }
   
+  @IBOutlet private weak var settingsStack: UIStackView!
   @IBOutlet private weak var notificationsStack: UIStackView!
   @IBOutlet private weak var commentSwitch: UISwitch!
   @IBOutlet private weak var workoutSwitch: UISwitch!
@@ -74,21 +90,23 @@ class NotificationSettingsViewController: BindableViewController {
     navigationItem.title = "Notifications"
     setupBackButton()
 
+    if let header = header {
+      headerLabel.text = header
+    }
+    
     viewModel.input.viewDidLoad.trigger()
   }
   
   override func bindViewModel() {
     viewModel.output.permissionDenied
-      .do(onNext: { denied in
-        if denied && UserDefaults.standard.bool(forKey: "account-is-onboarding") {
-          DispatchQueue.main.async {
-            GymRats.completeOnboarding()
-          }
-        }
-      })
       .bind(to: notificationsStack.rx.isHidden)
       .disposed(by: disposeBag)
-    
+
+    viewModel.output.permissionDenied
+      .map { !$0 }
+      .bind(to: settingsStack.rx.isHidden)
+      .disposed(by: disposeBag)
+
     viewModel.output.workoutsEnabled
       .bind(to: workoutSwitch.rx.isOn)
       .disposed(by: disposeBag)
@@ -116,5 +134,13 @@ class NotificationSettingsViewController: BindableViewController {
   
   @IBAction private func enableAll(_ sender: Any) {
     viewModel.input.enableAll.trigger()
+  }
+  
+  @IBAction private func openSettings(_ sender: Any) {
+    viewModel.input.openSettings.trigger()
+  }
+  
+  @objc private func completeOnboarding() {
+    GymRats.completeOnboarding()
   }
 }

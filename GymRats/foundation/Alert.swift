@@ -12,13 +12,13 @@ enum Alert {
   static func presentAlert(title: String, message: String) {
     DispatchQueue.main.async {
       let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-      let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+      let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
       
       alertController.addAction(okAction)
       UIViewController.topmost().present(alertController, animated: true, completion:  nil)
     }
   }
-    
+
   static func presentAlert(error: Error) {
     presentAlert(title: "Uh-oh", message: error.localizedDescription)
   }
