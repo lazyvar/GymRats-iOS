@@ -75,7 +75,7 @@ class UpcomingChallengeViewController: BindableViewController {
   )
 
   private lazy var moreBarButtonItem = UIBarButtonItem(
-    image: .moreVertical,
+    image: .moreHorizontal,
     style: .plain,
     target: self,
     action: #selector(moreTapped)

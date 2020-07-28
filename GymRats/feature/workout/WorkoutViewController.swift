@@ -152,7 +152,7 @@ class WorkoutViewController: BindableViewController {
     view.addGestureRecognizer(tapToHideKeyboard)
 
     let menu =  UIBarButtonItem (
-      image: .moreVertical,
+      image: .moreHorizontal,
       style: .plain,
       target: self,
       action: #selector(showWorkoutMenu)

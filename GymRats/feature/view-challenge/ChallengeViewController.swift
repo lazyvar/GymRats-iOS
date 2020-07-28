@@ -85,7 +85,7 @@ class ChallengeViewController: BindableViewController {
   )
 
   private lazy var menuBarButtonItem = UIBarButtonItem(
-    image: .moreVertical,
+    image: .moreHorizontal,
     style: .plain,
     target: self,
     action: #selector(menuTapped)

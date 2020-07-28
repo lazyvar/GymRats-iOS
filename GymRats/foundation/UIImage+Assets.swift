@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIImage {
-  static let moreVertical       = UIImage(named: "more-vertical")!
+  static let moreHorizontal     = UIImage(named: "more-horizontal")!
   static let chat               = UIImage(named: "chat")!
   static let chatUnread         = UIImage(named: "chat-unread")!
   static let award              = UIImage(named: "award")!
