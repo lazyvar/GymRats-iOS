@@ -63,9 +63,9 @@ final class CompletedChallengeViewModel: ViewModel {
   }
   
   private func description(for challenge: Challenge, rankings: [Ranking]) -> NSAttributedString {
-    let total = rankings.map { Double($0.score) ?? 0.0 }
-    let first = NSAttributedString(string: "\(total) \(challenge.scoreBy.description) were logged over the course of \(challenge.days.count) days by \(rankings.count) members. Nice job. Congratulations to ")
-    let rest = NSAttributedString(string: " for first place.")
+    let total = rankings.map { Double($0.score) ?? 0.0 }.reduce(0, +)
+    let first = NSAttributedString(string: "\(Int(total)) \(challenge.scoreBy.description) were logged over the course of \(challenge.days.count) days by \(rankings.count) members. Nice job. Congratulations to ")
+    let rest = NSAttributedString(string: " on first place.")
     let bold = NSAttributedString(string: "\(rankings.first?.account.fullName ?? "")", attributes: [
       NSAttributedString.Key.font: UIFont.bodyBold
     ])

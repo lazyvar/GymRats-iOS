@@ -21,7 +21,10 @@ class CompletedChallengeViewController: BindableViewController {
       tableView.backgroundColor = .background
       tableView.showsVerticalScrollIndicator = false
       tableView.separatorStyle = .none
+      tableView.bounces = true
+      tableView.alwaysBounceVertical = true
       tableView.registerCellNibForClass(ChallengeBannerImageCell.self)
+      tableView.registerCellNibForClass(ChallengeCompleteDescriptionCell.self)
     }
   }
   
@@ -61,7 +64,9 @@ class CompletedChallengeViewController: BindableViewController {
     switch row {
     case .banner(let url):
       return ChallengeBannerImageCell.configure(tableView: tableView, indexPath: indexPath, imageURL: url)
-    default: return UITableViewCell().apply { $0.backgroundColor = .niceBlue }
+    case .description(let attributedString):
+      return ChallengeCompleteDescriptionCell.configure(tableView: tableView, indexPath: indexPath, description: attributedString)
+    default: return UITableViewCell().apply { $0.backgroundColor = [UIColor.niceBlue, UIColor.belizeHole, UIColor.carrot].randomElement()! }
     }
   })
 

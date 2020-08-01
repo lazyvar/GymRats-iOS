@@ -177,6 +177,8 @@
 		01A6C4E524D4EBC90007DFB6 /* Ranking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6C4E424D4EBC90007DFB6 /* Ranking.swift */; };
 		01A6C4E824D4F4D80007DFB6 /* ChallengeBannerImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6C4E624D4F4D80007DFB6 /* ChallengeBannerImageCell.swift */; };
 		01A6C4E924D4F4D80007DFB6 /* ChallengeBannerImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A6C4E724D4F4D80007DFB6 /* ChallengeBannerImageCell.xib */; };
+		01A6C4EC24D4FD2B0007DFB6 /* ChallengeCompleteDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6C4EA24D4FD2B0007DFB6 /* ChallengeCompleteDescriptionCell.swift */; };
+		01A6C4ED24D4FD2B0007DFB6 /* ChallengeCompleteDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A6C4EB24D4FD2B0007DFB6 /* ChallengeCompleteDescriptionCell.xib */; };
 		01AB95A8243F8F620066C7DA /* WorkoutDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AB95A6243F8F620066C7DA /* WorkoutDetailsCell.swift */; };
 		01AB95A9243F8F620066C7DA /* WorkoutDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01AB95A7243F8F620066C7DA /* WorkoutDetailsCell.xib */; };
 		01AB95AB243F90D30066C7DA /* SpookyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AB95AA243F90D30066C7DA /* SpookyView.swift */; };
@@ -486,6 +488,8 @@
 		01A6C4E424D4EBC90007DFB6 /* Ranking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ranking.swift; sourceTree = "<group>"; };
 		01A6C4E624D4F4D80007DFB6 /* ChallengeBannerImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeBannerImageCell.swift; sourceTree = "<group>"; };
 		01A6C4E724D4F4D80007DFB6 /* ChallengeBannerImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeBannerImageCell.xib; sourceTree = "<group>"; };
+		01A6C4EA24D4FD2B0007DFB6 /* ChallengeCompleteDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCompleteDescriptionCell.swift; sourceTree = "<group>"; };
+		01A6C4EB24D4FD2B0007DFB6 /* ChallengeCompleteDescriptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeCompleteDescriptionCell.xib; sourceTree = "<group>"; };
 		01AB95A6243F8F620066C7DA /* WorkoutDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailsCell.swift; sourceTree = "<group>"; };
 		01AB95A7243F8F620066C7DA /* WorkoutDetailsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutDetailsCell.xib; sourceTree = "<group>"; };
 		01AB95AA243F90D30066C7DA /* SpookyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpookyView.swift; sourceTree = "<group>"; };
@@ -914,6 +918,8 @@
 				01E700EE2460CA990059017A /* HealthAppWorkoutCell.xib */,
 				01A6C4E624D4F4D80007DFB6 /* ChallengeBannerImageCell.swift */,
 				01A6C4E724D4F4D80007DFB6 /* ChallengeBannerImageCell.xib */,
+				01A6C4EA24D4FD2B0007DFB6 /* ChallengeCompleteDescriptionCell.swift */,
+				01A6C4EB24D4FD2B0007DFB6 /* ChallengeCompleteDescriptionCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1429,6 +1435,7 @@
 				74118066220C58C300EB9D11 /* Lato-Light.ttf in Resources */,
 				747D6FA42208DB330062BB39 /* LaunchScreen.storyboard in Resources */,
 				01987A9924300E9500835621 /* ChallengePreviewViewController.xib in Resources */,
+				01A6C4ED24D4FD2B0007DFB6 /* ChallengeCompleteDescriptionCell.xib in Resources */,
 				01297D842329E79000CA9E41 /* SF-Compact-Rounded-Medium.otf in Resources */,
 				01F5296124184A7300FA96E0 /* NoChallengesViewController.xib in Resources */,
 				01C25C24243F700A0021D617 /* CommentCell.xib in Resources */,
@@ -1795,6 +1802,7 @@
 				01A3EB25237747D30097FC2A /* CVCalendarViewAnimatorDelegate.swift in Sources */,
 				01BFF909223DB1C30044F802 /* ChatMessage.swift in Sources */,
 				74A01B4E220A83FD00431ABD /* UIDate+Extension.swift in Sources */,
+				01A6C4EC24D4FD2B0007DFB6 /* ChallengeCompleteDescriptionCell.swift in Sources */,
 				01319ED524187790005E65D2 /* NewWorkout.swift in Sources */,
 				015C072B243FE2AD003E75E9 /* UpcomingChallengeViewModel.swift in Sources */,
 				015C0724243FD35B003E75E9 /* MapViewController.swift in Sources */,
