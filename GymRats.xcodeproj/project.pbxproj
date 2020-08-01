@@ -183,6 +183,8 @@
 		01A6C4F124D500570007DFB6 /* ShareChallengeButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A6C4EF24D500570007DFB6 /* ShareChallengeButtonCell.xib */; };
 		01A6C4F424D503620007DFB6 /* NewChallengeButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6C4F224D503620007DFB6 /* NewChallengeButtonCell.swift */; };
 		01A6C4F524D503620007DFB6 /* NewChallengeButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A6C4F324D503620007DFB6 /* NewChallengeButtonCell.xib */; };
+		01A6C4F824D5053A0007DFB6 /* RankingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6C4F624D5053A0007DFB6 /* RankingCell.swift */; };
+		01A6C4F924D5053A0007DFB6 /* RankingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A6C4F724D5053A0007DFB6 /* RankingCell.xib */; };
 		01AB95A8243F8F620066C7DA /* WorkoutDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AB95A6243F8F620066C7DA /* WorkoutDetailsCell.swift */; };
 		01AB95A9243F8F620066C7DA /* WorkoutDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01AB95A7243F8F620066C7DA /* WorkoutDetailsCell.xib */; };
 		01AB95AB243F90D30066C7DA /* SpookyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AB95AA243F90D30066C7DA /* SpookyView.swift */; };
@@ -498,6 +500,8 @@
 		01A6C4EF24D500570007DFB6 /* ShareChallengeButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareChallengeButtonCell.xib; sourceTree = "<group>"; };
 		01A6C4F224D503620007DFB6 /* NewChallengeButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChallengeButtonCell.swift; sourceTree = "<group>"; };
 		01A6C4F324D503620007DFB6 /* NewChallengeButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewChallengeButtonCell.xib; sourceTree = "<group>"; };
+		01A6C4F624D5053A0007DFB6 /* RankingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingCell.swift; sourceTree = "<group>"; };
+		01A6C4F724D5053A0007DFB6 /* RankingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RankingCell.xib; sourceTree = "<group>"; };
 		01AB95A6243F8F620066C7DA /* WorkoutDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailsCell.swift; sourceTree = "<group>"; };
 		01AB95A7243F8F620066C7DA /* WorkoutDetailsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutDetailsCell.xib; sourceTree = "<group>"; };
 		01AB95AA243F90D30066C7DA /* SpookyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpookyView.swift; sourceTree = "<group>"; };
@@ -932,6 +936,8 @@
 				01A6C4EF24D500570007DFB6 /* ShareChallengeButtonCell.xib */,
 				01A6C4F224D503620007DFB6 /* NewChallengeButtonCell.swift */,
 				01A6C4F324D503620007DFB6 /* NewChallengeButtonCell.xib */,
+				01A6C4F624D5053A0007DFB6 /* RankingCell.swift */,
+				01A6C4F724D5053A0007DFB6 /* RankingCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1453,6 +1459,7 @@
 				01297D842329E79000CA9E41 /* SF-Compact-Rounded-Medium.otf in Resources */,
 				01F5296124184A7300FA96E0 /* NoChallengesViewController.xib in Resources */,
 				01C25C24243F700A0021D617 /* CommentCell.xib in Resources */,
+				01A6C4F924D5053A0007DFB6 /* RankingCell.xib in Resources */,
 				74118065220C58C300EB9D11 /* Lato-Italic.ttf in Resources */,
 				015E2A96243CF08600307B21 /* ChoiceCell.xib in Resources */,
 				01297D952329E79000CA9E41 /* SF-Pro-Rounded-Ultralight.otf in Resources */,
@@ -1836,6 +1843,7 @@
 				74F47889220CECFE005CD4E4 /* ImageService.swift in Sources */,
 				017E10B32429674600CBBB92 /* ChallengeRow.swift in Sources */,
 				010C05F924AD4D4F001B37D7 /* NotificationSettingsViewModel.swift in Sources */,
+				01A6C4F824D5053A0007DFB6 /* RankingCell.swift in Sources */,
 				014A7657237764B6002CE366 /* GRFormViewController.swift in Sources */,
 				01A3EB1A237747D30097FC2A /* CVCalendarWeekContentViewController.swift in Sources */,
 				019CF1FB232722FF00D884DA /* BigContentView.swift in Sources */,

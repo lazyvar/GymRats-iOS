@@ -45,8 +45,8 @@ final class CompletedChallengeViewModel: ViewModel {
           rankings,
           stuff + [
             .description(self.description(for: self.challenge, rankings: rankings)),
+            .startNewChallenge(self.challenge),
             .share(self.challenge),
-            .startNewChallenge(self.challenge)
           ]
         )
       }
@@ -54,7 +54,7 @@ final class CompletedChallengeViewModel: ViewModel {
         return [
           CompletedChallengeSection(model: nil, items: rows),
           CompletedChallengeSection(model: "Final rankings", items: rankings.enumerated().map { ranking in
-            CompletedChallengeRow.ranking(ranking.element, ranking.offset)
+            CompletedChallengeRow.ranking(ranking.element, ranking.offset + 1, self.challenge.scoreBy)
           })
         ]
       }

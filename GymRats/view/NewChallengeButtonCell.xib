@@ -18,14 +18,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h0D-qb-lTY" customClass="SpookyView" customModule="GymRats" customModuleProvider="target">
-                        <rect key="frame" x="20" y="10" width="371" height="50"/>
+                        <rect key="frame" x="20" y="5" width="371" height="50"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play" translatesAutoresizingMaskIntoConstraints="NO" id="HPL-va-F6Y">
                                 <rect key="frame" x="10" y="12.5" width="25" height="25"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start new challenge with this group" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LMG-Wk-4eW">
-                                <rect key="frame" x="45" y="14.5" width="270" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start challenge with this group" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LMG-Wk-4eW">
+                                <rect key="frame" x="40" y="14.5" width="234" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -40,23 +40,26 @@
                             <constraint firstAttribute="trailing" secondItem="gyx-wh-3dL" secondAttribute="trailing" constant="10" id="3fd-bl-IPe"/>
                             <constraint firstAttribute="height" constant="50" id="82c-se-v2J"/>
                             <constraint firstItem="gyx-wh-3dL" firstAttribute="centerY" secondItem="h0D-qb-lTY" secondAttribute="centerY" id="Fin-wi-KyB"/>
-                            <constraint firstItem="LMG-Wk-4eW" firstAttribute="leading" secondItem="HPL-va-F6Y" secondAttribute="trailing" constant="10" id="gfP-vh-vOI"/>
+                            <constraint firstItem="LMG-Wk-4eW" firstAttribute="leading" secondItem="HPL-va-F6Y" secondAttribute="trailing" constant="5" id="gfP-vh-vOI"/>
                             <constraint firstItem="HPL-va-F6Y" firstAttribute="leading" secondItem="h0D-qb-lTY" secondAttribute="leading" constant="10" id="nTW-Yf-CUy"/>
                             <constraint firstItem="HPL-va-F6Y" firstAttribute="centerY" secondItem="h0D-qb-lTY" secondAttribute="centerY" id="pUN-ap-N6O"/>
                             <constraint firstItem="LMG-Wk-4eW" firstAttribute="centerY" secondItem="h0D-qb-lTY" secondAttribute="centerY" id="vID-ac-0ie"/>
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="h0D-qb-lTY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="O4v-ZW-MgK"/>
-                    <constraint firstAttribute="bottom" secondItem="h0D-qb-lTY" secondAttribute="bottom" constant="10" id="UK5-mC-m50"/>
+                    <constraint firstItem="h0D-qb-lTY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="O4v-ZW-MgK"/>
+                    <constraint firstAttribute="bottom" secondItem="h0D-qb-lTY" secondAttribute="bottom" constant="5" id="UK5-mC-m50"/>
                     <constraint firstItem="h0D-qb-lTY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="fou-8n-pK6"/>
                     <constraint firstAttribute="trailing" secondItem="h0D-qb-lTY" secondAttribute="trailing" constant="20" id="zs7-mN-qbu"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="chevron" destination="gyx-wh-3dL" id="U3I-4Q-F9Q"/>
+                <outlet property="label" destination="LMG-Wk-4eW" id="uGI-Us-p5n"/>
                 <outlet property="play" destination="HPL-va-F6Y" id="tWB-5g-KOg"/>
             </connections>
             <point key="canvasLocation" x="197.82608695652175" y="140.95982142857142"/>

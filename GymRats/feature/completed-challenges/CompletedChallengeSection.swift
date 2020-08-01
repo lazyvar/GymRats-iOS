@@ -16,5 +16,5 @@ enum CompletedChallengeRow {
   case description(NSAttributedString)
   case share(Challenge)
   case startNewChallenge(Challenge)
-  case ranking(Ranking, Int)
+  case ranking(Ranking, Int, ScoreBy)
 }

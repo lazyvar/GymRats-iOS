@@ -11,7 +11,7 @@ import RxSwift
 import RxDataSources
 import SwiftConfettiView
 
-class CompletedChallengeViewController: BindableViewController {
+class CompletedChallengeViewController: BindableViewController, UITableViewDelegate {
   private let viewModel = CompletedChallengeViewModel()
   private let disposeBag = DisposeBag()
   private let challenge: Challenge
@@ -22,14 +22,16 @@ class CompletedChallengeViewController: BindableViewController {
       tableView.showsVerticalScrollIndicator = false
       tableView.separatorStyle = .none
       tableView.allowsSelection = false
+      tableView.rx.setDelegate(self).disposed(by: disposeBag)
       tableView.registerCellNibForClass(ChallengeBannerImageCell.self)
       tableView.registerCellNibForClass(ChallengeCompleteDescriptionCell.self)
       tableView.registerCellNibForClass(ShareChallengeButtonCell.self)
       tableView.registerCellNibForClass(NewChallengeButtonCell.self)
+      tableView.registerCellNibForClass(RankingCell.self)
     }
   }
   
-  init(challenge: Challenge){
+  init(challenge: Challenge) {
     self.challenge = challenge
     self.viewModel.configure(challenge: challenge)
 
@@ -75,7 +77,8 @@ class CompletedChallengeViewController: BindableViewController {
       return NewChallengeButtonCell.configure(tableView: tableView, indexPath: indexPath) {
         // TODO: start new challenge
       }
-    default: return UITableViewCell().apply { $0.backgroundColor = [UIColor.niceBlue, UIColor.belizeHole, UIColor.carrot].randomElement()! }
+    case .ranking(let ranking, let place, let scoreBy):
+      return RankingCell.configure(tableView: tableView, indexPath: indexPath, ranking: ranking, place: place, scoreBy: scoreBy)
     }
   })
 
@@ -95,10 +98,13 @@ class CompletedChallengeViewController: BindableViewController {
     }
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-      confettiView.stopConfetti()
-      confettiView.removeFromSuperview()
+      UIView.animate(withDuration: 0.2, animations: {
+        confettiView.alpha = 0
+      }) { _ in
+        confettiView.removeFromSuperview()
+      }
     }
-    
+
     viewModel.input.viewDidLoad.trigger()
   }
   
@@ -124,6 +130,43 @@ class CompletedChallengeViewController: BindableViewController {
       .disposed(by: disposeBag)
   }
   
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let model = dataSource[section].model
+
+    guard let header = model else { return nil }
+    
+    let label = UILabel()
+    label.backgroundColor = .clear
+    label.font = .h4Bold
+    label.translatesAutoresizingMaskIntoConstraints = false
+    label.text = header
+
+    let headerView = UIView()
+    headerView.addSubview(label)
+    headerView.backgroundColor = .clear
+    
+    label.verticallyCenter(in: headerView)
+    label.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20).isActive = true
+    
+    return headerView
+  }
+  
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    let model = dataSource[section].model
+
+    guard model != nil else { return .zero }
+
+    return 25
+  }
+  
+  func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    return .leastNormalMagnitude
+  }
+  
+  func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    return UIView()
+  }
+
   @objc private func chatTapped() {
     push(ChatViewController(challenge: challenge))
   }
