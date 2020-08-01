@@ -21,11 +21,11 @@ class CompletedChallengeViewController: BindableViewController {
       tableView.backgroundColor = .background
       tableView.showsVerticalScrollIndicator = false
       tableView.separatorStyle = .none
-      tableView.bounces = true
-      tableView.alwaysBounceVertical = true
+      tableView.allowsSelection = false
       tableView.registerCellNibForClass(ChallengeBannerImageCell.self)
       tableView.registerCellNibForClass(ChallengeCompleteDescriptionCell.self)
       tableView.registerCellNibForClass(ShareChallengeButtonCell.self)
+      tableView.registerCellNibForClass(NewChallengeButtonCell.self)
     }
   }
   
@@ -71,6 +71,10 @@ class CompletedChallengeViewController: BindableViewController {
       return ShareChallengeButtonCell.configure(tableView: tableView, indexPath: indexPath) {
         // TODO: share challenge
       }
+    case .startNewChallenge(let challenge):
+      return NewChallengeButtonCell.configure(tableView: tableView, indexPath: indexPath) {
+        // TODO: start new challenge
+      }
     default: return UITableViewCell().apply { $0.backgroundColor = [UIColor.niceBlue, UIColor.belizeHole, UIColor.carrot].randomElement()! }
     }
   })
@@ -86,6 +90,7 @@ class CompletedChallengeViewController: BindableViewController {
     
     let confettiView = SwiftConfettiView(frame: view.bounds).apply {
       $0.startConfetti()
+      $0.isUserInteractionEnabled = false
       view.addSubview($0)
     }
     
