@@ -10,7 +10,9 @@ import UIKit
 
 class SpookyView: UIView {
   private var shadowLayer: CAShapeLayer!
-
+  
+  var spookyColor: UIColor = UIColor.foreground
+  
   override func layoutSubviews() {
     super.layoutSubviews()
 
@@ -19,7 +21,7 @@ class SpookyView: UIView {
       
       shadowLayer = CAShapeLayer()
       shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: 4).cgPath
-      shadowLayer.fillColor = UIColor.foreground.cgColor
+      shadowLayer.fillColor = spookyColor.cgColor
 
       shadowLayer.shadowColor = UIColor.shadow.cgColor
       shadowLayer.shadowPath = shadowLayer.path

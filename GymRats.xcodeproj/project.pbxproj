@@ -179,6 +179,8 @@
 		01A6C4E924D4F4D80007DFB6 /* ChallengeBannerImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A6C4E724D4F4D80007DFB6 /* ChallengeBannerImageCell.xib */; };
 		01A6C4EC24D4FD2B0007DFB6 /* ChallengeCompleteDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6C4EA24D4FD2B0007DFB6 /* ChallengeCompleteDescriptionCell.swift */; };
 		01A6C4ED24D4FD2B0007DFB6 /* ChallengeCompleteDescriptionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A6C4EB24D4FD2B0007DFB6 /* ChallengeCompleteDescriptionCell.xib */; };
+		01A6C4F024D500570007DFB6 /* ShareChallengeButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A6C4EE24D500570007DFB6 /* ShareChallengeButtonCell.swift */; };
+		01A6C4F124D500570007DFB6 /* ShareChallengeButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01A6C4EF24D500570007DFB6 /* ShareChallengeButtonCell.xib */; };
 		01AB95A8243F8F620066C7DA /* WorkoutDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AB95A6243F8F620066C7DA /* WorkoutDetailsCell.swift */; };
 		01AB95A9243F8F620066C7DA /* WorkoutDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01AB95A7243F8F620066C7DA /* WorkoutDetailsCell.xib */; };
 		01AB95AB243F90D30066C7DA /* SpookyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01AB95AA243F90D30066C7DA /* SpookyView.swift */; };
@@ -490,6 +492,8 @@
 		01A6C4E724D4F4D80007DFB6 /* ChallengeBannerImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeBannerImageCell.xib; sourceTree = "<group>"; };
 		01A6C4EA24D4FD2B0007DFB6 /* ChallengeCompleteDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCompleteDescriptionCell.swift; sourceTree = "<group>"; };
 		01A6C4EB24D4FD2B0007DFB6 /* ChallengeCompleteDescriptionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeCompleteDescriptionCell.xib; sourceTree = "<group>"; };
+		01A6C4EE24D500570007DFB6 /* ShareChallengeButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareChallengeButtonCell.swift; sourceTree = "<group>"; };
+		01A6C4EF24D500570007DFB6 /* ShareChallengeButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareChallengeButtonCell.xib; sourceTree = "<group>"; };
 		01AB95A6243F8F620066C7DA /* WorkoutDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDetailsCell.swift; sourceTree = "<group>"; };
 		01AB95A7243F8F620066C7DA /* WorkoutDetailsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutDetailsCell.xib; sourceTree = "<group>"; };
 		01AB95AA243F90D30066C7DA /* SpookyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpookyView.swift; sourceTree = "<group>"; };
@@ -920,6 +924,8 @@
 				01A6C4E724D4F4D80007DFB6 /* ChallengeBannerImageCell.xib */,
 				01A6C4EA24D4FD2B0007DFB6 /* ChallengeCompleteDescriptionCell.swift */,
 				01A6C4EB24D4FD2B0007DFB6 /* ChallengeCompleteDescriptionCell.xib */,
+				01A6C4EE24D500570007DFB6 /* ShareChallengeButtonCell.swift */,
+				01A6C4EF24D500570007DFB6 /* ShareChallengeButtonCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1421,6 +1427,7 @@
 				01297D8E2329E79000CA9E41 /* SF-Pro-Rounded-Semibold.otf in Resources */,
 				01297D882329E79000CA9E41 /* SF-Compact-Rounded-Ultralight.otf in Resources */,
 				74118061220C58C300EB9D11 /* Lato-Bold.ttf in Resources */,
+				01A6C4F124D500570007DFB6 /* ShareChallengeButtonCell.xib in Resources */,
 				01D5D36A243BD2700044E459 /* TextFieldCell.xib in Resources */,
 				01D70BD424465CB000F6F33A /* IntegerPickerCell.xib in Resources */,
 				0118A28C239DA7F9006A8A7A /* RatsCell.xib in Resources */,
@@ -1645,6 +1652,7 @@
 				746764E7220BAE44000CFB1B /* CreateWorkoutViewController.swift in Sources */,
 				01107DC9243CE665005AA8F3 /* HowItWorksViewController.swift in Sources */,
 				7455AC5E22125296005A558A /* ServiceResponse.swift in Sources */,
+				01A6C4F024D500570007DFB6 /* ShareChallengeButtonCell.swift in Sources */,
 				01D70BDB24467B9400F6F33A /* ClassicChallengeViewController.swift in Sources */,
 				01660839239C5EAF00FCFD26 /* ChallengeStatsViewController.swift in Sources */,
 				01BFF90E223DE26C0044F802 /* APS.swift in Sources */,

@@ -25,6 +25,7 @@ class CompletedChallengeViewController: BindableViewController {
       tableView.alwaysBounceVertical = true
       tableView.registerCellNibForClass(ChallengeBannerImageCell.self)
       tableView.registerCellNibForClass(ChallengeCompleteDescriptionCell.self)
+      tableView.registerCellNibForClass(ShareChallengeButtonCell.self)
     }
   }
   
@@ -66,6 +67,10 @@ class CompletedChallengeViewController: BindableViewController {
       return ChallengeBannerImageCell.configure(tableView: tableView, indexPath: indexPath, imageURL: url)
     case .description(let attributedString):
       return ChallengeCompleteDescriptionCell.configure(tableView: tableView, indexPath: indexPath, description: attributedString)
+    case .share(let challenge):
+      return ShareChallengeButtonCell.configure(tableView: tableView, indexPath: indexPath) {
+        // TODO: share challenge
+      }
     default: return UITableViewCell().apply { $0.backgroundColor = [UIColor.niceBlue, UIColor.belizeHole, UIColor.carrot].randomElement()! }
     }
   })
