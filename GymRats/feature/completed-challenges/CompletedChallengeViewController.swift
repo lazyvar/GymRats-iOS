@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxDataSources
+import SwiftConfettiView
 
 class CompletedChallengeViewController: BindableViewController {
   private let viewModel = CompletedChallengeViewModel()
@@ -68,9 +69,20 @@ class CompletedChallengeViewController: BindableViewController {
     super.viewDidLoad()
   
     setupMenuButton()
+    
     navigationItem.title = self.challenge.name
     navigationItem.largeTitleDisplayMode = .always
     navigationItem.rightBarButtonItems = [menuBarButtonItem, chatBarButtonItem, statsBarButtonItem]
+    
+    let confettiView = SwiftConfettiView(frame: view.bounds).apply {
+      $0.startConfetti()
+      view.addSubview($0)
+    }
+    
+    DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+      confettiView.stopConfetti()
+      confettiView.removeFromSuperview()
+    }
     
     viewModel.input.viewDidLoad.trigger()
   }
@@ -107,18 +119,10 @@ class CompletedChallengeViewController: BindableViewController {
   
   @objc private func menuTapped() {
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-    let inviteAction = UIAlertAction(title: "Invite", style: .default) { _ in
-      ChallengeFlow.invite(to: self.challenge)
-    }
-    
     let editAction = UIAlertAction(title: "Edit", style: .default) { _ in
       let editViewController = EditChallengeViewController(challenge: self.challenge)
       
       self.present(editViewController.inNav(), animated: true, completion: nil)
-    }
-
-    let changeBanner = UIAlertAction(title: "Change banner", style: .default) { _ in
-      self.present(ChangeBannerViewController(challenge: self.challenge))
     }
 
     let deleteAction = UIAlertAction(title: "Leave", style: .destructive) { _ in
@@ -127,11 +131,8 @@ class CompletedChallengeViewController: BindableViewController {
     
     let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     
-    alertViewController.addAction(inviteAction)
-    
     if Membership.State.owner(of: challenge) {
       alertViewController.addAction(editAction)
-      alertViewController.addAction(changeBanner)
     }
     
     alertViewController.addAction(deleteAction)
