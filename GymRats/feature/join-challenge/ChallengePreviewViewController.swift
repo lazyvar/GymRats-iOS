@@ -174,6 +174,8 @@ class ChallengePreviewViewController: UIViewController {
         
         switch result {
         case .success(let challenge):
+          Challenge.State.join(challenge)
+          
           if let self = self { Challenge.State.all.fetch().ignore(disposedBy: self.disposeBag) }
           
           NotificationCenter.default.post(name: .joinedChallenge, object: challenge)

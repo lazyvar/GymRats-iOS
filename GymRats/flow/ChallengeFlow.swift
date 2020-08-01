@@ -114,4 +114,19 @@ enum ChallengeFlow {
         }
     }
   }
+  
+  static func present(completedChallenges: [Challenge]) {
+    guard let completed = completedChallenges.first else { return }
+    
+    let completedViewController = CompletedChallengeViewController(challenge: completed)
+    completedViewController.popUp = true
+
+    let nav = GymRatsNavigationController(rootViewController: completedViewController)
+    
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+      let topmost = UIViewController.topmost()
+
+      topmost.present(nav, animated: true, completion: nil)
+    }
+  }
 }

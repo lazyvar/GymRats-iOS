@@ -37,22 +37,7 @@ final class HomeViewModel: ViewModel {
     
     Observable.merge(challenges, Challenge.State.all.observe())
       .compactMap { $0.object }
-//      .map { $0.filter { $0.isActive || $0.isUpcoming } } // TODO
-      .map { challenges -> (Navigation, Screen) in
-        guard challenges.isNotEmpty else { return (.replaceDrawerCenterInNav(animated: false), .noChallenges) }
-        
-         // TODO
-        return (.replaceDrawerCenterInNav(animated: false), .completedChallenge(challenges.first!))
-
-        let challengeId = UserDefaults.standard.integer(forKey: "last_opened_challenge")
-        let challenge = challenges.first { $0.id == challengeId } ?? challenges.first!
-        
-        if challenge.isActive {
-          return (.replaceDrawerCenter(animated: false), .activeChallenge(challenge))
-        } else {
-          return (.replaceDrawerCenterInNav(animated: false), .upcomingChallenge(challenge))
-        }
-      }
+      .map { RouteCalculator.home($0) }
       .do(onNext: { _ in
         GymRats.handleColdStartNotification()
       })

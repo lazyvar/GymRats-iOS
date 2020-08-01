@@ -53,16 +53,3 @@ final class NoChallengesViewModel: ViewModel {
       .disposed(by: disposeBag)
   }
 }
-
-//extension NoChallengesViewModel: CreateChallengeDelegate {
-//  func challengeCreated(challenge: Challenge) {
-//    Challenge.State.all.fetch().ignore(disposedBy: disposeBag)
-//    UserDefaults.standard.set(challenge.id, forKey: "last_opened_challenge")
-//
-//    if challenge.isActive {
-//      output.navigation.on(.next((.replaceDrawerCenter(animated: true), .activeChallenge(challenge))))
-//    } else {
-//      output.navigation.on(.next((.replaceDrawerCenterInNav(animated: true), .upcomingChallenge(challenge))))
-//    }
-//  }
-//}

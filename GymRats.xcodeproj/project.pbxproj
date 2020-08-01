@@ -220,6 +220,7 @@
 		01D70BD424465CB000F6F33A /* IntegerPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D70BD224465CB000F6F33A /* IntegerPickerCell.xib */; };
 		01D70BD8244676D600F6F33A /* NewChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D70BD7244676D600F6F33A /* NewChallenge.swift */; };
 		01D70BDB24467B9400F6F33A /* ClassicChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D70BD924467B9400F6F33A /* ClassicChallengeViewController.swift */; };
+		01DCB24224D5C79400EE06F7 /* RouteCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DCB24124D5C79400EE06F7 /* RouteCalculator.swift */; };
 		01E700DE2460ACB50059017A /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01E700DD2460ACB50059017A /* HealthKit.framework */; };
 		01E700E12460B30B0059017A /* ImportWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E700DF2460B30B0059017A /* ImportWorkoutViewController.swift */; };
 		01E700E22460B30B0059017A /* ImportWorkoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01E700E02460B30B0059017A /* ImportWorkoutViewController.xib */; };
@@ -538,6 +539,7 @@
 		01D70BD224465CB000F6F33A /* IntegerPickerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntegerPickerCell.xib; sourceTree = "<group>"; };
 		01D70BD7244676D600F6F33A /* NewChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChallenge.swift; sourceTree = "<group>"; };
 		01D70BD924467B9400F6F33A /* ClassicChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicChallengeViewController.swift; sourceTree = "<group>"; };
+		01DCB24124D5C79400EE06F7 /* RouteCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCalculator.swift; sourceTree = "<group>"; };
 		01E700DD2460ACB50059017A /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		01E700DF2460B30B0059017A /* ImportWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportWorkoutViewController.swift; sourceTree = "<group>"; };
 		01E700E02460B30B0059017A /* ImportWorkoutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImportWorkoutViewController.xib; sourceTree = "<group>"; };
@@ -1150,6 +1152,7 @@
 				01319ED22418746C005E65D2 /* GymRatsAPI.swift */,
 				01E700E52460B45C0059017A /* HealthService.swift */,
 				01F6A17724AE743C00A5B7C2 /* PushNotifications.swift */,
+				01DCB24124D5C79400EE06F7 /* RouteCalculator.swift */,
 			);
 			path = service;
 			sourceTree = "<group>";
@@ -1734,6 +1737,7 @@
 				013D024124193BE30063F189 /* UIImage+Assets.swift in Sources */,
 				01A3EB21237747D30097FC2A /* CVCalendarTouchController.swift in Sources */,
 				01611D3C243E777600D1DAA4 /* WorkoutBigCell.swift in Sources */,
+				01DCB24224D5C79400EE06F7 /* RouteCalculator.swift in Sources */,
 				01F65A00244513FA00E26539 /* ChallengeBannerViewController.swift in Sources */,
 				01CA128F243FE9AE00540402 /* UpcomingChallengeFlowLayout.swift in Sources */,
 				01319ED124184FAC005E65D2 /* Screen.swift in Sources */,

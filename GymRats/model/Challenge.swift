@@ -113,72 +113,94 @@ extension Challenge {
     })
   }
 
-    var daysLeft: String {
-        let difference = Date().localDateIsDaysApartFromUTCDate(endDate)
-        
-        if difference > 0 {
-            return "Completed \(endDate.toFormat("MMM d, yyyy"))"
-        } else if difference < 0 {
-            let diff = abs(difference)
-            
-            if diff == 1 {
-                return "1 day left"
-            } else {
-                return "\(diff) days left"
-            }
-        } else {
-            return "Last day"
-        }
-    }
-
-    var daysCompletePure: Int {
-       return abs(Date().localDateIsDaysApartFromUTCDate(startDate))
-    }
-
+  var daysLeft: String {
+    let difference = Date().localDateIsDaysApartFromUTCDate(endDate)
     
-    var daysLeftPure: Int {
-       return abs(Date().localDateIsDaysApartFromUTCDate(endDate))
+    if difference > 0 {
+      return "Completed \(endDate.toFormat("MMM d, yyyy"))"
+    } else if difference < 0 {
+      let diff = abs(difference)
+      
+      if diff == 1 {
+        return "1 day left"
+      } else {
+        return "\(diff) days left"
+      }
+    } else {
+      return "Last day"
     }
+  }
 
+  var daysCompletePure: Int {
+    return abs(Date().localDateIsDaysApartFromUTCDate(startDate))
+  }
+    
+  var daysLeftPure: Int {
+    return abs(Date().localDateIsDaysApartFromUTCDate(endDate))
+  }
 }
 
 extension Challenge {
-    
-    var isActive: Bool {
-        let today = Date()
+  enum Status {
+    case active
+    case complete
+    case upcoming
+  }
+  
+  var status: Status {
+    if isActive {
+      return .active
+    } else if isPast {
+      return .complete
+    } else if isUpcoming {
+      return .upcoming
+    } else {
+      // ??? should never happen
+      return .complete
+    }
+  }
+  
+  var isActive: Bool {
+    let today = Date()
 
-        return today.localDateIsGreaterThanOrEqualToUTCDate(startDate) && today.localDateIsLessThanOrEqualToUTCDate(endDate)
-    }
-    
-    var isPast: Bool {
-        return Date().localDateIsGreaterThanUTCDate(endDate)
-    }
-    
-    var isUpcoming: Bool {
-        let today = Date()
+    return today.localDateIsGreaterThanOrEqualToUTCDate(startDate) && today.localDateIsLessThanOrEqualToUTCDate(endDate)
+  }
+  
+  var isPast: Bool {
+    return Date().localDateIsGreaterThanUTCDate(endDate)
+  }
+  
+  var isUpcoming: Bool {
+    let today = Date()
 
-        return today.localDateIsLessThanUTCDate(startDate)
-    }
+    return today.localDateIsLessThanUTCDate(startDate)
+  }
 }
 
 extension Array where Element == Challenge {
-    
-    func getActiveChallenges() -> [Challenge] {
-        return self.filter { $0.isActive }
-            .sorted(by: { $0.startDate < $1.startDate })
-    }
-    
-    func getActiveAndUpcomingChallenges() -> [Challenge] {
-        return self.filter { $0.isActive || $0.isUpcoming }
-             .sorted(by: { $0.isActive && !$1.isActive })
-    }
-    
-    func getPastChallenges() -> [Challenge] {
-        return self.filter { $0.isPast }
-    }
-    
-    func getUpcomingChallenges() -> [Challenge] {
-        return self.filter { $0.isUpcoming }
-    }
-    
+  func unseenCompletedChallenges() -> [Challenge] {
+    return self.filter { $0.isPast && Challenge.State.joined($0) && !Challenge.State.saw($0) }
+  }
+  
+  func getActiveChallenges() -> [Challenge] {
+    return self.filter { $0.isActive }
+      .sorted(by: { $0.startDate < $1.startDate })
+  }
+  
+  func getActiveAndUpcomingChallenges() -> [Challenge] {
+    return self.filter { $0.isActive || $0.isUpcoming }
+      .sorted(by: { $0.isActive && !$1.isActive })
+  }
+  
+  func getPastChallenges() -> [Challenge] {
+    return self.filter { $0.isPast }
+  }
+  
+  func getUpcomingChallenges() -> [Challenge] {
+    return self.filter { $0.isUpcoming }
+  }
+  
+  func witness() {
+    forEach { Challenge.State.see($0) }
+  }
 }

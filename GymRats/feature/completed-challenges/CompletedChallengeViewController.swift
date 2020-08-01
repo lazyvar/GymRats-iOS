@@ -12,6 +12,8 @@ import RxDataSources
 import SwiftConfettiView
 
 class CompletedChallengeViewController: BindableViewController, UITableViewDelegate {
+  var popUp = false
+  
   private let viewModel = CompletedChallengeViewModel()
   private let disposeBag = DisposeBag()
   private let challenge: Challenge
@@ -85,24 +87,18 @@ class CompletedChallengeViewController: BindableViewController, UITableViewDeleg
   override func viewDidLoad() {
     super.viewDidLoad()
   
-    setupMenuButton()
+    if popUp {
+      navigationItem.leftBarButtonItem = .close(target: self)
+    } else {
+      setupMenuButton()
+      navigationItem.rightBarButtonItems = [menuBarButtonItem, chatBarButtonItem, statsBarButtonItem]
+    }
     
     navigationItem.title = self.challenge.name
     navigationItem.largeTitleDisplayMode = .always
-    navigationItem.rightBarButtonItems = [menuBarButtonItem, chatBarButtonItem, statsBarButtonItem]
     
-    let confettiView = SwiftConfettiView(frame: view.bounds).apply {
-      $0.startConfetti()
-      $0.isUserInteractionEnabled = false
-      view.addSubview($0)
-    }
-    
-    DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-      UIView.animate(withDuration: 0.2, animations: {
-        confettiView.alpha = 0
-      }) { _ in
-        confettiView.removeFromSuperview()
-      }
+    if !Challenge.State.saw(challenge) {
+      itsAParty()
     }
 
     viewModel.input.viewDidLoad.trigger()
@@ -167,6 +163,22 @@ class CompletedChallengeViewController: BindableViewController, UITableViewDeleg
     return UIView()
   }
 
+  private func itsAParty() {
+    let confettiView = SwiftConfettiView(frame: view.bounds).apply {
+      $0.startConfetti()
+      $0.isUserInteractionEnabled = false
+      view.addSubview($0)
+    }
+    
+    DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+      UIView.animate(withDuration: 0.2, animations: {
+        confettiView.alpha = 0
+      }) { _ in
+        confettiView.removeFromSuperview()
+      }
+    }
+  }
+  
   @objc private func chatTapped() {
     push(ChatViewController(challenge: challenge))
   }
