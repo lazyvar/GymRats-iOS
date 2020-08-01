@@ -43,9 +43,13 @@ class CreateWorkoutViewController: GRFormViewController {
     var challenges: [Int: BehaviorRelay<Bool>] = [:]
     var workoutImage: UIImage
     var healthKitWorkout: HKWorkout?
-  
-    lazy var submitButton = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(postWorkout))
-    lazy var cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissSelf))
+
+    lazy var submitButton = UIBarButtonItem(title: "Post", style: .done, target: self, action: #selector(postWorkout))
+    lazy var cancelButton = UIBarButtonItem.close(target: self).apply {
+      $0.setTitleTextAttributes([
+        NSAttributedString.Key.font: UIFont.body
+      ], for: .normal)
+    }
 
     let placeRow = PushRow<Place>() {
         $0.title = "Current location"
@@ -86,16 +90,14 @@ class CreateWorkoutViewController: GRFormViewController {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-
-        submitButton.tintColor = .brand
-        navigationItem.rightBarButtonItem = submitButton
-        navigationItem.leftBarButtonItem = cancelButton
-
-        title = "Log workout"
-        
-        tableView.backgroundColor = .background
-
+      super.viewDidLoad()
+      
+      submitButton.tintColor = .brand
+      navigationItem.rightBarButtonItem = submitButton
+      navigationItem.leftBarButtonItem = cancelButton
+      
+      tableView.backgroundColor = .background
+      navigationItem.title = "New workout"
       navigationItem.largeTitleDisplayMode = .never
       
       LabelRow.defaultCellUpdate = nil
@@ -321,7 +323,7 @@ class CreateWorkoutViewController: GRFormViewController {
   }
   
     @objc func postWorkout() {
-      guard (title.value ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isNotEmpty else { presentAlert(title: "Uh-oh", message: "A title is required."); return }
+      guard (workoutTitle.value ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isNotEmpty else { presentAlert(title: "Uh-oh", message: "A title is required."); return }
 
       showLoadingBar(disallowUserInteraction: true)
         
