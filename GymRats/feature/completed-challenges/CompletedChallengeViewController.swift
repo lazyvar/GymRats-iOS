@@ -13,6 +13,7 @@ import SwiftConfettiView
 
 class CompletedChallengeViewController: BindableViewController, UITableViewDelegate {
   var popUp = false
+  var itIsAParty = false
   
   private let viewModel = CompletedChallengeViewModel()
   private let disposeBag = DisposeBag()
@@ -91,15 +92,13 @@ class CompletedChallengeViewController: BindableViewController, UITableViewDeleg
       navigationItem.leftBarButtonItem = .close(target: self)
     } else {
       setupMenuButton()
-      navigationItem.rightBarButtonItems = [menuBarButtonItem, chatBarButtonItem, statsBarButtonItem]
+      navigationItem.rightBarButtonItems = [chatBarButtonItem, statsBarButtonItem]
     }
     
     navigationItem.title = self.challenge.name
     navigationItem.largeTitleDisplayMode = .always
     
-    if !Challenge.State.saw(challenge) {
-      itsAParty()
-    }
+    if itIsAParty { dance() }
 
     viewModel.input.viewDidLoad.trigger()
   }
@@ -163,14 +162,14 @@ class CompletedChallengeViewController: BindableViewController, UITableViewDeleg
     return UIView()
   }
 
-  private func itsAParty() {
+  private func dance() {
     let confettiView = SwiftConfettiView(frame: view.bounds).apply {
       $0.startConfetti()
       $0.isUserInteractionEnabled = false
-      view.addSubview($0)
+      UIApplication.shared.keyWindow!.addSubview($0)
     }
-    
-    DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+
+    DispatchQueue.main.asyncAfter(deadline: .now() + 12) {
       UIView.animate(withDuration: 0.2, animations: {
         confettiView.alpha = 0
       }) { _ in

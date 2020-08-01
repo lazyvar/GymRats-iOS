@@ -47,19 +47,20 @@ class DrawerViewController: UIViewController {
     NotificationCenter.default.rx.notification(.joinedChallenge)
       .compactMap { $0.object as? Challenge }
       .do(onNext: { challenge in
-        if challenge.isPast {
-          UIViewController.topmost().presentAlert(title: "Challenge completed", message: "You have joined a challenge that has already completed.")
-        }
-      })
-      .filter { !$0.isPast }
-      .do(onNext: { challenge in
         UserDefaults.standard.set(challenge.id, forKey: "last_opened_challenge")
       })
       .map { challenge -> (Navigation, Screen) in
-        if challenge.isActive {
+        switch challenge.status {
+        case .active:
           return (.replaceDrawerCenter(animated: true), .activeChallenge(challenge))
-        } else {
+        case .upcoming:
           return (.replaceDrawerCenterInNav(animated: true), .upcomingChallenge(challenge))
+        case .complete:
+          var challenges = Challenge.State.all.state?.object ?? []
+          challenges.removeAll(where: { $0.id == challenge.id })
+          challenges.append(challenge)
+          
+          return RouteCalculator.home(challenges, presentUnseen: false)
         }
       }
       .subscribe(onNext: { (navigation, screen) in

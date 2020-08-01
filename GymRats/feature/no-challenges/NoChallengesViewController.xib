@@ -20,22 +20,22 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="g8b-3q-tlZ">
-                    <rect key="frame" x="25" y="89" width="364" height="418.5"/>
+                    <rect key="frame" x="25" y="64" width="364" height="368.5"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lady-lady" translatesAutoresizingMaskIntoConstraints="NO" id="tC5-c2-KoR">
-                            <rect key="frame" x="0.0" y="0.0" width="364" height="300"/>
+                            <rect key="frame" x="0.0" y="0.0" width="364" height="250"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="300" id="doU-nw-h0H"/>
+                                <constraint firstAttribute="height" constant="250" id="doU-nw-h0H"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No active or upcoming challenges." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="els-pV-L6j">
-                            <rect key="frame" x="0.0" y="325" width="364" height="20.5"/>
+                            <rect key="frame" x="0.0" y="275" width="364" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="KF6-TZ-clv">
-                            <rect key="frame" x="0.0" y="370.5" width="364" height="48"/>
+                            <rect key="frame" x="0.0" y="320.5" width="364" height="48"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2GM-d9-hsH" customClass="SecondaryButton" customModule="GymRats" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="172" height="48"/>
@@ -65,7 +65,7 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
                 <constraint firstItem="g8b-3q-tlZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="25" id="7DN-VS-J3D"/>
-                <constraint firstItem="g8b-3q-tlZ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="45" id="Jj9-VM-nfo"/>
+                <constraint firstItem="g8b-3q-tlZ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="Jj9-VM-nfo"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="g8b-3q-tlZ" secondAttribute="trailing" constant="25" id="RnO-Vx-ZeZ"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

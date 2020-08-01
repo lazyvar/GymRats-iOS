@@ -9,31 +9,32 @@
 import Foundation
 
 enum RouteCalculator {
-  static func home(_ challenges: [Challenge]) -> (Navigation, Screen) {
+  static func home(_ challenges: [Challenge], presentUnseen: Bool = true) -> (Navigation, Screen) {
     guard challenges.isNotEmpty else { return (.replaceDrawerCenterInNav(animated: false), .noChallenges) }
-
+    
     let unseenCompletedChallenges = challenges.unseenCompletedChallenges()
     let activeOrUpcoming = challenges.getActiveAndUpcomingChallenges()
-    let completed = challenges.getPastChallenges()
-
-    defer { unseenCompletedChallenges.witness() }
     
     if activeOrUpcoming.isNotEmpty {
-      if unseenCompletedChallenges.isNotEmpty {
+      if presentUnseen && unseenCompletedChallenges.isNotEmpty {
         UserDefaults.standard.set(0, forKey: "last_opened_challenge")
       }
-       
-      ChallengeFlow.present(completedChallenges: unseenCompletedChallenges)
+ 
+      if presentUnseen {
+        ChallengeFlow.present(completedChallenges: unseenCompletedChallenges)
+        unseenCompletedChallenges.witness()
+      }
       
-      return lastOpened(challenges)
+      return lastOpened(activeOrUpcoming)
     }
     
-    let lastCompleted = completed.sorted { $0.endDate > $1.endDate }.first!
-  
-    Challenge.State.see(lastCompleted)
-    ChallengeFlow.present(completedChallenges: unseenCompletedChallenges.filter { $0.id != lastCompleted.id })
-    
-    return (.replaceDrawerCenterInNav(animated: false), .completedChallenge(lastCompleted))
+    if presentUnseen, let lastCompleted = unseenCompletedChallenges.sorted(by: { $0.endDate > $1.endDate }).first {
+      unseenCompletedChallenges.witness()
+      
+      return (.replaceDrawerCenterInNav(animated: false), .completedChallenge(lastCompleted, itIsAParty: true))
+    } else {
+      return (.replaceDrawerCenterInNav(animated: false), .noChallenges)
+    }
   }
   
   private static func lastOpened(_ challenges: [Challenge]) -> (Navigation, Screen) {
@@ -46,7 +47,7 @@ enum RouteCalculator {
     case .upcoming:
       return (.replaceDrawerCenterInNav(animated: false), .upcomingChallenge(challenge))
     case .complete:
-      return (.replaceDrawerCenterInNav(animated: false), .completedChallenge(challenge))
+      return (.replaceDrawerCenterInNav(animated: false), .completedChallenge(challenge, itIsAParty: true))
     }
   }
 }

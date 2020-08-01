@@ -26,12 +26,12 @@ enum Screen {
   case login
   case getStarted
   case map(placeID: String)
-  case completedChallenge(Challenge)
+  case completedChallenge(Challenge, itIsAParty: Bool)
   
   var viewController: UIViewController {
     switch self {
-    case .completedChallenge(let challenge):
-      return CompletedChallengeViewController(challenge: challenge)
+    case .completedChallenge(let challenge, let itIsAParty):
+      return CompletedChallengeViewController(challenge: challenge).apply { $0.itIsAParty = itIsAParty }
     case .map(placeID: let place):
       return MapViewController(placeID: place)
     case .noChallenges:

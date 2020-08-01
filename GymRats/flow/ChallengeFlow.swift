@@ -120,7 +120,8 @@ enum ChallengeFlow {
     
     let completedViewController = CompletedChallengeViewController(challenge: completed)
     completedViewController.popUp = true
-
+    completedViewController.itIsAParty = true
+    
     let nav = GymRatsNavigationController(rootViewController: completedViewController)
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
