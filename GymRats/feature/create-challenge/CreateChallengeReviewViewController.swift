@@ -138,7 +138,7 @@ class CreateChallengeReviewViewController: UIViewController {
         switch result {
         case .success(let challenge):
           Track.event(.challengeCreated)
-          
+
           self?.push(InviteToChallengeViewController(challenge: challenge))
         case .failure(let error):
           self?.presentAlert(with: error)

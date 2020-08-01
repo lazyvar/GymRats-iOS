@@ -20,10 +20,10 @@ final class HomeViewModel: ViewModel {
     let error = PublishSubject<Error>()
     let navigation = PublishSubject<(Navigation, Screen)>()
   }
-  
+
   let input = Input()
   let output = Output()
-  
+
   init() {
     let challenges = input.viewDidLoad
       .flatMap { _ in Challenge.State.all.fetch() }
@@ -37,19 +37,12 @@ final class HomeViewModel: ViewModel {
     
     Observable.merge(challenges, Challenge.State.all.observe())
       .compactMap { $0.object }
-      .map { $0.filter { $0.isActive || $0.isUpcoming } }
-      .map { challenges -> (Navigation, Screen) in
-        guard challenges.isNotEmpty else { return (.replaceDrawerCenterInNav(animated: false), .noChallenges) }
-        
-        let challengeId = UserDefaults.standard.integer(forKey: "last_opened_challenge")
-        let challenge = challenges.first { $0.id == challengeId } ?? challenges.first!
-        
-        if challenge.isActive {
-          return (.replaceDrawerCenter(animated: false), .activeChallenge(challenge))
-        } else {
-          return (.replaceDrawerCenterInNav(animated: false), .upcomingChallenge(challenge))
+      .do(onNext: { challenges in
+        challenges.getActiveAndUpcomingChallenges().forEach { challenge in
+          Challenge.State.join(challenge)
         }
-      }
+      })
+      .map { RouteCalculator.home($0) }
       .do(onNext: { _ in
         GymRats.handleColdStartNotification()
       })

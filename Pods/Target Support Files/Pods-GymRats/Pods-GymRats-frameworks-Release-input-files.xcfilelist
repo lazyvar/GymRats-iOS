@@ -33,6 +33,7 @@ ${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework
 ${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
 ${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework
 ${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework
+${BUILT_PRODUCTS_DIR}/SwiftConfettiView/SwiftConfettiView.framework
 ${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework
 ${BUILT_PRODUCTS_DIR}/SwiftPhoenixClient/SwiftPhoenixClient.framework
 ${BUILT_PRODUCTS_DIR}/TTTAttributedLabel/TTTAttributedLabel.framework

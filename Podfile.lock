@@ -156,6 +156,7 @@ PODS:
   - SDWebImage/Core (5.7.2)
   - SkeletonView (1.8.7)
   - Starscream (3.1.1)
+  - SwiftConfettiView (0.1.0)
   - SwiftDate (5.1.0)
   - SwiftPhoenixClient (1.2.0):
     - Starscream (~> 3.1.0)
@@ -194,6 +195,7 @@ DEPENDENCIES:
   - RxOptional
   - RxSwift (~> 5)
   - SkeletonView
+  - SwiftConfettiView
   - SwiftDate (~> 5.0)
   - SwiftPhoenixClient
   - TTTAttributedLabel
@@ -252,6 +254,7 @@ SPEC REPOS:
     - SDWebImage
     - SkeletonView
     - Starscream
+    - SwiftConfettiView
     - SwiftDate
     - SwiftPhoenixClient
     - TTTAttributedLabel
@@ -309,12 +312,13 @@ SPEC CHECKSUMS:
   SDWebImage: d9ea4959d99c52276dfada481987018fcaea3d58
   SkeletonView: ba5370f41280b2f0a76918bb143c1294232bb4f4
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
+  SwiftConfettiView: 1bdbc2e6913b6b1c76d8070802b212508ad5c352
   SwiftDate: 6329e58969a2de31cea7f1ee1143b247693196e7
   SwiftPhoenixClient: ba22ba809b345522afe478817d7cb51ee3d49365
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UIScrollView-InfiniteScroll: 3ef456bcbe759c19f510a383cff96e6647c98c98
   UnsplashPhotoPicker: 86520e34cfded8fb4a41910bf87afe571906b4e3
 
-PODFILE CHECKSUM: fabbc798840ea4ea1dcff153440a433ac59da38e
+PODFILE CHECKSUM: 79ade879fed182fd5b0586502bbba43e1b19c39b
 
 COCOAPODS: 1.9.1

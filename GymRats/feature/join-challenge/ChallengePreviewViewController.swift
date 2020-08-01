@@ -173,7 +173,7 @@ class ChallengePreviewViewController: UIViewController {
         self?.hideLoadingBar()
         
         switch result {
-        case .success(let challenge):
+        case .success(let challenge):          
           if let self = self { Challenge.State.all.fetch().ignore(disposedBy: self.disposeBag) }
           
           NotificationCenter.default.post(name: .joinedChallenge, object: challenge)

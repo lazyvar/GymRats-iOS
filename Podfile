@@ -38,6 +38,7 @@ target 'GymRats' do
     pod 'RxKeyboard'
     pod 'UnsplashPhotoPicker', '~> 1.1.1'
     pod 'ImageViewer.swift', '~> 3.0'
+    pod 'SwiftConfettiView'
 
     target 'GymRatsTests' do
         inherit! :search_paths
