@@ -20,6 +20,7 @@ class CompletedChallengeViewController: BindableViewController {
       tableView.backgroundColor = .background
       tableView.showsVerticalScrollIndicator = false
       tableView.separatorStyle = .none
+      tableView.registerCellNibForClass(ChallengeBannerImageCell.self)
     }
   }
   
@@ -34,15 +35,43 @@ class CompletedChallengeViewController: BindableViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
+  private lazy var chatBarButtonItem = UIBarButtonItem (
+    image: .chat,
+    style: .plain,
+    target: self,
+    action: #selector(chatTapped)
+  )
+
+  private lazy var menuBarButtonItem = UIBarButtonItem(
+    image: .moreHorizontal,
+    style: .plain,
+    target: self,
+    action: #selector(menuTapped)
+  )
+
+  private lazy var statsBarButtonItem = UIBarButtonItem(
+    image: .award,
+    style: .plain,
+    target: self,
+    action: #selector(statsTapped)
+  )
+  
   private var dataSource = RxTableViewSectionedReloadDataSource<CompletedChallengeSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
-    return UITableViewCell()
+    switch row {
+    case .banner(let url):
+      return ChallengeBannerImageCell.configure(tableView: tableView, indexPath: indexPath, imageURL: url)
+    default: return UITableViewCell().apply { $0.backgroundColor = .niceBlue }
+    }
   })
 
   override func viewDidLoad() {
     super.viewDidLoad()
   
-    setupForHome()
-  
+    setupMenuButton()
+    navigationItem.title = self.challenge.name
+    navigationItem.largeTitleDisplayMode = .always
+    navigationItem.rightBarButtonItems = [menuBarButtonItem, chatBarButtonItem, statsBarButtonItem]
+    
     viewModel.input.viewDidLoad.trigger()
   }
   
@@ -50,5 +79,64 @@ class CompletedChallengeViewController: BindableViewController {
     viewModel.output.sections
       .bind(to: tableView.rx.items(dataSource: dataSource))
       .disposed(by: disposeBag)
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+
+    gymRatsAPI.getChatNotificationCount(for: challenge)
+      .subscribe(onNext: { [weak self] result in
+        let count = result.object?.count ?? 0
+        
+        if count == .zero {
+          self?.chatBarButtonItem.image = .chat
+        } else {
+          self?.chatBarButtonItem.image = UIImage.chatUnread.withRenderingMode(.alwaysOriginal)
+        }
+      })
+      .disposed(by: disposeBag)
+  }
+  
+  @objc private func chatTapped() {
+    push(ChatViewController(challenge: challenge))
+  }
+  
+  @objc private func statsTapped() {
+    push(ChallengeStatsViewController(challenge: challenge))
+  }
+  
+  @objc private func menuTapped() {
+    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+    let inviteAction = UIAlertAction(title: "Invite", style: .default) { _ in
+      ChallengeFlow.invite(to: self.challenge)
+    }
+    
+    let editAction = UIAlertAction(title: "Edit", style: .default) { _ in
+      let editViewController = EditChallengeViewController(challenge: self.challenge)
+      
+      self.present(editViewController.inNav(), animated: true, completion: nil)
+    }
+
+    let changeBanner = UIAlertAction(title: "Change banner", style: .default) { _ in
+      self.present(ChangeBannerViewController(challenge: self.challenge))
+    }
+
+    let deleteAction = UIAlertAction(title: "Leave", style: .destructive) { _ in
+      ChallengeFlow.leave(self.challenge)
+    }
+    
+    let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    
+    alertViewController.addAction(inviteAction)
+    
+    if Membership.State.owner(of: challenge) {
+      alertViewController.addAction(editAction)
+      alertViewController.addAction(changeBanner)
+    }
+    
+    alertViewController.addAction(deleteAction)
+    alertViewController.addAction(cancelAction)
+    
+    present(alertViewController, animated: true, completion: nil)
   }
 }

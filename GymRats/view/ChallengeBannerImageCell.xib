@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="178" id="KGk-i7-Jjw" customClass="ChallengeBannerImageCell" customModule="GymRats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="408" height="178"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="408" height="178"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oWh-gv-NEs" customClass="SpookyView" customModule="GymRats" customModuleProvider="target">
+                        <rect key="frame" x="20" y="10" width="368" height="150"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Co-Zi-zam">
+                                <rect key="frame" x="0.0" y="0.0" width="368" height="150"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="9Co-Zi-zam" secondAttribute="bottom" id="7tW-rI-IIp"/>
+                            <constraint firstAttribute="trailing" secondItem="9Co-Zi-zam" secondAttribute="trailing" id="Edy-bL-xAi"/>
+                            <constraint firstItem="9Co-Zi-zam" firstAttribute="leading" secondItem="oWh-gv-NEs" secondAttribute="leading" id="RHJ-rE-jrZ"/>
+                            <constraint firstItem="9Co-Zi-zam" firstAttribute="top" secondItem="oWh-gv-NEs" secondAttribute="top" id="Uy6-4f-9eX"/>
+                            <constraint firstAttribute="height" constant="150" id="bb8-yA-hdn"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="oWh-gv-NEs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="IBd-ab-0WJ"/>
+                    <constraint firstAttribute="trailing" secondItem="oWh-gv-NEs" secondAttribute="trailing" constant="20" id="dre-Vt-AzD"/>
+                    <constraint firstItem="oWh-gv-NEs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="t7e-vS-f1K"/>
+                    <constraint firstAttribute="bottom" secondItem="oWh-gv-NEs" secondAttribute="bottom" constant="10" id="xLb-Sk-eWv"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="bannerImageView" destination="9Co-Zi-zam" id="5c6-bg-KVl"/>
+            </connections>
+            <point key="canvasLocation" x="-13" y="-5"/>
+        </tableViewCell>
+    </objects>
+</document>

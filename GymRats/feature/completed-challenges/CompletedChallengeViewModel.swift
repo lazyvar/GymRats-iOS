@@ -33,10 +33,17 @@ final class CompletedChallengeViewModel: ViewModel {
       .flatMap { gymRatsAPI.getRankings(challenge: self.challenge) }
       .compactMap { $0.object }
       .map { rankings -> ([Ranking], [CompletedChallengeRow]) in
+        let stuff: [CompletedChallengeRow]
+        
+        if let url = self.challenge.profilePictureUrl {
+          stuff = [.banner(url)]
+        } else {
+          stuff = []
+        }
+        
         return (
           rankings,
-          [
-            .banner(""),
+          stuff + [
             .description(self.description(for: self.challenge, rankings: rankings)),
             .share(self.challenge),
             .startNewChallenge(self.challenge)
