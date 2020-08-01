@@ -34,6 +34,7 @@ enum APIRequest {
   case registerDevice(deviceToken: String)
   case getChallenge(id: Int)
   case getWorkout(id: Int)
+  case getRankings(Challenge)
   case deleteDevice
   case seeChatNotifications(Challenge)
   case leaveChallenge(_ challenge: Challenge)
@@ -68,6 +69,8 @@ enum APIRequest {
       return (.get, "challenges", nil)
     case .getChallengeForCode(let code):
       return (.get, "challenges?code=\(code)", nil)
+    case .getRankings(let challenge):
+      return (.get, "challenges/\(challenge.id)/rankings", nil)
     case .getCompletedChallenges:
       return (.get, "challenges?filter=complete", nil)
     case .joinChallenge(let code):
