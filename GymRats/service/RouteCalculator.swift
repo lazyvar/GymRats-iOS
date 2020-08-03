@@ -10,6 +10,10 @@ import Foundation
 
 enum RouteCalculator {
   static func home(_ challenges: [Challenge], presentUnseen: Bool = true) -> (Navigation, Screen) {
+    let c = challenges.first(where: { $0.name == "Climb Mount Everest" })!
+    
+    return (.replaceDrawerCenterInNav(animated: false), .shareChallenge(c))
+    
     guard challenges.isNotEmpty else { return (.replaceDrawerCenterInNav(animated: false), .noChallenges) }
     
     let unseenCompletedChallenges = challenges.unseenCompletedChallenges()

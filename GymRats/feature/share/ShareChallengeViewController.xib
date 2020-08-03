@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShareChallengeViewController" customModule="GymRats" customModuleProvider="target">
+            <connections>
+                <outlet property="preview" destination="cbb-dn-HXH" id="peJ-CG-6l2"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8pH-YN-N85">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cbb-dn-HXH">
+                            <rect key="frame" x="20" y="0.0" width="374" height="373"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="cbb-dn-HXH" secondAttribute="height" multiplier="1:1" constant="1" id="6yi-Lh-W7y"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="cbb-dn-HXH" firstAttribute="leading" secondItem="NrR-9h-g0W" secondAttribute="leading" constant="20" id="SzZ-W3-5oe"/>
+                        <constraint firstItem="cbb-dn-HXH" firstAttribute="top" secondItem="NrR-9h-g0W" secondAttribute="top" id="YLp-Dh-v7x"/>
+                        <constraint firstItem="NrR-9h-g0W" firstAttribute="trailing" secondItem="cbb-dn-HXH" secondAttribute="trailing" constant="20" id="cK7-j4-cae"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="Bft-U6-WjE"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="NrR-9h-g0W"/>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="8pH-YN-N85" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="3rC-aw-HTf"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="8pH-YN-N85" secondAttribute="bottom" id="8mL-Ku-2KB"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="8pH-YN-N85" secondAttribute="trailing" id="Rpi-bJ-Td0"/>
+                <constraint firstItem="8pH-YN-N85" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="amJ-u1-TdS"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="15.942028985507248" y="148.66071428571428"/>
+        </view>
+    </objects>
+</document>

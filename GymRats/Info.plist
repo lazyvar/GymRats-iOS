@@ -66,6 +66,8 @@
 	<string>For posting workout pictures.</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>SF-Pro-Rounded-Semibold.otf</string>
+		<string>SF-Pro-Rounded-Black.otf</string>
 		<string>SF-Pro-Rounded-Regular.otf</string>
 		<string>SF-Pro-Rounded-Bold.otf</string>
 		<string>Lato-Regular.ttf</string>

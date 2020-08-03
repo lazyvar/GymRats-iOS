@@ -31,4 +31,12 @@ extension UIFont {
   static func proRoundedBold(size: CGFloat) -> UIFont {
     return UIFont(name: "SFProRounded-Bold", size: size)!
   }
+
+  static func proRoundedSemibold(size: CGFloat) -> UIFont {
+    return UIFont(name: "SFProRounded-Semibold", size: size)!
+  }
+
+  static func proRoundedBlack(size: CGFloat) -> UIFont {
+    return UIFont(name: "SFProRounded-Black", size: size)!
+  }
 }
