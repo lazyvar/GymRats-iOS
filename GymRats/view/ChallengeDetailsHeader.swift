@@ -76,6 +76,8 @@ class ChallengeDetailsHeader: UITableViewCell {
         cell.barBackground.removeConstraint(cell.barMultiplier)
         cell.barBackground.addConstraint(newConstraint)
         cell.barBackground.layoutIfNeeded()
+        
+        cell.barMultiplier = newConstraint
       }
     }
   }

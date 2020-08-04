@@ -50,7 +50,9 @@ class ChallengeDetailsViewController: BindableViewController {
         // TODO: Full leaderboard ...
       }
     case .ranking(let ranking, let place, let scoreBy):
-      return RankingCell.configure(tableView: tableView, indexPath: indexPath, ranking: ranking, place: place, scoreBy: scoreBy)
+      return RankingCell.configure(tableView: tableView, indexPath: indexPath, ranking: ranking, place: place, scoreBy: scoreBy) {
+        self.push(ProfileViewController(account: ranking.account, challenge: self.challenge))
+      }
     case .groupStats:
       return UITableViewCell()
     }
