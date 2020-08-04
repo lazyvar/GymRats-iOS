@@ -257,7 +257,7 @@ class ChallengeViewController: BindableViewController {
   
   @objc private func statsTapped() {
     push(
-      ChallengeStatsViewController(challenge: challenge)
+      ChallengeDetailsViewController(challenge: challenge)
     )
   }
   

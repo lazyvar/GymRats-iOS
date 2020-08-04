@@ -183,7 +183,7 @@ class CompletedChallengeViewController: BindableViewController, UITableViewDeleg
   }
   
   @objc private func statsTapped() {
-    push(ChallengeStatsViewController(challenge: challenge))
+    push(ChallengeDetailsViewController(challenge: challenge))
   }
   
   @objc private func menuTapped() {

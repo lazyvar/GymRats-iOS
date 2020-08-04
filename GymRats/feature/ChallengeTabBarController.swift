@@ -93,7 +93,7 @@ private extension ChallengeTabBarController {
   
   private func pushStats() {
     challengeViewController.push(
-      ChallengeStatsViewController(challenge: challenge)
+      ChallengeDetailsViewController(challenge: challenge)
     )
   }
   
