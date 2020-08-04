@@ -135,9 +135,10 @@ class ShareChallengeViewController: UIViewController {
     KingfisherManager.shared.cache.clearMemoryCache()
     shuffleButton.isEnabled = false
     shuffleButton.isUserInteractionEnabled = false
-
+    
     UIView.animate(withDuration: 0.1) {
       self.loadingBackground.alpha = 1
+      self.shareChallengeView.workoutImages = []
     }
 
     Observable.merge(self.selectedWorkouts.map { self.fetchImage(from: $0) })
@@ -167,7 +168,13 @@ class ShareChallengeViewController: UIViewController {
       })
       .disposed(by: self.disposeBag)
   }
+  
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
     
+    KingfisherManager.shared.cache.clearMemoryCache()
+  }
+  
   @objc private func donePicker() {
     view.endEditing(true)
     
