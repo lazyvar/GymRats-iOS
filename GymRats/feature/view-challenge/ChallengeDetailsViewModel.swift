@@ -39,11 +39,37 @@ final class ChallengeDetailsViewModel: ViewModel {
       return (members, rankings)
     }
     .map { members, rankings -> [ChallengeDetailsSection] in
+      let myRank = rankings.firstIndex(where: { $0.account.id == GymRats.currentAccount.id })
+      let firstRank = rankings.first
+      let secondRank = rankings[safe: 1]
+      
+      let ordered: [(Ranking, place: Int)] = {
+        if let myRank = myRank {
+          let firstRank = firstRank!
+          
+          if firstRank.account.id != GymRats.currentAccount.id {
+            let me = rankings[myRank]
+            
+            return [(firstRank, place: 1), (me, place: myRank + 1)]
+          } else {
+            if let secondRank = secondRank {
+              return [(firstRank, place: 1), (secondRank, place: 2)]
+            } else {
+              return [(rankings.first!, place: 1)]
+            }
+          }
+        } else if let firstRank = firstRank {
+          return [(firstRank, place: 1)]
+        } else {
+          return []
+        }
+      }()
+      
       return [
         ChallengeDetailsSection(model: nil, items: [.header(self.challenge)]),
         ChallengeDetailsSection(model: "Members", items: [.members(members)]),
-        ChallengeDetailsSection(model: "Rankings", items: rankings.enumerated().map { ranking in
-          ChallengeDetailsRow.ranking(ranking.element, place: ranking.offset + 1, self.challenge.scoreBy)
+        ChallengeDetailsSection(model: "Rankings", items: ordered.map { ranking in
+          ChallengeDetailsRow.ranking(ranking.0, place: ranking.place, self.challenge.scoreBy)
         } + [.fullLeaderboard]),
         ChallengeDetailsSection(model: "Group stats", items: [.groupStats])
       ]
