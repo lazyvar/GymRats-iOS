@@ -21,6 +21,16 @@ class ShareChallengeViewController: UIViewController {
     }
   }
   
+  private var selectedGridSize = ShareChallengeView.Size.allCases.count - 1
+  private var shareChallengeView: ShareChallengeView!
+  private lazy var picker: UIPickerView = {
+    let picker = UIPickerView()
+    picker.delegate = self
+    picker.dataSource = self
+    
+    return picker
+  }()
+  
   @IBOutlet private weak var preview: UIView! {
     didSet {
       preview.layer.cornerRadius = 4
@@ -29,9 +39,42 @@ class ShareChallengeViewController: UIViewController {
   }
 
   @IBOutlet private weak var previewImageView: UIImageView!
-
-  private var shareChallengeView: ShareChallengeView!
   
+  @IBOutlet private weak var gridSizeTextField: UITextField! {
+    didSet {
+      gridSizeTextField.inputView = picker
+      gridSizeTextField.textColor = .primaryText
+      gridSizeTextField.font = .body
+      let toolBar = UIToolbar()
+      toolBar.barStyle = .default
+      toolBar.isTranslucent = true
+      toolBar.tintColor = .brand
+      toolBar.sizeToFit()
+
+      let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(donePicker))
+      let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+      let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(cancelPicker))
+
+      toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+      toolBar.isUserInteractionEnabled = true
+      
+      gridSizeTextField.inputAccessoryView = toolBar
+    }
+  }
+  
+  @IBOutlet private weak var numberOfWorkoutsHeader: UILabel! {
+    didSet {
+      numberOfWorkoutsHeader.font = .h4
+      numberOfWorkoutsHeader.textColor = .primaryText
+    }
+  }
+  
+  @IBOutlet private weak var shuffleButton: SecondaryButton! {
+    didSet {
+      shuffleButton.tintColor = .primaryText
+    }
+  }
+
   @IBOutlet private weak var loadingBackground: UIView! {
     didSet {
       loadingBackground.backgroundColor = .asbestos
@@ -75,26 +118,24 @@ class ShareChallengeViewController: UIViewController {
         guard let self = self else { return }
         guard let workouts = a.object, let challengeInfo = b.object else { self.presentAlert(with: (a.error ?? b.error)!); return }
 
-        self.shareChallengeView.size = {
-          if workouts.count >= 16 {
-            return .sixteen
-          } else if workouts.count >= 9 {
-            return .nine
-          } else {
-            return .four
-          }
-        }()
-        
+        self.shareChallengeView.size = ShareChallengeView.Size(rawValue: min(Int(sqrt(Double(workouts.count))), 7)) ?? .four
+        self.gridSizeTextField.text = "\(self.shareChallengeView.size.rawValue)"
+        self.selectedGridSize = ShareChallengeView.Size.allCases.firstIndex(of: self.shareChallengeView.size)!
+        self.picker.selectRow(ShareChallengeView.Size.allCases.firstIndex(of: self.shareChallengeView.size)!, inComponent: 0, animated: false)
         self.shareChallengeView.memberCount = challengeInfo.memberCount
         self.shareChallengeView.score = "\(workouts.count) workouts"
         self.shareChallengeView.days = self.challenge.days.count
         self.allWorkouts = workouts
-        self.selectedWorkouts = Array(self.allWorkouts.shuffled().prefix(self.shareChallengeView.size.rawValue))
+        self.selectedWorkouts = Array(self.allWorkouts.shuffled().prefix(self.shareChallengeView.size.total))
       })
       .disposed(by: disposeBag)
   }
 
   private func fetchSelectedWorkouts() {
+    KingfisherManager.shared.cache.clearMemoryCache()
+    shuffleButton.isEnabled = false
+    shuffleButton.isUserInteractionEnabled = false
+
     UIView.animate(withDuration: 0.1) {
       self.loadingBackground.alpha = 1
     }
@@ -112,10 +153,13 @@ class ShareChallengeViewController: UIViewController {
           DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
 
-            UIView.animate(withDuration: 0.1) {
+            UIView.animate(withDuration: 0.1, animations:  {
               self.loadingBackground.alpha = 0
               self.previewImageView.image = self.shareChallengeView.imageFromContext()
-            }
+            }, completion: { _ in
+              self.shuffleButton.isEnabled = true
+              self.shuffleButton.isUserInteractionEnabled = true
+            })
           }
         }
       }, onError: { _ in
@@ -123,8 +167,23 @@ class ShareChallengeViewController: UIViewController {
       })
       .disposed(by: self.disposeBag)
   }
+    
+  @objc private func donePicker() {
+    view.endEditing(true)
+    
+    shareChallengeView.size = ShareChallengeView.Size.allCases[selectedGridSize]
+    gridSizeTextField.text = "\(shareChallengeView.size.rawValue)"
+    selectedWorkouts = Array(allWorkouts.shuffled().prefix(shareChallengeView.size.total))
+  }
   
-  func fetchImage(from workout: Workout) -> Observable<UIImage?> {
+  @objc private func cancelPicker() {
+    view.endEditing(true)
+    
+    picker.selectRow(ShareChallengeView.Size.allCases.firstIndex(of: self.shareChallengeView.size)!, inComponent: 0, animated: false)
+    selectedGridSize = ShareChallengeView.Size.allCases.firstIndex(of: self.shareChallengeView.size)!
+  }
+
+  private func fetchImage(from workout: Workout) -> Observable<UIImage?> {
     return Observable.create { subscriber -> Disposable in
       DispatchQueue.global().async {
         guard let photoUrl = workout.photoUrl, let url = URL(string: photoUrl) else {
@@ -149,5 +208,27 @@ class ShareChallengeViewController: UIViewController {
     let activityViewController = UIActivityViewController(activityItems: [previewImage as Any], applicationActivities: nil)
     
     present(activityViewController, animated: true)
+  }
+  
+  @IBAction private func shuffle(_ sender: Any) {
+    self.selectedWorkouts = Array(self.allWorkouts.shuffled().prefix(self.shareChallengeView.size.total))
+  }
+}
+
+extension ShareChallengeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+  func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    return 1
+  }
+  
+  func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    return ShareChallengeView.Size.allCases.count
+  }
+  
+  func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    return "\(ShareChallengeView.Size.allCases[row].rawValue)"
+  }
+  
+  func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    selectedGridSize = row
   }
 }

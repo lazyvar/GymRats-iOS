@@ -11,21 +11,18 @@ import UIKit
 class ShareChallengeView: UIView {
   private var tintLayer: CAGradientLayer!
 
-  enum Size: Int {
+  enum Size: Int, CaseIterable {
+    case two = 2
+    case three = 3
     case four = 4
-    case nine = 9
-    case sixteen = 16
-
-    var side: CGFloat {
-      switch self {
-      case .four: return 2
-      case .nine: return 3
-      case .sixteen: return 4
-      }
-    }
+    case five = 5
+    case six = 6
+    case seven = 7
+    
+    var total: Int { rawValue.squared }
   }
   
-  var size: Size = .sixteen
+  var size: Size = .seven
   var challenge: Challenge? {
     didSet {
       challengeNameLabel?.text = challenge?.name
@@ -150,7 +147,7 @@ class ShareChallengeView: UIView {
 
 extension ShareChallengeView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return size.rawValue
+    return size.total
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -158,9 +155,9 @@ extension ShareChallengeView: UICollectionViewDelegate, UICollectionViewDataSour
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let side: CGFloat = frame.width / size.side
+    let square = frame.width / CGFloat(size.rawValue)
     
-    return CGSize(width: side, height: side)
+    return CGSize(width: square, height: square)
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -170,4 +167,8 @@ extension ShareChallengeView: UICollectionViewDelegate, UICollectionViewDataSour
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
     return .zero
   }
+}
+
+extension Int {
+  var squared: Int { self * self }
 }
