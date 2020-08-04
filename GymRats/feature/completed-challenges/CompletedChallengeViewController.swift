@@ -93,7 +93,7 @@ class CompletedChallengeViewController: BindableViewController, UITableViewDeleg
     if popUp {
       navigationItem.leftBarButtonItem = .close(target: self)
     } else {
-// TODO: setupMenuButton()
+      // TODO: setupMenuButton()
       navigationItem.rightBarButtonItems = [chatBarButtonItem, statsBarButtonItem]
     }
     
@@ -134,7 +134,7 @@ class CompletedChallengeViewController: BindableViewController, UITableViewDeleg
     
     let label = UILabel()
     label.backgroundColor = .clear
-    label.font = .h4Bold
+    label.font = .bodyBold
     label.translatesAutoresizingMaskIntoConstraints = false
     label.text = header
 
@@ -153,7 +153,7 @@ class CompletedChallengeViewController: BindableViewController, UITableViewDeleg
 
     guard model != nil else { return .zero }
 
-    return 25
+    return 35
   }
   
   func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

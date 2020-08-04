@@ -10,63 +10,39 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="77" id="KGk-i7-Jjw" customClass="NewChallengeButtonCell" customModule="GymRats" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="411" height="77"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="86" id="KGk-i7-Jjw" customClass="NewChallengeButtonCell" customModule="GymRats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="422" height="86"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="411" height="77"/>
+                <rect key="frame" x="0.0" y="0.0" width="422" height="86"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h0D-qb-lTY" customClass="SpookyView" customModule="GymRats" customModuleProvider="target">
-                        <rect key="frame" x="20" y="5" width="371" height="50"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play" translatesAutoresizingMaskIntoConstraints="NO" id="HPL-va-F6Y">
-                                <rect key="frame" x="10" y="12.5" width="25" height="25"/>
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start challenge with this group" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LMG-Wk-4eW">
-                                <rect key="frame" x="40" y="14.5" width="234" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron-right" translatesAutoresizingMaskIntoConstraints="NO" id="gyx-wh-3dL">
-                                <rect key="frame" x="336" y="12.5" width="25" height="25"/>
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ELp-vE-ekh" customClass="SecondaryButton" customModule="GymRats" customModuleProvider="target">
+                        <rect key="frame" x="20" y="5" width="382" height="48"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="gyx-wh-3dL" secondAttribute="trailing" constant="10" id="3fd-bl-IPe"/>
-                            <constraint firstAttribute="height" constant="50" id="82c-se-v2J"/>
-                            <constraint firstItem="gyx-wh-3dL" firstAttribute="centerY" secondItem="h0D-qb-lTY" secondAttribute="centerY" id="Fin-wi-KyB"/>
-                            <constraint firstItem="LMG-Wk-4eW" firstAttribute="leading" secondItem="HPL-va-F6Y" secondAttribute="trailing" constant="5" id="gfP-vh-vOI"/>
-                            <constraint firstItem="HPL-va-F6Y" firstAttribute="leading" secondItem="h0D-qb-lTY" secondAttribute="leading" constant="10" id="nTW-Yf-CUy"/>
-                            <constraint firstItem="HPL-va-F6Y" firstAttribute="centerY" secondItem="h0D-qb-lTY" secondAttribute="centerY" id="pUN-ap-N6O"/>
-                            <constraint firstItem="LMG-Wk-4eW" firstAttribute="centerY" secondItem="h0D-qb-lTY" secondAttribute="centerY" id="vID-ac-0ie"/>
+                            <constraint firstAttribute="height" constant="48" id="Dsu-19-sIn"/>
                         </constraints>
-                    </view>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
+                        <state key="normal" title="Start challenge with this group" image="play"/>
+                        <connections>
+                            <action selector="pressMe:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="AJd-Jn-Ogs"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="h0D-qb-lTY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="O4v-ZW-MgK"/>
-                    <constraint firstAttribute="bottom" secondItem="h0D-qb-lTY" secondAttribute="bottom" constant="5" id="UK5-mC-m50"/>
-                    <constraint firstItem="h0D-qb-lTY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="fou-8n-pK6"/>
-                    <constraint firstAttribute="trailing" secondItem="h0D-qb-lTY" secondAttribute="trailing" constant="20" id="zs7-mN-qbu"/>
+                    <constraint firstAttribute="bottom" secondItem="ELp-vE-ekh" secondAttribute="bottom" constant="5" id="HcK-dW-SEg"/>
+                    <constraint firstItem="ELp-vE-ekh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Uxc-hF-GbL"/>
+                    <constraint firstItem="ELp-vE-ekh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="pbD-hs-4vM"/>
+                    <constraint firstAttribute="trailing" secondItem="ELp-vE-ekh" secondAttribute="trailing" constant="20" id="rgb-k7-bZg"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <connections>
-                <outlet property="chevron" destination="gyx-wh-3dL" id="U3I-4Q-F9Q"/>
-                <outlet property="label" destination="LMG-Wk-4eW" id="uGI-Us-p5n"/>
-                <outlet property="play" destination="HPL-va-F6Y" id="tWB-5g-KOg"/>
-            </connections>
-            <point key="canvasLocation" x="197.82608695652175" y="140.95982142857142"/>
+            <point key="canvasLocation" x="205.79710144927537" y="143.97321428571428"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="chevron-right" width="25" height="25"/>
         <image name="play" width="25" height="25"/>
     </resources>
 </document>

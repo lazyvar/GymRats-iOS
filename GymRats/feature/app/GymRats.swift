@@ -169,10 +169,12 @@ enum GymRats {
     }
   }
   
+  /// Opens the URLs.
   static func open(_ url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) {
     branch.application(application, open: url, options: options)
   }
   
+  /// Continues user activities.
   static func `continue`(_ userActivity: NSUserActivity) -> Void {
     branch.continue(userActivity)
   }
