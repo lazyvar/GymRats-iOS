@@ -25,6 +25,7 @@ class ChallengeDetailsViewController: BindableViewController {
       tableView.registerCellNibForClass(FullLeaderboardCell.self)
       tableView.registerCellNibForClass(ChallengeDetailsHeader.self)
       tableView.registerCellNibForClass(RankingCell.self)
+      tableView.registerCellNibForClass(MembersCell.self)
     }
   }
   
@@ -44,7 +45,9 @@ class ChallengeDetailsViewController: BindableViewController {
     case .header(let challenge):
       return ChallengeDetailsHeader.configure(tableView: tableView, indexPath: indexPath, challenge: challenge)
     case .members(let members):
-      return UITableViewCell()
+      return MembersCell.configure(tableView: tableView, indexPath: indexPath, accounts: members) { account in
+        self.push(ProfileViewController(account: account, challenge: self.challenge))
+      }
     case .fullLeaderboard:
       return FullLeaderboardCell.configure(tableView: tableView, indexPath: indexPath) {
         // TODO: Full leaderboard ...

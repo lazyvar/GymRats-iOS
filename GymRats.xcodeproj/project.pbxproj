@@ -122,6 +122,10 @@
 		0169395F24D9DB040011C1A8 /* FullLeaderboardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0169395D24D9DB040011C1A8 /* FullLeaderboardCell.xib */; };
 		0169396224D9DF870011C1A8 /* ChallengeDetailsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0169396024D9DF870011C1A8 /* ChallengeDetailsHeader.swift */; };
 		0169396324D9DF870011C1A8 /* ChallengeDetailsHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0169396124D9DF870011C1A8 /* ChallengeDetailsHeader.xib */; };
+		0169396624DA08AC0011C1A8 /* MembersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0169396424DA08AC0011C1A8 /* MembersCell.swift */; };
+		0169396724DA08AC0011C1A8 /* MembersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0169396524DA08AC0011C1A8 /* MembersCell.xib */; };
+		0169396C24DA09850011C1A8 /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0169396A24DA09850011C1A8 /* MemberCell.swift */; };
+		0169396D24DA09850011C1A8 /* MemberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0169396B24DA09850011C1A8 /* MemberCell.xib */; };
 		01747A5824D8812900A4682B /* ShareChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01747A5624D8812900A4682B /* ShareChallengeViewController.swift */; };
 		01747A5924D8812900A4682B /* ShareChallengeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01747A5724D8812900A4682B /* ShareChallengeViewController.xib */; };
 		01747A5B24D882E700A4682B /* ShareChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01747A5A24D882E700A4682B /* ShareChallengeView.swift */; };
@@ -452,6 +456,10 @@
 		0169395D24D9DB040011C1A8 /* FullLeaderboardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FullLeaderboardCell.xib; sourceTree = "<group>"; };
 		0169396024D9DF870011C1A8 /* ChallengeDetailsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsHeader.swift; sourceTree = "<group>"; };
 		0169396124D9DF870011C1A8 /* ChallengeDetailsHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeDetailsHeader.xib; sourceTree = "<group>"; };
+		0169396424DA08AC0011C1A8 /* MembersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersCell.swift; sourceTree = "<group>"; };
+		0169396524DA08AC0011C1A8 /* MembersCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MembersCell.xib; sourceTree = "<group>"; };
+		0169396A24DA09850011C1A8 /* MemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCell.swift; sourceTree = "<group>"; };
+		0169396B24DA09850011C1A8 /* MemberCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MemberCell.xib; sourceTree = "<group>"; };
 		01747A5624D8812900A4682B /* ShareChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareChallengeViewController.swift; sourceTree = "<group>"; };
 		01747A5724D8812900A4682B /* ShareChallengeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareChallengeViewController.xib; sourceTree = "<group>"; };
 		01747A5A24D882E700A4682B /* ShareChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareChallengeView.swift; sourceTree = "<group>"; };
@@ -994,6 +1002,10 @@
 				0169395D24D9DB040011C1A8 /* FullLeaderboardCell.xib */,
 				0169396024D9DF870011C1A8 /* ChallengeDetailsHeader.swift */,
 				0169396124D9DF870011C1A8 /* ChallengeDetailsHeader.xib */,
+				0169396424DA08AC0011C1A8 /* MembersCell.swift */,
+				0169396524DA08AC0011C1A8 /* MembersCell.xib */,
+				0169396A24DA09850011C1A8 /* MemberCell.swift */,
+				0169396B24DA09850011C1A8 /* MemberCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1533,6 +1545,7 @@
 				015C0729243FE0FE003E75E9 /* UpcomingChallengeViewController.xib in Resources */,
 				01297D932329E79000CA9E41 /* SF-Pro-Rounded-Thin.otf in Resources */,
 				014B6773241882C000F356EB /* ChallengeViewController.xib in Resources */,
+				0169396724DA08AC0011C1A8 /* MembersCell.xib in Resources */,
 				01611D45243E954600D1DAA4 /* WorkoutViewController.xib in Resources */,
 				01E833E52325BF7300C66C72 /* ChallengeBannerCell.xib in Resources */,
 				01A6C4E924D4F4D80007DFB6 /* ChallengeBannerImageCell.xib in Resources */,
@@ -1572,6 +1585,7 @@
 				01E700EA2460B6140059017A /* HealthAppPermissionsViewController.xib in Resources */,
 				01FF413524205FDA007D316A /* ProfileViewController.xib in Resources */,
 				01297D862329E79000CA9E41 /* SF-Compact-Rounded-Light.otf in Resources */,
+				0169396D24DA09850011C1A8 /* MemberCell.xib in Resources */,
 				018510042447A3C700C4F1A6 /* ChangeBannerViewController.xib in Resources */,
 				01297D8F2329E79000CA9E41 /* SF-Pro-Rounded-Regular.otf in Resources */,
 				01AC5F5F23CA3A4A00FFAE4D /* SegmentedCell.xib in Resources */,
@@ -1725,6 +1739,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0169396624DA08AC0011C1A8 /* MembersCell.swift in Sources */,
 				01A3EAEC2377471B0097FC2A /* RxEureka.swift in Sources */,
 				01319EDB241879FD005E65D2 /* UpdateUser.swift in Sources */,
 				74A01B40220A560800431ABD /* RingView.swift in Sources */,
@@ -1791,6 +1806,7 @@
 				01A3EB1D237747D30097FC2A /* CVAuxiliaryView.swift in Sources */,
 				01A3EB2A237747D30097FC2A /* CVShape.swift in Sources */,
 				01747A5824D8812900A4682B /* ShareChallengeViewController.swift in Sources */,
+				0169396C24DA09850011C1A8 /* MemberCell.swift in Sources */,
 				018E9F4F229F7DB1008AB016 /* UIStoryboard+Extension.swift in Sources */,
 				01319ED32418746C005E65D2 /* GymRatsAPI.swift in Sources */,
 				747D6FBD2208DBFE0062BB39 /* APIRequest.swift in Sources */,
