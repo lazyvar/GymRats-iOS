@@ -116,7 +116,7 @@ enum GymRats {
       let topmost = UIViewController.topmost()
       let notificationSettings = NotificationSettingsViewController.forOnboarding()
 
-      topmost.present(notificationSettings)
+      topmost.presentInNav(notificationSettings)
     }
   }
   

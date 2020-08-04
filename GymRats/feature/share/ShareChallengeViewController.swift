@@ -63,31 +63,33 @@ class ShareChallengeViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    navigationItem.title = "Share challenge"
-    
     shareChallengeView = ShareChallengeView(frame: CGRect(x: 1000, y: 1000, width: 600, height: 600))
     shareChallengeView.challenge = challenge
-    shareChallengeView.size = .sixteen
     
-    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(share))
-    
+    navigationItem.largeTitleDisplayMode = .never
     view.backgroundColor = .background
     view.addSubview(shareChallengeView)
     
     Observable.combineLatest(gymRatsAPI.getAllWorkouts(for: challenge), gymRatsAPI.challengeInfo(challenge))
       .subscribe(onNext: { [weak self] a, b in
         guard let self = self else { return }
+        guard let workouts = a.object, let challengeInfo = b.object else { self.presentAlert(with: (a.error ?? b.error)!); return }
+
+        self.shareChallengeView.size = {
+          if workouts.count >= 16 {
+            return .sixteen
+          } else if workouts.count >= 9 {
+            return .nine
+          } else {
+            return .four
+          }
+        }()
         
-        guard let workouts = a.object, let challengeInfo = b.object else {
-          self.presentAlert(with: (a.error ?? b.error)!)
-
-          return
-        }
-
         self.shareChallengeView.memberCount = challengeInfo.memberCount
         self.shareChallengeView.score = "\(workouts.count) workouts"
+        self.shareChallengeView.days = self.challenge.days.count
         self.allWorkouts = workouts
-        self.selectedWorkouts = Array(self.allWorkouts.prefix(self.shareChallengeView.size.rawValue))
+        self.selectedWorkouts = Array(self.allWorkouts.shuffled().prefix(self.shareChallengeView.size.rawValue))
       })
       .disposed(by: disposeBag)
   }
@@ -96,7 +98,7 @@ class ShareChallengeViewController: UIViewController {
     UIView.animate(withDuration: 0.1) {
       self.loadingBackground.alpha = 1
     }
-    
+
     Observable.merge(self.selectedWorkouts.map { self.fetchImage(from: $0) })
       .toArray()
       .subscribe(onSuccess: { [weak self] images in
@@ -142,7 +144,7 @@ class ShareChallengeViewController: UIViewController {
     }
   }
   
-  @objc func share() {
+  @IBAction private func share(_ sender: Any) {
     let previewImage = shareChallengeView.imageFromContext()
     let activityViewController = UIActivityViewController(activityItems: [previewImage as Any], applicationActivities: nil)
     

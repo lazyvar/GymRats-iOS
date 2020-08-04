@@ -48,10 +48,25 @@
                                 <constraint firstAttribute="trailing" secondItem="d9l-bD-lpi" secondAttribute="trailing" id="r1i-r9-Xjw"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9bq-78-dR6" customClass="PrimaryButton" customModule="GymRats" customModuleProvider="target">
+                            <rect key="frame" x="20" y="383" width="374" height="48"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="Fsj-KP-eEo"/>
+                            </constraints>
+                            <color key="tintColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
+                            <state key="normal" title="Share" image="share"/>
+                            <connections>
+                                <action selector="share:" destination="-1" eventType="touchUpInside" id="RBb-t3-BbM"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="NrR-9h-g0W" firstAttribute="trailing" secondItem="9bq-78-dR6" secondAttribute="trailing" constant="20" id="C5e-oq-pVa"/>
+                        <constraint firstItem="9bq-78-dR6" firstAttribute="top" secondItem="cbb-dn-HXH" secondAttribute="bottom" constant="10" id="QVi-fc-mQV"/>
                         <constraint firstItem="cbb-dn-HXH" firstAttribute="leading" secondItem="NrR-9h-g0W" secondAttribute="leading" constant="20" id="SzZ-W3-5oe"/>
                         <constraint firstItem="cbb-dn-HXH" firstAttribute="top" secondItem="NrR-9h-g0W" secondAttribute="top" id="YLp-Dh-v7x"/>
+                        <constraint firstItem="9bq-78-dR6" firstAttribute="leading" secondItem="NrR-9h-g0W" secondAttribute="leading" constant="20" id="Zph-bY-ZXD"/>
                         <constraint firstItem="NrR-9h-g0W" firstAttribute="trailing" secondItem="cbb-dn-HXH" secondAttribute="trailing" constant="20" id="cK7-j4-cae"/>
                     </constraints>
                     <viewLayoutGuide key="contentLayoutGuide" id="Bft-U6-WjE"/>
@@ -74,4 +89,7 @@
             <point key="canvasLocation" x="588" y="86"/>
         </imageView>
     </objects>
+    <resources>
+        <image name="share" width="24" height="24"/>
+    </resources>
 </document>

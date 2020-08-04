@@ -25,7 +25,7 @@ class ShareChallengeView: UIView {
     }
   }
   
-  var size: Size = .nine
+  var size: Size = .sixteen
   var challenge: Challenge? {
     didSet {
       challengeNameLabel?.text = challenge?.name
@@ -46,7 +46,11 @@ class ShareChallengeView: UIView {
   
   var days: Int = 0 {
     didSet {
-      durationLabel.text = "\(days) days"
+      if days == 0 {
+        durationLabel.text = "\(days) day"
+      } else {
+        durationLabel.text = "\(days) days"
+      }
     }
   }
   

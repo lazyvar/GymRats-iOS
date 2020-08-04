@@ -309,14 +309,14 @@ class CreateWorkoutViewController: GRFormViewController {
           let importWorkoutViewController = ImportWorkoutViewController()
           importWorkoutViewController.delegate = self
           
-          self.present(importWorkoutViewController)
+          self.presentInNav(importWorkoutViewController)
         }
       }, onError: { error in
         DispatchQueue.main.async {
           let importWorkoutViewController = ImportWorkoutViewController()
           importWorkoutViewController.delegate = self
           
-          self.present(importWorkoutViewController)
+          self.presentInNav(importWorkoutViewController)
         }
       })
       .disposed(by: disposeBag)
