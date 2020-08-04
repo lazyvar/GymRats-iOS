@@ -22,10 +22,8 @@ class ChallengeDetailsViewController: BindableViewController {
       tableView.separatorStyle = .none
       tableView.allowsSelection = false
       tableView.rx.setDelegate(self).disposed(by: disposeBag)
-      tableView.registerCellNibForClass(ChallengeBannerImageCell.self)
-      tableView.registerCellNibForClass(ChallengeCompleteDescriptionCell.self)
-      tableView.registerCellNibForClass(ShareChallengeButtonCell.self)
-      tableView.registerCellNibForClass(NewChallengeButtonCell.self)
+      tableView.registerCellNibForClass(FullLeaderboardCell.self)
+      tableView.registerCellNibForClass(ChallengeDetailsHeader.self)
       tableView.registerCellNibForClass(RankingCell.self)
     }
   }
@@ -44,11 +42,13 @@ class ChallengeDetailsViewController: BindableViewController {
   private lazy var dataSource = RxTableViewSectionedReloadDataSource<ChallengeDetailsSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
     switch row {
     case .header(let challenge):
-      return UITableViewCell()
+      return ChallengeDetailsHeader.configure(tableView: tableView, indexPath: indexPath, challenge: challenge)
     case .members(let members):
       return UITableViewCell()
     case .fullLeaderboard:
-      return UITableViewCell()
+      return FullLeaderboardCell.configure(tableView: tableView, indexPath: indexPath) {
+        // TODO: Full leaderboard ...
+      }
     case .ranking(let ranking, let place, let scoreBy):
       return RankingCell.configure(tableView: tableView, indexPath: indexPath, ranking: ranking, place: place, scoreBy: scoreBy)
     case .groupStats:
@@ -58,6 +58,8 @@ class ChallengeDetailsViewController: BindableViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    navigationItem.title = challenge.name
     
     viewModel.input.viewDidLoad.trigger()
   }
