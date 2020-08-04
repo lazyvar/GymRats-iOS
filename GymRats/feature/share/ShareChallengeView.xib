@@ -131,7 +131,7 @@
                 <constraint firstItem="Km8-ga-TkV" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="x3o-zr-vTl"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-455" y="-94"/>
+            <point key="canvasLocation" x="-478" y="-127"/>
         </view>
     </objects>
     <resources>

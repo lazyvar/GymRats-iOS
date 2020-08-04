@@ -11,11 +11,9 @@ import UIKit
 class WorkoutImageCell: UICollectionViewCell {
   @IBOutlet private weak var workoutImageView: UIImageView!
   
-  static func configure(collectionView: UICollectionView, indexPath: IndexPath, workoutPhotoURL: String?) -> UICollectionViewCell {
+  static func configure(collectionView: UICollectionView, indexPath: IndexPath, workoutImage: UIImage?) -> UICollectionViewCell {
     return collectionView.dequeueReusableCell(withType: WorkoutImageCell.self, for: indexPath).apply { cell in
-      if let workoutPhotoURL = workoutPhotoURL, let url = URL(string: workoutPhotoURL) {
-        cell.workoutImageView.kf.setImage(with: url, options: [.transition(.fade(0.2))])
-      }
+      cell.workoutImageView.image = workoutImage
     }
   }
 }

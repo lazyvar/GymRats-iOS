@@ -14,11 +14,13 @@ class ShareChallengeView: UIView {
   enum Size: Int {
     case four = 4
     case nine = 9
-    
+    case sixteen = 16
+
     var side: CGFloat {
       switch self {
       case .four: return 2
       case .nine: return 3
+      case .sixteen: return 4
       }
     }
   }
@@ -30,7 +32,7 @@ class ShareChallengeView: UIView {
     }
   }
   
-  var workouts: [Workout] = [] {
+  var workoutImages: [UIImage] = [] {
     didSet {
       collectionView.reloadData()
     }
@@ -89,7 +91,7 @@ class ShareChallengeView: UIView {
     }
   }
   
-  @IBOutlet weak var durationLabel: UILabel! {
+  @IBOutlet private weak var durationLabel: UILabel! {
     didSet {
       durationLabel.font = .proRoundedSemibold(size: 20)
     }
@@ -148,7 +150,7 @@ extension ShareChallengeView: UICollectionViewDelegate, UICollectionViewDataSour
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    return WorkoutImageCell.configure(collectionView: collectionView, indexPath: indexPath, workoutPhotoURL: workouts[safe: indexPath.row]?.photoUrl)
+    return WorkoutImageCell.configure(collectionView: collectionView, indexPath: indexPath, workoutImage: workoutImages[safe: indexPath.row])
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

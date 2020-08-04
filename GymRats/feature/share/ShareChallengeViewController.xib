@@ -10,7 +10,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShareChallengeViewController" customModule="GymRats" customModuleProvider="target">
             <connections>
+                <outlet property="loadingBackground" destination="d9l-bD-lpi" id="r5L-v9-vk5"/>
                 <outlet property="preview" destination="cbb-dn-HXH" id="peJ-CG-6l2"/>
+                <outlet property="previewImageView" destination="eto-zt-MG5" id="QOg-zK-Aft"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -24,9 +26,26 @@
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cbb-dn-HXH">
                             <rect key="frame" x="20" y="0.0" width="374" height="373"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eto-zt-MG5">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="373"/>
+                                </imageView>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d9l-bD-lpi">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="373"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                </view>
+                            </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
+                                <constraint firstItem="d9l-bD-lpi" firstAttribute="top" secondItem="cbb-dn-HXH" secondAttribute="top" id="4xr-95-hnf"/>
                                 <constraint firstAttribute="width" secondItem="cbb-dn-HXH" secondAttribute="height" multiplier="1:1" constant="1" id="6yi-Lh-W7y"/>
+                                <constraint firstAttribute="bottom" secondItem="d9l-bD-lpi" secondAttribute="bottom" id="Ayp-Ze-4Y6"/>
+                                <constraint firstItem="eto-zt-MG5" firstAttribute="leading" secondItem="cbb-dn-HXH" secondAttribute="leading" id="GTK-92-VFj"/>
+                                <constraint firstAttribute="bottom" secondItem="eto-zt-MG5" secondAttribute="bottom" id="aU4-ZF-4Iz"/>
+                                <constraint firstItem="d9l-bD-lpi" firstAttribute="leading" secondItem="cbb-dn-HXH" secondAttribute="leading" id="b6h-5t-oPb"/>
+                                <constraint firstItem="eto-zt-MG5" firstAttribute="top" secondItem="cbb-dn-HXH" secondAttribute="top" id="iKf-q3-Jvn"/>
+                                <constraint firstAttribute="trailing" secondItem="eto-zt-MG5" secondAttribute="trailing" id="k42-3u-kKb"/>
+                                <constraint firstAttribute="trailing" secondItem="d9l-bD-lpi" secondAttribute="trailing" id="r1i-r9-Xjw"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -47,7 +66,12 @@
                 <constraint firstItem="8pH-YN-N85" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="amJ-u1-TdS"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="15.942028985507248" y="148.66071428571428"/>
+            <point key="canvasLocation" x="116" y="85"/>
         </view>
+        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="bNs-5I-8ba">
+            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <point key="canvasLocation" x="588" y="86"/>
+        </imageView>
     </objects>
 </document>

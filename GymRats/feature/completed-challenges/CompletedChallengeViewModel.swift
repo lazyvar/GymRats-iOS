@@ -45,8 +45,8 @@ final class CompletedChallengeViewModel: ViewModel {
           rankings,
           stuff + [
             .description(self.description(for: self.challenge, rankings: rankings)),
-            .startNewChallenge(self.challenge),
             .share(self.challenge),
+            .startNewChallenge(self.challenge),
           ]
         )
       }

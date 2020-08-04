@@ -66,7 +66,7 @@ class CompletedChallengeViewController: BindableViewController, UITableViewDeleg
     action: #selector(statsTapped)
   )
   
-  private var dataSource = RxTableViewSectionedReloadDataSource<CompletedChallengeSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
+  private lazy var dataSource = RxTableViewSectionedReloadDataSource<CompletedChallengeSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
     switch row {
     case .banner(let url):
       return ChallengeBannerImageCell.configure(tableView: tableView, indexPath: indexPath, imageURL: url)
@@ -74,7 +74,9 @@ class CompletedChallengeViewController: BindableViewController, UITableViewDeleg
       return ChallengeCompleteDescriptionCell.configure(tableView: tableView, indexPath: indexPath, description: attributedString)
     case .share(let challenge):
       return ShareChallengeButtonCell.configure(tableView: tableView, indexPath: indexPath) {
-        // TODO: share challenge
+        let share = ShareChallengeViewController(challenge: challenge)
+        
+        self.push(share)
       }
     case .startNewChallenge(let challenge):
       return NewChallengeButtonCell.configure(tableView: tableView, indexPath: indexPath) {
@@ -91,7 +93,7 @@ class CompletedChallengeViewController: BindableViewController, UITableViewDeleg
     if popUp {
       navigationItem.leftBarButtonItem = .close(target: self)
     } else {
-      setupMenuButton()
+// TODO: setupMenuButton()
       navigationItem.rightBarButtonItems = [chatBarButtonItem, statsBarButtonItem]
     }
     
