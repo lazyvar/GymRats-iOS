@@ -126,6 +126,8 @@
 		0169396724DA08AC0011C1A8 /* MembersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0169396524DA08AC0011C1A8 /* MembersCell.xib */; };
 		0169396C24DA09850011C1A8 /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0169396A24DA09850011C1A8 /* MemberCell.swift */; };
 		0169396D24DA09850011C1A8 /* MemberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0169396B24DA09850011C1A8 /* MemberCell.xib */; };
+		0169397024DA0E590011C1A8 /* RankingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0169396E24DA0E590011C1A8 /* RankingsViewController.swift */; };
+		0169397124DA0E590011C1A8 /* RankingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0169396F24DA0E590011C1A8 /* RankingsViewController.xib */; };
 		01747A5824D8812900A4682B /* ShareChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01747A5624D8812900A4682B /* ShareChallengeViewController.swift */; };
 		01747A5924D8812900A4682B /* ShareChallengeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01747A5724D8812900A4682B /* ShareChallengeViewController.xib */; };
 		01747A5B24D882E700A4682B /* ShareChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01747A5A24D882E700A4682B /* ShareChallengeView.swift */; };
@@ -460,6 +462,8 @@
 		0169396524DA08AC0011C1A8 /* MembersCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MembersCell.xib; sourceTree = "<group>"; };
 		0169396A24DA09850011C1A8 /* MemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberCell.swift; sourceTree = "<group>"; };
 		0169396B24DA09850011C1A8 /* MemberCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MemberCell.xib; sourceTree = "<group>"; };
+		0169396E24DA0E590011C1A8 /* RankingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingsViewController.swift; sourceTree = "<group>"; };
+		0169396F24DA0E590011C1A8 /* RankingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RankingsViewController.xib; sourceTree = "<group>"; };
 		01747A5624D8812900A4682B /* ShareChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareChallengeViewController.swift; sourceTree = "<group>"; };
 		01747A5724D8812900A4682B /* ShareChallengeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareChallengeViewController.xib; sourceTree = "<group>"; };
 		01747A5A24D882E700A4682B /* ShareChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareChallengeView.swift; sourceTree = "<group>"; };
@@ -1349,6 +1353,8 @@
 				0169395324D9D18C0011C1A8 /* ChallengeDetailsViewController.xib */,
 				0169395624D9D20F0011C1A8 /* ChallengeDetailsViewModel.swift */,
 				0169395824D9D2B80011C1A8 /* ChallengeDetailsSection.swift */,
+				0169396E24DA0E590011C1A8 /* RankingsViewController.swift */,
+				0169396F24DA0E590011C1A8 /* RankingsViewController.xib */,
 			);
 			path = "view-challenge";
 			sourceTree = "<group>";
@@ -1547,6 +1553,7 @@
 				014B6773241882C000F356EB /* ChallengeViewController.xib in Resources */,
 				0169396724DA08AC0011C1A8 /* MembersCell.xib in Resources */,
 				01611D45243E954600D1DAA4 /* WorkoutViewController.xib in Resources */,
+				0169397124DA0E590011C1A8 /* RankingsViewController.xib in Resources */,
 				01E833E52325BF7300C66C72 /* ChallengeBannerCell.xib in Resources */,
 				01A6C4E924D4F4D80007DFB6 /* ChallengeBannerImageCell.xib in Resources */,
 				0166083D239C61B800FCFD26 /* DateProgressCell.xib in Resources */,
@@ -1906,6 +1913,7 @@
 				0107C7DB241AEE42005650FB /* State.swift in Sources */,
 				01611D44243E954600D1DAA4 /* WorkoutViewController.swift in Sources */,
 				010C05F624AD49AF001B37D7 /* NotificationSettingsViewController.swift in Sources */,
+				0169397024DA0E590011C1A8 /* RankingsViewController.swift in Sources */,
 				01928B78244508BB00F56F76 /* ChallengeMode.swift in Sources */,
 				01987A9824300E9500835621 /* ChallengePreviewViewController.swift in Sources */,
 				01974544243F8A72004ACB71 /* WorkoutAccountCell.swift in Sources */,

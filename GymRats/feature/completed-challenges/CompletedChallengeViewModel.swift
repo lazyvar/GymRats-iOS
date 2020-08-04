@@ -30,7 +30,7 @@ final class CompletedChallengeViewModel: ViewModel {
   
   init() {
     input.viewDidLoad
-      .flatMap { gymRatsAPI.getRankings(challenge: self.challenge) }
+      .flatMap { gymRatsAPI.getRankings(challenge: self.challenge, scoreBy: self.challenge.scoreBy) }
       .compactMap { $0.object }
       .map { rankings -> ([Ranking], [CompletedChallengeRow]) in
         let stuff: [CompletedChallengeRow]

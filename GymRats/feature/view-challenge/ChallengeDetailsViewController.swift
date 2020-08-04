@@ -50,7 +50,7 @@ class ChallengeDetailsViewController: BindableViewController {
       }
     case .fullLeaderboard:
       return FullLeaderboardCell.configure(tableView: tableView, indexPath: indexPath) {
-        // TODO: Full leaderboard ...
+        self.push(RankingsViewController(challenge: self.challenge))
       }
     case .ranking(let ranking, let place, let scoreBy):
       return RankingCell.configure(tableView: tableView, indexPath: indexPath, ranking: ranking, place: place, scoreBy: scoreBy) {
@@ -72,6 +72,16 @@ class ChallengeDetailsViewController: BindableViewController {
   override func bindViewModel() {
     viewModel.output.sections
       .bind(to: tableView.rx.items(dataSource: dataSource))
+      .disposed(by: disposeBag)
+    
+    viewModel.output.loading
+      .subscribe(onNext: { loading in
+        if loading {
+          self.showLoadingBar()
+        } else {
+          self.hideLoadingBar()
+        }
+      })
       .disposed(by: disposeBag)
   }
 }

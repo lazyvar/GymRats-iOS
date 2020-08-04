@@ -19,6 +19,7 @@ final class ChallengeDetailsViewModel: ViewModel {
   
   struct Output {
     let sections = PublishSubject<[ChallengeDetailsSection]>()
+    let loading = PublishSubject<Bool>()
   }
 
   let input = Input()
@@ -29,52 +30,66 @@ final class ChallengeDetailsViewModel: ViewModel {
   }
   
   init() {
-    let fetch = input.viewDidLoad.flatMap {
-      Observable.combineLatest(gymRatsAPI.getMembers(for: self.challenge), gymRatsAPI.getRankings(challenge: self.challenge))
-    }
-    
-    fetch.compactMap { memberResult, rankingsResult -> ([Account], [Ranking])? in
-      guard let members = memberResult.object, let rankings = rankingsResult.object else { return nil }
+    input.viewDidLoad
+      .do(onNext: { _ in
+        self.output.loading.on(.next(true))
+      })
+      .flatMap {
+        Observable.combineLatest(gymRatsAPI.getMembers(for: self.challenge), gymRatsAPI.getRankings(challenge: self.challenge, scoreBy: self.challenge.scoreBy))
+      }
+      .do(onNext: { _ in
+        self.output.loading.on(.next(false))
+      })
+      .compactMap { memberResult, rankingsResult -> ([Account], [Ranking])? in
+        guard let members = memberResult.object, let rankings = rankingsResult.object else { return nil }
       
-      return (members, rankings)
-    }
-    .map { members, rankings -> [ChallengeDetailsSection] in
-      let myRank = rankings.firstIndex(where: { $0.account.id == GymRats.currentAccount.id })
-      let firstRank = rankings.first
-      let secondRank = rankings[safe: 1]
-      
-      let ordered: [(Ranking, place: Int)] = {
-        if let myRank = myRank {
-          let firstRank = firstRank!
-          
-          if firstRank.account.id != GymRats.currentAccount.id {
-            let me = rankings[myRank]
+        return (members, rankings)
+      }
+      .map { members, rankings -> [ChallengeDetailsSection] in
+        let myRank = rankings.firstIndex(where: { $0.account.id == GymRats.currentAccount.id })
+        let firstRank = rankings.first
+        let secondRank = rankings[safe: 1]
+        
+        let ordered: [(Ranking, place: Int)] = {
+          if let myRank = myRank {
+            let firstRank = firstRank!
             
-            return [(firstRank, place: 1), (me, place: myRank + 1)]
-          } else {
-            if let secondRank = secondRank {
-              return [(firstRank, place: 1), (secondRank, place: 2)]
+            if firstRank.account.id != GymRats.currentAccount.id {
+              let me = rankings[myRank]
+              
+              return [(firstRank, place: 1), (me, place: myRank + 1)]
             } else {
-              return [(rankings.first!, place: 1)]
+              if let secondRank = secondRank {
+                return [(firstRank, place: 1), (secondRank, place: 2)]
+              } else {
+                return [(rankings.first!, place: 1)]
+              }
             }
+          } else if let firstRank = firstRank {
+            return [(firstRank, place: 1)]
+          } else {
+            return []
           }
-        } else if let firstRank = firstRank {
-          return [(firstRank, place: 1)]
-        } else {
-          return []
-        }
-      }()
-      
-      return [
-        ChallengeDetailsSection(model: nil, items: [.header(self.challenge)]),
-        ChallengeDetailsSection(model: "Members", items: [.members(members)]),
-        ChallengeDetailsSection(model: "Rankings", items: ordered.map { ranking in
-          ChallengeDetailsRow.ranking(ranking.0, place: ranking.place, self.challenge.scoreBy)
-        } + [.fullLeaderboard]),
-        ChallengeDetailsSection(model: "Group stats", items: [.groupStats])
-      ]
-    }
-    .bind(to: output.sections)
-    .disposed(by: disposeBag)
+        }()
+        
+        let membersHeader: String = {
+          if members.count == 1 {
+            return "Solo challenge"
+          } else {
+            return "\(members.count) Rats"
+          }
+        }()
+        
+        return [
+          ChallengeDetailsSection(model: nil, items: [.header(self.challenge)]),
+          ChallengeDetailsSection(model: membersHeader, items: [.members(members)]),
+          ChallengeDetailsSection(model: "Rankings", items: ordered.map { ranking in
+            ChallengeDetailsRow.ranking(ranking.0, place: ranking.place, self.challenge.scoreBy)
+          } + [.fullLeaderboard]),
+          ChallengeDetailsSection(model: "Group stats", items: [.groupStats])
+        ]
+      }
+      .bind(to: output.sections)
+      .disposed(by: disposeBag)
   }
 }
