@@ -99,6 +99,6 @@ class CompletedChallengesViewController: UITableViewController {
     
     guard let challenge = challenges[safe: indexPath.row] else { return }
     
-    push(ChallengeViewController(challenge: challenge))
+    push(CompletedChallengeViewController(challenge: challenge))
   }
 }

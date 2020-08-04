@@ -18,8 +18,15 @@ extension UIViewController {
       navigationController?.pushViewController(viewController, animated: animated)
     }
 
-    func present(_ viewController: UIViewController) {
+    func presentInNav(_ viewController: UIViewController) {
       present(viewController.inNav(), animated: true)
+    }
+  
+    func presentForClose(_ viewController: UIViewController) {
+      let navigationController = viewController.inNav()
+      viewController.navigationItem.leftBarButtonItem = .close(target: viewController)
+      
+      present(navigationController, animated: true, completion: nil)
     }
 
     func inNav() -> UINavigationController {

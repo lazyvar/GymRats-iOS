@@ -164,7 +164,7 @@ class UpcomingChallengeViewController: BindableViewController {
     }
     
     let changeBanner = UIAlertAction(title: "Change banner", style: .default) { _ in
-      self.present(ChangeBannerViewController(challenge: self.challenge))
+      self.presentInNav(ChangeBannerViewController(challenge: self.challenge))
     }
     
     let deleteAction = UIAlertAction(title: "Leave", style: .destructive) { _ in

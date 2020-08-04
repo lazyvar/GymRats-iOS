@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShareChallengeViewController" customModule="GymRats" customModuleProvider="target">
+            <connections>
+                <outlet property="gridSizeTextField" destination="HjP-tu-Vbt" id="RqZ-eV-7lL"/>
+                <outlet property="loadingBackground" destination="d9l-bD-lpi" id="r5L-v9-vk5"/>
+                <outlet property="numberOfWorkoutsHeader" destination="AYV-l9-Jna" id="SQF-Yd-oCn"/>
+                <outlet property="preview" destination="cbb-dn-HXH" id="peJ-CG-6l2"/>
+                <outlet property="previewImageView" destination="eto-zt-MG5" id="QOg-zK-Aft"/>
+                <outlet property="shuffleButton" destination="e2B-Uj-M6M" id="CEn-p0-Ktu"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8pH-YN-N85">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cbb-dn-HXH">
+                            <rect key="frame" x="20" y="0.0" width="374" height="373"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eto-zt-MG5">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="373"/>
+                                </imageView>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d9l-bD-lpi">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="373"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstItem="d9l-bD-lpi" firstAttribute="top" secondItem="cbb-dn-HXH" secondAttribute="top" id="4xr-95-hnf"/>
+                                <constraint firstAttribute="width" secondItem="cbb-dn-HXH" secondAttribute="height" multiplier="1:1" constant="1" id="6yi-Lh-W7y"/>
+                                <constraint firstAttribute="bottom" secondItem="d9l-bD-lpi" secondAttribute="bottom" id="Ayp-Ze-4Y6"/>
+                                <constraint firstItem="eto-zt-MG5" firstAttribute="leading" secondItem="cbb-dn-HXH" secondAttribute="leading" id="GTK-92-VFj"/>
+                                <constraint firstAttribute="bottom" secondItem="eto-zt-MG5" secondAttribute="bottom" id="aU4-ZF-4Iz"/>
+                                <constraint firstItem="d9l-bD-lpi" firstAttribute="leading" secondItem="cbb-dn-HXH" secondAttribute="leading" id="b6h-5t-oPb"/>
+                                <constraint firstItem="eto-zt-MG5" firstAttribute="top" secondItem="cbb-dn-HXH" secondAttribute="top" id="iKf-q3-Jvn"/>
+                                <constraint firstAttribute="trailing" secondItem="eto-zt-MG5" secondAttribute="trailing" id="k42-3u-kKb"/>
+                                <constraint firstAttribute="trailing" secondItem="d9l-bD-lpi" secondAttribute="trailing" id="r1i-r9-Xjw"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9bq-78-dR6" customClass="PrimaryButton" customModule="GymRats" customModuleProvider="target">
+                            <rect key="frame" x="20" y="383" width="374" height="48"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="Fsj-KP-eEo"/>
+                            </constraints>
+                            <color key="tintColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
+                            <state key="normal" title="Share" image="share"/>
+                            <connections>
+                                <action selector="share:" destination="-1" eventType="touchUpInside" id="RBb-t3-BbM"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e2B-Uj-M6M" customClass="SecondaryButton" customModule="GymRats" customModuleProvider="target">
+                            <rect key="frame" x="20" y="441" width="374" height="48"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="BMJ-Kt-swj"/>
+                            </constraints>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
+                            <state key="normal" title="Shuffle" image="shuffle"/>
+                            <connections>
+                                <action selector="shuffle:" destination="-1" eventType="touchUpInside" id="1sl-oY-4oq"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LZc-7A-OLq" customClass="SpookyView" customModule="GymRats" customModuleProvider="target">
+                            <rect key="frame" x="20" y="499" width="374" height="48"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grid size" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYV-l9-Jna">
+                                    <rect key="frame" x="10" y="13.5" width="67" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HjP-tu-Vbt">
+                                    <rect key="frame" x="314" y="7" width="40" height="34"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="40" id="gKy-6j-g5C"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstItem="AYV-l9-Jna" firstAttribute="centerY" secondItem="LZc-7A-OLq" secondAttribute="centerY" id="8F3-Gd-BgR"/>
+                                <constraint firstItem="HjP-tu-Vbt" firstAttribute="centerY" secondItem="LZc-7A-OLq" secondAttribute="centerY" id="S98-k3-hZ4"/>
+                                <constraint firstAttribute="height" constant="48" id="TQE-Nb-WXq"/>
+                                <constraint firstItem="AYV-l9-Jna" firstAttribute="leading" secondItem="LZc-7A-OLq" secondAttribute="leading" constant="10" id="czC-6P-Jqp"/>
+                                <constraint firstAttribute="trailing" secondItem="HjP-tu-Vbt" secondAttribute="trailing" constant="20" id="fcO-R1-XiD"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="LZc-7A-OLq" firstAttribute="top" secondItem="e2B-Uj-M6M" secondAttribute="bottom" constant="10" id="1Jq-ZC-WEN"/>
+                        <constraint firstItem="NrR-9h-g0W" firstAttribute="trailing" secondItem="9bq-78-dR6" secondAttribute="trailing" constant="20" id="C5e-oq-pVa"/>
+                        <constraint firstItem="NrR-9h-g0W" firstAttribute="trailing" secondItem="LZc-7A-OLq" secondAttribute="trailing" constant="20" id="EIu-fy-vZl"/>
+                        <constraint firstItem="9bq-78-dR6" firstAttribute="top" secondItem="cbb-dn-HXH" secondAttribute="bottom" constant="10" id="QVi-fc-mQV"/>
+                        <constraint firstItem="e2B-Uj-M6M" firstAttribute="top" secondItem="9bq-78-dR6" secondAttribute="bottom" constant="10" id="SmD-cF-kor"/>
+                        <constraint firstItem="cbb-dn-HXH" firstAttribute="leading" secondItem="NrR-9h-g0W" secondAttribute="leading" constant="20" id="SzZ-W3-5oe"/>
+                        <constraint firstItem="cbb-dn-HXH" firstAttribute="top" secondItem="NrR-9h-g0W" secondAttribute="top" id="YLp-Dh-v7x"/>
+                        <constraint firstItem="9bq-78-dR6" firstAttribute="leading" secondItem="NrR-9h-g0W" secondAttribute="leading" constant="20" id="Zph-bY-ZXD"/>
+                        <constraint firstItem="NrR-9h-g0W" firstAttribute="trailing" secondItem="cbb-dn-HXH" secondAttribute="trailing" constant="20" id="cK7-j4-cae"/>
+                        <constraint firstItem="NrR-9h-g0W" firstAttribute="trailing" secondItem="e2B-Uj-M6M" secondAttribute="trailing" constant="20" id="n05-Qk-4aY"/>
+                        <constraint firstItem="e2B-Uj-M6M" firstAttribute="leading" secondItem="NrR-9h-g0W" secondAttribute="leading" constant="20" id="neG-Ql-5rC"/>
+                        <constraint firstItem="LZc-7A-OLq" firstAttribute="leading" secondItem="NrR-9h-g0W" secondAttribute="leading" constant="20" id="wC3-cg-zGq"/>
+                    </constraints>
+                    <viewLayoutGuide key="contentLayoutGuide" id="Bft-U6-WjE"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="NrR-9h-g0W"/>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="8pH-YN-N85" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="3rC-aw-HTf"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="8pH-YN-N85" secondAttribute="bottom" id="8mL-Ku-2KB"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="8pH-YN-N85" secondAttribute="trailing" id="Rpi-bJ-Td0"/>
+                <constraint firstItem="8pH-YN-N85" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="amJ-u1-TdS"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="100" y="78"/>
+        </view>
+        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="bNs-5I-8ba">
+            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <point key="canvasLocation" x="588" y="86"/>
+        </imageView>
+    </objects>
+    <resources>
+        <image name="share" width="24" height="24"/>
+        <image name="shuffle" width="24" height="24"/>
+    </resources>
+</document>

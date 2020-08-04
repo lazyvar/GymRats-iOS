@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol Applicable { }
 
@@ -15,3 +16,4 @@ extension Applicable {
 }
 
 extension NSObject: Applicable { }
+extension CGFloat: Applicable { }

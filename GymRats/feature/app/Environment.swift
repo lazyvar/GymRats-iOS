@@ -9,7 +9,7 @@
 import Foundation
 
 extension GymRats {
-  static var environment: Environment {
+  static var environment: Environment {    
     guard let info = Bundle.main.infoDictionary     else { fatalError("Info.plist not found.") }
     guard let env = info["GYM_RATS_ENV"] as? String else { fatalError("GYM_RATS_ENV not found in Info.plist") }
     

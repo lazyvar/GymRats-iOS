@@ -11,36 +11,8 @@ import UIKit
 class ShareChallengeButtonCell: UITableViewCell {
   private var press: (() -> Void)?
   
-  @IBOutlet private weak var spooky: SpookyView! {
-    didSet {
-      spooky.spookyColor = .brand
-    }
-  }
-  
-  @IBOutlet private weak var label: UILabel! {
-    didSet {
-      label.font = .h4Bold
-      label.textColor = .white
-    }
-  }
-  
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    super.touchesBegan(touches, with: event)
-    
-    animatePress(true)
-  }
-  
-  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-    super.touchesEnded(touches, with: event)
-    
-    animatePress(false)
+  @IBAction private func pressMe(_ sender: Any) {
     press?()
-  }
-  
-  override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-    super.touchesCancelled(touches, with: event)
-    
-    animatePress(false)
   }
 
   static func configure(tableView: UITableView, indexPath: IndexPath, press: @escaping () -> Void) -> UITableViewCell {

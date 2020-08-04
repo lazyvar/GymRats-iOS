@@ -38,6 +38,16 @@ class PrimaryButton: UIButton {
       shadowLayer.shadowRadius = 2
 
       layer.insertSublayer(shadowLayer, at: 0)
+      addObserver(self, forKeyPath: "bounds", options: .new, context: nil)
+    }
+  }
+  
+  override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    if keyPath == "bounds" {
+      self.shadowLayer?.path = UIBezierPath(roundedRect: bounds, cornerRadius: 4).cgPath
+      self.shadowLayer?.shadowPath = shadowLayer?.path
+    } else {
+      super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
     }
   }
   
@@ -66,9 +76,9 @@ class PrimaryButton: UIButton {
     layer.borderWidth = 0
     contentEdgeInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
     titleLabel?.font = .h4
+    imageView?.contentMode = .scaleAspectFit
     setTitleColor(UIColor.primaryText, for: .normal)
     setTitleColor(UIColor.primaryText.darker, for: .highlighted)
-    
     setTitleColor(UIColor.white, for: .normal)
     setTitleColor(UIColor.white.darker, for: .highlighted)
   }

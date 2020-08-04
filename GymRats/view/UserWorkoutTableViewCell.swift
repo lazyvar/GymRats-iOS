@@ -197,17 +197,16 @@ struct SeededRandomNumberGenerator: RandomNumberGenerator {
     }
 }
 
-extension UIImageView {
-    
-    func imageFromContext() -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque, 0.0)
-        layer.render(in: UIGraphicsGetCurrentContext()!)
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        
-        UIGraphicsEndImageContext()
-        
-        return image!
-    }
+extension UIView {
+  func imageFromContext() -> UIImage? {
+    UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque, 0.0)
 
+    defer { UIGraphicsEndImageContext() }
+
+    guard let context = UIGraphicsGetCurrentContext() else { return nil }
+
+    layer.render(in: context)
+    
+    return UIGraphicsGetImageFromCurrentImageContext()
+  }
 }

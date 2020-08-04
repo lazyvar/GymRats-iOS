@@ -62,10 +62,14 @@
 	<string>Import workouts from the Health app.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>To find gyms near you.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+  <string>For saving challenge collage.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>For posting workout pictures.</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>SF-Pro-Rounded-Semibold.otf</string>
+		<string>SF-Pro-Rounded-Black.otf</string>
 		<string>SF-Pro-Rounded-Regular.otf</string>
 		<string>SF-Pro-Rounded-Bold.otf</string>
 		<string>Lato-Regular.ttf</string>

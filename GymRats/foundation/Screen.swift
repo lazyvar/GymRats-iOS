@@ -13,6 +13,7 @@ enum Screen {
   case activeChallenge(Challenge)
   case noChallenges
   case home
+  case shareChallenge(Challenge)
   case chooseChallengeMode
   case workout(Workout, Challenge?)
   case profile(Account, Challenge)
@@ -30,6 +31,8 @@ enum Screen {
   
   var viewController: UIViewController {
     switch self {
+    case .shareChallenge(let challenge):
+      return ShareChallengeViewController(challenge: challenge)
     case .completedChallenge(let challenge, let itIsAParty):
       return CompletedChallengeViewController(challenge: challenge).apply { $0.itIsAParty = itIsAParty }
     case .map(placeID: let place):
