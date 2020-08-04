@@ -173,7 +173,7 @@ enum GymRats {
         
         defer { unseenCompletedChallenges.witness() }
         
-        if let last = unseenCompletedChallenges.sorted(by: { $0.id > $1.id }).last {
+        if let last = unseenCompletedChallenges.sorted(by: { $0.id < $1.id }).last {
           UserDefaults.standard.set(0, forKey: "last_opened_challenge")
           ChallengeFlow.present(completedChallenge: last)
         }
