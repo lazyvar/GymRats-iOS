@@ -18,7 +18,7 @@ extension UIColor {
   static var primaryText: UIColor {
     switch UIDevice.contentMode {
     case .light: return .hex("#000000", alpha: 0.85)
-    case .dark:  return .hex("#FFFFFF")
+    case .dark: return .white
     }
   }
 
@@ -37,14 +37,14 @@ extension UIColor {
   static var background: UIColor {
     switch UIDevice.contentMode {
     case .light: return .hex("#FAFAFA")
-    case .dark:  return .hex("#1C1E21")
+    case .dark: return .black
     }
   }
 
   static var foreground: UIColor {
     switch UIDevice.contentMode {
     case .light: return .hex("#FFFFFF")
-    case .dark:  return .hex("#2C2C2E")
+    case .dark:  return .hex("#262629")
     }
   }
 }
