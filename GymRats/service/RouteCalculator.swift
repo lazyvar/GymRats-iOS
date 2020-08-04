@@ -9,18 +9,8 @@
 import Foundation
 
 enum RouteCalculator {
-  static func home(_ challenges: [Challenge], presentUnseen: Bool = true) -> (Navigation, Screen) {
-    let unseenCompletedChallenges = challenges.unseenCompletedChallenges()
+  static func home(_ challenges: [Challenge]) -> (Navigation, Screen) {
     let activeOrUpcoming = challenges.getActiveAndUpcomingChallenges()
-
-    if presentUnseen && unseenCompletedChallenges.isNotEmpty {
-      UserDefaults.standard.set(0, forKey: "last_opened_challenge")
-    }
-
-    if presentUnseen {
-      ChallengeFlow.present(completedChallenges: unseenCompletedChallenges)
-      unseenCompletedChallenges.witness()
-    }
     
     guard activeOrUpcoming.isNotEmpty else { return (.replaceDrawerCenterInNav(animated: false), .noChallenges) }
     

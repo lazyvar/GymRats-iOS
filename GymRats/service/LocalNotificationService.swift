@@ -19,6 +19,8 @@ enum LocalNotificationService {
       .subscribe(onSuccess: { status in
         guard status == .authorized else { return }
         
+        PushNotifications.center.removeAllPendingNotificationRequests()
+        
         for challenge in challenges where challenge.isActive || challenge.isUpcoming {
           if challenge.isUpcoming {
             registerForStart(challenge)
@@ -30,7 +32,7 @@ enum LocalNotificationService {
       .disposed(by: disposeBag)
   }
   
-  private static func registerForStart(_ challenge: Challenge) {
+  static func registerForStart(_ challenge: Challenge) {
     let startDateComponents = challenge.startDate.dateComponents
     let content = UNMutableNotificationContent()
     content.title = "Challenge started"
@@ -52,7 +54,7 @@ enum LocalNotificationService {
     }
   }
   
-  private static func registerForEnd(_ challenge: Challenge) {
+  static func registerForEnd(_ challenge: Challenge) {
     let endDateComponents = challenge.endDate.dateComponents
     let content = UNMutableNotificationContent()
     content.title = "Challenge complete"

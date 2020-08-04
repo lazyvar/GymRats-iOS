@@ -37,12 +37,6 @@ final class HomeViewModel: ViewModel {
     
     Observable.merge(challenges, Challenge.State.all.observe())
       .compactMap { $0.object }
-      .do(onNext: { challenges in
-        LocalNotificationService.synchronize(challenges: challenges)
-        challenges.getActiveAndUpcomingChallenges().forEach { challenge in
-          Challenge.State.join(challenge)
-        }
-      })
       .map { RouteCalculator.home($0) }
       .do(onNext: { _ in
         GymRats.handleColdStartNotification()

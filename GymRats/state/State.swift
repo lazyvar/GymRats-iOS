@@ -11,7 +11,17 @@ import RxSwift
 
 extension Challenge {
   enum State {
-    static let all = Resource<NetworkResult<[Challenge]>> { gymRatsAPI.getAllChallenges() }
+    static let all = Resource<NetworkResult<[Challenge]>> {
+      return gymRatsAPI.getAllChallenges().do(onNext: { result in
+        if let challenges = result.object {
+          LocalNotificationService.synchronize(challenges: challenges)
+          challenges.getActiveAndUpcomingChallenges().forEach { challenge in
+            Challenge.State.join(challenge)
+          }
+        }
+      })
+    }
+    
     static func join(_ challenge: Challenge) { UserDefaults.standard.set(true, forKey: "joined_challenge_\(challenge.id)") }
     static func joined(_ challenge: Challenge) -> Bool { UserDefaults.standard.bool(forKey:  "joined_challenge_\(challenge.id)") }
     static func see(_ challenge: Challenge) { UserDefaults.standard.set(true, forKey: "saw_challenge_\(challenge.id)") }

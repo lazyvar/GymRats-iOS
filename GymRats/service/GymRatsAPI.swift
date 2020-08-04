@@ -213,7 +213,7 @@ extension GymRatsAPI {
       case .login, .signup, .resetPassword:
         return [:]
       default:
-        guard let token = GymRats.currentAccount.token else { return [:] }
+        guard let token = GymRats.currentAccount?.token else { return [:] }
           
         return ["Authorization": token]
       }

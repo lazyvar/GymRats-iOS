@@ -53,6 +53,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     GymRats.willEnterForeground()
   }
   
+  func applicationDidBecomeActive(_ application: UIApplication) {
+    GymRats.didBecomeActive()
+  }
+  
   func applicationDidEnterBackground(_ application: UIApplication) {
     GymRats.didEnterBackground()
   }
