@@ -158,7 +158,7 @@ final class ChallengeViewModel: ViewModel {
     input.tappedRow
       .filter { $0.section == 0 }
       .map { _ -> (Navigation, Screen) in
-        return (.push(animated: true), .challengeStats(self.challenge))
+        return (.push(animated: true), .challengeDetails(self.challenge))
       }
       .bind(to: output.navigation)
       .disposed(by: disposeBag)
