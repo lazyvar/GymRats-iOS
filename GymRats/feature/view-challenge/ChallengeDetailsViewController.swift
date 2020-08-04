@@ -49,8 +49,8 @@ class ChallengeDetailsViewController: BindableViewController {
       return UITableViewCell()
     case .fullLeaderboard:
       return UITableViewCell()
-    case .ranking(let ranking):
-      return UITableViewCell()
+    case .ranking(let ranking, let place, let scoreBy):
+      return RankingCell.configure(tableView: tableView, indexPath: indexPath, ranking: ranking, place: place, scoreBy: scoreBy)
     case .groupStats:
       return UITableViewCell()
     }
@@ -77,7 +77,7 @@ extension ChallengeDetailsViewController: UITableViewDelegate {
     
     let label = UILabel()
     label.backgroundColor = .clear
-    label.font = .h4
+    label.font = .h4Bold
     label.translatesAutoresizingMaskIntoConstraints = false
     label.text = header
 

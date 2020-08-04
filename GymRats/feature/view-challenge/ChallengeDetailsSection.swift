@@ -14,7 +14,7 @@ typealias ChallengeDetailsSection = SectionModel<String?, ChallengeDetailsRow>
 enum ChallengeDetailsRow {
   case header(Challenge)
   case members([Account])
-  case ranking(Ranking)
+  case ranking(Ranking, place: Int, ScoreBy)
   case fullLeaderboard
   case groupStats
 }

@@ -42,7 +42,9 @@ final class ChallengeDetailsViewModel: ViewModel {
       return [
         ChallengeDetailsSection(model: nil, items: [.header(self.challenge)]),
         ChallengeDetailsSection(model: "Members", items: [.members(members)]),
-        ChallengeDetailsSection(model: "Rankings", items: rankings.map { ChallengeDetailsRow.ranking($0) } + [.fullLeaderboard]),
+        ChallengeDetailsSection(model: "Rankings", items: rankings.enumerated().map { ranking in
+          ChallengeDetailsRow.ranking(ranking.element, place: ranking.offset + 1, self.challenge.scoreBy)
+        } + [.fullLeaderboard]),
         ChallengeDetailsSection(model: "Group stats", items: [.groupStats])
       ]
     }
