@@ -62,13 +62,13 @@ class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
 
             chatViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: chatViewController, action: #selector(UIViewController.dismissSelf))
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
               UIViewController.topmost().present(nav, animated: true, completion: nil)
             }
           }
           
           if let error = event.element?.error {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
               UIViewController.topmost().presentAlert(with: error)
             }
           }
@@ -88,7 +88,7 @@ class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
 
             workoutViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .done, target: workoutViewController, action: #selector(UIViewController.dismissSelf))
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
               UIViewController.topmost().present(nav, animated: true, completion: nil)
             }
           }

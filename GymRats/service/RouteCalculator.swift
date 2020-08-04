@@ -9,36 +9,12 @@
 import Foundation
 
 enum RouteCalculator {
-  static func home(_ challenges: [Challenge], presentUnseen: Bool = true) -> (Navigation, Screen) {
-//    let c = challenges.first(where: { $0.name == "Climb Mount Everest" })!
-//    
-//    return (.replaceDrawerCenterInNav(animated: false), .shareChallenge(c))
-    
-    guard challenges.isNotEmpty else { return (.replaceDrawerCenterInNav(animated: false), .noChallenges) }
-    
-    let unseenCompletedChallenges = challenges.unseenCompletedChallenges()
+  static func home(_ challenges: [Challenge]) -> (Navigation, Screen) {
     let activeOrUpcoming = challenges.getActiveAndUpcomingChallenges()
     
-    if activeOrUpcoming.isNotEmpty {
-      if presentUnseen && unseenCompletedChallenges.isNotEmpty {
-        UserDefaults.standard.set(0, forKey: "last_opened_challenge")
-      }
- 
-      if presentUnseen {
-        ChallengeFlow.present(completedChallenges: unseenCompletedChallenges)
-        unseenCompletedChallenges.witness()
-      }
-      
-      return lastOpened(activeOrUpcoming)
-    }
+    guard activeOrUpcoming.isNotEmpty else { return (.replaceDrawerCenterInNav(animated: false), .noChallenges) }
     
-    if presentUnseen, let lastCompleted = unseenCompletedChallenges.sorted(by: { $0.endDate > $1.endDate }).first {
-      unseenCompletedChallenges.witness()
-      
-      return (.replaceDrawerCenterInNav(animated: false), .completedChallenge(lastCompleted, itIsAParty: true))
-    } else {
-      return (.replaceDrawerCenterInNav(animated: false), .noChallenges)
-    }
+    return lastOpened(activeOrUpcoming)
   }
   
   private static func lastOpened(_ challenges: [Challenge]) -> (Navigation, Screen) {

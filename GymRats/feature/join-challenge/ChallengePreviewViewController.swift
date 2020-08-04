@@ -175,6 +175,12 @@ class ChallengePreviewViewController: UIViewController {
         switch result {
         case .success(let challenge):          
           if let self = self { Challenge.State.all.fetch().ignore(disposedBy: self.disposeBag) }
+
+          if challenge.isUpcoming {
+            LocalNotificationService.registerForStart(challenge)
+          }
+
+          LocalNotificationService.registerForEnd(challenge)
           
           NotificationCenter.default.post(name: .joinedChallenge, object: challenge)
           

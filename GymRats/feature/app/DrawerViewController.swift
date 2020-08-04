@@ -60,7 +60,7 @@ class DrawerViewController: UIViewController {
           challenges.removeAll(where: { $0.id == challenge.id })
           challenges.append(challenge)
           
-          return RouteCalculator.home(challenges, presentUnseen: false)
+          return RouteCalculator.home(challenges)
         }
       }
       .subscribe(onNext: { (navigation, screen) in

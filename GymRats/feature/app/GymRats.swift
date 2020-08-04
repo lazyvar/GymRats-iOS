@@ -46,7 +46,7 @@ enum GymRats {
     case .production:
       break
     }
-    
+
     self.branch = Branch.getInstance()
   }
   
@@ -160,6 +160,25 @@ enum GymRats {
       UserDefaults.standard.set(count + 1, forKey: "gym_rats_run_count")
       NotificationCenter.default.post(.appEnteredForeground)
     }
+  }
+  
+  /// Called when the app becomes active.
+  static func didBecomeActive() {
+    guard currentAccount != nil else { return }
+    
+    Challenge.State.all.fetch()
+      .compactMap { $0.object }
+      .subscribe(onNext: { challenges in
+        let unseenCompletedChallenges = challenges.unseenCompletedChallenges()
+        
+        defer { unseenCompletedChallenges.witness() }
+        
+        if let last = unseenCompletedChallenges.sorted(by: { $0.id < $1.id }).last {
+          UserDefaults.standard.set(0, forKey: "last_opened_challenge")
+          ChallengeFlow.present(completedChallenge: last)
+        }
+      })
+      .disposed(by: disposeBag)
   }
   
   /// Called when the app entered the background state.
