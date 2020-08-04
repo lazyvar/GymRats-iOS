@@ -55,7 +55,7 @@ enum LocalNotificationService {
   }
   
   static func registerForEnd(_ challenge: Challenge) {
-    let endDateComponents = challenge.endDate.dateComponents
+    let endDateComponents = (challenge.endDate + 1.days).dateComponents
     let content = UNMutableNotificationContent()
     content.title = "Challenge complete"
     content.body = "Congratulations on completing \(challenge.name)!"
