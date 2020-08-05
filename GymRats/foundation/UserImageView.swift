@@ -18,7 +18,7 @@ protocol Avatar {
 
 @IBDesignable class UserImageView: UIView {
   private var avatar: Any?
-  private let ringView = RingView(frame: .zero, ringWidth: 0.5, ringColor: UIColor.black.withAlphaComponent(0.1))
+  private let ringView = RingView(frame: .zero, ringWidth: 0.5, ringColor: .clear)
 
   private lazy var imageView: UIImageView = {
     let imageView = UIImageView(frame: .zero)

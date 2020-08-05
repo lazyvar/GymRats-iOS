@@ -15,11 +15,12 @@ import RxKeyboard
 typealias WorkoutSection = AnimatableSectionModel<Int, WorkoutRow>
 
 class WorkoutViewController: BindableViewController {
+  let workout: Workout
+
   private let viewModel = WorkoutViewModel()
   private let disposeBag = DisposeBag()
-  private let workout: Workout
   private let challenge: Challenge?
-
+  
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
       tableView.backgroundColor = .clear
@@ -105,18 +106,20 @@ class WorkoutViewController: BindableViewController {
       .disposed(by: disposeBag)
   }
   
+  private var spookyView: UIView!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
         
-    let spookyView = SpookyView().apply {
+    spookyView = SpookyView().apply {
       $0.translatesAutoresizingMaskIntoConstraints = false
       $0.isUserInteractionEnabled = false
     }
-    
+
     view.insertSubview(spookyView, at: 0)
     
     let top = NSLayoutConstraint(
-      item: spookyView,
+      item: spookyView!,
       attribute: .top,
       relatedBy: .equal,
       toItem: tableView,
@@ -168,7 +171,7 @@ class WorkoutViewController: BindableViewController {
     
     viewModel.input.viewDidLoad.trigger()
   }
-
+  
   @objc private func hideKeyboard() {
     view.endEditing(true)
   }
@@ -240,5 +243,45 @@ class WorkoutViewController: BindableViewController {
     alertViewController.addAction(cancelAction)
 
     self.present(alertViewController, animated: true, completion: nil)
+  }
+}
+
+extension WorkoutViewController {
+  var bigFrame: CGRect {
+    let statusBar = UIApplication.shared.statusBarFrame.height
+    let navigationHeight = navigationController!.navigationBar.frame.height
+    let viewWidth = UIScreen.main.bounds.width - 40
+
+    let imageHeight: CGFloat = {
+      guard let photoURL = workout.photoUrl else { return .zero }
+      
+      if let image = KingfisherManager.shared.cache.retrieveImageInMemoryCache(forKey: photoURL) ?? KingfisherManager.shared.cache.retrieveImageInDiskCache(forKey: photoURL) {
+        return (image.size.height / image.size.width) * viewWidth
+      } else {
+        return viewWidth
+      }
+    }()
+    
+    return CGRect(x: 20, y: statusBar + navigationHeight + 5, width: viewWidth, height: imageHeight)
+  }
+  
+  func transitionWillStart(push: Bool) {
+    if push {
+      tableView.alpha = 0
+      spookyView.alpha = 0
+    } else {
+      UIView.animate(withDuration: 0.35) {
+        self.tableView.alpha = 1
+      }
+    }
+  }
+  
+  func transitionDidEnd(push: Bool) {
+    if push {
+      UIView.animate(withDuration: 0.10) {
+        self.tableView.alpha = 1
+        self.spookyView.alpha = 1
+      }
+    }
   }
 }

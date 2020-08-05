@@ -21,7 +21,7 @@ enum Screen {
   case completedChallenges
   case settings
   case about
-  case challengeStats(Challenge)
+  case challengeDetails(Challenge)
   case chat(Challenge)
   case upcomingChallenge(Challenge)
   case login
@@ -45,8 +45,8 @@ enum Screen {
       return UpcomingChallengeViewController(challenge: challenge)
     case .activeChallenge(let challenge):
       return ChallengeTabBarController(challenge: challenge)
-    case .challengeStats(let challenge):
-      return ChallengeStatsViewController(challenge: challenge)
+    case .challengeDetails(let challenge):
+      return ChallengeDetailsViewController(challenge: challenge)
     case .chooseChallengeMode:
       return ChooseChallengeModeViewController()
     case .workout(let workout, let challenge):

@@ -36,8 +36,10 @@ class GymRatsNavigationController: UINavigationController, UINavigationBarDelega
       NSAttributedString.Key.font: UIFont.h4,
       NSAttributedString.Key.foregroundColor: UIColor.primaryText
     ]
+    
+    delegate = self
   }
-  
+
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
@@ -48,5 +50,30 @@ class GymRatsNavigationController: UINavigationController, UINavigationBarDelega
   
   func position(for bar: UIBarPositioning) -> UIBarPosition {
     return .topAttached
+  }
+}
+
+extension GymRatsNavigationController: UINavigationControllerDelegate {
+  public func navigationController(
+    _ navigationController: UINavigationController,
+    animationControllerFor operation: UINavigationController.Operation,
+    from fromVC: UIViewController,
+    to toVC: UIViewController
+  ) -> UIViewControllerAnimatedTransitioning? {
+    if
+      let challengeViewController = fromVC as? ChallengeViewController,
+      let workoutViewController = toVC as? WorkoutViewController,
+      operation == .push {
+        return WorkoutPushTransition(from: challengeViewController, to: workoutViewController)
+      }
+
+    if
+      let workoutViewController = fromVC as? WorkoutViewController,
+      let challengeViewController = toVC as? ChallengeViewController,
+      operation == .pop {
+        return WorkoutPopTransition(from: workoutViewController, to: challengeViewController)
+      }
+
+    return nil
   }
 }

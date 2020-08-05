@@ -98,8 +98,8 @@ class GymRatsAPI {
     return requestObject(.getChallengeForCode(code: code))
   }
   
-  func getRankings(challenge: Challenge) -> Observable<NetworkResult<[Ranking]>> {
-    return requestArray(.getRankings(challenge))
+  func getRankings(challenge: Challenge, scoreBy: ScoreBy) -> Observable<NetworkResult<[Ranking]>> {
+    return requestArray(.getRankings(challenge, scoreBy: scoreBy))
   }
 
   func getWorkout(id: Int) -> Observable<NetworkResult<Workout>> {

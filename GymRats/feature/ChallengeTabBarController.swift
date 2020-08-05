@@ -56,7 +56,7 @@ class ChallengeTabBarController: ESTabBarController {
   }
   
   private var chatItem: UITabBarItem? { return tabBar.items?[safe: 2] }
-
+  
   @objc private func sawChat(notification: Notification) {
     guard let challenge = notification.object as? Challenge else { return }
     
@@ -93,7 +93,7 @@ private extension ChallengeTabBarController {
   
   private func pushStats() {
     challengeViewController.push(
-      ChallengeStatsViewController(challenge: challenge)
+      ChallengeDetailsViewController(challenge: challenge)
     )
   }
   
@@ -124,5 +124,62 @@ private extension ChallengeTabBarController {
     tabBar.unselectedItemTintColor = .primaryText
     tabBar.addSubview(pxWhiteThing)
     tabBar.sendSubviewToBack(pxWhiteThing)
+  }
+}
+
+extension UITabBarController {
+  func setTabBar(hidden: Bool, animated: Bool = true, alongside animator: UIViewPropertyAnimator? = nil) {
+    guard tabBarIsHidden != hidden else { return }
+
+    let offsetY = hidden ? (tabBar.frame.height + 30) : -(tabBar.frame.height + 30)
+    let endFrame = tabBar.frame.offsetBy(dx: 0, dy: offsetY)
+    var newInsets: UIEdgeInsets? = selectedViewController?.additionalSafeAreaInsets
+    let originalInsets = newInsets
+    newInsets?.bottom -= offsetY
+
+    func set(childViewController: UIViewController?, additionalSafeArea: UIEdgeInsets) {
+      childViewController?.additionalSafeAreaInsets = additionalSafeArea
+      childViewController?.view.setNeedsLayout()
+    }
+
+    if let insets = newInsets, hidden {
+      set(childViewController: selectedViewController, additionalSafeArea: insets)
+    }
+
+    guard animated else { tabBar.frame = endFrame; return }
+
+    tabBar.isHidden = false
+    
+    if let animator = animator {
+      animator.addAnimations {
+        self.tabBar.frame = endFrame
+      }
+      
+      animator.addCompletion { (position) in
+        let insets = (position == .end) ? newInsets : originalInsets
+        
+        if let insets = insets, !hidden {
+          set(childViewController: self.selectedViewController, additionalSafeArea: insets)
+        }
+        
+        if (position == .end) {
+          self.tabBar.isHidden = hidden
+        }
+      }
+    } else {
+      UIView.animate(withDuration: 0.35, animations: {
+        self.tabBar.frame = endFrame
+      }) { didFinish in
+        if !hidden, didFinish, let insets = newInsets {
+          set(childViewController: self.selectedViewController, additionalSafeArea: insets)
+        }
+        
+        self.tabBar.isHidden = hidden
+      }
+    }
+  }
+
+  private var tabBarIsHidden: Bool {
+    return !tabBar.frame.intersects(view.frame)
   }
 }

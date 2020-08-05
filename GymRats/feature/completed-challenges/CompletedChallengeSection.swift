@@ -15,6 +15,5 @@ enum CompletedChallengeRow {
   case banner(String)
   case description(NSAttributedString)
   case share(Challenge)
-  case startNewChallenge(Challenge)
   case ranking(Ranking, Int, ScoreBy)
 }

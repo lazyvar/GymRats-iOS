@@ -26,7 +26,9 @@ class ChallengeViewController: BindableViewController {
   private let challenge: Challenge
   private let viewModel = ChallengeViewModel()
   private let disposeBag = DisposeBag()
-
+  
+  private var selectedIndexPath: IndexPath!
+  
   init(challenge: Challenge) {
     self.challenge = challenge
     self.viewModel.configure(challenge: challenge)
@@ -164,6 +166,7 @@ class ChallengeViewController: BindableViewController {
     tableView.rx.itemSelected
       .do(onNext: { [weak self] indexPath in
         self?.tableView.deselectRow(at: indexPath, animated: true)
+        self?.selectedIndexPath = indexPath
       })
       .bind(to: viewModel.input.tappedRow)
       .disposed(by: disposeBag)
@@ -257,7 +260,7 @@ class ChallengeViewController: BindableViewController {
   
   @objc private func statsTapped() {
     push(
-      ChallengeStatsViewController(challenge: challenge)
+      ChallengeDetailsViewController(challenge: challenge)
     )
   }
   
@@ -384,5 +387,37 @@ extension ChallengeViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
     return UIView()
+  }
+}
+
+extension ChallengeViewController {
+  var selectedWorkoutListCell: WorkoutListCell? {
+    guard let indexPath = selectedIndexPath else { return nil }
+    
+    return tableView.cellForRow(at: indexPath) as? WorkoutListCell
+  }
+  
+  var selectedImageViewFrame: CGRect {
+    guard let selectedWorkoutListCell = selectedWorkoutListCell else { return .zero }
+    
+    return selectedWorkoutListCell.workoutImageView.superview?.convert(selectedWorkoutListCell.workoutImageView.frame, to: nil) ?? .zero
+  }
+  
+  var selectedWorkoutPhotoURL: URL? {
+    return selectedWorkoutListCell?.workoutImageView.kf.webURL
+  }
+  
+  func transitionWillStart(push: Bool) {
+    if push {
+      UIView.animate(withDuration: 0.3) {
+        self.tableView.alpha = 0
+      }
+    }
+  }
+  
+  func transitionDidEnd(push: Bool) {
+    if push {
+      self.tableView.alpha = 1
+    }
   }
 }

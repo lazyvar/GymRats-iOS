@@ -145,6 +145,7 @@ extension NSNotification.Name {
 
 extension UIView: Placeholder { }
 
+
 struct UserWorkout {
   let user: Account
   let workout: Workout?

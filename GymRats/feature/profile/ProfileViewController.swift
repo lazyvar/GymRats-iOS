@@ -181,8 +181,15 @@ class ProfileViewController: UIViewController {
       })
     }
     
-    mappedWorkouts.map { "Total workouts: \($0.count)" }
-      .catchErrorJustReturn("Total workouts: -")
+    mappedWorkouts
+      .map { workouts in
+        if workouts.count == 1 {
+          return "1 total workout"
+        } else {
+          return "\(workouts.count) total workouts"
+        }
+      }
+      .catchErrorJustReturn("? total workouts")
       .bind(to: workoutsLabel.rx.text)
       .disposed(by: disposeBag)
     

@@ -158,7 +158,7 @@ final class ChallengeViewModel: ViewModel {
     input.tappedRow
       .filter { $0.section == 0 }
       .map { _ -> (Navigation, Screen) in
-        return (.push(animated: true), .challengeStats(self.challenge))
+        return (.push(animated: true), .challengeDetails(self.challenge))
       }
       .bind(to: output.navigation)
       .disposed(by: disposeBag)
@@ -173,7 +173,7 @@ final class ChallengeViewModel: ViewModel {
         guard let dayWorkouts = bucketedWorkouts[safe: section] else { return nil }
         guard let workout = dayWorkouts.1[safe: indexPath.row] else { return nil }
 
-        return (.push(animated: true), .workout(workout, self.challenge))
+        return (.pushNative(animated: true), .workout(workout, self.challenge))
       }
       .bind(to: output.navigation)
       .disposed(by: disposeBag)
