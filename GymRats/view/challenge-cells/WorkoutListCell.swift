@@ -27,7 +27,7 @@ class WorkoutListCell: UITableViewCell {
     }
   }
   
-  @IBOutlet private weak var workoutImageView: UIImageView! {
+  @IBOutlet weak var workoutImageView: UIImageView! {
     didSet {
       workoutImageView.contentMode = .scaleAspectFill
       workoutImageView.backgroundColor = .clear
@@ -96,7 +96,7 @@ class WorkoutListCell: UITableViewCell {
     accountNameLabel.text = nil
     workoutImageView.kf.cancelDownloadTask()
   }
-  
+
   override func layoutIfNeeded() {
     super.layoutIfNeeded()
     

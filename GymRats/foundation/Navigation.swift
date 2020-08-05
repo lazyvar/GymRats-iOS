@@ -10,6 +10,7 @@ import UIKit
 
 enum Navigation {
   case push(animated: Bool)
+  case pushNative(animated: Bool)
   case present(animated: Bool)
   case presentInNav(animated: Bool)
   case install
@@ -29,6 +30,8 @@ extension UIViewController {
     }
     
     switch navigation {
+    case .pushNative(animated: let animated):
+      navigationController?.pushViewController(viewController, animated: animated)
     case .push(animated: let animated):
       push(viewController, animated: animated)
     case .present(animated: let animated):

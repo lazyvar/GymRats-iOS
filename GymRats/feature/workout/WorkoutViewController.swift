@@ -19,7 +19,7 @@ class WorkoutViewController: BindableViewController {
   private let disposeBag = DisposeBag()
   private let workout: Workout
   private let challenge: Challenge?
-
+  
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
       tableView.backgroundColor = .clear
@@ -168,7 +168,7 @@ class WorkoutViewController: BindableViewController {
     
     viewModel.input.viewDidLoad.trigger()
   }
-
+  
   @objc private func hideKeyboard() {
     view.endEditing(true)
   }
@@ -240,5 +240,35 @@ class WorkoutViewController: BindableViewController {
     alertViewController.addAction(cancelAction)
 
     self.present(alertViewController, animated: true, completion: nil)
+  }
+}
+
+extension WorkoutViewController {
+  var bigFrame: CGRect {
+    let statusBar = UIApplication.shared.statusBarFrame.height
+    let navigationHeight = navigationController!.navigationBar.frame.height
+    let viewWidth = UIScreen.main.bounds.width - 40
+
+    let imageHeight: CGFloat = {
+      guard let photoURL = workout.photoUrl else { return .zero }
+      
+      if let image = KingfisherManager.shared.cache.retrieveImageInMemoryCache(forKey: photoURL) ?? KingfisherManager.shared.cache.retrieveImageInDiskCache(forKey: photoURL) {
+        return (image.size.height / image.size.width) * viewWidth
+      } else {
+        return viewWidth
+      }
+    }()
+    
+    return CGRect(x: 20, y: statusBar + navigationHeight + 5, width: viewWidth, height: imageHeight)
+  }
+  
+  func transitionWillStart() {
+    tableView.alpha = 0
+  }
+  
+  func transitionDidEnd() {
+    UIView.animate(withDuration: 0.15) {
+      self.tableView.alpha = 1
+    }
   }
 }
