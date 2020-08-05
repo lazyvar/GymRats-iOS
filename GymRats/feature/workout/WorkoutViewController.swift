@@ -15,9 +15,10 @@ import RxKeyboard
 typealias WorkoutSection = AnimatableSectionModel<Int, WorkoutRow>
 
 class WorkoutViewController: BindableViewController {
+  let workout: Workout
+
   private let viewModel = WorkoutViewModel()
   private let disposeBag = DisposeBag()
-  private let workout: Workout
   private let challenge: Challenge?
   
   @IBOutlet private weak var tableView: UITableView! {
@@ -105,18 +106,20 @@ class WorkoutViewController: BindableViewController {
       .disposed(by: disposeBag)
   }
   
+  private var spookyView: UIView!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
         
-    let spookyView = SpookyView().apply {
+    spookyView = SpookyView().apply {
       $0.translatesAutoresizingMaskIntoConstraints = false
       $0.isUserInteractionEnabled = false
     }
-    
+
     view.insertSubview(spookyView, at: 0)
     
     let top = NSLayoutConstraint(
-      item: spookyView,
+      item: spookyView!,
       attribute: .top,
       relatedBy: .equal,
       toItem: tableView,
@@ -262,13 +265,23 @@ extension WorkoutViewController {
     return CGRect(x: 20, y: statusBar + navigationHeight + 5, width: viewWidth, height: imageHeight)
   }
   
-  func transitionWillStart() {
-    tableView.alpha = 0
+  func transitionWillStart(push: Bool) {
+    if push {
+      tableView.alpha = 0
+      spookyView.alpha = 0
+    } else {
+      UIView.animate(withDuration: 0.35) {
+        self.tableView.alpha = 1
+      }
+    }
   }
   
-  func transitionDidEnd() {
-    UIView.animate(withDuration: 0.15) {
-      self.tableView.alpha = 1
+  func transitionDidEnd(push: Bool) {
+    if push {
+      UIView.animate(withDuration: 0.10) {
+        self.tableView.alpha = 1
+        self.spookyView.alpha = 1
+      }
     }
   }
 }

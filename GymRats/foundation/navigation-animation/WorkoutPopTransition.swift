@@ -1,16 +1,17 @@
 //
-//  WorkoutPushTransition.swift
+//  WorkoutPopTransition.swift
 //  GymRats
 //
-//  Created by mack on 8/4/20.
+//  Created by mack on 8/5/20.
 //  Copyright © 2020 Mack Hasz. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
-class WorkoutPushTransition: NSObject, UIViewControllerAnimatedTransitioning {
-  private let from: ChallengeViewController
-  private let to: WorkoutViewController
+class WorkoutPopTransition: NSObject, UIViewControllerAnimatedTransitioning {
+  private let from: WorkoutViewController
+  private let to: ChallengeViewController
 
   private let transitionImageView: UIImageView = {
     let imageView = UIImageView()
@@ -21,7 +22,7 @@ class WorkoutPushTransition: NSObject, UIViewControllerAnimatedTransitioning {
     return imageView
   }()
 
-  init(from: ChallengeViewController, to: WorkoutViewController) {
+  init(from: WorkoutViewController, to: ChallengeViewController) {
     self.from = from
     self.to = to
   }
@@ -37,23 +38,26 @@ class WorkoutPushTransition: NSObject, UIViewControllerAnimatedTransitioning {
     let duration = transitionDuration(using: transitionContext)
     let spring: CGFloat = 1
     let animator = UIViewPropertyAnimator(duration: duration, dampingRatio: spring) { [unowned transitionImageView, unowned to] in
-      transitionImageView.frame = to.bigFrame
+      transitionImageView.frame = to.selectedImageViewFrame
       toView.alpha = 1
     }
 
     toView.alpha = 0
-    transitionImageView.kf.setImage(with: from.selectedWorkoutPhotoURL, options: [.transition(.fade(0.2))])
+    
+    if let url = from.workout.photoUrl, let earl = URL(string: url) {
+      transitionImageView.kf.setImage(with: earl, options: [.transition(.fade(0.2))])
+    }
     
     containerView.addSubview(fromView)
     containerView.addSubview(toView)
     containerView.addSubview(transitionImageView)
 
-    transitionImageView.frame = from.selectedImageViewFrame
+    transitionImageView.frame = from.bigFrame
 
-    from.transitionWillStart(push: true)
-    to.transitionWillStart(push: true)
+    from.transitionWillStart(push: false)
+    to.transitionWillStart(push: false)
 
-    from.tabBarController?.setTabBar(hidden: true, alongside: animator)
+    from.tabBarController?.setTabBar(hidden: false, alongside: animator)
     
     animator.addCompletion { [unowned transitionImageView, unowned from, unowned to] position in
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
@@ -64,8 +68,8 @@ class WorkoutPushTransition: NSObject, UIViewControllerAnimatedTransitioning {
 
       transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
 
-      from.transitionDidEnd(push: true)
-      to.transitionDidEnd(push: true)
+      from.transitionDidEnd(push: false)
+      to.transitionDidEnd(push: false)
     }
 
     animator.startAnimation()

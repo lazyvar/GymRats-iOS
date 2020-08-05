@@ -131,7 +131,7 @@ extension UITabBarController {
   func setTabBar(hidden: Bool, animated: Bool = true, alongside animator: UIViewPropertyAnimator? = nil) {
     guard tabBarIsHidden != hidden else { return }
 
-    let offsetY = hidden ? (tabBar.frame.height + 30) : -tabBar.frame.height
+    let offsetY = hidden ? (tabBar.frame.height + 30) : -(tabBar.frame.height + 30)
     let endFrame = tabBar.frame.offsetBy(dx: 0, dy: offsetY)
     var newInsets: UIEdgeInsets? = selectedViewController?.additionalSafeAreaInsets
     let originalInsets = newInsets
@@ -167,7 +167,7 @@ extension UITabBarController {
         }
       }
     } else {
-      UIView.animate(withDuration: 0.3, animations: {
+      UIView.animate(withDuration: 0.35, animations: {
         self.tabBar.frame = endFrame
       }) { didFinish in
         if !hidden, didFinish, let insets = newInsets {

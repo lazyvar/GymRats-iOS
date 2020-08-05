@@ -407,13 +407,17 @@ extension ChallengeViewController {
     return selectedWorkoutListCell?.workoutImageView.kf.webURL
   }
   
-  func transitionWillStart() {
-    UIView.animate(withDuration: 0.3) {
-      self.tableView.alpha = 0
+  func transitionWillStart(push: Bool) {
+    if push {
+      UIView.animate(withDuration: 0.3) {
+        self.tableView.alpha = 0
+      }
     }
   }
   
-  func transitionDidEnd() {
-    self.tableView.alpha = 1
+  func transitionDidEnd(push: Bool) {
+    if push {
+      self.tableView.alpha = 1
+    }
   }
 }

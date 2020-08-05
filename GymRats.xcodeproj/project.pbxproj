@@ -59,6 +59,7 @@
 		01297D952329E79000CA9E41 /* SF-Pro-Rounded-Ultralight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01297D812329E79000CA9E41 /* SF-Pro-Rounded-Ultralight.otf */; };
 		01297D962329E79000CA9E41 /* SF-Pro-Rounded-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01297D822329E79000CA9E41 /* SF-Pro-Rounded-Heavy.otf */; };
 		01297D972329E79000CA9E41 /* SF-Pro-Rounded-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01297D832329E79000CA9E41 /* SF-Pro-Rounded-Bold.otf */; };
+		012FB63A24DB11A700EB54D4 /* WorkoutPopTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012FB63924DB11A700EB54D4 /* WorkoutPopTransition.swift */; };
 		01319ED124184FAC005E65D2 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01319ED024184FAC005E65D2 /* Screen.swift */; };
 		01319ED32418746C005E65D2 /* GymRatsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01319ED22418746C005E65D2 /* GymRatsAPI.swift */; };
 		01319ED524187790005E65D2 /* NewWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01319ED424187790005E65D2 /* NewWorkout.swift */; };
@@ -385,6 +386,7 @@
 		01297D812329E79000CA9E41 /* SF-Pro-Rounded-Ultralight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Ultralight.otf"; sourceTree = "<group>"; };
 		01297D822329E79000CA9E41 /* SF-Pro-Rounded-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Heavy.otf"; sourceTree = "<group>"; };
 		01297D832329E79000CA9E41 /* SF-Pro-Rounded-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Bold.otf"; sourceTree = "<group>"; };
+		012FB63924DB11A700EB54D4 /* WorkoutPopTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPopTransition.swift; sourceTree = "<group>"; };
 		01319ED024184FAC005E65D2 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		01319ED22418746C005E65D2 /* GymRatsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymRatsAPI.swift; sourceTree = "<group>"; };
 		01319ED424187790005E65D2 /* NewWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkout.swift; sourceTree = "<group>"; };
@@ -879,6 +881,7 @@
 			children = (
 				01D5D361243BB8F20044E459 /* GymRatsNavigationController.swift */,
 				0125466124DA607900E7D020 /* WorkoutPushTransition.swift */,
+				012FB63924DB11A700EB54D4 /* WorkoutPopTransition.swift */,
 			);
 			path = "navigation-animation";
 			sourceTree = "<group>";
@@ -1744,6 +1747,7 @@
 				74BE97BC220C9F2800D550CA /* ImageCell.swift in Sources */,
 				747D6FE92208EDAF0062BB39 /* Colors.swift in Sources */,
 				01527303243C055A00123E25 /* ProfilePictureCell.swift in Sources */,
+				012FB63A24DB11A700EB54D4 /* WorkoutPopTransition.swift in Sources */,
 				747D6FE02208ECDD0062BB39 /* Styles.swift in Sources */,
 				01F5295D2418367B00FA96E0 /* Resource.swift in Sources */,
 				01F5296B24184CDA00FA96E0 /* NoChallengesViewModel.swift in Sources */,

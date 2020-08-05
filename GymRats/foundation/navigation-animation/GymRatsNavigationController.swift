@@ -60,11 +60,20 @@ extension GymRatsNavigationController: UINavigationControllerDelegate {
     from fromVC: UIViewController,
     to toVC: UIViewController
   ) -> UIViewControllerAnimatedTransitioning? {
-    guard
+    if
       let challengeViewController = fromVC as? ChallengeViewController,
       let workoutViewController = toVC as? WorkoutViewController,
-      operation == .push else { return nil }
-    
-    return WorkoutPushTransition(from: challengeViewController, to: workoutViewController)
+      operation == .push {
+        return WorkoutPushTransition(from: challengeViewController, to: workoutViewController)
+      }
+
+    if
+      let workoutViewController = fromVC as? WorkoutViewController,
+      let challengeViewController = toVC as? ChallengeViewController,
+      operation == .pop {
+        return WorkoutPopTransition(from: workoutViewController, to: challengeViewController)
+      }
+
+    return nil
   }
 }
