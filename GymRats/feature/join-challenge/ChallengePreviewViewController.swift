@@ -89,11 +89,9 @@ class ChallengePreviewViewController: UIViewController {
     }
   }
   
-  @IBOutlet private weak var descriptionLabel: UILabel! {
+  @IBOutlet private weak var descriptionLabel: SmartLabel! {
     didSet {
       descriptionLabel.text = challenge.description
-      descriptionLabel.textColor = .primaryText
-      descriptionLabel.font = .body
     }
   }
   

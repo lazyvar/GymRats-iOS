@@ -175,7 +175,7 @@
                                                                 <constraint firstAttribute="width" constant="24" id="ukB-IZ-5VK"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AFE-hm-8Vt">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AFE-hm-8Vt" customClass="SmartLabel" customModule="GymRats" customModuleProvider="target">
                                                             <rect key="frame" x="34" y="0.0" width="320" height="24"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
@@ -227,7 +227,7 @@
                 <constraint firstItem="F6r-be-IQo" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="whs-qV-D4C"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="149" y="143"/>
+            <point key="canvasLocation" x="109" y="144"/>
         </view>
     </objects>
     <resources>

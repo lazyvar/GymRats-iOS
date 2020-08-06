@@ -155,6 +155,7 @@
 		01987A9824300E9500835621 /* ChallengePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01987A9624300E9500835621 /* ChallengePreviewViewController.swift */; };
 		01987A9924300E9500835621 /* ChallengePreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01987A9724300E9500835621 /* ChallengePreviewViewController.xib */; };
 		019CF1FB232722FF00D884DA /* BigContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019CF1FA232722FF00D884DA /* BigContentView.swift */; };
+		019D899124DC58CF002BFD1B /* SmartLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019D899024DC58CF002BFD1B /* SmartLabel.swift */; };
 		01A03B7F2422E69A0099760F /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A03B7E2422E69A0099760F /* Environment.swift */; };
 		01A1CD24233AF6B8005871F4 /* EditChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1CD23233AF6B8005871F4 /* EditChallengeViewController.swift */; };
 		01A3EAEB2377471B0097FC2A /* BindableObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A3EAE92377471A0097FC2A /* BindableObserver.swift */; };
@@ -485,6 +486,7 @@
 		01987A9624300E9500835621 /* ChallengePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengePreviewViewController.swift; sourceTree = "<group>"; };
 		01987A9724300E9500835621 /* ChallengePreviewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengePreviewViewController.xib; sourceTree = "<group>"; };
 		019CF1FA232722FF00D884DA /* BigContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigContentView.swift; sourceTree = "<group>"; };
+		019D899024DC58CF002BFD1B /* SmartLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartLabel.swift; sourceTree = "<group>"; };
 		01A03B7E2422E69A0099760F /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		01A03B812422EAD20099760F /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
 		01A03B822422EBD00099760F /* PreProduction.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PreProduction.xcconfig; sourceTree = "<group>"; };
@@ -992,6 +994,7 @@
 				0169396B24DA09850011C1A8 /* MemberCell.xib */,
 				011E1BFF24DB891C00A1F7CC /* GroupStatCell.swift */,
 				011E1C0024DB891C00A1F7CC /* GroupStatCell.xib */,
+				019D899024DC58CF002BFD1B /* SmartLabel.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1801,6 +1804,7 @@
 				01A3EB1E237747D30097FC2A /* CVCalendarMenuView.swift in Sources */,
 				0118C24E23C2B704002FB84D /* CreateWorkoutHeaderCell.swift in Sources */,
 				01F65A09244543BC00E26539 /* TextViewCell.swift in Sources */,
+				019D899124DC58CF002BFD1B /* SmartLabel.swift in Sources */,
 				01A3EB28237747D30097FC2A /* CVCalendarWeekday.swift in Sources */,
 				01F5295624180ED200FA96E0 /* UIAlertViewController+Rx.swift in Sources */,
 				01D5D370243BDA7D0044E459 /* ErrorLabelCell.swift in Sources */,
