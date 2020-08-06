@@ -90,7 +90,7 @@ class WorkoutListCell: UITableViewCell {
   override func prepareForReuse() {
     super.prepareForReuse()
 
-    workoutImageWidth.constant = 72
+    workoutImageWidth.constant = 68
     workoutTitleLabel.text = nil
     workoutImageView.image = nil
     accountNameLabel.text = nil

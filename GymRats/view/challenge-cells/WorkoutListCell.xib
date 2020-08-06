@@ -18,30 +18,30 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8jU-Rw-ERW">
-                        <rect key="frame" x="20" y="7.5" width="498" height="72"/>
+                        <rect key="frame" x="20" y="7.5" width="498" height="68"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DbR-6Q-KBB">
-                                <rect key="frame" x="0.0" y="0.0" width="72" height="72"/>
+                                <rect key="frame" x="0.0" y="0.0" width="68" height="68"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BpX-wP-Idn">
-                                <rect key="frame" x="0.0" y="0.0" width="72" height="72"/>
+                                <rect key="frame" x="0.0" y="0.0" width="68" height="68"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="72" id="i67-KM-Jr5"/>
-                                    <constraint firstAttribute="width" constant="72" id="wmI-wU-5J3"/>
+                                    <constraint firstAttribute="height" constant="68" id="i67-KM-Jr5"/>
+                                    <constraint firstAttribute="width" constant="68" id="wmI-wU-5J3"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="GrQ-iU-zoq">
-                                <rect key="frame" x="82" y="11" width="401" height="50.5"/>
+                                <rect key="frame" x="78" y="9" width="405" height="50.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e7m-oe-Bxd">
-                                        <rect key="frame" x="0.0" y="0.0" width="401" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e7m-oe-Bxd">
+                                        <rect key="frame" x="0.0" y="0.0" width="405" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="OBj-5J-54V">
-                                        <rect key="frame" x="0.0" y="28.5" width="401" height="22"/>
+                                        <rect key="frame" x="0.0" y="28.5" width="405" height="22"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QGZ-mK-Pg8" customClass="UserImageView" customModule="GymRats" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="22" height="22"/>
@@ -52,13 +52,13 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LKf-AJ-GTj">
-                                                <rect key="frame" x="27" y="0.0" width="327" height="22"/>
+                                                <rect key="frame" x="27" y="0.0" width="331" height="22"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zth-qd-rxq">
-                                                <rect key="frame" x="359" y="0.0" width="42" height="22"/>
+                                                <rect key="frame" x="363" y="0.0" width="42" height="22"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -75,7 +75,7 @@
                             <constraint firstItem="GrQ-iU-zoq" firstAttribute="leading" secondItem="BpX-wP-Idn" secondAttribute="trailing" constant="10" id="KMv-EC-KHf"/>
                             <constraint firstItem="DbR-6Q-KBB" firstAttribute="top" secondItem="8jU-Rw-ERW" secondAttribute="top" id="QVz-x4-972"/>
                             <constraint firstAttribute="bottom" secondItem="DbR-6Q-KBB" secondAttribute="bottom" id="ai6-Sb-guy"/>
-                            <constraint firstAttribute="height" constant="72" id="de7-Nl-COM"/>
+                            <constraint firstAttribute="height" constant="68" id="de7-Nl-COM"/>
                             <constraint firstItem="BpX-wP-Idn" firstAttribute="centerY" secondItem="8jU-Rw-ERW" secondAttribute="centerY" id="j32-sf-hij"/>
                             <constraint firstItem="DbR-6Q-KBB" firstAttribute="width" secondItem="BpX-wP-Idn" secondAttribute="width" id="oXr-4f-Ugh"/>
                             <constraint firstItem="BpX-wP-Idn" firstAttribute="leading" secondItem="8jU-Rw-ERW" secondAttribute="leading" id="uNc-Us-a7c"/>

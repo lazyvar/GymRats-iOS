@@ -17,9 +17,7 @@ enum LocalNotificationService {
   static func synchronize(challenges: [Challenge]) {
     PushNotifications.permissionStatus()
       .subscribe(onSuccess: { status in
-        guard status == .authorized else { return }
-        
-        PushNotifications.center.removeAllPendingNotificationRequests()
+        guard status == .authorized else { return }        
         
         for challenge in challenges where challenge.isActive || challenge.isUpcoming {
           if challenge.isUpcoming {
