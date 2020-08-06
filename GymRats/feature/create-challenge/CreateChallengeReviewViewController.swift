@@ -100,11 +100,9 @@ class CreateChallengeReviewViewController: UIViewController {
     }
   }
   
-  @IBOutlet private weak var descriptionLabel: UILabel! {
+  @IBOutlet private weak var descriptionLabel: SmartLabel! {
     didSet {
       descriptionLabel.text = newChallenge.description
-      descriptionLabel.textColor = .primaryText
-      descriptionLabel.font = .body
     }
   }
   

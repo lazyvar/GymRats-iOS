@@ -70,12 +70,7 @@ class WorkoutDetailsCell: UITableViewCell {
     }
   }
 
-  @IBOutlet private weak var workoutDescriptionLabel: UILabel! {
-    didSet {
-      workoutDescriptionLabel.textColor = .primaryText
-      workoutDescriptionLabel.font = .body
-    }
-  }
+  @IBOutlet private weak var workoutDescriptionLabel: SmartLabel!
   
   @IBOutlet private weak var workoutTitleLabel: UILabel! {
     didSet {

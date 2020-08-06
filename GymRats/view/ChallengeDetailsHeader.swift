@@ -27,12 +27,7 @@ class ChallengeDetailsHeader: UITableViewCell {
 
   @IBOutlet private weak var barMultiplier: NSLayoutConstraint!
   
-  @IBOutlet private weak var descriptionLabel: UILabel! {
-    didSet {
-      descriptionLabel.textColor = .primaryText
-      descriptionLabel.font = .body
-    }
-  }
+  @IBOutlet private weak var descriptionLabel: SmartLabel!
   
   @IBOutlet private weak var endDateLabel: UILabel! {
    didSet {
