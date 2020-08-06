@@ -25,6 +25,8 @@ class SmartLabel: TTTAttributedLabel {
   }
   
   private func setup() {
+    let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(showCopy(recognizer:)))
+
     delegate = self
     font = .body
     textColor = .primaryText
@@ -42,8 +44,6 @@ class SmartLabel: TTTAttributedLabel {
       | NSTextCheckingResult.CheckingType.address.rawValue
     
     addObserver(self, forKeyPath: "font", options: .new, context: nil)
-    
-    let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture(recognizer:)))
     addGestureRecognizer(gestureRecognizer)
   }
     
@@ -64,13 +64,29 @@ class SmartLabel: TTTAttributedLabel {
     }
   }
   
-  @objc private func handleLongPressGesture(recognizer: UIGestureRecognizer) {
+  func tapToCopy() {
+    let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(showCopy(recognizer:)))
+
+    addGestureRecognizer(gestureRecognizer)
+  }
+  
+  @objc private func showCopy(recognizer: UIGestureRecognizer) {
     guard let recognizerView = recognizer.view, let recognizerSuperView = recognizerView.superview else { return }
     
     let menuController = UIMenuController.shared
     menuController.setTargetRect(recognizerView.frame, in: recognizerSuperView)
     menuController.setMenuVisible(true, animated:true)
     recognizerView.becomeFirstResponder()
+  }
+  
+  override var canBecomeFirstResponder: Bool { true }
+  
+  override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+    return (action == #selector(UIResponderStandardEditActions.copy(_:)))
+  }
+
+  override func copy(_ sender: Any?) {
+    UIPasteboard.general.string = (text as? String) ?? ""
   }
 }
 

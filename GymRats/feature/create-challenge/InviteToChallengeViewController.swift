@@ -21,13 +21,13 @@ class InviteToChallengeViewController: UIViewController {
   
   @IBOutlet private weak var textView: UITextView! {
     didSet {
-      textView.font = .proRoundedBold(size: 40)
+      textView.font = .proRoundedRegular(size: 14)
       textView.textColor = .primaryText
       textView.backgroundColor = .foreground
       textView.layer.cornerRadius = 4
       textView.clipsToBounds = true
       textView.isEditable = false
-      textView.contentInset = .init(top: 20, left: 0, bottom: 0, right: 0)
+      textView.contentInset = .init(top: 10, left: 10, bottom: 0, right: 10)
     }
   }
   
@@ -48,10 +48,11 @@ class InviteToChallengeViewController: UIViewController {
     
     view.backgroundColor = .background
     title = "Invite"
+    navigationItem.leftBarButtonItem = UIBarButtonItem(image: .close, style: .plain, target: self, action: #selector(self.continue(_:)))
     navigationController?.presentationController?.delegate = self
     setupBackButton()
     
-    textView.text = challenge.code
+    textView.text = "https://gym-rats.app.link/join?code=\(challenge.code)"
   }
   
   @IBAction private func shareCode(_ sender: Any) {
@@ -60,7 +61,7 @@ class InviteToChallengeViewController: UIViewController {
   
   @IBAction private func `continue`(_ sender: Any) {
     Challenge.State.all.fetch().ignore(disposedBy: disposeBag)
-    
+
     NotificationCenter.default.post(name: .joinedChallenge, object: challenge)
     
     if UserDefaults.standard.bool(forKey: "account-is-onboarding") {

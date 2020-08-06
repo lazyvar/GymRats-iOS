@@ -54,8 +54,25 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ctQ-az-maQ" customClass="SmartLabel" customModule="GymRats" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="51.5" width="464" height="219.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9Ui-4L-BgN">
+                                <rect key="frame" x="0.0" y="51.5" width="464" height="24"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="code" translatesAutoresizingMaskIntoConstraints="NO" id="JGL-s5-tyn">
+                                        <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="BHB-OA-2r7"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I5h-qp-876" customClass="SmartLabel" customModule="GymRats" customModuleProvider="target">
+                                        <rect key="frame" x="34" y="0.0" width="430" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ctQ-az-maQ" customClass="SmartLabel" customModule="GymRats" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="83.5" width="464" height="187.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -77,11 +94,16 @@
                 <outlet property="bar" destination="o9C-n4-L2U" id="vMV-Vf-u3q"/>
                 <outlet property="barBackground" destination="cr5-6S-b4m" id="qNu-Fe-Hdx"/>
                 <outlet property="barMultiplier" destination="ixh-BR-ENQ" id="x9Y-0j-YB3"/>
+                <outlet property="codeLabel" destination="I5h-qp-876" id="L8Y-4N-HvG"/>
+                <outlet property="codeThing" destination="JGL-s5-tyn" id="iHK-i3-Uty"/>
                 <outlet property="descriptionLabel" destination="ctQ-az-maQ" id="Tlr-tL-3X9"/>
                 <outlet property="endDateLabel" destination="pqV-A4-m1e" id="g6v-Fb-HTB"/>
                 <outlet property="startDateLabel" destination="t6r-3s-X5t" id="xzV-tH-6jK"/>
             </connections>
-            <point key="canvasLocation" x="109" y="140"/>
+            <point key="canvasLocation" x="70" y="138"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="code" width="24" height="24"/>
+    </resources>
 </document>
