@@ -24,23 +24,34 @@ class ChallengeDetailsHeader: UITableViewCell {
       bar.layer.cornerRadius = 2
     }
   }
-
-  @IBOutlet private weak var barMultiplier: NSLayoutConstraint!
   
+  @IBOutlet private weak var codeThing: UIImageView! {
+    didSet {
+      codeThing.tintColor = .primaryText
+    }
+  }
+
+  @IBOutlet private weak var codeLabel: SmartLabel! {
+    didSet {
+      codeLabel.tapToCopy()
+    }
+  }
+  
+  @IBOutlet private weak var barMultiplier: NSLayoutConstraint!
   @IBOutlet private weak var descriptionLabel: SmartLabel!
   
   @IBOutlet private weak var endDateLabel: UILabel! {
-   didSet {
-     endDateLabel.textColor = .primaryText
-     endDateLabel.font = .proRoundedRegular(size: 10)
-   }
+    didSet {
+      endDateLabel.textColor = .primaryText
+      endDateLabel.font = .proRoundedRegular(size: 10)
+    }
   }
   
   @IBOutlet private weak var startDateLabel: UILabel! {
-   didSet {
-     startDateLabel.textColor = .primaryText
-     startDateLabel.font = .proRoundedRegular(size: 10)
-   }
+    didSet {
+      startDateLabel.textColor = .primaryText
+      startDateLabel.font = .proRoundedRegular(size: 10)
+    }
   }
   
   static func configure(tableView: UITableView, indexPath: IndexPath, challenge: Challenge) -> UITableViewCell {
@@ -62,6 +73,7 @@ class ChallengeDetailsHeader: UITableViewCell {
         }
       }
       
+      cell.codeLabel.text = challenge.code
       cell.descriptionLabel.text = challenge.description
       
       if challenge.isActive {
