@@ -29,6 +29,9 @@
 		0118C24E23C2B704002FB84D /* CreateWorkoutHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0118C24C23C2B704002FB84D /* CreateWorkoutHeaderCell.swift */; };
 		0118C24F23C2B704002FB84D /* CreateWorkoutHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0118C24D23C2B704002FB84D /* CreateWorkoutHeaderCell.xib */; };
 		011DAE98241ADC69009B3613 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011DAE97241ADC69009B3613 /* Navigation.swift */; };
+		011E1BFE24DB7DC300A1F7CC /* GroupStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E1BFD24DB7DC300A1F7CC /* GroupStats.swift */; };
+		011E1C0124DB891C00A1F7CC /* GroupStatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E1BFF24DB891C00A1F7CC /* GroupStatCell.swift */; };
+		011E1C0224DB891C00A1F7CC /* GroupStatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011E1C0024DB891C00A1F7CC /* GroupStatCell.xib */; };
 		011EEB8D241A8BB100CC9F9E /* ChallengeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011EEB8C241A8BB100CC9F9E /* ChallengeFlow.swift */; };
 		011EEB90241A8C4000CC9F9E /* TrackMessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011EEB8F241A8C4000CC9F9E /* TrackMessageDelegate.swift */; };
 		011FB62B22A33AAA004D5B8E /* UserProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB62922A33AAA004D5B8E /* UserProfileCell.swift */; };
@@ -356,6 +359,9 @@
 		0118C24C23C2B704002FB84D /* CreateWorkoutHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutHeaderCell.swift; sourceTree = "<group>"; };
 		0118C24D23C2B704002FB84D /* CreateWorkoutHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateWorkoutHeaderCell.xib; sourceTree = "<group>"; };
 		011DAE97241ADC69009B3613 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
+		011E1BFD24DB7DC300A1F7CC /* GroupStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupStats.swift; sourceTree = "<group>"; };
+		011E1BFF24DB891C00A1F7CC /* GroupStatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupStatCell.swift; sourceTree = "<group>"; };
+		011E1C0024DB891C00A1F7CC /* GroupStatCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupStatCell.xib; sourceTree = "<group>"; };
 		011EEB8C241A8BB100CC9F9E /* ChallengeFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeFlow.swift; sourceTree = "<group>"; };
 		011EEB8F241A8C4000CC9F9E /* TrackMessageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMessageDelegate.swift; sourceTree = "<group>"; };
 		011FB62922A33AAA004D5B8E /* UserProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCell.swift; sourceTree = "<group>"; };
@@ -984,6 +990,8 @@
 				0169396524DA08AC0011C1A8 /* MembersCell.xib */,
 				0169396A24DA09850011C1A8 /* MemberCell.swift */,
 				0169396B24DA09850011C1A8 /* MemberCell.xib */,
+				011E1BFF24DB891C00A1F7CC /* GroupStatCell.swift */,
+				011E1C0024DB891C00A1F7CC /* GroupStatCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1254,6 +1262,7 @@
 				01D70BD7244676D600F6F33A /* NewChallenge.swift */,
 				0127B08B24490240000A48CB /* Membership.swift */,
 				01A6C4E424D4EBC90007DFB6 /* Ranking.swift */,
+				011E1BFD24DB7DC300A1F7CC /* GroupStats.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1507,6 +1516,7 @@
 				0146D3EE24450BC1008D990E /* ChooseChallengeModeViewController.xib in Resources */,
 				0127B0902449136D000A48CB /* InviteToChallengeViewController.xib in Resources */,
 				74118066220C58C300EB9D11 /* Lato-Light.ttf in Resources */,
+				011E1C0224DB891C00A1F7CC /* GroupStatCell.xib in Resources */,
 				01747A5D24D883B100A4682B /* ShareChallengeView.xib in Resources */,
 				747D6FA42208DB330062BB39 /* LaunchScreen.storyboard in Resources */,
 				01987A9924300E9500835621 /* ChallengePreviewViewController.xib in Resources */,
@@ -1846,6 +1856,7 @@
 				0176B67A243BAF740022B65F /* CreateAccountViewController.swift in Sources */,
 				01611D49243E968A00D1DAA4 /* WorkoutRow.swift in Sources */,
 				74A01B3B220A544F00431ABD /* UserWorkoutTableViewCell.swift in Sources */,
+				011E1BFE24DB7DC300A1F7CC /* GroupStats.swift in Sources */,
 				015C0728243FE0FE003E75E9 /* UpcomingChallengeViewController.swift in Sources */,
 				0176B675243B9AD00022B65F /* UIImage+Extension.swift in Sources */,
 				01F6A17824AE743C00A5B7C2 /* PushNotifications.swift in Sources */,
@@ -1881,6 +1892,7 @@
 				0169397024DA0E590011C1A8 /* RankingsViewController.swift in Sources */,
 				01928B78244508BB00F56F76 /* ChallengeMode.swift in Sources */,
 				01987A9824300E9500835621 /* ChallengePreviewViewController.swift in Sources */,
+				011E1C0124DB891C00A1F7CC /* GroupStatCell.swift in Sources */,
 				01974544243F8A72004ACB71 /* WorkoutAccountCell.swift in Sources */,
 				01F7D7662422899000B2D5D8 /* NoWorkoutsCell.swift in Sources */,
 				015C072E243FE432003E75E9 /* AccountCell.swift in Sources */,

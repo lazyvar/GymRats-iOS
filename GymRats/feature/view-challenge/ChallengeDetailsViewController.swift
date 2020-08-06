@@ -26,6 +26,7 @@ class ChallengeDetailsViewController: BindableViewController {
       tableView.registerCellNibForClass(ChallengeDetailsHeader.self)
       tableView.registerCellNibForClass(RankingCell.self)
       tableView.registerCellNibForClass(MembersCell.self)
+      tableView.registerCellNibForClass(GroupStatCell.self)
     }
   }
   
@@ -56,8 +57,8 @@ class ChallengeDetailsViewController: BindableViewController {
       return RankingCell.configure(tableView: tableView, indexPath: indexPath, ranking: ranking, place: place, scoreBy: scoreBy) {
         self.push(ProfileViewController(account: ranking.account, challenge: self.challenge))
       }
-    case .groupStats:
-      return UITableViewCell()
+    case .groupStats(let avatar, let image, let top, let bottom, let right):
+      return GroupStatCell.configure(tableView: tableView, indexPath: indexPath, avatar: avatar, image: image, topLabel: top, bottomLabel: bottom, rightLabel: right)
     }
   })
 

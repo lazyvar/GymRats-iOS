@@ -8,6 +8,7 @@
 
 import Foundation
 import RxDataSources
+import UIKit
 
 typealias ChallengeDetailsSection = SectionModel<String?, ChallengeDetailsRow>
 
@@ -16,5 +17,5 @@ enum ChallengeDetailsRow {
   case members([Account])
   case ranking(Ranking, place: Int, ScoreBy)
   case fullLeaderboard
-  case groupStats
+  case groupStats(Avatar?, UIImage?, top: String, bottom: String, right: String?)
 }

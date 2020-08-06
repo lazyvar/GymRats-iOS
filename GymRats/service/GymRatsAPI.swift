@@ -121,6 +121,10 @@ class GymRatsAPI {
   func getAllWorkouts(for user: Account) -> Observable<NetworkResult<[Workout]>> {
     return requestArray(.getAllWorkoutsForUser(user: user))
   }
+  
+  func getGroupStats(for challenge: Challenge) -> Observable<NetworkResult<GroupStats>> {
+    return requestObject(.groupStats(challenge))
+  }
 
   func getWorkouts(for user: Account, in challenge: Challenge) -> Observable<NetworkResult<[Workout]>> {
     return requestArray(.getWorkouts(forUser: user, inChallenge: challenge))

@@ -35,17 +35,18 @@ final class ChallengeDetailsViewModel: ViewModel {
         self.output.loading.on(.next(true))
       })
       .flatMap {
-        Observable.combineLatest(gymRatsAPI.getMembers(for: self.challenge), gymRatsAPI.getRankings(challenge: self.challenge, scoreBy: self.challenge.scoreBy))
+        Observable.combineLatest(gymRatsAPI.getGroupStats(for: self.challenge), gymRatsAPI.getRankings(challenge: self.challenge, scoreBy: self.challenge.scoreBy))
       }
       .do(onNext: { _ in
         self.output.loading.on(.next(false))
       })
-      .compactMap { memberResult, rankingsResult -> ([Account], [Ranking])? in
-        guard let members = memberResult.object, let rankings = rankingsResult.object else { return nil }
+      .compactMap { groupStatsResult, rankingsResult -> (GroupStats, [Ranking])? in
+        guard let groupStats = groupStatsResult.object, let rankings = rankingsResult.object else { return nil }
       
-        return (members, rankings)
+        return (groupStats, rankings)
       }
-      .map { members, rankings -> [ChallengeDetailsSection] in
+      .map { groupStats, rankings -> [ChallengeDetailsSection] in
+        let members = rankings.shuffled().map { $0.account }
         let myRank = rankings.firstIndex(where: { $0.account.id == GymRats.currentAccount.id })
         let firstRank = rankings.first
         let secondRank = rankings[safe: 1]
@@ -80,13 +81,32 @@ final class ChallengeDetailsViewModel: ViewModel {
           }
         }()
         
+        let workoutsPerDay = String(format: "%.2f", CGFloat(groupStats.totalWorkouts) / CGFloat(self.challenge.days.count))
+        
+        let groupStats: [ChallengeDetailsRow] = {
+          if self.challenge.scoreBy == .workouts {
+            return [
+              .groupStats(nil, UIImage.activity, top: String(groupStats.totalWorkouts), bottom: "Total workouts", right: nil),
+              .groupStats(nil, UIImage.cal, top: workoutsPerDay, bottom: "Average workouts per day", right: nil),
+              .groupStats(groupStats.mostEarlyBirdWorkouts.account, nil, top: groupStats.mostEarlyBirdWorkouts.account.fullName, bottom: "Most early bird workouts", right: String(groupStats.mostEarlyBirdWorkouts.numberOfWorkouts)),
+            ]
+          } else {
+            return [
+              .groupStats(nil, UIImage.activity, top: String(groupStats.totalWorkouts), bottom: "Total workouts", right: nil),
+              .groupStats(nil, UIImage.star, top: String(groupStats.totalScore), bottom: "Total \(self.challenge.scoreBy.description)", right: nil),
+              .groupStats(nil, UIImage.cal, top: workoutsPerDay, bottom: "Average workouts per day", right: nil),
+              .groupStats(groupStats.mostEarlyBirdWorkouts.account, nil, top: groupStats.mostEarlyBirdWorkouts.account.fullName, bottom: "Most early bird workouts", right: String(groupStats.mostEarlyBirdWorkouts.numberOfWorkouts)),
+            ]
+          }
+        }()
+        
         return [
           ChallengeDetailsSection(model: nil, items: [.header(self.challenge)]),
           ChallengeDetailsSection(model: membersHeader, items: [.members(members)]),
           ChallengeDetailsSection(model: "Rankings", items: ordered.map { ranking in
             ChallengeDetailsRow.ranking(ranking.0, place: ranking.place, self.challenge.scoreBy)
           } + [.fullLeaderboard]),
-          ChallengeDetailsSection(model: "Group stats", items: [.groupStats])
+          ChallengeDetailsSection(model: "Group stats", items: groupStats)
         ]
       }
       .bind(to: output.sections)
