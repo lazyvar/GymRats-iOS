@@ -137,7 +137,7 @@ class CreateChallengeReviewViewController: UIViewController {
         case .success(let challenge):
           Track.event(.challengeCreated)
 
-          self?.push(InviteToChallengeViewController(challenge: challenge))
+          self?.navigationController?.setViewControllers([InviteToChallengeViewController(challenge: challenge)], animated: true)
         case .failure(let error):
           self?.presentAlert(with: error)
         }
