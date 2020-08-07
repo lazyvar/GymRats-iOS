@@ -47,6 +47,17 @@ class ChatViewController: MessagesViewController {
     return formatter
   }()
 
+  private let noChatLabel: UILabel = {
+    let label = UILabel()
+    label.translatesAutoresizingMaskIntoConstraints = false
+    label.font = .details
+    label.text = "No chat messages to display."
+    label.textColor = .secondaryText
+    label.isHidden = true
+    
+    return label
+  }()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -54,6 +65,9 @@ class ChatViewController: MessagesViewController {
     messagesCollectionView.backgroundColor = .background
     title = challenge.name
 
+    view.addSubview(noChatLabel)
+    
+    noChatLabel.center(in: view)
     
     navigationItem.largeTitleDisplayMode = .never
     
@@ -117,7 +131,7 @@ class ChatViewController: MessagesViewController {
     NotificationCenter.default.post(name: .sawChat, object: challenge)
     connectSocket()
   }
-  
+
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
 
@@ -140,9 +154,10 @@ class ChatViewController: MessagesViewController {
     channel?.leave()
     socket.disconnect()
   }
-  
+
   @objc private func refresh() {
     canLoadMorePosts = true
+    showLoadingBar()
     loadChats(page: 0, clear: true)
   }
     
@@ -154,7 +169,11 @@ class ChatViewController: MessagesViewController {
     guard canLoadMorePosts else { return }
             
     gymRatsAPI.getChatMessages(for: challenge, page: page)
-      .subscribe(onNext: { result in
+      .subscribe(onNext: { [weak self] result in
+        guard let self = self else { return }
+        
+        self.hideLoadingBar()
+        
         switch result {
         case .success(let messages):
           self.handleFetchResponse(loadedMessages: messages, page: page, clear: clear)
@@ -176,6 +195,7 @@ class ChatViewController: MessagesViewController {
     
     if clear { chats = [] }
     
+    noChatLabel.isHidden = page != 0 || loadedMessages.isNotEmpty
     currentPage = page
     chats = loadedMessages.reversed() + chats
     messagesCollectionView.reloadData()
@@ -204,6 +224,7 @@ class ChatViewController: MessagesViewController {
     channel.on("new_msg") { [weak self] message in
       if let data = message.payload.data(), let chat = try? JSONDecoder.gymRatsAPIDecoder.decode(ChatMessage.self, from: data) {
         self?.chats.append(chat)
+        self?.noChatLabel.isHidden = true
         
         if chat.account.id == GymRats.currentAccount.id {
           self?.messageInputBar.inputTextView.text = nil
@@ -306,13 +327,23 @@ extension ChatViewController: MessagesLayoutDelegate {
 
     return show ? 30 : 0
   }
-//
-//  func messageTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-//    return 25
-//  }
+
+  func messageTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+    return 25
+  }
 }
 
 extension ChatViewController: MessagesDisplayDelegate {
+  func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
+    let chat = chats[indexPath.section]
+    
+    if chat.account.id == GymRats.currentAccount.id {
+      return .bubbleTail(.bottomRight, .pointedEdge)
+    } else {
+      return .bubbleTail(.bottomLeft, .pointedEdge)
+    }
+  }
+  
   func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
     let userImageView = UserImageView()
     userImageView.tag = 888
@@ -326,7 +357,7 @@ extension ChatViewController: MessagesDisplayDelegate {
       
     userImageView.load(chat.account)
   }
-  
+
   func configureMediaMessageImageView(_ imageView: UIImageView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
     switch message.kind {
     case .photo(let mediaItem):
