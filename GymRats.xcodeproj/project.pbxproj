@@ -156,6 +156,7 @@
 		01987A9924300E9500835621 /* ChallengePreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01987A9724300E9500835621 /* ChallengePreviewViewController.xib */; };
 		019CF1FB232722FF00D884DA /* BigContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019CF1FA232722FF00D884DA /* BigContentView.swift */; };
 		019D899124DC58CF002BFD1B /* SmartLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019D899024DC58CF002BFD1B /* SmartLabel.swift */; };
+		019D899324DCCB97002BFD1B /* UpdateWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019D899224DCCB97002BFD1B /* UpdateWorkout.swift */; };
 		01A03B7F2422E69A0099760F /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A03B7E2422E69A0099760F /* Environment.swift */; };
 		01A1CD24233AF6B8005871F4 /* EditChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A1CD23233AF6B8005871F4 /* EditChallengeViewController.swift */; };
 		01A3EAEB2377471B0097FC2A /* BindableObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A3EAE92377471A0097FC2A /* BindableObserver.swift */; };
@@ -487,6 +488,7 @@
 		01987A9724300E9500835621 /* ChallengePreviewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengePreviewViewController.xib; sourceTree = "<group>"; };
 		019CF1FA232722FF00D884DA /* BigContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigContentView.swift; sourceTree = "<group>"; };
 		019D899024DC58CF002BFD1B /* SmartLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartLabel.swift; sourceTree = "<group>"; };
+		019D899224DCCB97002BFD1B /* UpdateWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateWorkout.swift; sourceTree = "<group>"; };
 		01A03B7E2422E69A0099760F /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		01A03B812422EAD20099760F /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
 		01A03B822422EBD00099760F /* PreProduction.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = PreProduction.xcconfig; sourceTree = "<group>"; };
@@ -1266,6 +1268,7 @@
 				0127B08B24490240000A48CB /* Membership.swift */,
 				01A6C4E424D4EBC90007DFB6 /* Ranking.swift */,
 				011E1BFD24DB7DC300A1F7CC /* GroupStats.swift */,
+				019D899224DCCB97002BFD1B /* UpdateWorkout.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1738,6 +1741,7 @@
 				01AB95AB243F90D30066C7DA /* SpookyView.swift in Sources */,
 				01F65A032445144300E26539 /* ChallengeBannerChoice.swift in Sources */,
 				0146D3ED24450BC1008D990E /* ChooseChallengeModeViewController.swift in Sources */,
+				019D899324DCCB97002BFD1B /* UpdateWorkout.swift in Sources */,
 				746764E7220BAE44000CFB1B /* CreateWorkoutViewController.swift in Sources */,
 				01107DC9243CE665005AA8F3 /* HowItWorksViewController.swift in Sources */,
 				7455AC5E22125296005A558A /* ServiceResponse.swift in Sources */,

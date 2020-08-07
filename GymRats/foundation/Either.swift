@@ -30,3 +30,16 @@ enum Either<Left, Right> {
     }
   }
 }
+
+extension Either: Equatable where Left: Equatable, Right: Equatable {
+  static func == (lhs: Either<Left, Right>, rhs: Either<Left, Right>) -> Bool {
+    switch (lhs, rhs) {
+    case (.left(let a), .left(let b)):
+      return a == b
+    case (.right(let a), .right(let b)):
+      return a == b
+    default:
+      return false
+    }
+  }
+}

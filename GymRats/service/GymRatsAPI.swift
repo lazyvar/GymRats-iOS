@@ -141,7 +141,19 @@ class GymRatsAPI {
         return self.requestObject(.postWorkout(workout, photoURL: url, challenges: challenges))
       }
   }
-  
+
+  func update(_ workout: UpdateWorkout) -> Observable<NetworkResult<Workout>> {
+    return Observable<UIImage?>.just(workout.photo.left)
+      .flatMap { image -> Observable<String?> in
+        guard let image = image else { return .just(nil) }
+      
+        return ImageService.uploadImageToFirebase(image: image).map { url -> String? in url }
+      }
+      .flatMap { url in
+        return self.requestObject(.updateWorkout(workout, photoURL: url ?? workout.photo.right?.photoUrl))
+      }
+  }
+
   func getMembers(for challenge: Challenge) -> Observable<NetworkResult<[Account]>> {
     return requestArray(.getMembersForChallenge(challenge))
   }

@@ -15,7 +15,7 @@ import RxKeyboard
 typealias WorkoutSection = AnimatableSectionModel<Int, WorkoutRow>
 
 class WorkoutViewController: BindableViewController {
-  let workout: Workout
+  var workout: Workout
 
   private let viewModel = WorkoutViewModel()
   private let disposeBag = DisposeBag()
@@ -205,6 +205,13 @@ class WorkoutViewController: BindableViewController {
   }
   
   @objc private func showWorkoutMenu() {
+    let edit = UIAlertAction(title: "Edit", style: .default) { _ in
+      let viewController = CreateWorkoutViewController(workout: .right(self.workout))
+      viewController.delegate = self
+      
+      self.presentInNav(viewController)
+    }
+    
     let deleteAction = UIAlertAction(title: "Remove workout", style: .destructive) { _ in
       let areYouSureAlert = UIAlertController(title: "Are you sure?", message: "You will not be able to recover a workout once it has been removed.", preferredStyle: .alert)
       
@@ -239,6 +246,11 @@ class WorkoutViewController: BindableViewController {
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
     
     let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    
+    if workout.account.id == GymRats.currentAccount.id {
+      alertViewController.addAction(edit)
+    }
+    
     alertViewController.addAction(deleteAction)
     alertViewController.addAction(cancelAction)
 
@@ -283,5 +295,15 @@ extension WorkoutViewController {
         self.spookyView.alpha = 1
       }
     }
+  }
+}
+
+extension WorkoutViewController: CreatedWorkoutDelegate {
+  func createWorkoutController(_ createWorkoutController: CreateWorkoutViewController, created workout: Workout) {
+    NotificationCenter.default.post(name: .workoutDeleted, object: self.workout)
+    createWorkoutController.dismissSelf()
+    self.workout = workout
+    self.viewModel.configure(workout: workout, challenge: self.challenge)
+    self.viewModel.input.updatedWorkout.trigger()
   }
 }

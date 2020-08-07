@@ -16,7 +16,7 @@ enum WorkoutFlow {
     generator.impactOccurred()
 
     let logWorkoutModal = LogWorkoutModalViewController() { image in
-      let createWorkoutViewController = CreateWorkoutViewController(workoutImage: image)
+      let createWorkoutViewController = CreateWorkoutViewController(workout: .left(image))
       createWorkoutViewController.delegate = createWorkoutDelegate
       
       UIViewController.topmost().present(createWorkoutViewController.inNav(), animated: true, completion: nil)
