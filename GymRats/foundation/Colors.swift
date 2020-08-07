@@ -42,7 +42,7 @@ extension UIColor {
 
   static var background: UIColor {
     switch UIDevice.contentMode {
-    case .light: return .hex("#FAFAFA")
+    case .light: return .hex("#F8F8F8")
     case .dark: return .black
     }
   }
