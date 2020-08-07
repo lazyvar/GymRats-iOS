@@ -187,7 +187,7 @@ class UpcomingChallengeViewController: BindableViewController {
   }
 }
 
-extension UpcomingChallengeViewController: UICollectionViewDelegate {  
+extension UpcomingChallengeViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     collectionView.deselectItem(at: indexPath, animated: true)
       

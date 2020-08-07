@@ -78,5 +78,7 @@ class DrawerViewController: UIViewController {
         drawer.centerViewController?.navigate(navigation, to: screen.viewController)
       })
       .disposed(by: disposeBag)
+    
+    GymRats.handleColdStartNotification()
   }
 }
