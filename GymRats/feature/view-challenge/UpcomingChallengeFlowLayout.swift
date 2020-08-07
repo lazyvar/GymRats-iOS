@@ -28,6 +28,8 @@ class UpcomingChallengeFlowLayout: UICollectionViewFlowLayout {
     headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: {
       var height: CGFloat = 185
       
+      height += "The challenge has not yet started. Once it does, you will be able to post workouts.".height(withConstrainedWidth: UIScreen.main.bounds.width - (40), font: .body) + 5
+      
       if challenge.profilePictureUrl != nil {
         height += 150
       }

@@ -70,6 +70,13 @@ class UpcomingChallengeHeaderView: UICollectionReusableView {
   @IBOutlet private weak var descriptionLabel: SmartLabel!
   @IBOutlet private weak var descriptionStackView: UIStackView!
   
+  @IBOutlet weak var notStartedYet: UILabel! {
+    didSet {
+      notStartedYet.textColor = .primaryText
+      notStartedYet.font = .body
+    }
+  }
+  
   @IBOutlet private weak var codeImageView: UIImageView! {
     didSet {
       codeImageView.tintColor = .primaryText

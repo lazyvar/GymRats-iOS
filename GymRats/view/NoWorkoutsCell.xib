@@ -10,49 +10,46 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="654" id="KGk-i7-Jjw" customClass="NoWorkoutsCell" customModule="GymRats" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="627" height="654"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="332" id="KGk-i7-Jjw" customClass="NoWorkoutsCell" customModule="GymRats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="454" height="332"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="627" height="654"/>
+                <rect key="frame" x="0.0" y="0.0" width="454" height="332"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="bVS-KS-wvk">
-                        <rect key="frame" x="0.0" y="10" width="627" height="644"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="runner" translatesAutoresizingMaskIntoConstraints="NO" id="hJ1-uR-oV1">
-                                <rect key="frame" x="0.0" y="10" width="627" height="250"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="250" id="08t-s4-A6g"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No workouts yet, be the first." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4DH-bf-SRe">
-                                <rect key="frame" x="0.0" y="295" width="627" height="339"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <directionalEdgeInsets key="directionalLayoutMargins" top="10" leading="0.0" bottom="10" trailing="0.0"/>
-                    </stackView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tQS-1d-KcB">
+                        <rect key="frame" x="60" y="209.5" width="334" height="112.5"/>
+                        <string key="text">Challenge started! No workouts have been recorded, this is where they would show up. You can be the first by hitting the big red button at the bottom of the screen.</string>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="start-it-up" translatesAutoresizingMaskIntoConstraints="NO" id="fzs-NM-Kdi">
+                        <rect key="frame" x="87" y="30" width="280" height="149.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="280" id="USQ-qX-P6m"/>
+                            <constraint firstAttribute="width" secondItem="fzs-NM-Kdi" secondAttribute="height" multiplier="15:8" id="vRC-aX-y16"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="bVS-KS-wvk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="5NU-Xb-1rF"/>
-                    <constraint firstAttribute="trailing" secondItem="bVS-KS-wvk" secondAttribute="trailing" id="B0z-yj-iSf"/>
-                    <constraint firstItem="bVS-KS-wvk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="IEC-kk-eRE"/>
-                    <constraint firstAttribute="bottom" secondItem="bVS-KS-wvk" secondAttribute="bottom" id="OIp-7O-ilZ"/>
+                    <constraint firstItem="tQS-1d-KcB" firstAttribute="top" secondItem="fzs-NM-Kdi" secondAttribute="bottom" constant="30" id="Aqa-1h-VbM"/>
+                    <constraint firstItem="tQS-1d-KcB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="60" id="NaH-tl-la3"/>
+                    <constraint firstItem="fzs-NM-Kdi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="Tza-a3-q7l"/>
+                    <constraint firstAttribute="bottom" secondItem="tQS-1d-KcB" secondAttribute="bottom" constant="10" id="YuO-8f-0a0"/>
+                    <constraint firstItem="fzs-NM-Kdi" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="b75-h6-Uie"/>
+                    <constraint firstAttribute="trailing" secondItem="tQS-1d-KcB" secondAttribute="trailing" constant="60" id="bN1-6i-Mjo"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="label" destination="4DH-bf-SRe" id="aUn-fX-Ruz"/>
-                <outlet property="runnerImageView" destination="hJ1-uR-oV1" id="jey-QK-C1S"/>
+                <outlet property="labelizer" destination="tQS-1d-KcB" id="FN5-1J-DxH"/>
             </connections>
-            <point key="canvasLocation" x="72" y="206"/>
+            <point key="canvasLocation" x="-159.42028985507247" y="-72.321428571428569"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="runner" width="1574" height="1735"/>
+        <image name="start-it-up" width="524" height="373"/>
     </resources>
 </document>
