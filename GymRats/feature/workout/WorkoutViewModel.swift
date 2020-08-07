@@ -19,6 +19,7 @@ final class WorkoutViewModel: ViewModel {
     let tappedRow = PublishSubject<IndexPath>()
     let submittedComment = PublishSubject<String>()
     let tappedDeleteComment = PublishSubject<Comment>()
+    let updatedWorkout = PublishSubject<Void>()
   }
   
   struct Output {
@@ -72,7 +73,7 @@ final class WorkoutViewModel: ViewModel {
       .compactMap { $0.object }
       .map { $0.map { WorkoutRow.comment($0, onMenuTap: { self.output.presentCommentAlert.onNext($0) }) } }
         
-    input.viewDidLoad
+    Observable.merge(input.viewDidLoad, input.updatedWorkout)
       .flatMap { Observable.merge(.just([]), comments) }
       .map { comments -> [WorkoutSection] in
         var headerRows: [WorkoutRow] = [

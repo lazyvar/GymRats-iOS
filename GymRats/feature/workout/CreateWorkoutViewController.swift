@@ -18,15 +18,22 @@ protocol CreatedWorkoutDelegate: class {
 }
 
 class CreateWorkoutViewController: GRFormViewController {
+    enum ChangeType {
+      case create
+      case update
+    }
+  
     weak var delegate: CreatedWorkoutDelegate?
 
+    var changeType: ChangeType = .update
+  
     let disposeBag = DisposeBag()
     let placeLikelihoods = BehaviorRelay<[Place]>(value: [])
     let place = BehaviorRelay<Place?>(value: nil)
     
     let workoutDescription = BehaviorRelay<String?>(value: nil)
     let workoutTitle = BehaviorRelay<String?>(value: nil)
-    let photo = BehaviorRelay<UIImage?>(value: nil)
+    let photo = BehaviorRelay<Either<UIImage, Workout>?>(value: nil)
     
     let duration = BehaviorRelay<String?>(value: nil)
     let distance = BehaviorRelay<String?>(value: nil)
@@ -36,12 +43,13 @@ class CreateWorkoutViewController: GRFormViewController {
 
     lazy var workoutDescriptionThing = self.workoutHeader.map { $0?.description }
     lazy var workoutTitleThing = self.workoutHeader.map { $0?.title }
-    lazy var photoThing = self.workoutHeader.map { $0?.image }
+    lazy var photoThing = self.workoutHeader.map { $0?.imageOrWorkout }
 
     let workoutHeader = BehaviorRelay<WorkoutHeaderInfo?>(value: nil)
     
     var challenges: [Int: BehaviorRelay<Bool>] = [:]
-    var workoutImage: UIImage
+    var workoutOrImage: Either<UIImage, Workout>
+    var workout: Workout?
     var healthKitWorkout: HKWorkout?
 
     lazy var submitButton = UIBarButtonItem(title: "Post", style: .done, target: self, action: #selector(postWorkout))
@@ -79,8 +87,16 @@ class CreateWorkoutViewController: GRFormViewController {
       cell.accessoryType = .disclosureIndicator
     }
     
-    init(workoutImage: UIImage) {
-      self.workoutImage = workoutImage
+    init(workout: Either<UIImage, Workout>) {
+      self.workoutOrImage = workout
+      self.workout = workout.right
+      
+      switch workout {
+      case .left:
+        changeType = .create
+      case .right:
+        changeType = .update
+      }
       
       super.init(nibName: nil, bundle: nil)
     }
@@ -97,8 +113,15 @@ class CreateWorkoutViewController: GRFormViewController {
       navigationItem.leftBarButtonItem = cancelButton
       
       tableView.backgroundColor = .background
-      navigationItem.title = "New workout"
       navigationItem.largeTitleDisplayMode = .never
+      
+      switch changeType {
+      case .create:
+        navigationItem.title = "New workout"
+      case .update:
+        navigationItem.title = "Update workout"
+        submitButton.title = "Save"
+      }
       
       LabelRow.defaultCellUpdate = nil
 
@@ -106,12 +129,13 @@ class CreateWorkoutViewController: GRFormViewController {
       
         let headerRow = CreateWorkoutHeaderRow("workout_header") {
           $0.tag = "header_row"
-          $0.value = WorkoutHeaderInfo(image: workoutImage, title: "", description: "")
+          $0.value = WorkoutHeaderInfo(imageOrWorkout: workoutOrImage, title: workoutOrImage.right?.title ?? "", description: workoutOrImage.right?.description ?? "")
         }
 
         let durationRow = TextRow("duration") {
           $0.title = "Duration (mins)"
           $0.placeholder = "-"
+          $0.value = workoutOrImage.right?.duration?.stringify
         }.cellSetup { cell, _ in
             cell.textLabel?.font = .body
             cell.titleLabel?.font = .body
@@ -123,6 +147,7 @@ class CreateWorkoutViewController: GRFormViewController {
         let distanceRow = TextRow("distance") {
             $0.title = "Distance (miles)"
             $0.placeholder = "-"
+            $0.value = workoutOrImage.right?.distance
         }.cellSetup { cell, _ in
             cell.textLabel?.font = .body
             cell.titleLabel?.font = .body
@@ -134,6 +159,7 @@ class CreateWorkoutViewController: GRFormViewController {
         let stepsRow = TextRow("steps") {
             $0.title = "Steps"
             $0.placeholder = "-"
+            $0.value = workoutOrImage.right?.steps?.stringify
         }.cellSetup { cell, _ in
             cell.textLabel?.font = .body
             cell.titleLabel?.font = .body
@@ -145,6 +171,7 @@ class CreateWorkoutViewController: GRFormViewController {
         let caloriesRow = TextRow("cals") {
             $0.title = "Calories"
             $0.placeholder = "-"
+            $0.value = workoutOrImage.right?.calories?.stringify
         }.cellSetup { cell, _ in
             cell.textLabel?.font = .body
             cell.titleLabel?.font = .body
@@ -156,6 +183,7 @@ class CreateWorkoutViewController: GRFormViewController {
         let pointsRow = TextRow("points") {
             $0.title = "Points"
             $0.placeholder = "-"
+            $0.value = workoutOrImage.right?.calories?.stringify
         }.cellSetup { cell, _ in
             cell.textLabel?.font = .body
             cell.titleLabel?.font = .body
@@ -174,8 +202,8 @@ class CreateWorkoutViewController: GRFormViewController {
       let dataSection = Section() { $0.tag = "data" }
           <<< durationRow
           <<< distanceRow
-          <<< stepsRow
           <<< caloriesRow
+          <<< stepsRow
           <<< pointsRow
       
       let extra = Section() { $0.tag = "extra" }
@@ -199,12 +227,15 @@ class CreateWorkoutViewController: GRFormViewController {
         cell.accessoryType = .disclosureIndicator
       }
       
-      extra <<< importDataRow
-      extra <<< placeButtonRow
+        extra <<< importDataRow
+        extra <<< placeButtonRow
       
       form +++ headerSection
-      form +++ extra
-      form +++ dataSection
+
+      if changeType == .create {
+        form +++ extra
+      }
+        form +++ dataSection
 
         activeChallenges.forEach { challenge in
             let row = SwitchRow("challenge_\(challenge.id)") {
@@ -221,7 +252,7 @@ class CreateWorkoutViewController: GRFormViewController {
             challengeSection <<< row
         }
         
-        if activeChallenges.count > 1 {
+      if activeChallenges.count > 1 && changeType == .create {
             form +++ challengeSection
         }
         
@@ -327,43 +358,86 @@ class CreateWorkoutViewController: GRFormViewController {
 
       showLoadingBar(disallowUserInteraction: true)
         
-      let challenges = self.challenges
-          .filter { $0.value.value }
-          .map { $0.key }
-      
-      let newWorkout = NewWorkout(
-        title: workoutTitle.value!,
-        description: workoutDescription.value,
-        photo: photo.value,
-        googlePlaceId: place.value?.id,
-        duration: duration.value.map { Int($0) } ?? nil,
-        distance: distance.value,
-        steps: steps.value.map { Int($0) } ?? nil,
-        calories: calories.value.map { Int($0) } ?? nil,
-        points: points.value.map { Int($0) } ?? nil,
-        appleDeviceName: healthKitWorkout?.device?.name,
-        appleSourceName: healthKitWorkout?.sourceRevision.source.name,
-        appleWorkoutUuid: healthKitWorkout?.uuid.uuidString,
-        activityType: healthKitWorkout?.workoutActivityType.activityify
-      )
-      
-      gymRatsAPI.postWorkout(newWorkout, challenges: challenges)
-        .subscribe(onNext: { [weak self] result in
-          guard let self = self else { return }
-          
-          self.hideLoadingBar()
-          
-          switch result {
-          case .success(let workout):
-            Track.event(.workoutLogged)
-            StoreService.requestReview()
-            self.delegate?.createWorkoutController(self, created: workout)
-          case .failure(let error):
-            self.presentAlert(with: error)
-          }
-        })
-        .disposed(by: disposeBag)
+      switch changeType {
+      case .create:
+        createWorkout()
+      case .update:
+        updateWorkout()
+      }
     }
+  
+  func createWorkout() {
+    guard let image = photo.value?.left else { return }
+    
+    let challenges = self.challenges
+        .filter { $0.value.value }
+        .map { $0.key }
+    
+    let newWorkout = NewWorkout(
+      title: workoutTitle.value!,
+      description: workoutDescription.value,
+      photo: image,
+      googlePlaceId: place.value?.id,
+      duration: duration.value.map { Int($0) } ?? nil,
+      distance: distance.value,
+      steps: steps.value.map { Int($0) } ?? nil,
+      calories: calories.value.map { Int($0) } ?? nil,
+      points: points.value.map { Int($0) } ?? nil,
+      appleDeviceName: healthKitWorkout?.device?.name,
+      appleSourceName: healthKitWorkout?.sourceRevision.source.name,
+      appleWorkoutUuid: healthKitWorkout?.uuid.uuidString,
+      activityType: healthKitWorkout?.workoutActivityType.activityify
+    )
+    
+    gymRatsAPI.postWorkout(newWorkout, challenges: challenges)
+      .subscribe(onNext: { [weak self] result in
+        guard let self = self else { return }
+        
+        self.hideLoadingBar()
+        
+        switch result {
+        case .success(let workout):
+          Track.event(.workoutLogged)
+          StoreService.requestReview()
+          self.delegate?.createWorkoutController(self, created: workout)
+        case .failure(let error):
+          self.presentAlert(with: error)
+        }
+      })
+      .disposed(by: disposeBag)
+  }
+  
+  func updateWorkout() {
+    guard let workout = workout else { return }
+    guard let photo = photo.value else { return }
+    
+    let newWorkout = UpdateWorkout(
+      id: workout.id,
+      title: workoutTitle.value!,
+      description: workoutDescription.value,
+      photo: photo,
+      duration: duration.value.map { Int($0) } ?? nil,
+      distance: distance.value,
+      steps: steps.value.map { Int($0) } ?? nil,
+      calories: calories.value.map { Int($0) } ?? nil,
+      points: points.value.map { Int($0) } ?? nil
+    )
+    
+    gymRatsAPI.update(newWorkout)
+      .subscribe(onNext: { [weak self] result in
+        guard let self = self else { return }
+        
+        self.hideLoadingBar()
+        
+        switch result {
+        case .success(let workout):
+          self.delegate?.createWorkoutController(self, created: workout)
+        case .failure(let error):
+          self.presentAlert(with: error)
+        }
+      })
+      .disposed(by: disposeBag)
+  }
 }
 
 extension CreateWorkoutViewController: ImportWorkoutViewControllerDelegate {
@@ -393,7 +467,7 @@ extension CreateWorkoutViewController: ImportWorkoutViewControllerDelegate {
     }
     
     if let header = workoutHeader.value, header.title == "" {
-      let new = WorkoutHeaderInfo(image: header.image, title: workout.workoutActivityType.name, description: header.description)
+      let new = WorkoutHeaderInfo(imageOrWorkout: header.imageOrWorkout, title: workout.workoutActivityType.name, description: header.description)
       workoutHeader.accept(new)
       
       (form.rowBy(tag: "header_row") as? CreateWorkoutHeaderRow)?.value = new

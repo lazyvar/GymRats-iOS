@@ -12,7 +12,7 @@ import RSKPlaceholderTextView
 import RxSwift
 
 struct WorkoutHeaderInfo: Equatable {
-    let image: UIImage
+    let imageOrWorkout: Either<UIImage, Workout>
     let title: String
     let description: String
 }
@@ -69,14 +69,14 @@ class CreateWorkoutHeaderCell: Cell<WorkoutHeaderInfo>, CellType {
         let currentValue: WorkoutHeaderInfo = row.value!
         let title = titleTextField.text ?? ""
         
-        row.value = WorkoutHeaderInfo(image: currentValue.image, title: title, description: currentValue.description)
+      row.value = WorkoutHeaderInfo(imageOrWorkout: currentValue.imageOrWorkout, title: title, description: currentValue.description)
     }
     
     @objc func editButtonTapped() {
         let picka = LogWorkoutModalViewController() { image in
             let currentValue: WorkoutHeaderInfo = self.row.value!
             
-            self.row.value = WorkoutHeaderInfo(image: image, title: currentValue.title, description: currentValue.description)
+          self.row.value = WorkoutHeaderInfo(imageOrWorkout: .left(image), title: currentValue.title, description: currentValue.description)
             self.update()
         }
         picka.showText = false
@@ -84,27 +84,32 @@ class CreateWorkoutHeaderCell: Cell<WorkoutHeaderInfo>, CellType {
         UIViewController.topmost().presentPanModal(picka)
     }
     
-    public override func update() {
-        super.update()
+  
+  public override func update() {
+    super.update()
 
-        let currentValue: WorkoutHeaderInfo = row.value!
+    let currentValue: WorkoutHeaderInfo = row.value!
 
-        workoutImageView.image = currentValue.image
-        titleTextField.text = currentValue.title
-        descTextView.text = currentValue.description
+    switch currentValue.imageOrWorkout {
+    case .left(let image):
+      workoutImageView.image = image
+    case .right(let workout):
+      if let photo = workout.photoUrl, let url = URL(string: photo) {
+        workoutImageView.kf.setImage(with: url, options: [.transition(.fade(0.2))])
+      }
     }
-
+    titleTextField.text = currentValue.title
+    descTextView.text = currentValue.description
+  }
 }
 
 extension CreateWorkoutHeaderCell: UITextViewDelegate {
-    
-    func textViewDidChange(_ textView: UITextView) {
-        let currentValue: WorkoutHeaderInfo = row.value!
-        let description = descTextView.text ?? ""
-        
-        row.value = WorkoutHeaderInfo(image: currentValue.image, title: currentValue.title, description: description)
-    }
-    
+  func textViewDidChange(_ textView: UITextView) {
+    let currentValue: WorkoutHeaderInfo = row.value!
+    let description = descTextView.text ?? ""
+      
+    row.value = WorkoutHeaderInfo(imageOrWorkout: currentValue.imageOrWorkout, title: currentValue.title, description: description)
+  }
 }
 
 final class CreateWorkoutHeaderRow: Row<CreateWorkoutHeaderCell>, RowType {

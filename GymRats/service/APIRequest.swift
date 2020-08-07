@@ -25,6 +25,7 @@ enum APIRequest {
   case getAllWorkoutsForUser(user: Account)
   case getWorkouts(forUser: Account, inChallenge: Challenge)
   case postWorkout(_ workout: NewWorkout, photoURL: String?, challenges: [Int])
+  case updateWorkout(_ workout: UpdateWorkout, photoURL: String?)
   case updateUser(email: String?, name: String?, password: String?, profilePictureUrl: String?, currentPassword: String?)
   case deleteWorkout(_ workout: Workout)
   case getCommentsForWorkout(_ workout: Workout)
@@ -190,6 +191,19 @@ enum APIRequest {
       }
 
       return (.post, "workouts", params)
+    case .updateWorkout(let workout, let photo):
+      var params: Parameters = [
+        "title": workout.title,
+        "description": workout.description,
+        "photo_url": photo,
+        "duration": workout.duration,
+        "distance": workout.distance,
+        "steps": workout.steps,
+        "calories": workout.calories,
+        "points": workout.points,
+      ]
+
+      return (.put, "workouts/\(workout.id)", params)
     case .updateUser(let email, let name, let password, let profilePictureUrl, let currentPassword):
       var params: Parameters = [:]
       
@@ -265,6 +279,5 @@ enum APIRequest {
     }
   }
 }
-
 
 struct EmptyJSON: Codable { }
