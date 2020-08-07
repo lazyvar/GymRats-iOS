@@ -60,7 +60,7 @@ enum GymRats {
         if UserDefaults.standard.bool(forKey: "account-is-onboarding") {
           return TodaysGoalViewController().inNav()
         } else {
-          return DrawerViewController()
+          return LoadingViewController()
         }
       } else {
         return WelcomeViewController().inNav()
@@ -124,7 +124,7 @@ enum GymRats {
   static func completeOnboarding() {
     UserDefaults.standard.removeObject(forKey: "join-code")
     UserDefaults.standard.removeObject(forKey: "account-is-onboarding")
-    replaceRoot(with: DrawerViewController())
+    replaceRoot(with: LoadingViewController())
   }
   
   /// Animates the replacing of the rootViewController on the applications window.
@@ -133,9 +133,9 @@ enum GymRats {
     
     UIView.transition(
       with: window,
-      duration: 0.25,
+      duration: 0.15,
       options: .transitionCrossDissolve,
-      animations: {},
+      animations: { },
       completion: nil
     )
   }

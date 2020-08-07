@@ -12,6 +12,17 @@ import RxSwift
 
 class DrawerViewController: UIViewController {
   private let disposeBag = DisposeBag()
+  private let inititalViewController: UIViewController
+  
+  init(inititalViewController: UIViewController) {
+    self.inititalViewController = inititalViewController
+    
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -19,7 +30,7 @@ class DrawerViewController: UIViewController {
     UserDefaults.standard.removeObject(forKey: "account-is-onboarding")
     
     let menu = MenuViewController()
-    let home = HomeViewController().inNav()
+    let home = inititalViewController
     
     let drawer = MMDrawerController(center: home, leftDrawerViewController: menu).apply {
       $0.view.backgroundColor = .background
@@ -31,11 +42,11 @@ class DrawerViewController: UIViewController {
       $0.setDrawerVisualStateBlock(MMDrawerVisualState.parallaxVisualStateBlock(withParallaxFactor: 2))
     }
 
-    Observable.merge(NotificationCenter.default.rx.notification(.challengeEdited), NotificationCenter.default.rx.notification(.leftChallenge))
-      .next { _ in
-        drawer.setCenterView(HomeViewController().inNav(), withCloseAnimation: true, completion: nil)
-      }
-      .disposed(by: disposeBag)
+//    Observable.merge(NotificationCenter.default.rx.notification(.challengeEdited), NotificationCenter.default.rx.notification(.leftChallenge))
+//      .next { _ in
+//        drawer.setCenterView(HomeViewController().inNav(), withCloseAnimation: true, completion: nil)
+//      }
+//      .disposed(by: disposeBag)
     
     install(drawer)
     
