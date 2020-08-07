@@ -300,6 +300,8 @@ extension WorkoutViewController {
 
 extension WorkoutViewController: CreatedWorkoutDelegate {
   func createWorkoutController(_ createWorkoutController: CreateWorkoutViewController, created workout: Workout) {
+    NotificationCenter.default.post(name: .workoutDeleted, object: self.workout)
+    createWorkoutController.dismissSelf()
     self.workout = workout
     self.viewModel.configure(workout: workout, challenge: self.challenge)
     self.viewModel.input.updatedWorkout.trigger()
