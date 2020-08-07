@@ -167,7 +167,7 @@ class EditChallengeViewController: GRFormViewController {
       container.addSubview(goButton)
 
       goButton.addTarget(self, action: #selector(self.nextTapped), for: .touchUpInside)
-      goButton.constrainWidth(250)
+      goButton.constrainWidth(self.tableView.frame.width - 40)
       goButton.constrainHeight(48)
       goButton.horizontallyCenter(in: container)
       goButton.topAnchor.constraint(equalTo: container.topAnchor, constant: 10).isActive = true

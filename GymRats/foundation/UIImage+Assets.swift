@@ -23,10 +23,14 @@ extension UIImage {
   static let chevronLeft        = UIImage(named: "chevron-left")!
   static let eyeOn              = UIImage(named: "eye-on")!
   static let eyeOff             = UIImage(named: "eye-off")!
-  static let name               = UIImage(named: "name")!
-  static let check              = UIImage(named: "check")!
-  static let mail               = UIImage(named: "mail")!
-  static let lock               = UIImage(named: "lock")!
+  static let nameLight          = UIImage(named: "name-light")!
+  static let checkLight         = UIImage(named: "check-light")!
+  static let mailLight          = UIImage(named: "mail-light")!
+  static let lockLight          = UIImage(named: "lock-light")!
+  static let nameDark           = UIImage(named: "name-dark")!
+  static let checkDark          = UIImage(named: "check-dark")!
+  static let mailDark           = UIImage(named: "mail-dark")!
+  static let lockDark           = UIImage(named: "lock-dark")!
   static let proPic             = UIImage(named: "pro-pic")!
   static let camera             = UIImage(named: "camera")!
   static let close              = UIImage(named: "close")!
@@ -44,4 +48,32 @@ extension UIImage {
   static let smallAppleHealth   = UIImage(named: "small-apple-health")!
   static let map                = UIImage(named: "map")!
   static let image              = UIImage(named: "image")!
+  
+  static var name: UIImage {
+    switch UIDevice.contentMode {
+    case .light: return .nameLight
+    case .dark: return .nameDark
+    }
+  }
+
+  static var check: UIImage {
+    switch UIDevice.contentMode {
+    case .light: return .checkLight
+    case .dark: return .checkDark
+    }
+  }
+
+  static var mail: UIImage {
+    switch UIDevice.contentMode {
+    case .light: return .mailLight
+    case .dark: return .mailDark
+    }
+  }
+
+  static var lock: UIImage {
+    switch UIDevice.contentMode {
+    case .light: return .lockLight
+    case .dark: return .lockDark
+    }
+  }
 }

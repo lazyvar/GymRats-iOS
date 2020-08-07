@@ -26,6 +26,12 @@ class WelcomeViewController: BindableViewController {
     }
   }
   
+  override func viewDidLoad() {
+    super.viewDidLoad()
+        
+    navigationItem.largeTitleDisplayMode = .never
+  }
+  
   override func bindViewModel() {
     viewModel.output.navigation
       .subscribe(onNext: { [weak self] (navigation, screen) in
