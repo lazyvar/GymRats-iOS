@@ -53,7 +53,10 @@ final class Resource<T> {
   }
   
   func observe() -> Observable<T> {
-    return subject
+    return Observable.merge(
+        Observable.just(state),
+        subject
+      )
       .compactMap { $0 }
       .asObservable()
   }
