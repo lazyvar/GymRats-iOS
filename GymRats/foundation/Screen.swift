@@ -12,7 +12,6 @@ import UIKit
 enum Screen {
   case activeChallenge(Challenge)
   case noChallenges
-  case home
   case shareChallenge(Challenge)
   case chooseChallengeMode
   case workout(Workout, Challenge?)
@@ -39,8 +38,6 @@ enum Screen {
       return MapViewController(placeID: place)
     case .noChallenges:
       return NoChallengesViewController()
-    case .home:
-      return HomeViewController()
     case .upcomingChallenge(let challenge):
       return UpcomingChallengeViewController(challenge: challenge)
     case .activeChallenge(let challenge):

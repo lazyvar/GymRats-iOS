@@ -26,14 +26,16 @@ class UpcomingChallengeFlowLayout: UICollectionViewFlowLayout {
     minimumInteritemSpacing = interItemSpacing
     sectionInset = sectionInsets
     headerReferenceSize = CGSize(width: UIScreen.main.bounds.width, height: {
-      var height: CGFloat = 195
+      var height: CGFloat = 185
+      
+      height += "The challenge has not yet started. Once it does, you will be able to post workouts.".height(withConstrainedWidth: UIScreen.main.bounds.width - (40), font: .body) + 5
       
       if challenge.profilePictureUrl != nil {
         height += 150
       }
       
-      if challenge.description != nil {
-        height += 35
+      if let description = challenge.description {
+        height += description.height(withConstrainedWidth: UIScreen.main.bounds.width - (20 + 25 + 10 + 20), font: .body) + 15
       }
       
       return height
@@ -42,5 +44,13 @@ class UpcomingChallengeFlowLayout: UICollectionViewFlowLayout {
 
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+}
+extension String {
+  func height(withConstrainedWidth width: CGFloat, font: UIFont) -> CGFloat {
+    let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+    let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
+
+    return ceil(boundingBox.height)
   }
 }

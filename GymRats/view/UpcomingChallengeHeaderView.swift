@@ -21,7 +21,7 @@ class UpcomingChallengeHeaderView: UICollectionReusableView {
   @IBOutlet private weak var titleLabel: UILabel! {
     didSet {
       titleLabel.textColor = .primaryText
-      titleLabel.font = .h2Bold
+      titleLabel.font = .h4Bold
     }
   }
 
@@ -67,15 +67,15 @@ class UpcomingChallengeHeaderView: UICollectionReusableView {
   }
   
   @IBOutlet private weak var lastDivider: UIStackView!
+  @IBOutlet private weak var descriptionLabel: SmartLabel!
+  @IBOutlet private weak var descriptionStackView: UIStackView!
   
-  @IBOutlet private weak var descriptionLabel: UILabel! {
+  @IBOutlet weak var notStartedYet: UILabel! {
     didSet {
-      descriptionLabel.textColor = .primaryText
-      descriptionLabel.font = .body
+      notStartedYet.textColor = .primaryText
+      notStartedYet.font = .body
     }
   }
-  
-  @IBOutlet private weak var descriptionStackView: UIStackView!
   
   @IBOutlet private weak var codeImageView: UIImageView! {
     didSet {

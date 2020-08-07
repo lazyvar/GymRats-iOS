@@ -97,7 +97,7 @@ final class MenuViewModel: ViewModel {
         let (indexPath, challenges) = stuff
         
         if challenges.isEmpty {
-          return (.replaceDrawerCenterInNav(animated: true), .home)
+          return (.replaceDrawerCenterInNav(animated: true), .noChallenges)
         } else {
           let challenge = challenges[indexPath.row]
           

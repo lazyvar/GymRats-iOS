@@ -244,7 +244,6 @@ class WorkoutViewController: BindableViewController {
     }
     
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-    
     let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     
     if workout.account.id == GymRats.currentAccount.id {

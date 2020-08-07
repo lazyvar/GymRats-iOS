@@ -14,8 +14,10 @@ import SafariServices
 
 private let SettingsCellId = "SettingsCell"
 
-class SettingsViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   private let disposeBag = DisposeBag()
+  
+  @IBOutlet private weak var tableView: UITableView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -29,8 +31,10 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     navigationItem.largeTitleDisplayMode = .never
     setupBackButton()
     
-    tableView.separatorInset = .zero
-    tableView.separatorStyle = .none
+    tableView.tableFooterView = UIView()
+    tableView.backgroundColor = .background
+    tableView.delegate = self
+    tableView.dataSource = self
     
     gymRatsAPI.getCurrentAccount()
       .subscribe(onNext: { result in
@@ -49,7 +53,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     tableView.reloadData()
   }
   
-  override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 36))
     view.backgroundColor = .background
     
@@ -75,15 +79,15 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
     return view
   }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
       return 36
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
       return 4
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       switch section {
       case 0: return 4
       case 1: return 4
@@ -100,7 +104,6 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
       
       if let img = info[.editedImage] as? UIImage {
         image = img
-          
       } else if let img = info[.originalImage] as? UIImage {
         image = img
       }
@@ -152,7 +155,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         self.present(alertController, animated: true, completion: nil)
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)
         
         switch indexPath.section {
@@ -226,7 +229,7 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
         self.present(nav, animated: true, completion: nil)
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: SettingsCellId)
         
         if cell == nil {
@@ -298,6 +301,8 @@ class SettingsViewController: UITableViewController, UIImagePickerControllerDele
                 theCell.textLabel?.text = "Notifications"
             case 1:
                 theCell.textLabel?.text = "Sign out"
+                theCell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
+                theCell.directionalLayoutMargins = .zero
             default:
                 break
             }
