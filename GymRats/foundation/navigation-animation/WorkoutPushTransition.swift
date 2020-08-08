@@ -53,7 +53,7 @@ class WorkoutPushTransition: NSObject, UIViewControllerAnimatedTransitioning {
     from.transitionWillStart(push: true)
     to.transitionWillStart(push: true)
 
-    from.tabBarController?.setTabBar(hidden: true, alongside: animator)
+    from.tabBarController?.setTabBar(hidden: true)
     
     animator.addCompletion { [unowned transitionImageView, unowned from, unowned to] position in
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
@@ -64,6 +64,8 @@ class WorkoutPushTransition: NSObject, UIViewControllerAnimatedTransitioning {
 
       transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
 
+      to.hidesBottomBarWhenPushed = true
+      
       from.transitionDidEnd(push: true)
       to.transitionDidEnd(push: true)
     }

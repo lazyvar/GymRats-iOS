@@ -19,6 +19,10 @@ enum LocalNotificationService {
       .subscribe(onSuccess: { status in
         guard status == .authorized else { return }        
         
+        PushNotifications.center.getPendingNotificationRequests { requests in
+          print(requests)
+        }
+        
         for challenge in challenges where challenge.isActive || challenge.isUpcoming {
           if challenge.isUpcoming {
             registerForStart(challenge)

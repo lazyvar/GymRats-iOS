@@ -42,11 +42,24 @@ class DrawerViewController: UIViewController {
       $0.setDrawerVisualStateBlock(MMDrawerVisualState.parallaxVisualStateBlock(withParallaxFactor: 2))
     }
 
-//    Observable.merge(NotificationCenter.default.rx.notification(.challengeEdited), NotificationCenter.default.rx.notification(.leftChallenge))
-//      .next { _ in
-//        drawer.setCenterView(HomeViewController().inNav(), withCloseAnimation: true, completion: nil)
-//      }
-//      .disposed(by: disposeBag)
+    Observable.merge(NotificationCenter.default.rx.notification(.challengeEdited), NotificationCenter.default.rx.notification(.leftChallenge))
+      .flatMap { _ in Challenge.State.all.fetch() }
+      .subscribe(onNext: { result in
+        switch result {
+        case .success(let challenges):
+          let (navigation, screen) = RouteCalculator.home(challenges)
+          
+          switch navigation {
+          case .replaceDrawerCenter:
+            GymRats.replaceRoot(with: DrawerViewController(inititalViewController: screen.viewController))
+          default:
+            GymRats.replaceRoot(with: DrawerViewController(inititalViewController: screen.viewController.inNav()))
+          }
+        case .failure(let error):
+          self.presentAlert(with: error)
+        }
+      })
+      .disposed(by: disposeBag)
     
     install(drawer)
     

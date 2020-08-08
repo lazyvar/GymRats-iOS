@@ -54,10 +54,12 @@ class WorkoutPopTransition: NSObject, UIViewControllerAnimatedTransitioning {
 
     transitionImageView.frame = from.bigFrame
 
+    from.hidesBottomBarWhenPushed = false
+    
     from.transitionWillStart(push: false)
     to.transitionWillStart(push: false)
 
-    from.tabBarController?.setTabBar(hidden: false, alongside: animator)
+    from.tabBarController?.setTabBar(hidden: false)
     
     animator.addCompletion { [unowned transitionImageView, unowned from, unowned to] position in
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {

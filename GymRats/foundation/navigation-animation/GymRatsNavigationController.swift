@@ -73,7 +73,7 @@ extension GymRatsNavigationController: UINavigationControllerDelegate {
       operation == .pop {
         return WorkoutPopTransition(from: workoutViewController, to: challengeViewController)
       }
-
+    
     return nil
   }
 }

@@ -18,8 +18,8 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tQS-1d-KcB">
-                        <rect key="frame" x="30" y="230.5" width="394" height="91.5"/>
-                        <string key="text">Challenge started! No workouts have been recorded. You can be the first by hitting the big red button at the bottom of the screen.</string>
+                        <rect key="frame" x="50" y="230.5" width="354" height="91.5"/>
+                        <string key="text">Challenge started. No workouts have been recorded. You can be the first by hitting the big red button at the bottom of the screen.</string>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -34,11 +34,11 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="tQS-1d-KcB" firstAttribute="top" secondItem="fzs-NM-Kdi" secondAttribute="bottom" constant="30" id="Aqa-1h-VbM"/>
-                    <constraint firstItem="tQS-1d-KcB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="NaH-tl-la3"/>
+                    <constraint firstItem="tQS-1d-KcB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="50" id="NaH-tl-la3"/>
                     <constraint firstItem="fzs-NM-Kdi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="Tza-a3-q7l"/>
                     <constraint firstAttribute="bottom" secondItem="tQS-1d-KcB" secondAttribute="bottom" constant="10" id="YuO-8f-0a0"/>
                     <constraint firstItem="fzs-NM-Kdi" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="b75-h6-Uie"/>
-                    <constraint firstAttribute="trailing" secondItem="tQS-1d-KcB" secondAttribute="trailing" constant="30" id="bN1-6i-Mjo"/>
+                    <constraint firstAttribute="trailing" secondItem="tQS-1d-KcB" secondAttribute="trailing" constant="50" id="bN1-6i-Mjo"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

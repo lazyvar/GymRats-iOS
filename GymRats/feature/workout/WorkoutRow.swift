@@ -16,6 +16,7 @@ enum WorkoutRow: Equatable, IdentifiableType {
   case location(placeID: String)
   case comment(Comment, onMenuTap: (Comment) -> Void)
   case newComment(onSubmit: (String) -> Void)
+  case space
 
   static func == (lhs: WorkoutRow, rhs: WorkoutRow) -> Bool {
     switch (lhs, rhs) {
@@ -29,6 +30,8 @@ enum WorkoutRow: Equatable, IdentifiableType {
       return w1 == w2
     case (.comment(let c1, _), .comment(let c2, _)):
       return c1 == c2
+    case (.space, .space):
+      return true
     default: return false
     }
   }
@@ -41,6 +44,7 @@ enum WorkoutRow: Equatable, IdentifiableType {
     case .details(let workout): return "details-\(workout.id)"
     case .comment(let comment, _): return "comment-\(comment.id)"
     case .newComment: return "new-comment"
+    case .space: return "space"
     }
   }
 }
