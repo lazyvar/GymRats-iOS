@@ -92,9 +92,8 @@ final class MenuViewModel: ViewModel {
 
     input.tappedRow
       .filter { $0.section == 1 }
-      .withLatestFrom(challenges, resultSelector: { ($0, $1) })
-      .map { stuff -> (Navigation, Screen) in
-        let (indexPath, challenges) = stuff
+      .map { indexPath -> (Navigation, Screen) in
+        let challenges = (Challenge.State.all.state?.object ?? []).getActiveAndUpcomingChallenges()
         
         if challenges.isEmpty {
           return (.replaceDrawerCenterInNav(animated: true), .noChallenges)

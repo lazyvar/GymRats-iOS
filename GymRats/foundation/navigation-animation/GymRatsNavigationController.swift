@@ -15,6 +15,8 @@ class GymRatsNavigationController: UINavigationController, UINavigationBarDelega
     $0.layer.zPosition = .greatestFiniteMagnitude
   }
 
+  private var currentAnimationTransition: UIViewControllerAnimatedTransitioning? = nil
+  
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -60,20 +62,45 @@ extension GymRatsNavigationController: UINavigationControllerDelegate {
     from fromVC: UIViewController,
     to toVC: UIViewController
   ) -> UIViewControllerAnimatedTransitioning? {
-    if
-      let challengeViewController = fromVC as? ChallengeViewController,
-      let workoutViewController = toVC as? WorkoutViewController,
-      operation == .push {
-        return WorkoutPushTransition(from: challengeViewController, to: workoutViewController)
-      }
+    let transition: UIViewControllerAnimatedTransitioning? = {
+      if
+        let challengeViewController = fromVC as? ChallengeViewController,
+        let workoutViewController = toVC as? WorkoutViewController,
+        operation == .push {
+          return WorkoutPushTransition(from: challengeViewController, to: workoutViewController)
+        }
 
-    if
-      let workoutViewController = fromVC as? WorkoutViewController,
-      let challengeViewController = toVC as? ChallengeViewController,
-      operation == .pop {
-        return WorkoutPopTransition(from: workoutViewController, to: challengeViewController)
-      }
+      if
+        let workoutViewController = fromVC as? WorkoutViewController,
+        let challengeViewController = toVC as? ChallengeViewController,
+        operation == .pop {
+          if workoutViewController.isInteractivelyDismissing {
+            return WorkoutPopComplexTransition(from: workoutViewController, to: challengeViewController)
+          } else {
+            return WorkoutPopSimpleTransition(from: workoutViewController, to: challengeViewController)
+          }
+        }
+      
+      return nil
+    }()
     
-    return nil
+    currentAnimationTransition = transition
+    
+    return currentAnimationTransition
+  }
+  
+  public func navigationController(
+    _ navigationController: UINavigationController,
+    interactionControllerFor animationController: UIViewControllerAnimatedTransitioning
+  ) -> UIViewControllerInteractiveTransitioning? {
+    return self.currentAnimationTransition as? UIViewControllerInteractiveTransitioning
+  }
+
+  public func navigationController(
+    _ navigationController: UINavigationController,
+    didShow viewController: UIViewController,
+    animated: Bool
+  ) {
+    self.currentAnimationTransition = nil
   }
 }

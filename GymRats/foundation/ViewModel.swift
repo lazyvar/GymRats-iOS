@@ -195,3 +195,23 @@ extension UIBarButtonItem {
     return UIBarButtonItem(image: .close, style: .plain, target: target, action: #selector(UIViewController.dismissSelf))
   }
 }
+
+public extension CGFloat {
+  static func scaleAndShift(
+    value: CGFloat,
+    inRange: (min: CGFloat, max: CGFloat),
+    toRange: (min: CGFloat, max: CGFloat) = (min: 0.0, max: 1.0)
+  ) -> CGFloat {
+    assert(inRange.max > inRange.min)
+    assert(toRange.max > toRange.min)
+
+    if value < inRange.min {
+      return toRange.min
+    } else if value > inRange.max {
+      return toRange.max
+    } else {
+      let ratio = (value - inRange.min) / (inRange.max - inRange.min)
+      return toRange.min + ratio * (toRange.max - toRange.min)
+    }
+  }
+}

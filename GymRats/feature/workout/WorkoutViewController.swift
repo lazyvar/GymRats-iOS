@@ -20,6 +20,10 @@ class WorkoutViewController: BindableViewController {
   private let viewModel = WorkoutViewModel()
   private let disposeBag = DisposeBag()
   private let challenge: Challenge?
+  private let dismissPanGesture = UIPanGestureRecognizer()
+
+  var isInteractivelyDismissing: Bool = false
+  weak var transitionController: WorkoutPopComplexTransition?
   
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
@@ -121,6 +125,11 @@ class WorkoutViewController: BindableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    dismissPanGesture.addTarget(self, action: #selector(dismissPanGestureDidChange(_:)))
+    dismissPanGesture.delegate = self
+
+    tableView.addGestureRecognizer(self.dismissPanGesture)
+
     spookyView = SpookyView().apply {
       $0.translatesAutoresizingMaskIntoConstraints = false
       $0.isUserInteractionEnabled = false
@@ -197,6 +206,22 @@ class WorkoutViewController: BindableViewController {
   
   @objc private func hideKeyboard() {
     view.endEditing(true)
+  }
+  
+  @objc private func dismissPanGestureDidChange(_ gesture: UIPanGestureRecognizer) {
+    switch gesture.state {
+    case .began:
+      isInteractivelyDismissing = true
+      navigationController?.popViewController(animated: true)
+    case .cancelled, .failed, .ended:
+      isInteractivelyDismissing = false
+    case .changed, .possible:
+      break
+    @unknown default:
+      break
+    }
+
+    transitionController?.didPanWith(gestureRecognizer: gesture)
   }
   
   private func showCommentMenu(_ comment: Comment) {
@@ -280,10 +305,24 @@ class WorkoutViewController: BindableViewController {
   }
 }
 
+extension WorkoutViewController: UIGestureRecognizerDelegate {
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    return true
+  }
+
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    return true
+  }
+  
+  func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    return true
+  }
+}
+
 extension WorkoutViewController {
   var bigFrame: CGRect {
     let statusBar = UIApplication.shared.statusBarFrame.height
-    let navigationHeight = navigationController!.navigationBar.frame.height
+    let navigationHeight = (navigationController?.navigationBar.frame.height ?? 0)
     let viewWidth = UIScreen.main.bounds.width - 40
 
     let imageHeight: CGFloat = {
