@@ -93,7 +93,7 @@ final class WorkoutViewModel: ViewModel {
           self.input.submittedComment.onNext(comment)
         }
         
-        let newCommentSection = WorkoutSection(model: 2, items: [newComment])
+        let newCommentSection = WorkoutSection(model: 2, items: [newComment, .space])
         
         return [headerSection, commentSection, newCommentSection]
       }

@@ -18,7 +18,8 @@ class CreateAccountViewController: GRFormViewController {
     super.viewDidLoad()
     
     title = "Get started"
-    
+    navigationItem.largeTitleDisplayMode = .always
+
     tableView.backgroundColor = .background
     tableView.separatorStyle = .none
     
@@ -166,7 +167,7 @@ class CreateAccountViewController: GRFormViewController {
       container.addSubview(createAccountButton)
       container.addSubview(label)
 
-      createAccountButton.constrainWidth(250)
+      createAccountButton.constrainWidth(self.tableView.frame.width - 40)
       createAccountButton.horizontallyCenter(in: container)
       createAccountButton.topAnchor.constraint(equalTo: container.topAnchor, constant: 15).isActive = true
       

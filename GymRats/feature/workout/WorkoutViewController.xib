@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WorkoutViewController" customModule="GymRats" customModuleProvider="target">
             <connections>
+                <outlet property="bottomConstraint" destination="w3M-gw-aqs" id="qsP-qU-Ys5"/>
                 <outlet property="tableView" destination="g4g-cy-E0Q" id="be7-fL-RJ9"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -19,7 +20,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="g4g-cy-E0Q">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="g4g-cy-E0Q">
                     <rect key="frame" x="20" y="5" width="374" height="857"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
@@ -32,7 +33,7 @@
                 <constraint firstItem="g4g-cy-E0Q" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="w3M-gw-aqs"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="-309" y="21"/>
+            <point key="canvasLocation" x="-310.14492753623193" y="20.758928571428569"/>
         </view>
     </objects>
 </document>

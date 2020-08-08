@@ -20,6 +20,10 @@ class WorkoutViewController: BindableViewController {
   private let viewModel = WorkoutViewModel()
   private let disposeBag = DisposeBag()
   private let challenge: Challenge?
+  private let dismissPanGesture = UIPanGestureRecognizer()
+
+  var isInteractivelyDismissing: Bool = false
+  weak var transitionController: WorkoutPopComplexTransition?
   
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
@@ -37,6 +41,8 @@ class WorkoutViewController: BindableViewController {
       tableView.registerCellNibForClass(NewCommentCell.self)
     }
   }
+  
+  @IBOutlet private weak var bottomConstraint: NSLayoutConstraint!
   
   init(workout: Workout, challenge: Challenge?) {
     self.workout = workout
@@ -64,6 +70,14 @@ class WorkoutViewController: BindableViewController {
       return CommentCell.configure(tableView: tableView, indexPath: indexPath, comment: comment, onMenuTap: onMenuTap)
     case .newComment(let onSubmit):
       return NewCommentCell.configure(tableView: tableView, indexPath: indexPath, account: GymRats.currentAccount, onSubmit: onSubmit)
+    case .space:
+      return UITableViewCell().apply {
+        $0.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
+        $0.directionalLayoutMargins = .zero
+        $0.backgroundColor = .clear
+        $0.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        $0.selectionStyle = .none
+      }
     }
   })
   
@@ -110,14 +124,19 @@ class WorkoutViewController: BindableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-        
+    
+    dismissPanGesture.addTarget(self, action: #selector(dismissPanGestureDidChange(_:)))
+    dismissPanGesture.delegate = self
+
+    tableView.addGestureRecognizer(self.dismissPanGesture)
+
     spookyView = SpookyView().apply {
       $0.translatesAutoresizingMaskIntoConstraints = false
       $0.isUserInteractionEnabled = false
     }
 
     view.insertSubview(spookyView, at: 0)
-    
+
     let top = NSLayoutConstraint(
       item: spookyView!,
       attribute: .top,
@@ -127,21 +146,21 @@ class WorkoutViewController: BindableViewController {
       multiplier: 1,
       constant: 0
     )
-    
+
     view.addConstraint(top)
-    
+
     spookyView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor).isActive = true
     spookyView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor).isActive = true
-    
+
     let height = spookyView.constrainHeight(400)
-    
+
     tableView.rx.contentOffset
       .map { -1 * $0.y }
       .bind(to: top.rx.constant)
       .disposed(by: disposeBag)
 
     tableView.rx.observe(CGSize.self, "contentSize")
-      .map { $0?.height ?? 0 }
+      .map { ($0?.height ?? 0) - 50 }
       .bind(to: height.rx.constant)
       .disposed(by: disposeBag)
     
@@ -169,11 +188,40 @@ class WorkoutViewController: BindableViewController {
       navigationItem.rightBarButtonItem = menu
     }
     
+    let ugh = UIView()
+    ugh.backgroundColor = .background
+    ugh.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 3000)
+    
+    view.addSubview(ugh)
+    view.sendSubviewToBack(ugh)
+    
     viewModel.input.viewDidLoad.trigger()
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    
+    bottomConstraint.constant = (tabBarController?.tabBar.frame.height ?? 0) + view.safeAreaInsets.bottom
   }
   
   @objc private func hideKeyboard() {
     view.endEditing(true)
+  }
+  
+  @objc private func dismissPanGestureDidChange(_ gesture: UIPanGestureRecognizer) {
+    switch gesture.state {
+    case .began:
+      isInteractivelyDismissing = true
+      navigationController?.popViewController(animated: true)
+    case .cancelled, .failed, .ended:
+      isInteractivelyDismissing = false
+    case .changed, .possible:
+      break
+    @unknown default:
+      break
+    }
+
+    transitionController?.didPanWith(gestureRecognizer: gesture)
   }
   
   private func showCommentMenu(_ comment: Comment) {
@@ -257,10 +305,24 @@ class WorkoutViewController: BindableViewController {
   }
 }
 
+extension WorkoutViewController: UIGestureRecognizerDelegate {
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    return true
+  }
+
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    return true
+  }
+  
+  func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    return true
+  }
+}
+
 extension WorkoutViewController {
   var bigFrame: CGRect {
     let statusBar = UIApplication.shared.statusBarFrame.height
-    let navigationHeight = navigationController!.navigationBar.frame.height
+    let navigationHeight = (navigationController?.navigationBar.frame.height ?? 0)
     let viewWidth = UIScreen.main.bounds.width - 40
 
     let imageHeight: CGFloat = {

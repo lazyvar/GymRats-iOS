@@ -41,9 +41,8 @@
                     </subviews>
                 </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D2Q-Um-ICG" customClass="PrimaryButton" customModule="GymRats" customModuleProvider="target">
-                    <rect key="frame" x="82" y="250" width="250" height="48"/>
+                    <rect key="frame" x="20" y="250" width="374" height="48"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="250" id="8Gb-SW-oYL"/>
                         <constraint firstAttribute="height" constant="48" id="Geb-rg-8B9"/>
                     </constraints>
                     <state key="normal" title="OK"/>
@@ -55,10 +54,12 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
                 <constraint firstItem="XUY-HR-Nmi" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="30" id="E5z-vI-lb9"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="D2Q-Um-ICG" secondAttribute="trailing" constant="20" id="NNx-JK-EUR"/>
                 <constraint firstItem="D2Q-Um-ICG" firstAttribute="centerX" secondItem="XUY-HR-Nmi" secondAttribute="centerX" id="Q8F-nU-f2O"/>
                 <constraint firstItem="D2Q-Um-ICG" firstAttribute="top" secondItem="XUY-HR-Nmi" secondAttribute="bottom" constant="30" id="Sak-VJ-bZv"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="XUY-HR-Nmi" secondAttribute="trailing" constant="20" id="anN-41-VfI"/>
                 <constraint firstItem="XUY-HR-Nmi" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="ieu-fY-eT8"/>
+                <constraint firstItem="D2Q-Um-ICG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="rMs-Qo-MNa"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="338" y="17"/>

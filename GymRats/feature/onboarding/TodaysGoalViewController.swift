@@ -34,7 +34,7 @@ class TodaysGoalViewController: BindableViewController {
     
     title = "What's the goal today?"
   }
-  
+
   override func bindViewModel() {
     Observable<[GoalSection]>
       .just([.init(model: (), items: [

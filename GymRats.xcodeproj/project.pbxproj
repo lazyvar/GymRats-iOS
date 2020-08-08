@@ -21,8 +21,6 @@
 		010C05F624AD49AF001B37D7 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010C05F424AD49AF001B37D7 /* NotificationSettingsViewController.swift */; };
 		010C05F724AD49AF001B37D7 /* NotificationSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 010C05F524AD49AF001B37D7 /* NotificationSettingsViewController.xib */; };
 		010C05F924AD4D4F001B37D7 /* NotificationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 010C05F824AD4D4F001B37D7 /* NotificationSettingsViewModel.swift */; };
-		01107DC9243CE665005AA8F3 /* HowItWorksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01107DC7243CE665005AA8F3 /* HowItWorksViewController.swift */; };
-		01107DCA243CE665005AA8F3 /* HowItWorksViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01107DC8243CE665005AA8F3 /* HowItWorksViewController.xib */; };
 		01111DA62446855E0033170A /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01111DA52446855E0033170A /* Either.swift */; };
 		01111DA9244686730033170A /* CreateChallengeReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01111DA7244686730033170A /* CreateChallengeReviewViewController.swift */; };
 		01111DAA244686730033170A /* CreateChallengeReviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01111DA8244686730033170A /* CreateChallengeReviewViewController.xib */; };
@@ -62,7 +60,7 @@
 		01297D952329E79000CA9E41 /* SF-Pro-Rounded-Ultralight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01297D812329E79000CA9E41 /* SF-Pro-Rounded-Ultralight.otf */; };
 		01297D962329E79000CA9E41 /* SF-Pro-Rounded-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01297D822329E79000CA9E41 /* SF-Pro-Rounded-Heavy.otf */; };
 		01297D972329E79000CA9E41 /* SF-Pro-Rounded-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 01297D832329E79000CA9E41 /* SF-Pro-Rounded-Bold.otf */; };
-		012FB63A24DB11A700EB54D4 /* WorkoutPopTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012FB63924DB11A700EB54D4 /* WorkoutPopTransition.swift */; };
+		012FB63A24DB11A700EB54D4 /* WorkoutPopComplexTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012FB63924DB11A700EB54D4 /* WorkoutPopComplexTransition.swift */; };
 		01319ED124184FAC005E65D2 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01319ED024184FAC005E65D2 /* Screen.swift */; };
 		01319ED32418746C005E65D2 /* GymRatsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01319ED22418746C005E65D2 /* GymRatsAPI.swift */; };
 		01319ED524187790005E65D2 /* NewWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01319ED424187790005E65D2 /* NewWorkout.swift */; };
@@ -229,6 +227,7 @@
 		01CA1293243FEF6E00540402 /* InviteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01CA1291243FEF6E00540402 /* InviteCell.xib */; };
 		01CA1296243FF93100540402 /* UpcomingChallengeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CA1294243FF93100540402 /* UpcomingChallengeHeaderView.swift */; };
 		01CA1297243FF93100540402 /* UpcomingChallengeHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01CA1295243FF93100540402 /* UpcomingChallengeHeaderView.xib */; };
+		01CBE81824DF08C700ED4DFD /* WorkoutPopSimpleTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CBE81724DF08C700ED4DFD /* WorkoutPopSimpleTransition.swift */; };
 		01D5D362243BB8F20044E459 /* GymRatsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5D361243BB8F20044E459 /* GymRatsNavigationController.swift */; };
 		01D5D369243BD2700044E459 /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5D367243BD2700044E459 /* TextFieldCell.swift */; };
 		01D5D36A243BD2700044E459 /* TextFieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01D5D368243BD2700044E459 /* TextFieldCell.xib */; };
@@ -354,8 +353,6 @@
 		010C05F424AD49AF001B37D7 /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		010C05F524AD49AF001B37D7 /* NotificationSettingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationSettingsViewController.xib; sourceTree = "<group>"; };
 		010C05F824AD4D4F001B37D7 /* NotificationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewModel.swift; sourceTree = "<group>"; };
-		01107DC7243CE665005AA8F3 /* HowItWorksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowItWorksViewController.swift; sourceTree = "<group>"; };
-		01107DC8243CE665005AA8F3 /* HowItWorksViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HowItWorksViewController.xib; sourceTree = "<group>"; };
 		01111DA52446855E0033170A /* Either.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Either.swift; sourceTree = "<group>"; };
 		01111DA7244686730033170A /* CreateChallengeReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChallengeReviewViewController.swift; sourceTree = "<group>"; };
 		01111DA8244686730033170A /* CreateChallengeReviewViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateChallengeReviewViewController.xib; sourceTree = "<group>"; };
@@ -395,7 +392,7 @@
 		01297D812329E79000CA9E41 /* SF-Pro-Rounded-Ultralight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Ultralight.otf"; sourceTree = "<group>"; };
 		01297D822329E79000CA9E41 /* SF-Pro-Rounded-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Heavy.otf"; sourceTree = "<group>"; };
 		01297D832329E79000CA9E41 /* SF-Pro-Rounded-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Bold.otf"; sourceTree = "<group>"; };
-		012FB63924DB11A700EB54D4 /* WorkoutPopTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPopTransition.swift; sourceTree = "<group>"; };
+		012FB63924DB11A700EB54D4 /* WorkoutPopComplexTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPopComplexTransition.swift; sourceTree = "<group>"; };
 		01319ED024184FAC005E65D2 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		01319ED22418746C005E65D2 /* GymRatsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymRatsAPI.swift; sourceTree = "<group>"; };
 		01319ED424187790005E65D2 /* NewWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWorkout.swift; sourceTree = "<group>"; };
@@ -566,6 +563,7 @@
 		01CA1291243FEF6E00540402 /* InviteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InviteCell.xib; sourceTree = "<group>"; };
 		01CA1294243FF93100540402 /* UpcomingChallengeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingChallengeHeaderView.swift; sourceTree = "<group>"; };
 		01CA1295243FF93100540402 /* UpcomingChallengeHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingChallengeHeaderView.xib; sourceTree = "<group>"; };
+		01CBE81724DF08C700ED4DFD /* WorkoutPopSimpleTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPopSimpleTransition.swift; sourceTree = "<group>"; };
 		01D5D361243BB8F20044E459 /* GymRatsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymRatsNavigationController.swift; sourceTree = "<group>"; };
 		01D5D367243BD2700044E459 /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
 		01D5D368243BD2700044E459 /* TextFieldCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldCell.xib; sourceTree = "<group>"; };
@@ -711,8 +709,6 @@
 			isa = PBXGroup;
 			children = (
 				0176B679243BAF740022B65F /* CreateAccountViewController.swift */,
-				01107DC7243CE665005AA8F3 /* HowItWorksViewController.swift */,
-				01107DC8243CE665005AA8F3 /* HowItWorksViewController.xib */,
 				015E2A8B243CEFD700307B21 /* TodaysGoalViewController.swift */,
 				015E2A8C243CEFD700307B21 /* TodaysGoalViewController.xib */,
 			);
@@ -886,7 +882,8 @@
 			children = (
 				01D5D361243BB8F20044E459 /* GymRatsNavigationController.swift */,
 				0125466124DA607900E7D020 /* WorkoutPushTransition.swift */,
-				012FB63924DB11A700EB54D4 /* WorkoutPopTransition.swift */,
+				012FB63924DB11A700EB54D4 /* WorkoutPopComplexTransition.swift */,
+				01CBE81724DF08C700ED4DFD /* WorkoutPopSimpleTransition.swift */,
 			);
 			path = "navigation-animation";
 			sourceTree = "<group>";
@@ -1500,7 +1497,6 @@
 				01D5D36A243BD2700044E459 /* TextFieldCell.xib in Resources */,
 				01D70BD424465CB000F6F33A /* IntegerPickerCell.xib in Resources */,
 				01974545243F8A72004ACB71 /* WorkoutAccountCell.xib in Resources */,
-				01107DCA243CE665005AA8F3 /* HowItWorksViewController.xib in Resources */,
 				01338DAC223B230E0019B67E /* GoogleService-Info.plist in Resources */,
 				01CA1293243FEF6E00540402 /* InviteCell.xib in Resources */,
 				74118064220C58C300EB9D11 /* Lato-HairlineItalic.ttf in Resources */,
@@ -1732,7 +1728,6 @@
 				0146D3ED24450BC1008D990E /* ChooseChallengeModeViewController.swift in Sources */,
 				019D899324DCCB97002BFD1B /* UpdateWorkout.swift in Sources */,
 				746764E7220BAE44000CFB1B /* CreateWorkoutViewController.swift in Sources */,
-				01107DC9243CE665005AA8F3 /* HowItWorksViewController.swift in Sources */,
 				7455AC5E22125296005A558A /* ServiceResponse.swift in Sources */,
 				01747A6024D885F200A4682B /* WorkoutImageCell.swift in Sources */,
 				01A6C4F024D500570007DFB6 /* ShareChallengeButtonCell.swift in Sources */,
@@ -1753,7 +1748,7 @@
 				74BE97BC220C9F2800D550CA /* ImageCell.swift in Sources */,
 				747D6FE92208EDAF0062BB39 /* Colors.swift in Sources */,
 				01527303243C055A00123E25 /* ProfilePictureCell.swift in Sources */,
-				012FB63A24DB11A700EB54D4 /* WorkoutPopTransition.swift in Sources */,
+				012FB63A24DB11A700EB54D4 /* WorkoutPopComplexTransition.swift in Sources */,
 				747D6FE02208ECDD0062BB39 /* Styles.swift in Sources */,
 				01F5295D2418367B00FA96E0 /* Resource.swift in Sources */,
 				01F5296B24184CDA00FA96E0 /* NoChallengesViewModel.swift in Sources */,
@@ -1865,6 +1860,7 @@
 				01D5D36D243BD32A0044E459 /* ShadowTextField.swift in Sources */,
 				01E700E12460B30B0059017A /* ImportWorkoutViewController.swift in Sources */,
 				747D6FC32208DCAB0062BB39 /* Observable+Extension.swift in Sources */,
+				01CBE81824DF08C700ED4DFD /* WorkoutPopSimpleTransition.swift in Sources */,
 				01611D47243E957B00D1DAA4 /* WorkoutViewModel.swift in Sources */,
 				01A3EB14237747D30097FC2A /* CVCalendarViewAppearanceDelegate.swift in Sources */,
 				0107C7DD241AEEFA005650FB /* MenuViewModel.swift in Sources */,

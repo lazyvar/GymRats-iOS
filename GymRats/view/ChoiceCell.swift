@@ -9,12 +9,6 @@
 import UIKit
 
 class ChoiceCell: UITableViewCell {
-  private var shadowLayer: CAShapeLayer!
-
-  @IBOutlet private weak var bgView: UIView! {
-    didSet { bgView.backgroundColor = .clear }
-  }
-  
   @IBOutlet private weak var bigLabel: UILabel! {
     didSet {
       bigLabel.font = .h4Bold
@@ -39,25 +33,7 @@ class ChoiceCell: UITableViewCell {
     backgroundColor = .clear
     selectionStyle = .none
   }
-  
-  override func layoutSubviews() {
-    super.layoutSubviews()
 
-    if shadowLayer == nil {
-      shadowLayer = CAShapeLayer()
-      shadowLayer.path = UIBezierPath(roundedRect: bgView.bounds, cornerRadius: 4).cgPath
-      shadowLayer.fillColor = UIColor.foreground.cgColor
-
-      shadowLayer.shadowColor = UIColor.shadow.cgColor
-      shadowLayer.shadowPath = shadowLayer.path
-      shadowLayer.shadowOffset = CGSize(width: 0, height: 0)
-      shadowLayer.shadowOpacity = 1
-      shadowLayer.shadowRadius = 2
-
-      bgView.layer.insertSublayer(shadowLayer, at: 0)
-    }
-  }
-  
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesBegan(touches, with: event)
     

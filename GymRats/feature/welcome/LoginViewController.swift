@@ -21,7 +21,8 @@ class LoginViewController: GRFormViewController {
     super.viewDidLoad()
       
     title = "Login"
-    
+    navigationItem.largeTitleDisplayMode = .always
+
     tableView.backgroundColor = .background
     tableView.separatorStyle = .none
 
@@ -160,8 +161,8 @@ class LoginViewController: GRFormViewController {
       self.loginButton.addTarget(self, action: #selector(self.login), for: .touchUpInside)
       self.resetPasswordButton.addTarget(self, action: #selector(self.presentResetPasswordThing), for: .touchUpInside)
       
-      self.loginButton.constrainWidth(250)
-      self.resetPasswordButton.constrainWidth(250)
+      self.loginButton.constrainWidth(self.tableView.frame.width - 40)
+      self.resetPasswordButton.constrainWidth(self.tableView.frame.width - 40)
       
       self.loginButton.translatesAutoresizingMaskIntoConstraints = false
       self.resetPasswordButton.translatesAutoresizingMaskIntoConstraints = false
