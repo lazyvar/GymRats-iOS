@@ -17,7 +17,7 @@ class WorkoutPopSimpleTransition: NSObject, UIViewControllerAnimatedTransitionin
     let imageView = UIImageView()
     imageView.contentMode = .scaleAspectFill
     imageView.clipsToBounds = true
-    imageView.layer.cornerRadius = 1
+    imageView.layer.cornerRadius = 2
 
     return imageView
   }()

@@ -19,8 +19,8 @@ public class WorkoutPopComplexTransition: NSObject {
     let imageView = UIImageView()
     imageView.contentMode = .scaleAspectFill
     imageView.clipsToBounds = true
-    imageView.layer.cornerRadius = 1
-
+    imageView.layer.cornerRadius = 2
+    
     return imageView
   }()
 
@@ -29,16 +29,25 @@ public class WorkoutPopComplexTransition: NSObject {
     self.to = to
   }
 
-  func didPanWith(gesture: UIPanGestureRecognizer, view: UIView) {
+  func didPanWith(gesture: UIPanGestureRecognizer, view: UIView, tableViewTopRevealed: Bool) {
     switch gesture.state {
     case .began, .possible:
       break
     case .cancelled, .failed, .ended:
+      guard tableViewTopRevealed else {
+        transitionContext?.cancelInteractiveTransition()
+        transitionContext?.completeTransition(false)
+        transitionContext = nil
+        return
+      }
+
       let velocity: CGPoint = gesture.velocity(in: view)
       let verticalVelocityIsStrong = abs(velocity.y) > 750
       
-      completeTransition(didCancel: !verticalVelocityIsStrong || velocity.y < 0)
+      completeTransition(didCancel: !verticalVelocityIsStrong || velocity.y < 0 || !tableViewTopRevealed)
     case .changed:
+      guard tableViewTopRevealed else { return }
+
       let translation = gesture.translation(in: nil)
       let translationVertical = translation.y
       let percentageComplete = self.percentageComplete(forVerticalDrag: translationVertical)
@@ -75,7 +84,6 @@ public class WorkoutPopComplexTransition: NSObject {
 
     backgroundAnimation.addCompletion { [weak self] (position) in
       transitionContext.completeTransition(!didCancel)
-      self?.from.isInteractivelyDismissing = false
       self?.transitionContext = nil
     }
 
@@ -97,6 +105,7 @@ public class WorkoutPopComplexTransition: NSObject {
       }
 
       foregroundAnimation.addCompletion { _ in
+        self.to.transitionDidEnd(push: false)
         self.transitionImageView.alpha = 0
         self.transitionImageView.removeFromSuperview()
         self.transitionImageView.image = nil
@@ -148,6 +157,8 @@ extension WorkoutPopComplexTransition: UIViewControllerInteractiveTransitioning 
     fromView.backgroundColor = .clear
     from.ugh.backgroundColor = .clear
     toView.alpha = 0
+    
+    to.transitionWillStart(push: false)
     
     let animation = UIViewPropertyAnimator(duration: 1, dampingRatio: 1, animations: {
       toView.alpha = 1

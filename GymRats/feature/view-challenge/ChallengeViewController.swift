@@ -401,6 +401,12 @@ extension ChallengeViewController {
     return tableView.cellForRow(at: indexPath) as? WorkoutListCell
   }
   
+  var selectedImageView: UIImageView? {
+    guard let selectedWorkoutListCell = selectedWorkoutListCell else { return nil }
+
+    return selectedWorkoutListCell.workoutImageView
+  }
+  
   var selectedImageViewFrame: CGRect {
     guard let selectedWorkoutListCell = selectedWorkoutListCell else { return .zero }
     
@@ -412,6 +418,8 @@ extension ChallengeViewController {
   }
   
   func transitionWillStart(push: Bool) {
+    selectedImageView?.alpha = 0
+    
     if push {
       UIView.animate(withDuration: 0.3) {
         self.tableView.alpha = 0
@@ -420,6 +428,8 @@ extension ChallengeViewController {
   }
   
   func transitionDidEnd(push: Bool) {
+    selectedImageView?.alpha = 1
+
     if push {
       self.tableView.alpha = 1
     }

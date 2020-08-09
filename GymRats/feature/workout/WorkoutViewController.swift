@@ -223,22 +223,19 @@ class WorkoutViewController: BindableViewController {
   @objc private func dismissPanGestureDidChange(_ gesture: UIPanGestureRecognizer) {
     guard pushedForFun else { return }
     
-    if (gesture.state == .ended || gesture.state == .cancelled || gesture.state == .failed) && !tableViewTopRevealed {
+    switch gesture.state {
+    case .began:
+      self.isInteractivelyDismissing = true
+      self.navigationController?.popViewController(animated: true)
+    case .cancelled, .failed, .ended:
       self.isInteractivelyDismissing = false
-    }
-    
-    guard tableViewTopRevealed else { return }
-    
-    if !isInteractivelyDismissing && !(gesture.state == .ended || gesture.state == .cancelled || gesture.state == .failed) {
-      if !(gesture.state == .began && gesture.velocity(in: view).y < 0) {
-        self.isInteractivelyDismissing = true
-        self.navigationController?.popViewController(animated: true)
-      }
+    case .changed, .possible:
+      break
+    @unknown default:
+      break
     }
 
-    guard isInteractivelyDismissing else { return }
-    
-    transitionController?.didPanWith(gesture: gesture, view: view)
+    transitionController?.didPanWith(gesture: gesture, view: view, tableViewTopRevealed: tableViewTopRevealed)
   }
 
   private func showCommentMenu(_ comment: Comment) {
