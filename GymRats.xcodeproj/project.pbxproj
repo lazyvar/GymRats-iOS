@@ -2058,7 +2058,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GymRats/GymRats.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_TEAM = 24MV8D7ZU8;
 				INFOPLIST_FILE = GymRats/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -2066,7 +2066,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 36;
+				MARKETING_VERSION = 37;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hasz.GymRats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -2219,7 +2219,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GymRats/GymRats.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_TEAM = 24MV8D7ZU8;
 				INFOPLIST_FILE = GymRats/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -2227,7 +2227,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 36;
+				MARKETING_VERSION = 37;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hasz.GymRats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -2242,7 +2242,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GymRats/GymRats.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_TEAM = 24MV8D7ZU8;
 				INFOPLIST_FILE = GymRats/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -2250,7 +2250,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 36;
+				MARKETING_VERSION = 37;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hasz.GymRats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

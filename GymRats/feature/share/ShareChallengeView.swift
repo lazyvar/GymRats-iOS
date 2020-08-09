@@ -122,8 +122,8 @@ class ShareChallengeView: UIView {
     if tintLayer == nil {
       tintLayer = CAGradientLayer().apply { gradientLayer in
         gradientLayer.frame = bounds
-        gradientLayer.colors = [UIColor.hex("#000000", alpha: 65).cgColor, UIColor.clear.cgColor, UIColor.hex("#000000", alpha: 65).cgColor]
-        gradientLayer.locations = [0.0, 0.5, 1.0]
+        gradientLayer.colors = [UIColor.hex("#000000", alpha: 0.87).cgColor, UIColor.clear.cgColor, UIColor.clear.cgColor, UIColor.clear.cgColor, UIColor.hex("#000000", alpha: 0.87).cgColor]
+        gradientLayer.locations = [0.0, 0.25, 0.5, 0.75, 1.0]
       }
       
       tintedView.layer.insertSublayer(tintLayer, at: 0)
