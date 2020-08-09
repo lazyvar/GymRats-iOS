@@ -24,6 +24,7 @@ class WorkoutViewController: BindableViewController {
 
   var isInteractivelyDismissing: Bool = false
   weak var transitionController: WorkoutPopComplexTransition?
+  var donePushing = false
   
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
@@ -59,7 +60,7 @@ class WorkoutViewController: BindableViewController {
   private lazy var dataSource = RxTableViewSectionedAnimatedDataSource<WorkoutSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
     switch row {
     case .image(url: let url):
-      return ImageViewCell.configure(tableView: tableView, indexPath: indexPath, imageURL: url)
+      return ImageViewCell.configure(tableView: tableView, indexPath: indexPath, imageURL: url, donePushing: self.donePushing)
     case .account(let workout):
       return WorkoutAccountCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
     case .details(let workout):
@@ -199,8 +200,8 @@ class WorkoutViewController: BindableViewController {
     viewModel.input.viewDidLoad.trigger()
   }
   
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
     
     bottomConstraint.constant = (tabBarController?.tabBar.frame.height ?? 0) + view.safeAreaInsets.bottom
   }
@@ -351,9 +352,7 @@ extension WorkoutViewController {
   }
   
   func transitionWillStart(push: Bool) {
-    if push {
-      tableView.alpha = 0
-    } else {
+    if !push {
       UIView.animate(withDuration: 0.30) {
         self.tableView.alpha = 1
       }
@@ -362,9 +361,9 @@ extension WorkoutViewController {
   
   func transitionDidEnd(push: Bool) {
     if push {
-      UIView.animate(withDuration: 0.1) {
-        self.tableView.alpha = 1
-      }
+      donePushing = true
+      tableView.reloadData()
+      viewModel.input.transitionEnded.trigger()
     }
   }
 }

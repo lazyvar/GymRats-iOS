@@ -83,8 +83,10 @@ class ImageViewCell: UITableViewCell {
     _imageView.isHidden = false
   }
   
-  static func configure(tableView: UITableView, indexPath: IndexPath, imageURL: String) -> UITableViewCell {
+  static func configure(tableView: UITableView, indexPath: IndexPath, imageURL: String, donePushing: Bool) -> UITableViewCell {
     return tableView.dequeueReusableCell(withType: ImageViewCell.self, for: indexPath).apply { cell in
+      cell.contentView.alpha = donePushing ? 1 : 0
+      
       if let url = URL(string: imageURL) {
         if let image = KingfisherManager.shared.cache.retrieveImageInMemoryCache(forKey: imageURL) ?? KingfisherManager.shared.cache.retrieveImageInDiskCache(forKey: imageURL) {
           cell.setImage(image)

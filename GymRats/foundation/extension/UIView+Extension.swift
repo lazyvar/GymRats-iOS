@@ -137,4 +137,18 @@ extension UIView {
       completion: nil
     )
   }
+
+  @discardableResult func round(corners: UIRectCorner, radius: CGFloat) -> CAShapeLayer {
+    return _round(corners: corners, radius: radius)
+  }
+  
+  private func _round(corners: UIRectCorner, radius: CGFloat) -> CAShapeLayer {
+    let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+    let mask = CAShapeLayer()
+    
+    mask.path = path.cgPath
+    layer.mask = mask
+    
+    return mask
+  }
 }

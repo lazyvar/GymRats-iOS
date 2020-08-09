@@ -14,7 +14,7 @@ public class WorkoutPopComplexTransition: NSObject {
   private let to: ChallengeViewController
   private var backgroundAnimation: UIViewPropertyAnimator? = nil
   private var transitionContext: UIViewControllerContextTransitioning? = nil
-  
+
   private let transitionImageView: UIImageView = {
     let imageView = UIImageView()
     imageView.contentMode = .scaleAspectFill

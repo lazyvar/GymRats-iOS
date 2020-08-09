@@ -74,6 +74,6 @@ class WorkoutPopSimpleTransition: NSObject, UIViewControllerAnimatedTransitionin
 
     animator.startAnimation()
     
-    from.tabBarController?.setTabBar(hidden: true, animated: true, alongside: animator)
+    to.tabBarController?.setTabBar(hidden: false, animated: true, alongside: animator)
   }
 }

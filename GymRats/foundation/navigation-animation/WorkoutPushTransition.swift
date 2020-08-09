@@ -11,12 +11,12 @@ import UIKit
 class WorkoutPushTransition: NSObject, UIViewControllerAnimatedTransitioning {
   private let from: ChallengeViewController
   private let to: WorkoutViewController
-
+  private var shapeLayer: CAShapeLayer?
+  
   private let transitionImageView: UIImageView = {
     let imageView = UIImageView()
     imageView.contentMode = .scaleAspectFill
     imageView.clipsToBounds = true
-    imageView.layer.cornerRadius = 4
     
     return imageView
   }()
@@ -39,6 +39,8 @@ class WorkoutPushTransition: NSObject, UIViewControllerAnimatedTransitioning {
     let animator = UIViewPropertyAnimator(duration: duration, dampingRatio: spring) { [unowned transitionImageView, unowned to] in
       transitionImageView.frame = to.bigFrame
       toView.alpha = 1
+      self.shapeLayer?.removeFromSuperlayer()
+      transitionImageView.round(corners: [.topLeft, .topRight], radius: 4)
     }
 
     toView.alpha = 0
@@ -49,7 +51,8 @@ class WorkoutPushTransition: NSObject, UIViewControllerAnimatedTransitioning {
     containerView.addSubview(transitionImageView)
 
     transitionImageView.frame = from.selectedImageViewFrame
-
+    shapeLayer = transitionImageView.round(corners: [.bottomLeft, .topLeft], radius: 4)
+    
     from.transitionWillStart(push: true)
     to.transitionWillStart(push: true)
 
