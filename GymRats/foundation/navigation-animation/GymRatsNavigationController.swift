@@ -67,6 +67,8 @@ extension GymRatsNavigationController: UINavigationControllerDelegate {
         let challengeViewController = fromVC as? ChallengeViewController,
         let workoutViewController = toVC as? WorkoutViewController,
         operation == .push {
+          workoutViewController.pushedForFun = true
+        
           return WorkoutPushTransition(from: challengeViewController, to: workoutViewController)
         }
 
@@ -83,7 +85,7 @@ extension GymRatsNavigationController: UINavigationControllerDelegate {
       
       return nil
     }()
-    
+
     currentAnimationTransition = transition
     
     return currentAnimationTransition

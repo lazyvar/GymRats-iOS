@@ -49,10 +49,6 @@ final class ChallengeViewModel: ViewModel {
     let workoutDeleted = NotificationCenter.default.rx.notification(.workoutDeleted).map { _ in () }.share()
     let appEnteredForeground = NotificationCenter.default.rx.notification(.appEnteredForeground).map { _ in () }.share()
     
-    appEnteredForeground
-      .bind(to: output.scrollToTop)
-      .disposed(by: disposeBag)
-    
     let cleanRefresh = Observable.merge(input.refresh, workoutCreated, workoutDeleted, input.viewDidLoad, appEnteredForeground)
       .share()
     

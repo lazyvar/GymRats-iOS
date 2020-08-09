@@ -54,8 +54,6 @@ class WorkoutPopSimpleTransition: NSObject, UIViewControllerAnimatedTransitionin
 
     transitionImageView.frame = from.bigFrame
 
-    from.hidesBottomBarWhenPushed = false
-
     from.transitionWillStart(push: false)
     to.transitionWillStart(push: false)
 

@@ -30,7 +30,7 @@ class WorkoutPushTransition: NSObject, UIViewControllerAnimatedTransitioning {
     return 0.3
   }
   
-  func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+  func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {    
     let toView   = transitionContext.view(forKey: .to)!
     let fromView = transitionContext.view(forKey: .from)!
     let containerView = transitionContext.containerView
@@ -55,7 +55,6 @@ class WorkoutPushTransition: NSObject, UIViewControllerAnimatedTransitioning {
     
     from.transitionWillStart(push: true)
     to.transitionWillStart(push: true)
-
     from.tabBarController?.setTabBar(hidden: true)
     
     animator.addCompletion { [unowned transitionImageView, unowned from, unowned to] position in
@@ -66,9 +65,7 @@ class WorkoutPushTransition: NSObject, UIViewControllerAnimatedTransitioning {
       }
 
       transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-
       to.hidesBottomBarWhenPushed = true
-      
       from.transitionDidEnd(push: true)
       to.transitionDidEnd(push: true)
     }

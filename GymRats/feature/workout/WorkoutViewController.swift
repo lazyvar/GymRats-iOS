@@ -25,12 +25,14 @@ class WorkoutViewController: BindableViewController {
   var isInteractivelyDismissing: Bool = false
   weak var transitionController: WorkoutPopComplexTransition?
   var donePushing = false
+  var pushedForFun = false
   
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
       tableView.backgroundColor = .clear
       tableView.separatorColor = .divider
       tableView.separatorInset = .zero
+      tableView.clipsToBounds = false
       tableView.tableFooterView = UIView()
       tableView.showsVerticalScrollIndicator = false
       tableView.rx.setDelegate(self).disposed(by: disposeBag)
@@ -132,7 +134,7 @@ class WorkoutViewController: BindableViewController {
     dismissPanGesture.delegate = self
 
     tableView.addGestureRecognizer(self.dismissPanGesture)
-
+    
     spookyView = SpookyView().apply {
       $0.translatesAutoresizingMaskIntoConstraints = false
       $0.isUserInteractionEnabled = false
@@ -196,8 +198,14 @@ class WorkoutViewController: BindableViewController {
     
     view.addSubview(ugh)
     view.sendSubviewToBack(ugh)
+
+    donePushing = !pushedForFun
     
     viewModel.input.viewDidLoad.trigger()
+  
+    if donePushing {
+      viewModel.input.transitionEnded.trigger()
+    }
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -211,14 +219,24 @@ class WorkoutViewController: BindableViewController {
   }
   
   @objc private func dismissPanGestureDidChange(_ gesture: UIPanGestureRecognizer) {
-    if gesture.state == .began {
-      self.isInteractivelyDismissing = true
-      self.navigationController?.popViewController(animated: true)
+    if (gesture.state == .ended || gesture.state == .cancelled || gesture.state == .failed) && !tableViewTopRevealed {
+      self.isInteractivelyDismissing = false
+    }
+    
+    guard tableViewTopRevealed else { return }
+    
+    if !isInteractivelyDismissing && !(gesture.state == .ended || gesture.state == .cancelled || gesture.state == .failed) {
+      if !(gesture.state == .began && gesture.velocity(in: view).y < 0) {
+        self.isInteractivelyDismissing = true
+        self.navigationController?.popViewController(animated: true)
+      }
     }
 
+    guard isInteractivelyDismissing else { return }
+    
     transitionController?.didPanWith(gesture: gesture, view: view)
   }
-  
+
   private func showCommentMenu(_ comment: Comment) {
     let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     let delete = UIAlertAction(title: "Delete comment", style: .destructive) { [weak self] _ in
