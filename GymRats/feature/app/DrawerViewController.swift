@@ -37,11 +37,11 @@ class DrawerViewController: UIViewController {
       $0.showsShadow = false
       $0.maximumLeftDrawerWidth = MenuViewController.width
       $0.centerHiddenInteractionMode = .full
-      $0.openDrawerGestureModeMask = [.all]
+      $0.openDrawerGestureModeMask = []
       $0.closeDrawerGestureModeMask = [.all]
       $0.setDrawerVisualStateBlock(MMDrawerVisualState.parallaxVisualStateBlock(withParallaxFactor: 2))
     }
-
+    
     Observable.merge(NotificationCenter.default.rx.notification(.challengeEdited), NotificationCenter.default.rx.notification(.leftChallenge))
       .flatMap { _ in Challenge.State.all.fetch() }
       .subscribe(onNext: { result in

@@ -184,7 +184,6 @@ class ChallengeViewController: BindableViewController {
     super.viewDidLoad()
     
     extendedLayoutIncludesOpaqueBars = true
-    navigationItem.title = challenge.name
     navigationItem.rightBarButtonItems = {
       if challenge.isPast {
         return [menuBarButtonItem, chatBarButtonItem, statsBarButtonItem]
@@ -198,7 +197,8 @@ class ChallengeViewController: BindableViewController {
     }
     
     Membership.State.fetch(for: challenge)
-    adjustLargeTitleSize()
+    
+    navigationItem.largeTitleDisplayMode = .never
     
     refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
     tableView.refreshControl = refreshControl
@@ -209,7 +209,7 @@ class ChallengeViewController: BindableViewController {
       tableView.contentInset = insets
       tableView.scrollIndicatorInsets = insets
     }
-    
+        
     viewModel.input.viewDidLoad.trigger()
   }
   

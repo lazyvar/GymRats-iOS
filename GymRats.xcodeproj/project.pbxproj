@@ -85,6 +85,8 @@
 		014A7657237764B6002CE366 /* GRFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014A7656237764B6002CE366 /* GRFormViewController.swift */; };
 		014B6772241882C000F356EB /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014B6770241882C000F356EB /* ChallengeViewController.swift */; };
 		014B6773241882C000F356EB /* ChallengeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 014B6771241882C000F356EB /* ChallengeViewController.xib */; };
+		014CA88624DF767F00056DB1 /* LargeTitlesAreDumbCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CA88424DF767F00056DB1 /* LargeTitlesAreDumbCell.swift */; };
+		014CA88724DF767F00056DB1 /* LargeTitlesAreDumbCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 014CA88524DF767F00056DB1 /* LargeTitlesAreDumbCell.xib */; };
 		01527303243C055A00123E25 /* ProfilePictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01527301243C055A00123E25 /* ProfilePictureCell.swift */; };
 		01527304243C055A00123E25 /* ProfilePictureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01527302243C055A00123E25 /* ProfilePictureCell.xib */; };
 		0158FF282423F73F00EDC584 /* Coding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158FF272423F73F00EDC584 /* Coding.swift */; };
@@ -417,6 +419,8 @@
 		014A7656237764B6002CE366 /* GRFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRFormViewController.swift; sourceTree = "<group>"; };
 		014B6770241882C000F356EB /* ChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
 		014B6771241882C000F356EB /* ChallengeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChallengeViewController.xib; sourceTree = "<group>"; };
+		014CA88424DF767F00056DB1 /* LargeTitlesAreDumbCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeTitlesAreDumbCell.swift; sourceTree = "<group>"; };
+		014CA88524DF767F00056DB1 /* LargeTitlesAreDumbCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LargeTitlesAreDumbCell.xib; sourceTree = "<group>"; };
 		01527301243C055A00123E25 /* ProfilePictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureCell.swift; sourceTree = "<group>"; };
 		01527302243C055A00123E25 /* ProfilePictureCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfilePictureCell.xib; sourceTree = "<group>"; };
 		0158FF272423F73F00EDC584 /* Coding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coding.swift; sourceTree = "<group>"; };
@@ -989,6 +993,8 @@
 				011E1BFF24DB891C00A1F7CC /* GroupStatCell.swift */,
 				011E1C0024DB891C00A1F7CC /* GroupStatCell.xib */,
 				019D899024DC58CF002BFD1B /* SmartLabel.swift */,
+				014CA88424DF767F00056DB1 /* LargeTitlesAreDumbCell.swift */,
+				014CA88524DF767F00056DB1 /* LargeTitlesAreDumbCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1541,6 +1547,7 @@
 				015C0725243FD35B003E75E9 /* MapViewController.xib in Resources */,
 				0107AE372325E3D300944D11 /* WorkoutListCell.xib in Resources */,
 				0176B66F243B99E50022B65F /* WelcomeViewController.xib in Resources */,
+				014CA88724DF767F00056DB1 /* LargeTitlesAreDumbCell.xib in Resources */,
 				015E2A8E243CEFD700307B21 /* TodaysGoalViewController.xib in Resources */,
 				74A01B3C220A544F00431ABD /* UserWorkoutTableViewCell.xib in Resources */,
 				0169395524D9D18C0011C1A8 /* ChallengeDetailsViewController.xib in Resources */,
@@ -1817,6 +1824,7 @@
 				01E833E42325BF7300C66C72 /* ChallengeBannerCell.swift in Sources */,
 				0144BC61241D530200569546 /* UserDefaults+Extension.swift in Sources */,
 				0107C7EF241B06A2005650FB /* MenuRow.swift in Sources */,
+				014CA88624DF767F00056DB1 /* LargeTitlesAreDumbCell.swift in Sources */,
 				01FF413424205FDA007D316A /* ProfileViewController.swift in Sources */,
 				01A3EB20237747D30097FC2A /* CVScrollDirection.swift in Sources */,
 				011FB63322A37387004D5B8E /* CompletedChallengesViewController.swift in Sources */,

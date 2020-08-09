@@ -31,6 +31,7 @@ class WorkoutAccountCell: UITableViewCell {
     accountImageView.clear()
     accountNameLabel.text = nil
     timeLabel.text = nil
+    backgroundColor = .foreground
   }
 
   static func configure(tableView: UITableView, indexPath: IndexPath, workout: Workout) -> UITableViewCell {

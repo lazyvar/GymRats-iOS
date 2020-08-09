@@ -30,9 +30,9 @@ class WorkoutViewController: BindableViewController {
       tableView.backgroundColor = .clear
       tableView.separatorColor = .divider
       tableView.separatorInset = .zero
-      tableView.clipsToBounds = false
       tableView.tableFooterView = UIView()
       tableView.showsVerticalScrollIndicator = false
+      tableView.rx.setDelegate(self).disposed(by: disposeBag)
       tableView.registerCellNibForClass(WorkoutDetailsCell.self)
       tableView.registerCellNibForClass(ImageViewCell.self)
       tableView.registerCellNibForClass(MapCell.self)
@@ -122,6 +122,8 @@ class WorkoutViewController: BindableViewController {
   
   private var spookyView: UIView!
   
+  let ugh = UIView()
+
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -163,7 +165,7 @@ class WorkoutViewController: BindableViewController {
       .map { ($0?.height ?? 0) - 50 }
       .bind(to: height.rx.constant)
       .disposed(by: disposeBag)
-    
+
     navigationItem.largeTitleDisplayMode = .never
     
     let tapToHideKeyboard = UITapGestureRecognizer()
@@ -173,13 +175,13 @@ class WorkoutViewController: BindableViewController {
     
     view.addGestureRecognizer(tapToHideKeyboard)
 
-    let menu =  UIBarButtonItem (
+    let menu = UIBarButtonItem (
       image: .moreHorizontal,
       style: .plain,
       target: self,
       action: #selector(showWorkoutMenu)
     )
-    
+
     if let challenge = challenge {
       if Membership.State.owner(of: challenge) || workout.account.id == GymRats.currentAccount.id {
         navigationItem.rightBarButtonItem = menu
@@ -188,7 +190,6 @@ class WorkoutViewController: BindableViewController {
       navigationItem.rightBarButtonItem = menu
     }
     
-    let ugh = UIView()
     ugh.backgroundColor = .background
     ugh.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 3000)
     
@@ -209,26 +210,18 @@ class WorkoutViewController: BindableViewController {
   }
   
   @objc private func dismissPanGestureDidChange(_ gesture: UIPanGestureRecognizer) {
-    switch gesture.state {
-    case .began:
-      isInteractivelyDismissing = true
-      navigationController?.popViewController(animated: true)
-    case .cancelled, .failed, .ended:
-      isInteractivelyDismissing = false
-    case .changed, .possible:
-      break
-    @unknown default:
-      break
+    if gesture.state == .began {
+      self.isInteractivelyDismissing = true
+      self.navigationController?.popViewController(animated: true)
     }
 
-    transitionController?.didPanWith(gestureRecognizer: gesture)
+    transitionController?.didPanWith(gesture: gesture, view: view)
   }
   
   private func showCommentMenu(_ comment: Comment) {
     let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     let delete = UIAlertAction(title: "Delete comment", style: .destructive) { [weak self] _ in
       let areYouSureAlert = UIAlertController(title: "Are you sure?", message: "This will permanently remove the comment.", preferredStyle: .alert)
-      
       let delete = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
         guard let self = self else { return }
         
@@ -251,7 +244,11 @@ class WorkoutViewController: BindableViewController {
     
     self.present(alert, animated: true, completion: nil)
   }
-  
+
+  var tableViewTopRevealed: Bool {
+    return tableView.contentOffset.y < 0
+  }
+
   @objc private func showWorkoutMenu() {
     let edit = UIAlertAction(title: "Edit", style: .default) { _ in
       let viewController = CreateWorkoutViewController(workout: .right(self.workout))
@@ -305,6 +302,21 @@ class WorkoutViewController: BindableViewController {
   }
 }
 
+extension WorkoutViewController: UITableViewDelegate {
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    guard tableViewTopRevealed else { return }
+    
+    let diff = min(750, abs(scrollView.contentOffset.y)) / 750
+    let scale = max(1 - diff * 0.25, 0.65)
+
+    view.transform = CGAffineTransform(scaleX: scale, y: scale)
+  }
+  
+  func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    hideKeyboard()
+  }
+}
+
 extension WorkoutViewController: UIGestureRecognizerDelegate {
   func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
     return true
@@ -341,9 +353,8 @@ extension WorkoutViewController {
   func transitionWillStart(push: Bool) {
     if push {
       tableView.alpha = 0
-      spookyView.alpha = 0
     } else {
-      UIView.animate(withDuration: 0.35) {
+      UIView.animate(withDuration: 0.30) {
         self.tableView.alpha = 1
       }
     }
@@ -351,9 +362,8 @@ extension WorkoutViewController {
   
   func transitionDidEnd(push: Bool) {
     if push {
-      UIView.animate(withDuration: 0.10) {
+      UIView.animate(withDuration: 0.1) {
         self.tableView.alpha = 1
-        self.spookyView.alpha = 1
       }
     }
   }

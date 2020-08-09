@@ -56,7 +56,7 @@ class WorkoutPushTransition: NSObject, UIViewControllerAnimatedTransitioning {
     from.tabBarController?.setTabBar(hidden: true)
     
     animator.addCompletion { [unowned transitionImageView, unowned from, unowned to] position in
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
         transitionImageView.alpha = 0
         transitionImageView.removeFromSuperview()
         transitionImageView.image = nil

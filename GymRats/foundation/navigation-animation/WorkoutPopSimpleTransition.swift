@@ -17,7 +17,7 @@ class WorkoutPopSimpleTransition: NSObject, UIViewControllerAnimatedTransitionin
     let imageView = UIImageView()
     imageView.contentMode = .scaleAspectFill
     imageView.clipsToBounds = true
-    imageView.layer.cornerRadius = 4
+    imageView.layer.cornerRadius = 1
 
     return imageView
   }()
@@ -59,8 +59,6 @@ class WorkoutPopSimpleTransition: NSObject, UIViewControllerAnimatedTransitionin
     from.transitionWillStart(push: false)
     to.transitionWillStart(push: false)
 
-    from.tabBarController?.setTabBar(hidden: false)
-
     animator.addCompletion { [unowned transitionImageView, unowned from, unowned to] position in
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
         transitionImageView.alpha = 0
@@ -75,5 +73,7 @@ class WorkoutPopSimpleTransition: NSObject, UIViewControllerAnimatedTransitionin
     }
 
     animator.startAnimation()
+    
+    from.tabBarController?.setTabBar(hidden: true, animated: true, alongside: animator)
   }
 }

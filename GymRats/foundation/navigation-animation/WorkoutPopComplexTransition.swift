@@ -14,47 +14,37 @@ public class WorkoutPopComplexTransition: NSObject {
   private let to: ChallengeViewController
   private var backgroundAnimation: UIViewPropertyAnimator? = nil
   private var transitionContext: UIViewControllerContextTransitioning? = nil
-
+  
   private let transitionImageView: UIImageView = {
     let imageView = UIImageView()
     imageView.contentMode = .scaleAspectFill
     imageView.clipsToBounds = true
-    imageView.layer.cornerRadius = 4
+    imageView.layer.cornerRadius = 1
 
     return imageView
   }()
-  
+
   init(from: WorkoutViewController, to: ChallengeViewController) {
     self.from = from
     self.to = to
   }
 
-  func didPanWith(gestureRecognizer: UIPanGestureRecognizer) {
-    let transitionContext = self.transitionContext!
-    let transitionImageView = self.transitionImageView
-    let translation = gestureRecognizer.translation(in: nil)
-    let translationVertical = translation.y
-    let percentageComplete = self.percentageComplete(forVerticalDrag: translationVertical)
-    let transitionImageScale = transitionImageScaleFor(percentageComplete: percentageComplete)
-
-    switch gestureRecognizer.state {
-    case .possible, .began:
+  func didPanWith(gesture: UIPanGestureRecognizer, view: UIView) {
+    switch gesture.state {
+    case .began, .possible:
       break
-    case .cancelled, .failed:
-      self.completeTransition(didCancel: true)
+    case .cancelled, .failed, .ended:
+      let velocity: CGPoint = gesture.velocity(in: view)
+      let verticalVelocityIsStrong = abs(velocity.y) > 750
+      
+      completeTransition(didCancel: !verticalVelocityIsStrong || velocity.y < 0)
     case .changed:
-      transitionImageView.transform = CGAffineTransform.identity
-        .scaledBy(x: transitionImageScale, y: transitionImageScale)
-        .translatedBy(x: translation.x, y: translation.y)
-
-      transitionContext.updateInteractiveTransition(percentageComplete)
-      self.backgroundAnimation?.fractionComplete = percentageComplete
-
-    case .ended:
-      let fingerIsMovingDownwards = gestureRecognizer.velocity(in: nil).y > 0
-      let transitionMadeSignificantProgress = percentageComplete > 0.1
-      let shouldComplete = fingerIsMovingDownwards && transitionMadeSignificantProgress
-      self.completeTransition(didCancel: !shouldComplete)
+      let translation = gesture.translation(in: nil)
+      let translationVertical = translation.y
+      let percentageComplete = self.percentageComplete(forVerticalDrag: translationVertical)
+      
+      transitionContext?.updateInteractiveTransition(percentageComplete)
+      backgroundAnimation?.fractionComplete = percentageComplete
     @unknown default:
       break
     }
@@ -65,6 +55,7 @@ public class WorkoutPopComplexTransition: NSObject {
 
     let transitionContext = self.transitionContext!
     let backgroundAnimation = self.backgroundAnimation!
+    
     let completionDuration: Double
     let completionDamping: CGFloat
     
@@ -76,46 +67,53 @@ public class WorkoutPopComplexTransition: NSObject {
       completionDamping = 0.90
     }
 
-    let foregroundAnimation = UIViewPropertyAnimator(duration: completionDuration, dampingRatio: completionDamping) {
-      self.transitionImageView.transform = CGAffineTransform.identity
-      self.transitionImageView.frame = didCancel
-        ? self.from.bigFrame
-        : self.to.selectedImageViewFrame
+    if didCancel {
+      transitionContext.cancelInteractiveTransition()
+    } else {
+      transitionContext.finishInteractiveTransition()
     }
 
-    foregroundAnimation.addCompletion { [weak self] (position) in
-      self?.transitionImageView.removeFromSuperview()
-      self?.transitionImageView.image = nil
-      self?.to.transitionDidEnd(push: false)
-      self?.from.transitionDidEnd(push: false)
-
-      if didCancel {
-        transitionContext.cancelInteractiveTransition()
-      } else {
-        transitionContext.finishInteractiveTransition()
-      }
-      
+    backgroundAnimation.addCompletion { [weak self] (position) in
       transitionContext.completeTransition(!didCancel)
-      
+      self?.from.isInteractivelyDismissing = false
       self?.transitionContext = nil
     }
 
-    let durationFactor = CGFloat(foregroundAnimation.duration / backgroundAnimation.duration)
-    backgroundAnimation.continueAnimation(withTimingParameters: nil, durationFactor: durationFactor)
-    foregroundAnimation.startAnimation()
-  }
+    if !didCancel {
+      transitionContext.containerView.addSubview(transitionImageView)
+      
+      if let url = from.workout.photoUrl, let earl = URL(string: url) {
+        transitionImageView.kf.setImage(with: earl, options: [.transition(.fade(0.2))])
+      }
 
+      let imageViewCell = from.view.allSubviews().first(ofType: ImageViewCell.self)!
+      let frame = imageViewCell.superview?.convert(imageViewCell.frame, to: nil) ?? .zero
+      
+      transitionImageView.frame = frame
+      self.from.view.alpha = 0
+
+      let foregroundAnimation = UIViewPropertyAnimator(duration: completionDuration, dampingRatio: completionDamping) {
+        self.transitionImageView.frame = self.to.selectedImageViewFrame
+      }
+
+      foregroundAnimation.addCompletion { _ in
+        self.transitionImageView.alpha = 0
+        self.transitionImageView.removeFromSuperview()
+        self.transitionImageView.image = nil
+      }
+      
+      foregroundAnimation.startAnimation()
+    }
+    
+    let durationFactor = CGFloat(completionDuration / backgroundAnimation.duration)
+    
+    backgroundAnimation.continueAnimation(withTimingParameters: nil, durationFactor: durationFactor)
+  }
+  
   private func percentageComplete(forVerticalDrag verticalDrag: CGFloat) -> CGFloat {
-    let maximumDelta = CGFloat(200)
+    let maximumDelta = CGFloat(500)
     
     return CGFloat.scaleAndShift(value: verticalDrag, inRange: (min: CGFloat(0), max: maximumDelta))
-  }
-
-  func transitionImageScaleFor(percentageComplete: CGFloat) -> CGFloat {
-    let minScale = CGFloat(0.68)
-    let result = 1 - (1 - minScale) * percentageComplete
-    
-    return result
   }
 }
 
@@ -141,28 +139,21 @@ extension WorkoutPopComplexTransition: UIViewControllerInteractiveTransitioning 
     else {
       return
     }
-    
-    from.transitionController = self
 
-    from.transitionWillStart(push: false)
-    to.transitionWillStart(push: false)
+    from.transitionController = self
 
     containerView.addSubview(toView)
     containerView.addSubview(fromView)
-    containerView.addSubview(transitionImageView)
 
-    if let url = from.workout.photoUrl, let earl = URL(string: url) {
-      transitionImageView.kf.setImage(with: earl, options: [.transition(.fade(0.2))])
-    }
+    fromView.backgroundColor = .clear
+    from.ugh.backgroundColor = .clear
+    toView.alpha = 0
     
-    transitionImageView.frame = from.bigFrame
-
     let animation = UIViewPropertyAnimator(duration: 1, dampingRatio: 1, animations: {
-      fromView.alpha = 0
+      toView.alpha = 1
     })
-    
-    self.backgroundAnimation = animation
-    
-    //    toVC.locketTabBarController?.setTabBar(hidden: false, animated: true, alongside: animation)
+
+    backgroundAnimation = animation
+    self.to.tabBarController?.setTabBar(hidden: false, animated: true, alongside: animation)
   }
 }
