@@ -193,7 +193,7 @@ extension Array where Element == Challenge {
   
   func getActiveAndUpcomingChallenges() -> [Challenge] {
     return self.filter { $0.isActive || $0.isUpcoming }
-      .sorted(by: { $0.isActive && !$1.isActive })
+      .sorted(by: { $0.id < $1.id })
   }
   
   func getPastChallenges() -> [Challenge] {

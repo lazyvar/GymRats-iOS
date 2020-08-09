@@ -27,7 +27,13 @@ class CompletedChallengeBannerDescriptonCell: UITableViewCell {
     didSet {
       bannerImageView.contentMode = .scaleAspectFill
       bannerImageView.clipsToBounds = true
-      bannerImageView.round(corners: [.topLeft, .topRight], radius: 4)
+      bannerImageView.layer.cornerRadius = 4
+    }
+  }
+  
+  @IBOutlet weak var Yup: UIView! {
+    didSet {
+      Yup.backgroundColor = .foreground
     }
   }
   

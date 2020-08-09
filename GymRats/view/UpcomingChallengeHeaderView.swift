@@ -83,12 +83,7 @@ class UpcomingChallengeHeaderView: UICollectionReusableView {
     }
   }
   
-  @IBOutlet private weak var codeLabel: UILabel! {
-    didSet {
-      codeLabel.textColor = .primaryText
-      codeLabel.font = .body
-    }
-  }
+  @IBOutlet private weak var codeLabel: SmartLabel!
   
   func configure(_ challenge: Challenge) {
     let date: String = {
@@ -103,6 +98,7 @@ class UpcomingChallengeHeaderView: UICollectionReusableView {
       }
     }()
     
+    isUserInteractionEnabled = true
     scoreByLabel.text = "Scored by most \(challenge.scoreBy.display.lowercased())"
     lastDivider.isHidden = challenge.description == nil || challenge.description == ""
     descriptionStackView.isHidden = challenge.description == nil || challenge.description == ""

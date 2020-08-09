@@ -33,9 +33,7 @@ final class MenuViewModel: ViewModel {
 
     let challenges = Challenge.State.all.observe()
       .compactMap { $0.object }
-      .map { challenges in
-        return challenges.filter { $0.isActive || $0.isUpcoming }
-      }
+      .map { $0.getActiveAndUpcomingChallenges() }
       .share()
     
     let challengeSection = Observable.merge(.just([]), challenges)

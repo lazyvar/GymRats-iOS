@@ -15,7 +15,7 @@ extension UIImage {
   static let award              = UIImage(named: "award")!
   static let activityLargeWhite = UIImage(named: "activity-large-white")!
   static let activity           = UIImage(named: "activity")!
-  static let archive            = UIImage(named: "archive")!
+  static let flag               = UIImage(named: "flag")!
   static let plusCircle         = UIImage(named: "plus-circle")!
   static let play               = UIImage(named: "play")!
   static let gear               = UIImage(named: "gear")!

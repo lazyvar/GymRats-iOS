@@ -128,6 +128,8 @@ class EditChallengeViewController: GRFormViewController {
       textRow.placeholder = "Start date"
       textRow.tag = "start_date"
       textRow.icon = .cal
+      textRow.timeZone = .utc
+      textRow.region = .UTC
       textRow.add(rule: RuleRequired(msg: "Start date is required."))
       textRow.value = self.challenge.startDate
     }
@@ -138,6 +140,8 @@ class EditChallengeViewController: GRFormViewController {
       textRow.placeholder = "End date"
       textRow.tag = "end_date"
       textRow.icon = .cal
+      textRow.timeZone = .utc
+      textRow.region = .UTC
       textRow.add(rule: RuleRequired(msg: "End date is required."))
       textRow.value = self.challenge.endDate
       textRow.endDate = Date() + 1000.years

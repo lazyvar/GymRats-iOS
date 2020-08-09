@@ -69,7 +69,14 @@ class ChallengePreviewViewController: UIViewController {
   
   @IBOutlet private weak var durationLabel: UILabel! {
     didSet {
-      durationLabel.text = "Lasts \(challenge.allDays.count) days"
+      durationLabel.text = {
+        if challenge.isPast || challenge.isActive {
+          return challenge.daysLeft
+        } else {
+          return "Lasts \(challenge.allDays.count) days"
+        }
+      }()
+
       durationLabel.font = .body
       durationLabel.textColor = .primaryText
     }

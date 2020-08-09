@@ -8,13 +8,16 @@
 
 import UIKit
 import Eureka
+import SwiftDate
 
 class PickDateCell: Cell<Date>, Eureka.TextFieldCell, CellType {
   @IBOutlet weak var shadowTextField: ShadowTextField!
 
   var textField: UITextField! { return shadowTextField }
   var textFieldRow: PickDateRow? { return row as? PickDateRow }
-  
+  var timeZone: TimeZone { textFieldRow?.timeZone ?? .current }
+  var region: Region { textFieldRow?.region ?? .current }
+
   let datePicker = UIDatePicker()
   
   override func setup() {
@@ -27,7 +30,7 @@ class PickDateCell: Cell<Date>, Eureka.TextFieldCell, CellType {
     datePicker.datePickerMode = .date
     datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
     datePicker.date = row.value ?? Date()
-    datePicker.timeZone = .current
+    datePicker.timeZone = timeZone
   }
   
   public override func update() {
@@ -37,7 +40,7 @@ class PickDateCell: Cell<Date>, Eureka.TextFieldCell, CellType {
     datePicker.minimumDate = textFieldRow?.startDate
     datePicker.maximumDate = textFieldRow?.endDate
 
-    textField?.text = datePicker.date.in(region: .UTC).toFormat("EEEE, MMMM d, yyyy")
+    textField?.text = datePicker.date.in(region: region).toFormat("EEEE, MMMM d, yyyy")
     textField?.placeholder = textFieldRow?.placeholder
     textField?.textContentType = textFieldRow?.contentType
     textField?.keyboardType = textFieldRow?.keyboardType ?? .default
@@ -90,7 +93,9 @@ final class PickDateRow: Row<PickDateCell>, RowType, FieldRowConformance, Keyboa
   var keyboardType: UIKeyboardType?
   var startDate: Date?
   var endDate: Date?
-  
+  var timeZone: TimeZone = .current
+  var region: Region = .current
+
   required public init(tag: String?) {
     super.init(tag: tag)
 

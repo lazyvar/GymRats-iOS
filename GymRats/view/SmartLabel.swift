@@ -27,6 +27,7 @@ class SmartLabel: TTTAttributedLabel {
   private func setup() {
     let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(showCopy(recognizer:)))
 
+    isUserInteractionEnabled = true
     delegate = self
     font = .body
     textColor = .primaryText

@@ -65,7 +65,7 @@ class RankingsViewController: BindableViewController {
 
     refresh()
   }
-  
+
   @objc private func showAlert() {
     let alertViewController = UIAlertController()
     

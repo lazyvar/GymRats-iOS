@@ -33,7 +33,7 @@ enum MenuRow {
 
     var image: UIImage {
       switch self {
-      case .completed: return .archive
+      case .completed: return .flag
       case .join: return .plusCircle
       case .start: return .play
       case .settings: return .gear
