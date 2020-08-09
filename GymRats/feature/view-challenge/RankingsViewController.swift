@@ -21,7 +21,7 @@ class RankingsViewController: BindableViewController {
       tableView.showsVerticalScrollIndicator = false
       tableView.separatorStyle = .none
       tableView.allowsSelection = false
-//      tableView.rx.setDelegate(self).disposed(by: disposeBag)
+      tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: CGFloat.leastNormalMagnitude))
       tableView.registerCellNibForClass(RankingCell.self)
     }
   }
@@ -49,6 +49,7 @@ class RankingsViewController: BindableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
    
+    navigationItem.largeTitleDisplayMode = .always
     navigationItem.rightBarButtonItem = scoreByButton
     navigationItem.title = "Rankings"
     navigationItem.rightBarButtonItem?.tintColor = .brand

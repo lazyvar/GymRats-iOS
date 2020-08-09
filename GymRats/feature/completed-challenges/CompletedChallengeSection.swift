@@ -12,8 +12,8 @@ import RxDataSources
 typealias CompletedChallengeSection = SectionModel<String?, CompletedChallengeRow>
 
 enum CompletedChallengeRow {
-  case banner(String)
-  case description(NSAttributedString)
+  case title(Challenge)
+  case description(String?, NSAttributedString)
   case share(Challenge)
   case ranking(Ranking, Int, ScoreBy)
 }

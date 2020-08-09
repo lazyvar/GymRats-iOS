@@ -33,18 +33,11 @@ final class CompletedChallengeViewModel: ViewModel {
       .flatMap { gymRatsAPI.getRankings(challenge: self.challenge, scoreBy: self.challenge.scoreBy) }
       .compactMap { $0.object }
       .map { rankings -> ([Ranking], [CompletedChallengeRow]) in
-        let stuff: [CompletedChallengeRow]
-        
-        if let url = self.challenge.profilePictureUrl {
-          stuff = [.banner(url)]
-        } else {
-          stuff = []
-        }
-        
         return (
           rankings,
-          stuff + [
-            .description(self.description(for: self.challenge, rankings: rankings)),
+          [
+            .title(self.challenge),
+            .description(self.challenge.profilePictureUrl, self.description(for: self.challenge, rankings: rankings)),
             .share(self.challenge),
           ]
         )

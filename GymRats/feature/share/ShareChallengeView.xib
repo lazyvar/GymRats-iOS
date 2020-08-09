@@ -65,8 +65,8 @@
                                 </label>
                             </subviews>
                         </stackView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zk2-3K-lxC">
-                            <rect key="frame" x="20" y="524.5" width="42" height="20.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zk2-3K-lxC">
+                            <rect key="frame" x="20" y="524.5" width="560" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -110,6 +110,7 @@
                         <constraint firstAttribute="trailing" secondItem="tzi-2d-nRt" secondAttribute="trailing" constant="20" id="Ibg-uM-1VO"/>
                         <constraint firstItem="KTM-lc-RDZ" firstAttribute="centerY" secondItem="fG7-rA-h8e" secondAttribute="centerY" id="Ktr-lS-rxh"/>
                         <constraint firstAttribute="bottom" secondItem="tzi-2d-nRt" secondAttribute="bottom" constant="20" id="ao0-Qh-VDv"/>
+                        <constraint firstAttribute="trailing" secondItem="Zk2-3K-lxC" secondAttribute="trailing" constant="20" id="btW-97-fIy"/>
                         <constraint firstItem="lyD-dx-fNs" firstAttribute="top" secondItem="Zk2-3K-lxC" secondAttribute="bottom" constant="10" id="dA4-g1-ynf"/>
                         <constraint firstItem="fG7-rA-h8e" firstAttribute="leading" secondItem="Km8-ga-TkV" secondAttribute="leading" constant="20" id="hdw-NV-qcO"/>
                         <constraint firstAttribute="bottom" secondItem="BGn-Cr-1iz" secondAttribute="bottom" constant="20" id="sLf-cI-toC"/>

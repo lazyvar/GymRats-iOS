@@ -57,7 +57,7 @@ extension MembersCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataS
       press?(accounts[indexPath.row])
     }
   }
-  
+
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if showInviteAtEnd {
       return accounts.count + 1
@@ -65,7 +65,7 @@ extension MembersCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataS
       return accounts.count
     }
   }
-  
+
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     if showInviteAtEnd {
       if indexPath.row == accounts.count {

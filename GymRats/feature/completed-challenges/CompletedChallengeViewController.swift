@@ -25,8 +25,10 @@ class CompletedChallengeViewController: BindableViewController, UITableViewDeleg
       tableView.showsVerticalScrollIndicator = false
       tableView.separatorStyle = .none
       tableView.allowsSelection = false
+      tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: CGFloat.leastNormalMagnitude))
       tableView.rx.setDelegate(self).disposed(by: disposeBag)
-      tableView.registerCellNibForClass(ChallengeBannerImageCell.self)
+      tableView.registerCellNibForClass(CompletedChallengeBannerDescriptonCell.self)
+      tableView.registerCellNibForClass(LargeTitlesAreDumbCell.self)
       tableView.registerCellNibForClass(ChallengeCompleteDescriptionCell.self)
       tableView.registerCellNibForClass(ShareChallengeButtonCell.self)
       tableView.registerCellNibForClass(NewChallengeButtonCell.self)
@@ -68,10 +70,14 @@ class CompletedChallengeViewController: BindableViewController, UITableViewDeleg
   
   private lazy var dataSource = RxTableViewSectionedReloadDataSource<CompletedChallengeSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
     switch row {
-    case .banner(let url):
-      return ChallengeBannerImageCell.configure(tableView: tableView, indexPath: indexPath, imageURL: url)
-    case .description(let attributedString):
-      return ChallengeCompleteDescriptionCell.configure(tableView: tableView, indexPath: indexPath, description: attributedString)
+    case .title(let challenge):
+      return LargeTitlesAreDumbCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge)
+    case .description(let banner, let desc):
+      if let banner = banner {
+        return CompletedChallengeBannerDescriptonCell.configure(tableView: tableView, indexPath: indexPath, banner: banner, description: desc)
+      } else {
+        return ChallengeCompleteDescriptionCell.configure(tableView: tableView, indexPath: indexPath, description: desc)
+      }
     case .share(let challenge):
       return ShareChallengeButtonCell.configure(tableView: tableView, indexPath: indexPath) {
         let share = ShareChallengeViewController(challenge: challenge)
@@ -91,12 +97,10 @@ class CompletedChallengeViewController: BindableViewController, UITableViewDeleg
     if popUp {
       navigationItem.leftBarButtonItem = .close(target: self)
     } else {
-      // TODO: setupMenuButton()
       navigationItem.rightBarButtonItems = [chatBarButtonItem, statsBarButtonItem]
     }
     
-    navigationItem.title = self.challenge.name
-    navigationItem.largeTitleDisplayMode = .always
+    navigationItem.largeTitleDisplayMode = .never
     
     if itIsAParty { dance() }
 

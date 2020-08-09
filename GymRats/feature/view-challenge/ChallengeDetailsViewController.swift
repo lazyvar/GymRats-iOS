@@ -21,6 +21,7 @@ class ChallengeDetailsViewController: BindableViewController {
       tableView.showsVerticalScrollIndicator = false
       tableView.separatorStyle = .none
       tableView.allowsSelection = false
+      tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: CGFloat.leastNormalMagnitude))
       tableView.rx.setDelegate(self).disposed(by: disposeBag)
       tableView.registerCellNibForClass(FullLeaderboardCell.self)
       tableView.registerCellNibForClass(LargeTitlesAreDumbCell.self)
@@ -68,6 +69,8 @@ class ChallengeDetailsViewController: BindableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    navigationItem.largeTitleDisplayMode = .never
+    
     viewModel.input.viewDidLoad.trigger()
   }
   

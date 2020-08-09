@@ -118,7 +118,7 @@ class ShareChallengeViewController: UIViewController {
         guard let self = self else { return }
         guard let workouts = a.object, let challengeInfo = b.object else { self.presentAlert(with: (a.error ?? b.error)!); return }
 
-        self.shareChallengeView.size = ShareChallengeView.Size(rawValue: min(Int(sqrt(Double(workouts.count))), 7)) ?? .four
+        self.shareChallengeView.size = ShareChallengeView.Size(rawValue: max(2, min(Int(sqrt(Double(workouts.count))), 5))) ?? .four
         self.gridSizeTextField.text = "\(self.shareChallengeView.size.rawValue)"
         self.selectedGridSize = ShareChallengeView.Size.allCases.firstIndex(of: self.shareChallengeView.size)!
         self.picker.selectRow(ShareChallengeView.Size.allCases.firstIndex(of: self.shareChallengeView.size)!, inComponent: 0, animated: false)
