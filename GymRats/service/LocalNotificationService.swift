@@ -34,14 +34,14 @@ enum LocalNotificationService {
     let startDateComponents = challenge.startDate.dateComponents
     let content = UNMutableNotificationContent()
     content.title = "Challenge started"
-    content.body = "\(challenge.name) has begun!"
+    content.body = "\(challenge.name) has begun."
     
     var notificationDateComponents = DateComponents()
     notificationDateComponents.calendar = Calendar.current
     notificationDateComponents.day = startDateComponents.day
     notificationDateComponents.year = startDateComponents.year
     notificationDateComponents.month = startDateComponents.month
-    notificationDateComponents.hour = 9
+    notificationDateComponents.hour = 8
     
     let trigger = UNCalendarNotificationTrigger(dateMatching: notificationDateComponents, repeats: false)
     let id = "challenge_\(challenge.id)_start"
@@ -55,15 +55,15 @@ enum LocalNotificationService {
   static func registerForEnd(_ challenge: Challenge) {
     let endDateComponents = (challenge.endDate + 1.days).dateComponents
     let content = UNMutableNotificationContent()
-    content.title = "Challenge complete"
-    content.body = "Congratulations on completing \(challenge.name)!"
+    content.title = "Challenge completed"
+    content.body = "Congratulations on completing \(challenge.name)."
     
     var notificationDateComponents = DateComponents()
     notificationDateComponents.calendar = Calendar.current
     notificationDateComponents.day = endDateComponents.day
     notificationDateComponents.year = endDateComponents.year
     notificationDateComponents.month = endDateComponents.month
-    notificationDateComponents.hour = 9
+    notificationDateComponents.hour = 8
 
     let trigger = UNCalendarNotificationTrigger(dateMatching: notificationDateComponents, repeats: false)
     let id = "challenge_\(challenge.id)_end"
