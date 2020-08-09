@@ -23,6 +23,7 @@ class ChallengeDetailsViewController: BindableViewController {
       tableView.allowsSelection = false
       tableView.rx.setDelegate(self).disposed(by: disposeBag)
       tableView.registerCellNibForClass(FullLeaderboardCell.self)
+      tableView.registerCellNibForClass(LargeTitlesAreDumbCell.self)
       tableView.registerCellNibForClass(ChallengeDetailsHeader.self)
       tableView.registerCellNibForClass(RankingCell.self)
       tableView.registerCellNibForClass(MembersCell.self)
@@ -43,6 +44,8 @@ class ChallengeDetailsViewController: BindableViewController {
   
   private lazy var dataSource = RxTableViewSectionedReloadDataSource<ChallengeDetailsSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
     switch row {
+    case .title(let challenge):
+      return LargeTitlesAreDumbCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge)
     case .header(let challenge):
       return ChallengeDetailsHeader.configure(tableView: tableView, indexPath: indexPath, challenge: challenge)
     case .members(let members):
@@ -64,9 +67,7 @@ class ChallengeDetailsViewController: BindableViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    navigationItem.title = challenge.name
-    
+
     viewModel.input.viewDidLoad.trigger()
   }
   

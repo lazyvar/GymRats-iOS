@@ -9,16 +9,16 @@
 import UIKit
 
 class LargeTitlesAreDumbCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+  @IBOutlet private weak var titleLabel: UILabel! {
+    didSet {
+      titleLabel.textColor = .primaryText
+      titleLabel.font = .title
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+  }
+  
+  static func configure(tableView: UITableView, indexPath: IndexPath, challenge: Challenge) -> UITableViewCell {
+    return tableView.dequeueReusableCell(withType: LargeTitlesAreDumbCell.self, for: indexPath).apply {
+      $0.titleLabel.text = challenge.name
     }
-    
+  }
 }

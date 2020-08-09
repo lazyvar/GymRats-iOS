@@ -52,6 +52,7 @@ class ChallengeViewController: BindableViewController {
       tableView.registerCellNibForClass(WorkoutBigCell.self)
       tableView.registerSkeletonCellNibForClass(WorkoutListCell.self)
       tableView.registerCellNibForClass(WorkoutListCell.self)
+      tableView.registerCellNibForClass(LargeTitlesAreDumbCell.self)
       tableView.registerCellNibForClass(NoWorkoutsCell.self)
       tableView.registerCellNibForClass(ChallengeBannerCell.self)
       tableView.rx.setDelegate(self).disposed(by: disposeBag)
@@ -104,6 +105,8 @@ class ChallengeViewController: BindableViewController {
   
   private lazy var dataSource = RxTableViewSectionedReloadDataSource<ChallengeSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
     switch row {
+    case .title(let challenge):
+      return LargeTitlesAreDumbCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge)
     case .banner(let challenge, let challengeInfo):
       return ChallengeBannerCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge, challengeInfo: challengeInfo)
     case .noWorkouts(let challenge):
@@ -198,8 +201,6 @@ class ChallengeViewController: BindableViewController {
     
     Membership.State.fetch(for: challenge)
     
-    navigationItem.largeTitleDisplayMode = .never
-    
     refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
     tableView.refreshControl = refreshControl
     
@@ -209,6 +210,8 @@ class ChallengeViewController: BindableViewController {
       tableView.contentInset = insets
       tableView.scrollIndicatorInsets = insets
     }
+    
+    navigationItem.largeTitleDisplayMode = .never
         
     viewModel.input.viewDidLoad.trigger()
   }
@@ -339,6 +342,7 @@ extension ChallengeViewController: UITableViewDelegate {
     label.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20).isActive = true
     
     if model.skeleton {
+      headerView.isSkeletonable = true
       label.isSkeletonable = true
       label.linesCornerRadius = 2
       label.showAnimatedSkeleton()

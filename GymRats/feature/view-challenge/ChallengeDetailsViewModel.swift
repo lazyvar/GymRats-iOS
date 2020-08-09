@@ -101,7 +101,7 @@ final class ChallengeDetailsViewModel: ViewModel {
         }()
         
         return [
-          ChallengeDetailsSection(model: nil, items: [.header(self.challenge)]),
+          ChallengeDetailsSection(model: nil, items: [.title(self.challenge), .header(self.challenge)]),
           ChallengeDetailsSection(model: membersHeader, items: [.members(members)]),
           ChallengeDetailsSection(model: "Rankings", items: ordered.map { ranking in
             ChallengeDetailsRow.ranking(ranking.0, place: ranking.place, self.challenge.scoreBy)

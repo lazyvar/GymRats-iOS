@@ -199,6 +199,8 @@ class WorkoutViewController: BindableViewController {
     view.addSubview(ugh)
     view.sendSubviewToBack(ugh)
 
+    navigationItem.largeTitleDisplayMode = .never
+    
     donePushing = !pushedForFun
     
     viewModel.input.viewDidLoad.trigger()

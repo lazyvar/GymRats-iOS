@@ -115,14 +115,14 @@ final class ChallengeViewModel: ViewModel {
     let ghostSections = input.viewDidLoad
       .map { _ -> [ChallengeSection] in
         return [
-          .init(model: .init(date: nil, skeleton: false), items: [.banner(self.challenge, ChallengeInfo(memberCount: 0, workoutCount: 0, leader: .dummy, leaderScore: "", currentAccountScore: ""))]),
+          .init(model: .init(date: nil, skeleton: false), items: [.title(self.challenge), .banner(self.challenge, ChallengeInfo(memberCount: 0, workoutCount: 0, leader: .dummy, leaderScore: "", currentAccountScore: ""))]),
           .init(model: .init(date: Date(), skeleton: true), items: [.💀(-1000), .💀(-1001), .💀(-1002), .💀(-1003), .💀(-1004), .💀(-1005), .💀(-1006), .💀(-1007), .💀(-1008)])
         ]
       }
 
     let challengeInfoSection = challengeInfo
       .map { challengeInfo -> [ChallengeSection] in
-        let banner = ChallengeSection(model: .init(date: nil, skeleton: false), items: [.banner(self.challenge, challengeInfo)])
+        let banner = ChallengeSection(model: .init(date: nil, skeleton: false), items: [.title(self.challenge), .banner(self.challenge, challengeInfo)])
         
         return [banner]
       }

@@ -13,6 +13,7 @@ import UIKit
 typealias ChallengeDetailsSection = SectionModel<String?, ChallengeDetailsRow>
 
 enum ChallengeDetailsRow {
+  case title(Challenge)
   case header(Challenge)
   case members([Account])
   case ranking(Ranking, place: Int, ScoreBy)
