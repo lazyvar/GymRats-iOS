@@ -213,6 +213,12 @@ class ShareChallengeViewController: UIViewController {
   @IBAction private func share(_ sender: Any) {
     let previewImage = shareChallengeView.imageFromContext()
     let activityViewController = UIActivityViewController(activityItems: [previewImage as Any], applicationActivities: nil)
+    activityViewController.completionWithItemsHandler = { activity, completed, thing, error in
+      guard error == nil else { return }
+      guard let activity = activity else { return }
+      
+      Track.event(.sharedChallenge, parameters: ["activity_type": activity.rawValue])
+    }
     
     present(activityViewController, animated: true)
   }

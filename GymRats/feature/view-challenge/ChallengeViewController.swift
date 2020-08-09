@@ -215,7 +215,7 @@ class ChallengeViewController: BindableViewController {
         
     viewModel.input.viewDidLoad.trigger()
   }
-
+  
   @objc private func refresh() {
     viewModel.input.refresh.trigger()
     (tabBarController as? ChallengeTabBarController)?.updateChatIcon()

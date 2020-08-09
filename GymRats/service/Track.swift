@@ -24,6 +24,7 @@ enum Track {
     case challengeCreated = "challenge_created"
     case chatSent = "chat_sent"
     case commentedOnWorkout = "commented_on_workout"
+    case sharedChallenge = "shared_challenge"
   }
     
   static func event(_ event: Event, parameters: JSON? = nil) {
