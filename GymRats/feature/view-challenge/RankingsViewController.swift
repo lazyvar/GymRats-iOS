@@ -90,7 +90,7 @@ class RankingsViewController: BindableViewController {
     }
 
     let steps = UIAlertAction(title: "Steps", style: .default) { _ in
-      self.scoreBy = .calories
+      self.scoreBy = .steps
       self.refresh()
     }
 
