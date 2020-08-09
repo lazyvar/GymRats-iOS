@@ -221,6 +221,8 @@ class WorkoutViewController: BindableViewController {
   }
   
   @objc private func dismissPanGestureDidChange(_ gesture: UIPanGestureRecognizer) {
+    guard pushedForFun else { return }
+    
     if (gesture.state == .ended || gesture.state == .cancelled || gesture.state == .failed) && !tableViewTopRevealed {
       self.isInteractivelyDismissing = false
     }
@@ -326,13 +328,14 @@ class WorkoutViewController: BindableViewController {
 extension WorkoutViewController: UITableViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
     guard tableViewTopRevealed else { return }
-    
+    guard pushedForFun else { return }
+
     let diff = min(750, abs(scrollView.contentOffset.y)) / 750
     let scale = max(1 - diff * 0.25, 0.65)
 
     view.transform = CGAffineTransform(scaleX: scale, y: scale)
   }
-  
+
   func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
     hideKeyboard()
   }

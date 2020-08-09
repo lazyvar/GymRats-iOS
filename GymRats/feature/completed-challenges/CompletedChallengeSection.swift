@@ -15,5 +15,6 @@ enum CompletedChallengeRow {
   case title(Challenge)
   case description(String?, NSAttributedString)
   case share(Challenge)
+  case viewAllWorkouts(Challenge)
   case ranking(Ranking, Int, ScoreBy)
 }

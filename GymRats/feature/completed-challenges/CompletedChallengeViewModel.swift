@@ -39,6 +39,7 @@ final class CompletedChallengeViewModel: ViewModel {
             .title(self.challenge),
             .description(self.challenge.profilePictureUrl, self.description(for: self.challenge, rankings: rankings)),
             .share(self.challenge),
+            .viewAllWorkouts(self.challenge)
           ]
         )
       }
