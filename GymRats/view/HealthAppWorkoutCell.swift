@@ -51,7 +51,7 @@ class HealthAppWorkoutCell: UITableViewCell {
   static func configure(tableView: UITableView, indexPath: IndexPath, workout: HKWorkout) -> UITableViewCell {
     return tableView.dequeueReusableCell(withType: HealthAppWorkoutCell.self, for: indexPath).apply {
       $0.titleLabel.text = workout.workoutActivityType.name
-      $0.descriptionLabel.text = "\(Int(workout.duration / 60)) minutes - \(workout.startDate.toFormat("MMM d, yyyy h:mm a"))"
+      $0.descriptionLabel.text = "\(Int(workout.duration / 60)) minutes - \(workout.startDate.in(region: .current).toFormat("MMM d, yyyy h:mm a"))"
     }
   }
 }
