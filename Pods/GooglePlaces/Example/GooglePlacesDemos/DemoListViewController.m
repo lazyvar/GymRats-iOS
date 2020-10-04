@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Google Inc. All rights reserved.
+ * Copyright 2016 Google LLC. All rights reserved.
  *
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -148,7 +148,7 @@ static const CGFloat kEdgeBuffer = 8;
 
   // Set up the individual place fields that we can request.
   _nextSelectionYPos += kSelectionHeight;
-  for (NSUInteger placeField = GMSPlaceFieldName; placeField <= GMSPlaceFieldUTCOffsetMinutes;
+  for (NSUInteger placeField = GMSPlaceFieldName; placeField <= GMSPlaceFieldBusinessStatus;
        placeField <<= 1) {
     [scrollView addSubview:[self selectionButtonForPlaceField:(GMSPlaceField)placeField]];
   }
@@ -237,6 +237,7 @@ static const CGFloat kEdgeBuffer = 8;
     @(GMSPlaceFieldAddressComponents) : @"Address Components",
     @(GMSPlaceFieldPhotos) : @"Photos",
     @(GMSPlaceFieldUTCOffsetMinutes) : @"UTC Offset Minutes",
+    @(GMSPlaceFieldBusinessStatus) : @"Business Status",
   };
   UIButton *selectionButton = [self selectionButtonForTitle:fieldsMapping[@(placeField)]];
   UISwitch *selectionSwitch = [self switchFromButton:selectionButton];

@@ -2,7 +2,7 @@
 //  GMSAutocompleteTableDataSource.h
 //  Google Places SDK for iOS
 //
-//  Copyright 2016 Google Inc.
+//  Copyright 2016 Google LLC
 //
 //  Usage of this SDK is subject to the Google Maps/Google Earth APIs Terms of
 //  Service: https://developers.google.com/maps/terms
@@ -15,6 +15,7 @@
 #import "GMSAutocompletePrediction.h"
 #import "GMSPlace.h"
 #import "GMSPlaceFieldMask.h"
+#import "GMSPlacesDeprecationUtils.h"
 
 @class GMSAutocompleteTableDataSource;
 @class GMSCoordinateBounds;
@@ -114,14 +115,18 @@ NS_ASSUME_NONNULL_BEGIN
  * Bounds used to bias or restrict the autocomplete results depending on the value of
  * |autocompleteBoundsMode| (can be nil).
  */
-@property(nonatomic, strong, nullable) GMSCoordinateBounds *autocompleteBounds;
+@property(nonatomic, strong, nullable)
+    GMSCoordinateBounds *autocompleteBounds __GMS_PLACES_AVAILABLE_BUT_DEPRECATED_MSG(
+        "autocompleteBounds property is deprecated in favor of autocompleteFilter.locationBias or autocompleteFilter.locationRestriction");
 
 /**
  * How to treat the |autocompleteBounds| property. Defaults to |kGMSAutocompleteBoundsModeBias|.
  *
  * Has no effect if |autocompleteBounds| is nil.
  */
-@property(nonatomic, assign) GMSAutocompleteBoundsMode autocompleteBoundsMode;
+@property(nonatomic, assign)
+    GMSAutocompleteBoundsMode autocompleteBoundsMode __GMS_PLACES_AVAILABLE_BUT_DEPRECATED_MSG(
+        "autocompleteBoundsMode property is deprecated in favor of autocompleteFilter.locationBias or autocompleteFilter.locationRestriction");
 
 /** Filter to apply to autocomplete suggestions (can be nil). */
 @property(nonatomic, strong, nullable) GMSAutocompleteFilter *autocompleteFilter;
@@ -181,7 +186,9 @@ NS_ASSUME_NONNULL_BEGIN
  * Sets up the autocomplete bounds using the NE and SW corner locations.
  */
 - (void)setAutocompleteBoundsUsingNorthEastCorner:(CLLocationCoordinate2D)NorthEastCorner
-                                  SouthWestCorner:(CLLocationCoordinate2D)SouthWestCorner;
+                                  SouthWestCorner:(CLLocationCoordinate2D)SouthWestCorner
+    __GMS_PLACES_AVAILABLE_BUT_DEPRECATED_MSG(
+        "use of this method is deprecated in favor of setting autocompleteFilter.locationBias or autocompleteFilter.locationRestriction directly");
 
 @end
 

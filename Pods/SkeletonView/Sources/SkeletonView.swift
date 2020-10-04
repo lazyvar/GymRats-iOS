@@ -94,6 +94,7 @@ public extension UIView {
 
 extension UIView {
     @objc func skeletonLayoutSubviews() {
+        guard Thread.isMainThread else { return }
         skeletonLayoutSubviews()
         guard isSkeletonActive else { return }
         layoutSkeletonIfNeeded()
@@ -120,7 +121,7 @@ extension UIView {
         addDummyDataSourceIfNeeded()
         subviewsSkeletonables.recursiveSearch(leafBlock: {
             showSkeletonIfNotActive(skeletonConfig: config)
-        }){ subview in
+        }) { subview in
             subview.recursiveShowSkeleton(skeletonConfig: config)
         }
 
@@ -148,7 +149,8 @@ extension UIView {
         currentSkeletonConfig = config
         updateDummyDataSourceIfNeeded()
         subviewsSkeletonables.recursiveSearch(leafBlock: {
-            if skeletonLayer?.type != config.type {
+            if let skeletonLayer = skeletonLayer,
+                skeletonLayer.type != config.type {
                 removeSkeletonLayer()
                 addSkeletonLayer(skeletonConfig: config)
             } else {

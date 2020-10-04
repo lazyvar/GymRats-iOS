@@ -318,19 +318,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44E1C3298B123A5107DBC3FA /* DemoAppDelegate.m in Sources */,
 				68FD32D0AB7DA54A0617E79C /* DemoData.m in Sources */,
 				52C261A89C8177D081F0D666 /* DemoListViewController.m in Sources */,
-				2E76D90BDA04FEDA32FBC7EE /* main.m in Sources */,
-				52FA2C79BAE0253BF65AD4DA /* AutocompleteBaseViewController.m in Sources */,
-				8C59A77A235FCAEEE2D7E6CB /* AutocompleteModalViewController.m in Sources */,
-				893AFDBC37BAD181B89DBE05 /* AutocompletePushViewController.m in Sources */,
-				BDCD4957C53C15747F136768 /* AutocompleteWithCustomColors.m in Sources */,
-				1F8E76499BD9AC1A594A09DF /* AutocompleteWithSearchViewController.m in Sources */,
-				19D03B4688CF7DF76076B137 /* AutocompleteWithTextFieldController.m in Sources */,
 				30DB731057D560A0F3017362 /* FindPlaceLikelihoodListViewController.m in Sources */,
+				1F8E76499BD9AC1A594A09DF /* AutocompleteWithSearchViewController.m in Sources */,
+				893AFDBC37BAD181B89DBE05 /* AutocompletePushViewController.m in Sources */,
+				52FA2C79BAE0253BF65AD4DA /* AutocompleteBaseViewController.m in Sources */,
+				19D03B4688CF7DF76076B137 /* AutocompleteWithTextFieldController.m in Sources */,
+				BDCD4957C53C15747F136768 /* AutocompleteWithCustomColors.m in Sources */,
+				8C59A77A235FCAEEE2D7E6CB /* AutocompleteModalViewController.m in Sources */,
 				CCE1EEA311AF30C9E7273CA6 /* PagingPhotoView.m in Sources */,
+				2E76D90BDA04FEDA32FBC7EE /* main.m in Sources */,
 				A3D84E176FACD02AA9FAC18C /* BaseDemoViewController.m in Sources */,
+				44E1C3298B123A5107DBC3FA /* DemoAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
