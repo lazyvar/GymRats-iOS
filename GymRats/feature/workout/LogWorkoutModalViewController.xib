@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Rounded-Regular.otf">
+            <string>SFProRounded-Regular</string>
+        </array>
+        <array key="SF-Pro-Rounded-Semibold.otf">
+            <string>SFProRounded-Semibold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LogWorkoutModalViewController" customModule="GymRats" customModuleProvider="target">
+            <connections>
+                <outlet property="cameraImageView" destination="rSv-7C-Cbm" id="BZk-YB-GgP"/>
+                <outlet property="chooseFromLibraryView" destination="e08-Cg-z0J" id="l6W-fw-WBw"/>
+                <outlet property="libraryImageView" destination="Oy7-Vi-Hd9" id="hAn-R6-2Qq"/>
+                <outlet property="takePictureView" destination="QT1-bu-VDv" id="DTS-Os-Lml"/>
+                <outlet property="textStackView" destination="gt2-gY-Q8r" id="nm0-lI-3uP"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="PWN-Jn-5MM">
+                    <rect key="frame" x="0.0" y="44" width="414" height="191"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="gt2-gY-Q8r">
+                            <rect key="frame" x="20" y="10" width="374" height="41"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Log a workout" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="03G-c4-3A8">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="21.5"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <fontDescription key="fontDescription" name="SFProRounded-Semibold" family="SF Pro Rounded" pointSize="18"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Provide proof with a picture, honor system rules." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z4D-bd-Ruw">
+                                    <rect key="frame" x="0.0" y="26.5" width="374" height="14.5"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="12"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Lqm-sX-pjn">
+                            <rect key="frame" x="20" y="66" width="374" height="115"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="IOk-ur-FXX">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="115"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e08-Cg-z0J">
+                                            <rect key="frame" x="0.0" y="0.0" width="179.5" height="115"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="oy9-CO-7Xh">
+                                                    <rect key="frame" x="0.0" y="0.0" width="179.5" height="115"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalCompressionResistancePriority="749" image="photo-library-huge" translatesAutoresizingMaskIntoConstraints="NO" id="Oy7-Vi-Hd9">
+                                                            <rect key="frame" x="8" y="8" width="163.5" height="80.5"/>
+                                                            <color key="tintColor" systemColor="secondaryLabelColor"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Choose from library" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUA-s6-Txv">
+                                                            <rect key="frame" x="8" y="88.5" width="163.5" height="14.5"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <fontDescription key="fontDescription" name="SFProRounded-Semibold" family="SF Pro Rounded" pointSize="12"/>
+                                                            <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="12" trailing="8"/>
+                                                </stackView>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="oy9-CO-7Xh" secondAttribute="trailing" id="Ucl-To-lEB"/>
+                                                <constraint firstItem="oy9-CO-7Xh" firstAttribute="top" secondItem="e08-Cg-z0J" secondAttribute="top" id="WqO-HP-C8t"/>
+                                                <constraint firstAttribute="height" constant="115" id="ZlW-Ll-EfI"/>
+                                                <constraint firstItem="oy9-CO-7Xh" firstAttribute="leading" secondItem="e08-Cg-z0J" secondAttribute="leading" id="d5z-hO-Zid"/>
+                                                <constraint firstAttribute="bottom" secondItem="oy9-CO-7Xh" secondAttribute="bottom" id="uaI-IV-eDF"/>
+                                            </constraints>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QT1-bu-VDv">
+                                            <rect key="frame" x="194.5" y="0.0" width="179.5" height="115"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="GS9-ad-M1y">
+                                                    <rect key="frame" x="0.0" y="0.0" width="179.5" height="115"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalCompressionResistancePriority="749" image="camera-huge" translatesAutoresizingMaskIntoConstraints="NO" id="rSv-7C-Cbm">
+                                                            <rect key="frame" x="8" y="8" width="163.5" height="80.5"/>
+                                                            <color key="tintColor" systemColor="secondaryLabelColor"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Take a picture" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0t-xy-TAw">
+                                                            <rect key="frame" x="8" y="88.5" width="163.5" height="14.5"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <fontDescription key="fontDescription" name="SFProRounded-Semibold" family="SF Pro Rounded" pointSize="12"/>
+                                                            <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="tintColor" red="0.82745098039999998" green="0.2274509804" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="12" trailing="8"/>
+                                                </stackView>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="115" id="LKN-o1-vc6"/>
+                                                <constraint firstAttribute="trailing" secondItem="GS9-ad-M1y" secondAttribute="trailing" id="VUr-do-tKg"/>
+                                                <constraint firstAttribute="bottom" secondItem="GS9-ad-M1y" secondAttribute="bottom" id="fA5-ga-Upx"/>
+                                                <constraint firstItem="GS9-ad-M1y" firstAttribute="top" secondItem="QT1-bu-VDv" secondAttribute="top" id="gfL-F4-6vi"/>
+                                                <constraint firstItem="GS9-ad-M1y" firstAttribute="leading" secondItem="QT1-bu-VDv" secondAttribute="leading" id="kqM-Wr-YVx"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="e08-Cg-z0J" firstAttribute="width" secondItem="QT1-bu-VDv" secondAttribute="width" id="vUB-jn-XV0"/>
+                                    </constraints>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <directionalEdgeInsets key="directionalLayoutMargins" top="10" leading="20" bottom="10" trailing="20"/>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="PWN-Jn-5MM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="AJa-gY-YwV"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="PWN-Jn-5MM" secondAttribute="trailing" id="WaQ-wF-FsM"/>
+                <constraint firstItem="PWN-Jn-5MM" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="nsc-0Y-wQs"/>
+            </constraints>
+            <point key="canvasLocation" x="122" y="154"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="camera-huge" width="100" height="100"/>
+        <image name="photo-library-huge" width="100" height="100"/>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
