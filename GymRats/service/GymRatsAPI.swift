@@ -52,6 +52,22 @@ class GymRatsAPI {
     return requestArray(.getCompletedChallenges)
   }
 
+  func createTeam(challenge: Challenge, name: String, photo: UIImage?) -> Observable<NetworkResult<Team>> {
+    return Observable<UIImage?>.just(photo)
+      .flatMap { image -> Observable<String?> in
+        guard let image = image else { return .just(nil) }
+      
+        return ImageService.uploadImageToFirebase(image: image).map { url -> String? in url }
+      }
+      .flatMap { url in
+        return self.requestObject(.createTeam(challenge: challenge, name: name, photoUrl: url))
+      }
+  }
+  
+  func joinTeam(team: Team) -> Observable<NetworkResult<Team>> {
+    return requestObject(.joinTeam(team: team))
+  }
+  
   func joinChallenge(code: String) -> Observable<NetworkResult<Challenge>> {
     return requestObject(.joinChallenge(code: code))
   }
@@ -67,7 +83,7 @@ class GymRatsAPI {
         }
       }
       .flatMap { url in
-        return self.requestObject(.createChallenge(startDate: newChallenge.startDate, endDate: newChallenge.endDate, name: newChallenge.name, bannerURL: url, description: newChallenge.description, scoreBy: newChallenge.scoreBy))
+        return self.requestObject(.createChallenge(startDate: newChallenge.startDate, endDate: newChallenge.endDate, name: newChallenge.name, bannerURL: url, description: newChallenge.description, scoreBy: newChallenge.scoreBy, teamsEnabled: newChallenge.teamsEnabled))
       }
   }
 

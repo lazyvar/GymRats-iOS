@@ -20,6 +20,7 @@ struct Challenge: Codable, Equatable {
   let endDate: Date
   let description: String?
   let scoreBy: ScoreBy
+  let teamsEnabled: Bool
   
   enum ScoreBy: String, Codable, CaseIterable {
     case workouts

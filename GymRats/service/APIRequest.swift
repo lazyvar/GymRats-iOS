@@ -17,9 +17,11 @@ enum APIRequest {
   case resetPassword(email: String)
   case getAllChallenges
   case getCurrentAccount
+  case createTeam(challenge: Challenge, name: String, photoUrl: String?)
   case getCompletedChallenges
   case joinChallenge(code: String)
-  case createChallenge(startDate: Date, endDate: Date, name: String, bannerURL: String?, description: String?, scoreBy: ScoreBy)
+  case joinTeam(team: Team)
+  case createChallenge(startDate: Date, endDate: Date, name: String, bannerURL: String?, description: String?, scoreBy: ScoreBy, teamsEnabled: Bool)
   case getWorkoutsForChallenge(challenge: Challenge, page: Int)
   case getAllWorkouts(challenge: Challenge)
   case getAllWorkoutsForUser(user: Account)
@@ -79,13 +81,27 @@ enum APIRequest {
       return (.post, "memberships", ["code": code])
     case .deleteComment(id: let id):
       return (.delete, "comments/\(id)", nil)
-    case .createChallenge(let startDate, let endDate, let name, let bannerURL, let description, let scoreBy):
+    case .joinTeam(let team):
+      return (.post, "teams", nil)
+    case .createTeam(let challenge, let name, let photoUrl):
+      var params: Parameters = [
+        "challenge_id": challenge.id,
+        "name": name
+      ]
+      
+      if let photoUrl = photoUrl {
+        params["photo_url"] = photoUrl
+      }
+      
+      return (.post, "teams", params)
+    case .createChallenge(let startDate, let endDate, let name, let bannerURL, let description, let scoreBy, let teamsEnabled):
       var params: Parameters =  [
         "start_date": startDate.toISO(),
         "end_date": endDate.toISO(),
         "name": name,
         "time_zone": TimeZone.current.abbreviation()!,
-        "score_by": scoreBy.rawValue
+        "score_by": scoreBy.rawValue,
+        "teams_enabled": teamsEnabled
       ]
       
       if let bannerURL = bannerURL {
@@ -192,7 +208,7 @@ enum APIRequest {
 
       return (.post, "workouts", params)
     case .updateWorkout(let workout, let photo):
-      var params: Parameters = [
+      let params: Parameters = [
         "title": workout.title,
         "description": workout.description,
         "photo_url": photo,
