@@ -167,7 +167,6 @@ func classNameWithoutModule(_ class: AnyClass) -> String {
     .joined(separator: ".")
 }
 
-
 extension Int {
   var stringify: String {
     return String(self)

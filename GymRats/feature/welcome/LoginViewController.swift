@@ -118,10 +118,10 @@ class LoginViewController: GRFormViewController {
       return container
     }
       
-    var footer = HeaderFooterView<UIView>(.callback(headerBuilder))
-    footer.height = { 40 }
+    var header = HeaderFooterView<UIView>(.callback(headerBuilder))
+    header.height = { 40 }
     
-    return footer
+    return header
   }()
 
   private let emailRow: TextFieldRow = {

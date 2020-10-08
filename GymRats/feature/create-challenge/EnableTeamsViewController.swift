@@ -9,7 +9,6 @@
 import UIKit
 import RxSwift
 import RxDataSources
-import UnsplashPhotoPicker
 
 enum EnableTeamsChoice: String, CaseIterable {
   case yup
@@ -79,10 +78,12 @@ class EnableTeamsViewController: UIViewController {
   }
   
   private func yes() {
-    // ...
+    newChallenge.teamsEnabled = true
+    push(FirstTeamViewController(newChallenge), animated: true)
   }
-  
+
   private func no() {
+    newChallenge.teamsEnabled = false
     push(CreateChallengeReviewViewController(newChallenge: newChallenge), animated: true)
   }
 }
