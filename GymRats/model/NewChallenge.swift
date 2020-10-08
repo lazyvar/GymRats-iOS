@@ -23,7 +23,7 @@ struct NewChallenge {
 
 struct NewTeam {
   var name: String
-  var photoUrl: UIImage?
+  var photo: Either<UIImage, String>?
 }
 
 extension NewChallenge {

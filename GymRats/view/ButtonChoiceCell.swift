@@ -8,8 +8,9 @@
 
 import UIKit
 import Eureka
+import Kingfisher
 
-class ButtonChoiceCell: Cell<UIImage>, CellType {
+class ButtonChoiceCell: Cell<Either<UIImage, String>>, CellType {
   @IBOutlet private weak var bigLabel: UILabel! {
     didSet {
       bigLabel.font = .h4Bold
@@ -48,10 +49,19 @@ class ButtonChoiceCell: Cell<UIImage>, CellType {
     makeOneLine()
     bigLabel.text = row.title
     
-    let value: UIImage? = row.value
+    let value: Either<UIImage, String>? = row.value
     
-    avatarImageView.image = value
     avatarImageView.isHidden = value == nil
+
+    if let value = value {
+      switch value {
+      case .left(let image):
+        avatarImageView.image = image
+      case .right(let url):
+        guard let url = URL(string: url) else { return }
+        avatarImageView.kf.setImage(with: url, options: [.transition(.fade(0.2))])
+      }
+    }
   }
 
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxDataSources
 import Eureka
+import UnsplashPhotoPicker
 
 class FirstTeamViewController: GRFormViewController {
   private let disposeBag = DisposeBag()
@@ -60,6 +61,19 @@ class FirstTeamViewController: GRFormViewController {
       self.present(imagePicker, animated: true, completion: nil)
     }
     
+    let unsplash = UIAlertAction(title: "Choose preset", style: .default) { (alert) in
+      let configuration = UnsplashPhotoPickerConfiguration(
+        accessKey: Secrets.Unsplash.accessKey,
+        secretKey: Secrets.Unsplash.secretKey,
+        allowsMultipleSelection: false
+      )
+      
+      let unsplashPhotoPicker = UnsplashPhotoPicker(configuration: configuration)
+      unsplashPhotoPicker.photoPickerDelegate = self
+
+      self.present(unsplashPhotoPicker, animated: true, completion: nil)
+    }
+
     let library = UIAlertAction(title: "Photo library", style: .default) { (alert) in
       let imagePicker = UIImagePickerController()
       imagePicker.sourceType = .photoLibrary
@@ -71,6 +85,7 @@ class FirstTeamViewController: GRFormViewController {
     let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
     
     alertController.addAction(cam)
+    alertController.addAction(unsplash)
     alertController.addAction(library)
     alertController.addAction(cancel)
     
@@ -110,7 +125,7 @@ class FirstTeamViewController: GRFormViewController {
         guard self.form.validate().isEmpty else { return }
         let values = self.form.values()
         
-        self.newChallenge.firstTeam = NewTeam(name: values["name"] as! String, photoUrl: values["photo"] as? UIImage)
+        self.newChallenge.firstTeam = NewTeam(name: self.nameRow.value!, photo: self.photoRow.value)
         self.push(CreateChallengeReviewViewController(newChallenge: self.newChallenge))
       }
     }
@@ -167,8 +182,22 @@ extension FirstTeamViewController: UIImagePickerControllerDelegate, UINavigation
     
     guard let image = info[.originalImage] as? UIImage else { return }
     
-    self.photoRow.value = image
+    self.photoRow.value = .left(image)
     self.photoRow.updateCell()
     self.tableView.reloadData()
+  }
+}
+
+extension FirstTeamViewController: UnsplashPhotoPickerDelegate {
+  func unsplashPhotoPicker(_ photoPicker: UnsplashPhotoPicker, didSelectPhotos photos: [UnsplashPhoto]) {
+    guard let photo = photos.first else { return }
+
+    self.photoRow.value = .right(photo.urls[.regular]?.absoluteString ?? "")
+    self.photoRow.updateCell()
+    self.tableView.reloadData()
+  }
+  
+  func unsplashPhotoPickerDidCancel(_ photoPicker: UnsplashPhotoPicker) {
+    // ...
   }
 }

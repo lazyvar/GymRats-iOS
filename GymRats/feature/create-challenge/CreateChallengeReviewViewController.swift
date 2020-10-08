@@ -135,7 +135,7 @@ class CreateChallengeReviewViewController: UIViewController {
         guard let team = self.newChallenge.firstTeam else { return }
         
         gymRatsAPI
-          .createTeam(challenge: challenge, name: team.name, photo: team.photoUrl)
+          .createTeam(challenge: challenge, name: team.name, photo: team.photo)
           .ignore(disposedBy: self.disposeBag)
       })
       .subscribe(onNext: { [weak self] result in

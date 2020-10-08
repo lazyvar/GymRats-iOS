@@ -52,12 +52,15 @@ class GymRatsAPI {
     return requestArray(.getCompletedChallenges)
   }
 
-  func createTeam(challenge: Challenge, name: String, photo: UIImage?) -> Observable<NetworkResult<Team>> {
-    return Observable<UIImage?>.just(photo)
+  func createTeam(challenge: Challenge, name: String, photo: Either<UIImage, String>?) -> Observable<NetworkResult<Team>> {
+    return Observable<Either<UIImage, String>?>.just(photo)
       .flatMap { image -> Observable<String?> in
         guard let image = image else { return .just(nil) }
       
-        return ImageService.uploadImageToFirebase(image: image).map { url -> String? in url }
+        switch image {
+        case .left(let left): return ImageService.uploadImageToFirebase(image: left).map { url -> String? in url }
+        case .right(let right): return .just(right)
+        }
       }
       .flatMap { url in
         return self.requestObject(.createTeam(challenge: challenge, name: name, photoUrl: url))
