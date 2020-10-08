@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -41,7 +42,7 @@
                                 <rect key="frame" x="455" y="27.5" width="25" height="25"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="80" id="FRt-kz-BBe"/>
                             <constraint firstItem="5dG-iP-emt" firstAttribute="centerY" secondItem="WxH-nH-P3Y" secondAttribute="centerY" id="FyQ-0b-Jxu"/>
@@ -61,11 +62,12 @@
                     <constraint firstItem="WxH-nH-P3Y" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="sQy-KV-ohv"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="bigLabel" destination="8uJ-bh-5Jg" id="Kym-IV-DI2"/>
                 <outlet property="chevron" destination="5dG-iP-emt" id="YY7-6w-O6r"/>
+                <outlet property="heightConstraint" destination="FRt-kz-BBe" id="3JN-Yo-D6r"/>
                 <outlet property="smallLabel" destination="GEd-0a-f66" id="b9G-GG-rcs"/>
             </connections>
             <point key="canvasLocation" x="151" y="153"/>
@@ -73,5 +75,8 @@
     </objects>
     <resources>
         <image name="chevron-right" width="25" height="25"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

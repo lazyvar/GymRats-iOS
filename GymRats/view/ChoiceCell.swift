@@ -27,6 +27,8 @@ class ChoiceCell: UITableViewCell {
     didSet { chevron.tintColor = .primaryText }
   }
   
+  @IBOutlet weak var heightConstraint: NSLayoutConstraint!
+  
   override func awakeFromNib() {
     super.awakeFromNib()
     
@@ -52,6 +54,19 @@ class ChoiceCell: UITableViewCell {
     animatePress(false)
   }
   
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    
+    bigLabel.font = .h4Bold
+    heightConstraint.constant = 80
+  }
+  
+  private func makeOneLine() {
+    bigLabel.font = .h4
+    heightConstraint.constant = 60
+    smallLabel.isHidden = true
+  }
+  
   static func configure(tableView: UITableView, indexPath: IndexPath, goal: Goal) -> UITableViewCell {
     return tableView.dequeueReusableCell(withType: ChoiceCell.self, for: indexPath).apply {
       $0.bigLabel.text = goal.title
@@ -69,14 +84,21 @@ class ChoiceCell: UITableViewCell {
   static func configure(tableView: UITableView, indexPath: IndexPath, choice: ChallengeBannerChoice) -> UITableViewCell {
     return tableView.dequeueReusableCell(withType: ChoiceCell.self, for: indexPath).apply {
       $0.bigLabel.text = choice.title
-      $0.smallLabel.isHidden = true
+      $0.makeOneLine()
+    }
+  }
+
+  static func configure(tableView: UITableView, indexPath: IndexPath, choice: EnableTeamsChoice) -> UITableViewCell {
+    return tableView.dequeueReusableCell(withType: ChoiceCell.self, for: indexPath).apply {
+      $0.bigLabel.text = choice.title
+      $0.makeOneLine()
     }
   }
 
   static func configureForChange(tableView: UITableView, indexPath: IndexPath, choice: ChallengeBannerChoice) -> UITableViewCell {
     return tableView.dequeueReusableCell(withType: ChoiceCell.self, for: indexPath).apply {
       $0.bigLabel.text = choice.titleForChange
-      $0.smallLabel.isHidden = true
+      $0.makeOneLine()
     }
   }
 }

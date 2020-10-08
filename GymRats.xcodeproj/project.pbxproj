@@ -228,6 +228,8 @@
 		01C25C28243F730B0021D617 /* NewCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01C25C26243F730B0021D617 /* NewCommentCell.xib */; };
 		01C6B6D6252E189D0042F828 /* LogWorkoutModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6B6D4252E189D0042F828 /* LogWorkoutModalViewController.swift */; };
 		01C6B6D7252E189E0042F828 /* LogWorkoutModalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01C6B6D5252E189D0042F828 /* LogWorkoutModalViewController.xib */; };
+		01C6B6EE252E9D250042F828 /* EnableTeamsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6B6EC252E9D250042F828 /* EnableTeamsViewController.swift */; };
+		01C6B6EF252E9D250042F828 /* EnableTeamsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01C6B6ED252E9D250042F828 /* EnableTeamsViewController.xib */; };
 		01CA128F243FE9AE00540402 /* UpcomingChallengeFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CA128E243FE9AE00540402 /* UpcomingChallengeFlowLayout.swift */; };
 		01CA1292243FEF6E00540402 /* InviteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CA1290243FEF6E00540402 /* InviteCell.swift */; };
 		01CA1293243FEF6E00540402 /* InviteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01CA1291243FEF6E00540402 /* InviteCell.xib */; };
@@ -570,6 +572,8 @@
 		01C25C26243F730B0021D617 /* NewCommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewCommentCell.xib; sourceTree = "<group>"; };
 		01C6B6D4252E189D0042F828 /* LogWorkoutModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogWorkoutModalViewController.swift; sourceTree = "<group>"; };
 		01C6B6D5252E189D0042F828 /* LogWorkoutModalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogWorkoutModalViewController.xib; sourceTree = "<group>"; };
+		01C6B6EC252E9D250042F828 /* EnableTeamsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnableTeamsViewController.swift; sourceTree = "<group>"; };
+		01C6B6ED252E9D250042F828 /* EnableTeamsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnableTeamsViewController.xib; sourceTree = "<group>"; };
 		01CA128E243FE9AE00540402 /* UpcomingChallengeFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingChallengeFlowLayout.swift; sourceTree = "<group>"; };
 		01CA1290243FEF6E00540402 /* InviteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteCell.swift; sourceTree = "<group>"; };
 		01CA1291243FEF6E00540402 /* InviteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InviteCell.xib; sourceTree = "<group>"; };
@@ -1322,6 +1326,8 @@
 				018510022447A3C700C4F1A6 /* ChangeBannerViewController.xib */,
 				0127B08D2449136D000A48CB /* InviteToChallengeViewController.swift */,
 				0127B08E2449136D000A48CB /* InviteToChallengeViewController.xib */,
+				01C6B6EC252E9D250042F828 /* EnableTeamsViewController.swift */,
+				01C6B6ED252E9D250042F828 /* EnableTeamsViewController.xib */,
 			);
 			path = "create-challenge";
 			sourceTree = "<group>";
@@ -1566,6 +1572,7 @@
 				0169395524D9D18C0011C1A8 /* ChallengeDetailsViewController.xib in Resources */,
 				7411805F220C58C300EB9D11 /* Lato-Black.ttf in Resources */,
 				01527304243C055A00123E25 /* ProfilePictureCell.xib in Resources */,
+				01C6B6EF252E9D250042F828 /* EnableTeamsViewController.xib in Resources */,
 				011FB63022A33C14004D5B8E /* ItemCell.xib in Resources */,
 				01297D8D2329E79000CA9E41 /* SF-Compact-Rounded-Thin.otf in Resources */,
 				74118068220C58C300EB9D11 /* Lato-Regular.ttf in Resources */,
@@ -1958,6 +1965,7 @@
 				746764E3220B6D5C000CFB1B /* Collection+Extension.swift in Sources */,
 				01BFF907223DAFD90044F802 /* UIBarButton+Extension.swift in Sources */,
 				011FB62B22A33AAA004D5B8E /* UserProfileCell.swift in Sources */,
+				01C6B6EE252E9D250042F828 /* EnableTeamsViewController.swift in Sources */,
 				747D6F9A2208DB310062BB39 /* AppDelegate.swift in Sources */,
 				01213CE2241E9C62008461B0 /* ChatViewController.swift in Sources */,
 				74A01B2C220A1A5B00431ABD /* SimpleError.swift in Sources */,

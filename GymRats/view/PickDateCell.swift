@@ -31,6 +31,10 @@ class PickDateCell: Cell<Date>, Eureka.TextFieldCell, CellType {
     datePicker.addTarget(self, action: #selector(dateChanged), for: .valueChanged)
     datePicker.date = row.value ?? Date()
     datePicker.timeZone = timeZone
+    
+    if #available(iOS 13.4, *) {
+      datePicker.preferredDatePickerStyle = .wheels
+    }
   }
   
   public override func update() {
