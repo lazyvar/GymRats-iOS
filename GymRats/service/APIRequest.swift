@@ -37,6 +37,7 @@ enum APIRequest {
   case registerDevice(deviceToken: String)
   case getChallenge(id: Int)
   case getWorkout(id: Int)
+  case fetchTeams(Challenge)
   case groupStats(Challenge)
   case getRankings(Challenge, scoreBy: ScoreBy)
   case deleteDevice
@@ -262,6 +263,8 @@ enum APIRequest {
       return (.post, "challenges/\(challenge.id)/chat_notifications/seen", nil)
     case .groupStats(let challenge):
       return (.get, "challenges/\(challenge.id)/group_stats?utc_offset=\(Int(TimeZone.current.secondsFromGMT() / 3600))", nil)
+    case .fetchTeams(let challenge):
+      return (.get, "challenges/\(challenge.id)/teams", nil)
     case .registerDevice(deviceToken: let deviceToken):
       let params: Parameters = [
         "token": deviceToken

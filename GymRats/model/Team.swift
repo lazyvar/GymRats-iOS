@@ -12,4 +12,10 @@ struct Team: Codable {
   let id: Int
   let name: String
   let photoUrl: String?
+  let members: [Account]?
+}
+
+extension Team: Avatar {
+  var avatarName: String? { return name }
+  var avatarImageURL: String? { return photoUrl }
 }

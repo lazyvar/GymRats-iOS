@@ -234,6 +234,9 @@
 		01C6B702252EA8CE0042F828 /* ButtonChoiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6B700252EA8CE0042F828 /* ButtonChoiceCell.swift */; };
 		01C6B703252EA8CE0042F828 /* ButtonChoiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01C6B701252EA8CE0042F828 /* ButtonChoiceCell.xib */; };
 		01C6B707252EB0220042F828 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6B706252EB0220042F828 /* Team.swift */; };
+		01C6B70F252F5DED0042F828 /* JoinTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6B70D252F5DED0042F828 /* JoinTeamViewController.swift */; };
+		01C6B710252F5DED0042F828 /* JoinTeamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01C6B70E252F5DED0042F828 /* JoinTeamViewController.xib */; };
+		01C6B714252F5EA50042F828 /* JoinTeamRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C6B713252F5EA50042F828 /* JoinTeamRow.swift */; };
 		01CA128F243FE9AE00540402 /* UpcomingChallengeFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CA128E243FE9AE00540402 /* UpcomingChallengeFlowLayout.swift */; };
 		01CA1292243FEF6E00540402 /* InviteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CA1290243FEF6E00540402 /* InviteCell.swift */; };
 		01CA1293243FEF6E00540402 /* InviteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01CA1291243FEF6E00540402 /* InviteCell.xib */; };
@@ -582,6 +585,9 @@
 		01C6B700252EA8CE0042F828 /* ButtonChoiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonChoiceCell.swift; sourceTree = "<group>"; };
 		01C6B701252EA8CE0042F828 /* ButtonChoiceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtonChoiceCell.xib; sourceTree = "<group>"; };
 		01C6B706252EB0220042F828 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		01C6B70D252F5DED0042F828 /* JoinTeamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinTeamViewController.swift; sourceTree = "<group>"; };
+		01C6B70E252F5DED0042F828 /* JoinTeamViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JoinTeamViewController.xib; sourceTree = "<group>"; };
+		01C6B713252F5EA50042F828 /* JoinTeamRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinTeamRow.swift; sourceTree = "<group>"; };
 		01CA128E243FE9AE00540402 /* UpcomingChallengeFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingChallengeFlowLayout.swift; sourceTree = "<group>"; };
 		01CA1290243FEF6E00540402 /* InviteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteCell.swift; sourceTree = "<group>"; };
 		01CA1291243FEF6E00540402 /* InviteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InviteCell.xib; sourceTree = "<group>"; };
@@ -844,6 +850,9 @@
 				01987A9724300E9500835621 /* ChallengePreviewViewController.xib */,
 				019066BD243D09C6007103D9 /* JoinChallengeViewController.swift */,
 				019066BE243D09C6007103D9 /* JoinChallengeViewController.xib */,
+				01C6B70D252F5DED0042F828 /* JoinTeamViewController.swift */,
+				01C6B70E252F5DED0042F828 /* JoinTeamViewController.xib */,
+				01C6B713252F5EA50042F828 /* JoinTeamRow.swift */,
 			);
 			path = "join-challenge";
 			sourceTree = "<group>";
@@ -1583,6 +1592,7 @@
 				015E2A8E243CEFD700307B21 /* TodaysGoalViewController.xib in Resources */,
 				74A01B3C220A544F00431ABD /* UserWorkoutTableViewCell.xib in Resources */,
 				0169395524D9D18C0011C1A8 /* ChallengeDetailsViewController.xib in Resources */,
+				01C6B710252F5DED0042F828 /* JoinTeamViewController.xib in Resources */,
 				7411805F220C58C300EB9D11 /* Lato-Black.ttf in Resources */,
 				01527304243C055A00123E25 /* ProfilePictureCell.xib in Resources */,
 				01C6B6EF252E9D250042F828 /* EnableTeamsViewController.xib in Resources */,
@@ -1930,6 +1940,7 @@
 				01987A9824300E9500835621 /* ChallengePreviewViewController.swift in Sources */,
 				011E1C0124DB891C00A1F7CC /* GroupStatCell.swift in Sources */,
 				01974544243F8A72004ACB71 /* WorkoutAccountCell.swift in Sources */,
+				01C6B714252F5EA50042F828 /* JoinTeamRow.swift in Sources */,
 				01F7D7662422899000B2D5D8 /* NoWorkoutsCell.swift in Sources */,
 				015C072E243FE432003E75E9 /* AccountCell.swift in Sources */,
 				0125466224DA607900E7D020 /* WorkoutPushTransition.swift in Sources */,
@@ -1941,6 +1952,7 @@
 				014B6772241882C000F356EB /* ChallengeViewController.swift in Sources */,
 				01D70BCF2446558B00F6F33A /* PickDateCell.swift in Sources */,
 				01A3EB1B237747D30097FC2A /* CVSelectionType.swift in Sources */,
+				01C6B70F252F5DED0042F828 /* JoinTeamViewController.swift in Sources */,
 				01A3EB25237747D30097FC2A /* CVCalendarViewAnimatorDelegate.swift in Sources */,
 				01BFF909223DB1C30044F802 /* ChatMessage.swift in Sources */,
 				74A01B4E220A83FD00431ABD /* UIDate+Extension.swift in Sources */,

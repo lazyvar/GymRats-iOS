@@ -189,10 +189,14 @@ class ChallengePreviewViewController: UIViewController {
           
           NotificationCenter.default.post(name: .joinedChallenge, object: challenge)
           
-          if UserDefaults.standard.bool(forKey: "account-is-onboarding") {
-            GymRats.completeOnboarding()
+          if challenge.teamsEnabled {
+            self?.navigationController?.setViewControllers([JoinTeamViewController(challenge)], animated: true)
           } else {
-            self?.dismissSelf()
+            if UserDefaults.standard.bool(forKey: "account-is-onboarding") {
+              GymRats.completeOnboarding()
+            } else {
+              self?.dismissSelf()
+            }
           }
         case .failure(let error):
           self?.presentAlert(with: error)

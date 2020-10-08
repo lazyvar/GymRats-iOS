@@ -75,6 +75,10 @@ class GymRatsAPI {
     return requestObject(.joinChallenge(code: code))
   }
   
+  func fetchTeams(challenge: Challenge) -> Observable<NetworkResult<[Team]>> {
+    return requestArray(.fetchTeams(challenge))
+  }
+  
   func createChallenge(_ newChallenge: NewChallenge) -> Observable<NetworkResult<Challenge>> {
     return Observable<Either<UIImage, String>?>.just(newChallenge.banner)
       .flatMap { image -> Observable<String?> in

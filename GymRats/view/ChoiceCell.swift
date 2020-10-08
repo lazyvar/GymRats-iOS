@@ -88,6 +88,13 @@ class ChoiceCell: UITableViewCell {
     }
   }
 
+  static func configure(tableView: UITableView, indexPath: IndexPath, title: String) -> UITableViewCell {
+    return tableView.dequeueReusableCell(withType: ChoiceCell.self, for: indexPath).apply {
+      $0.bigLabel.text = title
+      $0.makeOneLine()
+    }
+  }
+
   static func configure(tableView: UITableView, indexPath: IndexPath, choice: EnableTeamsChoice) -> UITableViewCell {
     return tableView.dequeueReusableCell(withType: ChoiceCell.self, for: indexPath).apply {
       $0.bigLabel.text = choice.title
