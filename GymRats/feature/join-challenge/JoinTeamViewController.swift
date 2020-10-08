@@ -105,7 +105,7 @@ extension JoinTeamViewController: UITableViewDelegate {
 
     let container = UIView().apply {
       $0.backgroundColor = .clear
-      $0.constrainHeight(section == 0 ? 50 : 35)
+      $0.constrainHeight(section == 0 ? 50 : 20)
     }
     
     let text = UILabel().apply {
@@ -118,7 +118,7 @@ extension JoinTeamViewController: UITableViewDelegate {
     
     container.addSubview(text)
     
-    text.topAnchor.constraint(equalTo: container.topAnchor, constant: section == 0 ? 0 : 10).isActive = true
+    text.topAnchor.constraint(equalTo: container.topAnchor, constant: 0).isActive = true
     text.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 20).isActive = true
     text.rightAnchor.constraint(equalTo: container.rightAnchor, constant: -20).isActive = true
     
