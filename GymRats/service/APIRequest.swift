@@ -37,10 +37,12 @@ enum APIRequest {
   case registerDevice(deviceToken: String)
   case getChallenge(id: Int)
   case getWorkout(id: Int)
+  case teamRankings(Team)
   case fetchTeams(Challenge)
   case groupStats(Challenge)
   case getRankings(Challenge, scoreBy: ScoreBy)
   case deleteDevice
+  case teamStats(Team)
   case seeChatNotifications(Challenge)
   case leaveChallenge(_ challenge: Challenge)
   case editChallenge(_ challenge: UpdateChallenge)
@@ -50,6 +52,7 @@ enum APIRequest {
   case challengeInfo(challenge: Challenge)
   case getChallengeForCode(code: String)
   case getMembership(challenge: Challenge)
+  case teamMembership(Team)
   case updateNotificationSettings(workouts: Bool?, comments: Bool?, chatMessages: Bool?)
   
   var requestProperties: (method: HTTPMethod, path: String, params: Parameters?) {
@@ -83,7 +86,11 @@ enum APIRequest {
     case .deleteComment(id: let id):
       return (.delete, "comments/\(id)", nil)
     case .joinTeam(let team):
-      return (.post, "teams", nil)
+      return (.post, "team_memberships", ["team_id": team.id])
+    case .teamRankings(let team):
+      return (.get, "teams/\(team.id)/rankings", nil)
+    case .teamStats(let team):
+      return (.get, "teams/\(team.id)/stats", nil)
     case .createTeam(let challenge, let name, let photoUrl):
       var params: Parameters = [
         "challenge_id": challenge.id,
@@ -277,6 +284,8 @@ enum APIRequest {
       return (.delete, "memberships/\(challenge.id)", nil)
     case .getMembership(let challenge):
       return (.get, "memberships/\(challenge.id)", nil)
+    case .teamMembership(let team):
+      return (.get, "team_memberships/\(team.id)", nil)
     case .challengeInfo(challenge: let challenge):
       return (.get, "challenges/\(challenge.id)/info", nil)
     case .updateNotificationSettings(let workouts, let comments, let chatMessages):

@@ -87,4 +87,14 @@ class RankingCell: UITableViewCell {
       cell.placeLabel.isHidden = true
     }
   }
+
+  static func configure(tableView: UITableView, indexPath: IndexPath, ranking: Ranking, scoreBy: ScoreBy, press: @escaping () -> Void) -> UITableViewCell {
+    return tableView.dequeueReusableCell(withType: RankingCell.self, for: indexPath).apply { cell in
+      cell.press = press
+      cell.avatar.load(ranking.account)
+      cell.nameLabel.text = ranking.account.fullName
+      cell.scoreLabel.text = "\(ranking.score) \(scoreBy.description)"
+      cell.placeLabel.isHidden = true
+    }
+  }
 }

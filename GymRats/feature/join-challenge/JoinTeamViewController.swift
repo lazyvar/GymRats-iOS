@@ -15,6 +15,7 @@ typealias JoinTeamSection = SectionModel<String?, JoinTeamRow>
 class JoinTeamViewController: UIViewController {
   private let disposeBag = DisposeBag()
   private var challenge: Challenge
+  private var teams: [Team] = []
 
   init(_ challenge: Challenge) {
     self.challenge = challenge
@@ -37,12 +38,12 @@ class JoinTeamViewController: UIViewController {
     }
   }
 
-  private let dataSource = RxTableViewSectionedReloadDataSource<JoinTeamSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
+  private lazy var dataSource = RxTableViewSectionedReloadDataSource<JoinTeamSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
     switch row {
       case .createTeam: return ChoiceCell.configure(tableView: tableView, indexPath: indexPath, title: "Create team")
       case .notRightNow: return ChoiceCell.configure(tableView: tableView, indexPath: indexPath, title: "Not right now")
       case .team(let team): return RankingCell.configure(tableView: tableView, indexPath: indexPath, team: team) {
-        print("todo")
+        self.push(TeamViewController(team, self.challenge))
       }
     }
   })
@@ -61,10 +62,22 @@ class JoinTeamViewController: UIViewController {
     
     tableView.rx.itemSelected
       .subscribe(onNext: { [weak self] indexPath in
-        self?.tableView.deselectRow(at: indexPath, animated: true)
+        guard let self = self else { return }
 
-        switch indexPath.row {
-        default: break //fatalError("Unhandled row.")
+        self.tableView.deselectRow(at: indexPath, animated: true)
+
+        switch indexPath.section {
+        case 0:
+          switch indexPath.row {
+          case 0:
+            self.push(CreateTeamViewController(self.challenge))
+          case 1:
+            self.dismissSelf()
+          default:
+            break
+          }
+        default:
+          break
         }
       })
       .disposed(by: disposeBag)
@@ -81,7 +94,7 @@ class JoinTeamViewController: UIViewController {
     
     fetchTeams.compactMap { $0.error }
       .subscribe(onNext: { error in
-        
+        Alert.presentAlert(error: error)
       })
       .disposed(by: disposeBag)
     
@@ -89,6 +102,8 @@ class JoinTeamViewController: UIViewController {
     
     return Observable.combineLatest(choices, teams)
       .map { choices, teams in
+        self.teams = teams
+
         return [
           choices,
           JoinTeamSection(model: "Choose team to join", items: teams.map { JoinTeamRow.team($0) })

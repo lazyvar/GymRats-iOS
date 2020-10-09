@@ -43,6 +43,26 @@ extension Observable {
   }
 }
 
+protocol ResultParasite {
+  associatedtype Success
+  associatedtype Failure
+  
+  var object: Success? { get }
+  var error: Failure? { get }
+}
+
+extension Result: ResultParasite { }
+
+extension Observable where Element: ResultParasite {
+  func object() -> Observable<Element.Success> {
+    return compactMap { $0.object }
+  }
+
+  func error() -> Observable<Element.Failure> {
+    return compactMap { $0.error }
+  }
+}
+
 enum InputSubject {
   static func string(defaultValue: String = "") -> BehaviorSubject<String> {
     return .init(value: defaultValue)

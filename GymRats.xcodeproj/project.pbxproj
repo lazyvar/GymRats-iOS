@@ -37,6 +37,11 @@
 		011FB63022A33C14004D5B8E /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011FB62E22A33C14004D5B8E /* ItemCell.xib */; };
 		011FB63322A37387004D5B8E /* CompletedChallengesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB63222A37387004D5B8E /* CompletedChallengesViewController.swift */; };
 		01213CE2241E9C62008461B0 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01213CE1241E9C62008461B0 /* ChatViewController.swift */; };
+		012449092530A8F500087027 /* CreateTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012449072530A8F500087027 /* CreateTeamViewController.swift */; };
+		0124490A2530A8F500087027 /* CreateTeamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 012449082530A8F500087027 /* CreateTeamViewController.xib */; };
+		0124490F2530ACF100087027 /* TeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0124490D2530ACF100087027 /* TeamViewController.swift */; };
+		012449102530ACF100087027 /* TeamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0124490E2530ACF100087027 /* TeamViewController.xib */; };
+		012449142530B73200087027 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012449132530B73200087027 /* Stats.swift */; };
 		0125466224DA607900E7D020 /* WorkoutPushTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0125466124DA607900E7D020 /* WorkoutPushTransition.swift */; };
 		0127B08C24490240000A48CB /* Membership.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0127B08B24490240000A48CB /* Membership.swift */; };
 		0127B08F2449136D000A48CB /* InviteToChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0127B08D2449136D000A48CB /* InviteToChallengeViewController.swift */; };
@@ -384,6 +389,11 @@
 		011FB62E22A33C14004D5B8E /* ItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
 		011FB63222A37387004D5B8E /* CompletedChallengesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedChallengesViewController.swift; sourceTree = "<group>"; };
 		01213CE1241E9C62008461B0 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		012449072530A8F500087027 /* CreateTeamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTeamViewController.swift; sourceTree = "<group>"; };
+		012449082530A8F500087027 /* CreateTeamViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateTeamViewController.xib; sourceTree = "<group>"; };
+		0124490D2530ACF100087027 /* TeamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamViewController.swift; sourceTree = "<group>"; };
+		0124490E2530ACF100087027 /* TeamViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TeamViewController.xib; sourceTree = "<group>"; };
+		012449132530B73200087027 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		0125466124DA607900E7D020 /* WorkoutPushTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPushTransition.swift; sourceTree = "<group>"; };
 		0127B08B24490240000A48CB /* Membership.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Membership.swift; sourceTree = "<group>"; };
 		0127B08D2449136D000A48CB /* InviteToChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteToChallengeViewController.swift; sourceTree = "<group>"; };
@@ -785,6 +795,17 @@
 				01213CE1241E9C62008461B0 /* ChatViewController.swift */,
 			);
 			path = chat;
+			sourceTree = "<group>";
+		};
+		012449062530A8E000087027 /* team */ = {
+			isa = PBXGroup;
+			children = (
+				012449072530A8F500087027 /* CreateTeamViewController.swift */,
+				012449082530A8F500087027 /* CreateTeamViewController.xib */,
+				0124490D2530ACF100087027 /* TeamViewController.swift */,
+				0124490E2530ACF100087027 /* TeamViewController.xib */,
+			);
+			path = team;
 			sourceTree = "<group>";
 		};
 		01297D6E2329E79000CA9E41 /* SF Compact Rounded */ = {
@@ -1198,6 +1219,7 @@
 		747D6FBA2208DBD70062BB39 /* feature */ = {
 			isa = PBXGroup;
 			children = (
+				012449062530A8E000087027 /* team */,
 				01747A5524D8811500A4682B /* share */,
 				010C05F124AD4987001B37D7 /* notifications */,
 				01987A9524300E7D00835621 /* join-challenge */,
@@ -1293,6 +1315,7 @@
 				011E1BFD24DB7DC300A1F7CC /* GroupStats.swift */,
 				019D899224DCCB97002BFD1B /* UpdateWorkout.swift */,
 				01C6B706252EB0220042F828 /* Team.swift */,
+				012449132530B73200087027 /* Stats.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1557,6 +1580,7 @@
 				747D6FA42208DB330062BB39 /* LaunchScreen.storyboard in Resources */,
 				01987A9924300E9500835621 /* ChallengePreviewViewController.xib in Resources */,
 				01C6B703252EA8CE0042F828 /* ButtonChoiceCell.xib in Resources */,
+				0124490A2530A8F500087027 /* CreateTeamViewController.xib in Resources */,
 				01A6C4ED24D4FD2B0007DFB6 /* ChallengeCompleteDescriptionCell.xib in Resources */,
 				01297D842329E79000CA9E41 /* SF-Compact-Rounded-Medium.otf in Resources */,
 				01F5296124184A7300FA96E0 /* NoChallengesViewController.xib in Resources */,
@@ -1621,6 +1645,7 @@
 				015C071C243FC7E5003E75E9 /* LogWorkoutCell.xib in Resources */,
 				01A6C4DF24D4E97D0007DFB6 /* CompletedChallengeViewController.xib in Resources */,
 				0169395F24D9DB040011C1A8 /* FullLeaderboardCell.xib in Resources */,
+				012449102530ACF100087027 /* TeamViewController.xib in Resources */,
 				01F65A01244513FA00E26539 /* ChallengeBannerViewController.xib in Resources */,
 				01D70BD02446558B00F6F33A /* PickDateCell.xib in Resources */,
 				01611D3D243E777600D1DAA4 /* WorkoutBigCell.xib in Resources */,
@@ -1781,6 +1806,7 @@
 				746764E7220BAE44000CFB1B /* CreateWorkoutViewController.swift in Sources */,
 				7455AC5E22125296005A558A /* ServiceResponse.swift in Sources */,
 				01747A6024D885F200A4682B /* WorkoutImageCell.swift in Sources */,
+				012449092530A8F500087027 /* CreateTeamViewController.swift in Sources */,
 				01A6C4F024D500570007DFB6 /* ShareChallengeButtonCell.swift in Sources */,
 				01D70BDB24467B9400F6F33A /* ClassicChallengeViewController.swift in Sources */,
 				01BFF90E223DE26C0044F802 /* APS.swift in Sources */,
@@ -1807,6 +1833,7 @@
 				011FB62F22A33C14004D5B8E /* ItemCell.swift in Sources */,
 				01319ED9241878EA005E65D2 /* UpdateChallenge.swift in Sources */,
 				01F529502417FD0200FA96E0 /* ViewModel.swift in Sources */,
+				012449142530B73200087027 /* Stats.swift in Sources */,
 				01A3EB13237747D30097FC2A /* CVStatus.swift in Sources */,
 				747D6FDA2208E8130062BB39 /* KeychainResult.swift in Sources */,
 				01F5296924184BE600FA96E0 /* HeaderTwoLabel.swift in Sources */,
@@ -1823,6 +1850,7 @@
 				015A1A5E2421A2B500D2EF5A /* NotificationHandler.swift in Sources */,
 				0169395E24D9DB040011C1A8 /* FullLeaderboardCell.swift in Sources */,
 				0107C7E4241B0200005650FB /* MenuViewController.swift in Sources */,
+				0124490F2530ACF100087027 /* TeamViewController.swift in Sources */,
 				0107AE362325E3D300944D11 /* WorkoutListCell.swift in Sources */,
 				0169395424D9D18C0011C1A8 /* ChallengeDetailsViewController.swift in Sources */,
 				01F5296524184B0000FA96E0 /* SecondaryButton.swift in Sources */,

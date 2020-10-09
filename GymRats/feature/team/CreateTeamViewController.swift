@@ -1,8 +1,8 @@
 //
-//  FirstTeamViewController.swift
+//  CreateTeamViewController.swift
 //  GymRats
 //
-//  Created by mack on 10/7/20.
+//  Created by mack on 10/9/20.
 //  Copyright © 2020 Mack Hasz. All rights reserved.
 //
 
@@ -12,13 +12,13 @@ import RxDataSources
 import Eureka
 import UnsplashPhotoPicker
 
-class FirstTeamViewController: GRFormViewController {
+class CreateTeamViewController: GRFormViewController {
   private let disposeBag = DisposeBag()
-  private var newChallenge: NewChallenge
-  private var team: Team?
+  private var challenge: Challenge
+  private let createButton = PrimaryButton()
 
-  init(_ newChallenge: NewChallenge) {
-    self.newChallenge = newChallenge
+  init(_ challenge: Challenge) {
+    self.challenge = challenge
     
     super.init(nibName: nil, bundle: nil)
   }
@@ -30,7 +30,7 @@ class FirstTeamViewController: GRFormViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    title = "First team"
+    title = "Create team"
     view.backgroundColor = .background
     setupBackButton()
     
@@ -41,7 +41,31 @@ class FirstTeamViewController: GRFormViewController {
       +++ section
         <<< nameRow
         <<< photoRow
-        <<< skipRow
+  }
+  
+  @objc private func create() {
+    guard self.form.validate().isEmpty else { return }
+
+    showLoadingBar()
+    
+    gymRatsAPI.createTeam(challenge: challenge, name: nameRow.value!, photo: photoRow.value)
+      .subscribe(onNext: { [weak self] result in
+        guard let self = self else { return }
+        
+        self.hideLoadingBar()
+        
+        switch result {
+        case .success:
+          if UserDefaults.standard.bool(forKey: "account-is-onboarding") {
+            GymRats.completeOnboarding()
+          } else {
+            self.dismissSelf()
+          }
+        case .failure(let error):
+          Alert.presentAlert(error: error)
+        }
+      })
+      .disposed(by: disposeBag)
   }
   
   private func presentPhotoAlert() {
@@ -95,6 +119,7 @@ class FirstTeamViewController: GRFormViewController {
   private lazy var section: Section = {
     return Section() { section in
       section.header = self.sectionHeader
+      section.footer = self.sectionFooter
     }
   }()
   
@@ -118,18 +143,6 @@ class FirstTeamViewController: GRFormViewController {
     }
   }()
 
-  private lazy var skipRow: ButtonChoiceRow = {
-    return ButtonChoiceRow() { row in
-      row.title = "Continue"
-      row.onSelect = {
-        guard self.form.validate().isEmpty else { return }
-        
-        self.newChallenge.firstTeam = NewTeam(name: self.nameRow.value!, photo: self.photoRow.value)
-        self.push(CreateChallengeReviewViewController(newChallenge: self.newChallenge))
-      }
-    }
-  }()
-
   private lazy var sectionHeader: HeaderFooterView<UIView> = {
     let headerBuilder = { () -> UIView in
       let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
@@ -137,7 +150,7 @@ class FirstTeamViewController: GRFormViewController {
       let label = UILabel()
       label.font = .body
       label.text = """
-      Give the first team a name and an optional team photo. Group members will be able to create their own teams or join existing ones.
+      Give the team a name and an optional team photo.
       """
       label.frame = CGRect(x: 20, y: 0, width: self.view.frame.width - 40, height: 20)
       label.sizeToFit()
@@ -153,6 +166,28 @@ class FirstTeamViewController: GRFormViewController {
     return header
   }()
   
+  private lazy var sectionFooter: HeaderFooterView<UIView> = {
+    let footerBuilder = { () -> UIView in
+      let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 96))
+      
+      container.addSubview(self.createButton)
+
+      self.createButton.addTarget(self, action: #selector(self.create), for: .touchUpInside)
+      self.createButton.constrainWidth(self.tableView.frame.width - 40)
+      self.createButton.translatesAutoresizingMaskIntoConstraints = false
+      self.createButton.setTitle("Create", for: .normal)
+      self.createButton.horizontallyCenter(in: container)
+      self.createButton.topAnchor.constraint(equalTo: container.topAnchor, constant: 10).isActive = true
+
+      return container
+    }
+    
+    var footer = HeaderFooterView<UIView>(.callback(footerBuilder))
+    footer.height = { 50 }
+    
+    return footer
+  }()
+
   private func handleRowValidationChange(cell: UITableViewCell, row: TextFieldRow) {
     guard let textRowNumber = row.indexPath?.row, var section = row.section else { return }
     
@@ -175,7 +210,7 @@ class FirstTeamViewController: GRFormViewController {
   }
 }
 
-extension FirstTeamViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension CreateTeamViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
     picker.dismissSelf()
     
@@ -187,7 +222,7 @@ extension FirstTeamViewController: UIImagePickerControllerDelegate, UINavigation
   }
 }
 
-extension FirstTeamViewController: UnsplashPhotoPickerDelegate {
+extension CreateTeamViewController: UnsplashPhotoPickerDelegate {
   func unsplashPhotoPicker(_ photoPicker: UnsplashPhotoPicker, didSelectPhotos photos: [UnsplashPhoto]) {
     guard let photo = photos.first else { return }
 

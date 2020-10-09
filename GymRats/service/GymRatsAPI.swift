@@ -79,6 +79,14 @@ class GymRatsAPI {
     return requestArray(.fetchTeams(challenge))
   }
   
+  func teamStats(_ team: Team) -> Observable<NetworkResult<Stats>> {
+    return requestObject(.teamStats(team))
+  }
+
+  func teamRankings(_ team: Team) -> Observable<NetworkResult<[Ranking]>> {
+    return requestArray(.teamRankings(team))
+  }
+
   func createChallenge(_ newChallenge: NewChallenge) -> Observable<NetworkResult<Challenge>> {
     return Observable<Either<UIImage, String>?>.just(newChallenge.banner)
       .flatMap { image -> Observable<String?> in
@@ -184,7 +192,11 @@ class GymRatsAPI {
   func getMembership(for challenge: Challenge) -> Observable<NetworkResult<Membership>> {
     return requestObject(.getMembership(challenge: challenge))
   }
-  
+
+  func teamMembership(_ team: Team) -> Observable<NetworkResult<EmptyJSON>> {
+    return requestObject(.teamMembership(team))
+  }
+
   func updateUser(email: String?, name: String?, password: String?, profilePicture: UIImage?, currentPassword: String?) -> Observable<NetworkResult<Account>> {
     return Observable<UIImage?>.just(profilePicture)
       .flatMap { image -> Observable<String?> in

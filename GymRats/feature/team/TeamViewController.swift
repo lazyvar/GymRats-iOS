@@ -1,0 +1,155 @@
+//
+//  TeamViewController.swift
+//  GymRats
+//
+//  Created by mack on 10/9/20.
+//  Copyright © 2020 Mack Hasz. All rights reserved.
+//
+
+import UIKit
+import RxSwift
+import RxDataSources
+
+typealias TeamSection = SectionModel<Void, Ranking>
+
+class TeamViewController: UIViewController {
+  private let disposeBag = DisposeBag()
+  private let team: Team
+  private let challenge: Challenge
+  private var stats: Stats?
+
+  init(_ team: Team, _ challenge: Challenge) {
+    self.team = team
+    self.challenge = challenge
+
+    super.init(nibName: Self.xibName, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  @IBOutlet private weak var tableView: UITableView! {
+    didSet {
+      tableView.backgroundColor = .background
+      tableView.separatorStyle = .none
+      tableView.showsVerticalScrollIndicator = false
+      tableView.registerCellNibForClass(RankingCell.self)
+      tableView.delegate = self
+    }
+  }
+  
+  private lazy var dataSource = RxTableViewSectionedReloadDataSource<TeamSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
+    return RankingCell.configure(tableView: tableView, indexPath: indexPath, ranking: row, scoreBy: self.challenge.scoreBy) {
+      self.push(ProfileViewController(account: row.account, challenge: self.challenge))
+    }
+  })
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    title = team.name
+    view.backgroundColor = .background
+    setupBackButton()
+    
+    sections()
+      .bind(to: tableView.rx.items(dataSource: dataSource))
+      .disposed(by: disposeBag)
+    
+    gymRatsAPI.teamMembership(team)
+      .subscribe(onNext: { [weak self] result in
+        switch result {
+        case .success:
+          self?.setRightButtomMoreMenu()
+        case .failure:
+          self?.setRightButtomJoinButton()
+        }
+      })
+      .disposed(by: disposeBag)
+
+    gymRatsAPI.teamStats(team)
+      .subscribe(onNext:{ [weak self] result in
+        self?.stats = result.object
+        self?.tableView.reloadData()
+      })
+      .disposed(by: disposeBag)
+  }
+  
+  private func sections() -> Observable<[TeamSection]> {
+    return gymRatsAPI.teamRankings(team)
+      .map { $0.object ?? [] }
+      .map { rankings in
+        return [TeamSection(model: (), items: rankings)]
+      }
+  }
+
+  private func setRightButtomMoreMenu() {
+    navigationItem.rightBarButtonItem = UIBarButtonItem(image: .moreHorizontal, style: .plain, target: self, action: #selector(more))
+  }
+  
+  private func setRightButtomJoinButton() {
+    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Join", style: .done, target: self, action: #selector(join)).apply {
+      $0.tintColor = .brand
+    }
+  }
+  
+  @objc private func join() {
+    
+  }
+  
+  @objc private func more() {
+    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+    let editAction = UIAlertAction(title: "Edit", style: .default) { _ in
+      let editViewController = EditChallengeViewController(challenge: self.challenge)
+      
+      self.present(editViewController.inNav(), animated: true, completion: nil)
+    }
+
+    let deleteAction = UIAlertAction(title: "Leave", style: .destructive) { _ in
+      self.leaveTeam()
+    }
+    
+    let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    
+    alertViewController.addAction(editAction)
+    alertViewController.addAction(deleteAction)
+    alertViewController.addAction(cancelAction)
+    
+    present(alertViewController, animated: true, completion: nil)
+  }
+  
+  private func leaveTeam() {
+    
+  }
+}
+
+extension TeamViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let container = UIView().apply {
+      $0.backgroundColor = .clear
+      $0.constrainHeight(section == 0 ? 50 : 20)
+    }
+    
+    let text = UILabel().apply {
+      $0.text = self.stats?.workouts.stringify ?? ""
+      $0.textColor = .primaryText
+      $0.font = section == 0 ? .body : .bodyBold
+      $0.numberOfLines = 0
+      $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    container.addSubview(text)
+    
+    text.topAnchor.constraint(equalTo: container.topAnchor, constant: 0).isActive = true
+    text.leftAnchor.constraint(equalTo: container.leftAnchor, constant: 20).isActive = true
+    text.rightAnchor.constraint(equalTo: container.rightAnchor, constant: -20).isActive = true
+    
+    text.sizeToFit()
+
+    return container
+  }
+  
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return section == 0 ? 50 : 35
+  }
+}
