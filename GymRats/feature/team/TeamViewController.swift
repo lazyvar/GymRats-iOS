@@ -16,12 +16,15 @@ class TeamViewController: UIViewController {
   private let disposeBag = DisposeBag()
   private let team: Team
   private let challenge: Challenge
-  private var stats: Stats?
+  private let hideStats: Bool
 
-  init(_ team: Team, _ challenge: Challenge) {
+  private var stats: Stats?
+  
+  init(_ team: Team, _ challenge: Challenge, hideStats: Bool) {
     self.team = team
     self.challenge = challenge
-
+    self.hideStats = hideStats
+    
     super.init(nibName: Self.xibName, bundle: nil)
   }
   
@@ -66,17 +69,22 @@ class TeamViewController: UIViewController {
         }
       })
       .disposed(by: disposeBag)
-
-    gymRatsAPI.teamStats(team)
-      .subscribe(onNext:{ [weak self] result in
-        self?.stats = result.object
-        self?.tableView.reloadData()
-      })
-      .disposed(by: disposeBag)
+    
+    if !hideStats {
+      gymRatsAPI.teamStats(team)
+        .subscribe(onNext:{ [weak self] result in
+          self?.stats = result.object
+          self?.tableView.reloadData()
+        })
+        .disposed(by: disposeBag)
+    }
   }
   
+  private let reload = PublishSubject<Void>()
+  
   private func sections() -> Observable<[TeamSection]> {
-    return gymRatsAPI.teamRankings(team)
+    return Observable.merge(.just(()), reload)
+      .flatMap { gymRatsAPI.teamRankings(self.team) }
       .map { $0.object ?? [] }
       .map { rankings in
         return [TeamSection(model: (), items: rankings)]
@@ -94,7 +102,28 @@ class TeamViewController: UIViewController {
   }
   
   @objc private func join() {
+    showLoadingBar()
     
+    gymRatsAPI.joinTeam(team: team)
+      .subscribe(onNext: { [weak self] result in
+        guard let self = self else { return }
+        
+        self.hideLoadingBar()
+        
+        switch result {
+        case .success(let team):
+          NotificationCenter.default.post(name: .joinedTeam, object: team)
+          
+          if UserDefaults.standard.bool(forKey: "account-is-onboarding") {
+            GymRats.completeOnboarding()
+          } else {
+            self.dismissSelf()
+          }
+        case .failure(let error):
+          Alert.presentAlert(error: error)
+        }
+      })
+      .disposed(by: disposeBag)
   }
   
   @objc private func more() {
@@ -119,25 +148,59 @@ class TeamViewController: UIViewController {
   }
   
   private func leaveTeam() {
+    showLoadingBar()
     
+    gymRatsAPI.leaveTeam(team)
+      .subscribe(onNext: { [weak self] result in
+        guard let self = self else { return }
+        
+        self.hideLoadingBar()
+        
+        switch result {
+        case .success:
+          self.setRightButtomJoinButton()
+          self.reload.trigger()
+        case .failure(let error):
+          Alert.presentAlert(error: error)
+        }
+      })
+      .disposed(by: disposeBag)
   }
 }
 
 extension TeamViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    guard let stats = stats, !hideStats else { return nil }
+
     let container = UIView().apply {
       $0.backgroundColor = .clear
-      $0.constrainHeight(section == 0 ? 50 : 20)
+      $0.constrainHeight(50)
     }
     
+    let style = NSMutableParagraphStyle()
+    style.tabStops = [
+      NSTextTab(textAlignment: .left, location: 0.0, options: [:]),
+      NSTextTab(textAlignment: .left, location: ((UIScreen.main.bounds.width - 40) / 2 - 20), options: [:]),
+      NSTextTab(textAlignment: .right, location: (UIScreen.main.bounds.width - 40), options: [:])
+    ]
+
+    let content = """
+      \(stats.workouts) workouts\t\(stats.duration) minutes\t\(stats.distance) miles
+      \(stats.calories) calories\t\(stats.steps) steps\t\(stats.points) points
+      """
+
+    let attributedString = NSMutableAttributedString(string: content, attributes: [:]).apply {
+      $0.addAttribute(.paragraphStyle, value: style, range: NSRange(location: 0, length: content.count - 1))
+    }
+
     let text = UILabel().apply {
-      $0.text = self.stats?.workouts.stringify ?? ""
+      $0.attributedText = attributedString
       $0.textColor = .primaryText
-      $0.font = section == 0 ? .body : .bodyBold
+      $0.font = .body
       $0.numberOfLines = 0
       $0.translatesAutoresizingMaskIntoConstraints = false
     }
-    
+
     container.addSubview(text)
     
     text.topAnchor.constraint(equalTo: container.topAnchor, constant: 0).isActive = true
@@ -150,6 +213,6 @@ extension TeamViewController: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    return section == 0 ? 50 : 35
+    return hideStats ? 0 : 50
   }
 }

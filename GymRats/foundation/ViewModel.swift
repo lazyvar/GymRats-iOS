@@ -146,6 +146,7 @@ extension Notification {
   static let appEnteredBackground = Notification(name: .appEnteredBackground)
   static let sawChat = Notification(name: .sawChat)
   static let joinedChallenge = Notification(name: .joinedChallenge)
+  static let joinedTeam = Notification(name: .joinedTeam)
 }
 
 extension NSNotification.Name {
@@ -161,6 +162,7 @@ extension NSNotification.Name {
   static let appEnteredBackground = NSNotification.Name.init("AppEnteredBackground")
   static let sawChat = NSNotification.Name.init("SawChat")
   static let joinedChallenge = NSNotification.Name.init("JoinedChallenge")
+  static let joinedTeam = NSNotification.Name.init("JoinedTeam")
 }
 
 extension UIView: Placeholder { }

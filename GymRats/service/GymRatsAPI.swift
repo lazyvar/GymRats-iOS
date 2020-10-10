@@ -249,6 +249,10 @@ class GymRatsAPI {
     return requestObject(.leaveChallenge(challenge))
   }
   
+  func leaveTeam(_ team: Team) -> Observable<NetworkResult<Team>> {
+    return requestObject(.leaveTeam(team))
+  }
+  
   func challengeInfo(_ challenge: Challenge) -> Observable<NetworkResult<ChallengeInfo>> {
     return requestObject(.challengeInfo(challenge: challenge))
   }

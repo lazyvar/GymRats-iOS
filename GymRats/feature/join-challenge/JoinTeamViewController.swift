@@ -43,7 +43,7 @@ class JoinTeamViewController: UIViewController {
       case .createTeam: return ChoiceCell.configure(tableView: tableView, indexPath: indexPath, title: "Create team")
       case .notRightNow: return ChoiceCell.configure(tableView: tableView, indexPath: indexPath, title: "Not right now")
       case .team(let team): return RankingCell.configure(tableView: tableView, indexPath: indexPath, team: team) {
-        self.push(TeamViewController(team, self.challenge))
+        self.push(TeamViewController(team, self.challenge, hideStats: true))
       }
     }
   })
@@ -54,7 +54,7 @@ class JoinTeamViewController: UIViewController {
     title = "Team up"
     view.backgroundColor = .background
     setupBackButton()
-    navigationItem.leftBarButtonItem = .close(target: self)
+    navigationItem.leftBarButtonItem = UIBarButtonItem(image: .close, style: .plain, target: self, action: #selector(closeItUp))
 
     sections()
       .bind(to: tableView.rx.items(dataSource: dataSource))
@@ -72,7 +72,11 @@ class JoinTeamViewController: UIViewController {
           case 0:
             self.push(CreateTeamViewController(self.challenge))
           case 1:
-            self.dismissSelf()
+            if UserDefaults.standard.bool(forKey: "account-is-onboarding") {
+              GymRats.completeOnboarding()
+            } else {
+              self.dismissSelf()
+            }
           default:
             break
           }
@@ -83,6 +87,14 @@ class JoinTeamViewController: UIViewController {
       .disposed(by: disposeBag)
   }
   
+  @objc private func closeItUp() {
+    if UserDefaults.standard.bool(forKey: "account-is-onboarding") {
+      GymRats.completeOnboarding()
+    } else {
+      dismissSelf()
+    }
+  }
+
   private func sections() -> Observable<[JoinTeamSection]> {
     let choices = Observable<JoinTeamSection>.just(
       JoinTeamSection(model: """

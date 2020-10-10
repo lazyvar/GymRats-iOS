@@ -45,6 +45,7 @@ enum APIRequest {
   case teamStats(Team)
   case seeChatNotifications(Challenge)
   case leaveChallenge(_ challenge: Challenge)
+  case leaveTeam(_ team: Team)
   case editChallenge(_ challenge: UpdateChallenge)
   case deleteComment(id: Int)
   case changeBanner(challenge: Challenge, imageURL: String?)
@@ -152,6 +153,8 @@ enum APIRequest {
       return (.get, "accounts/\(account.id)/workouts", nil)
     case .getChallenge(id: let id):
       return (.get, "challenges/\(id)", nil)
+    case .leaveTeam(let team):
+      return (.delete, "team_memberships/\(team.id)", nil)
     case .getWorkout(id: let id):
       return (.get, "workouts/\(id)", nil)
     case .getWorkouts(forUser: let user, inChallenge: let challenge):
