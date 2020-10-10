@@ -17,9 +17,9 @@ class MemberCell: UICollectionViewCell {
     avatarView.clear()
   }
   
-  static func configure(collectionView: UICollectionView, indexPath: IndexPath, account: Account) -> UICollectionViewCell {
+  static func configure(collectionView: UICollectionView, indexPath: IndexPath, avatar: Avatar) -> UICollectionViewCell {
     return collectionView.dequeueReusableCell(withType: MemberCell.self, for: indexPath).apply { cell in
-      cell.avatarView.load(account)
+      cell.avatarView.load(avatar)
     }
   }
 }

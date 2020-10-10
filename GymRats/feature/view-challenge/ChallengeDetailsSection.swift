@@ -16,7 +16,10 @@ enum ChallengeDetailsRow {
   case title(Challenge)
   case header(Challenge)
   case members([Account])
+  case teams([Team])
   case ranking(Ranking, place: Int, ScoreBy)
-  case fullLeaderboard
+  case teamRanking(TeamRanking, place: Int, ScoreBy)
+  case fullIndividualLeaderboard
+  case fullTeamLeaderboard
   case groupStats(Avatar?, UIImage?, top: String, bottom: String, right: String?)
 }

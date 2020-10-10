@@ -42,6 +42,7 @@
 		0124490F2530ACF100087027 /* TeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0124490D2530ACF100087027 /* TeamViewController.swift */; };
 		012449102530ACF100087027 /* TeamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0124490E2530ACF100087027 /* TeamViewController.xib */; };
 		012449142530B73200087027 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012449132530B73200087027 /* Stats.swift */; };
+		012449182531327500087027 /* TeamRanking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012449172531327500087027 /* TeamRanking.swift */; };
 		0125466224DA607900E7D020 /* WorkoutPushTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0125466124DA607900E7D020 /* WorkoutPushTransition.swift */; };
 		0127B08C24490240000A48CB /* Membership.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0127B08B24490240000A48CB /* Membership.swift */; };
 		0127B08F2449136D000A48CB /* InviteToChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0127B08D2449136D000A48CB /* InviteToChallengeViewController.swift */; };
@@ -394,6 +395,7 @@
 		0124490D2530ACF100087027 /* TeamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamViewController.swift; sourceTree = "<group>"; };
 		0124490E2530ACF100087027 /* TeamViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TeamViewController.xib; sourceTree = "<group>"; };
 		012449132530B73200087027 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
+		012449172531327500087027 /* TeamRanking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamRanking.swift; sourceTree = "<group>"; };
 		0125466124DA607900E7D020 /* WorkoutPushTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPushTransition.swift; sourceTree = "<group>"; };
 		0127B08B24490240000A48CB /* Membership.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Membership.swift; sourceTree = "<group>"; };
 		0127B08D2449136D000A48CB /* InviteToChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteToChallengeViewController.swift; sourceTree = "<group>"; };
@@ -1312,6 +1314,7 @@
 				01D70BD7244676D600F6F33A /* NewChallenge.swift */,
 				0127B08B24490240000A48CB /* Membership.swift */,
 				01A6C4E424D4EBC90007DFB6 /* Ranking.swift */,
+				012449172531327500087027 /* TeamRanking.swift */,
 				011E1BFD24DB7DC300A1F7CC /* GroupStats.swift */,
 				019D899224DCCB97002BFD1B /* UpdateWorkout.swift */,
 				01C6B706252EB0220042F828 /* Team.swift */,
@@ -1859,6 +1862,7 @@
 				7405FE93222C249B0054F029 /* WebViewController.swift in Sources */,
 				01A3EB2C237747D30097FC2A /* CVPresent.swift in Sources */,
 				01A3EB1D237747D30097FC2A /* CVAuxiliaryView.swift in Sources */,
+				012449182531327500087027 /* TeamRanking.swift in Sources */,
 				01A3EB2A237747D30097FC2A /* CVShape.swift in Sources */,
 				01747A5824D8812900A4682B /* ShareChallengeViewController.swift in Sources */,
 				0169396C24DA09850011C1A8 /* MemberCell.swift in Sources */,

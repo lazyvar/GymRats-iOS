@@ -49,7 +49,8 @@ protocol Avatar {
       imageView.kf.setImage(with: resource, options: [.transition(.fade(0.2))])
     } else if let name = avatar.avatarName {
       imageView.image = LetterAvatarMaker()
-        .setUsername(name)
+        .setUsername(name.uppercased())
+        .setLettersFont(.h1)
         .build()
     } else {
       imageView.image = UIImage(color: .clear)

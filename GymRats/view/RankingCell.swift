@@ -75,7 +75,22 @@ class RankingCell: UITableViewCell {
       }
     }
   }
-  
+
+  static func configure(tableView: UITableView, indexPath: IndexPath, teamRanking: TeamRanking, place: Int, scoreBy: ScoreBy, press: @escaping () -> Void) -> UITableViewCell {
+    return tableView.dequeueReusableCell(withType: RankingCell.self, for: indexPath).apply { cell in
+      let ordinal = formatter.string(from: NSNumber(value: place))?.trimmingCharacters(in: .decimalDigits) ?? ""
+      
+      cell.press = press
+      cell.avatar.load(teamRanking.team)
+      cell.nameLabel.text = teamRanking.team.name
+      cell.scoreLabel.text = "\(teamRanking.score) \(scoreBy.description)"
+      cell.placeLabel.attributedText = NSMutableAttributedString().apply {
+        $0.append(.init(string: "\(place)", attributes: [NSAttributedString.Key.font: UIFont.twenty]))
+        $0.append(.init(string: ordinal, attributes: [NSAttributedString.Key.font: UIFont.body]))
+      }
+    }
+  }
+
   static func configure(tableView: UITableView, indexPath: IndexPath, team: Team, press: @escaping () -> Void) -> UITableViewCell {
     return tableView.dequeueReusableCell(withType: RankingCell.self, for: indexPath).apply { cell in
       let memberCount = (team.members ?? []).count

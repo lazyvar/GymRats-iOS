@@ -41,6 +41,7 @@ enum APIRequest {
   case fetchTeams(Challenge)
   case groupStats(Challenge)
   case getRankings(Challenge, scoreBy: ScoreBy)
+  case getTeamRankings(Challenge, scoreBy: ScoreBy)
   case deleteDevice
   case teamStats(Team)
   case seeChatNotifications(Challenge)
@@ -80,6 +81,8 @@ enum APIRequest {
       return (.get, "challenges?code=\(code)", nil)
     case .getRankings(let challenge, let scoreBy):
       return (.get, "challenges/\(challenge.id)/rankings?score_by=\(scoreBy.title)", nil)
+    case .getTeamRankings(let challenge, let scoreBy):
+      return (.get, "challenges/\(challenge.id)/team_rankings?score_by=\(scoreBy.title)", nil)
     case .getCompletedChallenges:
       return (.get, "challenges?filter=complete", nil)
     case .joinChallenge(let code):

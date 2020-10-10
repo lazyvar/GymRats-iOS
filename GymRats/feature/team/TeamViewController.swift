@@ -20,7 +20,7 @@ class TeamViewController: UIViewController {
 
   private var stats: Stats?
   
-  init(_ team: Team, _ challenge: Challenge, hideStats: Bool) {
+  init(_ team: Team, _ challenge: Challenge, hideStats: Bool = false) {
     self.team = team
     self.challenge = challenge
     self.hideStats = hideStats
@@ -51,10 +51,12 @@ class TeamViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    navigationItem.largeTitleDisplayMode = .always
     title = team.name
     view.backgroundColor = .background
     setupBackButton()
-    
+    navigationItem.largeTitleDisplayMode = .always
+
     sections()
       .bind(to: tableView.rx.items(dataSource: dataSource))
       .disposed(by: disposeBag)

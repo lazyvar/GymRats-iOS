@@ -9,11 +9,11 @@
 import UIKit
 
 class MembersCell: UITableViewCell {
-  private var accounts: [Account] = []
-  private var press: ((Account) -> Void)?
+  private var avatars: [Avatar] = []
+  private var press: ((Avatar) -> Void)?
   private var challenge: Challenge!
-  
-  var showInviteAtEnd: Bool = false
+  private var onAdd: (() -> Void)?
+  private var showInviteAtEnd: Bool = false
   
   @IBOutlet private weak var collectionView: UICollectionView! {
     didSet {
@@ -33,12 +33,13 @@ class MembersCell: UITableViewCell {
     }
   }
   
-  static func configure(tableView: UITableView, indexPath: IndexPath, challenge: Challenge, accounts: [Account], press: @escaping (Account) -> Void) -> UITableViewCell {
+  static func configure(tableView: UITableView, indexPath: IndexPath, challenge: Challenge, avatars: [Avatar], showInviteAtEnd: Bool, onAdd: @escaping () -> Void, press: @escaping (Avatar) -> Void) -> UITableViewCell {
     return tableView.dequeueReusableCell(withType: MembersCell.self, for: indexPath).apply { cell in
-      cell.accounts = accounts
+      cell.avatars = avatars
       cell.press = press
       cell.challenge = challenge
-      cell.showInviteAtEnd = challenge.startDate.serverDateIsToday
+      cell.showInviteAtEnd = showInviteAtEnd
+      cell.onAdd = onAdd
     }
   }
 }
@@ -47,28 +48,24 @@ extension MembersCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataS
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     collectionView.deselectItem(at: indexPath, animated: true)
     
-    if showInviteAtEnd {
-      if indexPath.row == accounts.count {
-        ChallengeFlow.invite(to: challenge)
-      } else {
-        press?(accounts[indexPath.row])
-      }
+    if indexPath.row == avatars.count && showInviteAtEnd {
+      onAdd?()
     } else {
-      press?(accounts[indexPath.row])
+      press?(avatars[indexPath.row])
     }
   }
 
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if showInviteAtEnd {
-      return accounts.count + 1
+      return avatars.count + 1
     } else {
-      return accounts.count
+      return avatars.count
     }
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     if showInviteAtEnd {
-      if indexPath.row == accounts.count {
+      if indexPath.row == avatars.count {
         return collectionView.dequeueReusableCell(withReuseIdentifier: "UICollectionView", for: indexPath).apply { cell in
           let imageView = UIImageView()
           imageView.contentMode = .center
@@ -84,10 +81,10 @@ extension MembersCell: UICollectionViewDelegateFlowLayout, UICollectionViewDataS
           imageView.fill(in: cell, top: 5, bottom: -5, left: 5, right: -5)
         }
       } else {
-        return MemberCell.configure(collectionView: collectionView, indexPath: indexPath, account: accounts[indexPath.row])
+        return MemberCell.configure(collectionView: collectionView, indexPath: indexPath, avatar: avatars[indexPath.row])
       }
     } else {
-      return MemberCell.configure(collectionView: collectionView, indexPath: indexPath, account: accounts[indexPath.row])
+      return MemberCell.configure(collectionView: collectionView, indexPath: indexPath, avatar: avatars[indexPath.row])
     }
   }
   

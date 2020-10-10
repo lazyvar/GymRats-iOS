@@ -55,7 +55,9 @@ class CreateTeamViewController: GRFormViewController {
         self.hideLoadingBar()
         
         switch result {
-        case .success:
+        case .success(let team):
+          NotificationCenter.default.post(name: .joinedTeam, object: team)
+
           if UserDefaults.standard.bool(forKey: "account-is-onboarding") {
             GymRats.completeOnboarding()
           } else {
