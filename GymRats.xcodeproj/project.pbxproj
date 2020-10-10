@@ -43,6 +43,8 @@
 		012449102530ACF100087027 /* TeamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0124490E2530ACF100087027 /* TeamViewController.xib */; };
 		012449142530B73200087027 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012449132530B73200087027 /* Stats.swift */; };
 		012449182531327500087027 /* TeamRanking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012449172531327500087027 /* TeamRanking.swift */; };
+		0124491D2532373A00087027 /* TeamRankingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0124491B2532373A00087027 /* TeamRankingsViewController.swift */; };
+		0124491E2532373A00087027 /* TeamRankingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0124491C2532373A00087027 /* TeamRankingsViewController.xib */; };
 		0125466224DA607900E7D020 /* WorkoutPushTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0125466124DA607900E7D020 /* WorkoutPushTransition.swift */; };
 		0127B08C24490240000A48CB /* Membership.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0127B08B24490240000A48CB /* Membership.swift */; };
 		0127B08F2449136D000A48CB /* InviteToChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0127B08D2449136D000A48CB /* InviteToChallengeViewController.swift */; };
@@ -396,6 +398,8 @@
 		0124490E2530ACF100087027 /* TeamViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TeamViewController.xib; sourceTree = "<group>"; };
 		012449132530B73200087027 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		012449172531327500087027 /* TeamRanking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamRanking.swift; sourceTree = "<group>"; };
+		0124491B2532373A00087027 /* TeamRankingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamRankingsViewController.swift; sourceTree = "<group>"; };
+		0124491C2532373A00087027 /* TeamRankingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TeamRankingsViewController.xib; sourceTree = "<group>"; };
 		0125466124DA607900E7D020 /* WorkoutPushTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPushTransition.swift; sourceTree = "<group>"; };
 		0127B08B24490240000A48CB /* Membership.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Membership.swift; sourceTree = "<group>"; };
 		0127B08D2449136D000A48CB /* InviteToChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteToChallengeViewController.swift; sourceTree = "<group>"; };
@@ -1396,6 +1400,8 @@
 				0169395824D9D2B80011C1A8 /* ChallengeDetailsSection.swift */,
 				0169396E24DA0E590011C1A8 /* RankingsViewController.swift */,
 				0169396F24DA0E590011C1A8 /* RankingsViewController.xib */,
+				0124491B2532373A00087027 /* TeamRankingsViewController.swift */,
+				0124491C2532373A00087027 /* TeamRankingsViewController.xib */,
 			);
 			path = "view-challenge";
 			sourceTree = "<group>";
@@ -1647,6 +1653,7 @@
 				01297D8F2329E79000CA9E41 /* SF-Pro-Rounded-Regular.otf in Resources */,
 				015C071C243FC7E5003E75E9 /* LogWorkoutCell.xib in Resources */,
 				01A6C4DF24D4E97D0007DFB6 /* CompletedChallengeViewController.xib in Resources */,
+				0124491E2532373A00087027 /* TeamRankingsViewController.xib in Resources */,
 				0169395F24D9DB040011C1A8 /* FullLeaderboardCell.xib in Resources */,
 				012449102530ACF100087027 /* TeamViewController.xib in Resources */,
 				01F65A01244513FA00E26539 /* ChallengeBannerViewController.xib in Resources */,
@@ -1816,6 +1823,7 @@
 				01A3EAEB2377471B0097FC2A /* BindableObserver.swift in Sources */,
 				014CA88E24DF9DEF00056DB1 /* CompletedChallengeBannerDescriptonCell.swift in Sources */,
 				747D6FD82208E8130062BB39 /* KeychainErrors.swift in Sources */,
+				0124491D2532373A00087027 /* TeamRankingsViewController.swift in Sources */,
 				01F65A0524452BAE00E26539 /* Secrets.swift in Sources */,
 				01E700E92460B6140059017A /* HealthAppPermissionsViewController.swift in Sources */,
 				01A3EB18237747D30097FC2A /* CVCalendarView.swift in Sources */,
