@@ -71,7 +71,7 @@ class ChallengeDetailsViewController: BindableViewController {
       }
     case .fullTeamLeaderboard:
       return FullLeaderboardCell.configure(tableView: tableView, indexPath: indexPath) {
-        // TODO
+        self.push(TeamRankingsViewController(challenge: self.challenge))
       }
     case .ranking(let ranking, let place, let scoreBy):
       return RankingCell.configure(tableView: tableView, indexPath: indexPath, ranking: ranking, place: place, scoreBy: scoreBy) {

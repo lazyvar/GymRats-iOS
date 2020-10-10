@@ -14,7 +14,8 @@ class RankingsViewController: BindableViewController {
   private let disposeBag = DisposeBag()
   private let challenge: Challenge
   private lazy var scoreBy = challenge.scoreBy
-  
+  private let refresher = PublishSubject<Void>()
+
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
       tableView.backgroundColor = .background
@@ -62,6 +63,21 @@ class RankingsViewController: BindableViewController {
     navigationItem.rightBarButtonItem?.setTitleTextAttributes([
       NSAttributedString.Key.font: UIFont.bodyBold
     ], for: .disabled)
+
+    refresher
+      .flatMap {
+        return gymRatsAPI.getRankings(challenge: self.challenge, scoreBy: self.scoreBy)
+      }
+      .do(onNext: { [weak self] _ in
+        self?.navigationItem.rightBarButtonItem?.isEnabled = true
+        self?.hideLoadingBar()
+      })
+      .compactMap { $0.object }
+      .map { rankings in
+        [SectionModel(model: (), items: rankings)]
+      }
+      .bind(to: tableView.rx.items(dataSource: dataSource))
+      .disposed(by: disposeBag)
 
     refresh()
   }
@@ -116,17 +132,6 @@ class RankingsViewController: BindableViewController {
     showLoadingBar()
     navigationItem.rightBarButtonItem?.isEnabled = false
     navigationItem.rightBarButtonItem?.title = scoreBy.title.capitalized
-    
-    gymRatsAPI.getRankings(challenge: challenge, scoreBy: scoreBy)
-      .do(onNext: { [weak self] _ in
-        self?.navigationItem.rightBarButtonItem?.isEnabled = true
-        self?.hideLoadingBar()
-      })
-      .compactMap { $0.object }
-      .map { rankings in
-        [SectionModel(model: (), items: rankings)]
-      }
-      .bind(to: tableView.rx.items(dataSource: dataSource))
-      .disposed(by: disposeBag)
+    refresher.trigger()
   }
 }
