@@ -16,4 +16,5 @@ struct UpdateChallenge: Codable {
   var endDate: Date
   var scoreBy: ScoreBy
   var banner: String?
+  var teamsEnabled: Bool
 }

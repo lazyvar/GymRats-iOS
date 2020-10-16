@@ -22,7 +22,6 @@ class TeamRankingsViewController: BindableViewController {
       tableView.showsVerticalScrollIndicator = false
       tableView.separatorStyle = .none
       tableView.allowsSelection = false
-      tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: CGFloat.leastNormalMagnitude))
       tableView.registerCellNibForClass(RankingCell.self)
     }
   }
@@ -50,6 +49,7 @@ class TeamRankingsViewController: BindableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
    
+    tableView.contentInsetAdjustmentBehavior = .never
     navigationItem.largeTitleDisplayMode = .always
     navigationItem.rightBarButtonItem = scoreByButton
     navigationItem.title = "Team rankings"
@@ -81,7 +81,7 @@ class TeamRankingsViewController: BindableViewController {
     
     refresh()
   }
-
+  
   @objc private func showAlert() {
     let alertViewController = UIAlertController()
     
@@ -131,7 +131,7 @@ class TeamRankingsViewController: BindableViewController {
   private func refresh() {
     showLoadingBar()
     navigationItem.rightBarButtonItem?.isEnabled = false
-    navigationItem.rightBarButtonItem?.title = scoreBy.title.capitalized
+    navigationItem.rightBarButtonItem?.title = "Sorted by \(scoreBy.title)"
     refresher.trigger()
   }
 }

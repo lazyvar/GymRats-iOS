@@ -62,7 +62,6 @@ class ChoiceCell: UITableViewCell {
   }
   
   private func makeOneLine() {
-    bigLabel.font = .h4
     heightConstraint.constant = 60
     smallLabel.isHidden = true
   }

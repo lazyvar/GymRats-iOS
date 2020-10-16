@@ -16,14 +16,14 @@ class TeamViewController: UIViewController {
   private let disposeBag = DisposeBag()
   private let team: Team
   private let challenge: Challenge
-  private let hideStats: Bool
+  private let joiningChallenge: Bool
 
   private var stats: Stats?
   
-  init(_ team: Team, _ challenge: Challenge, hideStats: Bool = false) {
+  init(_ team: Team, _ challenge: Challenge, joiningChallenge: Bool = false) {
     self.team = team
     self.challenge = challenge
-    self.hideStats = hideStats
+    self.joiningChallenge = joiningChallenge
     
     super.init(nibName: Self.xibName, bundle: nil)
   }
@@ -72,8 +72,8 @@ class TeamViewController: UIViewController {
       })
       .disposed(by: disposeBag)
     
-    if !hideStats {
-      gymRatsAPI.teamStats(team)
+    if !joiningChallenge {
+      Observable.merge(.just(()), reload).flatMap { _ in gymRatsAPI.teamStats(self.team) }
         .subscribe(onNext:{ [weak self] result in
           self?.stats = result.object
           self?.tableView.reloadData()
@@ -118,8 +118,11 @@ class TeamViewController: UIViewController {
           
           if UserDefaults.standard.bool(forKey: "account-is-onboarding") {
             GymRats.completeOnboarding()
-          } else {
+          } else if self.joiningChallenge {
             self.dismissSelf()
+          } else {
+            self.reload.trigger()
+            self.setRightButtomMoreMenu()
           }
         case .failure(let error):
           Alert.presentAlert(error: error)
@@ -155,11 +158,12 @@ class TeamViewController: UIViewController {
     gymRatsAPI.leaveTeam(team)
       .subscribe(onNext: { [weak self] result in
         guard let self = self else { return }
-        
+
         self.hideLoadingBar()
-        
+
         switch result {
         case .success:
+          NotificationCenter.default.post(name: .joinedTeam, object: nil)
           self.setRightButtomJoinButton()
           self.reload.trigger()
         case .failure(let error):
@@ -172,7 +176,7 @@ class TeamViewController: UIViewController {
 
 extension TeamViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    guard let stats = stats, !hideStats else { return nil }
+    guard let stats = stats, !joiningChallenge else { return nil }
 
     let container = UIView().apply {
       $0.backgroundColor = .clear
@@ -215,6 +219,6 @@ extension TeamViewController: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    return hideStats ? 0 : 50
+    return joiningChallenge ? 0 : 50
   }
 }

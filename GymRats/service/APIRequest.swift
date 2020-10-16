@@ -130,7 +130,8 @@ enum APIRequest {
         "start_date": challenge.startDate.toISO(),
         "end_date": challenge.endDate.toISO(),
         "name": challenge.name,
-        "score_by": challenge.scoreBy.rawValue
+        "score_by": challenge.scoreBy.rawValue,
+        "teams_enabled": challenge.teamsEnabled
       ]
       
       if let photoUrl = challenge.banner {

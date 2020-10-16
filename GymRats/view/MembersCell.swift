@@ -9,11 +9,15 @@
 import UIKit
 
 class MembersCell: UITableViewCell {
-  private var avatars: [Avatar] = []
   private var press: ((Avatar) -> Void)?
   private var challenge: Challenge!
   private var onAdd: (() -> Void)?
   private var showInviteAtEnd: Bool = false
+  private var avatars: [Avatar] = [] {
+    didSet {
+      collectionView.reloadData()
+    }
+  }
   
   @IBOutlet private weak var collectionView: UICollectionView! {
     didSet {

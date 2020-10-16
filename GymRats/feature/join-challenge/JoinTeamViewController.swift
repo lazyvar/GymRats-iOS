@@ -43,7 +43,7 @@ class JoinTeamViewController: UIViewController {
       case .createTeam: return ChoiceCell.configure(tableView: tableView, indexPath: indexPath, title: "Create team")
       case .notRightNow: return ChoiceCell.configure(tableView: tableView, indexPath: indexPath, title: "Not right now")
       case .team(let team): return RankingCell.configure(tableView: tableView, indexPath: indexPath, team: team) {
-        self.push(TeamViewController(team, self.challenge, hideStats: true))
+        self.push(TeamViewController(team, self.challenge, joiningChallenge: true))
       }
     }
   })

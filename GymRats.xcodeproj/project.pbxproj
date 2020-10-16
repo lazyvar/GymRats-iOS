@@ -298,6 +298,8 @@
 		01F7D7672422899000B2D5D8 /* NoWorkoutsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01F7D7652422899000B2D5D8 /* NoWorkoutsCell.xib */; };
 		01FF413424205FDA007D316A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FF413224205FDA007D316A /* ProfileViewController.swift */; };
 		01FF413524205FDA007D316A /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01FF413324205FDA007D316A /* ProfileViewController.xib */; };
+		01FFFFB0253A31950067C2DB /* BooleanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FFFFAE253A31950067C2DB /* BooleanCell.swift */; };
+		01FFFFB1253A31950067C2DB /* BooleanCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01FFFFAF253A31950067C2DB /* BooleanCell.xib */; };
 		7405FE93222C249B0054F029 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7405FE92222C249B0054F029 /* WebViewController.swift */; };
 		7411805F220C58C300EB9D11 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7411805C220C55B600EB9D11 /* Lato-Black.ttf */; };
 		74118060220C58C300EB9D11 /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7411805E220C55B600EB9D11 /* Lato-BlackItalic.ttf */; };
@@ -657,6 +659,8 @@
 		01F7D7652422899000B2D5D8 /* NoWorkoutsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoWorkoutsCell.xib; sourceTree = "<group>"; };
 		01FF413224205FDA007D316A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		01FF413324205FDA007D316A /* ProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
+		01FFFFAE253A31950067C2DB /* BooleanCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooleanCell.swift; sourceTree = "<group>"; };
+		01FFFFAF253A31950067C2DB /* BooleanCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BooleanCell.xib; sourceTree = "<group>"; };
 		0BDF2A3E7AA6DB6E35BFDD57 /* Pods-GymRats.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymRats.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GymRats/Pods-GymRats.debug.xcconfig"; sourceTree = "<group>"; };
 		1D049B34A7CBE955CE338AA6 /* Pods-GymRatsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymRatsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GymRatsTests/Pods-GymRatsTests.release.xcconfig"; sourceTree = "<group>"; };
 		3C954DF62426A5FB619CD871 /* Pods-GymRats.preproduction.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymRats.preproduction.xcconfig"; path = "Pods/Target Support Files/Pods-GymRats/Pods-GymRats.preproduction.xcconfig"; sourceTree = "<group>"; };
@@ -1056,6 +1060,8 @@
 				014CA88D24DF9DEF00056DB1 /* CompletedChallengeBannerDescriptonCell.xib */,
 				01C6B700252EA8CE0042F828 /* ButtonChoiceCell.swift */,
 				01C6B701252EA8CE0042F828 /* ButtonChoiceCell.xib */,
+				01FFFFAE253A31950067C2DB /* BooleanCell.swift */,
+				01FFFFAF253A31950067C2DB /* BooleanCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1619,6 +1625,7 @@
 				01E700E22460B30B0059017A /* ImportWorkoutViewController.xib in Resources */,
 				01D5D371243BDA7D0044E459 /* ErrorLabelCell.xib in Resources */,
 				015C0725243FD35B003E75E9 /* MapViewController.xib in Resources */,
+				01FFFFB1253A31950067C2DB /* BooleanCell.xib in Resources */,
 				0107AE372325E3D300944D11 /* WorkoutListCell.xib in Resources */,
 				0176B66F243B99E50022B65F /* WelcomeViewController.xib in Resources */,
 				014CA88724DF767F00056DB1 /* LargeTitlesAreDumbCell.xib in Resources */,
@@ -2006,6 +2013,7 @@
 				0176B671243B99F30022B65F /* WelcomeViewModel.swift in Sources */,
 				74BE97BE220C9F2800D550CA /* ImageRow.swift in Sources */,
 				748DFB8C220FD882007220C7 /* GService.swift in Sources */,
+				01FFFFB0253A31950067C2DB /* BooleanCell.swift in Sources */,
 				01AC5F6123CA414800FFAE4D /* ReadOnlyTextField.swift in Sources */,
 				01E700F22460D57C0059017A /* HKWorkoutActivityType+Extension.swift in Sources */,
 				01C25C23243F700A0021D617 /* CommentCell.swift in Sources */,
