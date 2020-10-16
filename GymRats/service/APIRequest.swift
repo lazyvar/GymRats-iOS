@@ -37,6 +37,7 @@ enum APIRequest {
   case registerDevice(deviceToken: String)
   case getChallenge(id: Int)
   case getWorkout(id: Int)
+  case updateTeam(id: Int, name: String?, photoUrl: String?)
   case teamRankings(Team)
   case fetchTeams(Challenge)
   case groupStats(Challenge)
@@ -167,6 +168,18 @@ enum APIRequest {
       return (.get, "challenges/\(challenge.id)/members", nil)
     case .getCurrentAccount:
       return (.get, "account", nil)
+    case .updateTeam(let id, let name, let photoUrl):
+      var params: Parameters = [:]
+      
+      if let pic = photoUrl {
+        params["photo_url"] = pic
+      }
+      
+      if let name = name {
+        params["name"] = name
+      }
+      
+      return (.put, "teams/\(id)", params)
     case .postWorkout(let workout, let photo, let challenges):
       var params: Parameters = [
         "title": workout.title,

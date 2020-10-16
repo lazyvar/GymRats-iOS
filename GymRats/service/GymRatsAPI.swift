@@ -141,6 +141,21 @@ class GymRatsAPI {
     return requestObject(.getWorkout(id: id))
   }
 
+  func updateTeam(_ team: UpdateTeam) -> Observable<NetworkResult<Team>> {
+    return Observable<Either<UIImage, String>?>.just(team.photo)
+      .flatMap { image -> Observable<String?> in
+        guard let image = image else { return .just(nil) }
+      
+        switch image {
+        case .left(let left): return ImageService.uploadImageToFirebase(image: left).map { url -> String? in url }
+        case .right(let right): return .just(right)
+        }
+      }
+      .flatMap { url in
+        return self.requestObject(.updateTeam(id: team.id, name: team.name, photoUrl: url))
+      }
+  }
+
   func deleteComment(id: Int) -> Observable<NetworkResult<EmptyJSON>> {
     return requestObject(.deleteComment(id: id))
   }

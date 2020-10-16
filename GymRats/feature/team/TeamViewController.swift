@@ -14,9 +14,9 @@ typealias TeamSection = SectionModel<Void, Ranking>
 
 class TeamViewController: UIViewController {
   private let disposeBag = DisposeBag()
-  private let team: Team
   private let challenge: Challenge
   private let joiningChallenge: Bool
+  private var team: Team
 
   private var stats: Stats?
   
@@ -52,10 +52,10 @@ class TeamViewController: UIViewController {
     super.viewDidLoad()
     
     navigationItem.largeTitleDisplayMode = .always
-    title = team.name
+    navigationItem.title = team.name
     view.backgroundColor = .background
-    setupBackButton()
     navigationItem.largeTitleDisplayMode = .always
+    setupBackButton()
 
     sections()
       .bind(to: tableView.rx.items(dataSource: dataSource))
@@ -134,9 +134,11 @@ class TeamViewController: UIViewController {
   @objc private func more() {
     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
     let editAction = UIAlertAction(title: "Edit", style: .default) { _ in
-      let editViewController = EditChallengeViewController(challenge: self.challenge)
+      let editViewController = EditTeamViewController(self.team).apply {
+        $0.delegate = self
+      }
       
-      self.present(editViewController.inNav(), animated: true, completion: nil)
+      self.presentForClose(editViewController)
     }
 
     let deleteAction = UIAlertAction(title: "Leave", style: .destructive) { _ in
@@ -171,6 +173,13 @@ class TeamViewController: UIViewController {
         }
       })
       .disposed(by: disposeBag)
+  }
+}
+
+extension TeamViewController: EditTeamViewControllerDelegate {
+  func teamEdited(_ team: Team) {
+    self.team = team
+    self.navigationItem.title = team.name
   }
 }
 
