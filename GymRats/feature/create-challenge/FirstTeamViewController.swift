@@ -139,8 +139,7 @@ class FirstTeamViewController: GRFormViewController {
       label.text = """
       Give the first team a name and an optional team photo. Group members will be able to create their own teams or join existing ones.
       """
-      label.frame = CGRect(x: 20, y: 0, width: self.view.frame.width - 40, height: 20)
-      label.sizeToFit()
+      label.frame = CGRect(x: 20, y: 0, width: self.view.frame.width - 40, height: 50)
       
       container.addSubview(label)
       

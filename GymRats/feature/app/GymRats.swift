@@ -103,7 +103,30 @@ enum GymRats {
   static func startOnboarding(_ account: Account) {
     GymRats.login(account)
     UserDefaults.standard.set(true, forKey: "account-is-onboarding")
-    GymRats.replaceRoot(with: TodaysGoalViewController().inNav())
+    
+    if let code = UserDefaults.standard.string(forKey: "join-code") {
+      gymRatsAPI.getChallenge(code: code)
+        .subscribe(onNext: { result in
+          if let challenges = result.object, let challenge = challenges.first(where: { $0.code == code }) {
+            let preview = ChallengePreviewViewController(challenge: challenge)
+            let nav = preview.inNav()
+            
+            preview.navigationItem.leftBarButtonItem = UIBarButtonItem(
+              image: .close,
+              style: .plain,
+              target: preview,
+              action: #selector(ChallengePreviewViewController.completeOnboarding)
+            )
+
+            GymRats.replaceRoot(with: nav)
+          } else {
+            GymRats.replaceRoot(with: TodaysGoalViewController().inNav())
+          }
+        })
+        .disposed(by: disposeBag)
+    } else {
+      GymRats.replaceRoot(with: TodaysGoalViewController().inNav())
+    }
   }
 
   /// Shows the notification settings screen configured for onboarding

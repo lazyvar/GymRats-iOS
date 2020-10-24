@@ -204,4 +204,8 @@ class ChallengePreviewViewController: UIViewController {
       })
       .disposed(by: disposeBag)
   }
+  
+  @objc func completeOnboarding() {
+    GymRats.completeOnboarding()
+  }
 }
