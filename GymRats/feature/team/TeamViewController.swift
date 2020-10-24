@@ -54,7 +54,6 @@ class TeamViewController: UIViewController {
     navigationItem.largeTitleDisplayMode = .always
     navigationItem.title = team.name
     view.backgroundColor = .background
-    navigationItem.largeTitleDisplayMode = .always
     setupBackButton()
 
     sections()

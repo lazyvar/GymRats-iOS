@@ -92,13 +92,6 @@ class ChallengeBannerCell: UITableViewCell {
       }
       
       $0.selectionStyle = .none
-
-      $0.currentAccountAvatar.load(GymRats.currentAccount)
-      $0.leaderAvatar.load(challengeInfo.leader)
-
-      $0.currentAccountLabel.text = "\(challengeInfo.currentAccountScore)\nMe"
-      $0.leaderLabel.text = "\(challengeInfo.leaderScore)\nLeader"
-
       $0.calendarLabel.text = {
         let daysLeft = challenge.daysLeft.split(separator: " ")
         let first = daysLeft[0]
@@ -106,6 +99,20 @@ class ChallengeBannerCell: UITableViewCell {
         
         return [String(first), rest].joined(separator: "\n")
       }()
+
+      if challenge.teamsEnabled {
+        $0.currentAccountAvatar.load(challengeInfo.currentTeam ?? GymRats.currentAccount)
+        $0.leaderAvatar.load(challengeInfo.teamLeader ?? challengeInfo.leader)
+
+        $0.currentAccountLabel.text = "\(challengeInfo.currentTeamScore ?? challengeInfo.currentAccountScore)\nMy team"
+        $0.leaderLabel.text = "\(challengeInfo.teamLeaderScore ?? challengeInfo.leaderScore)\nLeader"
+      } else {
+        $0.currentAccountAvatar.load(GymRats.currentAccount)
+        $0.leaderAvatar.load(challengeInfo.leader)
+
+        $0.currentAccountLabel.text = "\(challengeInfo.currentAccountScore)\nMe"
+        $0.leaderLabel.text = "\(challengeInfo.leaderScore)\nLeader"
+      }
     }
   }
 }
