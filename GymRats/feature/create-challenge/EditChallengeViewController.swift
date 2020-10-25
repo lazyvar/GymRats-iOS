@@ -47,6 +47,7 @@ class EditChallengeViewController: GRFormViewController {
         <<< startDateRow
         <<< endDateRow
         <<< scoreRow
+        <<< teamsEnabledRow
   }
     
   @objc private func nextTapped() {
@@ -57,6 +58,7 @@ class EditChallengeViewController: GRFormViewController {
     guard let scoreBy = ScoreBy(intValue: score) else { return }
     guard let start = values["start_date"] as? Date else { return }
     guard let end = values["end_date"] as? Date else { return }
+    guard let teamsEnabled = values["teams_enabled"] as? Bool else { return }
 
     let difference = start.getInterval(toDate: end, component: .day)
 
@@ -72,7 +74,8 @@ class EditChallengeViewController: GRFormViewController {
       startDate: start.dateAtStartOf(.day),
       endDate: end.dateAtStartOf(.day),
       scoreBy: scoreBy,
-      banner: nil
+      banner: nil,
+      teamsEnabled: teamsEnabled
     )
 
     showLoadingBar()
@@ -120,6 +123,14 @@ class EditChallengeViewController: GRFormViewController {
       textRow.tag = "description"
       textRow.icon = .clipboard
       textRow.value = self.challenge.description
+    }
+  }()
+
+  private lazy var teamsEnabledRow: BooleanRow = {
+    return BooleanRow() { row in
+      row.titleThing = "Teams enabled"
+      row.tag = "teams_enabled"
+      row.value = self.challenge.teamsEnabled
     }
   }()
 

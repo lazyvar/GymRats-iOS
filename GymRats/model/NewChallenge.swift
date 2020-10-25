@@ -17,6 +17,13 @@ struct NewChallenge {
   var endDate: Date
   var scoreBy: ScoreBy
   var banner: Either<UIImage, String>?
+  var teamsEnabled: Bool
+  var firstTeam: NewTeam?
+}
+
+struct NewTeam {
+  var name: String
+  var photo: Either<UIImage, String>?
 }
 
 extension NewChallenge {

@@ -12,6 +12,10 @@ struct ChallengeInfo: Decodable, Equatable {
   let memberCount: Int
   let workoutCount: Int
   let leader: Account
+  let teamLeader: Team?
+  let teamLeaderScore: String?
+  let currentTeamScore: String?
+  let currentTeam: Team?
   let leaderScore: String
   let currentAccountScore: String
 }

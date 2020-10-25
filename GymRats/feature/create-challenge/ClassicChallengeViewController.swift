@@ -44,7 +44,8 @@ class ClassicChallengeViewController: GRFormViewController {
       startDate: start,
       endDate: (start + 29.days).dateAtStartOf(.day),
       scoreBy: .workouts,
-      banner: nil
+      banner: nil,
+      teamsEnabled: false
     )
     
     push(ChallengeBannerViewController(newChallenge), animated: true)

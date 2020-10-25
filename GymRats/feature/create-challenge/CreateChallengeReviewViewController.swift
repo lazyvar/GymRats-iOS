@@ -130,6 +130,14 @@ class CreateChallengeReviewViewController: UIViewController {
     showLoadingBar()
     
     gymRatsAPI.createChallenge(newChallenge)
+      .do(onNext: { result in
+        guard let challenge = result.object else { return }
+        guard let team = self.newChallenge.firstTeam else { return }
+        
+        gymRatsAPI
+          .createTeam(challenge: challenge, name: team.name, photo: team.photo)
+          .ignore(disposedBy: self.disposeBag)
+      })
       .subscribe(onNext: { [weak self] result in
         self?.hideLoadingBar()
         

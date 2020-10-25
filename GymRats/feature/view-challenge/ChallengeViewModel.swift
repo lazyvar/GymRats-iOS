@@ -48,8 +48,9 @@ final class ChallengeViewModel: ViewModel {
     let workoutCreated = NotificationCenter.default.rx.notification(.workoutCreated).map { _ in () }.share()
     let workoutDeleted = NotificationCenter.default.rx.notification(.workoutDeleted).map { _ in () }.share()
     let appEnteredForeground = NotificationCenter.default.rx.notification(.appEnteredForeground).map { _ in () }.share()
-    
-    let cleanRefresh = Observable.merge(input.refresh, workoutCreated, workoutDeleted, input.viewDidLoad, appEnteredForeground)
+    let joinedTeam = NotificationCenter.default.rx.notification(.joinedTeam).map { _ in () }.share()
+
+    let cleanRefresh = Observable.merge(input.refresh, workoutCreated, workoutDeleted, input.viewDidLoad, appEnteredForeground, joinedTeam)
       .share()
     
     let cleanRefreshWorkouts = cleanRefresh
@@ -115,7 +116,7 @@ final class ChallengeViewModel: ViewModel {
     let ghostSections = input.viewDidLoad
       .map { _ -> [ChallengeSection] in
         return [
-          .init(model: .init(date: nil, skeleton: false), items: [.title(self.challenge), .banner(self.challenge, ChallengeInfo(memberCount: 0, workoutCount: 0, leader: .dummy, leaderScore: "", currentAccountScore: ""))]),
+          .init(model: .init(date: nil, skeleton: false), items: [.title(self.challenge), .banner(self.challenge, ChallengeInfo(memberCount: 0, workoutCount: 0, leader: .dummy, teamLeader: nil, teamLeaderScore: "", currentTeamScore: "", currentTeam: nil, leaderScore: "", currentAccountScore: ""))]),
           .init(model: .init(date: Date(), skeleton: true), items: [.💀(-1000), .💀(-1001), .💀(-1002), .💀(-1003), .💀(-1004), .💀(-1005), .💀(-1006), .💀(-1007), .💀(-1008)])
         ]
       }

@@ -30,6 +30,18 @@ class RankingCell: UITableViewCell {
   @IBOutlet private weak var avatar: UserImageView!
   @IBOutlet private weak var placeLabel: UILabel!
 
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    
+    selectionStyle = .none
+  }
+  
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    
+    placeLabel.isHidden = false
+  }
+  
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesBegan(touches, with: event)
 
@@ -61,6 +73,43 @@ class RankingCell: UITableViewCell {
         $0.append(.init(string: "\(place)", attributes: [NSAttributedString.Key.font: UIFont.twenty]))
         $0.append(.init(string: ordinal, attributes: [NSAttributedString.Key.font: UIFont.body]))
       }
+    }
+  }
+
+  static func configure(tableView: UITableView, indexPath: IndexPath, teamRanking: TeamRanking, place: Int, scoreBy: ScoreBy, press: @escaping () -> Void) -> UITableViewCell {
+    return tableView.dequeueReusableCell(withType: RankingCell.self, for: indexPath).apply { cell in
+      let ordinal = formatter.string(from: NSNumber(value: place))?.trimmingCharacters(in: .decimalDigits) ?? ""
+      
+      cell.press = press
+      cell.avatar.load(teamRanking.team)
+      cell.nameLabel.text = teamRanking.team.name
+      cell.scoreLabel.text = "\(teamRanking.score) \(scoreBy.description)"
+      cell.placeLabel.attributedText = NSMutableAttributedString().apply {
+        $0.append(.init(string: "\(place)", attributes: [NSAttributedString.Key.font: UIFont.twenty]))
+        $0.append(.init(string: ordinal, attributes: [NSAttributedString.Key.font: UIFont.body]))
+      }
+    }
+  }
+
+  static func configure(tableView: UITableView, indexPath: IndexPath, team: Team, press: @escaping () -> Void) -> UITableViewCell {
+    return tableView.dequeueReusableCell(withType: RankingCell.self, for: indexPath).apply { cell in
+      let memberCount = (team.members ?? []).count
+      
+      cell.press = press
+      cell.avatar.load(team)
+      cell.nameLabel.text = team.name
+      cell.scoreLabel.text = "\(memberCount) member\(memberCount == 1 ? "" : "s")"
+      cell.placeLabel.isHidden = true
+    }
+  }
+
+  static func configure(tableView: UITableView, indexPath: IndexPath, ranking: Ranking, scoreBy: ScoreBy, press: @escaping () -> Void) -> UITableViewCell {
+    return tableView.dequeueReusableCell(withType: RankingCell.self, for: indexPath).apply { cell in
+      cell.press = press
+      cell.avatar.load(ranking.account)
+      cell.nameLabel.text = ranking.account.fullName
+      cell.scoreLabel.text = "\(ranking.score) \(scoreBy.description)"
+      cell.placeLabel.isHidden = true
     }
   }
 }

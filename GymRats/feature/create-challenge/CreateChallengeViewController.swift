@@ -84,7 +84,8 @@ class CreateChallengeViewController: GRFormViewController {
       startDate: start,
       endDate: end,
       scoreBy: scoreBy,
-      banner: nil
+      banner: nil,
+      teamsEnabled: false
     )
     
     push(ChallengeBannerViewController(newChallenge), animated: true)

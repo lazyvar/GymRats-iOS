@@ -30,23 +30,61 @@ final class ChallengeDetailsViewModel: ViewModel {
   }
   
   init() {
-    input.viewDidLoad
+    Observable.merge(input.viewDidLoad, NotificationCenter.default.rx.notification(.joinedTeam).map { _ in () })
       .do(onNext: { _ in
         self.output.loading.on(.next(true))
       })
       .flatMap {
-        Observable.combineLatest(gymRatsAPI.getGroupStats(for: self.challenge), gymRatsAPI.getRankings(challenge: self.challenge, scoreBy: self.challenge.scoreBy))
+        Observable.combineLatest(gymRatsAPI.getGroupStats(for: self.challenge), gymRatsAPI.getRankings(challenge: self.challenge, scoreBy: self.challenge.scoreBy), gymRatsAPI.getTeamRankings(challenge: self.challenge, scoreBy: self.challenge.scoreBy))
       }
       .do(onNext: { _ in
         self.output.loading.on(.next(false))
       })
-      .compactMap { groupStatsResult, rankingsResult -> (GroupStats, [Ranking])? in
-        guard let groupStats = groupStatsResult.object, let rankings = rankingsResult.object else { return nil }
-      
-        return (groupStats, rankings)
+      .compactMap { groupStatsResult, rankingsResult, teamRankingsResult -> (GroupStats, [Ranking], [TeamRanking])? in
+        guard let groupStats = groupStatsResult.object else { return nil }
+        guard let rankings = rankingsResult.object else { return nil }
+        guard let teamRankings = teamRankingsResult.object else { return nil }
+
+        return (groupStats, rankings, teamRankings)
       }
-      .map { groupStats, rankings -> [ChallengeDetailsSection] in
-        let members = rankings.shuffled().map { $0.account }
+      .map { groupStats, rankings, teamRankings -> [ChallengeDetailsSection] in
+        let teams = teamRankings.map { $0.team }
+        let myTeamRank = teamRankings.firstIndex(where: { ($0.team.members ?? []).map { $0.id }.contains(GymRats.currentAccount.id) })
+        let firstTeamRank = teamRankings.first
+        let secondTeamRank = teamRankings[safe: 1]
+        
+        let orderedTeams: [(TeamRanking, place: Int)] = {
+          if let myTeamRank = myTeamRank {
+            let firstTeamRank = firstTeamRank!
+            let myTeamRanking = teamRankings[myTeamRank]
+            
+            if firstTeamRank.team.id != myTeamRanking.team.id {
+              return [(firstTeamRank, place: 1), (myTeamRanking, place: myTeamRank + 1)]
+            } else {
+              if let secondTeamRank = secondTeamRank {
+                return [(firstTeamRank, place: 1), (secondTeamRank, place: 2)]
+              } else {
+                return [(firstTeamRank, place: 1)]
+              }
+            }
+          } else if let firstTeamRank = firstTeamRank {
+            return [(firstTeamRank, place: 1)]
+          } else {
+            return []
+          }
+        }()
+
+        let teamsHeader: String = {
+          if teams.count == 0 {
+            return "No teams"
+          } else if teams.count == 1 {
+            return "1 Team"
+          } else {
+            return "\(teams.count) Teams"
+          }
+        }()
+
+        let members = rankings.map { $0.account }
         let myRank = rankings.firstIndex(where: { $0.account.id == GymRats.currentAccount.id })
         let firstRank = rankings.first
         let secondRank = rankings[safe: 1]
@@ -63,7 +101,7 @@ final class ChallengeDetailsViewModel: ViewModel {
               if let secondRank = secondRank {
                 return [(firstRank, place: 1), (secondRank, place: 2)]
               } else {
-                return [(rankings.first!, place: 1)]
+                return [(firstRank, place: 1)]
               }
             }
           } else if let firstRank = firstRank {
@@ -72,7 +110,7 @@ final class ChallengeDetailsViewModel: ViewModel {
             return []
           }
         }()
-        
+
         let membersHeader: String = {
           if members.count == 1 {
             return "Solo challenge"
@@ -100,14 +138,25 @@ final class ChallengeDetailsViewModel: ViewModel {
           }
         }()
         
+        let individualRankingsHeader = self.challenge.teamsEnabled ? "Individual rankings" : "Rankings"
+        let teamSections = self.challenge.teamsEnabled ? [
+          ChallengeDetailsSection(model: teamsHeader, items: [.teams(teams)]),
+          ChallengeDetailsSection(model: "Team rankings", items: orderedTeams.map { teamRanking in
+            ChallengeDetailsRow.teamRanking(teamRanking.0, place: teamRanking.place, self.challenge.scoreBy)
+          } + [.fullTeamLeaderboard])
+        ] : []
+        
         return [
-          ChallengeDetailsSection(model: nil, items: [.title(self.challenge), .header(self.challenge)]),
-          ChallengeDetailsSection(model: membersHeader, items: [.members(members)]),
-          ChallengeDetailsSection(model: "Rankings", items: ordered.map { ranking in
+          [ChallengeDetailsSection(model: nil, items: [.title(self.challenge), .header(self.challenge)])],
+          teamSections,
+          [ChallengeDetailsSection(model: membersHeader, items: [.members(members)])],
+          [ChallengeDetailsSection(model: individualRankingsHeader, items: ordered.map { ranking in
             ChallengeDetailsRow.ranking(ranking.0, place: ranking.place, self.challenge.scoreBy)
-          } + [.fullLeaderboard]),
-          ChallengeDetailsSection(model: "Group stats", items: groupStats)
+          } + [.fullIndividualLeaderboard])],
+          [ChallengeDetailsSection(model: "Group stats", items: groupStats)]
         ]
+        .flatMap { $0 }
+        .compactMap { $0 }
       }
       .bind(to: output.sections)
       .disposed(by: disposeBag)

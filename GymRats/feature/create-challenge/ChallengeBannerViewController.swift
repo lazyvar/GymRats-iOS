@@ -107,7 +107,7 @@ class ChallengeBannerViewController: BindableViewController {
   private func skip() {
     newChallenge.banner = nil
     
-    push(CreateChallengeReviewViewController(newChallenge: newChallenge), animated: true)
+    push(EnableTeamsViewController(newChallenge), animated: true)
   }
 }
 
@@ -118,7 +118,7 @@ extension ChallengeBannerViewController: UnsplashPhotoPickerDelegate {
     newChallenge.banner = .right(photo.urls[.regular]?.absoluteString ?? "")
 
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-      self.push(CreateChallengeReviewViewController(newChallenge: self.newChallenge), animated: true)
+      self.push(EnableTeamsViewController(self.newChallenge), animated: true)
     }
   }
   
@@ -135,7 +135,7 @@ extension ChallengeBannerViewController: UIImagePickerControllerDelegate, UINavi
     
     newChallenge.banner = .left(image)
     
-    push(CreateChallengeReviewViewController(newChallenge: newChallenge), animated: true)
+    push(EnableTeamsViewController(newChallenge), animated: true)
   }
 }
 
@@ -155,8 +155,6 @@ extension ChallengeBannerViewController: UITableViewDelegate {
       $0.numberOfLines = 0
       $0.translatesAutoresizingMaskIntoConstraints = false
     }
-    
-    container.addSubview(text)
     
     container.addSubview(text)
     

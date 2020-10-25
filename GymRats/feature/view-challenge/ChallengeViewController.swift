@@ -226,14 +226,14 @@ class ChallengeViewController: BindableViewController {
     let inviteAction = UIAlertAction(title: "Invite", style: .default) { _ in
       ChallengeFlow.invite(to: self.challenge)
     }
-    
+
     let share = UIAlertAction(title: "Share", style: .default) { _ in
       self.presentForClose(ShareChallengeViewController(challenge: self.challenge))
     }
-    
+
     let editAction = UIAlertAction(title: "Edit", style: .default) { _ in
       let editViewController = EditChallengeViewController(challenge: self.challenge)
-      
+
       self.present(editViewController.inNav(), animated: true, completion: nil)
     }
 
@@ -244,7 +244,7 @@ class ChallengeViewController: BindableViewController {
     let deleteAction = UIAlertAction(title: "Leave", style: .destructive) { _ in
       self.leaveChallenge()
     }
-    
+
     let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     
     alertViewController.addAction(inviteAction)

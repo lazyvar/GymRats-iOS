@@ -74,7 +74,7 @@ enum ChallengeFlow {
             target: preview,
             action: #selector(UIViewController.dismissSelf)
           )
-          
+
           topmost.present(nav, animated: true, completion: nil)
         case .failure(let error):
           topmost.presentAlert(with: error)

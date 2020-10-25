@@ -52,10 +52,41 @@ class GymRatsAPI {
     return requestArray(.getCompletedChallenges)
   }
 
+  func createTeam(challenge: Challenge, name: String, photo: Either<UIImage, String>?) -> Observable<NetworkResult<Team>> {
+    return Observable<Either<UIImage, String>?>.just(photo)
+      .flatMap { image -> Observable<String?> in
+        guard let image = image else { return .just(nil) }
+      
+        switch image {
+        case .left(let left): return ImageService.uploadImageToFirebase(image: left).map { url -> String? in url }
+        case .right(let right): return .just(right)
+        }
+      }
+      .flatMap { url in
+        return self.requestObject(.createTeam(challenge: challenge, name: name, photoUrl: url))
+      }
+  }
+  
+  func joinTeam(team: Team) -> Observable<NetworkResult<Team>> {
+    return requestObject(.joinTeam(team: team))
+  }
+  
   func joinChallenge(code: String) -> Observable<NetworkResult<Challenge>> {
     return requestObject(.joinChallenge(code: code))
   }
   
+  func fetchTeams(challenge: Challenge) -> Observable<NetworkResult<[Team]>> {
+    return requestArray(.fetchTeams(challenge))
+  }
+  
+  func teamStats(_ team: Team) -> Observable<NetworkResult<Stats>> {
+    return requestObject(.teamStats(team))
+  }
+
+  func teamRankings(_ team: Team) -> Observable<NetworkResult<[Ranking]>> {
+    return requestArray(.teamRankings(team))
+  }
+
   func createChallenge(_ newChallenge: NewChallenge) -> Observable<NetworkResult<Challenge>> {
     return Observable<Either<UIImage, String>?>.just(newChallenge.banner)
       .flatMap { image -> Observable<String?> in
@@ -67,7 +98,7 @@ class GymRatsAPI {
         }
       }
       .flatMap { url in
-        return self.requestObject(.createChallenge(startDate: newChallenge.startDate, endDate: newChallenge.endDate, name: newChallenge.name, bannerURL: url, description: newChallenge.description, scoreBy: newChallenge.scoreBy))
+        return self.requestObject(.createChallenge(startDate: newChallenge.startDate, endDate: newChallenge.endDate, name: newChallenge.name, bannerURL: url, description: newChallenge.description, scoreBy: newChallenge.scoreBy, teamsEnabled: newChallenge.teamsEnabled))
       }
   }
 
@@ -101,9 +132,28 @@ class GymRatsAPI {
   func getRankings(challenge: Challenge, scoreBy: ScoreBy) -> Observable<NetworkResult<[Ranking]>> {
     return requestArray(.getRankings(challenge, scoreBy: scoreBy))
   }
+  
+  func getTeamRankings(challenge: Challenge, scoreBy: ScoreBy) -> Observable<NetworkResult<[TeamRanking]>> {
+    return requestArray(.getTeamRankings(challenge, scoreBy: scoreBy))
+  }
 
   func getWorkout(id: Int) -> Observable<NetworkResult<Workout>> {
     return requestObject(.getWorkout(id: id))
+  }
+
+  func updateTeam(_ team: UpdateTeam) -> Observable<NetworkResult<Team>> {
+    return Observable<Either<UIImage, String>?>.just(team.photo)
+      .flatMap { image -> Observable<String?> in
+        guard let image = image else { return .just(nil) }
+      
+        switch image {
+        case .left(let left): return ImageService.uploadImageToFirebase(image: left).map { url -> String? in url }
+        case .right(let right): return .just(right)
+        }
+      }
+      .flatMap { url in
+        return self.requestObject(.updateTeam(id: team.id, name: team.name, photoUrl: url))
+      }
   }
 
   func deleteComment(id: Int) -> Observable<NetworkResult<EmptyJSON>> {
@@ -161,7 +211,11 @@ class GymRatsAPI {
   func getMembership(for challenge: Challenge) -> Observable<NetworkResult<Membership>> {
     return requestObject(.getMembership(challenge: challenge))
   }
-  
+
+  func teamMembership(_ team: Team) -> Observable<NetworkResult<EmptyJSON>> {
+    return requestObject(.teamMembership(team))
+  }
+
   func updateUser(email: String?, name: String?, password: String?, profilePicture: UIImage?, currentPassword: String?) -> Observable<NetworkResult<Account>> {
     return Observable<UIImage?>.just(profilePicture)
       .flatMap { image -> Observable<String?> in
@@ -212,6 +266,10 @@ class GymRatsAPI {
   
   func leaveChallenge(_ challenge: Challenge) -> Observable<NetworkResult<Challenge>> {
     return requestObject(.leaveChallenge(challenge))
+  }
+  
+  func leaveTeam(_ team: Team) -> Observable<NetworkResult<Team>> {
+    return requestObject(.leaveTeam(team))
   }
   
   func challengeInfo(_ challenge: Challenge) -> Observable<NetworkResult<ChallengeInfo>> {

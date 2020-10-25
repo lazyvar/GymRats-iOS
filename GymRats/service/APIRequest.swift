@@ -17,9 +17,11 @@ enum APIRequest {
   case resetPassword(email: String)
   case getAllChallenges
   case getCurrentAccount
+  case createTeam(challenge: Challenge, name: String, photoUrl: String?)
   case getCompletedChallenges
   case joinChallenge(code: String)
-  case createChallenge(startDate: Date, endDate: Date, name: String, bannerURL: String?, description: String?, scoreBy: ScoreBy)
+  case joinTeam(team: Team)
+  case createChallenge(startDate: Date, endDate: Date, name: String, bannerURL: String?, description: String?, scoreBy: ScoreBy, teamsEnabled: Bool)
   case getWorkoutsForChallenge(challenge: Challenge, page: Int)
   case getAllWorkouts(challenge: Challenge)
   case getAllWorkoutsForUser(user: Account)
@@ -35,11 +37,17 @@ enum APIRequest {
   case registerDevice(deviceToken: String)
   case getChallenge(id: Int)
   case getWorkout(id: Int)
+  case updateTeam(id: Int, name: String?, photoUrl: String?)
+  case teamRankings(Team)
+  case fetchTeams(Challenge)
   case groupStats(Challenge)
   case getRankings(Challenge, scoreBy: ScoreBy)
+  case getTeamRankings(Challenge, scoreBy: ScoreBy)
   case deleteDevice
+  case teamStats(Team)
   case seeChatNotifications(Challenge)
   case leaveChallenge(_ challenge: Challenge)
+  case leaveTeam(_ team: Team)
   case editChallenge(_ challenge: UpdateChallenge)
   case deleteComment(id: Int)
   case changeBanner(challenge: Challenge, imageURL: String?)
@@ -47,6 +55,7 @@ enum APIRequest {
   case challengeInfo(challenge: Challenge)
   case getChallengeForCode(code: String)
   case getMembership(challenge: Challenge)
+  case teamMembership(Team)
   case updateNotificationSettings(workouts: Bool?, comments: Bool?, chatMessages: Bool?)
   
   var requestProperties: (method: HTTPMethod, path: String, params: Parameters?) {
@@ -73,19 +82,39 @@ enum APIRequest {
       return (.get, "challenges?code=\(code)", nil)
     case .getRankings(let challenge, let scoreBy):
       return (.get, "challenges/\(challenge.id)/rankings?score_by=\(scoreBy.title)", nil)
+    case .getTeamRankings(let challenge, let scoreBy):
+      return (.get, "challenges/\(challenge.id)/team_rankings?score_by=\(scoreBy.title)", nil)
     case .getCompletedChallenges:
       return (.get, "challenges?filter=complete", nil)
     case .joinChallenge(let code):
       return (.post, "memberships", ["code": code])
     case .deleteComment(id: let id):
       return (.delete, "comments/\(id)", nil)
-    case .createChallenge(let startDate, let endDate, let name, let bannerURL, let description, let scoreBy):
+    case .joinTeam(let team):
+      return (.post, "team_memberships", ["team_id": team.id])
+    case .teamRankings(let team):
+      return (.get, "teams/\(team.id)/rankings", nil)
+    case .teamStats(let team):
+      return (.get, "teams/\(team.id)/stats", nil)
+    case .createTeam(let challenge, let name, let photoUrl):
+      var params: Parameters = [
+        "challenge_id": challenge.id,
+        "name": name
+      ]
+      
+      if let photoUrl = photoUrl {
+        params["photo_url"] = photoUrl
+      }
+      
+      return (.post, "teams", params)
+    case .createChallenge(let startDate, let endDate, let name, let bannerURL, let description, let scoreBy, let teamsEnabled):
       var params: Parameters =  [
         "start_date": startDate.toISO(),
         "end_date": endDate.toISO(),
         "name": name,
         "time_zone": TimeZone.current.abbreviation()!,
-        "score_by": scoreBy.rawValue
+        "score_by": scoreBy.rawValue,
+        "teams_enabled": teamsEnabled
       ]
       
       if let bannerURL = bannerURL {
@@ -102,7 +131,8 @@ enum APIRequest {
         "start_date": challenge.startDate.toISO(),
         "end_date": challenge.endDate.toISO(),
         "name": challenge.name,
-        "score_by": challenge.scoreBy.rawValue
+        "score_by": challenge.scoreBy.rawValue,
+        "teams_enabled": challenge.teamsEnabled
       ]
       
       if let photoUrl = challenge.banner {
@@ -128,6 +158,8 @@ enum APIRequest {
       return (.get, "accounts/\(account.id)/workouts", nil)
     case .getChallenge(id: let id):
       return (.get, "challenges/\(id)", nil)
+    case .leaveTeam(let team):
+      return (.delete, "team_memberships/\(team.id)", nil)
     case .getWorkout(id: let id):
       return (.get, "workouts/\(id)", nil)
     case .getWorkouts(forUser: let user, inChallenge: let challenge):
@@ -136,6 +168,18 @@ enum APIRequest {
       return (.get, "challenges/\(challenge.id)/members", nil)
     case .getCurrentAccount:
       return (.get, "account", nil)
+    case .updateTeam(let id, let name, let photoUrl):
+      var params: Parameters = [:]
+      
+      if let pic = photoUrl {
+        params["photo_url"] = pic
+      }
+      
+      if let name = name {
+        params["name"] = name
+      }
+      
+      return (.put, "teams/\(id)", params)
     case .postWorkout(let workout, let photo, let challenges):
       var params: Parameters = [
         "title": workout.title,
@@ -192,7 +236,7 @@ enum APIRequest {
 
       return (.post, "workouts", params)
     case .updateWorkout(let workout, let photo):
-      var params: Parameters = [
+      let params: Parameters = [
         "title": workout.title,
         "description": workout.description,
         "photo_url": photo,
@@ -246,6 +290,8 @@ enum APIRequest {
       return (.post, "challenges/\(challenge.id)/chat_notifications/seen", nil)
     case .groupStats(let challenge):
       return (.get, "challenges/\(challenge.id)/group_stats?utc_offset=\(Int(TimeZone.current.secondsFromGMT() / 3600))", nil)
+    case .fetchTeams(let challenge):
+      return (.get, "challenges/\(challenge.id)/teams", nil)
     case .registerDevice(deviceToken: let deviceToken):
       let params: Parameters = [
         "token": deviceToken
@@ -258,6 +304,8 @@ enum APIRequest {
       return (.delete, "memberships/\(challenge.id)", nil)
     case .getMembership(let challenge):
       return (.get, "memberships/\(challenge.id)", nil)
+    case .teamMembership(let team):
+      return (.get, "team_memberships/\(team.id)", nil)
     case .challengeInfo(challenge: let challenge):
       return (.get, "challenges/\(challenge.id)/info", nil)
     case .updateNotificationSettings(let workouts, let comments, let chatMessages):

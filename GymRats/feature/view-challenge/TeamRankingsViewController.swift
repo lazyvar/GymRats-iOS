@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxDataSources
 
-class RankingsViewController: BindableViewController {
+class TeamRankingsViewController: BindableViewController {
   private let disposeBag = DisposeBag()
   private let challenge: Challenge
   private lazy var scoreBy = challenge.scoreBy
@@ -37,9 +37,9 @@ class RankingsViewController: BindableViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
-  private lazy var dataSource = RxTableViewSectionedReloadDataSource<SectionModel<Void, Ranking>>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
-    return RankingCell.configure(tableView: tableView, indexPath: indexPath, ranking: row, place: indexPath.row + 1, scoreBy: self.scoreBy) {
-      self.push(ProfileViewController(account: row.account, challenge: self.challenge))
+  private lazy var dataSource = RxTableViewSectionedReloadDataSource<SectionModel<Void, TeamRanking>>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
+    return RankingCell.configure(tableView: tableView, indexPath: indexPath, teamRanking: row, place: indexPath.row + 1, scoreBy: self.scoreBy) {
+      self.push(TeamViewController(row.team, self.challenge))
     }
   })
  
@@ -53,7 +53,7 @@ class RankingsViewController: BindableViewController {
     tableView.contentInsetAdjustmentBehavior = .never
     navigationItem.largeTitleDisplayMode = .always
     navigationItem.rightBarButtonItem = scoreByButton
-    navigationItem.title = "Rankings"
+    navigationItem.title = "Team rankings"
     navigationItem.rightBarButtonItem?.tintColor = .brand
     navigationItem.rightBarButtonItem?.setTitleTextAttributes([
       NSAttributedString.Key.font: UIFont.bodyBold
@@ -67,7 +67,7 @@ class RankingsViewController: BindableViewController {
 
     refresher
       .flatMap {
-        return gymRatsAPI.getRankings(challenge: self.challenge, scoreBy: self.scoreBy)
+        return gymRatsAPI.getTeamRankings(challenge: self.challenge, scoreBy: self.scoreBy)
       }
       .do(onNext: { [weak self] _ in
         self?.navigationItem.rightBarButtonItem?.isEnabled = true
@@ -79,10 +79,10 @@ class RankingsViewController: BindableViewController {
       }
       .bind(to: tableView.rx.items(dataSource: dataSource))
       .disposed(by: disposeBag)
-
+    
     refresh()
   }
-
+  
   @objc private func showAlert() {
     let alertViewController = UIAlertController()
     
@@ -137,7 +137,7 @@ class RankingsViewController: BindableViewController {
   }
 }
 
-extension RankingsViewController: UITableViewDelegate {
+extension TeamRankingsViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     return .leastNormalMagnitude
   }

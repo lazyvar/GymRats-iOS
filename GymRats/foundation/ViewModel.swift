@@ -43,6 +43,26 @@ extension Observable {
   }
 }
 
+protocol ResultParasite {
+  associatedtype Success
+  associatedtype Failure
+  
+  var object: Success? { get }
+  var error: Failure? { get }
+}
+
+extension Result: ResultParasite { }
+
+extension Observable where Element: ResultParasite {
+  func object() -> Observable<Element.Success> {
+    return compactMap { $0.object }
+  }
+
+  func error() -> Observable<Element.Failure> {
+    return compactMap { $0.error }
+  }
+}
+
 enum InputSubject {
   static func string(defaultValue: String = "") -> BehaviorSubject<String> {
     return .init(value: defaultValue)
@@ -126,6 +146,7 @@ extension Notification {
   static let appEnteredBackground = Notification(name: .appEnteredBackground)
   static let sawChat = Notification(name: .sawChat)
   static let joinedChallenge = Notification(name: .joinedChallenge)
+  static let joinedTeam = Notification(name: .joinedTeam)
 }
 
 extension NSNotification.Name {
@@ -141,6 +162,7 @@ extension NSNotification.Name {
   static let appEnteredBackground = NSNotification.Name.init("AppEnteredBackground")
   static let sawChat = NSNotification.Name.init("SawChat")
   static let joinedChallenge = NSNotification.Name.init("JoinedChallenge")
+  static let joinedTeam = NSNotification.Name.init("JoinedTeam")
 }
 
 extension UIView: Placeholder { }

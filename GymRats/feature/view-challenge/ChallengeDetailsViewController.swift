@@ -50,12 +50,28 @@ class ChallengeDetailsViewController: BindableViewController {
     case .header(let challenge):
       return ChallengeDetailsHeader.configure(tableView: tableView, indexPath: indexPath, challenge: challenge)
     case .members(let members):
-      return MembersCell.configure(tableView: tableView, indexPath: indexPath, challenge: self.challenge, accounts: members) { account in
-        self.push(ProfileViewController(account: account, challenge: self.challenge))
-      }
-    case .fullLeaderboard:
+      return MembersCell.configure(
+        tableView: tableView,
+        indexPath: indexPath,
+        challenge: self.challenge,
+        avatars: members,
+        showInviteAtEnd: self.challenge.startDate.serverDateIsToday,
+        onAdd: {
+          ChallengeFlow.invite(to: self.challenge)
+        },
+        press: { avatar in
+          guard let account = avatar as? Account else { return }
+          
+          self.push(ProfileViewController(account: account, challenge: self.challenge))
+        }
+      )
+    case .fullIndividualLeaderboard:
       return FullLeaderboardCell.configure(tableView: tableView, indexPath: indexPath) {
         self.push(RankingsViewController(challenge: self.challenge))
+      }
+    case .fullTeamLeaderboard:
+      return FullLeaderboardCell.configure(tableView: tableView, indexPath: indexPath) {
+        self.push(TeamRankingsViewController(challenge: self.challenge))
       }
     case .ranking(let ranking, let place, let scoreBy):
       return RankingCell.configure(tableView: tableView, indexPath: indexPath, ranking: ranking, place: place, scoreBy: scoreBy) {
@@ -63,6 +79,26 @@ class ChallengeDetailsViewController: BindableViewController {
       }
     case .groupStats(let avatar, let image, let top, let bottom, let right):
       return GroupStatCell.configure(tableView: tableView, indexPath: indexPath, avatar: avatar, image: image, topLabel: top, bottomLabel: bottom, rightLabel: right)
+    case .teams(let teams):
+      return MembersCell.configure(
+        tableView: tableView,
+        indexPath: indexPath,
+        challenge: self.challenge,
+        avatars: teams,
+        showInviteAtEnd: true,
+        onAdd: {
+          self.presentForClose(CreateTeamViewController(self.challenge))
+        },
+        press: { avatar in
+          guard let team = avatar as? Team else { return }
+          
+          self.push(TeamViewController(team, self.challenge))
+        }
+      )
+    case .teamRanking(let teamRanking, let place, let scoreBy):
+      return RankingCell.configure(tableView: tableView, indexPath: indexPath, teamRanking: teamRanking, place: place, scoreBy: scoreBy) {
+        self.push(TeamViewController(teamRanking.team, self.challenge))
+      }
     }
   })
 
