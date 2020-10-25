@@ -22,7 +22,7 @@ class FullLeaderboardCell: UITableViewCell {
   
   @IBOutlet private weak var leaderboardLabel: UILabel! {
     didSet {
-      leaderboardLabel.font = .h4Bold
+      leaderboardLabel.font = .h4
       leaderboardLabel.textColor = .primaryText
     }
   }
