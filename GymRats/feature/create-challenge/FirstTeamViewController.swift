@@ -16,6 +16,7 @@ class FirstTeamViewController: GRFormViewController {
   private let disposeBag = DisposeBag()
   private var newChallenge: NewChallenge
   private var team: Team?
+  private let continueButton = PrimaryButton()
 
   init(_ newChallenge: NewChallenge) {
     self.newChallenge = newChallenge
@@ -41,7 +42,13 @@ class FirstTeamViewController: GRFormViewController {
       +++ section
         <<< nameRow
         <<< photoRow
-        <<< skipRow
+  }
+
+  @objc private func continueTapped() {
+    guard self.form.validate().isEmpty else { return }
+    
+    self.newChallenge.firstTeam = NewTeam(name: self.nameRow.value!, photo: self.photoRow.value)
+    self.push(CreateChallengeReviewViewController(newChallenge: self.newChallenge))
   }
   
   private func presentPhotoAlert() {
@@ -95,6 +102,7 @@ class FirstTeamViewController: GRFormViewController {
   private lazy var section: Section = {
     return Section() { section in
       section.header = self.sectionHeader
+      section.footer = self.sectionFooter
     }
   }()
   
@@ -118,39 +126,52 @@ class FirstTeamViewController: GRFormViewController {
     }
   }()
 
-  private lazy var skipRow: ButtonChoiceRow = {
-    return ButtonChoiceRow() { row in
-      row.title = "Continue"
-      row.onSelect = {
-        guard self.form.validate().isEmpty else { return }
-        
-        self.newChallenge.firstTeam = NewTeam(name: self.nameRow.value!, photo: self.photoRow.value)
-        self.push(CreateChallengeReviewViewController(newChallenge: self.newChallenge))
-      }
-    }
-  }()
-
   private lazy var sectionHeader: HeaderFooterView<UIView> = {
     let headerBuilder = { () -> UIView in
       let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 40))
 
       let label = UILabel()
       label.font = .body
+      label.numberOfLines = 0
       label.text = """
-      Give the first team a name and an optional team photo. Group members will be able to create their own teams or join existing ones.
+      Give the first team a name and an optional team photo. Group members will be able to create their own teams or join an existing one.
       """
-      label.frame = CGRect(x: 20, y: 0, width: self.view.frame.width - 40, height: 50)
+      label.frame = CGRect(x: 20, y: 0, width: self.view.frame.width - 40, height: 75)
+      label.sizeToFit()
       
       container.addSubview(label)
       
       return container
     }
-      
+
     var header = HeaderFooterView<UIView>(.callback(headerBuilder))
-    header.height = { 40 }
+    header.height = { 75 }
     
     return header
   }()
+
+  private lazy var sectionFooter: HeaderFooterView<UIView> = {
+    let footerBuilder = { () -> UIView in
+      let container = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 96))
+      
+      container.addSubview(self.continueButton)
+
+      self.continueButton.addTarget(self, action: #selector(self.continueTapped), for: .touchUpInside)
+      self.continueButton.constrainWidth(self.tableView.frame.width - 40)
+      self.continueButton.translatesAutoresizingMaskIntoConstraints = false
+      self.continueButton.setTitle("Continue", for: .normal)
+      self.continueButton.horizontallyCenter(in: container)
+      self.continueButton.topAnchor.constraint(equalTo: container.topAnchor, constant: 10).isActive = true
+
+      return container
+    }
+    
+    var footer = HeaderFooterView<UIView>(.callback(footerBuilder))
+    footer.height = { 50 }
+    
+    return footer
+  }()
+
   
   private func handleRowValidationChange(cell: UITableViewCell, row: TextFieldRow) {
     guard let textRowNumber = row.indexPath?.row, var section = row.section else { return }

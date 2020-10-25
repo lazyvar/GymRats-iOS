@@ -98,7 +98,7 @@ class JoinTeamViewController: UIViewController {
   private func sections() -> Observable<[JoinTeamSection]> {
     let choices = Observable<JoinTeamSection>.just(
       JoinTeamSection(model: """
-      This challenge is a team challenge. Join an existing team or create a new one and forge your own path.
+      This challenge is a team challenge. Join an existing team or create a new one.
       """, items: [.createTeam, .notRightNow])
     )
     

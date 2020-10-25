@@ -227,6 +227,6 @@ extension TeamViewController: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    return joiningChallenge ? 0 : 50
+    return joiningChallenge ? .leastNormalMagnitude : 50
   }
 }

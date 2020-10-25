@@ -55,7 +55,7 @@ class EnableTeamsViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    title = "Enable teams?"
+    navigationItem.title = "Enable teams?"
     view.backgroundColor = .background
     setupBackButton()
 

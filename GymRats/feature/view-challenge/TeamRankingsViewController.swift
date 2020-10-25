@@ -22,6 +22,7 @@ class TeamRankingsViewController: BindableViewController {
       tableView.showsVerticalScrollIndicator = false
       tableView.separatorStyle = .none
       tableView.allowsSelection = false
+      tableView.delegate = self
       tableView.registerCellNibForClass(RankingCell.self)
     }
   }
@@ -133,5 +134,15 @@ class TeamRankingsViewController: BindableViewController {
     navigationItem.rightBarButtonItem?.isEnabled = false
     navigationItem.rightBarButtonItem?.title = "Sorted by \(scoreBy.title)"
     refresher.trigger()
+  }
+}
+
+extension TeamRankingsViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return .leastNormalMagnitude
+  }
+  
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    return nil
   }
 }
