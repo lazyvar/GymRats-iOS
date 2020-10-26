@@ -130,24 +130,27 @@ class CreateChallengeReviewViewController: UIViewController {
     showLoadingBar()
     
     gymRatsAPI.createChallenge(newChallenge)
-      .do(onNext: { result in
-        guard let challenge = result.object else { return }
-        guard let team = self.newChallenge.firstTeam else { return }
-        
-        gymRatsAPI
-          .createTeam(challenge: challenge, name: team.name, photo: team.photo)
-          .ignore(disposedBy: self.disposeBag)
-      })
       .subscribe(onNext: { [weak self] result in
-        self?.hideLoadingBar()
-        
+        guard let self = self else { return }
+                
         switch result {
         case .success(let challenge):
           Track.event(.challengeCreated)
 
-          self?.navigationController?.setViewControllers([InviteToChallengeViewController(challenge: challenge)], animated: true)
+          if let team = self.newChallenge.firstTeam {
+            gymRatsAPI
+              .createTeam(challenge: challenge, name: team.name, photo: team.photo)
+              .subscribe(onNext: { result in
+                self.hideLoadingBar()
+                self.navigationController?.setViewControllers([InviteToChallengeViewController(challenge: challenge)], animated: true)
+              })
+              .disposed(by: self.disposeBag)
+          } else {
+            self.hideLoadingBar()
+            self.navigationController?.setViewControllers([InviteToChallengeViewController(challenge: challenge)], animated: true)
+          }
         case .failure(let error):
-          self?.presentAlert(with: error)
+          self.presentAlert(with: error)
         }
       })
       .disposed(by: disposeBag)
