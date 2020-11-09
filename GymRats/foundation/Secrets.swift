@@ -13,4 +13,8 @@ enum Secrets {
     static let accessKey = "<UNSPLASH_ACCESS_KEY>"
     static let secretKey = "<UNSPLASH_SECRET_KEY>"
   }
+  
+  enum Segment {
+    static let writeKey = "<SEGMENT_WRITE_KEY>"
+  }
 }
