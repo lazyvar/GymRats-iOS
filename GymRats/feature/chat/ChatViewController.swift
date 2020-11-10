@@ -125,6 +125,12 @@ class ChatViewController: MessagesViewController {
       .ignore(disposedBy: disposeBag)
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.chat)
+  }
+  
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 

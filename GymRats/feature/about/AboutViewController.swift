@@ -77,6 +77,12 @@ class AboutViewController: UIViewController {
 
     setupMenuButton()
   }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.about)
+  }
 }
 
 extension AboutViewController: TTTAttributedLabelDelegate {

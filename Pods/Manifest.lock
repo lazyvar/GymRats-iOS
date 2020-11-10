@@ -1,21 +1,18 @@
 PODS:
   - Alamofire (4.9.1)
+  - Amplitude (7.0.1)
+  - Analytics (4.1.1)
   - Branch (0.35.0)
   - Cache (5.3.0)
   - Differentiator (4.0.1)
   - EasyNotificationBadge (1.2.0)
   - ESTabBarController-swift (2.8.0)
   - Eureka (5.3.1)
-  - Firebase/Analytics (6.33.0):
-    - Firebase/Core
   - Firebase/Core (6.33.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 6.8.3)
   - Firebase/CoreOnly (6.33.0):
     - FirebaseCore (= 6.10.3)
-  - Firebase/Crashlytics (6.33.0):
-    - Firebase/CoreOnly
-    - FirebaseCrashlytics (~> 4.6.1)
   - Firebase/Storage (6.33.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 3.9.0)
@@ -37,12 +34,6 @@ PODS:
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/Logger (~> 6.7)
     - nanopb (~> 1.30906.0)
-  - FirebaseCrashlytics (4.6.1):
-    - FirebaseCore (~> 6.10)
-    - FirebaseInstallations (~> 1.6)
-    - GoogleDataTransport (~> 7.2)
-    - nanopb (~> 1.30906.0)
-    - PromisesObjC (~> 1.2)
   - FirebaseInstallations (1.7.0):
     - FirebaseCore (~> 6.10)
     - GoogleUtilities/Environment (~> 6.7)
@@ -144,6 +135,18 @@ PODS:
   - SDWebImage (5.9.2):
     - SDWebImage/Core (= 5.9.2)
   - SDWebImage/Core (5.9.2)
+  - Segment-Amplitude (3.2.3):
+    - Amplitude (~> 7.0.1)
+    - Analytics
+  - Segment-Firebase (2.7.0):
+    - Analytics
+    - Firebase/Core (~> 6.2)
+    - FirebaseAnalytics (~> 6.1)
+    - Segment-Firebase/Core (= 2.7.0)
+  - Segment-Firebase/Core (2.7.0):
+    - Analytics
+    - Firebase/Core (~> 6.2)
+    - FirebaseAnalytics (~> 6.1)
   - SkeletonView (1.10.0)
   - Starscream (3.1.1)
   - SwiftConfettiView (0.1.0)
@@ -156,14 +159,13 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
+  - Analytics
   - Branch
   - Cache
   - EasyNotificationBadge
   - ESTabBarController-swift
   - Eureka
-  - Firebase/Analytics
   - Firebase/Core
-  - Firebase/Crashlytics
   - Firebase/Storage
   - GooglePlaces
   - GradientLoadingBar (~> 1.0)
@@ -184,6 +186,8 @@ DEPENDENCIES:
   - RxKeyboard
   - RxOptional
   - RxSwift (~> 5)
+  - Segment-Amplitude
+  - Segment-Firebase
   - SkeletonView
   - SwiftConfettiView
   - SwiftDate (~> 5.0)
@@ -195,6 +199,8 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
+    - Amplitude
+    - Analytics
     - Branch
     - Cache
     - Differentiator
@@ -205,7 +211,6 @@ SPEC REPOS:
     - FirebaseAnalytics
     - FirebaseCore
     - FirebaseCoreDiagnostics
-    - FirebaseCrashlytics
     - FirebaseInstallations
     - FirebaseStorage
     - GoogleAppMeasurement
@@ -238,6 +243,8 @@ SPEC REPOS:
     - RxRelay
     - RxSwift
     - SDWebImage
+    - Segment-Amplitude
+    - Segment-Firebase
     - SkeletonView
     - Starscream
     - SwiftConfettiView
@@ -249,6 +256,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  Amplitude: 31a9038dca905b78294418ed277da9c2e07658ad
+  Analytics: 952eac761f84ba0a508a4cf691598654073f9e3d
   Branch: 9a37f707974a128c37829033c49018b79c7e7a2d
   Cache: 48762993ec44e1d93483c4d4a13edd18452326f4
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
@@ -259,7 +268,6 @@ SPEC CHECKSUMS:
   FirebaseAnalytics: 5dd088bd2e67bb9d13dbf792d1164ceaf3052193
   FirebaseCore: d889d9e12535b7f36ac8bfbf1713a0836a3012cd
   FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
-  FirebaseCrashlytics: 5777d3462fb8c3ab9e80a2473bd7d667a2e8411c
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
   FirebaseStorage: 33b92875a9b556824886cc7a65120c7d2cb3a8d8
   GoogleAppMeasurement: 966e88df9d19c15715137bb2ddaf52373f111436
@@ -292,6 +300,8 @@ SPEC CHECKSUMS:
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   SDWebImage: 0b42b8719ab0c5257177d5894306e8a336b21cbb
+  Segment-Amplitude: 79e13fa0aa58341212041f524f5f9679e40c23de
+  Segment-Firebase: 41677a446f58989db69912059949107afb0c3f38
   SkeletonView: 14fbe9702c7fb5c5f011b44ac3ae99fc73155726
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SwiftConfettiView: 1bdbc2e6913b6b1c76d8070802b212508ad5c352
@@ -301,6 +311,6 @@ SPEC CHECKSUMS:
   UIScrollView-InfiniteScroll: 3ef456bcbe759c19f510a383cff96e6647c98c98
   UnsplashPhotoPicker: 86520e34cfded8fb4a41910bf87afe571906b4e3
 
-PODFILE CHECKSUM: 172eb7014ef9aa9cde919a1dfabfb52ccec426be
+PODFILE CHECKSUM: 6411c4ec9b41d8c74dcca2602c302677501aeb1c
 
 COCOAPODS: 1.9.1

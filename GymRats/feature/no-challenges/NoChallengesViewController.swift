@@ -34,6 +34,12 @@ class NoChallengesViewController: BindableViewController {
     setupMenuButton()
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.noChallenges)
+  }
+  
   @IBAction private func tappedJoinButton(_ sender: Any) {
     viewModel.input.tappedJoinChallenge.trigger()
   }

@@ -49,6 +49,12 @@ class EditTeamViewController: GRFormViewController {
         <<< photoRow
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.editTeam)
+  }
+  
   @objc private func create() {
     guard self.form.validate().isEmpty else { return }
 

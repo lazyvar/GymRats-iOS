@@ -58,6 +58,12 @@ class CreateChallengeViewController: GRFormViewController {
       })
       .disposed(by: disposeBag)
   }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.createCustomChallenge)
+  }
     
   @objc private func nextTapped() {
     let values = form.values()

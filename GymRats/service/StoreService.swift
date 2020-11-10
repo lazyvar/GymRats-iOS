@@ -10,25 +10,22 @@ import Foundation
 import StoreKit
 
 class StoreService {
+  private static let countKey = "processCompletedCount"
+  private static let lastAskJulianDayKey = "lastAskJulianDay"
+
   static func requestReview() {
-    var count = UserDefaults.standard.integer(forKey: UserDefaultsKeys.processCompletedCountKey)
-    count += 1
-    UserDefaults.standard.set(count, forKey: UserDefaultsKeys.processCompletedCountKey)
-    
-    let lastAskJulianDay = UserDefaults.standard.integer(forKey: UserDefaultsKeys.lastAskJulianDay)
+    let lastAskJulianDay = UserDefaults.standard.integer(forKey: lastAskJulianDayKey)
     let currentJulianDay = Int(Date().julianDay)
+    let count = UserDefaults.standard.integer(forKey: countKey) + 1
     
-    if count >= 8, currentJulianDay > (lastAskJulianDay + 60) {
-      DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-        SKStoreReviewController.requestReview()
-        Track.event(.storeReviewRequested)
-        UserDefaults.standard.set(currentJulianDay, forKey: UserDefaultsKeys.lastAskJulianDay)
-      }
+    defer { UserDefaults.standard.set(count, forKey: countKey) }
+
+    guard count >= 6, currentJulianDay > (lastAskJulianDay + 90) else { return }
+    
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+      SKStoreReviewController.requestReview()
+      UserDefaults.standard.set(currentJulianDay, forKey: lastAskJulianDayKey)
+      Track.event(.storeReviewRequested)
     }
   }
-}
-
-class UserDefaultsKeys {
-  class var processCompletedCountKey: String { return "processCompletedCount" }
-  class var lastAskJulianDay: String { return "lastAskJulianDay" }
 }

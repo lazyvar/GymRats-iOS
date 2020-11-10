@@ -216,6 +216,12 @@ class ChallengeViewController: BindableViewController {
     viewModel.input.viewDidLoad.trigger()
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.challenge)
+  }
+  
   @objc private func refresh() {
     viewModel.input.refresh.trigger()
     (tabBarController as? ChallengeTabBarController)?.updateChatIcon()

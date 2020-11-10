@@ -44,6 +44,12 @@ class FirstTeamViewController: GRFormViewController {
         <<< photoRow
   }
 
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.createFirstTeam)
+  }
+
   @objc private func continueTapped() {
     guard self.form.validate().isEmpty else { return }
     

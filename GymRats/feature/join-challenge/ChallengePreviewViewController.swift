@@ -170,6 +170,12 @@ class ChallengePreviewViewController: UIViewController {
     }
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.challengePreview)
+  }
+
   @IBAction private func accept(_ sender: Any) {
     showLoadingBar()
     

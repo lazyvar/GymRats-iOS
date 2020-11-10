@@ -110,5 +110,7 @@
 		<string>gym-rats.test-app.link</string>
 		<string>gym-rats.app.link</string>
 	</array>
+	<key>FirebaseAutomaticScreenReportingEnabled</key>
+	<false/>
 </dict>
 </plist>

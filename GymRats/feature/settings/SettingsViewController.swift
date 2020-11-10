@@ -48,6 +48,12 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     NotificationCenter.default.addObserver(self, selector: #selector(currentAccountUpdated), name: .currentAccountUpdated, object: nil)
   }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.settings)
+  }
     
   @objc private func currentAccountUpdated() {
     tableView.reloadData()

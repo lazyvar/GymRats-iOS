@@ -30,7 +30,6 @@
 		011E1C0124DB891C00A1F7CC /* GroupStatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011E1BFF24DB891C00A1F7CC /* GroupStatCell.swift */; };
 		011E1C0224DB891C00A1F7CC /* GroupStatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011E1C0024DB891C00A1F7CC /* GroupStatCell.xib */; };
 		011EEB8D241A8BB100CC9F9E /* ChallengeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011EEB8C241A8BB100CC9F9E /* ChallengeFlow.swift */; };
-		011EEB90241A8C4000CC9F9E /* TrackMessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011EEB8F241A8C4000CC9F9E /* TrackMessageDelegate.swift */; };
 		011FB62B22A33AAA004D5B8E /* UserProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB62922A33AAA004D5B8E /* UserProfileCell.swift */; };
 		011FB62C22A33AAA004D5B8E /* UserProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011FB62A22A33AAA004D5B8E /* UserProfileCell.xib */; };
 		011FB62F22A33C14004D5B8E /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 011FB62D22A33C14004D5B8E /* ItemCell.swift */; };
@@ -388,7 +387,6 @@
 		011E1BFF24DB891C00A1F7CC /* GroupStatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupStatCell.swift; sourceTree = "<group>"; };
 		011E1C0024DB891C00A1F7CC /* GroupStatCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupStatCell.xib; sourceTree = "<group>"; };
 		011EEB8C241A8BB100CC9F9E /* ChallengeFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeFlow.swift; sourceTree = "<group>"; };
-		011EEB8F241A8C4000CC9F9E /* TrackMessageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackMessageDelegate.swift; sourceTree = "<group>"; };
 		011FB62922A33AAA004D5B8E /* UserProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCell.swift; sourceTree = "<group>"; };
 		011FB62A22A33AAA004D5B8E /* UserProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserProfileCell.xib; sourceTree = "<group>"; };
 		011FB62D22A33C14004D5B8E /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
@@ -779,7 +777,6 @@
 		011EEB8E241A8C3200CC9F9E /* delegate */ = {
 			isa = PBXGroup;
 			children = (
-				011EEB8F241A8C4000CC9F9E /* TrackMessageDelegate.swift */,
 				0103A98E24204ED300B589DA /* CreateWorkoutDelegateObject.swift */,
 				015A1A5D2421A2B500D2EF5A /* NotificationHandler.swift */,
 			);
@@ -1494,7 +1491,6 @@
 				747D6F942208DB310062BB39 /* Resources */,
 				2B9BAF707FD52821A7508A59 /* [CP] Embed Pods Frameworks */,
 				8220B36893A91C6E2E27A56C /* [CP] Copy Pods Resources */,
-				749194F9221B62460051CFE0 /* Firebase Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -1723,25 +1719,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GymRats/Pods-GymRats-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		749194F9221B62460051CFE0 /* Firebase Crashlytics */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-			);
-			name = "Firebase Crashlytics";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "${PODS_ROOT}/FirebaseCrashlytics/run\n";
 		};
 		8220B36893A91C6E2E27A56C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1998,7 +1975,6 @@
 				011DAE98241ADC69009B3613 /* Navigation.swift in Sources */,
 				013CFD2124DCF3B30095D353 /* SettingsViewController.swift in Sources */,
 				747D6FE52208ED6F0062BB39 /* LoginViewController.swift in Sources */,
-				011EEB90241A8C4000CC9F9E /* TrackMessageDelegate.swift in Sources */,
 				01A6C4E124D4EA040007DFB6 /* CompletedChallengeViewModel.swift in Sources */,
 				014B6772241882C000F356EB /* ChallengeViewController.swift in Sources */,
 				01D70BCF2446558B00F6F33A /* PickDateCell.swift in Sources */,

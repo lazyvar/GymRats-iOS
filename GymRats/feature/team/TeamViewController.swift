@@ -81,6 +81,12 @@ class TeamViewController: UIViewController {
     }
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.team)
+  }
+  
   private let reload = PublishSubject<Void>()
   
   private func sections() -> Observable<[TeamSection]> {

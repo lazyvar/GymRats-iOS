@@ -130,6 +130,12 @@ class ShareChallengeViewController: UIViewController {
       })
       .disposed(by: disposeBag)
   }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.shareChallenge)
+  }
 
   private func fetchSelectedWorkouts() {
     KingfisherManager.shared.cache.clearMemoryCache()
@@ -217,7 +223,7 @@ class ShareChallengeViewController: UIViewController {
       guard error == nil else { return }
       guard let activity = activity else { return }
       
-      Track.event(.sharedChallenge, parameters: ["activity_type": activity.rawValue])
+      Track.event(.sharedChallenge, properties: ["activity_type": activity.rawValue])
     }
     
     present(activityViewController, animated: true)

@@ -63,6 +63,12 @@ class JoinChallengeViewController: UIViewController {
       .disposed(by: disposeBag)
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.joinChallenge)
+  }
+  
   @objc private func join() {
     showLoadingBar()
     

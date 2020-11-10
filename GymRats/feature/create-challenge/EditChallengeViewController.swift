@@ -50,6 +50,12 @@ class EditChallengeViewController: GRFormViewController {
         <<< teamsEnabledRow
   }
     
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.editChallenge)
+  }
+
   @objc private func nextTapped() {
     let values = form.values()
     

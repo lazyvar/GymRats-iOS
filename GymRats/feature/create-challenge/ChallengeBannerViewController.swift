@@ -46,6 +46,12 @@ class ChallengeBannerViewController: BindableViewController {
     
     title = "Banner image"
   }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.challengeBanner)
+  }
 
   override func bindViewModel() {
     Observable<[ChallengeBannerSection]>

@@ -112,6 +112,12 @@ class CompletedChallengeViewController: BindableViewController, UITableViewDeleg
     viewModel.input.viewDidLoad.trigger()
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.completedChallenge)
+  }
+  
   override func bindViewModel() {
     viewModel.output.sections
       .bind(to: tableView.rx.items(dataSource: dataSource))
