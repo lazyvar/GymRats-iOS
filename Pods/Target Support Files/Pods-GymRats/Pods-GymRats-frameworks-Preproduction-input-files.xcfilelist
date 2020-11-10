@@ -1,5 +1,7 @@
 ${PODS_ROOT}/Target Support Files/Pods-GymRats/Pods-GymRats-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/Amplitude/Amplitude.framework
+${BUILT_PRODUCTS_DIR}/Analytics/Segment.framework
 ${BUILT_PRODUCTS_DIR}/Branch/Branch.framework
 ${BUILT_PRODUCTS_DIR}/Cache/Cache.framework
 ${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework
@@ -31,6 +33,7 @@ ${BUILT_PRODUCTS_DIR}/RxOptional/RxOptional.framework
 ${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework
 ${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework
 ${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
+${BUILT_PRODUCTS_DIR}/Segment-Amplitude/Segment_Amplitude.framework
 ${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework
 ${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework
 ${BUILT_PRODUCTS_DIR}/SwiftConfettiView/SwiftConfettiView.framework

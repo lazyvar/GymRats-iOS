@@ -38,6 +38,12 @@ class ChooseChallengeModeViewController: BindableViewController {
     
     title = "Choose mode"
   }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.chooseChallengeMode)
+  }
 
   override func bindViewModel() {
     Observable<[ChallengeModeSection]>

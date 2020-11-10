@@ -126,6 +126,12 @@ class CreateChallengeReviewViewController: UIViewController {
     title = newChallenge.name
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.createChallengeReview)
+  }
+  
   @IBAction private func startTapped(_ sender: Any) {
     showLoadingBar()
     

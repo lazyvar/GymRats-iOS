@@ -32,6 +32,12 @@ class CreateAccountViewController: GRFormViewController {
         <<< confirmPasswordRow
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.signup)
+  }
+  
   @objc private func createAccountButtonTapped() {
     guard form.validate().count == 0 else { return }
 

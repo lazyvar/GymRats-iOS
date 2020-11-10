@@ -31,6 +31,12 @@ class LoginViewController: GRFormViewController {
         <<< emailRow
         <<< passwordRow
   }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.login)
+  }
     
   @objc private func login() {
     let formValues = form.values()

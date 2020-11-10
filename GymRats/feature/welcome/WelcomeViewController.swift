@@ -38,6 +38,12 @@ class WelcomeViewController: BindableViewController {
   
     navigationItem.largeTitleDisplayMode = .never
   }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.welcome)
+  }
 
   override func bindViewModel() {
     viewModel.output.navigation

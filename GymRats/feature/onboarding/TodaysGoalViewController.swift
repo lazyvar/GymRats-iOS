@@ -34,6 +34,12 @@ class TodaysGoalViewController: BindableViewController {
     
     title = "What's the goal today?"
   }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.todaysGoal)
+  }
 
   override func bindViewModel() {
     Observable<[GoalSection]>

@@ -82,6 +82,12 @@ class RankingsViewController: BindableViewController {
 
     refresh()
   }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.rankings)
+  }
 
   @objc private func showAlert() {
     let alertViewController = UIAlertController()

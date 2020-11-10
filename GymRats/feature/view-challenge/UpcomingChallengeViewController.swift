@@ -115,10 +115,15 @@ class UpcomingChallengeViewController: BindableViewController {
     )
 
     setupMenuButton()
-    
     Membership.State.fetch(for: challenge)
-    
+
     viewModel.input.viewDidLoad.trigger()
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.upcomingChallenge)
   }
   
   override func viewWillAppear(_ animated: Bool) {

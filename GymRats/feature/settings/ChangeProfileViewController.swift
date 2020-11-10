@@ -106,7 +106,7 @@ class ProfileChangeController: UIViewController, UITextFieldDelegate {
               GymRats.currentAccount = account
               Account.saveCurrent(account)
               NotificationCenter.default.post(name: .currentAccountUpdated, object: account)
-              Track.event(.profileEdited, parameters: ["change_type": self.change.rawValue])
+              Track.event(.profileEdited, properties: ["change_type": self.change.rawValue])
               self.navigationController?.popViewController(animated: true)
             case .failure(let error):
               self.presentAlert(with: error)

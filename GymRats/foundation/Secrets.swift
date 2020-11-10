@@ -13,4 +13,15 @@ enum Secrets {
     static let accessKey = "<UNSPLASH_ACCESS_KEY>"
     static let secretKey = "<UNSPLASH_SECRET_KEY>"
   }
+  
+  enum Segment {
+    static let writeKey: String = {
+      switch GymRats.environment {
+      case .production:
+        return "<SEGMENT_PRODUCTION_WRITE_KEY>"
+      default:
+        return "<SEGMENT_PRE_PRODUCTION_WRITE_KEY>"
+      }
+    }()
+  }
 }

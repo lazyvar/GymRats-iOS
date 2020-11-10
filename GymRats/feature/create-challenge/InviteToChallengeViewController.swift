@@ -55,6 +55,12 @@ class InviteToChallengeViewController: UIViewController {
     textView.text = "https://gym-rats.app.link/join?code=\(challenge.code)"
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.inviteToChallenge)
+  }
+  
   @IBAction private func shareCode(_ sender: Any) {
     ChallengeFlow.invite(to: challenge)
   }

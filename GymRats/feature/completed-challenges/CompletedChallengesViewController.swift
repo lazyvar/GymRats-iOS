@@ -38,6 +38,12 @@ class CompletedChallengesViewController: UITableViewController {
 
         fetchAllChallenges()
     }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.completedChallenges)
+  }
     
     @objc func fetchAllChallenges() {
       showLoadingBar()

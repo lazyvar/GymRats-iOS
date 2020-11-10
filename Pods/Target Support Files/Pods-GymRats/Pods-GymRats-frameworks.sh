@@ -198,6 +198,8 @@ fi
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Amplitude/Amplitude.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Analytics/Segment.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Branch/Branch.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Cache/Cache.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework"
@@ -229,6 +231,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Segment-Amplitude/Segment_Amplitude.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftConfettiView/SwiftConfettiView.framework"
@@ -241,6 +244,8 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Preproduction" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Amplitude/Amplitude.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Analytics/Segment.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Branch/Branch.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Cache/Cache.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework"
@@ -272,6 +277,7 @@ if [[ "$CONFIGURATION" == "Preproduction" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Segment-Amplitude/Segment_Amplitude.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftConfettiView/SwiftConfettiView.framework"
@@ -284,6 +290,8 @@ if [[ "$CONFIGURATION" == "Preproduction" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Amplitude/Amplitude.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Analytics/Segment.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Branch/Branch.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Cache/Cache.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework"
@@ -315,6 +323,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Segment-Amplitude/Segment_Amplitude.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftConfettiView/SwiftConfettiView.framework"

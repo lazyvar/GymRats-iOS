@@ -1,4 +1,5 @@
 source 'https://github.com/CocoaPods/Specs.git'
+
 platform :ios, '11.0'
 use_frameworks!
 
@@ -14,8 +15,9 @@ target 'GymRats' do
     pod 'GradientLoadingBar', '~> 1.0'
     pod 'Firebase/Core'
     pod 'Firebase/Storage'
-    pod 'Firebase/Crashlytics'
-    pod 'Firebase/Analytics'   
+    pod 'Analytics'
+    pod 'Segment-Amplitude'
+    pod 'Segment-Firebase'
     pod 'Cache'
     pod 'GooglePlaces'
     pod 'TTTAttributedLabel'
@@ -41,6 +43,16 @@ target 'GymRats' do
     pod 'SwiftConfettiView'
 
     target 'GymRatsTests' do
-        inherit! :search_paths
+      inherit! :search_paths
     end
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    if target.name == 'Segment-Amplitude'
+     target.build_configurations.each do |config|
+       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
+     end
+    end
+  end
 end

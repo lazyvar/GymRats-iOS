@@ -159,7 +159,7 @@ class ChangePasswordController: GRFormViewController {
               GymRats.currentAccount = account
               Account.saveCurrent(account)
               NotificationCenter.default.post(name: .currentAccountUpdated, object: account)
-              Track.event(.profileEdited, parameters: ["change_type": "password"])
+              Track.event(.profileEdited, properties: ["change_type": "password"])
               self.navigationController?.popViewController(animated: true)
             case .failure(let error):
               self.presentAlert(with: error)

@@ -92,6 +92,12 @@ class WorkoutListViewController: BindableViewController {
     viewModel.input.viewDidLoad.trigger()
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.workoutList)
+  }
+  
   override func bindViewModel() {
     viewModel.output.sections
       .bind(to: tableView.rx.items(dataSource: dataSource))

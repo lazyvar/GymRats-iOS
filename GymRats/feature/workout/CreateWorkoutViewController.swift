@@ -296,7 +296,18 @@ class CreateWorkoutViewController: GRFormViewController {
         }
         .bind(to: self.submitButton.rx.isEnabled).disposed(by: disposeBag)
     }
-    
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    switch changeType {
+    case .create:
+      Track.screen(.createWorkout)
+    case .update:
+      Track.screen(.editWorkout)
+    }
+  }
+  
     var locationManager: CLLocationManager?
     
     func pickPlace() {

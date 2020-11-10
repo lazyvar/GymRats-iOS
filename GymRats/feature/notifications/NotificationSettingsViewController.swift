@@ -97,6 +97,12 @@ class NotificationSettingsViewController: BindableViewController {
     viewModel.input.viewDidLoad.trigger()
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.notificationSettings)
+  }
+  
   override func bindViewModel() {
     viewModel.output.permissionDenied
       .bind(to: notificationsStack.rx.isHidden)

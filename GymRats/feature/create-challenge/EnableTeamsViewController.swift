@@ -77,6 +77,12 @@ class EnableTeamsViewController: UIViewController {
       .disposed(by: disposeBag)
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.enableTeams)
+  }
+  
   private func yes() {
     newChallenge.teamsEnabled = true
     push(FirstTeamViewController(newChallenge), animated: true)

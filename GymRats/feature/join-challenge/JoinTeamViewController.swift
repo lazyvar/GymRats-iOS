@@ -87,6 +87,12 @@ class JoinTeamViewController: UIViewController {
       .disposed(by: disposeBag)
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.joinTeam)
+  }
+  
   @objc private func closeItUp() {
     if UserDefaults.standard.bool(forKey: "account-is-onboarding") {
       GymRats.completeOnboarding()

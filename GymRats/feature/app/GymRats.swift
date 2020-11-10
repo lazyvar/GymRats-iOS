@@ -13,12 +13,16 @@ import GooglePlaces
 import Firebase
 import MapKit
 import Branch
+import Segment
+import Segment_Amplitude
+import Segment_Firebase
 
 /// God object. Handles AppDelegate functions among other things.
 enum GymRats {
   /// Global reference to the logged in user.
   static var currentAccount: Account!
-  
+  static var segment: Segment.Analytics!
+
   static private var window: UIWindow!
   static private var application: UIApplication!
   static private var branch: Branch!
@@ -46,12 +50,16 @@ enum GymRats {
     case .production:
       break
     }
+    
+    self.configureSegment()
 
+    self.segment = Analytics.shared()
     self.branch = Branch.getInstance()
   }
   
   /// Called at the very start of the application.
   static func start(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
+
     coldStartNotification = launchOptions?[.remoteNotification] as? [AnyHashable: Any]
     currentAccount = Account.loadCurrent()
     
@@ -68,8 +76,6 @@ enum GymRats {
     }()
 
     if currentAccount != nil {
-      Track.currentUser()
-      
       PushNotifications.center.getNotificationSettings { settings in
         switch settings.authorizationStatus {
         case .authorized: registerForNotifications()
@@ -80,14 +86,13 @@ enum GymRats {
     }
     
     window.makeKeyAndVisible()
-    
-    branch.initSession(launchOptions: launchOptions, andRegisterDeepLinkHandler: branchCallback)
-    
+
     #if DEBUG
     NetworkActivityLogger.shared.level = .debug
     NetworkActivityLogger.shared.startLogging()
     #endif
     
+    branch.initSession(launchOptions: launchOptions, andRegisterDeepLinkHandler: branchCallback)
     GMSPlacesClient.provideAPIKey("AIzaSyD1X4TH-TneFnDqjiJ2rb2FGgxK8JZyrIo")
     FirebaseApp.configure()
   }
@@ -96,7 +101,6 @@ enum GymRats {
   static func login(_ user: Account) {
     currentAccount = user
     Account.saveCurrent(user)
-    Track.currentUser()
   }
 
   /// Logs the account in an takes them to onboarding. Sets user default to true for `account-is-onboarding`.
@@ -244,6 +248,18 @@ enum GymRats {
 }
 
 private extension GymRats {
+  private static func configureSegment() {
+    let configuration = AnalyticsConfiguration(writeKey: Secrets.Segment.writeKey).apply {
+      $0.recordScreenViews = false
+      $0.trackApplicationLifecycleEvents = true
+      $0.enableAdvertisingTracking = false
+      $0.use(SEGAmplitudeIntegrationFactory())
+      $0.use(SEGFirebaseIntegrationFactory())
+    }
+
+    Segment.Analytics.setup(with: configuration)
+  }
+
   private static func branchCallback(params: [AnyHashable: Any]?, error: Error?) {
     guard let code = params?["code"] as? String else { return }
     

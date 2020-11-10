@@ -30,6 +30,12 @@ class ClassicChallengeViewController: GRFormViewController {
         <<< descriptionRow
         <<< startDateRow
   }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+  
+    Track.screen(.createClassicChallenge)
+  }
     
   @objc private func nextTapped() {
     let values = form.values()
