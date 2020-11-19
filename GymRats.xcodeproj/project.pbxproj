@@ -159,7 +159,12 @@
 		018510032447A3C700C4F1A6 /* ChangeBannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018510012447A3C700C4F1A6 /* ChangeBannerViewController.swift */; };
 		018510042447A3C700C4F1A6 /* ChangeBannerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 018510022447A3C700C4F1A6 /* ChangeBannerViewController.xib */; };
 		01863FB9241C66E2001B3CE2 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01863FB8241C66E2001B3CE2 /* Alert.swift */; };
+		018BB6872566AA7D008985FD /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018BB6862566AA7D008985FD /* AlertViewController.swift */; };
+		018BB68B2566AA9B008985FD /* TransientAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018BB68A2566AA9B008985FD /* TransientAlertViewController.swift */; };
+		018BB68F2566AAE0008985FD /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018BB68E2566AAE0008985FD /* AlertView.swift */; };
 		018E9F4F229F7DB1008AB016 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */; };
+		01901A852566B71700831501 /* SupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01901A832566B71700831501 /* SupportViewController.swift */; };
+		01901A862566B71700831501 /* SupportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01901A842566B71700831501 /* SupportViewController.xib */; };
 		019066BF243D09C6007103D9 /* JoinChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019066BD243D09C6007103D9 /* JoinChallengeViewController.swift */; };
 		019066C0243D09C6007103D9 /* JoinChallengeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 019066BE243D09C6007103D9 /* JoinChallengeViewController.xib */; };
 		01928B78244508BB00F56F76 /* ChallengeMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01928B77244508BB00F56F76 /* ChallengeMode.swift */; };
@@ -516,7 +521,12 @@
 		018510012447A3C700C4F1A6 /* ChangeBannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeBannerViewController.swift; sourceTree = "<group>"; };
 		018510022447A3C700C4F1A6 /* ChangeBannerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangeBannerViewController.xib; sourceTree = "<group>"; };
 		01863FB8241C66E2001B3CE2 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		018BB6862566AA7D008985FD /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
+		018BB68A2566AA9B008985FD /* TransientAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransientAlertViewController.swift; sourceTree = "<group>"; };
+		018BB68E2566AAE0008985FD /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
+		01901A832566B71700831501 /* SupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViewController.swift; sourceTree = "<group>"; };
+		01901A842566B71700831501 /* SupportViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SupportViewController.xib; sourceTree = "<group>"; };
 		019066BD243D09C6007103D9 /* JoinChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinChallengeViewController.swift; sourceTree = "<group>"; };
 		019066BE243D09C6007103D9 /* JoinChallengeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JoinChallengeViewController.xib; sourceTree = "<group>"; };
 		01928B77244508BB00F56F76 /* ChallengeMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeMode.swift; sourceTree = "<group>"; };
@@ -871,6 +881,25 @@
 				01747A5F24D885F200A4682B /* WorkoutImageCell.xib */,
 			);
 			path = share;
+			sourceTree = "<group>";
+		};
+		018BB6852566AA6F008985FD /* alert */ = {
+			isa = PBXGroup;
+			children = (
+				018BB6862566AA7D008985FD /* AlertViewController.swift */,
+				018BB68A2566AA9B008985FD /* TransientAlertViewController.swift */,
+				018BB68E2566AAE0008985FD /* AlertView.swift */,
+			);
+			path = alert;
+			sourceTree = "<group>";
+		};
+		01901A822566B70700831501 /* contact */ = {
+			isa = PBXGroup;
+			children = (
+				01901A832566B71700831501 /* SupportViewController.swift */,
+				01901A842566B71700831501 /* SupportViewController.xib */,
+			);
+			path = contact;
 			sourceTree = "<group>";
 		};
 		01987A9524300E7D00835621 /* join-challenge */ = {
@@ -1230,6 +1259,8 @@
 		747D6FBA2208DBD70062BB39 /* feature */ = {
 			isa = PBXGroup;
 			children = (
+				01901A822566B70700831501 /* contact */,
+				018BB6852566AA6F008985FD /* alert */,
 				012449062530A8E000087027 /* team */,
 				01747A5524D8811500A4682B /* share */,
 				010C05F124AD4987001B37D7 /* notifications */,
@@ -1654,6 +1685,7 @@
 				01297D862329E79000CA9E41 /* SF-Compact-Rounded-Light.otf in Resources */,
 				0169396D24DA09850011C1A8 /* MemberCell.xib in Resources */,
 				018510042447A3C700C4F1A6 /* ChangeBannerViewController.xib in Resources */,
+				01901A862566B71700831501 /* SupportViewController.xib in Resources */,
 				013CFD1E24DCDE810095D353 /* LoadingViewController.xib in Resources */,
 				01297D8F2329E79000CA9E41 /* SF-Pro-Rounded-Regular.otf in Resources */,
 				015C071C243FC7E5003E75E9 /* LogWorkoutCell.xib in Resources */,
@@ -1913,8 +1945,10 @@
 				013D024B2419484A0063F189 /* DrawerViewController.swift in Sources */,
 				01A3EB0E237747D30097FC2A /* CVCalendarDayView.swift in Sources */,
 				01A3EB23237747D30097FC2A /* CVCalendarViewPresentationMode.swift in Sources */,
+				018BB68F2566AAE0008985FD /* AlertView.swift in Sources */,
 				01111DA62446855E0033170A /* Either.swift in Sources */,
 				747D6FDC2208E8130062BB39 /* Keychain+Subscripts.swift in Sources */,
+				018BB6872566AA7D008985FD /* AlertViewController.swift in Sources */,
 				014CA89524DFB68C00056DB1 /* WorkoutListViewModel.swift in Sources */,
 				01319ED724187876005E65D2 /* NewUser.swift in Sources */,
 				015C071B243FC7E5003E75E9 /* LogWorkoutCell.swift in Sources */,
@@ -1962,6 +1996,7 @@
 				0169396224D9DF870011C1A8 /* ChallengeDetailsHeader.swift in Sources */,
 				0107C7DB241AEE42005650FB /* State.swift in Sources */,
 				01611D44243E954600D1DAA4 /* WorkoutViewController.swift in Sources */,
+				018BB68B2566AA9B008985FD /* TransientAlertViewController.swift in Sources */,
 				010C05F624AD49AF001B37D7 /* NotificationSettingsViewController.swift in Sources */,
 				0169397024DA0E590011C1A8 /* RankingsViewController.swift in Sources */,
 				01928B78244508BB00F56F76 /* ChallengeMode.swift in Sources */,
@@ -2001,6 +2036,7 @@
 				74A01B34220A3B2000431ABD /* Workout.swift in Sources */,
 				74F47889220CECFE005CD4E4 /* ImageService.swift in Sources */,
 				017E10B32429674600CBBB92 /* ChallengeRow.swift in Sources */,
+				01901A852566B71700831501 /* SupportViewController.swift in Sources */,
 				010C05F924AD4D4F001B37D7 /* NotificationSettingsViewModel.swift in Sources */,
 				01A6C4F824D5053A0007DFB6 /* RankingCell.swift in Sources */,
 				014A7657237764B6002CE366 /* GRFormViewController.swift in Sources */,
