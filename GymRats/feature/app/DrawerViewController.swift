@@ -24,6 +24,16 @@ class DrawerViewController: UIViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
+  override var canBecomeFirstResponder: Bool {
+    return true
+  }
+  
+  override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+    guard motion == .motionShake else { return }
+    
+    presentPanModal(TransientAlertViewController())
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
   

@@ -48,7 +48,8 @@ extension UIImage {
   static let smallAppleHealth   = UIImage(named: "small-apple-health")!
   static let map                = UIImage(named: "map")!
   static let image              = UIImage(named: "image")!
-  
+  static let help               = UIImage(named: "help")!
+
   static var name: UIImage {
     switch UIDevice.contentMode {
     case .light: return .nameLight
