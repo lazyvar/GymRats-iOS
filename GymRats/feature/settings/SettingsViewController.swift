@@ -192,9 +192,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                     }
                 }
             case 1:
-                self.openURLInAppBrowser(url: "https://gym-rats-api.herokuapp.com/terms.html")
+                self.openURLInAppBrowser(url: "https://www.gymrats.app/terms")
             case 2:
-                self.openURLInAppBrowser(url: "https://gym-rats-api.herokuapp.com/privacy.html")
+                self.openURLInAppBrowser(url: "https://www.gymrats.app/privacy")
             case 3:
                 let url = URL(string: "mailto:help@gymrats.app")!
                 if #available(iOS 10.0, *) {
