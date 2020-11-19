@@ -17,7 +17,11 @@ private let SettingsCellId = "SettingsCell"
 class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   private let disposeBag = DisposeBag()
   
-  @IBOutlet private weak var tableView: UITableView!
+  @IBOutlet private weak var tableView: UITableView! {
+    didSet {
+      tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: .leastNonzeroMagnitude))
+    }
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -196,12 +200,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             case 2:
                 self.openURLInAppBrowser(url: "https://www.gymrats.app/privacy")
             case 3:
-                let url = URL(string: "mailto:help@gymrats.app")!
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                } else {
-                    UIApplication.shared.openURL(url)
-                }
+              push(SupportViewController())
             default:
                 break
             }
@@ -307,7 +306,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 theCell.textLabel?.text = "Notifications"
             case 1:
                 theCell.textLabel?.text = "Sign out"
-                theCell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: .greatestFiniteMagnitude)
                 theCell.directionalLayoutMargins = .zero
             default:
                 break

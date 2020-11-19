@@ -49,7 +49,7 @@ class AlertViewController: UIViewController, PanModalPresentable {
     }
   
   var panModalBackgroundColor: UIColor {
-      return .clear
+    return UIColor.black.withAlphaComponent(0.1)
   }
 
     var shortFormHeight: PanModalHeight {

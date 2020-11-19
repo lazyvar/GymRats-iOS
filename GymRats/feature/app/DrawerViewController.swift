@@ -31,7 +31,7 @@ class DrawerViewController: UIViewController {
   override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
     guard motion == .motionShake else { return }
     
-    presentPanModal(TransientAlertViewController())
+    UIViewController.topmost().presentForClose(SupportViewController())
   }
   
   override func viewDidLoad() {

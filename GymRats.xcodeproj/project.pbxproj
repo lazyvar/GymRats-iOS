@@ -163,6 +163,8 @@
 		018BB68B2566AA9B008985FD /* TransientAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018BB68A2566AA9B008985FD /* TransientAlertViewController.swift */; };
 		018BB68F2566AAE0008985FD /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018BB68E2566AAE0008985FD /* AlertView.swift */; };
 		018E9F4F229F7DB1008AB016 /* UIStoryboard+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */; };
+		01901A852566B71700831501 /* SupportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01901A832566B71700831501 /* SupportViewController.swift */; };
+		01901A862566B71700831501 /* SupportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01901A842566B71700831501 /* SupportViewController.xib */; };
 		019066BF243D09C6007103D9 /* JoinChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019066BD243D09C6007103D9 /* JoinChallengeViewController.swift */; };
 		019066C0243D09C6007103D9 /* JoinChallengeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 019066BE243D09C6007103D9 /* JoinChallengeViewController.xib */; };
 		01928B78244508BB00F56F76 /* ChallengeMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01928B77244508BB00F56F76 /* ChallengeMode.swift */; };
@@ -523,6 +525,8 @@
 		018BB68A2566AA9B008985FD /* TransientAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransientAlertViewController.swift; sourceTree = "<group>"; };
 		018BB68E2566AAE0008985FD /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		018E9F4E229F7DB1008AB016 /* UIStoryboard+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Extension.swift"; sourceTree = "<group>"; };
+		01901A832566B71700831501 /* SupportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViewController.swift; sourceTree = "<group>"; };
+		01901A842566B71700831501 /* SupportViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SupportViewController.xib; sourceTree = "<group>"; };
 		019066BD243D09C6007103D9 /* JoinChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinChallengeViewController.swift; sourceTree = "<group>"; };
 		019066BE243D09C6007103D9 /* JoinChallengeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JoinChallengeViewController.xib; sourceTree = "<group>"; };
 		01928B77244508BB00F56F76 /* ChallengeMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeMode.swift; sourceTree = "<group>"; };
@@ -889,6 +893,15 @@
 			path = alert;
 			sourceTree = "<group>";
 		};
+		01901A822566B70700831501 /* contact */ = {
+			isa = PBXGroup;
+			children = (
+				01901A832566B71700831501 /* SupportViewController.swift */,
+				01901A842566B71700831501 /* SupportViewController.xib */,
+			);
+			path = contact;
+			sourceTree = "<group>";
+		};
 		01987A9524300E7D00835621 /* join-challenge */ = {
 			isa = PBXGroup;
 			children = (
@@ -1246,6 +1259,7 @@
 		747D6FBA2208DBD70062BB39 /* feature */ = {
 			isa = PBXGroup;
 			children = (
+				01901A822566B70700831501 /* contact */,
 				018BB6852566AA6F008985FD /* alert */,
 				012449062530A8E000087027 /* team */,
 				01747A5524D8811500A4682B /* share */,
@@ -1671,6 +1685,7 @@
 				01297D862329E79000CA9E41 /* SF-Compact-Rounded-Light.otf in Resources */,
 				0169396D24DA09850011C1A8 /* MemberCell.xib in Resources */,
 				018510042447A3C700C4F1A6 /* ChangeBannerViewController.xib in Resources */,
+				01901A862566B71700831501 /* SupportViewController.xib in Resources */,
 				013CFD1E24DCDE810095D353 /* LoadingViewController.xib in Resources */,
 				01297D8F2329E79000CA9E41 /* SF-Pro-Rounded-Regular.otf in Resources */,
 				015C071C243FC7E5003E75E9 /* LogWorkoutCell.xib in Resources */,
@@ -2021,6 +2036,7 @@
 				74A01B34220A3B2000431ABD /* Workout.swift in Sources */,
 				74F47889220CECFE005CD4E4 /* ImageService.swift in Sources */,
 				017E10B32429674600CBBB92 /* ChallengeRow.swift in Sources */,
+				01901A852566B71700831501 /* SupportViewController.swift in Sources */,
 				010C05F924AD4D4F001B37D7 /* NotificationSettingsViewModel.swift in Sources */,
 				01A6C4F824D5053A0007DFB6 /* RankingCell.swift in Sources */,
 				014A7657237764B6002CE366 /* GRFormViewController.swift in Sources */,
