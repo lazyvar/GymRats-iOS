@@ -16,8 +16,8 @@ enum EnableTeamsChoice: String, CaseIterable {
   
   var title: String {
     switch self {
-    case .yup: return "Yup"
-    case .noThanks: return "No thanks"
+    case .yup: return "Yes"
+    case .noThanks: return "No, thanks"
     }
   }
 }
@@ -98,12 +98,12 @@ extension EnableTeamsViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let container = UIView().apply {
       $0.backgroundColor = .clear
-      $0.constrainHeight(30)
+      $0.constrainHeight(72)
     }
     
     let text = UILabel().apply {
       $0.text = """
-      Allow group members to join together and form teams.
+      Make this challenge a team challenge by allowing group members to join together and form squads. Rankings will be determined by team score rather than individual.
       """
       $0.textColor = .primaryText
       $0.font = .body
@@ -123,6 +123,6 @@ extension EnableTeamsViewController: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    return 30
+    return 72
   }
 }

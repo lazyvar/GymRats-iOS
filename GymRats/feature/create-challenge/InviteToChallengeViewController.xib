@@ -12,7 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InviteToChallengeViewController" customModule="GymRats" customModuleProvider="target">
             <connections>
                 <outlet property="label" destination="8G2-yC-LsT" id="aBK-TM-12y"/>
-                <outlet property="textView" destination="meW-0s-4U9" id="hOS-aI-hcT"/>
+                <outlet property="textField" destination="qVH-aI-9nS" id="kmv-pO-YpH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,34 +21,33 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PZW-KS-Hy9">
-                    <rect key="frame" x="20" y="44" width="374" height="217"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="PZW-KS-Hy9">
+                    <rect key="frame" x="20" y="44" width="374" height="245"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Challenge created. Invite friends to the group by sharing the link below." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8G2-yC-LsT">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Challenge created. Invite members to the group by sharing the link below." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8G2-yC-LsT">
                             <rect key="frame" x="0.0" y="0.0" width="374" height="41"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="CODE" translatesAutoresizingMaskIntoConstraints="NO" id="meW-0s-4U9">
-                            <rect key="frame" x="0.0" y="51" width="374" height="50"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qVH-aI-9nS" customClass="NoTouchingTextField" customModule="GymRats" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="66" width="374" height="48"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="50" id="bXe-13-jpF"/>
+                                <constraint firstAttribute="height" constant="48" id="SmZ-Kt-srb"/>
                             </constraints>
-                            <color key="textColor" systemColor="labelColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                        </textView>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YAE-bf-qUj" userLabel="I">
-                            <rect key="frame" x="0.0" y="111" width="374" height="106"/>
+                            <rect key="frame" x="0.0" y="139" width="374" height="106"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHZ-t1-TsD" customClass="PrimaryButton" customModule="GymRats" customModuleProvider="target">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHZ-t1-TsD" customClass="PrimaryButton" customModule="GymRats" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="48"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="48" id="emy-7Y-Mhl"/>
                                     </constraints>
-                                    <state key="normal" title="Share link"/>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <state key="normal" title=" Send invitations" image="send"/>
                                     <connections>
                                         <action selector="shareCode:" destination="-1" eventType="touchUpInside" id="8Jh-mS-1Hm"/>
                                     </connections>
@@ -58,7 +57,8 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="48" id="wMu-0E-580"/>
                                     </constraints>
-                                    <state key="normal" title="Maybe later"/>
+                                    <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <state key="normal" title="Not now"/>
                                     <connections>
                                         <action selector="continue:" destination="-1" eventType="touchUpInside" id="AYq-6y-K6g"/>
                                     </connections>
@@ -75,13 +75,11 @@
                 <constraint firstAttribute="trailing" secondItem="PZW-KS-Hy9" secondAttribute="trailing" constant="20" id="Tt8-X1-3tn"/>
                 <constraint firstItem="PZW-KS-Hy9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="UcS-QI-6p6"/>
             </constraints>
-            <point key="canvasLocation" x="-280" y="-7"/>
+            <point key="canvasLocation" x="-152" y="-19"/>
         </view>
     </objects>
     <resources>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="send" width="24" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

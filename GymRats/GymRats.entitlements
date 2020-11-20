@@ -8,6 +8,7 @@
 	<array>
 		<string>applinks:gym-rats.test-app.link</string>
 		<string>applinks:gym-rats.app.link</string>
+		<string>applinks:share.gymrats.app</string>
 	</array>
 	<key>com.apple.developer.healthkit</key>
 	<true/>
