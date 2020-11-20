@@ -10,10 +10,12 @@ import UIKit
 import PanModal
 
 class TransientAlertViewController: AlertViewController {
-
     private weak var timer: Timer?
-    private var countdown: Int = 5
-
+    var initialCountdown: Int { 5 }
+    lazy var countdown = initialCountdown
+  
+  override var height: CGFloat { 94 }
+  
     override func viewDidLoad() {
       super.viewDidLoad()
       
@@ -62,4 +64,25 @@ class TransientAlertViewController: AlertViewController {
     override var isUserInteractionEnabled: Bool {
         return true
     }
+}
+
+class CopiedText: TransientAlertViewController {
+  override var initialCountdown: Int { 3 }
+  override var height: CGFloat { 64 }
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    alertView.titleLabel.text = "✅  Link copied"
+    alertView.titleLabel.font = .h4
+    alertView.message.isHidden = true
+  }
+
+  override var isUserInteractionEnabled: Bool {
+    return true
+  }
+  
+  override var panModalBackgroundColor: UIColor {
+    return .clear
+  }
 }

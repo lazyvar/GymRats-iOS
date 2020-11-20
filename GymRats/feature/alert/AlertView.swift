@@ -34,6 +34,7 @@ class AlertView: UIView {
   private lazy var alertStackView: UIStackView = {
     let stackView = UIStackView(arrangedSubviews: [titleLabel, message])
   
+    stackView.backgroundColor = .foreground
     stackView.axis = .vertical
     stackView.alignment = .leading
     stackView.spacing = 4.0

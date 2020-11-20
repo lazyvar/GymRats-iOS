@@ -51,6 +51,7 @@ extension UIImage {
   static let help               = UIImage(named: "help")!
   static let messenger          = UIImage(named: "messenger")!
   static let mailTemplate       = UIImage(named: "mail-template")!
+  static let link               = UIImage(named: "link")!
 
   static var name: UIImage {
     switch UIDevice.contentMode {

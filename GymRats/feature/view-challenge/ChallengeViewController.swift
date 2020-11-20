@@ -233,10 +233,6 @@ class ChallengeViewController: BindableViewController {
       ChallengeFlow.invite(to: self.challenge)
     }
 
-    let share = UIAlertAction(title: "Share", style: .default) { _ in
-      self.presentForClose(ShareChallengeViewController(challenge: self.challenge))
-    }
-
     let editAction = UIAlertAction(title: "Edit", style: .default) { _ in
       let editViewController = EditChallengeViewController(challenge: self.challenge)
 
@@ -254,7 +250,6 @@ class ChallengeViewController: BindableViewController {
     let alertViewController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     
     alertViewController.addAction(inviteAction)
-    alertViewController.addAction(share)
     
     if Membership.State.owner(of: challenge) {
       alertViewController.addAction(editAction)
