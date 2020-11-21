@@ -10,14 +10,14 @@ import UIKit
 import PanModal
 
 class AlertViewController: UIViewController, PanModalPresentable {
-  var height: CGFloat { 0 }
-  
   let alertView: AlertView = {
     let alertView = AlertView()
     alertView.layer.cornerRadius = 8
     alertView.backgroundColor = .foreground
     return alertView
   }()
+  
+  var height: CGFloat { 0 }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -26,12 +26,24 @@ class AlertViewController: UIViewController, PanModalPresentable {
   }
 
   private func setupView() {
+    let hasTopNotch: Bool = {
+      if #available(iOS 11.0, tvOS 11.0, *) {
+        return UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0 > 20
+      }
+      
+      return false
+    }()
+    
+    let constant: CGFloat = {
+      return 10 + (hasTopNotch ? 30 : 0)
+    }()
+    
     view.addSubview(alertView)
     alertView.translatesAutoresizingMaskIntoConstraints = false
     alertView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-    alertView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-    alertView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-    alertView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
+    alertView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
+    alertView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+    alertView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -constant).isActive = true
     alertView.constrainHeight(height)
   }
 
@@ -46,7 +58,7 @@ class AlertViewController: UIViewController, PanModalPresentable {
   }
   
   var panScrollable: UIScrollView? {
-      return nil
+    return nil
   }
   
   var panModalBackgroundColor: UIColor {
@@ -66,13 +78,13 @@ class AlertViewController: UIViewController, PanModalPresentable {
   }
 
   var showDragIndicator: Bool {
-    return true
-  }
-
-  var anchorModalToLongForm: Bool {
     return false
   }
-
+  
+  var anchorModalToLongForm: Bool {
+    return true
+  }
+  
   var isUserInteractionEnabled: Bool {
     return true
   }

@@ -34,7 +34,6 @@ class AlertView: UIView {
   private lazy var alertStackView: UIStackView = {
     let stackView = UIStackView(arrangedSubviews: [titleLabel, message])
   
-    stackView.backgroundColor = .foreground
     stackView.axis = .vertical
     stackView.alignment = .leading
     stackView.spacing = 4.0
@@ -42,6 +41,8 @@ class AlertView: UIView {
     return stackView
   }()
 
+  private lazy var bgView = SpookyView()
+  
   init() {
     super.init(frame: .zero)
   
@@ -61,10 +62,28 @@ class AlertView: UIView {
   }
 
   private func layoutStackView() {
-    addSubview(alertStackView)
+    bgView.translatesAutoresizingMaskIntoConstraints = false
+    addSubview(bgView)
+
+    NSLayoutConstraint.activate(
+      [
+        bgView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
+        bgView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
+        bgView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
+        bgView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0),
+      ]
+    )
+
     alertStackView.translatesAutoresizingMaskIntoConstraints = false
+    bgView.addSubview(alertStackView)
+
+    NSLayoutConstraint.activate(
+      [
+        alertStackView.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 12),
+        alertStackView.trailingAnchor.constraint(equalTo: bgView.trailingAnchor, constant: -12),
+      ]
+    )
+    
     alertStackView.verticallyCenter(in: self)
-    alertStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
-    alertStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
   }
 }
