@@ -20,14 +20,14 @@ enum ChallengeFlow {
       """],
       applicationActivities: nil
     )
-    
+
     activityViewController.completionWithItemsHandler = { activity, completed, thing, error in
       guard error == nil else { return }
       guard let activity = activity else { return }
-      
+
       Track.event(.invitedToChallenge, properties: ["activity_type": activity.rawValue])
     }
-    
+
     UIViewController.topmost().present(activityViewController, animated: true, completion: nil)
   }
   

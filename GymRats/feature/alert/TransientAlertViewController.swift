@@ -10,60 +10,48 @@ import UIKit
 import PanModal
 
 class TransientAlertViewController: AlertViewController {
-    private weak var timer: Timer?
-    var initialCountdown: Int { 5 }
-    lazy var countdown = initialCountdown
+  private weak var timer: Timer?
+  var initialCountdown: Int { 5 }
+  lazy var countdown = initialCountdown
   
-  override var height: CGFloat { 94 }
-  
-    override func viewDidLoad() {
-      super.viewDidLoad()
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    
+    startTimer()
+  }
+
+  private func startTimer() {
+    timer?.invalidate()
+    timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+      guard let self = self else { return }
       
-      alertView.titleLabel.text = "Shake for support"
-      alertView.message.text = "Shake your phone at any time to get help if you run into an issue."
+      self.countdown -= 1
+      
+      if self.countdown <= 0 {
+        self.invalidateTimer()
+        self.dismiss(animated: true, completion: nil)
+      }
     }
+  }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        startTimer()
-    }
+  func invalidateTimer() {
+    timer?.invalidate()
+  }
 
-    private func startTimer() {
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-          guard let self = self else { return }
-          
-          self.countdown -= 1
-          
-          if self.countdown <= 0 {
-            self.invalidateTimer()
-            self.dismiss(animated: true, completion: nil)
-          }
-        }
-    }
+  deinit {
+    invalidateTimer()
+  }
+}
 
-    func invalidateTimer() {
-        timer?.invalidate()
-    }
+class SupportAlert: TransientAlertViewController {
+  override var height: CGFloat { 88 }
 
-    deinit {
-        invalidateTimer()
-    }
-
-    // MARK: - Pan Modal Presentable
-
-  
-    override var showDragIndicator: Bool {
-        return false
-    }
-
-    override var anchorModalToLongForm: Bool {
-        return true
-    }
-
-    override var isUserInteractionEnabled: Bool {
-        return true
-    }
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    alertView.titleLabel.text = "Shake for support"
+    alertView.message.text = "Shake your phone at any time to get help if you run into an issue."
+  }
 }
 
 class CopiedText: TransientAlertViewController {
@@ -76,10 +64,6 @@ class CopiedText: TransientAlertViewController {
     alertView.titleLabel.text = "✅  Link copied"
     alertView.titleLabel.font = .h4
     alertView.message.isHidden = true
-  }
-
-  override var isUserInteractionEnabled: Bool {
-    return true
   }
   
   override var panModalBackgroundColor: UIColor {

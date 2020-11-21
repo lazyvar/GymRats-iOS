@@ -153,8 +153,8 @@ enum GymRats {
     UserDefaults.standard.removeObject(forKey: "account-is-onboarding")
     replaceRoot(with: LoadingViewController())
     
-    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-      UIViewController.topmost().presentPanModal(TransientAlertViewController())
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+      UIViewController.topmost().presentPanModal(SupportAlert())
     }
   }
   
