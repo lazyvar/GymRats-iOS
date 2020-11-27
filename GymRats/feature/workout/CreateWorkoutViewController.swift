@@ -183,7 +183,7 @@ class CreateWorkoutViewController: GRFormViewController {
         let pointsRow = TextRow("points") {
             $0.title = "Points"
             $0.placeholder = "-"
-            $0.value = workoutOrImage.right?.calories?.stringify
+            $0.value = workoutOrImage.right?.points?.stringify
         }.cellSetup { cell, _ in
             cell.textLabel?.font = .body
             cell.titleLabel?.font = .body
