@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HealthAppViewController" customModule="GymRats" customModuleProvider="target">
+            <connections>
+                <outlet property="autoSyncLabel" destination="RET-cW-UAb" id="1ka-rA-OQS"/>
+                <outlet property="autoSyncSwitch" destination="Bxt-CR-wv1" id="ecM-9i-1vI"/>
+                <outlet property="contentLabel" destination="Baa-hN-QEi" id="cWc-hv-ZQR"/>
+                <outlet property="grantPermissionButton" destination="omD-jb-n3B" id="QmL-0m-rsY"/>
+                <outlet property="healthAppButton" destination="h0F-YB-3xK" id="1L2-19-3pd"/>
+                <outlet property="notNowButton" destination="OLw-s6-41h" id="Lni-b9-vS6"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yog-Ze-Rdf">
+                    <rect key="frame" x="20" y="44" width="374" height="420"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="SHb-ZF-2x2">
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="264"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Baa-hN-QEi">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="203"/>
+                                    <string key="text">Enable this feature to automatically synchronize workouts in the Apple health app with GymRats. When a workout is recorded it will show up in any active challenges you are participating in GymRats without having to manually import it.
+
+Alternatively, you can grant permission, but still require manual approval to import a workout. These permissions can be changed at any time in settings.</string>
+                                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2YT-DH-aql">
+                                    <rect key="frame" x="0.0" y="233" width="374" height="31"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto sync enabled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RET-cW-UAb">
+                                            <rect key="frame" x="0.0" y="0.0" width="325" height="31"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bxt-CR-wv1">
+                                            <rect key="frame" x="325" y="0.0" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="autoSyncSwitchChanged:" destination="-1" eventType="valueChanged" id="ymt-TI-CqC"/>
+                                            </connections>
+                                        </switch>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="omD-jb-n3B" customClass="PrimaryButton" customModule="GymRats" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="274" width="374" height="48"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="Sen-Uz-dyd"/>
+                            </constraints>
+                            <state key="normal" title="Grant permission"/>
+                            <connections>
+                                <action selector="grantPermission:" destination="-1" eventType="touchUpInside" id="9Yx-zG-vWO"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h0F-YB-3xK" customClass="SecondaryButton" customModule="GymRats" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="332" width="374" height="30"/>
+                            <state key="normal" title="Open Health app settings"/>
+                            <connections>
+                                <action selector="openHealthApp:" destination="-1" eventType="touchUpInside" id="ULF-1X-Dhp"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OLw-s6-41h" customClass="SecondaryButton" customModule="GymRats" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="372" width="374" height="48"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="hDl-lW-qqb"/>
+                            </constraints>
+                            <state key="normal" title="Not now"/>
+                            <connections>
+                                <action selector="notNow:" destination="-1" eventType="touchUpInside" id="yIf-9c-kuq"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="yog-Ze-Rdf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="AZX-Fq-Ubi"/>
+                <constraint firstItem="yog-Ze-Rdf" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Lub-bW-pPw"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="yog-Ze-Rdf" secondAttribute="trailing" constant="20" id="iF2-eH-9su"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="130"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -52,6 +52,8 @@ class CreateWorkoutViewController: GRFormViewController {
     var workout: Workout?
     var healthKitWorkout: HKWorkout?
 
+    private let healthService: HealthServiceType = HealthService.shared
+  
     lazy var submitButton = UIBarButtonItem(title: "Post", style: .done, target: self, action: #selector(postWorkout))
     lazy var cancelButton = UIBarButtonItem.close(target: self).apply {
       $0.setTitleTextAttributes([
@@ -345,7 +347,7 @@ class CreateWorkoutViewController: GRFormViewController {
     }
   
   func importWorkout() {
-    HealthService.requestAuthorization(toShare: nil, read: Set([.workoutType()]))
+    healthService.requestWorkoutAuthorization()
       .subscribe(onSuccess: { _ in
         DispatchQueue.main.async {
           let importWorkoutViewController = ImportWorkoutViewController()
