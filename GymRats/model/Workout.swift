@@ -15,7 +15,6 @@ struct Workout: Codable, Hashable {
   let title: String
   let description: String?
   let photoUrl: String?
-  let createdAt: Date
   let googlePlaceId: String?
   let duration: Int?
   let distance: String?
@@ -26,7 +25,8 @@ struct Workout: Codable, Hashable {
   let appleSourceName: String?
   let appleWorkoutUuid: String?
   let activityType: Activity?
-
+  let occurredAt: Date
+  
   var gymRatsUserId: Int {
     return account.id
   }
@@ -42,11 +42,31 @@ struct Workout: Codable, Hashable {
     case hiit
     case yoga
     case hiking
+    case baseketball
+    case rowing
+    case climbing
+    case stairs
+    case crossTraining
+    case dance
+    case cooldown
+    case elliptical
+    case wheelchair
+    case functionalStrengthTraining
+    case traditionalStrengthTraining
+    case coreTraining
+    case swimming
+    case volleyball
     case other
     
     var title: String {
       switch self {
       case .hiit: return "HIIT"
+      case .crossTraining: return "Cross training"
+      case .functionalStrengthTraining: return "Functional strength training"
+      case .traditionalStrengthTraining: return "Traditional strngth training"
+      case .coreTraining: return "Core training"
+      case .baseketball: return "Basketball"
+        
       default: return rawValue
       }
     }

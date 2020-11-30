@@ -233,6 +233,10 @@ enum APIRequest {
       if let activityType = workout.activityType {
         params["activity_type"] = activityType.rawValue
       }
+      
+      if let occurredAt = workout.occurredAt {
+        params["occurred_at"] = occurredAt.toISO()
+      }
 
       return (.post, "workouts", params)
     case .updateWorkout(let workout, let photo):

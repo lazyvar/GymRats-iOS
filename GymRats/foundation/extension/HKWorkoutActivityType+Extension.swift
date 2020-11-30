@@ -15,9 +15,23 @@ extension HKWorkoutActivityType {
     case .walking: return .walking
     case .running: return .running
     case .cycling: return .cycling
+    case .elliptical: return .elliptical
+    case .rowing: return .rowing
+    case .stairClimbing, .stairs: return .stairs
     case .highIntensityIntervalTraining: return .hiit
-    case .yoga: return .yoga
     case .hiking: return .hiking
+    case .functionalStrengthTraining: return .functionalStrengthTraining
+    case .dance, .cardioDance, .socialDance: return .dance
+    case .cooldown: return .cooldown
+    case .coreTraining: return .coreTraining
+    case .swimming: return .swimming
+    case .wheelchairRunPace, .wheelchairWalkPace: return .wheelchair
+    case .yoga: return .yoga
+    case .basketball: return .baseketball
+    case .climbing: return .climbing
+    case .crossTraining: return .crossTraining
+    case .traditionalStrengthTraining: return .traditionalStrengthTraining
+    case .volleyball: return .volleyball
     default: return .other
     }
   }
@@ -37,6 +51,8 @@ extension HKWorkoutActivityType {
     case .curling:                      return "Curling"
     case .cycling:                      return "Cycling"
     case .dance:                        return "Dance"
+    case .cardioDance:                  return "Dance"
+    case .socialDance:                  return "Dance"
     case .danceInspiredTraining:        return "Dance Inspired Training"
     case .elliptical:                   return "Elliptical"
     case .equestrianSports:             return "Equestrian Sports"
@@ -107,7 +123,7 @@ extension HKWorkoutActivityType {
     case .fitnessGaming:                return "Fitness Gaming"
 
     // Catch-all
-    default:                            return "Other"
+    default:                            return "Workout"
     }
   }
 }

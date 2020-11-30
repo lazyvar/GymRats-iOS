@@ -36,13 +36,14 @@ class HealthService: HealthServiceType {
       userDefaults.setValue(newValue, forKey: Key.autoSync)
 
       if newValue {
+        lastSync = Date()
         observeWorkouts()
       } else {
         disableBackgroundDelivery()
       }
     }
   }
-  
+
   var lastSync: Date {
     get {
       userDefaults.codable(forKey: Key.lastSyncTime) ?? Date()
@@ -70,6 +71,7 @@ class HealthService: HealthServiceType {
         uploadUnsynchronizedWorkouts()
           .subscribe { _ in
             synchronizationInPorgress = false
+            NotificationCenter.default.post(.appEnteredForeground)
             completionHandler()
           }
           .disposed(by: disposeBag)
@@ -166,11 +168,46 @@ class HealthService: HealthServiceType {
   }
   
   private func uploadUnsynchronizedWorkouts() -> Single<Void> {
-    return unsynchronizedWorkouts()
-      .do(onSuccess: { workouts in
-        
-      })
+    let challenges = Challenge.State.all.fetch().map { ($0.object ?? []).getActiveChallenges() }
+    let unsynchronizedWorkouts = self.unsynchronizedWorkouts()
+    
+    return Observable.zip(challenges, unsynchronizedWorkouts.asObservable())
+      .flatMap { challenges, workouts -> Observable<[NetworkResult<Workout>]> in
+        return Observable.combineLatest(workouts.map { return self.upload(healthKitWorkout: $0, challenges: challenges) })
+      }
+      .asSingle()
       .map { _ in () }
+  }
+  
+  private func upload(healthKitWorkout: HKWorkout, challenges: [Challenge]) -> Observable<NetworkResult<Workout>> {
+    var newWorkout = NewWorkout(
+      title: healthKitWorkout.workoutActivityType.name,
+      description: nil,
+      photo: nil,
+      googlePlaceId: nil,
+      duration: nil,
+      distance: nil,
+      steps: nil,
+      calories: nil,
+      points: nil,
+      appleDeviceName: healthKitWorkout.device?.name,
+      appleSourceName: healthKitWorkout.sourceRevision.source.name,
+      appleWorkoutUuid: healthKitWorkout.uuid.uuidString,
+      activityType: healthKitWorkout.workoutActivityType.activityify
+    )
+
+    if let calories = healthKitWorkout.totalEnergyBurned {
+      newWorkout.calories = Int(calories.doubleValue(for: .kilocalorie()).rounded())
+    }
+    
+    if let distance = healthKitWorkout.totalDistance {
+      newWorkout.distance = String(distance.doubleValue(for: .mile()).rounded(places: 1))
+    }
+    
+    newWorkout.duration = Int(healthKitWorkout.duration / 60)
+    newWorkout.occurredAt = healthKitWorkout.startDate
+    
+    return gymRatsAPI.postWorkout(newWorkout, challenges: challenges.map { $0.id })
   }
 
   private func disableBackgroundDelivery() {

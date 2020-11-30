@@ -249,6 +249,7 @@ enum GymRats {
 
     UserDefaults.standard.removeObject(forKey: "join-code")
     currentAccount = nil
+    healthService.autoSyncEnabled = false
     Account.removeCurrent()
     Membership.State.clear()
     window.rootViewController = WelcomeViewController().inNav()

@@ -68,7 +68,7 @@ class UserWorkoutTableViewCell: UITableViewCell {
                 }
                 
                 let label = UILabel()
-                label.text = workout.createdAt.challengeTime
+                label.text = workout.occurredAt.challengeTime
                 label.font = .details
                 label.sizeToFit()
                 
@@ -105,11 +105,11 @@ class UserWorkoutTableViewCell: UITableViewCell {
         titleLabel.text = user.fullName
 
         let myWorkouts = allWorkouts.filter { $0.gymRatsUserId == user.id }
-        let workoutsBeforeToday = myWorkouts.filter { $0.createdAt < day }
-        let sorted = workoutsBeforeToday.sorted(by: { $0.createdAt < $1.createdAt })
+        let workoutsBeforeToday = myWorkouts.filter { $0.occurredAt < day }
+        let sorted = workoutsBeforeToday.sorted(by: { $0.occurredAt < $1.occurredAt })
         
         if let last = sorted.last {
-            let differnece = abs(day.getInterval(toDate: last.createdAt, component: .day))
+            let differnece = abs(day.getInterval(toDate: last.occurredAt, component: .day))
             
             if differnece == 1 {
                 detailsLabel.text = "Active yesterday"

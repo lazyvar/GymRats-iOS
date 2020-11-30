@@ -9,17 +9,18 @@
 import UIKit
 
 struct NewWorkout {
-  let title: String
-  let description: String?
-  let photo: UIImage?
-  let googlePlaceId: String?
-  let duration: Int?
-  let distance: String?
-  let steps: Int?
-  let calories: Int?
-  let points: Int?
-  let appleDeviceName: String?
-  let appleSourceName: String?
-  let appleWorkoutUuid: String?
-  let activityType: Workout.Activity?
+  var title: String
+  var description: String?
+  var photo: UIImage?
+  var googlePlaceId: String?
+  var duration: Int?
+  var distance: String?
+  var steps: Int?
+  var calories: Int?
+  var points: Int?
+  var appleDeviceName: String?
+  var appleSourceName: String?
+  var appleWorkoutUuid: String?
+  var activityType: Workout.Activity?
+  var occurredAt: Date?
 }

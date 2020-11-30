@@ -68,7 +68,10 @@ final class HealthAppViewModel: ViewModel {
       .disposed(by: disposeBag)
     
     input.autoSyncSwitchChanged
-      .subscribe(onNext: { isOn in
+      .flatMap { isOn in
+        return Observable.zip(Observable<Bool>.just(isOn), healthService.requestWorkoutAuthorization().asObservable())
+      }
+      .subscribe(onNext: { isOn, _ in
         healthService.autoSyncEnabled = isOn
       })
       .disposed(by: disposeBag)

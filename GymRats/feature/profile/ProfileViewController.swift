@@ -178,7 +178,7 @@ class ProfileViewController: UIViewController {
       return workouts.reduce([], { (workouts, workout) -> [Workout] in
         if workouts.contains(where: { anotherWorkout in
           workout.challengeId != anotherWorkout.challengeId &&
-          workout.createdAt.compareCloseTo(anotherWorkout.createdAt, precision: 3600)
+          workout.occurredAt.compareCloseTo(anotherWorkout.occurredAt, precision: 3600)
         }) {
           return workouts
         } else {
@@ -308,7 +308,7 @@ extension Array where Element == Workout {
   
   func workouts(on date: Date) -> [Workout] {
     return filter { workout in
-      return date.inTimeZone(.utc, isSameDayAs: workout.createdAt, inTimeZone: .current)
+      return date.inTimeZone(.utc, isSameDayAs: workout.occurredAt, inTimeZone: .current)
     }
   }
 }

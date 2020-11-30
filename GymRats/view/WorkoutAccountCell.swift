@@ -38,7 +38,7 @@ class WorkoutAccountCell: UITableViewCell {
     return tableView.dequeueReusableCell(withType: WorkoutAccountCell.self, for: indexPath).apply { cell in
       cell.accountNameLabel.text = workout.account.fullName
       cell.accountImageView.load(workout.account)
-      cell.timeLabel.text = "\(workout.createdAt.challengeTime)"
+      cell.timeLabel.text = "\(workout.occurredAt.challengeTime)"
     }
   }
 }

@@ -14,6 +14,8 @@ enum WorkoutFlow {
   private static let healthService: HealthServiceType = HealthService.shared
   
   static func logWorkout() {
+    defer { healthService.markPromptSeen() }
+
     generator.impactOccurred()
 
     if healthService.didShowGymRatsPrompt {
