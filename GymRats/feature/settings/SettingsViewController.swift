@@ -217,9 +217,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             }
           }
         case 3:
+          let healthAppViewController = HealthAppViewController()
+          healthAppViewController.title = "Health app settings"
+          healthAppViewController.delegate = self
+
           switch indexPath.row {
           case 0: push(NotificationSettingsViewController())
-          case 1: push(HealthAppViewController())
+          case 1: push(healthAppViewController)
           case 2: GymRats.logout()
           default: break
           }
@@ -319,4 +323,18 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         return theCell
     }
     
+}
+
+extension SettingsViewController: HealthAppViewControllerDelegate {
+  func close(_ healthAppViewController: HealthAppViewController) {
+    navigationController?.popViewController(animated: true)
+  }
+  
+  func closeButtonHidden() -> Bool {
+    return true
+  }
+  
+  func notNowButtonHidden() -> Bool {
+    return true
+  }
 }

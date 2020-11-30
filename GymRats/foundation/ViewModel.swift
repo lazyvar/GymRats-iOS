@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import Kingfisher
 import MMDrawerController
+import RxCocoa
 
 protocol ViewModel {
   associatedtype Intput
@@ -234,6 +235,14 @@ public extension CGFloat {
     } else {
       let ratio = (value - inRange.min) / (inRange.max - inRange.min)
       return toRange.min + ratio * (toRange.max - toRange.min)
+    }
+  }
+}
+
+extension Reactive where Base: UILabel {
+  public var textColor: Binder<UIColor?> {
+    return Binder(base) { label, textColor in
+      label.textColor = textColor
     }
   }
 }

@@ -126,6 +126,7 @@
 		01611D45243E954600D1DAA4 /* WorkoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01611D43243E954600D1DAA4 /* WorkoutViewController.xib */; };
 		01611D47243E957B00D1DAA4 /* WorkoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01611D46243E957B00D1DAA4 /* WorkoutViewModel.swift */; };
 		01611D49243E968A00D1DAA4 /* WorkoutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01611D48243E968A00D1DAA4 /* WorkoutRow.swift */; };
+		016194572575241E0057A0CB /* HealthAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016194562575241E0057A0CB /* HealthAppDelegate.swift */; };
 		0163A2382377AF19006FDDA2 /* StoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0163A2372377AF19006FDDA2 /* StoreService.swift */; };
 		0169395024D9BA100011C1A8 /* LocalNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0169394F24D9BA100011C1A8 /* LocalNotificationService.swift */; };
 		0169395424D9D18C0011C1A8 /* ChallengeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0169395224D9D18C0011C1A8 /* ChallengeDetailsViewController.swift */; };
@@ -492,6 +493,7 @@
 		01611D43243E954600D1DAA4 /* WorkoutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutViewController.xib; sourceTree = "<group>"; };
 		01611D46243E957B00D1DAA4 /* WorkoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewModel.swift; sourceTree = "<group>"; };
 		01611D48243E968A00D1DAA4 /* WorkoutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRow.swift; sourceTree = "<group>"; };
+		016194562575241E0057A0CB /* HealthAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthAppDelegate.swift; sourceTree = "<group>"; };
 		0163A2372377AF19006FDDA2 /* StoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreService.swift; sourceTree = "<group>"; };
 		0169394F24D9BA100011C1A8 /* LocalNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationService.swift; sourceTree = "<group>"; };
 		0169395224D9D18C0011C1A8 /* ChallengeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsViewController.swift; sourceTree = "<group>"; };
@@ -797,6 +799,7 @@
 			children = (
 				0103A98E24204ED300B589DA /* CreateWorkoutDelegateObject.swift */,
 				015A1A5D2421A2B500D2EF5A /* NotificationHandler.swift */,
+				016194562575241E0057A0CB /* HealthAppDelegate.swift */,
 			);
 			path = delegate;
 			sourceTree = "<group>";
@@ -1959,6 +1962,7 @@
 				015C1E22253A380A0037C6A7 /* UpdateTeam.swift in Sources */,
 				01A3EB24237747D30097FC2A /* CVCalendarWeekView.swift in Sources */,
 				01D5D369243BD2700044E459 /* TextFieldCell.swift in Sources */,
+				016194572575241E0057A0CB /* HealthAppDelegate.swift in Sources */,
 				013D0251241979B80063F189 /* ChallengeTabBarController.swift in Sources */,
 				7432459D2214FAF800A13634 /* ChangeProfileViewController.swift in Sources */,
 				015C071F243FCD11003E75E9 /* MapCell.swift in Sources */,

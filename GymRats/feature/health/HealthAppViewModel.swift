@@ -22,9 +22,12 @@ final class HealthAppViewModel: ViewModel {
   
   struct Output {
     let grantPermissionButtonIsHidden = PublishSubject<Bool>()
+    let autoSyncSectionDisabled = PublishSubject<Bool>()
     let healthSettingsButtonIsHidden = PublishSubject<Bool>()
     let openHealthApp = PublishSubject<Void>()
     let autoSyncEnabled = PublishSubject<Bool>()
+    let autoSyncDetailsText = PublishSubject<String>()
+    let permissionDetailsText = PublishSubject<String>()
   }
   
   let input = Input()
@@ -54,12 +57,38 @@ final class HealthAppViewModel: ViewModel {
       .bind(to: output.healthSettingsButtonIsHidden)
       .disposed(by: disposeBag)
 
+    requestedPermission
+      .map { !$0 }
+      .bind(to: output.autoSyncSectionDisabled)
+      .disposed(by: disposeBag)
+    
+    requestedPermission
+      .map { requested in
+        if requested {
+          return "Modify access in the Health app."
+        } else {
+          return "Allow GymRats to access workouts."
+        }
+      }
+      .bind(to: output.permissionDetailsText)
+      .disposed(by: disposeBag)
+
+    requestedPermission
+      .map { requested in
+        if requested {
+          return "Automatically upload Health app workouts to GymRats."
+        } else {
+          return "Permission must be given before enabling auto sync."
+        }
+      }
+      .bind(to: output.autoSyncDetailsText)
+      .disposed(by: disposeBag)
+
     input.grantPermissionTapped
       .flatMap { healthService.requestWorkoutAuthorization() }
       .asDriver(onErrorJustReturn: false)
       .drive(onNext: { [self] _ in
-        output.grantPermissionButtonIsHidden.on(.next(true))
-        output.healthSettingsButtonIsHidden.on(.next(false))
+        input.viewDidLoad.trigger()
       })
       .disposed(by: disposeBag)
     

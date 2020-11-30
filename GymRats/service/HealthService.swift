@@ -71,7 +71,7 @@ class HealthService: HealthServiceType {
         uploadUnsynchronizedWorkouts()
           .subscribe { _ in
             synchronizationInPorgress = false
-            NotificationCenter.default.post(.appEnteredForeground)
+            // TODO: wtf
             completionHandler()
           }
           .disposed(by: disposeBag)
