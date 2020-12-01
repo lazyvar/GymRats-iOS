@@ -66,12 +66,12 @@ class HealthService: HealthServiceType {
       updateHandler: { [self] query, completionHandler, error in
         guard !synchronizationInPorgress else { return }
 
+        DevLog.autoSyncInitiated()
         synchronizationInPorgress = true
         
         uploadUnsynchronizedWorkouts()
           .subscribe { _ in
             synchronizationInPorgress = false
-            // TODO: wtf
             completionHandler()
           }
           .disposed(by: disposeBag)
@@ -144,6 +144,8 @@ class HealthService: HealthServiceType {
 
   func unsynchronizedWorkouts() -> Single<[HKWorkout]> {
     return Single.create { [self] observer in
+      DevLog.fetchingSamples(lastSync: lastSync)
+      
       let allWorkouts = HKQuery.predicateForWorkouts(with: .greaterThan, duration: 0)
       let sortByStartDate = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
       let noManualEntryAllowed = NSPredicate(format: "metadata.%K != YES", HKMetadataKeyWasUserEntered)
@@ -151,12 +153,16 @@ class HealthService: HealthServiceType {
       let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [allWorkouts, noManualEntryAllowed, withStartDate])
       let query = HKSampleQuery(sampleType: .workoutType(), predicate: compoundPredicate, limit: 100, sortDescriptors: [sortByStartDate]) { _, samples, error in
         lastSync = Date()
-        
+                
         DispatchQueue.main.async {
           if let error = error {
+            DevLog.foundError(error)
             observer(.error(error))
           } else {
-            observer(.success((samples ?? []).compactMap { $0 as? HKWorkout }))
+            let workouts = (samples ?? []).compactMap { $0 as? HKWorkout }
+            
+            DevLog.foundSamples(samples: workouts, lastSync: lastSync)
+            observer(.success(workouts))
           }
         }
       }

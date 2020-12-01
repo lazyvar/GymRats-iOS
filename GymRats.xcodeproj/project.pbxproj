@@ -127,6 +127,7 @@
 		01611D47243E957B00D1DAA4 /* WorkoutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01611D46243E957B00D1DAA4 /* WorkoutViewModel.swift */; };
 		01611D49243E968A00D1DAA4 /* WorkoutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01611D48243E968A00D1DAA4 /* WorkoutRow.swift */; };
 		016194572575241E0057A0CB /* HealthAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016194562575241E0057A0CB /* HealthAppDelegate.swift */; };
+		0161945B2576778F0057A0CB /* DevLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161945A2576778F0057A0CB /* DevLog.swift */; };
 		0163A2382377AF19006FDDA2 /* StoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0163A2372377AF19006FDDA2 /* StoreService.swift */; };
 		0169395024D9BA100011C1A8 /* LocalNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0169394F24D9BA100011C1A8 /* LocalNotificationService.swift */; };
 		0169395424D9D18C0011C1A8 /* ChallengeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0169395224D9D18C0011C1A8 /* ChallengeDetailsViewController.swift */; };
@@ -494,6 +495,7 @@
 		01611D46243E957B00D1DAA4 /* WorkoutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewModel.swift; sourceTree = "<group>"; };
 		01611D48243E968A00D1DAA4 /* WorkoutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRow.swift; sourceTree = "<group>"; };
 		016194562575241E0057A0CB /* HealthAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthAppDelegate.swift; sourceTree = "<group>"; };
+		0161945A2576778F0057A0CB /* DevLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevLog.swift; sourceTree = "<group>"; };
 		0163A2372377AF19006FDDA2 /* StoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreService.swift; sourceTree = "<group>"; };
 		0169394F24D9BA100011C1A8 /* LocalNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationService.swift; sourceTree = "<group>"; };
 		0169395224D9D18C0011C1A8 /* ChallengeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsViewController.swift; sourceTree = "<group>"; };
@@ -1321,6 +1323,7 @@
 				01F6A17724AE743C00A5B7C2 /* PushNotifications.swift */,
 				01DCB24124D5C79400EE06F7 /* RouteCalculator.swift */,
 				0169394F24D9BA100011C1A8 /* LocalNotificationService.swift */,
+				0161945A2576778F0057A0CB /* DevLog.swift */,
 			);
 			path = service;
 			sourceTree = "<group>";
@@ -1922,6 +1925,7 @@
 				01319ED32418746C005E65D2 /* GymRatsAPI.swift in Sources */,
 				747D6FBD2208DBFE0062BB39 /* APIRequest.swift in Sources */,
 				01EED5CD24253A3E005E0249 /* ChatNotificationCount.swift in Sources */,
+				0161945B2576778F0057A0CB /* DevLog.swift in Sources */,
 				01C25C27243F730B0021D617 /* NewCommentCell.swift in Sources */,
 				01A3EB1E237747D30097FC2A /* CVCalendarMenuView.swift in Sources */,
 				0118C24E23C2B704002FB84D /* CreateWorkoutHeaderCell.swift in Sources */,
