@@ -8,167 +8,133 @@
 
 import UIKit
 import PanModal
+import HealthKit
+import RxSwift
+
+protocol LogWorkoutModalViewControllerDelegate: class {
+  func didImportWorkout(_ logWorkoutModalViewController: LogWorkoutModalViewController, workout: HKWorkout)
+  func didPickMedia(_ logWorkoutModalViewController: LogWorkoutModalViewController, media: [Any])
+}
 
 class LogWorkoutModalViewController: UIViewController, UINavigationControllerDelegate {
-  var showText = true
+  private enum Constant {
+    static let id = "TitleCellId"
+  }
   
-  private let onPickImage: (UIImage) -> Void
-  
-  @IBOutlet private weak var chooseFromLibraryView: UIView!
-  @IBOutlet private weak var takePictureView: UIView!
-  @IBOutlet private weak var libraryImageView: UIImageView!
-  @IBOutlet private weak var cameraImageView: UIImageView!
-  @IBOutlet private weak var textStackView: UIStackView!
-
-  let shortPressLibrary: UILongPressGestureRecognizer = {
-      let press = UILongPressGestureRecognizer()
-      press.minimumPressDuration = 0.05
-      press.cancelsTouchesInView = false
-      
-      return press
-  }()
-  
-  let shortPressPicture: UILongPressGestureRecognizer = {
-      let press = UILongPressGestureRecognizer()
-      press.minimumPressDuration = 0.05
-      press.cancelsTouchesInView = false
-      
-      return press
-  }()
-
-  @objc func handleLibrary(shortPress: UILongPressGestureRecognizer) {
-    switch shortPress.state {
-    case .began:
-      animateScaleLibrary(0.925)
-    case .ended, .failed:
-      self.presentLibrary()
-      fallthrough
-    case .cancelled:
-      animateScaleLibrary(1.0)
-    default:
-      break
+  @IBOutlet private weak var tableView: UITableView! {
+    didSet {
+      tableView.allowsSelection = false
+      tableView.separatorStyle = .none
+      tableView.backgroundColor = .background
+      tableView.registerCellNibForClass(SecondaryButtonTableViewCell.self)
+      tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constant.id)
     }
   }
-
-  @objc func handlePicture(shortPress: UILongPressGestureRecognizer) {
-    switch shortPress.state {
-    case .began:
-      animateScalePicture(0.925)
-    case .ended, .failed:
-      self.takePicture()
-      fallthrough
-    case .cancelled:
-      animateScalePicture(1.0)
-    default:
-      break
-    }
-  }
-
-  init(onPickImage: @escaping (UIImage) -> Void) {
-    self.onPickImage = onPickImage
-      
-    super.init(nibName: Self.xibName, bundle: nil)
-  }
   
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
+  private let disposeBag = DisposeBag()
+  private let healthService: HealthServiceType = HealthService.shared
 
+  weak var delegate: LogWorkoutModalViewControllerDelegate?
+  
   override func viewDidLoad() {
+    super.viewDidLoad()
+    
     view.backgroundColor = .background
-
-    shortPressLibrary.addTarget(self, action: #selector(handleLibrary(shortPress:)))
-    shortPressLibrary.delegate = self
-    shortPressPicture.addTarget(self, action: #selector(handlePicture(shortPress:)))
-    shortPressPicture.delegate = self
-
-    chooseFromLibraryView.layer.cornerRadius = 4
-    takePictureView.layer.cornerRadius = 4
-    
-    chooseFromLibraryView.backgroundColor = .foreground
-    takePictureView.backgroundColor = .foreground
-    
-    chooseFromLibraryView.addGestureRecognizer(shortPressLibrary)
-    takePictureView.addGestureRecognizer(shortPressPicture)
-    
-    textStackView.isHidden = !showText
   }
   
-  func animateScaleLibrary(_ scale: CGFloat, onCompletion: (() -> Void)? = nil) {
-    UIView.animate(withDuration: 0.15, delay: 0, options: .curveLinear, animations: {
-      self.chooseFromLibraryView.transform = CGAffineTransform(scaleX: scale, y: scale)
-    }, completion: { _ in
-        onCompletion?()
-    })
-  }
-
-  func animateScalePicture(_ scale: CGFloat, onCompletion: (() -> Void)? = nil) {
-    UIView.animate(withDuration: 0.15, delay: 0, options: .curveLinear, animations: {
-      self.takePictureView.transform = CGAffineTransform(scaleX: scale, y: scale)
-    }, completion: { _ in
-        onCompletion?()
-    })
-  }
-
-  private func takePicture() {
-    guard UIImagePickerController.isCameraDeviceAvailable(.front) || UIImagePickerController.isCameraDeviceAvailable(.rear) else {
-      self.presentAlert(title: "Uh-oh", message: "Your device needs a camera to do that.")
-      return
-    }
-
-    let imagePicker = UIImagePickerController()
-    imagePicker.sourceType = .camera
-    imagePicker.delegate = self
-    UINavigationBar.appearance().isTranslucent = false
-    UINavigationBar.appearance().barTintColor = .background
-    UINavigationBar.appearance().tintColor = .primaryText
-
-    self.present(imagePicker, animated: true, completion: nil)
-  }
-  
-  private func presentLibrary() {
-    let imagePicker = UIImagePickerController()
-    imagePicker.sourceType = .photoLibrary
-    imagePicker.delegate = self
-    UINavigationBar.appearance().isTranslucent = false
-    UINavigationBar.appearance().barTintColor = .background
-    UINavigationBar.appearance().tintColor = .primaryText
-
-    self.present(imagePicker, animated: true, completion: nil)
-  }
-}
-
-extension LogWorkoutModalViewController: UIGestureRecognizerDelegate {
-  func gestureRecognizer(
-    _ gestureRecognizer: UIGestureRecognizer,
-    shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
-  ) -> Bool {
-    return true
-  }
-}
-
-extension LogWorkoutModalViewController: UIImagePickerControllerDelegate {
-  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-    picker.dismiss(animated: true) {
-      self.dismiss(animated: true) {
-        if let img = info[.originalImage] as? UIImage {
-          self.onPickImage(img)
+  @objc private func healthAppTapped() {
+    healthService.requestWorkoutAuthorization()
+      .subscribe(onSuccess: { _ in
+        DispatchQueue.main.async {
+          let importWorkoutViewController = ImportWorkoutViewController()
+          importWorkoutViewController.delegate = self
+          
+          self.presentInNav(importWorkoutViewController)
         }
+      }, onError: { error in
+        DispatchQueue.main.async {
+          let importWorkoutViewController = ImportWorkoutViewController()
+          importWorkoutViewController.delegate = self
+          
+          self.presentInNav(importWorkoutViewController)
+        }
+      })
+      .disposed(by: disposeBag)
+  }
+
+  @objc private func photoOrVideoTapped() {
+    
+  }
+}
+
+extension LogWorkoutModalViewController: UITableViewDataSource {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return 4
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    switch indexPath.row {
+    case 0:
+      let cell = tableView.dequeueReusableCell(withIdentifier: Constant.id, for: indexPath)
+      cell.textLabel?.text = "Log workout"
+      cell.textLabel?.font = .h4
+      cell.textLabel?.textColor = .primaryText
+      cell.selectionStyle = .none
+      cell.backgroundColor = .clear
+      cell.contentView.backgroundColor = .clear
+      
+      return cell
+    case 1:
+      let cell = tableView.dequeueReusableCell(withType: SecondaryButtonTableViewCell.self, for: indexPath)
+      cell.button.addTarget(self, action: #selector(healthAppTapped), for: .touchUpInside)
+      cell.button.setTitle("Health app", for: .normal)
+      cell.button.setImage(.heart, for: .normal)
+      cell.selectionStyle = .none
+
+      return cell
+    case 2:
+      let cell = tableView.dequeueReusableCell(withType: SecondaryButtonTableViewCell.self, for: indexPath)
+      cell.button.addTarget(self, action: #selector(photoOrVideoTapped), for: .touchUpInside)
+      cell.button.setTitle("Photo or video", for: .normal)
+      cell.button.setImage(.image, for: .normal)
+      cell.selectionStyle = .none
+
+      return cell
+    case 3:
+      return UITableViewCell().apply {
+        $0.isUserInteractionEnabled = false
+        $0.selectionStyle = .none
+        $0.backgroundColor = .clear
+        $0.contentView.backgroundColor = .clear
       }
+    default:
+      fatalError()
+    }
+  }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    if indexPath.row == 3 {
+      return 20
+    } else {
+      return UITableView.automaticDimension
+    }
+  }
+}
+
+extension LogWorkoutModalViewController: ImportWorkoutViewControllerDelegate {
+  func importWorkoutViewController(_ importWorkoutViewController: ImportWorkoutViewController, imported workout: HKWorkout) {
+    importWorkoutViewController.dismiss(animated: true) { [self] in
+      delegate?.didImportWorkout(self, workout: workout)
     }
   }
 }
 
 extension LogWorkoutModalViewController: PanModalPresentable {
   var panScrollable: UIScrollView? {
-    return nil
-  }
-
-  var showDragIndicator: Bool {
-    return false
+    return tableView
   }
   
-  var shortFormHeight: PanModalHeight {
-    return showText ? .contentHeight(191) : .contentHeight(135)
+  var showDragIndicator: Bool {
+    return false
   }
 }

@@ -11,6 +11,7 @@ import UIKit
 enum WorkoutFlow {
   private static let createWorkoutDelegate = CreateWorkoutDelegateObject()
   private static let healthAppDelegate = HealthAppDelegate()
+  private static let logWorkoutModalDelegate = LogWorkoutModalDelegate()
   private static let generator = UIImpactFeedbackGenerator(style: .heavy)
   private static let healthService: HealthServiceType = HealthService.shared
   
@@ -31,13 +32,9 @@ enum WorkoutFlow {
   }
   
   static func presentWorkoutModal() {
-    let logWorkoutModal = LogWorkoutModalViewController() { image in
-      let createWorkoutViewController = CreateWorkoutViewController(workout: .left(image))
-      createWorkoutViewController.delegate = createWorkoutDelegate
+    let logWorkoutModal = LogWorkoutModalViewController()
+    logWorkoutModal.delegate = logWorkoutModalDelegate
       
-      UIViewController.topmost().present(createWorkoutViewController.inNav(), animated: true, completion: nil)
-    }
-    
     UIViewController.topmost().presentPanModal(logWorkoutModal)
   }
 }

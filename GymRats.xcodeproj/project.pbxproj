@@ -128,6 +128,9 @@
 		01611D49243E968A00D1DAA4 /* WorkoutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01611D48243E968A00D1DAA4 /* WorkoutRow.swift */; };
 		016194572575241E0057A0CB /* HealthAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016194562575241E0057A0CB /* HealthAppDelegate.swift */; };
 		0161945B2576778F0057A0CB /* DevLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0161945A2576778F0057A0CB /* DevLog.swift */; };
+		016194D82576A0A50057A0CB /* SecondaryButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016194D62576A0A50057A0CB /* SecondaryButtonTableViewCell.swift */; };
+		016194D92576A0A50057A0CB /* SecondaryButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 016194D72576A0A50057A0CB /* SecondaryButtonTableViewCell.xib */; };
+		016194DD2576A25E0057A0CB /* LogWorkoutModalDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016194DC2576A25E0057A0CB /* LogWorkoutModalDelegate.swift */; };
 		0163A2382377AF19006FDDA2 /* StoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0163A2372377AF19006FDDA2 /* StoreService.swift */; };
 		0169395024D9BA100011C1A8 /* LocalNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0169394F24D9BA100011C1A8 /* LocalNotificationService.swift */; };
 		0169395424D9D18C0011C1A8 /* ChallengeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0169395224D9D18C0011C1A8 /* ChallengeDetailsViewController.swift */; };
@@ -496,6 +499,9 @@
 		01611D48243E968A00D1DAA4 /* WorkoutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRow.swift; sourceTree = "<group>"; };
 		016194562575241E0057A0CB /* HealthAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthAppDelegate.swift; sourceTree = "<group>"; };
 		0161945A2576778F0057A0CB /* DevLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevLog.swift; sourceTree = "<group>"; };
+		016194D62576A0A50057A0CB /* SecondaryButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButtonTableViewCell.swift; sourceTree = "<group>"; };
+		016194D72576A0A50057A0CB /* SecondaryButtonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondaryButtonTableViewCell.xib; sourceTree = "<group>"; };
+		016194DC2576A25E0057A0CB /* LogWorkoutModalDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogWorkoutModalDelegate.swift; sourceTree = "<group>"; };
 		0163A2372377AF19006FDDA2 /* StoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreService.swift; sourceTree = "<group>"; };
 		0169394F24D9BA100011C1A8 /* LocalNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationService.swift; sourceTree = "<group>"; };
 		0169395224D9D18C0011C1A8 /* ChallengeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDetailsViewController.swift; sourceTree = "<group>"; };
@@ -802,6 +808,7 @@
 				0103A98E24204ED300B589DA /* CreateWorkoutDelegateObject.swift */,
 				015A1A5D2421A2B500D2EF5A /* NotificationHandler.swift */,
 				016194562575241E0057A0CB /* HealthAppDelegate.swift */,
+				016194DC2576A25E0057A0CB /* LogWorkoutModalDelegate.swift */,
 			);
 			path = delegate;
 			sourceTree = "<group>";
@@ -1113,6 +1120,8 @@
 				01C6B701252EA8CE0042F828 /* ButtonChoiceCell.xib */,
 				01FFFFAE253A31950067C2DB /* BooleanCell.swift */,
 				01FFFFAF253A31950067C2DB /* BooleanCell.xib */,
+				016194D62576A0A50057A0CB /* SecondaryButtonTableViewCell.swift */,
+				016194D72576A0A50057A0CB /* SecondaryButtonTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1713,6 +1722,7 @@
 				0169396D24DA09850011C1A8 /* MemberCell.xib in Resources */,
 				018510042447A3C700C4F1A6 /* ChangeBannerViewController.xib in Resources */,
 				01901A862566B71700831501 /* SupportViewController.xib in Resources */,
+				016194D92576A0A50057A0CB /* SecondaryButtonTableViewCell.xib in Resources */,
 				013CFD1E24DCDE810095D353 /* LoadingViewController.xib in Resources */,
 				01297D8F2329E79000CA9E41 /* SF-Pro-Rounded-Regular.otf in Resources */,
 				015C071C243FC7E5003E75E9 /* LogWorkoutCell.xib in Resources */,
@@ -1854,6 +1864,7 @@
 				0169395024D9BA100011C1A8 /* LocalNotificationService.swift in Sources */,
 				0176B677243B9EAD0022B65F /* UIDevice+Extension.swift in Sources */,
 				013D023F24193B440063F189 /* ChallengeViewModel.swift in Sources */,
+				016194D82576A0A50057A0CB /* SecondaryButtonTableViewCell.swift in Sources */,
 				01AB95AB243F90D30066C7DA /* SpookyView.swift in Sources */,
 				01F65A032445144300E26539 /* ChallengeBannerChoice.swift in Sources */,
 				0146D3ED24450BC1008D990E /* ChooseChallengeModeViewController.swift in Sources */,
@@ -1963,6 +1974,7 @@
 				011FB63322A37387004D5B8E /* CompletedChallengesViewController.swift in Sources */,
 				743050622209EA82005D8C52 /* UIViewController+Extension.swift in Sources */,
 				015E2A8D243CEFD700307B21 /* TodaysGoalViewController.swift in Sources */,
+				016194DD2576A25E0057A0CB /* LogWorkoutModalDelegate.swift in Sources */,
 				015C1E22253A380A0037C6A7 /* UpdateTeam.swift in Sources */,
 				01A3EB24237747D30097FC2A /* CVCalendarWeekView.swift in Sources */,
 				01D5D369243BD2700044E459 /* TextFieldCell.swift in Sources */,

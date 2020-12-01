@@ -80,5 +80,6 @@ class SecondaryButton: UIButton {
     setTitleColor(UIColor.primaryText, for: .normal)
     setTitleColor(UIColor.primaryText.darker, for: .highlighted)
     tintColor = .primaryText
+    imageEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 10)
   }
 }

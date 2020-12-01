@@ -22,12 +22,12 @@ final class ImportWorkoutViewModel: ViewModel {
     let viewDidLoad = PublishSubject<Void>()
     let tappedRow = PublishSubject<IndexPath>()
   }
-  
+
   struct Output {
     let sections = PublishSubject<[ImportWorkoutSection]>()
     let selectedWorkout = PublishSubject<HKWorkout>()
   }
-  
+
   let input = Input()
   let output = Output()
   
