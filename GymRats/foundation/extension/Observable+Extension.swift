@@ -141,6 +141,21 @@ extension Observable where Element == NetworkResult<Data> {
   }
 }
 
+extension JSONEncoder {
+  static let gymRatsAPIEncoder: JSONEncoder = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
+    dateFormatter.timeZone = .utc
+    dateFormatter.locale = Locale(identifier: "UTC")
+    
+    let encoder = JSONEncoder()
+    encoder.dateEncodingStrategy = .formatted(dateFormatter)
+    encoder.keyEncodingStrategy = .convertToSnakeCase
+    
+    return encoder
+  }()
+}
+
 extension JSONDecoder {
   static let gymRatsAPIDecoder: JSONDecoder = {
     let dateFormatter = DateFormatter()

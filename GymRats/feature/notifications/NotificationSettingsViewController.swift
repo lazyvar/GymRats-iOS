@@ -31,13 +31,13 @@ class NotificationSettingsViewController: BindableViewController {
   @IBOutlet private weak var workoutLabel: UILabel! {
     didSet {
       workoutLabel.textColor = .primaryText
-      workoutLabel.font = .body
+      workoutLabel.font = .emphasis
     }
   }
 
   @IBOutlet private weak var workoutDetailsLabel: UILabel! {
     didSet {
-      workoutDetailsLabel.textColor = .secondaryText
+      workoutDetailsLabel.textColor = .primaryText
       workoutDetailsLabel.font = .details
     }
   }
@@ -45,13 +45,13 @@ class NotificationSettingsViewController: BindableViewController {
   @IBOutlet private weak var commentLabel: UILabel! {
     didSet {
       commentLabel.textColor = .primaryText
-      commentLabel.font = .body
+      commentLabel.font = .emphasis
     }
   }
 
   @IBOutlet private weak var commentDetailsLabel: UILabel! {
     didSet {
-      commentDetailsLabel.textColor = .secondaryText
+      commentDetailsLabel.textColor = .primaryText
       commentDetailsLabel.font = .details
     }
   }
@@ -59,13 +59,13 @@ class NotificationSettingsViewController: BindableViewController {
   @IBOutlet private weak var chatMessageLabel: UILabel! {
     didSet {
       chatMessageLabel.textColor = .primaryText
-      chatMessageLabel.font = .body
+      chatMessageLabel.font = .emphasis
     }
   }
   
   @IBOutlet private weak var chatMessageDetailsLabel: UILabel! {
     didSet {
-      chatMessageDetailsLabel.textColor = .secondaryText
+      chatMessageDetailsLabel.textColor = .primaryText
       chatMessageDetailsLabel.font = .details
     }
   }

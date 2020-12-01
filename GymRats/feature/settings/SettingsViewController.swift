@@ -102,7 +102,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
       case 0: return 4
       case 1: return 4
       case 2: return 1
-      case 3: return 2
+      case 3: return 3
       default: return 0
       }
     }
@@ -217,9 +217,14 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             }
           }
         case 3:
+          let healthAppViewController = HealthAppViewController()
+          healthAppViewController.title = "Health app settings"
+          healthAppViewController.delegate = self
+
           switch indexPath.row {
           case 0: push(NotificationSettingsViewController())
-          case 1: GymRats.logout()
+          case 1: push(healthAppViewController)
+          case 2: GymRats.logout()
           default: break
           }
         default:
@@ -305,8 +310,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             case 0:
                 theCell.textLabel?.text = "Notifications"
             case 1:
+                theCell.textLabel?.text = "Health app"
+            case 2:
                 theCell.textLabel?.text = "Sign out"
-                theCell.directionalLayoutMargins = .zero
             default:
                 break
             }
@@ -317,4 +323,18 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         return theCell
     }
     
+}
+
+extension SettingsViewController: HealthAppViewControllerDelegate {
+  func close(_ healthAppViewController: HealthAppViewController) {
+    navigationController?.popViewController(animated: true)
+  }
+  
+  func closeButtonHidden() -> Bool {
+    return true
+  }
+  
+  func notNowButtonHidden() -> Bool {
+    return true
+  }
 }

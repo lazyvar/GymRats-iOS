@@ -31,8 +31,13 @@ final class ImportWorkoutViewModel: ViewModel {
   let input = Input()
   let output = Output()
   
-  init() {
-    let workouts = HealthService.allWorkouts()
+  private let healthService: HealthServiceType
+  
+  init(healthService: HealthServiceType = HealthService.shared) {
+    self.healthService = healthService
+    
+    let workouts = healthService.allWorkouts()
+      .asDriver(onErrorJustReturn: [])
       .asObservable()
       .share()
     

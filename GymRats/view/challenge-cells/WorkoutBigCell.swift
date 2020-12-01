@@ -153,7 +153,7 @@ class WorkoutBigCell: UITableViewCell {
       $0.accountNameLabel.text = workout.account.fullName
       $0.workoutTitleLabel.text = workout.title
       $0.accountImageView.load(workout.account)
-      $0.timeLabel.text = "\(workout.createdAt.challengeTime)"
+      $0.timeLabel.text = "\(workout.occurredAt.challengeTime)"
 
       if let photo = workout.photoUrl, let url = URL(string: photo) {
         $0.workoutImageView.kf.setImage(with: url, options: [.transition(.fade(0.2)), .forceTransition])

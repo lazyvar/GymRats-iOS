@@ -36,7 +36,7 @@ class SupportViewController: UIViewController {
 
 extension SupportViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 3
+    return DevLog.enabled ? 4 : 3
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -55,6 +55,10 @@ extension SupportViewController: UITableViewDataSource {
       cell.imageView?.image = .help
       cell.textLabel?.text = "Read the FAQ"
       cell.detailTextLabel?.text = "See if your question has already been answered."
+    case 3:
+      cell.imageView?.image = .activity
+      cell.textLabel?.text = "Share developer's log"
+      cell.detailTextLabel?.text = "For health app auto sync issues."
     default:
       break
     }
@@ -84,6 +88,8 @@ extension SupportViewController: UITableViewDelegate {
       let webView = WebViewController(url: URL(string: "https://www.gymrats.app/faq")!)
       
       self.present(webView.inNav(), animated: true, completion: nil)
+    case 3:
+      DevLog.shareLog()
     default:
       break
     }

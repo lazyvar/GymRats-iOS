@@ -16,6 +16,7 @@ import Branch
 import Segment
 import Segment_Amplitude
 import Segment_Firebase
+import HealthKit
 
 /// God object. Handles AppDelegate functions among other things.
 enum GymRats {
@@ -29,6 +30,7 @@ enum GymRats {
 
   static private let disposeBag = DisposeBag()
   static private let notificationHandler = NotificationHandler()
+  static private let healthService: HealthServiceType = HealthService.shared
   
   static private var coldStartNotification: [AnyHashable: Any]? {
     get {
@@ -59,7 +61,6 @@ enum GymRats {
   
   /// Called at the very start of the application.
   static func start(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
-
     coldStartNotification = launchOptions?[.remoteNotification] as? [AnyHashable: Any]
     currentAccount = Account.loadCurrent()
     
@@ -76,6 +77,10 @@ enum GymRats {
     }()
 
     if currentAccount != nil {
+      if healthService.autoSyncEnabled {
+        healthService.observeWorkouts()
+      }
+
       PushNotifications.center.getNotificationSettings { settings in
         switch settings.authorizationStatus {
         case .authorized: registerForNotifications()
@@ -229,6 +234,13 @@ enum GymRats {
     branch.continue(userActivity)
   }
   
+  /// Shorthand for Application opening a URL
+  static func open(url: String) {
+    guard let url = URL(string: url) else { return }
+    
+    application.open(url, options: [:], completionHandler: nil)
+  }
+  
   /// Removes the current account and shows the welcome screen
   static func logout() {
     gymRatsAPI
@@ -237,6 +249,7 @@ enum GymRats {
 
     UserDefaults.standard.removeObject(forKey: "join-code")
     currentAccount = nil
+    healthService.autoSyncEnabled = false
     Account.removeCurrent()
     Membership.State.clear()
     window.rootViewController = WelcomeViewController().inNav()
