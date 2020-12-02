@@ -66,8 +66,8 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="bigLabel" destination="8uJ-bh-5Jg" id="Kym-IV-DI2"/>
+                <outlet property="cellHeightConstraint" destination="FRt-kz-BBe" id="NC8-Oa-mt2"/>
                 <outlet property="chevron" destination="5dG-iP-emt" id="YY7-6w-O6r"/>
-                <outlet property="heightConstraint" destination="FRt-kz-BBe" id="3JN-Yo-D6r"/>
                 <outlet property="smallLabel" destination="GEd-0a-f66" id="b9G-GG-rcs"/>
             </connections>
             <point key="canvasLocation" x="151" y="153"/>

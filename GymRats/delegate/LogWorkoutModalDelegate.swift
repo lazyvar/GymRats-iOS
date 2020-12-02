@@ -8,13 +8,14 @@
 
 import Foundation
 import HealthKit
+import YPImagePicker
 
 class LogWorkoutModalDelegate: LogWorkoutModalViewControllerDelegate {
   func didImportWorkout(_ logWorkoutModalViewController: LogWorkoutModalViewController, workout: HKWorkout) {
     
   }
   
-  func didPickMedia(_ logWorkoutModalViewController: LogWorkoutModalViewController, media: [Any]) {
+  func didPickMedia(_ logWorkoutModalViewController: LogWorkoutModalViewController, media: [YPMediaItem]) {
     
   }
 }

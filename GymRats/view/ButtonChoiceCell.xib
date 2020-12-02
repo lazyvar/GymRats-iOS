@@ -77,8 +77,8 @@
             <connections>
                 <outlet property="avatarImageView" destination="ycU-eT-v30" id="hvV-YC-ea3"/>
                 <outlet property="bigLabel" destination="Gxw-lw-69x" id="hDx-th-jvS"/>
+                <outlet property="cellHeightConstraint" destination="oMD-KL-duv" id="x5c-KV-J92"/>
                 <outlet property="chevron" destination="tP4-r5-CHV" id="gOo-Yg-87E"/>
-                <outlet property="heightConstraint" destination="oMD-KL-duv" id="4or-Qo-YIV"/>
                 <outlet property="smallLabel" destination="fdy-GN-dZJ" id="ExB-dj-8Ti"/>
             </connections>
             <point key="canvasLocation" x="-155.79710144927537" y="19.754464285714285"/>

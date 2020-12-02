@@ -66,6 +66,8 @@
 	<string>For sharing challenge.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>For posting workout pictures.</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>For sound in videos of workout.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SF-Pro-Rounded-Semibold.otf</string>

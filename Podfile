@@ -41,6 +41,7 @@ target 'GymRats' do
     pod 'UnsplashPhotoPicker', '~> 1.1.1'
     pod 'ImageViewer.swift', '~> 3.0.12'
     pod 'SwiftConfettiView'
+    pod 'YPImagePicker'
 
     target 'GymRatsTests' do
       inherit! :search_paths

@@ -107,6 +107,7 @@ PODS:
   - Pageboy (3.6.1)
   - PanModal (1.2.7)
   - PromisesObjC (1.2.10)
+  - PryntTrimmerView (4.0.2)
   - RSKPlaceholderTextView (6.0.3)
   - RxAlamofire (5.1.0):
     - RxAlamofire/Core (= 5.1.0)
@@ -149,6 +150,7 @@ PODS:
     - FirebaseAnalytics (~> 6.1)
   - SkeletonView (1.10.0)
   - Starscream (3.1.1)
+  - SteviaLayout (4.7.3)
   - SwiftConfettiView (0.1.0)
   - SwiftDate (5.1.0)
   - SwiftPhoenixClient (1.3.0):
@@ -156,6 +158,9 @@ PODS:
   - TTTAttributedLabel (2.0.0)
   - UIScrollView-InfiniteScroll (1.1.0)
   - UnsplashPhotoPicker (1.1.1)
+  - YPImagePicker (4.4.0):
+    - PryntTrimmerView (~> 4.0.2)
+    - SteviaLayout (~> 4.7.3)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
@@ -195,6 +200,7 @@ DEPENDENCIES:
   - TTTAttributedLabel
   - UIScrollView-InfiniteScroll (~> 1.1.0)
   - UnsplashPhotoPicker (~> 1.1.1)
+  - YPImagePicker
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -233,6 +239,7 @@ SPEC REPOS:
     - Pageboy
     - PanModal
     - PromisesObjC
+    - PryntTrimmerView
     - RSKPlaceholderTextView
     - RxAlamofire
     - RxCocoa
@@ -247,12 +254,14 @@ SPEC REPOS:
     - Segment-Firebase
     - SkeletonView
     - Starscream
+    - SteviaLayout
     - SwiftConfettiView
     - SwiftDate
     - SwiftPhoenixClient
     - TTTAttributedLabel
     - UIScrollView-InfiniteScroll
     - UnsplashPhotoPicker
+    - YPImagePicker
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
@@ -290,6 +299,7 @@ SPEC CHECKSUMS:
   Pageboy: 29a2d474ad99404b4d77f325e0ab6d705930a4fb
   PanModal: 3e16ead1a907fb06f4df3f13492fd00149fa4974
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
+  PryntTrimmerView: 6a43cc90df5d99addeabd33d4ba09b1365322130
   RSKPlaceholderTextView: fc8c8932546298ec9d5e5572284aa42adb87b066
   RxAlamofire: a2d7621de4c23a0c6e7b476b504acc32838ee341
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
@@ -304,13 +314,15 @@ SPEC CHECKSUMS:
   Segment-Firebase: 41677a446f58989db69912059949107afb0c3f38
   SkeletonView: 14fbe9702c7fb5c5f011b44ac3ae99fc73155726
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
+  SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
   SwiftConfettiView: 1bdbc2e6913b6b1c76d8070802b212508ad5c352
   SwiftDate: 6329e58969a2de31cea7f1ee1143b247693196e7
   SwiftPhoenixClient: 50cadfc54ce671fab33a99869c0152172c1554ef
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UIScrollView-InfiniteScroll: 3ef456bcbe759c19f510a383cff96e6647c98c98
   UnsplashPhotoPicker: 86520e34cfded8fb4a41910bf87afe571906b4e3
+  YPImagePicker: 15aed8bcaa4dad976e11b6114126d731a2f9f3c9
 
-PODFILE CHECKSUM: fdaeb9118d844559c99945a0f2ff77bff92052d5
+PODFILE CHECKSUM: 11186ca489a080fa7247cf7184bc654e001cb5be
 
 COCOAPODS: 1.9.1

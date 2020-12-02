@@ -10,10 +10,11 @@ import UIKit
 import PanModal
 import HealthKit
 import RxSwift
+import YPImagePicker
 
 protocol LogWorkoutModalViewControllerDelegate: class {
   func didImportWorkout(_ logWorkoutModalViewController: LogWorkoutModalViewController, workout: HKWorkout)
-  func didPickMedia(_ logWorkoutModalViewController: LogWorkoutModalViewController, media: [Any])
+  func didPickMedia(_ logWorkoutModalViewController: LogWorkoutModalViewController, media: [YPMediaItem])
 }
 
 class LogWorkoutModalViewController: UIViewController, UINavigationControllerDelegate {
@@ -63,7 +64,15 @@ class LogWorkoutModalViewController: UIViewController, UINavigationControllerDel
   }
 
   @objc private func photoOrVideoTapped() {
+    let picker = YPImagePicker()
+    picker.didFinishPicking { [self] items, cancelled in
+      defer { picker.dismiss(animated: true, completion: nil) }
+      guard !cancelled else { return }
+      
+      self.delegate?.didPickMedia(self, media: items)
+    }
     
+    present(picker, animated: true, completion: nil)
   }
 }
 
