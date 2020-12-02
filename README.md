@@ -26,6 +26,7 @@ This app is grateful for and heavily dependant upon a list of [open source softw
 - [Eureka](https://github.com/xmartlabs/Eureka)
 - [Feather icons](https://github.com/feathericons/feather)
 - [SwiftPhoenixClient](https://github.com/davidstump/SwiftPhoenixClient)
+- [YPImagePicker](https://github.com/Yummypets/YPImagePicker)
 
 Thank you to the community!
 

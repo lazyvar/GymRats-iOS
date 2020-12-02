@@ -36,6 +36,8 @@ extension UIImage {
   static let camera             = UIImage(named: "camera")!
   static let close              = UIImage(named: "close")!
   static let menu               = UIImage(named: "menu")!
+  static let checked            = UIImage(named: "checked")!
+  static let notChecked         = UIImage(named: "not-checked")!
   static let big                = UIImage(named: "big")!
   static let list               = UIImage(named: "list")!
   static let clock              = UIImage(named: "clock")!

@@ -277,10 +277,11 @@ class WorkoutViewController: BindableViewController {
 
   @objc private func showWorkoutMenu() {
     let edit = UIAlertAction(title: "Edit", style: .default) { _ in
-      let viewController = CreateWorkoutViewController(workout: .right(self.workout))
-      viewController.delegate = self
-      
-      self.presentInNav(viewController)
+      // TODO: Edit workout
+//      let viewController = CreateWorkoutViewController(workout: .right(self.workout))
+//      viewController.delegate = self
+//
+//      self.presentInNav(viewController)
     }
     
     let deleteAction = UIAlertAction(title: "Remove workout", style: .destructive) { _ in
