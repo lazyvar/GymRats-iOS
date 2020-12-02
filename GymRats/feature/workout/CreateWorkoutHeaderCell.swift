@@ -73,15 +73,7 @@ class CreateWorkoutHeaderCell: Cell<WorkoutHeaderInfo>, CellType {
     }
     
     @objc func editButtonTapped() {
-        let picka = LogWorkoutModalViewController() { image in
-            let currentValue: WorkoutHeaderInfo = self.row.value!
-            
-          self.row.value = WorkoutHeaderInfo(imageOrWorkout: .left(image), title: currentValue.title, description: currentValue.description)
-            self.update()
-        }
-        picka.showText = false
-        
-        UIViewController.topmost().presentPanModal(picka)
+      // TODO: change photo fancy style
     }
     
   

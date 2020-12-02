@@ -27,7 +27,7 @@ class ChoiceCell: UITableViewCell {
     didSet { chevron.tintColor = .primaryText }
   }
   
-  @IBOutlet weak var heightConstraint: NSLayoutConstraint!
+  @IBOutlet weak var cellHeightConstraint: NSLayoutConstraint!
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -58,11 +58,11 @@ class ChoiceCell: UITableViewCell {
     super.prepareForReuse()
     
     bigLabel.font = .h4Bold
-    heightConstraint.constant = 80
+    cellHeightConstraint.constant = 80
   }
   
   private func makeOneLine() {
-    heightConstraint.constant = 60
+    cellHeightConstraint.constant = 60
     smallLabel.isHidden = true
     bigLabel.font = .h4
   }

@@ -31,6 +31,7 @@ extension UIImage {
   static let checkDark          = UIImage(named: "check-dark")!
   static let mailDark           = UIImage(named: "mail-dark")!
   static let lockDark           = UIImage(named: "lock-dark")!
+  static let heart              = UIImage(named: "heart")!
   static let proPic             = UIImage(named: "pro-pic")!
   static let camera             = UIImage(named: "camera")!
   static let close              = UIImage(named: "close")!

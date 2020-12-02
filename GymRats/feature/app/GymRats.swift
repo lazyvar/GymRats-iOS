@@ -17,6 +17,8 @@ import Segment
 import Segment_Amplitude
 import Segment_Firebase
 import HealthKit
+import YPImagePicker
+import AVFoundation
 
 /// God object. Handles AppDelegate functions among other things.
 enum GymRats {
@@ -97,6 +99,7 @@ enum GymRats {
     NetworkActivityLogger.shared.startLogging()
     #endif
     
+    configureYPImagePicker()
     branch.initSession(launchOptions: launchOptions, andRegisterDeepLinkHandler: branchCallback)
     GMSPlacesClient.provideAPIKey("AIzaSyD1X4TH-TneFnDqjiJ2rb2FGgxK8JZyrIo")
     FirebaseApp.configure()
@@ -294,5 +297,32 @@ private extension GymRats {
 
       DispatchQueue.main.async { application.registerForRemoteNotifications() }
     }
+  }
+  
+  private static func configureYPImagePicker() {
+    var config = YPImagePickerConfiguration()
+    config.screens = [.photo, .video, .library]
+    config.startOnScreen = .photo
+    config.shouldSaveNewPicturesToAlbum = false
+    config.onlySquareImagesFromCamera = false
+    config.showsVideoTrimmer = false
+    config.showsPhotoFilters = false
+    config.library.maxNumberOfItems = 3
+    config.wordings.cameraTitle = "Camera"
+    config.wordings.next = "Next"
+    config.fonts.menuItemFont = UIFont.proRoundedSemibold(size: 17)
+    config.filters = []
+    config.video.recordingTimeLimit = 30
+    config.video.libraryTimeLimit = 30
+    config.video.minimumTimeLimit = 1
+    config.video.compression = AVAssetExportPresetMediumQuality
+//    config.icons.capturePhotoImage = UIImage(color: .brand) TODO
+//    config.icons.captureVideoImage = UIImage(color: .brand) TODO
+
+    YPImagePickerConfiguration.shared = config
+
+    UINavigationBar.appearance().setBackgroundImage(UIImage(color: .background), for: .default)
+    UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font: UIFont.proRoundedSemibold(size: 17)]
+    UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.proRoundedRegular(size: 17)], for: .normal)
   }
 }

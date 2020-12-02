@@ -36,7 +36,7 @@ class ButtonChoiceCell: Cell<Either<UIImage, String>>, CellType {
     }
   }
   
-  @IBOutlet weak var heightConstraint: NSLayoutConstraint!
+  @IBOutlet weak var cellHeightConstraint: NSLayoutConstraint!
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -87,12 +87,12 @@ class ButtonChoiceCell: Cell<Either<UIImage, String>>, CellType {
     super.prepareForReuse()
     
     bigLabel.font = .h4Bold
-    heightConstraint.constant = 80
+    cellHeightConstraint.constant = 80
   }
   
   private func makeOneLine() {
     bigLabel.font = .h4
-    heightConstraint.constant = 60
+    cellHeightConstraint.constant = 60
     smallLabel.isHidden = true
   }
 }
