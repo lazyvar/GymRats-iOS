@@ -70,6 +70,8 @@ class HealthAppViewController: BindableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    autoSyncSwitch.onTintColor = .brand
+    
     navigationItem.largeTitleDisplayMode = .always
     
     if !(delegate?.closeButtonHidden() ?? false) {

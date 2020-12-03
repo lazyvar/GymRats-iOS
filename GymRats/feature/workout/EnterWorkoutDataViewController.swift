@@ -34,7 +34,7 @@ class EnterWorkoutDataViewController: GRFormViewController {
   
   // MARK: UI
   
-  private lazy var postButton = UIBarButtonItem(title: "Post", style: .done, target: self, action: #selector(postWorkout))
+  private lazy var postButton = UIBarButtonItem(title: "Post", style: .plain, target: self, action: #selector(postWorkout))
   
   init(title: String, description: String?, media: [YPMediaItem], healthKitWorkout: HKWorkout?, place: Place?) {
     self.workoutTitle = title
@@ -133,6 +133,7 @@ class EnterWorkoutDataViewController: GRFormViewController {
         $0.value = true
       }.cellSetup { cell, _ in
         cell.height = { return 48 }
+        cell.switchControl.onTintColor = .brand
       }
       
       let relay = BehaviorRelay(value: true)
