@@ -139,7 +139,7 @@ class CreateWorkoutViewController: UIViewController {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   // MARK: View lifecycle
     
   override func viewDidLoad() {
@@ -219,7 +219,14 @@ class CreateWorkoutViewController: UIViewController {
   }
   
   @IBAction private func tappedLocation(_ sender: Any) {
-    // todo
+    presentSourceAlert(source: place) { [self] in
+      let locationPickerViewController = LocationPickerViewController()
+      locationPickerViewController.delegate = self
+      
+      presentForClose(locationPickerViewController)
+    } clear: { [self] in
+      self.place = nil
+    }
   }
   
   private func presentSourceAlert(source: Any?, present: @escaping () -> Void, clear: @escaping () -> Void) {
@@ -295,17 +302,19 @@ class CreateWorkoutViewController: UIViewController {
         case .video: return false
         }
       }
+      
       let videos = media.filter { item -> Bool in
         switch item {
         case .photo: return false
         case .video: return true
         }
       }
+      
       let p = photos.isNotEmpty ? "\(photos.count) photo\(photos.count == 1 ? "" : "s")" : nil
       let v = videos.isNotEmpty ? "\(videos.count) video\(videos.count == 1 ? "" : "s")" : nil
       let content = [p, v].compactMap { $0 }.joined(separator: ", ")
       
-      photoOrVideoButton.setTitle("\(content) chosen", for: .normal)
+      photoOrVideoButton.setTitle(content, for: .normal)
     }
   }
 }
@@ -316,6 +325,13 @@ extension CreateWorkoutViewController: UITextViewDelegate {
   }
 }
 
+extension CreateWorkoutViewController: LocationPickerViewControllerDelegate {
+  func didPickLocation(_ locationPickerViewController: LocationPickerViewController, place: Place) {
+    self.place = place
+    locationPickerViewController.dismiss(animated: true)
+  }
+}
+
 extension CreateWorkoutViewController: ImportWorkoutViewControllerDelegate {
   func importWorkoutViewController(_ importWorkoutViewController: ImportWorkoutViewController, imported workout: HKWorkout) {
     self.healthKitWorkout = workout
@@ -323,37 +339,6 @@ extension CreateWorkoutViewController: ImportWorkoutViewControllerDelegate {
     importWorkoutViewController.dismiss(animated: true, completion: nil)
   }
 }
-
-extension CreateWorkoutViewController: CLLocationManagerDelegate {
-  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-    switch status {
-    case .authorizedWhenInUse, .authorizedAlways:
-//      getPlacesForCurrentLocation()
-    break
-    case .denied, .restricted:
-      hideLoadingBar()
-      presentAlert(title: "Location Permission Required", message: "To check in a location, please enable the permission in settings.")
-    case .notDetermined:
-      break
-    @unknown default:
-      break
-    }
-  }
-  
-  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    // mt
-  }
-  
-  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-    presentAlert(title: "Error Getting Location", message: "Please try again.")
-  }
-}
-
-//extension CreateWorkoutViewController: UITextFieldDelegate {
-//  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//    return false
-//  }
-//}
 
 extension Double {
   /// Rounds the double to decimal places value

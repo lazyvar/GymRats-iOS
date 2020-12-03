@@ -154,7 +154,7 @@ extension ChallengeBannerViewController: UITableViewDelegate {
     
     let text = UILabel().apply {
       $0.text = """
-      Optionaly upload a banner image. Pick your own or choose from one of the presets.
+      Optionally upload a banner image. Pick your own or choose from one of the presets.
       """
       $0.textColor = .primaryText
       $0.font = .body

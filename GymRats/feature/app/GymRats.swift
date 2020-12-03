@@ -307,7 +307,7 @@ private extension GymRats {
     config.onlySquareImagesFromCamera = false
     config.showsVideoTrimmer = false
     config.showsPhotoFilters = false
-    config.library.maxNumberOfItems = 3
+    config.library.maxNumberOfItems = 5
     config.wordings.cameraTitle = "Camera"
     config.wordings.next = "Done"
     config.fonts.menuItemFont = UIFont.proRoundedSemibold(size: 17)

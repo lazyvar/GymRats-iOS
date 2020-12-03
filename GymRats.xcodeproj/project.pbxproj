@@ -175,6 +175,8 @@
 		019066BF243D09C6007103D9 /* JoinChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019066BD243D09C6007103D9 /* JoinChallengeViewController.swift */; };
 		019066C0243D09C6007103D9 /* JoinChallengeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 019066BE243D09C6007103D9 /* JoinChallengeViewController.xib */; };
 		01928B78244508BB00F56F76 /* ChallengeMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01928B77244508BB00F56F76 /* ChallengeMode.swift */; };
+		0193DC63257913A400AF536D /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0193DC61257913A400AF536D /* LocationPickerViewController.swift */; };
+		0193DC64257913A400AF536D /* LocationPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0193DC62257913A400AF536D /* LocationPickerViewController.xib */; };
 		01974540243F8700004ACB71 /* ImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197453E243F8700004ACB71 /* ImageViewCell.swift */; };
 		01974541243F8700004ACB71 /* ImageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0197453F243F8700004ACB71 /* ImageViewCell.xib */; };
 		01974544243F8A72004ACB71 /* WorkoutAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01974542243F8A72004ACB71 /* WorkoutAccountCell.swift */; };
@@ -547,6 +549,8 @@
 		019066BD243D09C6007103D9 /* JoinChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinChallengeViewController.swift; sourceTree = "<group>"; };
 		019066BE243D09C6007103D9 /* JoinChallengeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JoinChallengeViewController.xib; sourceTree = "<group>"; };
 		01928B77244508BB00F56F76 /* ChallengeMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeMode.swift; sourceTree = "<group>"; };
+		0193DC61257913A400AF536D /* LocationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
+		0193DC62257913A400AF536D /* LocationPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationPickerViewController.xib; sourceTree = "<group>"; };
 		0197453E243F8700004ACB71 /* ImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewCell.swift; sourceTree = "<group>"; };
 		0197453F243F8700004ACB71 /* ImageViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageViewCell.xib; sourceTree = "<group>"; };
 		01974542243F8A72004ACB71 /* WorkoutAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutAccountCell.swift; sourceTree = "<group>"; };
@@ -924,6 +928,15 @@
 			path = contact;
 			sourceTree = "<group>";
 		};
+		0193DC5C2579124100AF536D /* location */ = {
+			isa = PBXGroup;
+			children = (
+				0193DC61257913A400AF536D /* LocationPickerViewController.swift */,
+				0193DC62257913A400AF536D /* LocationPickerViewController.xib */,
+			);
+			path = location;
+			sourceTree = "<group>";
+		};
 		01987A9524300E7D00835621 /* join-challenge */ = {
 			isa = PBXGroup;
 			children = (
@@ -1293,6 +1306,7 @@
 		747D6FBA2208DBD70062BB39 /* feature */ = {
 			isa = PBXGroup;
 			children = (
+				0193DC5C2579124100AF536D /* location */,
 				01B5352D2573DD1700258073 /* health */,
 				01901A822566B70700831501 /* contact */,
 				018BB6852566AA6F008985FD /* alert */,
@@ -1675,6 +1689,7 @@
 				01E700F02460CA990059017A /* HealthAppWorkoutCell.xib in Resources */,
 				74118062220C58C300EB9D11 /* Lato-BoldItalic.ttf in Resources */,
 				015C0729243FE0FE003E75E9 /* UpcomingChallengeViewController.xib in Resources */,
+				0193DC64257913A400AF536D /* LocationPickerViewController.xib in Resources */,
 				01297D932329E79000CA9E41 /* SF-Pro-Rounded-Thin.otf in Resources */,
 				014B6773241882C000F356EB /* ChallengeViewController.xib in Resources */,
 				0169396724DA08AC0011C1A8 /* MembersCell.xib in Resources */,
@@ -1892,6 +1907,7 @@
 				01A3EB22237747D30097FC2A /* CVCalendarMonthContentViewController.swift in Sources */,
 				015E2A95243CF08600307B21 /* ChoiceCell.swift in Sources */,
 				01D70BD8244676D600F6F33A /* NewChallenge.swift in Sources */,
+				0193DC63257913A400AF536D /* LocationPickerViewController.swift in Sources */,
 				01F5295424180AB600FA96E0 /* BindableViewController.swift in Sources */,
 				01A6C4E524D4EBC90007DFB6 /* Ranking.swift in Sources */,
 				74BE97BC220C9F2800D550CA /* ImageCell.swift in Sources */,
