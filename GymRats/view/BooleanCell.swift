@@ -12,7 +12,7 @@ import Eureka
 class BooleanCell:  Cell<Bool>, CellType {
   @IBOutlet private weak var `switch`: UISwitch! {
     didSet {
-      `switch`.tintColor = .brand
+      `switch`.onTintColor = .brand
     }
   }
 

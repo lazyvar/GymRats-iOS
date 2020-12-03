@@ -17,7 +17,6 @@
                 <outlet property="contentLabel" destination="Baa-hN-QEi" id="cWc-hv-ZQR"/>
                 <outlet property="grantPermissionButton" destination="nXg-Gj-pns" id="R90-SU-4Oz"/>
                 <outlet property="healthAppButton" destination="zj4-gf-56H" id="F8l-DF-r5T"/>
-                <outlet property="notNowButton" destination="OLw-s6-41h" id="Lni-b9-vS6"/>
                 <outlet property="permissionDetailsLabel" destination="ffH-f4-Bwc" id="bfo-A1-xac"/>
                 <outlet property="permissionLabel" destination="s3l-6Q-hd2" id="ArL-Yx-P7g"/>
                 <outlet property="rats100" destination="9t9-py-hFT" id="ycB-As-6uX"/>
@@ -30,10 +29,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="yog-Ze-Rdf">
-                    <rect key="frame" x="20" y="44" width="374" height="649"/>
+                    <rect key="frame" x="20" y="44" width="374" height="550.5"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="SHb-ZF-2x2">
-                            <rect key="frame" x="0.0" y="0.0" width="374" height="571"/>
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="550.5"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="WXu-Om-yNK">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="90"/>
@@ -62,9 +61,9 @@
                                 </stackView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Baa-hN-QEi">
                                     <rect key="frame" x="0.0" y="120" width="374" height="284.5"/>
-                                    <mutableString key="text">GymRats has the ability automatically synchronize workouts with the Apple Health app. Whenever a workout is recorded, like by using your watch or another app like Strava, it will be posted in any active challenges you are participating in without having to manually import it. You will still have the ability to edit the workout details, like adding a picture or adding points.
+                                    <string key="text">GymRats has the ability automatically synchronize workouts with the Apple Health app. Whenever a workout is recorded, like by using your watch or another app like Strava, it will be posted in any active challenges you are participating in without having to manually import it. You will still have the ability to edit the workout details, like adding a picture or adding points.
 
-Alternatively, you can grant permission for GymRats to access Health app data, but still require manual approval to import a workout. These settings can be changed at any time.</mutableString>
+Alternatively, you can grant permission for GymRats to access Health app data, but still require manual approval to import a workout. These settings can be changed at any time.</string>
                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -111,10 +110,10 @@ Alternatively, you can grant permission for GymRats to access Health app data, b
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2YT-DH-aql">
-                                    <rect key="frame" x="0.0" y="507.5" width="374" height="63.5"/>
+                                    <rect key="frame" x="0.0" y="507.5" width="374" height="43"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="yDJ-Oa-lKb">
-                                            <rect key="frame" x="0.0" y="0.0" width="325" height="63.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="325" height="43"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto sync" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q4O-XW-nWE">
                                                     <rect key="frame" x="0.0" y="0.0" width="325" height="20.5"/>
@@ -124,7 +123,7 @@ Alternatively, you can grant permission for GymRats to access Health app data, b
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Health app access must be given before enabling auto sync." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="syb-Co-9Kx">
-                                                    <rect key="frame" x="0.0" y="22.5" width="325" height="41"/>
+                                                    <rect key="frame" x="0.0" y="22.5" width="325" height="20.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -133,7 +132,7 @@ Alternatively, you can grant permission for GymRats to access Health app data, b
                                             </subviews>
                                         </stackView>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bxt-CR-wv1">
-                                            <rect key="frame" x="325" y="0.0" width="51" height="63.5"/>
+                                            <rect key="frame" x="325" y="0.0" width="51" height="43"/>
                                             <connections>
                                                 <action selector="autoSyncSwitchChanged:" destination="-1" eventType="valueChanged" id="ymt-TI-CqC"/>
                                             </connections>
@@ -141,21 +140,6 @@ Alternatively, you can grant permission for GymRats to access Health app data, b
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </stackView>
-                            </subviews>
-                        </stackView>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="uIf-MT-ZG0">
-                            <rect key="frame" x="0.0" y="601" width="374" height="48"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OLw-s6-41h" customClass="SecondaryButton" customModule="GymRats" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="48"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="48" id="hDl-lW-qqb"/>
-                                    </constraints>
-                                    <state key="normal" title="Not now"/>
-                                    <connections>
-                                        <action selector="notNow:" destination="-1" eventType="touchUpInside" id="yIf-9c-kuq"/>
-                                    </connections>
-                                </button>
                             </subviews>
                         </stackView>
                     </subviews>

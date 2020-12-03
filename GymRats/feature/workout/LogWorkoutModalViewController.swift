@@ -66,10 +66,11 @@ class LogWorkoutModalViewController: UIViewController, UINavigationControllerDel
   @objc private func photoOrVideoTapped() {
     let picker = YPImagePicker()
     picker.didFinishPicking { [self] items, cancelled in
-      defer { picker.dismiss(animated: true, completion: nil) }
-      guard !cancelled else { return }
-      
-      self.delegate?.didPickMedia(self, media: items)
+      picker.dismiss(animated: true) {
+        if !cancelled {
+          self.delegate?.didPickMedia(self, media: items)
+        }
+      }
     }
     
     present(picker, animated: true, completion: nil)

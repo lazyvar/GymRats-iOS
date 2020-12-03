@@ -86,6 +86,10 @@ class NotificationSettingsViewController: BindableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    commentSwitch.onTintColor = .brand
+    workoutSwitch.onTintColor = .brand
+    chatMessageSwitch.onTintColor = .brand
+
     navigationItem.largeTitleDisplayMode = .always
     navigationItem.title = "Notifications"
     setupBackButton()

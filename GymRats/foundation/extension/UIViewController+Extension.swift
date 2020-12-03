@@ -22,11 +22,11 @@ extension UIViewController {
       present(viewController.inNav(), animated: true)
     }
   
-    func presentForClose(_ viewController: UIViewController) {
+    func presentForClose(_ viewController: UIViewController, completion: (() -> Void)? = nil) {
       let navigationController = viewController.inNav()
       viewController.navigationItem.leftBarButtonItem = .close(target: viewController)
       
-      present(navigationController, animated: true, completion: nil)
+      present(navigationController, animated: true, completion: completion)
     }
 
     func inNav() -> UINavigationController {
