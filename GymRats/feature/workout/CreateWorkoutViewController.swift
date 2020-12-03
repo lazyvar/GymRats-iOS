@@ -146,6 +146,7 @@ class CreateWorkoutViewController: UIViewController {
     super.viewDidLoad()
     
     updateViewFromState()
+    setupBackButton()
 
     if #available(iOS 13.0, *) {
       if traitCollection.userInterfaceStyle == .dark {
@@ -171,7 +172,15 @@ class CreateWorkoutViewController: UIViewController {
   // MARK: Actions
   
   @objc private func nextTapped() {
-    // ...
+    let enterWorkoutDataViewController = EnterWorkoutDataViewController(
+      title: workoutTitle ?? "Workout",
+      description: workoutDescription,
+      media: media,
+      healthKitWorkout: healthKitWorkout,
+      place: place
+    )
+  
+    push(enterWorkoutDataViewController)
   }
   
   @objc private func titleChanged() {
@@ -337,14 +346,5 @@ extension CreateWorkoutViewController: ImportWorkoutViewControllerDelegate {
     self.healthKitWorkout = workout
     
     importWorkoutViewController.dismiss(animated: true, completion: nil)
-  }
-}
-
-extension Double {
-  /// Rounds the double to decimal places value
-  func rounded(places: Int) -> Double {
-    let divisor = pow(10.0, Double(places))
-  
-    return (self * divisor).rounded() / divisor
   }
 }

@@ -177,6 +177,7 @@
 		01928B78244508BB00F56F76 /* ChallengeMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01928B77244508BB00F56F76 /* ChallengeMode.swift */; };
 		0193DC63257913A400AF536D /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0193DC61257913A400AF536D /* LocationPickerViewController.swift */; };
 		0193DC64257913A400AF536D /* LocationPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0193DC62257913A400AF536D /* LocationPickerViewController.xib */; };
+		0193DC6825791F0A00AF536D /* EnterWorkoutDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0193DC6725791F0A00AF536D /* EnterWorkoutDataViewController.swift */; };
 		01974540243F8700004ACB71 /* ImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0197453E243F8700004ACB71 /* ImageViewCell.swift */; };
 		01974541243F8700004ACB71 /* ImageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0197453F243F8700004ACB71 /* ImageViewCell.xib */; };
 		01974544243F8A72004ACB71 /* WorkoutAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01974542243F8A72004ACB71 /* WorkoutAccountCell.swift */; };
@@ -551,6 +552,7 @@
 		01928B77244508BB00F56F76 /* ChallengeMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeMode.swift; sourceTree = "<group>"; };
 		0193DC61257913A400AF536D /* LocationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
 		0193DC62257913A400AF536D /* LocationPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationPickerViewController.xib; sourceTree = "<group>"; };
+		0193DC6725791F0A00AF536D /* EnterWorkoutDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterWorkoutDataViewController.swift; sourceTree = "<group>"; };
 		0197453E243F8700004ACB71 /* ImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewCell.swift; sourceTree = "<group>"; };
 		0197453F243F8700004ACB71 /* ImageViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageViewCell.xib; sourceTree = "<group>"; };
 		01974542243F8A72004ACB71 /* WorkoutAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutAccountCell.swift; sourceTree = "<group>"; };
@@ -1527,6 +1529,7 @@
 				01E700E82460B6140059017A /* HealthAppPermissionsViewController.xib */,
 				017F4E7F2577D886005E8C6C /* CreateWorkoutViewController.swift */,
 				017F4E802577D886005E8C6C /* CreateWorkoutViewController.xib */,
+				0193DC6725791F0A00AF536D /* EnterWorkoutDataViewController.swift */,
 			);
 			path = workout;
 			sourceTree = "<group>";
@@ -1923,6 +1926,7 @@
 				01F529502417FD0200FA96E0 /* ViewModel.swift in Sources */,
 				012449142530B73200087027 /* Stats.swift in Sources */,
 				01A3EB13237747D30097FC2A /* CVStatus.swift in Sources */,
+				0193DC6825791F0A00AF536D /* EnterWorkoutDataViewController.swift in Sources */,
 				747D6FDA2208E8130062BB39 /* KeychainResult.swift in Sources */,
 				01F5296924184BE600FA96E0 /* HeaderTwoLabel.swift in Sources */,
 				01A3EB1F237747D30097FC2A /* CVCalendarContentPresentationCoordinator.swift in Sources */,

@@ -28,11 +28,7 @@ class LocationPickerViewController: UIViewController {
     }
   }
 
-  @IBOutlet private weak var mapView: MKMapView! {
-    didSet {
-      
-    }
-  }
+  @IBOutlet private weak var mapView: MKMapView!
 
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
