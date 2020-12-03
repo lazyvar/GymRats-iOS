@@ -25,6 +25,7 @@
                 <outlet property="locationCheckbox" destination="y2k-xq-Qao" id="bHf-J5-dHY"/>
                 <outlet property="mediaCheckbox" destination="KqK-nb-fky" id="9l8-Vi-b5e"/>
                 <outlet property="photoOrVideoButton" destination="3dU-q2-lFP" id="tf0-aH-BZb"/>
+                <outlet property="scrollView" destination="J2o-D8-c5j" id="Qml-ae-1hW"/>
                 <outlet property="sourceDetailsLabel" destination="eNS-yu-NTg" id="hQb-U2-IMF"/>
                 <outlet property="sourcesLabel" destination="Ksy-Cl-0mv" id="Bdc-0a-R0f"/>
                 <outlet property="titleTextField" destination="erA-C2-HHR" id="ESg-OK-w1J"/>

@@ -24,6 +24,12 @@ class CreateWorkoutViewController: UIViewController {
   
   // MARK: Outlets
   
+  @IBOutlet weak var scrollView: UIScrollView! {
+    didSet {
+      scrollView.keyboardDismissMode = .interactive
+    }
+  }
+  
   @IBOutlet private weak var titleTextField: UITextField! {
     didSet {
       titleTextField.font = .body
@@ -167,6 +173,9 @@ class CreateWorkoutViewController: UIViewController {
 
     nextButton.tintColor = .brand
     nextButton.isEnabled = false
+    
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
   }
   
   // MARK: Actions
@@ -236,6 +245,22 @@ class CreateWorkoutViewController: UIViewController {
     } clear: { [self] in
       self.place = nil
     }
+  }
+  
+  @objc func keyboardWillShow(notification: Notification) {
+    let userInfo = notification.userInfo
+    let keyboardFrame = userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
+    let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardFrame.height, right: 0.0)
+    
+    scrollView.contentInset = contentInset
+    scrollView.scrollIndicatorInsets = contentInset
+  }
+  
+  @objc func keyboardWillHide(notification: Notification) {
+    let contentInset = UIEdgeInsets.zero
+    
+    scrollView.contentInset = contentInset
+    scrollView.scrollIndicatorInsets = contentInset
   }
   
   private func presentSourceAlert(source: Any?, present: @escaping () -> Void, clear: @escaping () -> Void) {
