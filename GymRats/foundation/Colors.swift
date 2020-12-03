@@ -13,7 +13,8 @@ extension UIColor {
   static let warning: UIColor = .hex("#FFCC00")
   static let niceBlue: UIColor = .hex("#1074E7")
   static let shadow: UIColor = .hex("#000000", alpha: 0.05)
-  
+  static let goodGreen: UIColor = .hex("#6DD400")
+
   static var divider: UIColor {
     switch UIDevice.contentMode {
     case .light: return .hex("#000000", alpha: 0.1)

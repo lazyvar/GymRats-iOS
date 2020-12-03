@@ -18,10 +18,13 @@
             <connections>
                 <outlet property="contentStackView" destination="qoL-T9-zHV" id="bli-Hn-pxI"/>
                 <outlet property="descTextView" destination="PLF-Jd-Lz9" id="NCt-U7-pmo"/>
+                <outlet property="healthAppButton" destination="34O-vY-YB8" id="POJ-oD-9FQ"/>
                 <outlet property="healthAppCheckbox" destination="TYU-UW-zWZ" id="Rev-zZ-zlY"/>
                 <outlet property="lineView" destination="BPw-1e-rYL" id="GdH-RY-hza"/>
+                <outlet property="locationButton" destination="q2G-vM-weR" id="3Cf-Pp-YvA"/>
                 <outlet property="locationCheckbox" destination="y2k-xq-Qao" id="bHf-J5-dHY"/>
                 <outlet property="mediaCheckbox" destination="KqK-nb-fky" id="9l8-Vi-b5e"/>
+                <outlet property="photoOrVideoButton" destination="3dU-q2-lFP" id="tf0-aH-BZb"/>
                 <outlet property="sourceDetailsLabel" destination="eNS-yu-NTg" id="hQb-U2-IMF"/>
                 <outlet property="sourcesLabel" destination="Ksy-Cl-0mv" id="Bdc-0a-R0f"/>
                 <outlet property="titleTextField" destination="erA-C2-HHR" id="ESg-OK-w1J"/>
@@ -172,7 +175,7 @@
                 <constraint firstItem="J2o-D8-c5j" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="oiu-W3-6V4"/>
                 <constraint firstItem="J2o-D8-c5j" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="toq-gQ-gGk"/>
             </constraints>
-            <point key="canvasLocation" x="-225" y="-235"/>
+            <point key="canvasLocation" x="304" y="-216"/>
         </view>
     </objects>
     <resources>

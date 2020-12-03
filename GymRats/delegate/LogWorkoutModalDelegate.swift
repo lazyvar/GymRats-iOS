@@ -12,10 +12,18 @@ import YPImagePicker
 
 class LogWorkoutModalDelegate: LogWorkoutModalViewControllerDelegate {
   func didImportWorkout(_ logWorkoutModalViewController: LogWorkoutModalViewController, workout: HKWorkout) {
-    
+    let createWorkoutViewController = CreateWorkoutViewController(healthKitWorkout: workout)
+
+    logWorkoutModalViewController.dismiss(animated: true) {
+      UIViewController.topmost().presentForClose(createWorkoutViewController)
+    }
   }
   
   func didPickMedia(_ logWorkoutModalViewController: LogWorkoutModalViewController, media: [YPMediaItem]) {
-    
+    let createWorkoutViewController = CreateWorkoutViewController(media: media)
+
+    logWorkoutModalViewController.dismiss(animated: true) {
+      UIViewController.topmost().presentForClose(createWorkoutViewController)
+    }
   }
 }

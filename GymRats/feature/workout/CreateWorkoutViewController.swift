@@ -13,12 +13,14 @@ import GooglePlaces
 import HealthKit
 import RSKPlaceholderTextView
 import YPImagePicker
+import RxOptional
 
 protocol CreatedWorkoutDelegate: class {
   func createWorkoutController(_ createWorkoutController: CreateWorkoutViewController, created workout: Workout)
 }
 
 class CreateWorkoutViewController: UIViewController {
+  private let disposeBag = DisposeBag()
   
   // MARK: Outlets
   
@@ -84,38 +86,86 @@ class CreateWorkoutViewController: UIViewController {
     }
   }
 
+  @IBOutlet private weak var healthAppButton: SecondaryButton!
+  @IBOutlet private weak var photoOrVideoButton: SecondaryButton!
+  @IBOutlet private weak var locationButton: SecondaryButton!
+  
+  private lazy var nextButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(nextTapped))
+
   // MARK: State
 
-  private var workoutTitle: String?
   private var workoutDescription: String?
-  private var place: Place?
-  private var healthKitWorkout: HKWorkout?
-  private var media: [YPMediaItem] = []
 
+  private var place: Place? {
+    didSet {
+      updateViewFromState()
+    }
+  }
+
+  private var workoutTitle: String? {
+    didSet {
+      updateViewFromState()
+    }
+  }
+  
+  private var healthKitWorkout: HKWorkout? {
+    didSet {
+      updateViewFromState()
+    }
+  }
+
+  private var media: [YPMediaItem] = [] {
+    didSet {
+      updateViewFromState()
+    }
+  }
+  
+  // MARK: Services
+  
+  private let healthService: HealthServiceType = HealthService.shared
+
+  init(healthKitWorkout: HKWorkout) {
+    self.healthKitWorkout = healthKitWorkout
+    
+    super.init(nibName: Self.xibName, bundle: nil)
+  }
+  
+  init(media: [YPMediaItem]) {
+    self.media = media
+    
+    super.init(nibName: Self.xibName, bundle: nil)
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
   // MARK: View lifecycle
     
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    updateViewFromState()
+
     if #available(iOS 13.0, *) {
       if traitCollection.userInterfaceStyle == .dark {
-          descTextView.placeholderColor = .init(red: 0.92, green: 0.92, blue: 0.96, alpha: 0.3)
-          lineView.backgroundColor = .init(red: 0.92, green: 0.92, blue: 0.96, alpha: 0.3)
+        descTextView.placeholderColor = .init(red: 0.92, green: 0.92, blue: 0.96, alpha: 0.3)
+        lineView.backgroundColor = .init(red: 0.92, green: 0.92, blue: 0.96, alpha: 0.3)
       } else {
-          descTextView.placeholderColor = .init(red: 0, green: 0.1, blue: 0.098, alpha: 0.22)
+        descTextView.placeholderColor = .init(red: 0, green: 0.1, blue: 0.098, alpha: 0.22)
       }
     } else {
       descTextView.placeholderColor = .init(red: 0, green: 0, blue: 0.098, alpha: 0.22)
     }
     
     view.backgroundColor = .background
-
-    let nextButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(nextTapped))
-    nextButton.tintColor = .brand
     
     navigationItem.largeTitleDisplayMode = .never
     navigationItem.title = "Log workout"
     navigationItem.rightBarButtonItem = nextButton
+
+    nextButton.tintColor = .brand
+    nextButton.isEnabled = false
   }
   
   // MARK: Actions
@@ -129,15 +179,134 @@ class CreateWorkoutViewController: UIViewController {
   }
   
   @IBAction private func tappedHealthApp(_ sender: Any) {
-    
+    presentSourceAlert(source: healthKitWorkout) { [self] in
+      healthService.requestWorkoutAuthorization()
+        .subscribe(onSuccess: { _ in
+          DispatchQueue.main.async {
+            let importWorkoutViewController = ImportWorkoutViewController()
+            importWorkoutViewController.delegate = self
+            
+            self.presentForClose(importWorkoutViewController)
+          }
+        }, onError: { error in
+          DispatchQueue.main.async {
+            let importWorkoutViewController = ImportWorkoutViewController()
+            importWorkoutViewController.delegate = self
+            
+            self.presentForClose(importWorkoutViewController)
+          }
+        })
+        .disposed(by: disposeBag)
+    } clear: { [self] in
+      self.healthKitWorkout = nil
+    }
   }
   
   @IBAction private func tappedMedia(_ sender: Any) {
-    
+    presentSourceAlert(source: media) { [self] in
+      let picker = YPImagePicker()
+      picker.didFinishPicking { [self] items, cancelled in
+        defer { picker.dismiss(animated: true, completion: nil) }
+        guard !cancelled else { return }
+        
+        self.media = items
+      }
+      
+      present(picker, animated: true, completion: nil)
+    } clear: { [self] in
+      self.media = []
+    }
   }
   
   @IBAction private func tappedLocation(_ sender: Any) {
+    // todo
+  }
+  
+  private func presentSourceAlert(source: Any?, present: @escaping () -> Void, clear: @escaping () -> Void) {
+    let alertViewController = UIAlertController()
+    let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+    let clear = UIAlertAction(title: "Remove", style: .destructive) { _ in
+      clear()
+    }
     
+    let change = UIAlertAction(title: "Change", style: .default) { _ in
+      present()
+    }
+    
+    alertViewController.addAction(change)
+    alertViewController.addAction(clear)
+    alertViewController.addAction(cancel)
+    
+    if source == nil || (source as? Occupiable)?.isEmpty == true {
+      present()
+    } else {
+      self.present(alertViewController, animated: true, completion: nil)
+    }
+  }
+  
+  private func updateViewFromState() {
+    guard isViewLoaded else { return }
+    
+    let hasTitle =  (workoutTitle ?? "").isNotEmpty
+    let hasHealthAppWorkout = healthKitWorkout != nil
+    let hasMedia = media.isNotEmpty
+    let hasLocation = place != nil
+  
+    nextButton.isEnabled = hasTitle && (hasHealthAppWorkout || hasMedia)
+    healthAppCheckbox.image = hasHealthAppWorkout ? .checked : .notChecked
+    mediaCheckbox.image = hasMedia ? .checked : .notChecked
+    locationCheckbox.image = hasLocation ? .checked : .notChecked
+    healthAppCheckbox.tintColor = hasHealthAppWorkout ? .goodGreen : .secondaryText
+    mediaCheckbox.tintColor = hasMedia ? .goodGreen : .secondaryText
+    locationCheckbox.tintColor = hasLocation ? .goodGreen : .secondaryText
+    
+    if hasHealthAppWorkout && !hasMedia {
+      sourceDetailsLabel.text = "Verified using the Health app. Optionally add a photo or video."
+    } else if !hasHealthAppWorkout && hasMedia {
+      sourceDetailsLabel.text = "Verified using a photo or video. Optionally import a workout from the Health app."
+    } else if hasHealthAppWorkout && hasMedia && !hasLocation {
+      sourceDetailsLabel.text = "Verified using the Health app and photo or video. Optionally tag a location."
+    } else if hasHealthAppWorkout && hasMedia && hasLocation {
+      sourceDetailsLabel.text = "Fully verified."
+    } else {
+      sourceDetailsLabel.text = "Either a workout imported from the Health app or a photo or video is required."
+    }
+    
+    if let healthKitWorkout = healthKitWorkout {
+      let duration = Int(healthKitWorkout.duration / 60)
+      
+      healthAppButton.setTitle("\(healthKitWorkout.workoutActivityType.name) - \(duration) minutes", for: .normal)
+    } else {
+      healthAppButton.setTitle("Health app", for: .normal)
+    }
+    
+    if let place = place {
+      locationButton.setTitle("\(place.name)", for: .normal)
+    } else {
+      locationButton.setTitle("Location", for: .normal)
+    }
+    
+    if media.isEmpty {
+      photoOrVideoButton.setTitle("Photo or video", for: .normal)
+    } else {
+      let photos = media.filter { item -> Bool in
+        switch item {
+        case .photo: return true
+        case .video: return false
+        }
+      }
+      let videos = media.filter { item -> Bool in
+        switch item {
+        case .photo: return false
+        case .video: return true
+        }
+      }
+      let p = photos.isNotEmpty ? "\(photos.count) photo\(photos.count == 1 ? "" : "s")" : nil
+      let v = videos.isNotEmpty ? "\(videos.count) video\(videos.count == 1 ? "" : "s")" : nil
+      let content = [p, v].compactMap { $0 }.joined(separator: ", ")
+      
+      photoOrVideoButton.setTitle("\(content) chosen", for: .normal)
+    }
   }
 }
 
@@ -149,7 +318,9 @@ extension CreateWorkoutViewController: UITextViewDelegate {
 
 extension CreateWorkoutViewController: ImportWorkoutViewControllerDelegate {
   func importWorkoutViewController(_ importWorkoutViewController: ImportWorkoutViewController, imported workout: HKWorkout) {
+    self.healthKitWorkout = workout
     
+    importWorkoutViewController.dismiss(animated: true, completion: nil)
   }
 }
 

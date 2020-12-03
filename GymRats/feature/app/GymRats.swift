@@ -309,7 +309,7 @@ private extension GymRats {
     config.showsPhotoFilters = false
     config.library.maxNumberOfItems = 3
     config.wordings.cameraTitle = "Camera"
-    config.wordings.next = "Next"
+    config.wordings.next = "Done"
     config.fonts.menuItemFont = UIFont.proRoundedSemibold(size: 17)
     config.filters = []
     config.video.recordingTimeLimit = 30

@@ -13,7 +13,6 @@ import RxCocoa
 protocol HealthAppViewControllerDelegate: class {
   func close(_ healthAppViewController: HealthAppViewController)
   func closeButtonHidden() -> Bool
-  func notNowButtonHidden() -> Bool
 }
 
 class HealthAppViewController: BindableViewController {
@@ -62,7 +61,6 @@ class HealthAppViewController: BindableViewController {
     }
   }
   
-  @IBOutlet private weak var notNowButton: SecondaryButton!
   @IBOutlet private weak var autoSyncSwitch: UISwitch!
   @IBOutlet private weak var healthAppButton: SecondaryButton!
   @IBOutlet private weak var grantPermissionButton: PrimaryButton!
@@ -77,9 +75,7 @@ class HealthAppViewController: BindableViewController {
     if !(delegate?.closeButtonHidden() ?? false) {
       navigationItem.leftBarButtonItem = UIBarButtonItem(image: .close, style: .plain, target: self, action: #selector(closeMe))
     }
-    
-    notNowButton.isHidden = (delegate?.notNowButtonHidden() ?? false)
-        
+            
     viewModel.input.viewDidLoad.trigger()
   }
 
@@ -136,10 +132,6 @@ class HealthAppViewController: BindableViewController {
   
   @IBAction func grantPermissionTapped(_ sender: Any) {
     viewModel.input.grantPermissionTapped.trigger()
-  }
-  
-  @IBAction private func notNow(_ sender: Any) {
-    closeMe()
   }
   
   @IBAction func openHealthApp(_ sender: Any) {

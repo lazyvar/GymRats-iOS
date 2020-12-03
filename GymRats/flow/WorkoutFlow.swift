@@ -16,22 +16,19 @@ enum WorkoutFlow {
   private static let healthService: HealthServiceType = HealthService.shared
   
   static func logWorkout() {
-    let createWorkoutViewController = CreateWorkoutViewController()
-    
-    UIViewController.topmost().presentForClose(createWorkoutViewController)
-//    defer { healthService.markPromptSeen() }
-//
-//    generator.impactOccurred()
-//
-//    if healthService.didShowGymRatsPrompt {
-//      presentWorkoutModal()
-//    } else {
-//      let healthAppViewController = HealthAppViewController()
-//      healthAppViewController.delegate = healthAppDelegate
-//      healthAppViewController.title = "Sync with Health app?"
-//
-//      UIViewController.topmost().presentInNav(healthAppViewController)
-//    }
+    defer { healthService.markPromptSeen() }
+
+    generator.impactOccurred()
+
+    if healthService.didShowGymRatsPrompt {
+      presentWorkoutModal()
+    } else {
+      let healthAppViewController = HealthAppViewController()
+      healthAppViewController.delegate = healthAppDelegate
+      healthAppViewController.title = "Sync with Health app?"
+      
+      UIViewController.topmost().presentInNav(healthAppViewController)
+    }
   }
   
   static func presentWorkoutModal() {
