@@ -13,13 +13,22 @@ import YPImagePicker
 class LogWorkoutModalDelegate: LogWorkoutModalViewControllerDelegate {
   func didImportWorkout(_ logWorkoutModalViewController: LogWorkoutModalViewController, workout: HKWorkout) {
     let createWorkoutViewController = CreateWorkoutViewController(healthKitWorkout: workout)
+    createWorkoutViewController.delegate = self
 
     logWorkoutModalViewController.presentForClose(createWorkoutViewController)
   }
   
   func didPickMedia(_ logWorkoutModalViewController: LogWorkoutModalViewController, media: [YPMediaItem]) {
     let createWorkoutViewController = CreateWorkoutViewController(media: media)
+    createWorkoutViewController.delegate = self
 
     logWorkoutModalViewController.presentForClose(createWorkoutViewController)
+  }
+}
+
+extension LogWorkoutModalDelegate: CreatedWorkoutDelegate {
+  func createWorkoutController(created workout: Workout) {
+    NotificationCenter.default.post(name: .workoutCreated, object: workout)
+    UIApplication.shared.keyWindow?.rootViewController?.dismiss(animated: true, completion: nil)
   }
 }

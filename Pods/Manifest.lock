@@ -200,7 +200,7 @@ DEPENDENCIES:
   - TTTAttributedLabel
   - UIScrollView-InfiniteScroll (~> 1.1.0)
   - UnsplashPhotoPicker (~> 1.1.1)
-  - YPImagePicker
+  - YPImagePicker (from `https://github.com/Yummypets/YPImagePicker.git`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -261,7 +261,15 @@ SPEC REPOS:
     - TTTAttributedLabel
     - UIScrollView-InfiniteScroll
     - UnsplashPhotoPicker
-    - YPImagePicker
+
+EXTERNAL SOURCES:
+  YPImagePicker:
+    :git: https://github.com/Yummypets/YPImagePicker.git
+
+CHECKOUT OPTIONS:
+  YPImagePicker:
+    :commit: 7bc4ac4c79f3c9aa774fd3c69f093a4e9872d992
+    :git: https://github.com/Yummypets/YPImagePicker.git
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
@@ -323,6 +331,6 @@ SPEC CHECKSUMS:
   UnsplashPhotoPicker: 86520e34cfded8fb4a41910bf87afe571906b4e3
   YPImagePicker: 15aed8bcaa4dad976e11b6114126d731a2f9f3c9
 
-PODFILE CHECKSUM: 11186ca489a080fa7247cf7184bc654e001cb5be
+PODFILE CHECKSUM: 0dfebba5bed0a8bcd911462ac1efbaf531144b95
 
 COCOAPODS: 1.9.1

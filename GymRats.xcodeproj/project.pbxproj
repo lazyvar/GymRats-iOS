@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0103A98D24204EB000B589DA /* WorkoutFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0103A98C24204EB000B589DA /* WorkoutFlow.swift */; };
-		0103A98F24204ED300B589DA /* CreateWorkoutDelegateObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0103A98E24204ED300B589DA /* CreateWorkoutDelegateObject.swift */; };
 		0103A99124204FE500B589DA /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0103A99024204FE500B589DA /* PrimaryButton.swift */; };
 		0107AE362325E3D300944D11 /* WorkoutListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0107AE342325E3D300944D11 /* WorkoutListCell.swift */; };
 		0107AE372325E3D300944D11 /* WorkoutListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0107AE352325E3D300944D11 /* WorkoutListCell.xib */; };
@@ -383,7 +382,6 @@
 
 /* Begin PBXFileReference section */
 		0103A98C24204EB000B589DA /* WorkoutFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutFlow.swift; sourceTree = "<group>"; };
-		0103A98E24204ED300B589DA /* CreateWorkoutDelegateObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutDelegateObject.swift; sourceTree = "<group>"; };
 		0103A99024204FE500B589DA /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		0107AE342325E3D300944D11 /* WorkoutListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutListCell.swift; sourceTree = "<group>"; };
 		0107AE352325E3D300944D11 /* WorkoutListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutListCell.xib; sourceTree = "<group>"; };
@@ -813,7 +811,6 @@
 		011EEB8E241A8C3200CC9F9E /* delegate */ = {
 			isa = PBXGroup;
 			children = (
-				0103A98E24204ED300B589DA /* CreateWorkoutDelegateObject.swift */,
 				015A1A5D2421A2B500D2EF5A /* NotificationHandler.swift */,
 				016194562575241E0057A0CB /* HealthAppDelegate.swift */,
 				016194DC2576A25E0057A0CB /* LogWorkoutModalDelegate.swift */,
@@ -2117,7 +2114,6 @@
 				747D6FC52208DCB60062BB39 /* UIView+Extension.swift in Sources */,
 				74C2D84E222C3D1A00FF0DE2 /* AboutViewController.swift in Sources */,
 				019066BF243D09C6007103D9 /* JoinChallengeViewController.swift in Sources */,
-				0103A98F24204ED300B589DA /* CreateWorkoutDelegateObject.swift in Sources */,
 				01C6B6D6252E189D0042F828 /* LogWorkoutModalViewController.swift in Sources */,
 				01A3EB15237747D30097FC2A /* CVCalendarMenuViewDelegate.swift in Sources */,
 				01974540243F8700004ACB71 /* ImageViewCell.swift in Sources */,

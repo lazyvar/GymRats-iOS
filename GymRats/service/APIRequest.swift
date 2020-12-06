@@ -26,7 +26,7 @@ enum APIRequest {
   case getAllWorkouts(challenge: Challenge)
   case getAllWorkoutsForUser(user: Account)
   case getWorkouts(forUser: Account, inChallenge: Challenge)
-  case postWorkout(_ workout: NewWorkout, photoURL: String?, challenges: [Int])
+  case postWorkout(_ workout: NewWorkout, media: [NewWorkout.Medium], challenges: [Int])
   case updateWorkout(_ workout: UpdateWorkout, photoURL: String?)
   case updateUser(email: String?, name: String?, password: String?, profilePictureUrl: String?, currentPassword: String?)
   case deleteWorkout(_ workout: Workout)
@@ -180,7 +180,7 @@ enum APIRequest {
       }
       
       return (.put, "teams/\(id)", params)
-    case .postWorkout(let workout, let photo, let challenges):
+    case .postWorkout(let workout, let media, let challenges):
       var params: Parameters = [
         "title": workout.title,
         "challenges": challenges,
@@ -190,8 +190,14 @@ enum APIRequest {
         params["description"] = description
       }
 
-      if let photo = photo {
-        params["photo_url"] = photo
+      if media.isNotEmpty {
+        params["media"] = media.map { medium -> Parameters in
+          return [
+            "url": medium.url,
+            "thumbnail_url": medium.thumbnailUrl,
+            "medium_type": medium.mediumType.rawValue,
+          ]
+        }
       }
 
       if let googlePlaceId = workout.googlePlaceId {

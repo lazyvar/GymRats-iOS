@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 import Alamofire
+import YPImagePicker
 
 let gymRatsAPI = GymRatsAPI()
 
@@ -28,7 +29,7 @@ class GymRatsAPI {
       .flatMap { image -> Observable<String?> in
         guard let image = image else { return .just(nil) }
       
-        return ImageService.uploadImageToFirebase(image: image).map { url -> String? in url }
+        return ImageService.upload(image).map { url -> String? in url }
       }
       .flatMap { url in
         return self.requestObject(.signup(email: email, password: password, profilePictureUrl: url, fullName: fullName))
@@ -57,8 +58,8 @@ class GymRatsAPI {
         guard let image = image else { return .just(nil) }
       
         switch image {
-        case .left(let left): return ImageService.uploadImageToFirebase(image: left).map { url -> String? in url }
-        case .right(let right): return .just(right)
+        case .left(let image): return ImageService.upload(image).map { url -> String? in url }
+        case .right(let url): return .just(url)
         }
       }
       .flatMap { url in
@@ -92,8 +93,8 @@ class GymRatsAPI {
         guard let image = image else { return .just(nil) }
       
         switch image {
-        case .left(let left): return ImageService.uploadImageToFirebase(image: left).map { url -> String? in url }
-        case .right(let right): return .just(right)
+        case .left(let image): return ImageService.upload(image).map { url -> String? in url }
+        case .right(let url): return .just(url)
         }
       }
       .flatMap { url in
@@ -111,8 +112,8 @@ class GymRatsAPI {
         guard let image = image else { return .just(nil) }
       
         switch image {
-        case .left(let left): return ImageService.uploadImageToFirebase(image: left).map { url -> String? in url }
-        case .right(let right): return .just(right)
+        case .left(let image): return ImageService.upload(image).map { url -> String? in url }
+        case .right(let url): return .just(url)
         }
       }
       .flatMap { url in
@@ -146,8 +147,8 @@ class GymRatsAPI {
         guard let image = image else { return .just(nil) }
       
         switch image {
-        case .left(let left): return ImageService.uploadImageToFirebase(image: left).map { url -> String? in url }
-        case .right(let right): return .just(right)
+        case .left(let image): return ImageService.upload(image).map { url -> String? in url }
+        case .right(let url): return .just(url)
         }
       }
       .flatMap { url in
@@ -180,26 +181,27 @@ class GymRatsAPI {
   }
 
   func postWorkout(_ workout: NewWorkout, challenges: [Int]) -> Observable<NetworkResult<Workout>> {
-    return Observable<UIImage?>.just(workout.photo)
-      .flatMap { image -> Observable<String?> in
-        guard let image = image else { return .just(nil) }
-      
-        return ImageService.uploadImageToFirebase(image: image).map { url -> String? in url }
+    return Observable<NewWorkout.Medium>.combineLatest(workout.media.map { mediaItem -> Observable<NewWorkout.Medium> in
+      switch mediaItem {
+      case .photo(p: let photo): return ImageService.upload(photo)
+      case .video(v: let video): return ImageService.upload(video)
       }
-      .flatMap { url in
-        return self.requestObject(.postWorkout(workout, photoURL: url, challenges: challenges))
-      }
+    })
+    .flatMap { media in
+      return self.requestObject(.postWorkout(workout, media: media, challenges: challenges))
+    }
   }
 
   func update(_ workout: UpdateWorkout) -> Observable<NetworkResult<Workout>> {
+    // TODO
     return Observable<UIImage?>.just(workout.photo.left)
-      .flatMap { image -> Observable<String?> in
-        guard let image = image else { return .just(nil) }
-      
-        return ImageService.uploadImageToFirebase(image: image).map { url -> String? in url }
-      }
-      .flatMap { url in
-        return self.requestObject(.updateWorkout(workout, photoURL: url ?? workout.photo.right?.photoUrl))
+//      .flatMap { image -> Observable<String?> in
+//        guard let image = image else { return .just(nil) }
+//
+//        return ImageService.uploadImageToFirebase(image: image).map { url -> String? in url }
+//      }
+      .flatMap { _ in
+        return self.requestObject(.updateWorkout(workout, photoURL: nil))
       }
   }
 
@@ -220,7 +222,7 @@ class GymRatsAPI {
       .flatMap { image -> Observable<String?> in
         guard let image = image else { return .just(nil) }
       
-        return ImageService.uploadImageToFirebase(image: image).map { url -> String? in url }
+        return ImageService.upload(image).map { url -> String? in url }
       }
       .flatMap { url in
         return self.requestObject(.updateUser(email: email, name: name, password: password, profilePictureUrl: url, currentPassword: currentPassword))

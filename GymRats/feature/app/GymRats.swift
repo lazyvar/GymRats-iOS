@@ -19,6 +19,7 @@ import Segment_Firebase
 import HealthKit
 import YPImagePicker
 import AVFoundation
+import AVKit
 
 /// God object. Handles AppDelegate functions among other things.
 enum GymRats {
@@ -91,9 +92,9 @@ enum GymRats {
         }
       }
     }
-    
-    window.makeKeyAndVisible()
 
+    window.makeKeyAndVisible()
+    
     #if DEBUG
     NetworkActivityLogger.shared.level = .debug
     NetworkActivityLogger.shared.startLogging()
@@ -289,7 +290,7 @@ private extension GymRats {
       UserDefaults.standard.set(code, forKey: "join-code")
     }
   }
-  
+
   private static func registerForNotifications() {
     PushNotifications.center.delegate = notificationHandler
     PushNotifications.center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
@@ -298,26 +299,27 @@ private extension GymRats {
       DispatchQueue.main.async { application.registerForRemoteNotifications() }
     }
   }
-  
+
   private static func configureYPImagePicker() {
     var config = YPImagePickerConfiguration()
     config.screens = [.photo, .video, .library]
     config.startOnScreen = .photo
     config.shouldSaveNewPicturesToAlbum = false
-    config.onlySquareImagesFromCamera = false
+    config.onlySquareImagesFromCamera = true
     config.showsVideoTrimmer = false
     config.showsPhotoFilters = false
     config.library.maxNumberOfItems = 5
+    config.library.isSquareByDefault = false
+    config.library.mediaType = .photoAndVideo
+    config.library.skipSelectionsGallery = true
     config.wordings.cameraTitle = "Camera"
     config.wordings.next = "Done"
     config.fonts.menuItemFont = UIFont.proRoundedSemibold(size: 17)
     config.filters = []
+    config.video.fileType = .mp4
     config.video.recordingTimeLimit = 30
     config.video.libraryTimeLimit = 30
-    config.video.minimumTimeLimit = 1
     config.video.compression = AVAssetExportPresetMediumQuality
-//    config.icons.capturePhotoImage = UIImage(color: .brand) TODO
-//    config.icons.captureVideoImage = UIImage(color: .brand) TODO
 
     YPImagePickerConfiguration.shared = config
 
