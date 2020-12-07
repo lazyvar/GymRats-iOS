@@ -11,9 +11,8 @@ import UIKit
 
 struct UpdateWorkout {
   let id: Int
-  let title: String
+  let title: String?
   let description: String?
-  let photo: Either<UIImage, Workout>
   let duration: Int?
   let distance: String?
   let steps: Int?

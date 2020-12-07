@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Rounded-Regular.otf">
+            <string>SFProRounded-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="77" id="KGk-i7-Jjw" customClass="WorkoutTitleTextFieldCell" customModule="GymRats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="428" height="77"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="428" height="77"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pVs-eK-uKS">
+                        <rect key="frame" x="15" y="5" width="398" height="48"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="48" id="5rw-HC-mlf"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="pVs-eK-uKS" secondAttribute="trailing" constant="15" id="6Ri-1M-xKt"/>
+                    <constraint firstItem="pVs-eK-uKS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="boG-vm-3lV"/>
+                    <constraint firstAttribute="bottom" secondItem="pVs-eK-uKS" secondAttribute="bottom" constant="5" id="eDu-cB-ICy"/>
+                    <constraint firstItem="pVs-eK-uKS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="rCr-LS-HmH"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="titleTextField" destination="pVs-eK-uKS" id="hCa-dC-JRv"/>
+            </connections>
+            <point key="canvasLocation" x="79.710144927536234" y="115.51339285714285"/>
+        </tableViewCell>
+    </objects>
+</document>
