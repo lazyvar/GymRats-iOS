@@ -59,7 +59,7 @@ final class WorkoutViewModel: ViewModel {
       .compactMap { $0.error }
       .bind(to:output.error)
       .disposed(by: disposeBag)
-      
+
     let submitCommentSuccess = submitComment.compactMap { $0.object }
     let fetchComments = Observable.merge(input.transitionEnded, submitCommentSuccess.map { _ in () }, deleteCommentSuccess.map { _ in () })
       .flatMap { gymRatsAPI.getComments(for: self.workout) }
@@ -72,17 +72,26 @@ final class WorkoutViewModel: ViewModel {
 
     let comments = fetchComments
       .compactMap { $0.object }
-      .map { $0.map { WorkoutRow.comment($0, onMenuTap: { self.output.presentCommentAlert.onNext($0) }) } }
+      .map { $0.map { WorkoutRow.comment($0, onMenuTap: { self.output.presentCommentAlert.onNext($0) }) }}
       .filter { $0.isNotEmpty }
     
     Observable.merge(input.viewDidLoad, input.updatedWorkout)
       .flatMap { Observable.merge(.just([]), comments) }
       .map { comments -> [WorkoutSection] in
-        var headerRows: [WorkoutRow] = [
-          .image(url: self.workout.photoUrl ?? ""),
+        var headerRows: [WorkoutRow] = []
+        
+        if self.workout.media.count == 1, let first = self.workout.media.first, first.mediumType == .image {
+          headerRows.append(.singleImage(url: first.url))
+        } else if self.workout.media.isNotEmpty {
+          headerRows.append(.media(media: self.workout.media))
+        } else if let photo = self.workout.photoUrl {
+          headerRows.append(.singleImage(url: photo))
+        }
+        
+        headerRows.append(contentsOf: [
           .account(self.workout),
           .details(self.workout),
-        ]
+        ])
         
         if let place = self.workout.googlePlaceId {
           headerRows.append(.location(placeID: place))

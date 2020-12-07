@@ -155,7 +155,7 @@ class WorkoutBigCell: UITableViewCell {
       $0.accountImageView.load(workout.account)
       $0.timeLabel.text = "\(workout.occurredAt.challengeTime)"
 
-      if let photo = workout.photoUrl, let url = URL(string: photo) {
+      if let photo = workout.thumbnailUrl, let url = URL(string: photo) {
         $0.workoutImageView.kf.setImage(with: url, options: [.transition(.fade(0.2)), .forceTransition])
       } else {
         $0.workoutImageBackground.isHidden = true

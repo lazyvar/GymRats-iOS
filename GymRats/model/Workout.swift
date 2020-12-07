@@ -29,7 +29,7 @@ struct Workout: Codable, Hashable {
   let media: [Medium]
   
   var thumbnailUrl: String? {
-    guard let medium = media.first else { return nil }
+    guard let medium = media.first else { return photoUrl }
     
     return medium.thumbnailUrl ?? medium.url
   }

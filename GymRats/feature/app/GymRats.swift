@@ -308,7 +308,7 @@ private extension GymRats {
     config.onlySquareImagesFromCamera = true
     config.showsVideoTrimmer = false
     config.showsPhotoFilters = false
-    config.library.maxNumberOfItems = 5
+    config.library.maxNumberOfItems = 3
     config.library.isSquareByDefault = false
     config.library.mediaType = .photoAndVideo
     config.library.skipSelectionsGallery = true
@@ -317,9 +317,9 @@ private extension GymRats {
     config.fonts.menuItemFont = UIFont.proRoundedSemibold(size: 17)
     config.filters = []
     config.video.fileType = .mp4
-    config.video.recordingTimeLimit = 30
-    config.video.libraryTimeLimit = 30
-    config.video.compression = AVAssetExportPresetMediumQuality
+    config.video.recordingTimeLimit = 15
+    config.video.libraryTimeLimit = 15
+    config.video.compression = AVAssetExportPresetHighestQuality
 
     YPImagePickerConfiguration.shared = config
 

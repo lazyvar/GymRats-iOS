@@ -23,7 +23,6 @@ target 'GymRats' do
     pod 'TTTAttributedLabel'
     pod 'EasyNotificationBadge'
     pod 'MessageKit'
-    pod 'Pageboy', '~> 3.2'
     pod 'SkeletonView'
     pod 'ESTabBarController-swift'
     pod 'NVActivityIndicatorView/AppExtension'
