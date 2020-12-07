@@ -104,7 +104,6 @@ PODS:
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
   - NVActivityIndicatorView/AppExtension (4.8.0)
-  - Pageboy (3.6.1)
   - PanModal (1.2.7)
   - PromisesObjC (1.2.10)
   - PryntTrimmerView (4.0.2)
@@ -181,7 +180,6 @@ DEPENDENCIES:
   - MessageKit
   - MMDrawerController (~> 0.5.7)
   - NVActivityIndicatorView/AppExtension
-  - Pageboy (~> 3.2)
   - PanModal
   - RSKPlaceholderTextView
   - RxAlamofire
@@ -236,7 +234,6 @@ SPEC REPOS:
     - MMDrawerController
     - nanopb
     - NVActivityIndicatorView
-    - Pageboy
     - PanModal
     - PromisesObjC
     - PryntTrimmerView
@@ -304,7 +301,6 @@ SPEC CHECKSUMS:
   MMDrawerController: 7a4cf8e25596bf2434e03ce50d22a8608ddee6a1
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
-  Pageboy: 29a2d474ad99404b4d77f325e0ab6d705930a4fb
   PanModal: 3e16ead1a907fb06f4df3f13492fd00149fa4974
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   PryntTrimmerView: 6a43cc90df5d99addeabd33d4ba09b1365322130
@@ -331,6 +327,6 @@ SPEC CHECKSUMS:
   UnsplashPhotoPicker: 86520e34cfded8fb4a41910bf87afe571906b4e3
   YPImagePicker: 15aed8bcaa4dad976e11b6114126d731a2f9f3c9
 
-PODFILE CHECKSUM: 0dfebba5bed0a8bcd911462ac1efbaf531144b95
+PODFILE CHECKSUM: 6fc7d325b9796cd94a762e48e8aab35942676864
 
 COCOAPODS: 1.9.1
