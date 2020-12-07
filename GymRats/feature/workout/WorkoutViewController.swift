@@ -38,6 +38,7 @@ class WorkoutViewController: BindableViewController {
       tableView.rx.setDelegate(self).disposed(by: disposeBag)
       tableView.registerCellNibForClass(WorkoutDetailsCell.self)
       tableView.registerCellNibForClass(ImageViewCell.self)
+      tableView.registerCellNibForClass(MediaTableViewCell.self)
       tableView.registerCellNibForClass(MapCell.self)
       tableView.registerCellNibForClass(WorkoutAccountCell.self)
       tableView.registerCellNibForClass(CommentCell.self)
@@ -61,8 +62,10 @@ class WorkoutViewController: BindableViewController {
 
   private lazy var dataSource = RxTableViewSectionedAnimatedDataSource<WorkoutSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
     switch row {
-    case .image(url: let url):
+    case .singleImage(url: let url):
       return ImageViewCell.configure(tableView: tableView, indexPath: indexPath, imageURL: url, donePushing: self.donePushing)
+    case .media(media: let media):
+      return MediaTableViewCell.configure(tableView: tableView, indexPath: indexPath, media: media, parent: self)
     case .account(let workout):
       return WorkoutAccountCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
     case .details(let workout):
@@ -343,6 +346,12 @@ extension WorkoutViewController: UITableViewDelegate {
   func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
     hideKeyboard()
   }
+  
+  func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    guard let cell = cell as? MediaTableViewCell else { return }
+    
+    cell.cleanUp()
+  }
 }
 
 extension WorkoutViewController: UIGestureRecognizerDelegate {
@@ -357,6 +366,14 @@ extension WorkoutViewController: UIGestureRecognizerDelegate {
   func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
     return true
   }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    if workout.media.isNotEmpty && indexPath.section == 0 && indexPath.row == 0 {
+      return tableView.frame.width
+    } else {
+      return UITableView.automaticDimension
+    }
+  }
 }
 
 extension WorkoutViewController {
@@ -366,7 +383,7 @@ extension WorkoutViewController {
     let viewWidth = UIScreen.main.bounds.width - 40
 
     let imageHeight: CGFloat = {
-      guard let photoURL = workout.photoUrl else { return .zero }
+      guard let photoURL = workout.thumbnailUrl else { return .zero }
       
       if let image = KingfisherManager.shared.cache.retrieveImageInMemoryCache(forKey: photoURL) ?? KingfisherManager.shared.cache.retrieveImageInDiskCache(forKey: photoURL) {
         return (image.size.height / image.size.width) * viewWidth
@@ -396,9 +413,9 @@ extension WorkoutViewController {
 }
 
 extension WorkoutViewController: CreatedWorkoutDelegate {
-  func createWorkoutController(_ createWorkoutController: CreateWorkoutViewController, created workout: Workout) {
+  func createWorkoutController(created workout: Workout) {
     NotificationCenter.default.post(name: .workoutDeleted, object: self.workout)
-    createWorkoutController.dismissSelf()
+//    createWorkoutController.dismissSelf() TODO
     self.workout = workout
     self.viewModel.configure(workout: workout, challenge: self.challenge)
     self.viewModel.input.updatedWorkout.trigger()

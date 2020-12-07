@@ -10,7 +10,8 @@ import Foundation
 import RxDataSources
 
 enum WorkoutRow: Equatable, IdentifiableType {
-  case image(url: String)
+  case singleImage(url: String)
+  case media(media: [Workout.Medium])
   case account(Workout)
   case details(Workout)
   case location(placeID: String)
@@ -20,8 +21,10 @@ enum WorkoutRow: Equatable, IdentifiableType {
 
   static func == (lhs: WorkoutRow, rhs: WorkoutRow) -> Bool {
     switch (lhs, rhs) {
-    case (.image(let url1), .image(url: let url2)):
-      return url1 == url2
+    case (.singleImage(let singleImage1), .singleImage(let singleImage2)):
+      return singleImage1 == singleImage2
+    case (.media(let media1), .media(let media2)):
+      return media1 == media2
     case (.account(let w1), .account(let w2)):
       return w1 == w2
     case (.location(let p1), .location(placeID: let p2)):
@@ -38,8 +41,9 @@ enum WorkoutRow: Equatable, IdentifiableType {
   
   var identity: String {
     switch self {
+    case .singleImage(url: let url): return "single-image-\(url)"
     case .location(placeID: let place): return "location-\(place)"
-    case .image(let url): return "image-\(url)"
+    case .media(let media): return "media-\(media.count)"
     case .account(let workout): return "account-\(workout.id)"
     case .details(let workout): return "details-\(workout.id)"
     case .comment(let comment, _): return "comment-\(comment.id)"

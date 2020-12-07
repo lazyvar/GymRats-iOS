@@ -448,7 +448,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
     showAlert.addAction(UIAlertAction(title: "Send", style: .default, handler: { action in
       self.showLoadingBar()
         
-      ImageService.uploadImageToFirebase(image: image)
+      ImageService.upload(image)
         .subscribe { event in
           self.hideLoadingBar()
           

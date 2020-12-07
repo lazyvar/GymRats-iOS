@@ -44,7 +44,7 @@ class WorkoutPopSimpleTransition: NSObject, UIViewControllerAnimatedTransitionin
 
     toView.alpha = 0
 
-    if let url = from.workout.photoUrl, let earl = URL(string: url) {
+    if let url = from.workout.thumbnailUrl, let earl = URL(string: url) {
       transitionImageView.kf.setImage(with: earl, options: [.transition(.fade(0.2))])
     }
 

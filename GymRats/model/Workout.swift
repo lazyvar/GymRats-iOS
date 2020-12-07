@@ -26,13 +26,28 @@ struct Workout: Codable, Hashable {
   let appleWorkoutUuid: String?
   let activityType: Activity?
   let occurredAt: Date
+  let media: [Medium]
   
-  var gymRatsUserId: Int {
-    return account.id
+  var thumbnailUrl: String? {
+    guard let medium = media.first else { return photoUrl }
+    
+    return medium.thumbnailUrl ?? medium.url
   }
-  
+
   func hash(into hasher: inout Hasher) {
     hasher.combine(id)
+  }
+  
+  struct Medium: Codable, Equatable {
+    let id: Int
+    let url: String
+    let thumbnailUrl: String?
+    let mediumType: MediumType
+    
+    enum MediumType: String, Codable {
+      case image = "image/jpg"
+      case video = "video/mp4"
+    }
   }
   
   enum Activity: String, Codable {

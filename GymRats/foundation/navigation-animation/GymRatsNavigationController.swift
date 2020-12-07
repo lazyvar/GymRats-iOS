@@ -39,7 +39,7 @@ class GymRatsNavigationController: UINavigationController, UINavigationBarDelega
       NSAttributedString.Key.foregroundColor: UIColor.primaryText
     ]
     
-    delegate = self
+//    delegate = self
   }
 
   override func viewWillAppear(_ animated: Bool) {

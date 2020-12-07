@@ -90,14 +90,20 @@ public class WorkoutPopComplexTransition: NSObject {
     if !didCancel {
       transitionContext.containerView.addSubview(transitionImageView)
       
-      if let url = from.workout.photoUrl, let earl = URL(string: url) {
+      if let url = from.workout.thumbnailUrl, let earl = URL(string: url) {
         transitionImageView.kf.setImage(with: earl, options: [.transition(.fade(0.2))])
       }
 
-      let imageViewCell = from.view.allSubviews().first(ofType: ImageViewCell.self)!
-      let frame = imageViewCell.superview?.convert(imageViewCell.frame, to: nil) ?? .zero
-      
-      transitionImageView.frame = frame
+      if let cell = from.view.allSubviews().first(ofType: ImageViewCell.self) {
+        let frame = cell.superview?.convert(cell.frame, to: nil) ?? .zero
+        transitionImageView.frame = frame
+      }
+
+      if let cell = from.view.allSubviews().first(ofType: MediaTableViewCell.self) {
+        let frame = cell.superview?.convert(cell.frame, to: nil) ?? .zero
+        transitionImageView.frame = frame
+      }
+
       self.from.view.alpha = 0
 
       let foregroundAnimation = UIViewPropertyAnimator(duration: completionDuration, dampingRatio: completionDamping) {

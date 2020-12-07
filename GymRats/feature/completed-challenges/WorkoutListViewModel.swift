@@ -139,7 +139,7 @@ final class WorkoutListViewModel: ViewModel {
         guard let dayWorkouts = bucketedWorkouts[safe: indexPath.section] else { return nil }
         guard let workout = dayWorkouts.1[safe: indexPath.row] else { return nil }
 
-        return (.pushNative(animated: true), .workout(workout, self.challenge))
+        return (.push(animated: true), .workout(workout, self.challenge))
       }
       .bind(to: output.navigation)
       .disposed(by: disposeBag)

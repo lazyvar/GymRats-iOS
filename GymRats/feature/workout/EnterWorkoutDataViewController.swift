@@ -18,7 +18,7 @@ class EnterWorkoutDataViewController: GRFormViewController {
 
   // MARK: State
   
-  var challenges: [Int: BehaviorRelay<Bool>] = [:]
+  private var challenges: [Int: BehaviorRelay<Bool>] = [:]
   
   private let duration = BehaviorRelay<String?>(value: nil)
   private let distance = BehaviorRelay<String?>(value: nil)
@@ -31,6 +31,8 @@ class EnterWorkoutDataViewController: GRFormViewController {
   private let media: [YPMediaItem]
   private let healthKitWorkout: HKWorkout?
   private let place: Place?
+  
+  weak var delegate: CreatedWorkoutDelegate?
   
   // MARK: UI
   
@@ -57,7 +59,7 @@ class EnterWorkoutDataViewController: GRFormViewController {
     tableView.backgroundColor = .background
     
     navigationItem.rightBarButtonItem = postButton
-    navigationItem.title = "Enter data"
+    navigationItem.title = "Enter workout data"
     navigationItem.largeTitleDisplayMode = .never
     
     let activeChallenges = (Challenge.State.all.state?.object ?? []).getActiveChallenges()
@@ -191,43 +193,46 @@ class EnterWorkoutDataViewController: GRFormViewController {
   // MARK: Actions
   
   @objc private func postWorkout() {
-    func createWorkout() {
-      let challenges = self.challenges
-          .filter { $0.value.value }
-          .map { $0.key }
-      
-//      let newWorkout = NewWorkout(
-//        title: workoutTitle.value!,
-//        description: workoutDescription.value,
-//        photo: image,
-//        googlePlaceId: place.value?.id,
-//        duration: duration.value.map { Int($0) } ?? nil,
-//        distance: distance.value,
-//        steps: steps.value.map { Int($0) } ?? nil,
-//        calories: calories.value.map { Int($0) } ?? nil,
-//        points: points.value.map { Int($0) } ?? nil,
-//        appleDeviceName: healthKitWorkout?.device?.name,
-//        appleSourceName: healthKitWorkout?.sourceRevision.source.name,
-//        appleWorkoutUuid: healthKitWorkout?.uuid.uuidString,
-//        activityType: healthKitWorkout?.workoutActivityType.activityify
-//      )
-//
-//      gymRatsAPI.postWorkout(newWorkout, challenges: challenges)
-//        .subscribe(onNext: { [weak self] result in
-//          guard let self = self else { return }
-//
-//          self.hideLoadingBar()
-//
-//          switch result {
-//          case .success(let workout):
-//            Track.event(.workoutLogged)
-//            StoreService.requestReview()
-//            self.delegate?.createWorkoutController(self, created: workout)
-//          case .failure(let error):
-//            self.presentAlert(with: error)
-//          }
-//        })
-//        .disposed(by: disposeBag)
-    }
+    let challenges = self.challenges
+        .filter { $0.value.value }
+        .map { $0.key }
+    
+    let newWorkout = NewWorkout(
+      title: workoutTitle,
+      description: workoutDescription,
+      media: media,
+      googlePlaceId: place?.id,
+      duration: duration.value.map { Int($0) } ?? nil,
+      distance: distance.value,
+      steps: steps.value.map { Int($0) } ?? nil,
+      calories: calories.value.map { Int($0) } ?? nil,
+      points: points.value.map { Int($0) } ?? nil,
+      appleDeviceName: healthKitWorkout?.device?.name,
+      appleSourceName: healthKitWorkout?.sourceRevision.source.name,
+      appleWorkoutUuid: healthKitWorkout?.uuid.uuidString,
+      activityType: healthKitWorkout?.workoutActivityType.activityify,
+      occurredAt: nil
+    )
+
+    self.showLoadingBar()
+    self.postButton.isEnabled = false
+    
+    gymRatsAPI.postWorkout(newWorkout, challenges: challenges)
+      .subscribe(onNext: { [weak self] result in
+        guard let self = self else { return }
+
+        self.postButton.isEnabled = true
+        self.hideLoadingBar()
+
+        switch result {
+        case .success(let workout):
+          Track.event(.workoutLogged)
+          StoreService.requestReview()
+          self.delegate?.createWorkoutController(created: workout)
+        case .failure(let error):
+          self.presentAlert(with: error)
+        }
+      })
+      .disposed(by: disposeBag)
   }
 }

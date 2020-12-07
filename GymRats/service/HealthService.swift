@@ -189,7 +189,7 @@ class HealthService: HealthServiceType {
     var newWorkout = NewWorkout(
       title: healthKitWorkout.workoutActivityType.name,
       description: nil,
-      photo: nil,
+      media: [],
       googlePlaceId: nil,
       duration: nil,
       distance: nil,

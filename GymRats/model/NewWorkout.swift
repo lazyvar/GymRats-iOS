@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import YPImagePicker
 
 struct NewWorkout {
   var title: String
   var description: String?
-  var photo: UIImage?
+  var media: [YPMediaItem]
   var googlePlaceId: String?
   var duration: Int?
   var distance: String?
@@ -23,4 +24,10 @@ struct NewWorkout {
   var appleWorkoutUuid: String?
   var activityType: Workout.Activity?
   var occurredAt: Date?
+  
+  struct Medium: Codable {
+    let url: String
+    let thumbnailUrl: String?
+    let mediumType: Workout.Medium.MediumType
+  }
 }

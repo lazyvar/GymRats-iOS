@@ -9,7 +9,6 @@
 import UIKit
 
 enum WorkoutFlow {
-  private static let createWorkoutDelegate = CreateWorkoutDelegateObject()
   private static let healthAppDelegate = HealthAppDelegate()
   private static let logWorkoutModalDelegate = LogWorkoutModalDelegate()
   private static let generator = UIImpactFeedbackGenerator(style: .heavy)

@@ -16,11 +16,13 @@ import YPImagePicker
 import RxOptional
 
 protocol CreatedWorkoutDelegate: class {
-  func createWorkoutController(_ createWorkoutController: CreateWorkoutViewController, created workout: Workout)
+  func createWorkoutController(created workout: Workout)
 }
 
 class CreateWorkoutViewController: UIViewController {
   private let disposeBag = DisposeBag()
+  
+  weak var delegate: CreatedWorkoutDelegate?
   
   // MARK: Outlets
   
@@ -188,6 +190,8 @@ class CreateWorkoutViewController: UIViewController {
       healthKitWorkout: healthKitWorkout,
       place: place
     )
+    
+    enterWorkoutDataViewController.delegate = delegate
   
     push(enterWorkoutDataViewController)
   }

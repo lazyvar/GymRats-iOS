@@ -104,7 +104,7 @@ class UserWorkoutTableViewCell: UITableViewCell {
         detailsLabel.isHidden = false
         titleLabel.text = user.fullName
 
-        let myWorkouts = allWorkouts.filter { $0.gymRatsUserId == user.id }
+        let myWorkouts = allWorkouts.filter { $0.account.id == user.id }
         let workoutsBeforeToday = myWorkouts.filter { $0.occurredAt < day }
         let sorted = workoutsBeforeToday.sorted(by: { $0.occurredAt < $1.occurredAt })
         
