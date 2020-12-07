@@ -7,13 +7,10 @@
 //
 
 import UIKit
-import RxSwift
 import Eureka
 import SwiftDate
 
 class ClassicChallengeViewController: GRFormViewController {
-  private let disposeBag = DisposeBag()
-  
   override func viewDidLoad() {
     super.viewDidLoad()
 

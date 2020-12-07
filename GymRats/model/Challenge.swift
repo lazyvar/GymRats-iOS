@@ -104,12 +104,6 @@ extension Challenge {
     return (0..<(daysGone + 1)).map { startDate + Int($0).days }
   }
 
-  func daysWithWorkouts(workouts: [Workout]) -> [Date] {
-    return days.reversed().filter({ date -> Bool in
-      return workouts.workoutsExist(on: date)
-    })
-  }
-  
   func bucket(_ workouts: [Workout]) -> [(Date, [Workout])] {
     return days.reversed().compactMap({ day -> (Date, [Workout])? in
       let workouts = workouts.workouts(on: day)
@@ -134,14 +128,6 @@ extension Challenge {
     } else {
       return "Last day"
     }
-  }
-
-  var daysCompletePure: Int {
-    return abs(Date().localDateIsDaysApartFromUTCDate(startDate))
-  }
-    
-  var daysLeftPure: Int {
-    return abs(Date().localDateIsDaysApartFromUTCDate(endDate))
   }
 }
 
@@ -199,10 +185,6 @@ extension Array where Element == Challenge {
   
   func getPastChallenges() -> [Challenge] {
     return self.filter { $0.isPast }
-  }
-  
-  func getUpcomingChallenges() -> [Challenge] {
-    return self.filter { $0.isUpcoming }
   }
   
   func witness() {

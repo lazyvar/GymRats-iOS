@@ -18,8 +18,4 @@ class HealthAppDelegate: HealthAppViewControllerDelegate {
   func closeButtonHidden() -> Bool {
     return false
   }
-  
-  func notNowButtonHidden() -> Bool {
-    return false
-  }
 }

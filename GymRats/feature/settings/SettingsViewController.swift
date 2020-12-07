@@ -333,8 +333,4 @@ extension SettingsViewController: HealthAppViewControllerDelegate {
   func closeButtonHidden() -> Bool {
     return true
   }
-  
-  func notNowButtonHidden() -> Bool {
-    return true
-  }
 }

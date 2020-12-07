@@ -16,7 +16,7 @@ class NoWorkoutsCell: UITableViewCell {
     }
   }
   
-  static func configure(tableView: UITableView, indexPath: IndexPath, challenge: Challenge) -> UITableViewCell {
+  static func configure(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
     return tableView.dequeueReusableCell(withType: NoWorkoutsCell.self, for: indexPath).apply {
       $0.selectionStyle = .none
     }

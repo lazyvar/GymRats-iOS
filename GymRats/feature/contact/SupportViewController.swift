@@ -7,14 +7,11 @@
 //
 
 import UIKit
-import RxSwift
 
 class SupportViewController: UIViewController {
   private enum Constant {
     static let id = "SupoprtCellId"
   }
-
-  private let disposeBag = DisposeBag()
   
   @IBOutlet private weak var tableView: UITableView! {
     didSet {

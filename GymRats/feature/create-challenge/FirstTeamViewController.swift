@@ -7,15 +7,11 @@
 //
 
 import UIKit
-import RxSwift
-import RxDataSources
 import Eureka
 import UnsplashPhotoPicker
 
 class FirstTeamViewController: GRFormViewController {
-  private let disposeBag = DisposeBag()
   private var newChallenge: NewChallenge
-  private var team: Team?
   private let continueButton = PrimaryButton()
 
   init(_ newChallenge: NewChallenge) {

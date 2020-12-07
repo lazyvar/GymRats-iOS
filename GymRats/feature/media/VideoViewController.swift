@@ -57,23 +57,11 @@ class VideoViewController: UIViewController {
     view.addSubview(imageView)
 
     imageView.contentMode = .scaleAspectFill
-    imageView.translatesAutoresizingMaskIntoConstraints = false
     imageView.clipsToBounds = true
 
-    imageView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-    imageView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-    imageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-    imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    imageView.inflate(in: view)
+    videoView.inflate(in: view)
     
-    videoView.translatesAutoresizingMaskIntoConstraints = false
-
-    view.addSubview(videoView)
-    
-    videoView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-    videoView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-    videoView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-    videoView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-
     if let thumbnail = medium.thumbnailUrl, let thumbnailURL = URL(string: thumbnail) {
       imageView.kf.setImage(with: thumbnailURL)
     }
@@ -177,11 +165,6 @@ class VideoViewController: UIViewController {
 
     item.seek(to: .zero, completionHandler: nil)
     player.play()
-  }
-
-  func deallocate() {
-    stop()
-    player.replaceCurrentItem(with: nil)
   }
 }
 
