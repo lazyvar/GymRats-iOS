@@ -1,6 +1,6 @@
 //
 //  VideoViewController.swift
-//  TestSlider
+//  GymRats
 //
 //  Created by mack on 12/6/20.
 //

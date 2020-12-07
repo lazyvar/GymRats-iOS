@@ -11,33 +11,27 @@ import RxSwift
 import GradientLoadingBar
 
 class CompletedChallengesViewController: UITableViewController {
+  private var challenges: [Challenge] = []
+  private let disposeBag = DisposeBag()
+  private let refresher = UIRefreshControl()
 
-    var challenges: [Challenge] = []
+  override func viewDidLoad() {
+    super.viewDidLoad()
+      
+    refresher.addTarget(self, action: #selector(fetchAllChallenges), for: .valueChanged)
+
+    view.backgroundColor = .background
+    navigationItem.title = "Completed"
+      
+    tableView.separatorStyle = .none
+    tableView.registerCellNibForClass(CompletedChallengeTableViewCell.self)
+    tableView.separatorStyle = .none
+    tableView.addSubview(refresher)
     
-    let disposeBag = DisposeBag()
-    let refresher = UIRefreshControl()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.backgroundColor = .background
-        
-        tableView.separatorStyle = .none
-        
-        navigationItem.title = "Completed"
-        
-        setupMenuButton()
-        setupBackButton()
-        
-        tableView.separatorStyle = .none
-        tableView.register(UINib(nibName: "UserWorkoutTableViewCell", bundle: nil), forCellReuseIdentifier: "ChallengeCell")
-        
-        refresher.addTarget(self, action: #selector(fetchAllChallenges), for: .valueChanged)
-        
-        tableView.addSubview(refresher)
-
-        fetchAllChallenges()
-    }
+    setupMenuButton()
+    setupBackButton()
+    fetchAllChallenges()
+  }
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
@@ -45,66 +39,59 @@ class CompletedChallengesViewController: UITableViewController {
     Track.screen(.completedChallenges)
   }
     
-    @objc func fetchAllChallenges() {
-      showLoadingBar()
-      
-      Challenge.State.all.fetch()
-        .subscribe(onNext: { [weak self] result in
-          self?.hideLoadingBar()
-          self?.refresher.endRefreshing()
-
-          switch result {
-          case .success(let challenges):
-            self?.challenges = challenges.getPastChallenges()
-            self?.tableView.reloadData()
-          case .failure(let error):
-            self?.presentAlert(with: error)
-          }
-        })
-        .disposed(by: disposeBag)
-    }
+  @objc func fetchAllChallenges() {
+    showLoadingBar()
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      if challenges.isEmpty {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "No challenges completed yet."
-        cell.selectionStyle = .none
-        cell.backgroundColor = .clear
-        
-        return cell
-      }
-      
-      let challenge = challenges[indexPath.row]
-      let cell = tableView.dequeueReusableCell(withIdentifier: "ChallengeCell") as! UserWorkoutTableViewCell
-      
+    Challenge.State.all.fetch()
+      .subscribe(onNext: { [weak self] result in
+        self?.hideLoadingBar()
+        self?.refresher.endRefreshing()
+
+        switch result {
+        case .success(let challenges):
+          self?.challenges = challenges.getPastChallenges()
+          self?.tableView.reloadData()
+        case .failure(let error):
+          self?.presentAlert(with: error)
+        }
+      })
+      .disposed(by: disposeBag)
+  }
+    
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    if challenges.isEmpty {
+      let cell = UITableViewCell()
+      cell.textLabel?.text = "No challenges completed yet."
+      cell.selectionStyle = .none
       cell.backgroundColor = .clear
-      cell.challenge = challenge
-      
-      let thing = cell.detailsLabel.text?.split(separator: " ") ?? []
-      let word = thing[thing.startIndex+1..<thing.endIndex].joined(separator: " ")
-      
-      cell.detailsLabel.text = word
       
       return cell
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-      return 1
-    }
+    let challenge = challenges[indexPath.row]
+    let cell = tableView.dequeueReusableCell(withType: CompletedChallengeTableViewCell.self, for: indexPath)
+    cell.configure(challenge)
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      if challenges.isEmpty {
-        return 1
-      } else {
-        return challenges.count
-      }
+    return cell
+  }
+  
+  override func numberOfSections(in tableView: UITableView) -> Int {
+    return 1
+  }
+  
+  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    if challenges.isEmpty {
+      return 1
+    } else {
+      return challenges.count
     }
+  }
     
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     
     guard let challenge = challenges[safe: indexPath.row] else { return }
     
-    push(CompletedChallengeViewController(challenge: challenge))
+    presentForClose(CompletedChallengeViewController(challenge: challenge))
   }
 }

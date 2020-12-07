@@ -1,5 +1,5 @@
 //
-//  GymRatsswift
+//  GymRatsNavigationController.swift
 //  GymRats
 //
 //  Created by mack on 4/6/20.

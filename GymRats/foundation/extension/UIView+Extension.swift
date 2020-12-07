@@ -12,6 +12,17 @@ import RxSwift
 import RxCocoa
 
 extension UIView {
+  func imageFromContext() -> UIImage? {
+    UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque, 0.0)
+
+    defer { UIGraphicsEndImageContext() }
+
+    guard let context = UIGraphicsGetCurrentContext() else { return nil }
+
+    layer.render(in: context)
+    
+    return UIGraphicsGetImageFromCurrentImageContext()
+  }
 
   /// Loads instance from nib with the same name.
   func loadNib() -> UIView {
