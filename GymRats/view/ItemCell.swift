@@ -9,10 +9,8 @@
 import UIKit
 
 class ItemCell: UITableViewCell {
-  @IBOutlet weak var userImageView: UserImageView!
-  @IBOutlet weak var titleLabel: UILabel!
-  
-  typealias Item = MenuRow.Item
+  @IBOutlet private weak var userImageView: UserImageView!
+  @IBOutlet private weak var titleLabel: UILabel!
   
   override func awakeFromNib() {
     super.awakeFromNib()

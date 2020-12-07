@@ -279,12 +279,11 @@ class WorkoutViewController: BindableViewController {
   }
 
   @objc private func showWorkoutMenu() {
-    let edit = UIAlertAction(title: "Edit", style: .default) { _ in
-      // TODO: Edit workout
-//      let viewController = CreateWorkoutViewController(workout: .right(self.workout))
-//      viewController.delegate = self
-//
-//      self.presentInNav(viewController)
+    let edit = UIAlertAction(title: "Edit", style: .default) { [self] _ in
+      let viewController = EditWorkoutViewController(workout: self.workout)
+      viewController.delegate = self
+
+      presentForClose(viewController)
     }
     
     let deleteAction = UIAlertAction(title: "Remove workout", style: .destructive) { _ in
@@ -412,10 +411,10 @@ extension WorkoutViewController {
   }
 }
 
-extension WorkoutViewController: CreatedWorkoutDelegate {
-  func createWorkoutController(created workout: Workout) {
+extension WorkoutViewController: EditWorkoutViewControllerDelegate {
+  func didEdit(_ editWorkoutViewController: EditWorkoutViewController, workout: Workout) {
     NotificationCenter.default.post(name: .workoutDeleted, object: self.workout)
-//    createWorkoutController.dismissSelf() TODO
+    editWorkoutViewController.dismissSelf()
     self.workout = workout
     self.viewModel.configure(workout: workout, challenge: self.challenge)
     self.viewModel.input.updatedWorkout.trigger()

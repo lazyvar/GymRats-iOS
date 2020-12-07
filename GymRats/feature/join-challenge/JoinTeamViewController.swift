@@ -15,7 +15,6 @@ typealias JoinTeamSection = SectionModel<String?, JoinTeamRow>
 class JoinTeamViewController: UIViewController {
   private let disposeBag = DisposeBag()
   private var challenge: Challenge
-  private var teams: [Team] = []
 
   init(_ challenge: Challenge) {
     self.challenge = challenge
@@ -120,8 +119,6 @@ class JoinTeamViewController: UIViewController {
     
     return Observable.combineLatest(choices, teams)
       .map { choices, teams in
-        self.teams = teams
-
         return [
           choices,
           JoinTeamSection(model: "Choose team to join", items: teams.map { JoinTeamRow.team($0) })

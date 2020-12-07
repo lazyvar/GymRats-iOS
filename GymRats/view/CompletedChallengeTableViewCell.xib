@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="64" id="KGk-i7-Jjw" customClass="CompletedChallengeTableViewCell" customModule="GymRats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sHb-Tb-yIc" customClass="SpookyView" customModule="GymRats" customModuleProvider="target">
+                        <rect key="frame" x="20" y="5" width="280" height="60"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8KB-08-ujE" customClass="UserImageView" customModule="GymRats" customModuleProvider="target">
+                                <rect key="frame" x="10" y="10" width="40" height="40"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="1SY-6l-ALd"/>
+                                    <constraint firstAttribute="height" constant="40" id="aT3-8n-DAo"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="X8u-Lw-vBk">
+                                <rect key="frame" x="64" y="8.5" width="41.5" height="43"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQM-M7-Ypg">
+                                        <rect key="frame" x="0.0" y="0.0" width="41.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ik-Ct-7vU">
+                                        <rect key="frame" x="0.0" y="22.5" width="41.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="8KB-08-ujE" firstAttribute="leading" secondItem="sHb-Tb-yIc" secondAttribute="leading" constant="10" id="CfE-l7-of1"/>
+                            <constraint firstItem="X8u-Lw-vBk" firstAttribute="centerY" secondItem="8KB-08-ujE" secondAttribute="centerY" id="WGi-VD-IsU"/>
+                            <constraint firstItem="8KB-08-ujE" firstAttribute="top" secondItem="sHb-Tb-yIc" secondAttribute="top" constant="10" id="YRL-Yb-AOz"/>
+                            <constraint firstItem="8KB-08-ujE" firstAttribute="centerY" secondItem="sHb-Tb-yIc" secondAttribute="centerY" id="dGW-mg-lvu"/>
+                            <constraint firstItem="X8u-Lw-vBk" firstAttribute="leading" secondItem="8KB-08-ujE" secondAttribute="trailing" constant="14" id="pj6-0b-u8S"/>
+                            <constraint firstAttribute="bottom" secondItem="8KB-08-ujE" secondAttribute="bottom" constant="10" id="ryL-zX-9XH"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="sHb-Tb-yIc" secondAttribute="bottom" constant="5" id="4BN-Di-WgF"/>
+                    <constraint firstItem="sHb-Tb-yIc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="Izx-SN-mtQ"/>
+                    <constraint firstItem="sHb-Tb-yIc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="THb-wc-42J"/>
+                    <constraint firstAttribute="trailing" secondItem="sHb-Tb-yIc" secondAttribute="trailing" constant="20" id="cLs-E7-K9n"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="avatarView" destination="8KB-08-ujE" id="Ctf-Ex-tKT"/>
+                <outlet property="descriptionLabel" destination="8Ik-Ct-7vU" id="VU8-DQ-cEG"/>
+                <outlet property="titleView" destination="iQM-M7-Ypg" id="vQQ-j3-Pgg"/>
+            </connections>
+            <point key="canvasLocation" x="-211.59420289855075" y="-71.651785714285708"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

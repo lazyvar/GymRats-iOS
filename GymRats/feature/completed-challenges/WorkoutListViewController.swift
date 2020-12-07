@@ -70,7 +70,7 @@ class WorkoutListViewController: BindableViewController {
     case .banner(let challenge, let challengeInfo):
       return ChallengeBannerCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge, challengeInfo: challengeInfo)
     case .noWorkouts(let challenge):
-      return NoWorkoutsCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge)
+      return NoWorkoutsCell.configure(tableView: tableView, indexPath: indexPath)
     case .workout(let workout):
       switch FeedStyle.stlye(for: self.challenge) {
       case .list: return WorkoutListCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)

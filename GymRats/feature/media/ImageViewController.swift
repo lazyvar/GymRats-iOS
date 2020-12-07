@@ -1,6 +1,6 @@
 //
 //  ImageViewController.swift
-//  TestSlider
+//  GymRats
 //
 //  Created by mack on 12/6/20.
 //
@@ -29,7 +29,6 @@ class ImageViewController: UIViewController {
     view.backgroundColor = .clear
     
     imageView.contentMode = .scaleAspectFill
-    imageView.translatesAutoresizingMaskIntoConstraints = false
     imageView.clipsToBounds = true
     
     imageView.setupImageViewer(options: [{
@@ -41,12 +40,7 @@ class ImageViewController: UIViewController {
       }
     }()], from: nil)
 
-    view.addSubview(imageView)
-
-    imageView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-    imageView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-    imageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-    imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    imageView.inflate(in: view)
 
     if let url = URL(string: medium.url) {
       imageView.kf.setImage(with: url)

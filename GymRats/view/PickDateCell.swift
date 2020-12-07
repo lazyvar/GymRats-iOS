@@ -92,7 +92,6 @@ final class PickDateRow: Row<PickDateCell>, RowType, FieldRowConformance, Keyboa
   
   var placeholder: String?
   var icon: UIImage?
-  var secure: Bool = false
   var contentType: UITextContentType?
   var keyboardType: UIKeyboardType?
   var startDate: Date?

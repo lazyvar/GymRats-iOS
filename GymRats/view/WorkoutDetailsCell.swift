@@ -9,14 +9,6 @@
 import UIKit
 
 class WorkoutDetailsCell: UITableViewCell {
-  enum WorkoutData: String, CaseIterable {
-    case duration
-    case distance
-    case steps
-    case calories
-    case points
-  }
-  
   @IBOutlet private weak var healthAppImageView: UIImageView! {
     didSet {
       healthAppImageView.layer.borderWidth = 1

@@ -23,7 +23,7 @@ class GymRatsAPI {
   func login(email: String, password: String) -> Observable<NetworkResult<Account>> {
     return requestObject(.login(email: email, password: password))
   }
-  
+
   func signUp(email: String, password: String, profilePicture: UIImage?, fullName: String) -> Observable<NetworkResult<Account>> {
     return Observable<UIImage?>.just(profilePicture)
       .flatMap { image -> Observable<String?> in
@@ -193,16 +193,7 @@ class GymRatsAPI {
   }
 
   func update(_ workout: UpdateWorkout) -> Observable<NetworkResult<Workout>> {
-    // TODO
-    return Observable<UIImage?>.just(workout.photo.left)
-//      .flatMap { image -> Observable<String?> in
-//        guard let image = image else { return .just(nil) }
-//
-//        return ImageService.uploadImageToFirebase(image: image).map { url -> String? in url }
-//      }
-      .flatMap { _ in
-        return self.requestObject(.updateWorkout(workout, photoURL: nil))
-      }
+    return self.requestObject(.updateWorkout(workout))
   }
 
   func getMembers(for challenge: Challenge) -> Observable<NetworkResult<[Account]>> {
