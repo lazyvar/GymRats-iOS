@@ -181,13 +181,21 @@ class GymRatsAPI {
   }
 
   func postWorkout(_ workout: NewWorkout, challenges: [Int]) -> Observable<NetworkResult<Workout>> {
-    return Observable<NewWorkout.Medium>.combineLatest(workout.media.map { mediaItem -> Observable<NewWorkout.Medium> in
-      switch mediaItem {
-      case .photo(p: let photo): return ImageService.upload(photo)
-      case .video(v: let video): return ImageService.upload(video)
+    let media: Observable<[NewWorkout.Medium]> = {
+      switch workout.media {
+      case .left(let mediaItems):
+        return Observable<NewWorkout.Medium>.combineLatest(mediaItems.map { mediaItem -> Observable<NewWorkout.Medium> in
+          switch mediaItem {
+          case .photo(p: let photo): return ImageService.upload(photo)
+          case .video(v: let video): return ImageService.upload(video)
+          }
+        })
+      case .right(let media):
+        return Observable.just(media)
       }
-    })
-    .flatMap { media in
+    }()
+
+    return media.flatMap { media in
       return self.requestObject(.postWorkout(workout, media: media, challenges: challenges))
     }
   }

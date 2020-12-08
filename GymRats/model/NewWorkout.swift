@@ -12,7 +12,7 @@ import YPImagePicker
 struct NewWorkout {
   var title: String
   var description: String?
-  var media: [YPMediaItem]
+  var media: Either<[YPMediaItem], [NewWorkout.Medium]>
   var googlePlaceId: String?
   var duration: Int?
   var distance: String?
