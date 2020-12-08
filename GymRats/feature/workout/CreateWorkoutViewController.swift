@@ -153,6 +153,11 @@ class CreateWorkoutViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    if let healthKitWorkout = healthKitWorkout {
+      workoutTitle = healthKitWorkout.workoutActivityType.name
+      titleTextField.text = workoutTitle
+    }
+    
     updateViewFromState()
     setupBackButton()
 
@@ -174,7 +179,6 @@ class CreateWorkoutViewController: UIViewController {
     navigationItem.rightBarButtonItem = nextButton
 
     nextButton.tintColor = .brand
-    nextButton.isEnabled = false
     
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)

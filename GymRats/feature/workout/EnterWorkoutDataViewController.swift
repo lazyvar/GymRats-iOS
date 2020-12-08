@@ -197,10 +197,24 @@ class EnterWorkoutDataViewController: GRFormViewController {
         .filter { $0.value.value }
         .map { $0.key }
     
+    let newMedia: Either<[YPMediaItem], [NewWorkout.Medium]> = {
+      if let healthKitWorkout = healthKitWorkout, media.isEmpty {
+        return .right([
+          NewWorkout.Medium(
+            url: healthKitWorkout.workoutActivityType.activityify.rat,
+            thumbnailUrl: nil,
+            mediumType: .image
+          )
+        ])
+      } else {
+        return .left(media)
+      }
+    }()
+    
     let newWorkout = NewWorkout(
       title: workoutTitle,
       description: workoutDescription,
-      media: media,
+      media: newMedia,
       googlePlaceId: place?.id,
       duration: duration.value.map { Int($0) } ?? nil,
       distance: distance.value,

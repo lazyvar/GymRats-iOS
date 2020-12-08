@@ -186,10 +186,18 @@ class HealthService: HealthServiceType {
   }
   
   private func upload(healthKitWorkout: HKWorkout, challenges: [Challenge]) -> Observable<NetworkResult<Workout>> {
+    let activityType = healthKitWorkout.workoutActivityType
+    
     var newWorkout = NewWorkout(
-      title: healthKitWorkout.workoutActivityType.name,
+      title: activityType.name,
       description: nil,
-      media: [],
+      media: .right([
+        NewWorkout.Medium(
+          url: activityType.activityify.rat,
+          thumbnailUrl: nil,
+          mediumType: .image
+        )
+      ]),
       googlePlaceId: nil,
       duration: nil,
       distance: nil,
