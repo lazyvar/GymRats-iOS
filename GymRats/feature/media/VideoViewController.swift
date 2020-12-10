@@ -63,9 +63,14 @@ class VideoViewController: UIViewController {
     videoView.inflate(in: view)
     
     if let thumbnail = medium.thumbnailUrl, let thumbnailURL = URL(string: thumbnail) {
-      imageView.kf.setImage(with: thumbnailURL)
+      let skeletonView = UIView()
+      skeletonView.isSkeletonable = true
+      skeletonView.showAnimatedSkeleton()
+      skeletonView.showSkeleton()
+
+      imageView.kf.setImage(with: thumbnailURL, placeholder: skeletonView)
     }
-    
+
     videoView.layer.addSublayer(playerLayer)
     
     videoView.rx.tapGesture()

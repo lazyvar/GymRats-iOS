@@ -60,21 +60,30 @@ class HealthService: HealthServiceType {
   func observeWorkouts() {
     guard observationQuery == nil else { return }
     
+    NotificationCenter.default.rx.notification(.appDidBecomeActive)
+      .filter    { [self] _ in autoSyncEnabled }
+      .flatMap   { [self] _ in uploadUnsynchronizedWorkouts().asObservable() }
+      .subscribe { _ in }
+      .disposed(by: disposeBag)
+    
     observationQuery = HKObserverQuery(
       sampleType: HKObjectType.workoutType(),
       predicate: nil,
       updateHandler: { [self] query, completionHandler, error in
-        guard !synchronizationInPorgress else { return }
-
-        DevLog.autoSyncInitiated()
-        synchronizationInPorgress = true
-        
-        uploadUnsynchronizedWorkouts()
-          .subscribe { _ in
-            synchronizationInPorgress = false
-            completionHandler()
-          }
-          .disposed(by: disposeBag)
+        DispatchQueue.main.async {
+          guard !synchronizationInPorgress else { return }
+          guard UIApplication.shared.applicationState == .background else { return }
+          
+          DevLog.autoSyncInitiated()
+          synchronizationInPorgress = true
+          
+          uploadUnsynchronizedWorkouts()
+            .subscribe { _ in
+              synchronizationInPorgress = false
+              completionHandler()
+            }
+            .disposed(by: disposeBag)
+        }
       }
     )
     
@@ -153,7 +162,7 @@ class HealthService: HealthServiceType {
       let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [allWorkouts, noManualEntryAllowed, withStartDate])
       let query = HKSampleQuery(sampleType: .workoutType(), predicate: compoundPredicate, limit: 100, sortDescriptors: [sortByStartDate]) { _, samples, error in
         lastSync = Date()
-                
+
         DispatchQueue.main.async {
           if let error = error {
             DevLog.foundError(error)
@@ -176,18 +185,27 @@ class HealthService: HealthServiceType {
   private func uploadUnsynchronizedWorkouts() -> Single<Void> {
     let challenges = Challenge.State.all.fetch().map { ($0.object ?? []).getActiveChallenges() }
     let unsynchronizedWorkouts = self.unsynchronizedWorkouts()
-    
-    return Observable.zip(challenges, unsynchronizedWorkouts.asObservable())
+      .asObservable()
+      .map { try? HealthKitWorkoutCache.filterNotStored($0) }
+      .map { $0 ?? [] }
+
+    return Observable.zip(challenges, unsynchronizedWorkouts)
+      .do(onNext: { _, workouts in
+        try? HealthKitWorkoutCache.insert(workouts)
+      })
       .flatMap { challenges, workouts -> Observable<[NetworkResult<Workout>]> in
         return Observable.combineLatest(workouts.map { return self.upload(healthKitWorkout: $0, challenges: challenges) })
       }
+      .do(onNext: { _ in
+        NotificationCenter.default.post(.workoutCreated)
+      })
       .asSingle()
       .map { _ in () }
   }
   
   private func upload(healthKitWorkout: HKWorkout, challenges: [Challenge]) -> Observable<NetworkResult<Workout>> {
     let activityType = healthKitWorkout.workoutActivityType
-    
+
     var newWorkout = NewWorkout(
       title: activityType.name,
       description: nil,

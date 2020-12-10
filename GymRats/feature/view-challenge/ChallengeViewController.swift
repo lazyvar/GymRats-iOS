@@ -12,12 +12,20 @@ import RxCocoa
 import RxDataSources
 import UIScrollView_InfiniteScroll
 
-struct ChallengeSectionModel: Equatable {
+struct ChallengeSectionModel: IdentifiableType, Equatable {
   let date: Date?
   let skeleton: Bool
+  
+  var identity: String {
+    if let date = date {
+      return "\(date) \(skeleton)"
+    } else {
+      return "\(skeleton)"
+    }
+  }
 }
 
-typealias ChallengeSection = SectionModel<ChallengeSectionModel, ChallengeRow>
+typealias ChallengeSection = AnimatableSectionModel<ChallengeSectionModel, ChallengeRow>
 
 class ChallengeViewController: BindableViewController {
   
@@ -101,28 +109,31 @@ class ChallengeViewController: BindableViewController {
     action: #selector(statsTapped)
   )
 
-  // MARK: View lifecycle  
+  // MARK: View lifecycle
   
-  private lazy var dataSource = RxTableViewSectionedReloadDataSource<ChallengeSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
-    switch row {
-    case .title(let challenge):
-      return LargeTitlesAreDumbCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge)
-    case .banner(let challenge, let challengeInfo):
-      return ChallengeBannerCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge, challengeInfo: challengeInfo)
-    case .noWorkouts(let challenge):
-      return NoWorkoutsCell.configure(tableView: tableView, indexPath: indexPath)
-    case .workout(let workout):
-      switch FeedStyle.stlye(for: self.challenge) {
-      case .list: return WorkoutListCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
-      case .big: return WorkoutBigCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
-      }
-    case .💀:
-      switch FeedStyle.stlye(for: self.challenge) {
-      case .list: return WorkoutListCell.skeleton(tableView: tableView, indexPath: indexPath)
-      case .big: return WorkoutBigCell.skeleton(tableView: tableView, indexPath: indexPath)
+  private lazy var dataSource = RxTableViewSectionedAnimatedDataSource<ChallengeSection>(
+    animationConfiguration: AnimationConfiguration(reloadAnimation: .fade),
+    configureCell: { _, tableView, indexPath, row -> UITableViewCell in
+      switch row {
+      case .title(let challenge):
+        return LargeTitlesAreDumbCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge)
+      case .banner(let challenge, let challengeInfo):
+        return ChallengeBannerCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge, challengeInfo: challengeInfo)
+      case .noWorkouts(let challenge):
+        return NoWorkoutsCell.configure(tableView: tableView, indexPath: indexPath)
+      case .workout(let workout):
+        switch FeedStyle.stlye(for: self.challenge) {
+        case .list: return WorkoutListCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
+        case .big: return WorkoutBigCell.configure(tableView: tableView, indexPath: indexPath, workout: workout)
+        }
+      case .💀:
+        switch FeedStyle.stlye(for: self.challenge) {
+        case .list: return WorkoutListCell.skeleton(tableView: tableView, indexPath: indexPath)
+        case .big: return WorkoutBigCell.skeleton(tableView: tableView, indexPath: indexPath)
+        }
       }
     }
-  })
+  )
   
   override func bindViewModel() {
     viewModel.output.sections
