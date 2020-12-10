@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Workout: Codable, Hashable {
   let id: Int
@@ -71,6 +72,7 @@ struct Workout: Codable, Hashable {
     case coreTraining = "core_training"
     case swimming
     case volleyball
+    case steps
     case other
     
     var title: String {
@@ -84,6 +86,10 @@ struct Workout: Codable, Hashable {
       
       default: return rawValue
       }
+    }
+    
+    var icon: UIImage {
+      return UIImage(named: rawValue) ?? UIImage(named: "other")!
     }
     
     var rat: String {

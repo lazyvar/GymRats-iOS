@@ -23,8 +23,9 @@ class HealthService: HealthServiceType {
   private let disposeBag = DisposeBag()
   private let store = HKHealthStore()
   private let workoutSet = Set([HKObjectType.workoutType()])
+  private let stepsSet = Set([HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)!])
   private let userDefaults: UserDefaults = .standard
-  
+
   private var synchronizationInPorgress = false
   private var observationQuery: HKObserverQuery?
   
@@ -128,7 +129,66 @@ class HealthService: HealthServiceType {
       return Disposables.create()
     }
   }
+
+  func didRequestStepAuthorization() -> Single<Bool> {
+    return Single.create { [self] observer in
+      store.getRequestStatusForAuthorization(toShare: [], read: stepsSet) { status, error in
+        DispatchQueue.main.async {
+          if let error = error {
+            observer(.error(error))
+          } else {
+            observer(.success(status == .unnecessary))
+          }
+        }
+      }
+      
+      return Disposables.create()
+    }
+  }
   
+  func requestStepAuthorization() -> Single<Bool> {
+    return Single.create { [self] observer in
+      store.requestAuthorization(toShare: nil, read: stepsSet) { (success, error) in
+        DispatchQueue.main.async {
+          error.map { observer(.error($0)) } ?? observer(.success(success))
+        }
+      }
+
+      return Disposables.create()
+    }
+  }
+
+  func todaysStepCount() -> Single<StepCount> {
+    return Single.create { [self] observer in
+      let stepsQuantityType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
+      let now = Date()
+      let startOfDay = Calendar.current.startOfDay(for: now)
+      let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
+
+      let query = HKStatisticsQuery(
+        quantityType: stepsQuantityType,
+        quantitySamplePredicate: predicate,
+        options: .cumulativeSum
+      ) { _, result, error in
+        DispatchQueue.main.async {
+          if let error = error {
+            observer(.error(error))
+          }
+          
+          if let result = result, let sum = result.sumQuantity() {
+            observer(.success(sum.doubleValue(for: HKUnit.count())))
+          } else {
+            observer(.error(SimpleError(message: "Could not get step count.")))
+          }
+        }
+      }
+
+      store.execute(query)
+      
+      return Disposables.create()
+    }
+  }
+
   func allWorkouts() -> Single<[HKWorkout]> {
     return Single.create { [self] observer in
       let allWorkouts = HKQuery.predicateForWorkouts(with: .greaterThan, duration: 0)

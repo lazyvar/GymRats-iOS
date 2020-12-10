@@ -371,7 +371,7 @@
 		74BE97BD220C9F2800D550CA /* ImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BE97BA220C9F2700D550CA /* ImagePickerController.swift */; };
 		74BE97BE220C9F2800D550CA /* ImageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BE97BB220C9F2800D550CA /* ImageRow.swift */; };
 		74C2D84E222C3D1A00FF0DE2 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2D84D222C3D1A00FF0DE2 /* AboutViewController.swift */; };
-		74F47889220CECFE005CD4E4 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F47888220CECFE005CD4E4 /* ImageService.swift */; };
+		74F47889220CECFE005CD4E4 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F47888220CECFE005CD4E4 /* StorageService.swift */; };
 		8856B0022C76427851DDDB77 /* Pods_GymRatsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C09C458F3D0EC49A95802E /* Pods_GymRatsTests.framework */; };
 		A02F4B0274FC477C5963CDDD /* Pods_GymRats.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45AE0586E2D3E12AB034ED36 /* Pods_GymRats.framework */; };
 /* End PBXBuildFile section */
@@ -765,7 +765,7 @@
 		74BE97BA220C9F2700D550CA /* ImagePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerController.swift; sourceTree = "<group>"; };
 		74BE97BB220C9F2800D550CA /* ImageRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRow.swift; sourceTree = "<group>"; };
 		74C2D84D222C3D1A00FF0DE2 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
-		74F47888220CECFE005CD4E4 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		74F47888220CECFE005CD4E4 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		DA1B9B38DC9FF0C9036AFCCB /* Pods-GymRatsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymRatsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GymRatsTests/Pods-GymRatsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EC58A7A483BCAC310AB5A0EE /* Pods-GymRats.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GymRats.release.xcconfig"; path = "Pods/Target Support Files/Pods-GymRats/Pods-GymRats.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1355,7 +1355,7 @@
 			isa = PBXGroup;
 			children = (
 				747D6FBC2208DBFE0062BB39 /* APIRequest.swift */,
-				74F47888220CECFE005CD4E4 /* ImageService.swift */,
+				74F47888220CECFE005CD4E4 /* StorageService.swift */,
 				748DFB8B220FD882007220C7 /* GService.swift */,
 				01AE59E122A60E6800F3FB07 /* MackAttack.swift */,
 				01AE59E322A60FE400F3FB07 /* MackAttackTests.swift */,
@@ -2122,7 +2122,7 @@
 				01C25C23243F700A0021D617 /* CommentCell.swift in Sources */,
 				01A3EB26237747D30097FC2A /* CVCalendarViewAnimator.swift in Sources */,
 				74A01B34220A3B2000431ABD /* Workout.swift in Sources */,
-				74F47889220CECFE005CD4E4 /* ImageService.swift in Sources */,
+				74F47889220CECFE005CD4E4 /* StorageService.swift in Sources */,
 				013C85BB257E6E380008F580 /* IntegerPickerCell.swift in Sources */,
 				017E10B32429674600CBBB92 /* ChallengeRow.swift in Sources */,
 				01901A852566B71700831501 /* SupportViewController.swift in Sources */,

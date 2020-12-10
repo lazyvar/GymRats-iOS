@@ -13,6 +13,7 @@ import RxSwift
 import YPImagePicker
 
 protocol LogWorkoutModalViewControllerDelegate: class {
+  func didImportSteps(_ logWorkoutModalViewController: LogWorkoutModalViewController, steps: StepCount)
   func didImportWorkout(_ logWorkoutModalViewController: LogWorkoutModalViewController, workout: HKWorkout)
   func didPickMedia(_ logWorkoutModalViewController: LogWorkoutModalViewController, media: [YPMediaItem])
 }
@@ -132,6 +133,12 @@ extension LogWorkoutModalViewController: UITableViewDataSource {
 }
 
 extension LogWorkoutModalViewController: ImportWorkoutViewControllerDelegate {
+  func importWorkoutViewController(_ importWorkoutViewController: ImportWorkoutViewController, importedSteps steps: StepCount) {
+    importWorkoutViewController.dismiss(animated: true) { [self] in
+      delegate?.didImportSteps(self, steps: steps)
+    }
+  }
+
   func importWorkoutViewController(_ importWorkoutViewController: ImportWorkoutViewController, imported workout: HKWorkout) {
     importWorkoutViewController.dismiss(animated: true) { [self] in
       delegate?.didImportWorkout(self, workout: workout)

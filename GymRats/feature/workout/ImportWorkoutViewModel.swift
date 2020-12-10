@@ -20,12 +20,14 @@ final class ImportWorkoutViewModel: ViewModel {
   
   struct Input {
     let viewDidLoad = PublishSubject<Void>()
+    let tappedImportStepCount = PublishSubject<Void>()
     let tappedRow = PublishSubject<IndexPath>()
   }
 
   struct Output {
     let sections = PublishSubject<[ImportWorkoutSection]>()
     let selectedWorkout = PublishSubject<HKWorkout>()
+    let importedDailySteps = PublishSubject<StepCount>()
   }
 
   let input = Input()
@@ -51,6 +53,23 @@ final class ImportWorkoutViewModel: ViewModel {
         }
       }
       .bind(to: output.sections)
+      .disposed(by: disposeBag)
+    
+    let requestedAuth = input.tappedImportStepCount
+      .flatMap { healthService.didRequestStepAuthorization() }
+      .share()
+      
+    let getItNow = requestedAuth
+      .filter { $0 }
+      .flatMap { _ in healthService.todaysStepCount() }
+
+    let requestFirstGetLater = requestedAuth
+      .filter { !$0 }
+      .flatMap { _ in healthService.requestStepAuthorization() }
+      .flatMap { _ in healthService.todaysStepCount() }
+
+    Observable.merge(getItNow, requestFirstGetLater)
+      .bind(to: output.importedDailySteps)
       .disposed(by: disposeBag)
     
     Observable.combineLatest(input.tappedRow, workouts) { ($0, $1) }

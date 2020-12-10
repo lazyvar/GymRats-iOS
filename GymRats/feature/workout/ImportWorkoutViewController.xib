@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ImportWorkoutViewController" customModule="GymRats" customModuleProvider="target">
             <connections>
+                <outlet property="buttonBackgroundView" destination="Xdw-2l-C2l" id="0nX-6p-rgv"/>
                 <outlet property="tableView" destination="KVv-d5-QtP" id="2jP-Q7-Ayk"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -19,20 +21,46 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xdw-2l-C2l">
+                    <rect key="frame" x="0.0" y="794" width="414" height="168"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KVv-d5-QtP">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="750"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Qa-ne-fqM" customClass="PrimaryButton" customModule="GymRats" customModuleProvider="target">
+                    <rect key="frame" x="20" y="804" width="374" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="2Vk-2R-N73"/>
+                    </constraints>
+                    <state key="normal" title="Import today's step count"/>
+                    <connections>
+                        <action selector="tappedImportStepCount:" destination="-1" eventType="touchUpInside" id="Qwd-br-l3l"/>
+                    </connections>
+                </button>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="5Qa-ne-fqM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="0Kt-9s-R4P"/>
+                <constraint firstItem="Xdw-2l-C2l" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="100" id="3Hr-zC-T5q"/>
+                <constraint firstItem="5Qa-ne-fqM" firstAttribute="top" secondItem="KVv-d5-QtP" secondAttribute="bottom" constant="10" id="498-r1-1wO"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="5Qa-ne-fqM" secondAttribute="trailing" constant="20" id="5xB-9U-4jW"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="KVv-d5-QtP" secondAttribute="trailing" id="8c1-V3-QAJ"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="KVv-d5-QtP" secondAttribute="bottom" id="OgR-WE-mLY"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Xdw-2l-C2l" secondAttribute="trailing" id="I89-z1-Stl"/>
                 <constraint firstItem="KVv-d5-QtP" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="a59-sl-zql"/>
                 <constraint firstItem="KVv-d5-QtP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="rRg-eF-nZa"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="5Qa-ne-fqM" secondAttribute="bottom" constant="10" id="tnA-wi-3qF"/>
+                <constraint firstItem="Xdw-2l-C2l" firstAttribute="top" secondItem="KVv-d5-QtP" secondAttribute="bottom" id="vWg-Kr-jDY"/>
+                <constraint firstItem="Xdw-2l-C2l" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ygE-Xg-bFB"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="133" y="154"/>
+            <point key="canvasLocation" x="105.79710144927537" y="130.58035714285714"/>
         </view>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

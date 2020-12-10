@@ -29,7 +29,7 @@ class GymRatsAPI {
       .flatMap { image -> Observable<String?> in
         guard let image = image else { return .just(nil) }
       
-        return ImageService.upload(image).map { url -> String? in url }
+        return StorageService.upload(image).map { url -> String? in url }
       }
       .flatMap { url in
         return self.requestObject(.signup(email: email, password: password, profilePictureUrl: url, fullName: fullName))
@@ -58,7 +58,7 @@ class GymRatsAPI {
         guard let image = image else { return .just(nil) }
       
         switch image {
-        case .left(let image): return ImageService.upload(image).map { url -> String? in url }
+        case .left(let image): return StorageService.upload(image).map { url -> String? in url }
         case .right(let url): return .just(url)
         }
       }
@@ -93,7 +93,7 @@ class GymRatsAPI {
         guard let image = image else { return .just(nil) }
       
         switch image {
-        case .left(let image): return ImageService.upload(image).map { url -> String? in url }
+        case .left(let image): return StorageService.upload(image).map { url -> String? in url }
         case .right(let url): return .just(url)
         }
       }
@@ -112,7 +112,7 @@ class GymRatsAPI {
         guard let image = image else { return .just(nil) }
       
         switch image {
-        case .left(let image): return ImageService.upload(image).map { url -> String? in url }
+        case .left(let image): return StorageService.upload(image).map { url -> String? in url }
         case .right(let url): return .just(url)
         }
       }
@@ -147,7 +147,7 @@ class GymRatsAPI {
         guard let image = image else { return .just(nil) }
       
         switch image {
-        case .left(let image): return ImageService.upload(image).map { url -> String? in url }
+        case .left(let image): return StorageService.upload(image).map { url -> String? in url }
         case .right(let url): return .just(url)
         }
       }
@@ -184,12 +184,7 @@ class GymRatsAPI {
     let media: Observable<[NewWorkout.Medium]> = {
       switch workout.media {
       case .left(let mediaItems):
-        return Observable<NewWorkout.Medium>.combineLatest(mediaItems.map { mediaItem -> Observable<NewWorkout.Medium> in
-          switch mediaItem {
-          case .photo(p: let photo): return ImageService.upload(photo)
-          case .video(v: let video): return ImageService.upload(video)
-          }
-        })
+        return Observable<NewWorkout.Medium>.combineLatest(mediaItems.map { StorageService.upload(localMedium: $0) })
       case .right(let media):
         return Observable.just(media)
       }
@@ -221,7 +216,7 @@ class GymRatsAPI {
       .flatMap { image -> Observable<String?> in
         guard let image = image else { return .just(nil) }
       
-        return ImageService.upload(image).map { url -> String? in url }
+        return StorageService.upload(image).map { url -> String? in url }
       }
       .flatMap { url in
         return self.requestObject(.updateUser(email: email, name: name, password: password, profilePictureUrl: url, currentPassword: currentPassword))
