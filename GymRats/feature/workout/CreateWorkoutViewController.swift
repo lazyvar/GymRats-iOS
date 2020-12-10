@@ -15,6 +15,8 @@ import RSKPlaceholderTextView
 import YPImagePicker
 import RxOptional
 
+typealias HealthAppSource = Either<HKWorkout, StepCount>
+
 protocol CreatedWorkoutDelegate: class {
   func createWorkoutController(created workout: Workout)
 }
@@ -116,7 +118,7 @@ class CreateWorkoutViewController: UIViewController {
     }
   }
   
-  private var healthKitWorkout: HKWorkout? {
+  private var healthAppSource: HealthAppSource? {
     didSet {
       updateViewFromState()
     }
@@ -132,8 +134,15 @@ class CreateWorkoutViewController: UIViewController {
   
   private let healthService: HealthServiceType = HealthService.shared
 
-  init(healthKitWorkout: HKWorkout) {
-    self.healthKitWorkout = healthKitWorkout
+  private let numberFormatter: NumberFormatter = {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+    
+    return formatter
+  }()
+  
+  init(healthAppSource: HealthAppSource) {
+    self.healthAppSource = healthAppSource
     
     super.init(nibName: Self.xibName, bundle: nil)
   }
@@ -153,9 +162,15 @@ class CreateWorkoutViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    if let healthKitWorkout = healthKitWorkout {
-      workoutTitle = healthKitWorkout.workoutActivityType.name
-      titleTextField.text = workoutTitle
+    if let healthAppSource = healthAppSource {
+      switch healthAppSource {
+      case .left(let healthKitWorkout):
+        workoutTitle = healthKitWorkout.workoutActivityType.name
+        titleTextField.text = workoutTitle
+      case .right:
+        workoutTitle = "\(Date().in(region: .current).toFormat("MM/dd")) steps"
+        titleTextField.text = workoutTitle
+      }
     }
     
     updateViewFromState()
@@ -191,7 +206,7 @@ class CreateWorkoutViewController: UIViewController {
       title: workoutTitle ?? "Workout",
       description: workoutDescription,
       media: media,
-      healthKitWorkout: healthKitWorkout,
+      healthAppSource: healthAppSource,
       place: place
     )
     
@@ -205,7 +220,7 @@ class CreateWorkoutViewController: UIViewController {
   }
   
   @IBAction private func tappedHealthApp(_ sender: Any) {
-    presentSourceAlert(source: healthKitWorkout) { [self] in
+    presentSourceAlert(source: healthAppSource) { [self] in
       healthService.requestWorkoutAuthorization()
         .subscribe(onSuccess: { _ in
           DispatchQueue.main.async {
@@ -224,7 +239,7 @@ class CreateWorkoutViewController: UIViewController {
         })
         .disposed(by: disposeBag)
     } clear: { [self] in
-      self.healthKitWorkout = nil
+      self.healthAppSource = nil
     }
   }
   
@@ -297,34 +312,46 @@ class CreateWorkoutViewController: UIViewController {
     guard isViewLoaded else { return }
     
     let hasTitle =  (workoutTitle ?? "").isNotEmpty
-    let hasHealthAppWorkout = healthKitWorkout != nil
+    let hasHealthAppSource = healthAppSource != nil
     let hasMedia = media.isNotEmpty
     let hasLocation = place != nil
   
-    nextButton.isEnabled = hasTitle && (hasHealthAppWorkout || hasMedia)
-    healthAppCheckbox.image = hasHealthAppWorkout ? .checked : .notChecked
+    nextButton.isEnabled = hasTitle && (hasHealthAppSource || hasMedia)
+    healthAppCheckbox.image = hasHealthAppSource ? .checked : .notChecked
     mediaCheckbox.image = hasMedia ? .checked : .notChecked
     locationCheckbox.image = hasLocation ? .checked : .notChecked
-    healthAppCheckbox.tintColor = hasHealthAppWorkout ? .goodGreen : .secondaryText
+    healthAppCheckbox.tintColor = hasHealthAppSource ? .goodGreen : .secondaryText
     mediaCheckbox.tintColor = hasMedia ? .goodGreen : .secondaryText
     locationCheckbox.tintColor = hasLocation ? .goodGreen : .secondaryText
     
-    if hasHealthAppWorkout && !hasMedia {
+    if hasHealthAppSource && !hasMedia {
       sourceDetailsLabel.text = "Verified using the Health app. Optionally add a photo or video."
-    } else if !hasHealthAppWorkout && hasMedia {
+    } else if !hasHealthAppSource && hasMedia {
       sourceDetailsLabel.text = "Verified using a photo or video. Optionally import a workout from the Health app."
-    } else if hasHealthAppWorkout && hasMedia && !hasLocation {
+    } else if hasHealthAppSource && hasMedia && !hasLocation {
       sourceDetailsLabel.text = "Verified using the Health app and photo or video. Optionally tag a location."
-    } else if hasHealthAppWorkout && hasMedia && hasLocation {
+    } else if hasHealthAppSource && hasMedia && hasLocation {
       sourceDetailsLabel.text = "Fully verified."
     } else {
       sourceDetailsLabel.text = "Either a workout imported from the Health app or a photo or video is required."
     }
     
-    if let healthKitWorkout = healthKitWorkout {
-      let duration = Int(healthKitWorkout.duration / 60)
-      
-      healthAppButton.setTitle("\(healthKitWorkout.workoutActivityType.name) - \(duration) minutes", for: .normal)
+    if let healthAppSource = healthAppSource {
+      switch healthAppSource {
+      case .left(let healthKitWorkout):
+        let duration = Int(healthKitWorkout.duration / 60)
+        
+        healthAppButton.setTitle("\(healthKitWorkout.workoutActivityType.name) - \(duration) minutes", for: .normal)
+      case .right(let steps):
+        let content = [
+          numberFormatter.string(from: NSDecimalNumber(value: steps)),
+          "steps"
+        ]
+        .compactMap { $0 }
+        .joined(separator: " ")
+          
+        healthAppButton.setTitle(content, for: .normal)
+      }
     } else {
       healthAppButton.setTitle("Health app", for: .normal)
     }
@@ -375,9 +402,31 @@ extension CreateWorkoutViewController: LocationPickerViewControllerDelegate {
 }
 
 extension CreateWorkoutViewController: ImportWorkoutViewControllerDelegate {
-  func importWorkoutViewController(_ importWorkoutViewController: ImportWorkoutViewController, imported workout: HKWorkout) {
-    self.healthKitWorkout = workout
+  func importWorkoutViewController(_ importWorkoutViewController: ImportWorkoutViewController, importedSteps steps: StepCount) {
+    self.healthAppSource = .right(steps)
     
     importWorkoutViewController.dismiss(animated: true, completion: nil)
+  }
+
+  func importWorkoutViewController(_ importWorkoutViewController: ImportWorkoutViewController, imported workout: HKWorkout) {
+    self.healthAppSource = .left(workout)
+    
+    importWorkoutViewController.dismiss(animated: true, completion: nil)
+  }
+}
+
+extension HealthAppSource {
+  var workout: HKWorkout? {
+    switch self {
+    case .left(let workout): return workout
+    case .right: return nil
+    }
+  }
+
+  var steps: Double? {
+    switch self {
+    case .left: return nil
+    case .right(let steps): return steps
+    }
   }
 }

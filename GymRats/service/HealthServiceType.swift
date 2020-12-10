@@ -17,7 +17,12 @@ protocol HealthServiceType: class {
   
   func observeWorkouts()
   func markPromptSeen()
+  
   func didRequestWorkoutAuthorization() -> Single<Bool>
   func requestWorkoutAuthorization() -> Single<Bool>
   func allWorkouts() -> Single<[HKWorkout]>
+  
+  func didRequestStepAuthorization() -> Single<Bool>
+  func requestStepAuthorization() -> Single<Bool>
+  func todaysStepCount() -> Single<StepCount>
 }

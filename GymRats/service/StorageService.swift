@@ -1,5 +1,5 @@
 //
-//  ImageService.swift
+//  StorageSerice.swift
 //  GymRats
 //
 //  Created by Mack Hasz on 2/7/19.
@@ -11,9 +11,16 @@ import RxSwift
 import FirebaseStorage
 import YPImagePicker
 
-class ImageService {
-  static func upload(_ video: YPMediaVideo) -> Observable<NewWorkout.Medium> {
-    return Observable.zip(upload(video: video.url), upload(video.thumbnail))
+class StorageService {
+  static func upload(localMedium: LocalMedium) -> Observable<NewWorkout.Medium> {
+    switch localMedium.mediumType {
+    case .image: return upload(photo: localMedium)
+    case .video: return upload(video: localMedium)
+    }
+  }
+  
+  static func upload(video: LocalMedium) -> Observable<NewWorkout.Medium> {
+    return Observable.zip(upload(video: video.videoURL!), upload(video.thumbnail!))
       .map { videoUrl, thumbnailUrl in
         return NewWorkout.Medium(url: videoUrl, thumbnailUrl: thumbnailUrl, mediumType: .video)
       }
@@ -56,12 +63,12 @@ class ImageService {
     }
   }
 
-  static func upload(_ photo: YPMediaPhoto) -> Observable<NewWorkout.Medium> {
+  static func upload(photo: LocalMedium) -> Observable<NewWorkout.Medium> {
     if GymRats.environment == .development {
       return .just(.init(url: "https://picsum.photos/\((300...500).randomElement()!)/\((300...500).randomElement()!)", thumbnailUrl: nil, mediumType: .image))
     }
     
-    return upload(photo.image)
+    return upload(photo.photo!)
       .map { url in
         return NewWorkout.Medium(url: url, thumbnailUrl: nil, mediumType: .image)
       }

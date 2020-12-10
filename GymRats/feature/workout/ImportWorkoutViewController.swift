@@ -12,9 +12,11 @@ import RxSwift
 import RxDataSources
 
 typealias ImportWorkoutSection = SectionModel<Void, ImportWorkoutRow>
+typealias StepCount = Double
 
 protocol ImportWorkoutViewControllerDelegate: class {
   func importWorkoutViewController(_ importWorkoutViewController: ImportWorkoutViewController, imported workout: HKWorkout)
+  func importWorkoutViewController(_ importWorkoutViewController: ImportWorkoutViewController, importedSteps steps: StepCount)
 }
 
 class ImportWorkoutViewController: BindableViewController {
@@ -31,7 +33,13 @@ class ImportWorkoutViewController: BindableViewController {
       tableView.separatorStyle = .none
     }
   }
-  
+
+  @IBOutlet weak var buttonBackgroundView: UIView! {
+    didSet {
+      buttonBackgroundView.backgroundColor = .foreground
+    }
+  }
+
   private lazy var dataSource = RxTableViewSectionedReloadDataSource<ImportWorkoutSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
     switch row {
     case .workout(let workout):
@@ -58,6 +66,16 @@ class ImportWorkoutViewController: BindableViewController {
       })
       .disposed(by: disposeBag)
     
+    viewModel.output.importedDailySteps
+      .subscribe(onNext: { [weak self] steps in
+        guard let self = self else { return }
+        
+        self.delegate?.importWorkoutViewController(self, importedSteps: steps)
+      }, onError: { [weak self] error in
+        self?.presentAlert(with: error)
+      })
+      .disposed(by: disposeBag)
+    
     tableView.rx.itemSelected
       .do(onNext: { [weak self] indexPath in
         self?.tableView.deselectRow(at: indexPath, animated: true)
@@ -73,5 +91,9 @@ class ImportWorkoutViewController: BindableViewController {
     title = "Import workout"
     
     viewModel.input.viewDidLoad.trigger()
+  }
+  
+  @IBAction func tappedImportStepCount(_ sender: Any) {
+    viewModel.input.tappedImportStepCount.trigger()
   }
 }

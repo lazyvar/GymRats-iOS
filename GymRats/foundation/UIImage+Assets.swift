@@ -58,7 +58,7 @@ extension UIImage {
   static let expand             = UIImage(named: "expand")!
   static let soundOn            = UIImage(named: "sound")!
   static let muted              = UIImage(named: "muted")!
-
+  
   static var name: UIImage {
     switch UIDevice.contentMode {
     case .light: return .nameLight

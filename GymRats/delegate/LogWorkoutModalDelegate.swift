@@ -11,8 +11,15 @@ import HealthKit
 import YPImagePicker
 
 class LogWorkoutModalDelegate: LogWorkoutModalViewControllerDelegate {
+  func didImportSteps(_ logWorkoutModalViewController: LogWorkoutModalViewController, steps: StepCount) {
+    let createWorkoutViewController = CreateWorkoutViewController(healthAppSource: .right(steps))
+    createWorkoutViewController.delegate = self
+
+    logWorkoutModalViewController.presentForClose(createWorkoutViewController)
+  }
+
   func didImportWorkout(_ logWorkoutModalViewController: LogWorkoutModalViewController, workout: HKWorkout) {
-    let createWorkoutViewController = CreateWorkoutViewController(healthKitWorkout: workout)
+    let createWorkoutViewController = CreateWorkoutViewController(healthAppSource: .left(workout))
     createWorkoutViewController.delegate = self
 
     logWorkoutModalViewController.presentForClose(createWorkoutViewController)

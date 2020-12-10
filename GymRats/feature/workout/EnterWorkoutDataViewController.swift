@@ -29,20 +29,27 @@ class EnterWorkoutDataViewController: GRFormViewController {
   private let workoutTitle: String
   private let workoutDescription: String?
   private let media: [YPMediaItem]
-  private let healthKitWorkout: HKWorkout?
+  private let healthAppSource: HealthAppSource?
   private let place: Place?
   
   weak var delegate: CreatedWorkoutDelegate?
   
   // MARK: UI
   
+  private let numberFormatter: NumberFormatter = {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+    
+    return formatter
+  }()
+
   private lazy var postButton = UIBarButtonItem(title: "Post", style: .plain, target: self, action: #selector(postWorkout))
   
-  init(title: String, description: String?, media: [YPMediaItem], healthKitWorkout: HKWorkout?, place: Place?) {
+  init(title: String, description: String?, media: [YPMediaItem], healthAppSource: HealthAppSource?, place: Place?) {
     self.workoutTitle = title
     self.workoutDescription = description
     self.media = media
-    self.healthKitWorkout = healthKitWorkout
+    self.healthAppSource = healthAppSource
     self.place = place
     
     super.init(nibName: nil, bundle: nil)
@@ -151,32 +158,45 @@ class EnterWorkoutDataViewController: GRFormViewController {
 
     let dataSection = Section("Data")
     
-    if let workout = healthKitWorkout {
-      durationRow.value = Int(workout.duration / 60).stringify
-      duration.accept(durationRow.value)
-      
-      if let calories = workout.totalEnergyBurned {
-        caloriesRow.value = String(Int(calories.doubleValue(for: .kilocalorie()).rounded()))
-        self.calories.accept(caloriesRow.value)
-      } else {
-        dataSection <<< caloriesRow
-      }
+    if let healthAppSource = healthAppSource {
+      switch healthAppSource {
+      case .left(let workout):
+        durationRow.value = Int(workout.duration / 60).stringify
+        duration.accept(durationRow.value)
 
-      if let distance = workout.totalDistance {
-        distanceRow.value = String(distance.doubleValue(for: .mile()).rounded(places: 1))
-        self.distance.accept(distanceRow.value)
-      } else {
-        dataSection <<< distanceRow
+        if let distance = workout.totalDistance {
+          distanceRow.value = String(distance.doubleValue(for: .mile()).rounded(places: 1))
+          self.distance.accept(distanceRow.value)
+        } else {
+          dataSection <<< distanceRow
+        }
+        
+        if let calories = workout.totalEnergyBurned {
+          caloriesRow.value = String(Int(calories.doubleValue(for: .kilocalorie()).rounded()))
+          self.calories.accept(caloriesRow.value)
+        } else {
+          dataSection <<< caloriesRow
+        }
+
+        dataSection <<< stepsRow
+      case .right(let steps):
+        stepsRow.value = String(Int(steps))
+        self.steps.accept(String(Int(steps)))
+        
+        dataSection
+          <<< durationRow
+          <<< distanceRow
+          <<< caloriesRow
       }
     } else {
       dataSection
         <<< durationRow
         <<< distanceRow
         <<< caloriesRow
+        <<< stepsRow
     }
     
     dataSection
-      <<< stepsRow
       <<< pointsRow
     
     form +++ dataSection
@@ -197,20 +217,61 @@ class EnterWorkoutDataViewController: GRFormViewController {
         .filter { $0.value.value }
         .map { $0.key }
     
-    let newMedia: Either<[YPMediaItem], [NewWorkout.Medium]> = {
-      if let healthKitWorkout = healthKitWorkout, media.isEmpty {
-        return .right([
-          NewWorkout.Medium(
-            url: healthKitWorkout.workoutActivityType.activityify.rat,
-            thumbnailUrl: nil,
-            mediumType: .image
-          )
-        ])
+    let healthKitWorkout = healthAppSource?.workout
+    let dailySteps = healthAppSource?.steps
+    
+    let device: String? = {
+      if let healthKitWorkout = healthKitWorkout {
+        return healthKitWorkout.device?.name
+      } else if dailySteps != nil {
+        return UIDevice.current.model
+      } else {
+        return nil
+      }
+    }()
+    
+    let activityType: Workout.Activity? = {
+      if let healthKitWorkout = healthKitWorkout {
+        return healthKitWorkout.workoutActivityType.activityify
+      } else if dailySteps != nil {
+        return .steps
+      } else {
+        return nil
+      }
+    }()
+    
+    let newMedia: Either<[LocalMedium], [NewWorkout.Medium]> = {
+      if let healthAppSource = healthAppSource, media.isEmpty {
+        switch healthAppSource {
+        case .left(let workout):
+          return .right([
+            NewWorkout.Medium(
+              url: workout.workoutActivityType.activityify.rat,
+              thumbnailUrl: nil,
+              mediumType: .image
+            )
+          ])
+        case .right(let steps):
+          guard let steps = numberFormatter.string(from: NSDecimalNumber(value: steps)) else { return .right([]) }
+
+          let view = UIView(frame: CGRect(x: 0, y: 0, width: 600, height: 600))
+          view.backgroundColor = .brand
+          
+          let text = UILabel(frame: CGRect(x: 0, y: 0, width: 600, height: 600))
+          text.text = steps
+          text.textColor = .white
+          text.font = .proRoundedBold(size: 100)
+          text.textAlignment = .center
+          
+          view.addSubview(text)
+          
+          return .left([view.imageFromContext()].compactMap { $0 })
+        }
       } else {
         return .left(media)
       }
     }()
-    
+
     let newWorkout = NewWorkout(
       title: workoutTitle,
       description: workoutDescription,
@@ -221,10 +282,10 @@ class EnterWorkoutDataViewController: GRFormViewController {
       steps: steps.value.map { Int($0) } ?? nil,
       calories: calories.value.map { Int($0) } ?? nil,
       points: points.value.map { Int($0) } ?? nil,
-      appleDeviceName: healthKitWorkout?.device?.name,
+      appleDeviceName: device,
       appleSourceName: healthKitWorkout?.sourceRevision.source.name,
       appleWorkoutUuid: healthKitWorkout?.uuid.uuidString,
-      activityType: healthKitWorkout?.workoutActivityType.activityify,
+      activityType: activityType,
       occurredAt: nil
     )
 
@@ -240,7 +301,7 @@ class EnterWorkoutDataViewController: GRFormViewController {
 
         switch result {
         case .success(let workout):
-          if let healthKitWorkout = self.healthKitWorkout {
+          if let healthKitWorkout = self.healthAppSource?.workout {
             DispatchQueue.global().async {
               try? HealthKitWorkoutCache.insert([healthKitWorkout])
             }
