@@ -52,12 +52,12 @@ final class ChallengeViewModel: ViewModel {
 
     let cleanRefresh = Observable.merge(input.refresh, workoutCreated, workoutDeleted, input.viewDidLoad, appEnteredForeground, joinedTeam)
       .share()
-    
+
     let cleanRefreshWorkouts = cleanRefresh
       .do(onNext: { self.page = 0 })
       .flatMap {
         gymRatsAPI.getWorkouts(for: self.challenge, page: self.page)
-          .executeFor(atLeast: .milliseconds(300), scheduler: MainScheduler.instance)
+          .executeFor(atLeast: .milliseconds(200), scheduler: MainScheduler.instance)
       }
       .share()
     
@@ -117,7 +117,7 @@ final class ChallengeViewModel: ViewModel {
       .map { _ -> [ChallengeSection] in
         return [
           .init(model: .init(date: nil, skeleton: false), items: [.title(self.challenge), .banner(self.challenge, ChallengeInfo(memberCount: 0, workoutCount: 0, leader: .dummy, teamLeader: nil, teamLeaderScore: "", currentTeamScore: "", currentTeam: nil, leaderScore: "", currentAccountScore: ""))]),
-          .init(model: .init(date: Date(), skeleton: true), items: [.💀(-1000), .💀(-1001), .💀(-1002), .💀(-1003), .💀(-1004), .💀(-1005), .💀(-1006), .💀(-1007), .💀(-1008)])
+          .init(model: .init(date: Date(), skeleton: true), items: [.💀(0), .💀(1), .💀(2), .💀(3), .💀(4), .💀(5), .💀(6), .💀(7), .💀(8)])
         ]
       }
 
@@ -136,7 +136,7 @@ final class ChallengeViewModel: ViewModel {
             .map { date, workouts in
               ChallengeSection(model: .init(date: date, skeleton: false), items: workouts.map { ChallengeRow.workout($0) })
             }
-          
+
           let noWorkouts  = ChallengeSection(model:.init(date: nil, skeleton: false), items: [
             ChallengeRow.noWorkouts(self.challenge)
           ])

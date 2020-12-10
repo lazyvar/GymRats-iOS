@@ -240,6 +240,12 @@ class EnterWorkoutDataViewController: GRFormViewController {
 
         switch result {
         case .success(let workout):
+          if let healthKitWorkout = self.healthKitWorkout {
+            DispatchQueue.global().async {
+              try? HealthKitWorkoutCache.insert([healthKitWorkout])
+            }
+          }
+          
           Track.event(.workoutLogged)
           StoreService.requestReview()
           self.delegate?.createWorkoutController(created: workout)

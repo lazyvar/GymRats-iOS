@@ -43,7 +43,12 @@ class ImageViewController: UIViewController {
     imageView.inflate(in: view)
 
     if let url = URL(string: medium.url) {
-      imageView.kf.setImage(with: url)
+      let skeletonView = UIView()
+      skeletonView.isSkeletonable = true
+      skeletonView.showAnimatedSkeleton()
+      skeletonView.showSkeleton()
+
+      imageView.kf.setImage(with: url, placeholder: skeletonView)
     }
   }
 }

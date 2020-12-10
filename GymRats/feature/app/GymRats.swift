@@ -206,6 +206,8 @@ enum GymRats {
   static func didBecomeActive() {
     guard currentAccount != nil else { return }
     
+    NotificationCenter.default.post(.appDidBecomeActive)
+    
     Challenge.State.all.fetch()
       .compactMap { $0.object }
       .subscribe(onNext: { challenges in
@@ -255,6 +257,7 @@ enum GymRats {
     currentAccount = nil
     healthService.autoSyncEnabled = false
     Account.removeCurrent()
+    HealthKitWorkoutCache.clearStorage()
     Membership.State.clear()
     window.rootViewController = WelcomeViewController().inNav()
   }
