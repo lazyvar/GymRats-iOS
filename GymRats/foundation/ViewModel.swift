@@ -257,3 +257,11 @@ extension Double {
     return (self * divisor).rounded() / divisor
   }
 }
+
+protocol CaseIterableDefaultsLast: Codable & CaseIterable & RawRepresentable where RawValue: Codable, AllCases: BidirectionalCollection { }
+
+extension CaseIterableDefaultsLast {
+  init(from decoder: Decoder) throws {
+    self = try Self(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? Self.allCases.last!
+  }
+}

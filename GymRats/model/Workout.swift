@@ -25,7 +25,7 @@ struct Workout: Codable, Hashable {
   let appleDeviceName: String?
   let appleSourceName: String?
   let appleWorkoutUuid: String?
-  let activityType: Activity?
+  let activityTypeVersionTwo: Activity?
   let occurredAt: Date
   let media: [Medium]
   
@@ -51,7 +51,7 @@ struct Workout: Codable, Hashable {
     }
   }
 
-  enum Activity: String, Codable {
+  enum Activity: String, CaseIterableDefaultsLast {
     case walking
     case running
     case cycling

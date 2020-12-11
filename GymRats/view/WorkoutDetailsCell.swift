@@ -123,7 +123,7 @@ class WorkoutDetailsCell: UITableViewCell {
       pointsLabel.text = "Earned \(points) points"
     }
     
-    if let activity = workout.activityType, let deviceName = workout.appleDeviceName {
+    if let activity = workout.activityTypeVersionTwo, let deviceName = workout.appleDeviceName {
       appleHealthStack.isHidden = false
       appleHealthLabel.text = "\(activity.title.capitalized) | \(deviceName)"
     } else {
