@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 protocol HealthAppViewControllerDelegate: class {
-  func close(_ healthAppViewController: HealthAppViewController)
+  func closed(_ healthAppViewController: HealthAppViewController, tappedAllow: Bool)
   func closeButtonHidden() -> Bool
 }
 
@@ -65,19 +65,20 @@ class HealthAppViewController: BindableViewController {
   @IBOutlet private weak var healthAppButton: SecondaryButton!
   @IBOutlet private weak var grantPermissionButton: PrimaryButton!
   
+  private var tappedAllow: Bool = false
+
   weak var delegate: HealthAppViewControllerDelegate?
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     autoSyncSwitch.onTintColor = .brand
-    
     navigationItem.largeTitleDisplayMode = .always
     
     if !(delegate?.closeButtonHidden() ?? false) {
       navigationItem.leftBarButtonItem = UIBarButtonItem(image: .close, style: .plain, target: self, action: #selector(closeMe))
     }
-            
+
     viewModel.input.viewDidLoad.trigger()
   }
 
@@ -106,6 +107,11 @@ class HealthAppViewController: BindableViewController {
       .disposed(by: disposeBag)
 
     viewModel.output.healthSettingsButtonIsHidden
+      .do(onNext: { [self] isHidden in
+        if !isHidden {
+          tappedAllow = true
+        }
+      })
       .bind(to: healthAppButton.rx.isHidden)
       .disposed(by: disposeBag)
 
@@ -125,7 +131,7 @@ class HealthAppViewController: BindableViewController {
   }
   
   @objc private func closeMe() {
-    delegate?.close(self)
+    delegate?.closed(self, tappedAllow: tappedAllow)
   }
 
   @IBAction func autoSyncSwitchChanged(_ sender: UISwitch) {
@@ -133,6 +139,7 @@ class HealthAppViewController: BindableViewController {
   }
   
   @IBAction func grantPermissionTapped(_ sender: Any) {
+    tappedAllow = true
     viewModel.input.grantPermissionTapped.trigger()
   }
   
