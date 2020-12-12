@@ -322,14 +322,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         
         return theCell
     }
-    
 }
 
 extension SettingsViewController: HealthAppViewControllerDelegate {
-  func close(_ healthAppViewController: HealthAppViewController) {
+  func closed(_ healthAppViewController: HealthAppViewController, tappedAllow: Bool) {
     navigationController?.popViewController(animated: true)
   }
-  
+
   func closeButtonHidden() -> Bool {
     return true
   }

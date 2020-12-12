@@ -35,7 +35,7 @@ class LogWorkoutModalViewController: UIViewController, UINavigationControllerDel
   
   private let disposeBag = DisposeBag()
   private let healthService: HealthServiceType = HealthService.shared
-
+  
   weak var delegate: LogWorkoutModalViewControllerDelegate?
   
   override func viewDidLoad() {
@@ -45,6 +45,20 @@ class LogWorkoutModalViewController: UIViewController, UINavigationControllerDel
   }
   
   @objc private func healthAppTapped() {
+    defer { healthService.markPromptSeen() }
+    
+    if healthService.didShowGymRatsPrompt {
+      presentImportWorkout()
+    } else {
+      let healthAppViewController = HealthAppViewController()
+      healthAppViewController.delegate = self
+      healthAppViewController.title = "Sync with Health app?"
+      
+      presentInNav(healthAppViewController)
+    }
+  }
+
+  private func presentImportWorkout() {
     healthService.requestWorkoutAuthorization()
       .subscribe(onSuccess: { _ in
         DispatchQueue.main.async {
@@ -129,6 +143,20 @@ extension LogWorkoutModalViewController: UITableViewDataSource {
     } else {
       return UITableView.automaticDimension
     }
+  }
+}
+
+extension LogWorkoutModalViewController: HealthAppViewControllerDelegate {
+  func closed(_ healthAppViewController: HealthAppViewController, tappedAllow: Bool) {
+    healthAppViewController.dismiss(animated: true) { [self] in
+      if tappedAllow {
+        presentImportWorkout()
+      }
+    }
+  }
+  
+  func closeButtonHidden() -> Bool {
+    return false
   }
 }
 
