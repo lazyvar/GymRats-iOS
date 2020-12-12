@@ -33,6 +33,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FirebaseAutomaticScreenReportingEnabled</key>
+	<false/>
 	<key>GYM_RATS_ENV</key>
 	<string>$(GYM_RATS_ENV)</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -62,12 +64,12 @@
 	<string>Import workouts from the Health app.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>To find gyms near you.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>For sound in videos of workout.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>For sharing challenge.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>For posting workout pictures.</string>
-  <key>NSMicrophoneUsageDescription</key>
-  <string>For sound in videos of workout.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SF-Pro-Rounded-Semibold.otf</string>
@@ -112,7 +114,5 @@
 		<string>gym-rats.test-app.link</string>
 		<string>gym-rats.app.link</string>
 	</array>
-	<key>FirebaseAutomaticScreenReportingEnabled</key>
-	<false/>
 </dict>
 </plist>

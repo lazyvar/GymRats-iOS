@@ -25,8 +25,8 @@ class HealthAppViewController: BindableViewController {
       contentLabel.textColor = .primaryText
     }
   }
-  
-  @IBOutlet private weak var autoSyncLabel: UILabel!{
+
+  @IBOutlet private weak var autoSyncLabel: UILabel! {
     didSet {
       autoSyncLabel.font = .emphasis
       autoSyncLabel.textColor = .secondaryText

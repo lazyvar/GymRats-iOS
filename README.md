@@ -1,7 +1,7 @@
 # GymRats iOS
 
 [![Platform](https://img.shields.io/badge/platform-ios-lightgrey)](https://gitlab.com/gym-rats/ios-app)
-[![Version](https://img.shields.io/badge/version-17-orange)](https://apps.apple.com/us/app/gymrats-group-challenge/id1453444814)
+[![Version](https://img.shields.io/badge/version-20-orange)](https://apps.apple.com/us/app/gymrats-group-challenge/id1453444814)
 [![License](https://img.shields.io/badge/license-GPL-blue)](LICENSE)
 
 
