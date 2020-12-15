@@ -87,16 +87,23 @@ class VideoViewController: UIViewController {
     expandButton.translatesAutoresizingMaskIntoConstraints = false
     expandButton.setImage(.expand, for: .normal)
     expandButton.tintColor = .primaryText
-    expandButton.layer.cornerRadius = 8
+    expandButton.layer.cornerRadius = 15
     expandButton.clipsToBounds = true
-    expandButton.contentEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
-    expandButton.backgroundColor = UIColor.foreground.withAlphaComponent(0.75)
+    expandButton.contentEdgeInsets = .init(top: 7, left: 7, bottom: 7, right: 7)
+    expandButton.constrainWidth(30)
+    expandButton.constrainHeight(30)
+    expandButton.backgroundColor = UIColor.foreground.withAlphaComponent(0.8)
     expandButton.rx.tap
       .subscribe { [self] _ in
+        player.pause()
+        
+        guard let item = player.currentItem?.copy() as? AVPlayerItem else { return }
+        
+        let player = AVPlayer(playerItem: item)
         let playerViewController = AVPlayerViewController()
         playerViewController.player = player
         
-        present(playerViewController, animated: true) { [self] in
+        present(playerViewController, animated: true) {
           player.play()
         }
       }
@@ -111,10 +118,12 @@ class VideoViewController: UIViewController {
     soundButton.translatesAutoresizingMaskIntoConstraints = false
     soundButton.setImage(.muted, for: .normal)
     soundButton.tintColor = .primaryText
-    soundButton.layer.cornerRadius = 8
+    soundButton.layer.cornerRadius = 15
     soundButton.clipsToBounds = true
-    soundButton.contentEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
-    soundButton.backgroundColor = UIColor.foreground.withAlphaComponent(0.75)
+    soundButton.contentEdgeInsets = .init(top: 7, left: 7, bottom: 7, right: 7)
+    soundButton.constrainWidth(30)
+    soundButton.constrainHeight(30)
+    soundButton.backgroundColor = UIColor.foreground.withAlphaComponent(0.8)
     soundButton.rx.tap
       .subscribe { [self] _ in
         if isMuted {

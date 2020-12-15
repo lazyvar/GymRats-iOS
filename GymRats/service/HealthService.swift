@@ -176,7 +176,7 @@ class HealthService: HealthServiceType {
           }
           
           if let result = result, let sum = result.sumQuantity() {
-            observer(.success(sum.doubleValue(for: HKUnit.count())))
+            observer(.success(Int(sum.doubleValue(for: HKUnit.count()))))
           } else {
             observer(.error(SimpleError(message: "Could not get step count.")))
           }

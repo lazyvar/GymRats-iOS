@@ -76,16 +76,12 @@ extension MediaPageViewController: UIPageViewControllerDelegate {
 extension MediaPageViewController: UIPageViewControllerDataSource {
   func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
     guard let index = mediaViewControllers.firstIndex(of: viewController)?.advanced(by: -1) else { return nil }
-    
-    print("before \(index)")
-    
+        
     return mediaViewControllers[safe: index]
   }
   
   func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
     guard let index = mediaViewControllers.firstIndex(of: viewController)?.advanced(by: 1) else { return nil }
-
-    print("after \(index)")
     
     return mediaViewControllers[safe: index]
   }

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,24 +22,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OCB-ea-Zxo" customClass="UserImageView" customModule="GymRats" customModuleProvider="target">
-                                <rect key="frame" x="10" y="10" width="30" height="30"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <rect key="frame" x="10" y="10" width="32" height="32"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="VEP-94-rk4"/>
-                                    <constraint firstAttribute="height" constant="30" id="j4T-bk-LXB"/>
+                                    <constraint firstAttribute="width" constant="32" id="VEP-94-rk4"/>
+                                    <constraint firstAttribute="height" constant="32" id="j4T-bk-LXB"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="dGk-Kg-0AN">
-                                <rect key="frame" x="50" y="10" width="236" height="43"/>
+                                <rect key="frame" x="52" y="10" width="234" height="65.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mad-Es-pN8">
-                                        <rect key="frame" x="0.0" y="0.0" width="236" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="234" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hmr-Ju-g6N">
-                                        <rect key="frame" x="0.0" y="22.5" width="236" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="22.5" width="234" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aLy-9A-Am1">
+                                        <rect key="frame" x="0.0" y="45" width="234" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -71,12 +78,13 @@
                     <constraint firstAttribute="bottom" secondItem="VbR-Dz-nwd" secondAttribute="bottom" id="yaX-ID-E2n"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="accountImageView" destination="OCB-ea-Zxo" id="6iH-8C-5zk"/>
                 <outlet property="accountNameLabel" destination="mad-Es-pN8" id="lOm-aj-LLg"/>
                 <outlet property="commentLabel" destination="Hmr-Ju-g6N" id="Vif-Tj-jI0"/>
+                <outlet property="dateLabel" destination="aLy-9A-Am1" id="tkG-BL-V8m"/>
                 <outlet property="menuButton" destination="QUo-yb-HKo" id="JEJ-2v-HnK"/>
             </connections>
             <point key="canvasLocation" x="-417.39130434782612" y="123.88392857142857"/>
@@ -84,5 +92,8 @@
     </objects>
     <resources>
         <image name="more-vertical" width="24" height="24"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

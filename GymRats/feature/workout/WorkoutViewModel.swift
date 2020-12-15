@@ -73,7 +73,6 @@ final class WorkoutViewModel: ViewModel {
     let comments = fetchComments
       .compactMap { $0.object }
       .map { $0.map { WorkoutRow.comment($0, onMenuTap: { self.output.presentCommentAlert.onNext($0) }) }}
-      .filter { $0.isNotEmpty }
     
     Observable.merge(input.viewDidLoad, input.updatedWorkout)
       .flatMap { Observable.merge(.just([]), comments) }

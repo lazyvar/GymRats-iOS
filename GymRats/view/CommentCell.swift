@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftDate
 
 class CommentCell: UITableViewCell {
   @IBOutlet private weak var commentLabel: UILabel! {
@@ -29,6 +30,13 @@ class CommentCell: UITableViewCell {
     didSet {
       menuButton.imageView?.image = menuButton.imageView?.image?.withRenderingMode(.alwaysTemplate)
       menuButton.imageView?.tintColor = .primaryText
+    }
+  }
+  
+  @IBOutlet private weak var dateLabel: UILabel! {
+    didSet {
+      dateLabel.textColor = .secondaryText
+      dateLabel.font = .proRoundedRegular(size: 10)
     }
   }
   
@@ -55,6 +63,7 @@ class CommentCell: UITableViewCell {
       $0.accountNameLabel.text = comment.account.fullName
       $0.menuButton.isHidden = comment.account.id != GymRats.currentAccount.id
       $0.onMenuTap = onMenuTap
+      $0.dateLabel.text = comment.createdAt.in(region: .current).toRelative(since: Date().in(region: .current), style: RelativeFormatter.twitterStyle(), locale: nil)
     }
   }
 }

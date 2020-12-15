@@ -11,4 +11,4 @@
 
 #include "Pods/Target Support Files/Pods-GymRats/Pods-GymRats.debug.xcconfig"
 
-GYM_RATS_ENV=preProduction
+GYM_RATS_ENV=production

@@ -308,21 +308,32 @@ private extension GymRats {
     config.screens = [.photo, .video, .library]
     config.startOnScreen = .photo
     config.shouldSaveNewPicturesToAlbum = false
-    config.onlySquareImagesFromCamera = true
+    config.onlySquareImagesFromCamera = false
     config.showsVideoTrimmer = false
     config.showsPhotoFilters = false
-    config.library.maxNumberOfItems = 3
+    config.library.maxNumberOfItems = 5
     config.library.isSquareByDefault = false
     config.library.mediaType = .photoAndVideo
     config.library.skipSelectionsGallery = true
     config.wordings.cameraTitle = "Camera"
     config.wordings.next = "Done"
     config.fonts.menuItemFont = UIFont.proRoundedSemibold(size: 17)
+    config.fonts.cameraTimeElapsedFont = UIFont.proRoundedRegular(size: 12)
+    config.fonts.durationFont = UIFont.proRoundedRegular(size: 12)
+    config.fonts.libaryWarningFont = UIFont.proRoundedRegular(size: 14)
     config.filters = []
     config.video.fileType = .mp4
     config.video.recordingTimeLimit = 15
-    config.video.libraryTimeLimit = 15
+    config.video.libraryTimeLimit = 30
     config.video.compression = AVAssetExportPresetHighestQuality
+
+    config.icons.capturePhotoImage = .snap
+    config.icons.captureVideoImage = .videoSnap
+    config.icons.captureVideoOnImage = .videoRecording
+    config.icons.flashOnIcon = .flashOn
+    config.icons.flashOffIcon = .flashOff
+    config.icons.flashAutoIcon = .flashAuto
+    config.icons.loopIcon = .reverse
 
     YPImagePickerConfiguration.shared = config
 

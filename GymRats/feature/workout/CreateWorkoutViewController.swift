@@ -423,7 +423,7 @@ extension HealthAppSource {
     }
   }
 
-  var steps: Double? {
+  var steps: StepCount? {
     switch self {
     case .left: return nil
     case .right(let steps): return steps

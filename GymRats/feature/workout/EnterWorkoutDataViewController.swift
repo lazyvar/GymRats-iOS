@@ -180,8 +180,8 @@ class EnterWorkoutDataViewController: GRFormViewController {
 
         dataSection <<< stepsRow
       case .right(let steps):
-        stepsRow.value = String(Int(steps))
-        self.steps.accept(String(Int(steps)))
+        stepsRow.value = String(steps)
+        self.steps.accept(String(steps))
         
         dataSection
           <<< durationRow

@@ -123,9 +123,16 @@ class WorkoutDetailsCell: UITableViewCell {
       pointsLabel.text = "Earned \(points) points"
     }
     
-    if let activity = workout.activityTypeVersionTwo, let deviceName = workout.appleDeviceName {
+    if let activity = workout.activityTypeVersionTwo {
+      let content = [
+        activity.title.capitalized,
+        workout.appleDeviceName
+      ]
+      .compactMap { $0 }
+      .joined(separator: " | ")
+      
       appleHealthStack.isHidden = false
-      appleHealthLabel.text = "\(activity.title.capitalized) | \(deviceName)"
+      appleHealthLabel.text = content
     } else {
       appleHealthStack.isHidden = true
     }
