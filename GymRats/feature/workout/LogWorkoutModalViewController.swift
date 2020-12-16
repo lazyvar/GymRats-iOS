@@ -81,10 +81,27 @@ class LogWorkoutModalViewController: UIViewController, UINavigationControllerDel
   @objc private func photoOrVideoTapped() {
     let picker = YPImagePicker()
     picker.didFinishPicking { [self] items, cancelled in
-      picker.dismiss(animated: true) {
-        if !cancelled {
+      if cancelled {
+        picker.dismiss(animated: true, completion: nil)
+        
+        return
+      }
+
+      func complete() {
+        picker.dismiss(animated: true) {
           self.delegate?.didPickMedia(self, media: items)
         }
+      }
+      
+      if items.singleFromCamera {
+        let preview = MediaItemPreviewViewController(items: items)
+        preview.onAcceptance = { _ in
+          complete()
+        }
+        
+        picker.pushViewController(preview, animated: false)
+      } else {
+        complete()
       }
     }
     
@@ -181,5 +198,16 @@ extension LogWorkoutModalViewController: PanModalPresentable {
   
   var showDragIndicator: Bool {
     return false
+  }
+}
+
+extension Array where Element == YPMediaItem {
+  var singleFromCamera: Bool {
+    guard count == 1 else { return false }
+    
+    return
+      singleVideo?.fromCamera
+      ?? singlePhoto?.fromCamera
+      ?? false
   }
 }

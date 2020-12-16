@@ -29,7 +29,7 @@ class CommentCell: UITableViewCell {
   @IBOutlet private weak var menuButton: UIButton! {
     didSet {
       menuButton.imageView?.image = menuButton.imageView?.image?.withRenderingMode(.alwaysTemplate)
-      menuButton.imageView?.tintColor = .primaryText
+      menuButton.imageView?.tintColor = .secondaryText
     }
   }
   

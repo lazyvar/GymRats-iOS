@@ -256,8 +256,10 @@ class HealthService: HealthServiceType {
       .flatMap { challenges, workouts -> Observable<[NetworkResult<Workout>]> in
         return Observable.combineLatest(workouts.map { return self.upload(healthKitWorkout: $0, challenges: challenges) })
       }
-      .do(onNext: { _ in
-        NotificationCenter.default.post(.workoutCreated)
+      .do(onNext: { workouts in
+        if workouts.isNotEmpty {
+          NotificationCenter.default.post(.workoutCreated)
+        }
       })
       .asSingle()
       .map { _ in () }

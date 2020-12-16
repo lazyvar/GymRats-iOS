@@ -28,11 +28,13 @@ class CreateWorkoutViewController: UIViewController {
   
   // MARK: Outlets
   
-  @IBOutlet weak var scrollView: UIScrollView! {
+  @IBOutlet private weak var scrollView: UIScrollView! {
     didSet {
-      scrollView.keyboardDismissMode = .interactive
+//      scrollView.keyboardDismissMode = .interactive
     }
   }
+  
+  @IBOutlet private weak var stackView: UIStackView!
   
   @IBOutlet private weak var titleTextField: UITextField! {
     didSet {
@@ -132,6 +134,7 @@ class CreateWorkoutViewController: UIViewController {
   
   // MARK: Services
   
+  private var keyboardHandler: KeyboardHandler?
   private let healthService: HealthServiceType = HealthService.shared
 
   private let numberFormatter: NumberFormatter = {
@@ -161,6 +164,8 @@ class CreateWorkoutViewController: UIViewController {
     
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    keyboardHandler = KeyboardHandler(scrollView: scrollView, stackView: stackView)
     
     if let healthAppSource = healthAppSource {
       switch healthAppSource {
@@ -194,9 +199,6 @@ class CreateWorkoutViewController: UIViewController {
     navigationItem.rightBarButtonItem = nextButton
 
     nextButton.tintColor = .brand
-    
-    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
   }
   
   // MARK: Actions
@@ -247,10 +249,28 @@ class CreateWorkoutViewController: UIViewController {
     presentSourceAlert(source: media) { [self] in
       let picker = YPImagePicker()
       picker.didFinishPicking { [self] items, cancelled in
-        defer { picker.dismiss(animated: true, completion: nil) }
-        guard !cancelled else { return }
+        if cancelled {
+          picker.dismiss(animated: true, completion: nil)
+          
+          return
+        }
+
+        func complete() {
+          picker.dismiss(animated: true) {
+            self.media = items
+          }
+        }
         
-        self.media = items
+        if items.singleFromCamera {
+          let preview = MediaItemPreviewViewController(items: items)
+          preview.onAcceptance = { _ in
+            complete()
+          }
+          
+          picker.pushViewController(preview, animated: false)
+        } else {
+          complete()
+        }
       }
       
       present(picker, animated: true, completion: nil)
@@ -268,22 +288,6 @@ class CreateWorkoutViewController: UIViewController {
     } clear: { [self] in
       self.place = nil
     }
-  }
-  
-  @objc func keyboardWillShow(notification: Notification) {
-    let userInfo = notification.userInfo
-    let keyboardFrame = userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-    let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardFrame.height, right: 0.0)
-    
-    scrollView.contentInset = contentInset
-    scrollView.scrollIndicatorInsets = contentInset
-  }
-  
-  @objc func keyboardWillHide(notification: Notification) {
-    let contentInset = UIEdgeInsets.zero
-    
-    scrollView.contentInset = contentInset
-    scrollView.scrollIndicatorInsets = contentInset
   }
   
   private func presentSourceAlert(source: Any?, present: @escaping () -> Void, clear: @escaping () -> Void) {

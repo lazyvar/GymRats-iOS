@@ -153,6 +153,8 @@
 		0169397024DA0E590011C1A8 /* RankingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0169396E24DA0E590011C1A8 /* RankingsViewController.swift */; };
 		0169397124DA0E590011C1A8 /* RankingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0169396F24DA0E590011C1A8 /* RankingsViewController.xib */; };
 		016C5EC925811DB4009392F1 /* HealthKitWorkoutCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016C5EC825811DB4009392F1 /* HealthKitWorkoutCache.swift */; };
+		016C5F182589A7D4009392F1 /* KeyboardHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016C5F172589A7D4009392F1 /* KeyboardHandler.swift */; };
+		016C5F1D258A429A009392F1 /* MediaItemPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016C5F1B258A429A009392F1 /* MediaItemPreviewViewController.swift */; };
 		01747A5824D8812900A4682B /* ShareChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01747A5624D8812900A4682B /* ShareChallengeViewController.swift */; };
 		01747A5924D8812900A4682B /* ShareChallengeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01747A5724D8812900A4682B /* ShareChallengeViewController.xib */; };
 		01747A5B24D882E700A4682B /* ShareChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01747A5A24D882E700A4682B /* ShareChallengeView.swift */; };
@@ -532,6 +534,8 @@
 		0169396E24DA0E590011C1A8 /* RankingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingsViewController.swift; sourceTree = "<group>"; };
 		0169396F24DA0E590011C1A8 /* RankingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RankingsViewController.xib; sourceTree = "<group>"; };
 		016C5EC825811DB4009392F1 /* HealthKitWorkoutCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitWorkoutCache.swift; sourceTree = "<group>"; };
+		016C5F172589A7D4009392F1 /* KeyboardHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHandler.swift; sourceTree = "<group>"; };
+		016C5F1B258A429A009392F1 /* MediaItemPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItemPreviewViewController.swift; sourceTree = "<group>"; };
 		01747A5624D8812900A4682B /* ShareChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareChallengeViewController.swift; sourceTree = "<group>"; };
 		01747A5724D8812900A4682B /* ShareChallengeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareChallengeViewController.xib; sourceTree = "<group>"; };
 		01747A5A24D882E700A4682B /* ShareChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareChallengeView.swift; sourceTree = "<group>"; };
@@ -965,6 +969,7 @@
 				019D1272257D550C0019362F /* ImageViewController.swift */,
 				019D1273257D550C0019362F /* MediaPageViewController.swift */,
 				019D1271257D550C0019362F /* VideoViewController.swift */,
+				016C5F1B258A429A009392F1 /* MediaItemPreviewViewController.swift */,
 			);
 			path = media;
 			sourceTree = "<group>";
@@ -1314,6 +1319,7 @@
 				01611D3E243E859E00D1DAA4 /* FeedStyle.swift */,
 				01F65A0424452BAE00E26539 /* Secrets.swift */,
 				01111DA52446855E0033170A /* Either.swift */,
+				016C5F172589A7D4009392F1 /* KeyboardHandler.swift */,
 			);
 			path = foundation;
 			sourceTree = "<group>";
@@ -1966,6 +1972,7 @@
 				0169395724D9D20F0011C1A8 /* ChallengeDetailsViewModel.swift in Sources */,
 				7405FE93222C249B0054F029 /* WebViewController.swift in Sources */,
 				01A3EB2C237747D30097FC2A /* CVPresent.swift in Sources */,
+				016C5F1D258A429A009392F1 /* MediaItemPreviewViewController.swift in Sources */,
 				01A3EB1D237747D30097FC2A /* CVAuxiliaryView.swift in Sources */,
 				012449182531327500087027 /* TeamRanking.swift in Sources */,
 				01A3EB2A237747D30097FC2A /* CVShape.swift in Sources */,
@@ -2057,6 +2064,7 @@
 				018510032447A3C700C4F1A6 /* ChangeBannerViewController.swift in Sources */,
 				01D5D36D243BD32A0044E459 /* ShadowTextField.swift in Sources */,
 				019D1276257D550C0019362F /* MediaPageViewController.swift in Sources */,
+				016C5F182589A7D4009392F1 /* KeyboardHandler.swift in Sources */,
 				01E700E12460B30B0059017A /* ImportWorkoutViewController.swift in Sources */,
 				747D6FC32208DCAB0062BB39 /* Observable+Extension.swift in Sources */,
 				01CBE81824DF08C700ED4DFD /* WorkoutPopSimpleTransition.swift in Sources */,

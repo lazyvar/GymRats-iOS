@@ -45,6 +45,7 @@ extension UIImage {
   static let code               = UIImage(named: "code")!
   static let people             = UIImage(named: "people")!
   static let clipboard          = UIImage(named: "clipboard")!
+  static let checkTemplate      = UIImage(named: "check")!
   static let star               = UIImage(named: "star")!
   static let pencil             = UIImage(named: "pencil")!
   static let cal                = UIImage(named: "cal")!

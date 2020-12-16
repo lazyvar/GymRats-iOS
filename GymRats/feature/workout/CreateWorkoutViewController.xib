@@ -28,6 +28,7 @@
                 <outlet property="scrollView" destination="J2o-D8-c5j" id="Qml-ae-1hW"/>
                 <outlet property="sourceDetailsLabel" destination="eNS-yu-NTg" id="hQb-U2-IMF"/>
                 <outlet property="sourcesLabel" destination="Ksy-Cl-0mv" id="Bdc-0a-R0f"/>
+                <outlet property="stackView" destination="nYc-Mc-EAO" id="sF2-xZ-se1"/>
                 <outlet property="titleTextField" destination="erA-C2-HHR" id="ESg-OK-w1J"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
