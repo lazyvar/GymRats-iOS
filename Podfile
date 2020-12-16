@@ -12,7 +12,7 @@ target 'GymRats' do
     pod 'RxOptional'
     pod 'MMDrawerController', '~> 0.5.7'
     pod 'SwiftDate', '~> 5.0'
-    pod 'GradientLoadingBar', '~> 1.0'
+    pod 'GradientLoadingBar', '~> 2.0'
     pod 'Firebase/Core'
     pod 'Firebase/Storage'
     pod 'Analytics'

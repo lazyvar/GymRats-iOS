@@ -1,14 +1,14 @@
 //
-//  PreProduction.xcconfig
+//  DevelopmentTests.xcconfig
 //  GymRats
 //
-//  Created by mack on 3/18/20.
+//  Created by mack on 12/16/20.
 //  Copyright © 2020 Mack Hasz. All rights reserved.
 //
 
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 
-#include "Pods/Target Support Files/Pods-GymRats/Pods-GymRats.preproduction.xcconfig"
+#include "Pods/Target Support Files/Pods-GymRatsTests/Pods-GymRatsTests.debug.xcconfig"
 
-GYM_RATS_ENV=preProduction
+GYM_RATS_ENV=development

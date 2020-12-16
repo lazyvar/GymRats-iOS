@@ -112,6 +112,16 @@ class WorkoutViewController: BindableViewController {
       }
       .disposed(by: disposeBag)
     
+    viewModel.output.loading
+      .do(onNext: { [weak self] loading in
+        if loading {
+          self?.showLoadingBar()
+        } else {
+          self?.hideLoadingBar()
+        }
+      })
+      .ignore(disposedBy: disposeBag)
+
     tableView.rx.itemSelected
       .do(onNext: { [weak self] indexPath in
         self?.tableView.deselectRow(at: indexPath, animated: true)

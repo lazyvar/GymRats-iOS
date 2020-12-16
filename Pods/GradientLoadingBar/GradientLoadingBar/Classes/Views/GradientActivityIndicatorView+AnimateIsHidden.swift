@@ -1,5 +1,5 @@
 //
-//  UIView+AnimateIsHidden.swift
+//  GradientActivityIndicatorView+AnimateIsHidden.swift
 //  GradientLoadingBar
 //
 //  Created by Felix Mau on 12/15/18.
@@ -8,18 +8,17 @@
 
 import UIKit
 
-// Source
-// https://gist.github.com/fxm90/723b5def31b46035cd92a641e3b184f6
-
-extension UIView {
-    // MARK: - Config
-
-    /// The default duration for fading-animations, measured in seconds.
-    static let defaultFadingAnimationDuration: TimeInterval = 1.0
-
+/// Helper methods to fade-in and -out the `GradientActivityIndicatorView` and update the `isHidden` flag
+/// accordingly, as the progress-animation is started and stopped based on this flag.
+///
+/// - Note: We add these methods as public extensions on `GradientActivityIndicatorView` instead of `UIView`,
+/// in order to avoid conflicts with other frameworks.
+///
+/// - SeeAlso: [Github Gist – UIView+AnimateIsHidden.swift](https://gist.github.com/fxm90/723b5def31b46035cd92a641e3b184f6)
+public extension GradientActivityIndicatorView {
     // MARK: - Public methods
 
-    /// Updates the view visiblity.
+    /// Updates the view visibility.
     ///
     /// - Parameters:
     ///   - isHidden: The new view visibility.
@@ -28,7 +27,7 @@ extension UIView {
     ///                 argument that indicates whether or not the animations actually finished before the completion handler was called.
     ///
     /// - SeeAlso: https://developer.apple.com/documentation/uikit/uiview/1622515-animatewithduration
-    func animate(isHidden: Bool, duration: TimeInterval = UIView.defaultFadingAnimationDuration, completion: ((Bool) -> Void)? = nil) {
+    func animate(isHidden: Bool, duration: TimeInterval, completion: ((Bool) -> Void)? = nil) {
         if isHidden {
             fadeOut(duration: duration,
                     completion: completion)
@@ -46,7 +45,7 @@ extension UIView {
     ///                 argument that indicates whether or not the animations actually finished before the completion handler was called.
     ///
     /// - SeeAlso: https://developer.apple.com/documentation/uikit/uiview/1622515-animatewithduration
-    func fadeOut(duration: TimeInterval = UIView.defaultFadingAnimationDuration, completion: ((Bool) -> Void)? = nil) {
+    func fadeOut(duration: TimeInterval = TimeInterval.GradientLoadingBar.fadeOutDuration, completion: ((Bool) -> Void)? = nil) {
         UIView.animate(withDuration: duration,
                        animations: {
                            self.alpha = 0.0
@@ -69,7 +68,7 @@ extension UIView {
     ///                 argument that indicates whether or not the animations actually finished before the completion handler was called.
     ///
     /// - SeeAlso: https://developer.apple.com/documentation/uikit/uiview/1622515-animatewithduration
-    func fadeIn(duration: TimeInterval = UIView.defaultFadingAnimationDuration, completion: ((Bool) -> Void)? = nil) {
+    func fadeIn(duration: TimeInterval = TimeInterval.GradientLoadingBar.fadeInDuration, completion: ((Bool) -> Void)? = nil) {
         if isHidden {
             // Make sure our animation is visible.
             isHidden = false

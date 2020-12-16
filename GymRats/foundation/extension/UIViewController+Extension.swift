@@ -61,39 +61,24 @@ extension UIViewController {
       drawer.open(.left, animated: true, completion: nil)
     }
   }
+  
+  var gymRatsNavigationController: GymRatsNavigationController? {
+    return navigationController as? GymRatsNavigationController
+  }
     
-    func showLoadingBar(disallowUserInteraction: Bool = false) {
-      let center = UIApplication.shared.keyWindow!.center
-      let thing = NVActivityIndicatorView(frame: CGRect(x: center.x-50, y: center.y-270, width: 100, height: 100), type: .ballPulseSync, color: .brand, padding: 20)
-      thing.backgroundColor = .foreground
-      thing.layer.cornerRadius = 10
-      thing.layer.shadowRadius = 7
-      thing.layer.shadowColor = UIColor.shadow.cgColor
-      thing.layer.shadowOffset = CGSize(width: 0, height: 0)
-      thing.layer.shadowOpacity = 0.5
+  func showLoadingBar(disallowUserInteraction: Bool = false) {
+    gymRatsNavigationController?.showLoading()
 
-      view.addSubview(thing)
-      
-      thing.startAnimating()
-      
-      if disallowUserInteraction {
-        let dimView = UIView()
-        view.tag = 333
-
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        UIApplication.shared.keyWindow?.addSubview(dimView)
-      }
+    if disallowUserInteraction {
+      UIApplication.shared.beginIgnoringInteractionEvents()
     }
+  }
 
-    func hideLoadingBar() {
-      UIApplication.shared.endIgnoringInteractionEvents()
-      UIApplication.shared.keyWindow?.subviews.first(where: { $0.tag == 333 })?.removeFromSuperview()
-      
-      if let view = view.allSubviews().first(ofType: NVActivityIndicatorView.self) {
-        view.stopAnimating()
-        view.removeFromSuperview()
-      }
-    }
+  func hideLoadingBar() {
+    gymRatsNavigationController?.hideLoading()
+
+    UIApplication.shared.endIgnoringInteractionEvents()
+  }
 
   func setupForHome() {
     setupMenuButton()

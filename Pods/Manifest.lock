@@ -72,8 +72,8 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.7.2):
     - GoogleUtilities/Logger
-  - GradientLoadingBar (1.1.17):
-    - LightweightObservable (~> 1.0)
+  - GradientLoadingBar (2.1.0):
+    - LightweightObservable (~> 2.1)
   - GTMSessionFetcher/Core (1.4.0)
   - ImageViewer.swift (3.0.12):
     - SDWebImage
@@ -83,7 +83,7 @@ PODS:
   - JVFloatLabeledTextField (1.2.2)
   - Kingfisher (4.10.1)
   - LetterAvatarKit (1.2.2)
-  - LightweightObservable (1.0.3)
+  - LightweightObservable (2.1.1)
   - MessageKit (3.3.0):
     - InputBarAccessoryView (~> 5.1.0)
   - MMDrawerController (0.5.7):
@@ -172,7 +172,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Storage
   - GooglePlaces
-  - GradientLoadingBar (~> 1.0)
+  - GradientLoadingBar (~> 2.0)
   - ImageViewer.swift (~> 3.0.12)
   - JVFloatLabeledTextField
   - Kingfisher (~> 4.0)
@@ -289,14 +289,14 @@ SPEC CHECKSUMS:
   GoogleMaps: 8c080862ff2748ece9929471b30feb56a6c5079d
   GooglePlaces: 9a6f5f3a0c88da2aa1bf7426a65d3e004f5e69a1
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
-  GradientLoadingBar: a0e1855e4ba5051301027d5f4a129f38003cc2b9
+  GradientLoadingBar: 9992888de03a77c1e9364c087aefa1d9c3860ef7
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   ImageViewer.swift: d4769c57ff8aef6da7e01bb9283f8554469b2498
   InputBarAccessoryView: 19953f486a23e846e9487099f92bbe3456e46ce5
   JVFloatLabeledTextField: df48598472ee015701d509f43e59492a0d4ca208
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   LetterAvatarKit: ad0fd9a9fe7c3721059cad56ed79fffc52e6a2fb
-  LightweightObservable: 8687e8e1e2940ae2f64d7f71fe78c036d89c966f
+  LightweightObservable: 52abe2a01c8273921b1f66cd66526eb3328ca35a
   MessageKit: 1f07618183be6d92b648ba7a384aafa097362a00
   MMDrawerController: 7a4cf8e25596bf2434e03ce50d22a8608ddee6a1
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
@@ -327,6 +327,6 @@ SPEC CHECKSUMS:
   UnsplashPhotoPicker: 86520e34cfded8fb4a41910bf87afe571906b4e3
   YPImagePicker: 15aed8bcaa4dad976e11b6114126d731a2f9f3c9
 
-PODFILE CHECKSUM: 6fc7d325b9796cd94a762e48e8aab35942676864
+PODFILE CHECKSUM: c8491482c85b863d0fc203d01f87a74242d6cc4c
 
 COCOAPODS: 1.9.1

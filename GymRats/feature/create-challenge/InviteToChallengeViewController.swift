@@ -21,7 +21,7 @@ class InviteToChallengeViewController: UIViewController {
   
   @IBOutlet private weak var textField: NoTouchingTextField! {
     didSet {
-      textField.font = .proRoundedRegular(size: 14)
+      textField.font = .proRoundedRegular(size: 12)
       textField.textColor = .primaryText
       textField.backgroundColor = .foreground
       textField.layer.cornerRadius = 4
