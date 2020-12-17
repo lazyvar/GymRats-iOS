@@ -21,14 +21,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="FpK-rE-l6B">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="FpK-rE-l6B" secondAttribute="bottom" id="8r8-ZI-mj6"/>
+                <constraint firstAttribute="bottom" secondItem="FpK-rE-l6B" secondAttribute="bottom" id="8r8-ZI-mj6"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="FpK-rE-l6B" secondAttribute="trailing" id="RlA-f7-mED"/>
                 <constraint firstItem="FpK-rE-l6B" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Z6C-FW-naJ"/>
                 <constraint firstItem="FpK-rE-l6B" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="mLU-NJ-BNm"/>

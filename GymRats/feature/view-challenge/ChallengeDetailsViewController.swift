@@ -11,9 +11,9 @@ import RxSwift
 import RxDataSources
 
 class ChallengeDetailsViewController: BindableViewController {
+  private let challenge: Challenge
   private let disposeBag = DisposeBag()
   private let viewModel = ChallengeDetailsViewModel()
-  private let challenge: Challenge
   
   @IBOutlet private weak var tableView: UITableView! {
     didSet {

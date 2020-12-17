@@ -23,10 +23,11 @@ class WorkoutViewController: BindableViewController {
   private let dismissPanGesture = UIPanGestureRecognizer()
 
   var isInteractivelyDismissing: Bool = false
-  weak var transitionController: WorkoutPopComplexTransition?
   var donePushing = false
   var pushedForFun = false
   
+  weak var transitionController: WorkoutPopComplexTransition?
+
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
       tableView.backgroundColor = .clear

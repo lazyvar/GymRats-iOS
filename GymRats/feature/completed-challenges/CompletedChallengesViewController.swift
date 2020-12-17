@@ -23,6 +23,7 @@ class CompletedChallengesViewController: UITableViewController {
     view.backgroundColor = .background
     navigationItem.title = "Completed"
       
+    tableView.showsVerticalScrollIndicator = false
     tableView.separatorStyle = .none
     tableView.registerCellNibForClass(CompletedChallengeTableViewCell.self)
     tableView.separatorStyle = .none

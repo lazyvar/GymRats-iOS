@@ -11,7 +11,8 @@ import RxSwift
 
 class InviteToChallengeViewController: UIViewController {
   private let disposeBag = DisposeBag()
-  
+  private let challenge: Challenge
+
   @IBOutlet private weak var label: UILabel! {
     didSet {
       label.font = .h4
@@ -29,8 +30,6 @@ class InviteToChallengeViewController: UIViewController {
       textField.text = "https://share.gmyrats.app/join?code=\(challenge.code)"
     }
   }
-  
-  private let challenge: Challenge
   
   init(challenge: Challenge) {
     self.challenge = challenge

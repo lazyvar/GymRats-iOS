@@ -28,12 +28,6 @@ class CreateWorkoutViewController: UIViewController {
   
   // MARK: Outlets
   
-  @IBOutlet private weak var scrollView: UIScrollView! {
-    didSet {
-//      scrollView.keyboardDismissMode = .interactive
-    }
-  }
-  
   @IBOutlet private weak var stackView: UIStackView!
   
   @IBOutlet private weak var titleTextField: UITextField! {
@@ -134,7 +128,6 @@ class CreateWorkoutViewController: UIViewController {
   
   // MARK: Services
   
-  private var keyboardHandler: KeyboardHandler?
   private let healthService: HealthServiceType = HealthService.shared
 
   private let numberFormatter: NumberFormatter = {
@@ -164,8 +157,12 @@ class CreateWorkoutViewController: UIViewController {
     
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    keyboardHandler = KeyboardHandler(scrollView: scrollView, stackView: stackView)
+        
+    view.rx.tapGesture()
+      .subscribe(onNext: { [self] _ in
+        view.endEditing(true)
+      })
+      .disposed(by: disposeBag)
     
     if let healthAppSource = healthAppSource {
       switch healthAppSource {

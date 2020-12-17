@@ -153,7 +153,6 @@
 		0169397024DA0E590011C1A8 /* RankingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0169396E24DA0E590011C1A8 /* RankingsViewController.swift */; };
 		0169397124DA0E590011C1A8 /* RankingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0169396F24DA0E590011C1A8 /* RankingsViewController.xib */; };
 		016C5EC925811DB4009392F1 /* HealthKitWorkoutCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016C5EC825811DB4009392F1 /* HealthKitWorkoutCache.swift */; };
-		016C5F182589A7D4009392F1 /* KeyboardHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016C5F172589A7D4009392F1 /* KeyboardHandler.swift */; };
 		016C5F1D258A429A009392F1 /* MediaItemPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016C5F1B258A429A009392F1 /* MediaItemPreviewViewController.swift */; };
 		016C5F6F258A5CF2009392F1 /* PreProductionTests.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 016C5F6D258A5CF2009392F1 /* PreProductionTests.xcconfig */; };
 		016C5F70258A5CF2009392F1 /* ProductionTests.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 016C5F6E258A5CF2009392F1 /* ProductionTests.xcconfig */; };
@@ -536,7 +535,6 @@
 		0169396E24DA0E590011C1A8 /* RankingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingsViewController.swift; sourceTree = "<group>"; };
 		0169396F24DA0E590011C1A8 /* RankingsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RankingsViewController.xib; sourceTree = "<group>"; };
 		016C5EC825811DB4009392F1 /* HealthKitWorkoutCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitWorkoutCache.swift; sourceTree = "<group>"; };
-		016C5F172589A7D4009392F1 /* KeyboardHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHandler.swift; sourceTree = "<group>"; };
 		016C5F1B258A429A009392F1 /* MediaItemPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItemPreviewViewController.swift; sourceTree = "<group>"; };
 		016C5F6C258A5CC3009392F1 /* DevelopmentTests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DevelopmentTests.xcconfig; sourceTree = "<group>"; };
 		016C5F6D258A5CF2009392F1 /* PreProductionTests.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = PreProductionTests.xcconfig; sourceTree = "<group>"; };
@@ -1327,7 +1325,6 @@
 				01611D3E243E859E00D1DAA4 /* FeedStyle.swift */,
 				01F65A0424452BAE00E26539 /* Secrets.swift */,
 				01111DA52446855E0033170A /* Either.swift */,
-				016C5F172589A7D4009392F1 /* KeyboardHandler.swift */,
 			);
 			path = foundation;
 			sourceTree = "<group>";
@@ -2074,7 +2071,6 @@
 				018510032447A3C700C4F1A6 /* ChangeBannerViewController.swift in Sources */,
 				01D5D36D243BD32A0044E459 /* ShadowTextField.swift in Sources */,
 				019D1276257D550C0019362F /* MediaPageViewController.swift in Sources */,
-				016C5F182589A7D4009392F1 /* KeyboardHandler.swift in Sources */,
 				01E700E12460B30B0059017A /* ImportWorkoutViewController.swift in Sources */,
 				747D6FC32208DCAB0062BB39 /* Observable+Extension.swift in Sources */,
 				01CBE81824DF08C700ED4DFD /* WorkoutPopSimpleTransition.swift in Sources */,
