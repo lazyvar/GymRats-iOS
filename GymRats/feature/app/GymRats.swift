@@ -261,7 +261,7 @@ enum GymRats {
     Membership.State.clear()
     window.rootViewController = WelcomeViewController().inNav()
   }
-  
+
   /// Callled after home as loaded, handle the cold start notification
   static func handleColdStartNotification() {
     if let notification = coldStartNotification {

@@ -20,7 +20,7 @@ class StoreService {
     
     defer { UserDefaults.standard.set(count, forKey: countKey) }
 
-    guard count >= 6, currentJulianDay > (lastAskJulianDay + 90) else { return }
+    guard count >= 8, currentJulianDay > (lastAskJulianDay + 90) else { return }
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
       SKStoreReviewController.requestReview()
