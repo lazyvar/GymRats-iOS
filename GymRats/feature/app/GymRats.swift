@@ -275,7 +275,6 @@ private extension GymRats {
   private static func configureSegment() {
     let configuration = AnalyticsConfiguration(writeKey: Secrets.Segment.writeKey).apply {
       $0.recordScreenViews = false
-      $0.defaultSettings = ["trackAllPagesV2": true]
       $0.trackApplicationLifecycleEvents = false
       $0.enableAdvertisingTracking = false
       $0.use(SEGAmplitudeIntegrationFactory())
