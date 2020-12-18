@@ -18,20 +18,30 @@ class VideoViewController: UIViewController {
   private let medium: Workout.Medium
   private let player: AVPlayer
   private let playerLayer: AVPlayerLayer
+  private let playerItem: AVPlayerItem
   private let imageView = UIImageView()
   private let videoView = UIView()
+  private let loader = UIActivityIndicatorView()
+  
+  private var observingStatus = false
+  private var context = 0
   
   var isMuted = true
   
   init(medium: Workout.Medium) {
     self.medium = medium
     
-    if let url = URL(string: medium.url) {
+    if EZCache.shared.has(medium.url), let path = EZCache.shared.path(forKey: medium.url) {
+      playerItem = AVPlayerItem(url: URL(fileURLWithPath: path))
+      player = AVPlayer(playerItem: playerItem)
+    } else if let url = URL(string: medium.url) {
       let asset = AVURLAsset(url: url)
-      let playerItem = AVPlayerItem(asset: asset)
       
+      observingStatus = true
+      playerItem = AVPlayerItem(asset: asset)
       player = AVPlayer(playerItem: playerItem)
     } else {
+      playerItem = AVPlayerItem(asset: AVAsset())
       player = AVPlayer()
     }
 
@@ -40,6 +50,11 @@ class VideoViewController: UIViewController {
 
     super.init(nibName: nil, bundle: nil)
     
+    if observingStatus {
+      (playerItem.asset as? AVURLAsset)?.resourceLoader.setDelegate(self, queue: DispatchQueue.main)
+      playerItem.addObserver(self, forKeyPath: "status", options: .new, context: &context)
+    }
+
     player.isMuted = true
   }
 
@@ -82,6 +97,14 @@ class VideoViewController: UIViewController {
         }
       }
       .disposed(by: disposeBag)
+    
+    if observingStatus {
+      loader.style = .white
+      loader.translatesAutoresizingMaskIntoConstraints = false
+      videoView.addSubview(loader)
+      loader.center(in: videoView)
+      loader.startAnimating()
+    }
     
     let expandButton = UIButton()
     expandButton.translatesAutoresizingMaskIntoConstraints = false
@@ -167,12 +190,60 @@ class VideoViewController: UIViewController {
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
     
+    if observingStatus {
+      playerItem.removeObserver(self, forKeyPath: "status", context: &context)
+      observingStatus = false
+    }
+
     stop()
     NotificationCenter.default.removeObserver(self)
   }
   
+  override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    guard context == &self.context, let item = object as? AVPlayerItem else { super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context); return }
+    
+    switch item.status {
+    case .readyToPlay:
+      playerItem.removeObserver(self, forKeyPath: "status", context: &self.context)
+      observingStatus = false
+      loader.removeFromSuperview()
+    default:
+      break
+    }
+  }
+  
   @objc func playerItemDidReachEnd() {
     playFromBeginning()
+    
+    guard !EZCache.shared.has(medium.url) else { return }
+    
+    /*--------------------*/
+    /* Save video to disk */
+    /*--------------------*/
+
+    let asset = player.currentItem?.asset
+    let exporter = AVAssetExportSession(asset: asset!, presetName: AVAssetExportPresetHighestQuality)
+    let filename = medium.url.replacingOccurrences(of: "/", with: "_")
+    let documentsDirectory = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask).last!
+    let outputURL = documentsDirectory.appendingPathComponent(filename)
+    
+    exporter?.outputURL = outputURL
+    exporter?.outputFileType = AVFileType.mp4
+    
+    exporter?.exportAsynchronously(completionHandler: {
+      if let err = exporter?.error {
+        print(err.localizedDescription)
+      } else {
+        let data = NSData(contentsOf: outputURL)
+        EZCache.shared.put(data!, key: self.medium.url)
+        
+        do {
+          try FileManager.default.removeItem(at: outputURL)
+        } catch let e {
+          print(e)
+        }
+      }
+    })
   }
   
   func stop() {
@@ -189,6 +260,9 @@ class VideoViewController: UIViewController {
     player.play()
   }
 }
+
+// https://stackoverflow.com/a/47954704
+extension VideoViewController: AVAssetResourceLoaderDelegate { }
 
 extension AVPlayer {
   var isPlaying: Bool {

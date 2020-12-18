@@ -1,5 +1,3 @@
-source 'https://github.com/CocoaPods/Specs.git'
-
 platform :ios, '12.0'
 use_frameworks!
 
@@ -25,7 +23,6 @@ target 'GymRats' do
     pod 'MessageKit'
     pod 'SkeletonView'
     pod 'ESTabBarController-swift'
-    pod 'NVActivityIndicatorView/AppExtension'
     pod 'RxGesture'
     pod 'Eureka'
     pod 'PanModal'

@@ -275,7 +275,8 @@ private extension GymRats {
   private static func configureSegment() {
     let configuration = AnalyticsConfiguration(writeKey: Secrets.Segment.writeKey).apply {
       $0.recordScreenViews = false
-      $0.trackApplicationLifecycleEvents = true
+      $0.defaultSettings = ["trackAllPagesV2": true]
+      $0.trackApplicationLifecycleEvents = false
       $0.enableAdvertisingTracking = false
       $0.use(SEGAmplitudeIntegrationFactory())
       $0.use(SEGFirebaseIntegrationFactory())
@@ -311,22 +312,28 @@ private extension GymRats {
     config.onlySquareImagesFromCamera = false
     config.showsVideoTrimmer = false
     config.showsPhotoFilters = false
+    config.filters = []
+    config.hidesCancelButton = true
+
+    config.wordings.cameraTitle = "Camera"
+    config.wordings.next = "Done"
+
     config.library.maxNumberOfItems = 5
     config.library.isSquareByDefault = false
     config.library.mediaType = .photoAndVideo
     config.library.skipSelectionsGallery = true
-    config.wordings.cameraTitle = "Camera"
-    config.wordings.next = "Done"
+    
     config.fonts.menuItemFont = UIFont.proRoundedSemibold(size: 17)
     config.fonts.cameraTimeElapsedFont = UIFont.proRoundedRegular(size: 12)
     config.fonts.durationFont = UIFont.proRoundedRegular(size: 12)
     config.fonts.libaryWarningFont = UIFont.proRoundedRegular(size: 14)
-    config.filters = []
+    config.fonts.pickerTitleFont = UIFont.proRoundedSemibold(size: 17)
+    
     config.video.fileType = .mp4
-    config.video.recordingTimeLimit = 15
-    config.video.libraryTimeLimit = 30
+    config.video.recordingTimeLimit = 10
+    config.video.libraryTimeLimit = 10
     config.video.compression = AVAssetExportPresetHighestQuality
-
+    
     config.icons.capturePhotoImage = .snap
     config.icons.captureVideoImage = .videoSnap
     config.icons.captureVideoOnImage = .videoRecording
@@ -337,7 +344,6 @@ private extension GymRats {
 
     YPImagePickerConfiguration.shared = config
 
-    UINavigationBar.appearance().setBackgroundImage(UIImage(color: .background), for: .default)
     UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.font: UIFont.proRoundedSemibold(size: 17)]
     UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.proRoundedRegular(size: 17)], for: .normal)
   }

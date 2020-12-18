@@ -34,6 +34,8 @@ class MediaItemPreviewViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    setupBackButton()
+    
     view.backgroundColor = .background
     
     let cancelButton = UIButton()
@@ -105,14 +107,7 @@ class MediaItemPreviewViewController: UIViewController {
       
       self.videoView = videoView
       self.playerLayer = playerLayer
-      
-      NotificationCenter.default.addObserver (
-        self,
-        selector: #selector(playerItemDidReachEnd),
-        name: Notification.Name.AVPlayerItemDidPlayToEndTime,
-        object: nil
-      )
-      
+            
       player.play()
       
       let soundButton = UIButton()
@@ -145,12 +140,26 @@ class MediaItemPreviewViewController: UIViewController {
     }
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    if let playerLayer = playerLayer {
+      NotificationCenter.default.addObserver (
+        self,
+        selector: #selector(playerItemDidReachEnd),
+        name: Notification.Name.AVPlayerItemDidPlayToEndTime,
+        object: nil
+      )
+
+      playerLayer.player?.play()
+    }
+  }
+  
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     
     NotificationCenter.default.removeObserver(self)
     playerLayer?.player?.pause()
-    playerLayer?.player = nil
   }
   
   override func viewDidLayoutSubviews() {

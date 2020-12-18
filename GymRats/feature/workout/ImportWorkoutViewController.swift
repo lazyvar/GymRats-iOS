@@ -87,6 +87,7 @@ class ImportWorkoutViewController: BindableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    setupBackButton()
     navigationItem.leftBarButtonItem = UIBarButtonItem(image: .close, style: .plain, target: self, action: #selector(dismissSelf))
     title = "Import workout"
     

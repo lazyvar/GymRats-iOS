@@ -46,7 +46,7 @@ class WorkoutViewController: BindableViewController {
       tableView.registerCellNibForClass(NewCommentCell.self)
     }
   }
-  
+
   @IBOutlet private weak var bottomConstraint: NSLayoutConstraint!
   
   init(workout: Workout, challenge: Challenge?) {

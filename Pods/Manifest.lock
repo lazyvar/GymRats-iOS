@@ -103,7 +103,6 @@ PODS:
     - nanopb/encode (= 1.30906.0)
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
-  - NVActivityIndicatorView/AppExtension (4.8.0)
   - PanModal (1.2.7)
   - PromisesObjC (1.2.10)
   - PryntTrimmerView (4.0.2)
@@ -179,7 +178,6 @@ DEPENDENCIES:
   - LetterAvatarKit (= 1.2.2)
   - MessageKit
   - MMDrawerController (~> 0.5.7)
-  - NVActivityIndicatorView/AppExtension
   - PanModal
   - RSKPlaceholderTextView
   - RxAlamofire
@@ -201,7 +199,7 @@ DEPENDENCIES:
   - YPImagePicker (from `https://github.com/Yummypets/YPImagePicker.git`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - Alamofire
     - Amplitude
     - Analytics
@@ -233,7 +231,6 @@ SPEC REPOS:
     - MessageKit
     - MMDrawerController
     - nanopb
-    - NVActivityIndicatorView
     - PanModal
     - PromisesObjC
     - PryntTrimmerView
@@ -300,7 +297,6 @@ SPEC CHECKSUMS:
   MessageKit: 1f07618183be6d92b648ba7a384aafa097362a00
   MMDrawerController: 7a4cf8e25596bf2434e03ce50d22a8608ddee6a1
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
-  NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
   PanModal: 3e16ead1a907fb06f4df3f13492fd00149fa4974
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   PryntTrimmerView: 6a43cc90df5d99addeabd33d4ba09b1365322130
@@ -327,6 +323,6 @@ SPEC CHECKSUMS:
   UnsplashPhotoPicker: 86520e34cfded8fb4a41910bf87afe571906b4e3
   YPImagePicker: 15aed8bcaa4dad976e11b6114126d731a2f9f3c9
 
-PODFILE CHECKSUM: c8491482c85b863d0fc203d01f87a74242d6cc4c
+PODFILE CHECKSUM: ceddd029d130b060bc135270e41db8218b419917
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.10.0

@@ -180,11 +180,16 @@ class GymRatsAPI {
     return requestArray(.getWorkouts(forUser: user, inChallenge: challenge))
   }
 
-  func postWorkout(_ workout: NewWorkout, challenges: [Int]) -> Observable<NetworkResult<Workout>> {
+  func postWorkout(_ workout: NewWorkout, challenges: [Int], progress: StorageService.ProgressBlock?) -> Observable<NetworkResult<Workout>> {
     let media: Observable<[NewWorkout.Medium]> = {
       switch workout.media {
       case .left(let mediaItems):
-        return Observable<NewWorkout.Medium>.combineLatest(mediaItems.map { StorageService.upload(localMedium: $0) })
+        return Observable.from(mediaItems)
+          .concatMap { mediaItem in
+            return StorageService.upload(localMedium: mediaItem, progress: progress)
+          }
+          .toArray()
+          .asObservable()
       case .right(let media):
         return Observable.just(media)
       }

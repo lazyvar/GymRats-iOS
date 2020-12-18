@@ -68,7 +68,7 @@ class CreateWorkoutViewController: UIViewController {
   @IBOutlet private weak var sourceDetailsLabel: UILabel! {
     didSet {
       sourceDetailsLabel.textColor = .secondaryText
-      sourceDetailsLabel.font = .body
+      sourceDetailsLabel.font = .details
     }
   }
   
@@ -158,6 +158,16 @@ class CreateWorkoutViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
         
+    view.rx.panGesture()
+      .subscribe(onNext: { [self] gesture in
+        switch gesture.state {
+        case .began:
+          view.endEditing(true)
+        default: break
+        }
+      })
+      .disposed(by: disposeBag)
+
     view.rx.tapGesture()
       .subscribe(onNext: { [self] _ in
         view.endEditing(true)
@@ -173,6 +183,8 @@ class CreateWorkoutViewController: UIViewController {
         workoutTitle = "\(Date().in(region: .current).toFormat("MM/dd")) steps"
         titleTextField.text = workoutTitle
       }
+    } else {
+      titleTextField.becomeFirstResponder()
     }
     
     updateViewFromState()
@@ -196,6 +208,12 @@ class CreateWorkoutViewController: UIViewController {
     navigationItem.rightBarButtonItem = nextButton
 
     nextButton.tintColor = .brand
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    
+    Track.screen(.createWorkout)
   }
   
   // MARK: Actions
@@ -326,15 +344,15 @@ class CreateWorkoutViewController: UIViewController {
     locationCheckbox.tintColor = hasLocation ? .goodGreen : .secondaryText
     
     if hasHealthAppSource && !hasMedia {
-      sourceDetailsLabel.text = "Verified using the Health app. Optionally add a photo or video."
+      sourceDetailsLabel.text = "Verified using a Health app workout. Optionally add a photo or video."
     } else if !hasHealthAppSource && hasMedia {
       sourceDetailsLabel.text = "Verified using a photo or video. Optionally import a workout from the Health app."
     } else if hasHealthAppSource && hasMedia && !hasLocation {
-      sourceDetailsLabel.text = "Verified using the Health app and photo or video. Optionally tag a location."
+      sourceDetailsLabel.text = "Verified using using a Health app workout and a photo or video. Optionally tag a location."
     } else if hasHealthAppSource && hasMedia && hasLocation {
       sourceDetailsLabel.text = "Fully verified."
     } else {
-      sourceDetailsLabel.text = "Either a workout imported from the Health app or a photo or video is required."
+      sourceDetailsLabel.text = "Either a workout imported from the Health app or a photo or video is required for proof."
     }
     
     if let healthAppSource = healthAppSource {

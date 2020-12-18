@@ -301,7 +301,7 @@ class HealthService: HealthServiceType {
     newWorkout.duration = Int(healthKitWorkout.duration / 60)
     newWorkout.occurredAt = healthKitWorkout.startDate
     
-    return gymRatsAPI.postWorkout(newWorkout, challenges: challenges.map { $0.id })
+    return gymRatsAPI.postWorkout(newWorkout, challenges: challenges.map { $0.id }, progress: nil)
   }
 
   private func disableBackgroundDelivery() {
