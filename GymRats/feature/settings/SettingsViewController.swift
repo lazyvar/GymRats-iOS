@@ -211,7 +211,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             GService.clearCache()
             KingfisherManager.shared.cache.clearDiskCache()
             KingfisherManager.shared.cache.clearMemoryCache()
-
+            EZCache.shared.clear()
+            
             DispatchQueue.main.async {
               self.hideLoadingBar()
             }

@@ -176,7 +176,7 @@ class HealthService: HealthServiceType {
           }
           
           if let result = result, let sum = result.sumQuantity() {
-            observer(.success(sum.doubleValue(for: HKUnit.count())))
+            observer(.success(Int(sum.doubleValue(for: HKUnit.count()))))
           } else {
             observer(.error(SimpleError(message: "Could not get step count.")))
           }
@@ -256,8 +256,10 @@ class HealthService: HealthServiceType {
       .flatMap { challenges, workouts -> Observable<[NetworkResult<Workout>]> in
         return Observable.combineLatest(workouts.map { return self.upload(healthKitWorkout: $0, challenges: challenges) })
       }
-      .do(onNext: { _ in
-        NotificationCenter.default.post(.workoutCreated)
+      .do(onNext: { workouts in
+        if workouts.isNotEmpty {
+          NotificationCenter.default.post(.workoutCreated)
+        }
       })
       .asSingle()
       .map { _ in () }
@@ -299,7 +301,7 @@ class HealthService: HealthServiceType {
     newWorkout.duration = Int(healthKitWorkout.duration / 60)
     newWorkout.occurredAt = healthKitWorkout.startDate
     
-    return gymRatsAPI.postWorkout(newWorkout, challenges: challenges.map { $0.id })
+    return gymRatsAPI.postWorkout(newWorkout, challenges: challenges.map { $0.id }, progress: nil)
   }
 
   private func disableBackgroundDelivery() {

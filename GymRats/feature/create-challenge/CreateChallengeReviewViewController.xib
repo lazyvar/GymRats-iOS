@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -31,7 +32,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="F6r-be-IQo">
-                    <rect key="frame" x="20" y="44" width="374" height="426.5"/>
+                    <rect key="frame" x="20" y="49" width="374" height="426.5"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eRU-Lg-Uec" customClass="SpookyView" customModule="GymRats" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="374" height="358.5"/>
@@ -85,7 +86,7 @@
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G9V-Wf-ihE">
                                                             <rect key="frame" x="34" y="0.0" width="320" height="0.5"/>
-                                                            <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="backgroundColor" systemColor="separatorColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="0.5" id="s0X-cC-ERQ"/>
                                                             </constraints>
@@ -122,7 +123,7 @@
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7q9-wA-ic7">
                                                             <rect key="frame" x="34" y="0.0" width="320" height="0.5"/>
-                                                            <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="backgroundColor" systemColor="separatorColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="0.5" id="ae5-RG-gg0"/>
                                                             </constraints>
@@ -159,7 +160,7 @@
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GI7-46-RJI">
                                                             <rect key="frame" x="34" y="0.0" width="320" height="0.5"/>
-                                                            <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="backgroundColor" systemColor="separatorColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="0.5" id="fAh-el-Upb"/>
                                                             </constraints>
@@ -189,7 +190,7 @@
                                     </subviews>
                                 </stackView>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="aMY-f5-J35" secondAttribute="trailing" id="989-Fd-4pd"/>
                                 <constraint firstItem="aMY-f5-J35" firstAttribute="leading" secondItem="eRU-Lg-Uec" secondAttribute="leading" id="JmO-FQ-KgE"/>
@@ -204,7 +205,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="4Zu-c3-pBP">
                             <rect key="frame" x="0.0" y="378.5" width="374" height="48"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BFr-dL-jxv" customClass="PrimaryButton" customModule="GymRats" customModuleProvider="target">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BFr-dL-jxv" customClass="PrimaryButton" customModule="GymRats" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="48"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="48" id="LaA-2h-emQ"/>
@@ -219,20 +220,31 @@
                     </subviews>
                 </stackView>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="F6r-be-IQo" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="4W4-BA-rNd"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="F6r-be-IQo" secondAttribute="trailing" constant="20" id="wWY-4b-rwh"/>
-                <constraint firstItem="F6r-be-IQo" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="whs-qV-D4C"/>
+                <constraint firstItem="F6r-be-IQo" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="5" id="whs-qV-D4C"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="109" y="144"/>
         </view>
     </objects>
+    <designables>
+        <designable name="AFE-hm-8Vt">
+            <size key="intrinsicContentSize" width="42" height="21"/>
+        </designable>
+    </designables>
     <resources>
         <image name="cal" width="25" height="25"/>
         <image name="clipboard" width="24" height="24"/>
         <image name="clock" width="25" height="25"/>
         <image name="star" width="24" height="24"/>
+        <systemColor name="separatorColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

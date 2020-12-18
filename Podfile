@@ -1,5 +1,3 @@
-source 'https://github.com/CocoaPods/Specs.git'
-
 platform :ios, '12.0'
 use_frameworks!
 
@@ -12,7 +10,7 @@ target 'GymRats' do
     pod 'RxOptional'
     pod 'MMDrawerController', '~> 0.5.7'
     pod 'SwiftDate', '~> 5.0'
-    pod 'GradientLoadingBar', '~> 1.0'
+    pod 'GradientLoadingBar', '~> 2.0'
     pod 'Firebase/Core'
     pod 'Firebase/Storage'
     pod 'Analytics'
@@ -25,7 +23,6 @@ target 'GymRats' do
     pod 'MessageKit'
     pod 'SkeletonView'
     pod 'ESTabBarController-swift'
-    pod 'NVActivityIndicatorView/AppExtension'
     pod 'RxGesture'
     pod 'Eureka'
     pod 'PanModal'

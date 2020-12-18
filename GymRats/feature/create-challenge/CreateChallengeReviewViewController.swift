@@ -132,11 +132,15 @@ class CreateChallengeReviewViewController: UIViewController {
     Track.screen(.createChallengeReview)
   }
   
-  @IBAction private func startTapped(_ sender: Any) {
+  @IBAction private func startTapped(_ sender: UIButton) {
     showLoadingBar()
-    
+
+    sender.isEnabled = false
+
     gymRatsAPI.createChallenge(newChallenge)
       .subscribe(onNext: { [weak self] result in
+        sender.isEnabled = true
+
         guard let self = self else { return }
                 
         switch result {

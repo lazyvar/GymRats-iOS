@@ -28,11 +28,7 @@ class CreateWorkoutViewController: UIViewController {
   
   // MARK: Outlets
   
-  @IBOutlet weak var scrollView: UIScrollView! {
-    didSet {
-      scrollView.keyboardDismissMode = .interactive
-    }
-  }
+  @IBOutlet private weak var stackView: UIStackView!
   
   @IBOutlet private weak var titleTextField: UITextField! {
     didSet {
@@ -72,7 +68,7 @@ class CreateWorkoutViewController: UIViewController {
   @IBOutlet private weak var sourceDetailsLabel: UILabel! {
     didSet {
       sourceDetailsLabel.textColor = .secondaryText
-      sourceDetailsLabel.font = .body
+      sourceDetailsLabel.font = .details
     }
   }
   
@@ -161,6 +157,22 @@ class CreateWorkoutViewController: UIViewController {
     
   override func viewDidLoad() {
     super.viewDidLoad()
+        
+    view.rx.panGesture()
+      .subscribe(onNext: { [self] gesture in
+        switch gesture.state {
+        case .began:
+          view.endEditing(true)
+        default: break
+        }
+      })
+      .disposed(by: disposeBag)
+
+    view.rx.tapGesture()
+      .subscribe(onNext: { [self] _ in
+        view.endEditing(true)
+      })
+      .disposed(by: disposeBag)
     
     if let healthAppSource = healthAppSource {
       switch healthAppSource {
@@ -171,6 +183,8 @@ class CreateWorkoutViewController: UIViewController {
         workoutTitle = "\(Date().in(region: .current).toFormat("MM/dd")) steps"
         titleTextField.text = workoutTitle
       }
+    } else {
+      titleTextField.becomeFirstResponder()
     }
     
     updateViewFromState()
@@ -194,9 +208,12 @@ class CreateWorkoutViewController: UIViewController {
     navigationItem.rightBarButtonItem = nextButton
 
     nextButton.tintColor = .brand
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
     
-    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    Track.screen(.createWorkout)
   }
   
   // MARK: Actions
@@ -247,10 +264,28 @@ class CreateWorkoutViewController: UIViewController {
     presentSourceAlert(source: media) { [self] in
       let picker = YPImagePicker()
       picker.didFinishPicking { [self] items, cancelled in
-        defer { picker.dismiss(animated: true, completion: nil) }
-        guard !cancelled else { return }
+        if cancelled {
+          picker.dismiss(animated: true, completion: nil)
+          
+          return
+        }
+
+        func complete() {
+          picker.dismiss(animated: true) {
+            self.media = items
+          }
+        }
         
-        self.media = items
+        if items.singleFromCamera {
+          let preview = MediaItemPreviewViewController(items: items)
+          preview.onAcceptance = { _ in
+            complete()
+          }
+          
+          picker.pushViewController(preview, animated: false)
+        } else {
+          complete()
+        }
       }
       
       present(picker, animated: true, completion: nil)
@@ -268,22 +303,6 @@ class CreateWorkoutViewController: UIViewController {
     } clear: { [self] in
       self.place = nil
     }
-  }
-  
-  @objc func keyboardWillShow(notification: Notification) {
-    let userInfo = notification.userInfo
-    let keyboardFrame = userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! CGRect
-    let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardFrame.height, right: 0.0)
-    
-    scrollView.contentInset = contentInset
-    scrollView.scrollIndicatorInsets = contentInset
-  }
-  
-  @objc func keyboardWillHide(notification: Notification) {
-    let contentInset = UIEdgeInsets.zero
-    
-    scrollView.contentInset = contentInset
-    scrollView.scrollIndicatorInsets = contentInset
   }
   
   private func presentSourceAlert(source: Any?, present: @escaping () -> Void, clear: @escaping () -> Void) {
@@ -325,15 +344,15 @@ class CreateWorkoutViewController: UIViewController {
     locationCheckbox.tintColor = hasLocation ? .goodGreen : .secondaryText
     
     if hasHealthAppSource && !hasMedia {
-      sourceDetailsLabel.text = "Verified using the Health app. Optionally add a photo or video."
+      sourceDetailsLabel.text = "Verified using a Health app workout. Optionally add a photo or video."
     } else if !hasHealthAppSource && hasMedia {
       sourceDetailsLabel.text = "Verified using a photo or video. Optionally import a workout from the Health app."
     } else if hasHealthAppSource && hasMedia && !hasLocation {
-      sourceDetailsLabel.text = "Verified using the Health app and photo or video. Optionally tag a location."
+      sourceDetailsLabel.text = "Verified using using a Health app workout and a photo or video. Optionally tag a location."
     } else if hasHealthAppSource && hasMedia && hasLocation {
       sourceDetailsLabel.text = "Fully verified."
     } else {
-      sourceDetailsLabel.text = "Either a workout imported from the Health app or a photo or video is required."
+      sourceDetailsLabel.text = "Either a workout imported from the Health app or a photo or video is required for proof."
     }
     
     if let healthAppSource = healthAppSource {
@@ -423,7 +442,7 @@ extension HealthAppSource {
     }
   }
 
-  var steps: Double? {
+  var steps: StepCount? {
     switch self {
     case .left: return nil
     case .right(let steps): return steps

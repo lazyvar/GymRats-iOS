@@ -13,9 +13,9 @@ import RxSwift
 import YPImagePicker
 
 protocol LogWorkoutModalViewControllerDelegate: class {
-  func didImportSteps(_ logWorkoutModalViewController: LogWorkoutModalViewController, steps: StepCount)
-  func didImportWorkout(_ logWorkoutModalViewController: LogWorkoutModalViewController, workout: HKWorkout)
-  func didPickMedia(_ logWorkoutModalViewController: LogWorkoutModalViewController, media: [YPMediaItem])
+  func didImportSteps(_ navigationController: UINavigationController, steps: StepCount)
+  func didImportWorkout(_ navigationController: UINavigationController, workout: HKWorkout)
+  func didPickMedia(_ picker: YPImagePicker, media: [YPMediaItem])
 }
 
 class LogWorkoutModalViewController: UIViewController, UINavigationControllerDelegate {
@@ -45,17 +45,17 @@ class LogWorkoutModalViewController: UIViewController, UINavigationControllerDel
   }
   
   @objc private func healthAppTapped() {
-    defer { healthService.markPromptSeen() }
+//    defer { healthService.markPromptSeen() }
     
-    if healthService.didShowGymRatsPrompt {
+//    if healthService.didShowGymRatsPrompt {
       presentImportWorkout()
-    } else {
-      let healthAppViewController = HealthAppViewController()
-      healthAppViewController.delegate = self
-      healthAppViewController.title = "Sync with Health app?"
-      
-      presentInNav(healthAppViewController)
-    }
+//    } else {
+//      let healthAppViewController = HealthAppViewController()
+//      healthAppViewController.delegate = self
+//      healthAppViewController.title = "Sync with Health app?"
+//
+//      presentInNav(healthAppViewController)
+//    }
   }
 
   private func presentImportWorkout() {
@@ -80,11 +80,38 @@ class LogWorkoutModalViewController: UIViewController, UINavigationControllerDel
 
   @objc private func photoOrVideoTapped() {
     let picker = YPImagePicker()
+    picker.modalPresentationStyle = .popover
+    picker.navigationBar.backgroundColor = .background
+    picker.navigationBar.tintColor = .primaryText
+    picker.navigationBar.barTintColor = .background
+    picker.navigationBar.isTranslucent = false
+    picker.navigationBar.shadowImage = UIImage()
+
+    DispatchQueue.main.async {
+      picker.viewControllers.first?.setupBackButton()
+      picker.viewControllers.first?.navigationItem.leftBarButtonItem = .close(target: picker)
+    }
+    
     picker.didFinishPicking { [self] items, cancelled in
-      picker.dismiss(animated: true) {
-        if !cancelled {
-          self.delegate?.didPickMedia(self, media: items)
+      if cancelled {
+        picker.dismiss(animated: true, completion: nil)
+        
+        return
+      }
+
+      func complete() {
+        self.delegate?.didPickMedia(picker, media: items)
+      }
+      
+      if items.singleFromCamera {
+        let preview = MediaItemPreviewViewController(items: items)
+        preview.onAcceptance = { _ in
+          complete()
         }
+        
+        picker.pushViewController(preview, animated: false)
+      } else {
+        complete()
       }
     }
     
@@ -154,7 +181,7 @@ extension LogWorkoutModalViewController: HealthAppViewControllerDelegate {
       }
     }
   }
-  
+
   func closeButtonHidden() -> Bool {
     return false
   }
@@ -162,15 +189,11 @@ extension LogWorkoutModalViewController: HealthAppViewControllerDelegate {
 
 extension LogWorkoutModalViewController: ImportWorkoutViewControllerDelegate {
   func importWorkoutViewController(_ importWorkoutViewController: ImportWorkoutViewController, importedSteps steps: StepCount) {
-    importWorkoutViewController.dismiss(animated: true) { [self] in
-      delegate?.didImportSteps(self, steps: steps)
-    }
+    delegate?.didImportSteps(importWorkoutViewController.navigationController!, steps: steps)
   }
 
   func importWorkoutViewController(_ importWorkoutViewController: ImportWorkoutViewController, imported workout: HKWorkout) {
-    importWorkoutViewController.dismiss(animated: true) { [self] in
-      delegate?.didImportWorkout(self, workout: workout)
-    }
+    delegate?.didImportWorkout(importWorkoutViewController.navigationController!, workout: workout)
   }
 }
 
@@ -181,5 +204,16 @@ extension LogWorkoutModalViewController: PanModalPresentable {
   
   var showDragIndicator: Bool {
     return false
+  }
+}
+
+extension Array where Element == YPMediaItem {
+  var singleFromCamera: Bool {
+    guard count == 1 else { return false }
+    
+    return
+      singleVideo?.fromCamera
+      ?? singlePhoto?.fromCamera
+      ?? false
   }
 }

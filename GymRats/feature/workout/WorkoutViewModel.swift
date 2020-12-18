@@ -24,6 +24,7 @@ final class WorkoutViewModel: ViewModel {
   }
   
   struct Output {
+    let loading = PublishSubject<Bool>()
     let sections = PublishSubject<[WorkoutSection]>()
     let error = PublishSubject<Error>()
     let navigation = PublishSubject<(Navigation, Screen)>()
@@ -61,9 +62,22 @@ final class WorkoutViewModel: ViewModel {
       .disposed(by: disposeBag)
 
     let submitCommentSuccess = submitComment.compactMap { $0.object }
-    let fetchComments = Observable.merge(input.transitionEnded, submitCommentSuccess.map { _ in () }, deleteCommentSuccess.map { _ in () })
+    let loadingComments = Observable.merge(input.transitionEnded, submitCommentSuccess.map { _ in () }, deleteCommentSuccess.map { _ in () })
+      .share()
+    
+    loadingComments
+      .map { _ in true }
+      .bind(to: output.loading)
+      .disposed(by: disposeBag)
+    
+    let fetchComments = loadingComments
       .flatMap { gymRatsAPI.getComments(for: self.workout) }
       .share()
+    
+    fetchComments
+      .map { _ in false }
+      .bind(to: output.loading)
+      .disposed(by: disposeBag)
     
     fetchComments
       .compactMap { $0.error }
@@ -73,7 +87,6 @@ final class WorkoutViewModel: ViewModel {
     let comments = fetchComments
       .compactMap { $0.object }
       .map { $0.map { WorkoutRow.comment($0, onMenuTap: { self.output.presentCommentAlert.onNext($0) }) }}
-      .filter { $0.isNotEmpty }
     
     Observable.merge(input.viewDidLoad, input.updatedWorkout)
       .flatMap { Observable.merge(.just([]), comments) }

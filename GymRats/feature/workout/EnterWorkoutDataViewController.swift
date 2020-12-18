@@ -12,6 +12,7 @@ import RxSwift
 import RxCocoa
 import YPImagePicker
 import HealthKit
+import GradientLoadingBar
 
 class EnterWorkoutDataViewController: GRFormViewController {
   private let disposeBag = DisposeBag()
@@ -43,8 +44,10 @@ class EnterWorkoutDataViewController: GRFormViewController {
     return formatter
   }()
 
+  private let gradientProgressIndicatorView = GradientActivityIndicatorView()
   private lazy var postButton = UIBarButtonItem(title: "Post", style: .plain, target: self, action: #selector(postWorkout))
-  
+  private var loadingBarWidthConstraint: NSLayoutConstraint?
+
   init(title: String, description: String?, media: [YPMediaItem], healthAppSource: HealthAppSource?, place: Place?) {
     self.workoutTitle = title
     self.workoutDescription = description
@@ -180,8 +183,8 @@ class EnterWorkoutDataViewController: GRFormViewController {
 
         dataSection <<< stepsRow
       case .right(let steps):
-        stepsRow.value = String(Int(steps))
-        self.steps.accept(String(Int(steps)))
+        stepsRow.value = String(steps)
+        self.steps.accept(String(steps))
         
         dataSection
           <<< durationRow
@@ -208,6 +211,31 @@ class EnterWorkoutDataViewController: GRFormViewController {
     atLeastOneChallenge
       .bind(to: self.postButton.rx.isEnabled)
       .disposed(by: disposeBag)
+    
+    if let navigationBar = navigationController?.navigationBar {
+      gradientProgressIndicatorView.gradientColors = [UIColor.brand, UIColor.brand.withAlphaComponent(0.15), UIColor.brand.withAlphaComponent(0.45), UIColor.brand.withAlphaComponent(0.75)]
+      gradientProgressIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+      gradientProgressIndicatorView.layer.cornerRadius = 1.5
+      gradientProgressIndicatorView.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+      
+      navigationBar.addSubview(gradientProgressIndicatorView)
+      loadingBarWidthConstraint = gradientProgressIndicatorView.constrainWidth(0)
+      loadingBarWidthConstraint?.isActive = true
+      
+      NSLayoutConstraint.activate([
+        gradientProgressIndicatorView.leadingAnchor.constraint(equalTo: navigationBar.leadingAnchor),
+        gradientProgressIndicatorView.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor),
+        gradientProgressIndicatorView.heightAnchor.constraint(equalToConstant: 3)
+      ])
+      
+      gradientProgressIndicatorView.fadeOut(duration: 0, completion: nil)
+    }
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    
+    Track.screen(.enterWorkoutData)
   }
   
   // MARK: Actions
@@ -289,15 +317,37 @@ class EnterWorkoutDataViewController: GRFormViewController {
       occurredAt: nil
     )
 
-    self.showLoadingBar()
+    UIApplication.shared.beginIgnoringInteractionEvents()
     self.postButton.isEnabled = false
     
-    gymRatsAPI.postWorkout(newWorkout, challenges: challenges)
+    let mediaToUpload = newMedia.left ?? []
+    
+    let progress: StorageService.ProgressBlock? = {
+      guard mediaToUpload.isNotEmpty else { return nil }
+      
+      return { [self] fractionComplete in
+        UIView.animate(withDuration: 0.05) {
+          loadingBarWidthConstraint?.constant = CGFloat(CGFloat(fractionComplete) * view.frame.width)
+        }
+      }
+    }()
+    
+    if mediaToUpload.isEmpty {
+      loadingBarWidthConstraint?.constant = view.frame.width
+    } else {
+      title = "Uploading..."
+    }
+    
+    self.gradientProgressIndicatorView.fadeIn()
+    
+    gymRatsAPI.postWorkout(newWorkout, challenges: challenges, progress: progress)
       .subscribe(onNext: { [weak self] result in
+        UIApplication.shared.endIgnoringInteractionEvents()
+        
         guard let self = self else { return }
-
+        
+        self.gradientProgressIndicatorView.fadeOut()
         self.postButton.isEnabled = true
-        self.hideLoadingBar()
 
         switch result {
         case .success(let workout):
@@ -311,9 +361,12 @@ class EnterWorkoutDataViewController: GRFormViewController {
           StoreService.requestReview()
           self.delegate?.createWorkoutController(created: workout)
         case .failure(let error):
+          self.title = "Enter workout data"
           self.presentAlert(with: error)
         }
       })
       .disposed(by: disposeBag)
   }
+  
+  
 }

@@ -30,7 +30,7 @@ class ReadOnlyTextField: UITextField {
 class NoTouchingTextField: UITextField {
   override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
     var textRect = super.rightViewRect(forBounds: bounds)
-    textRect.origin.x -= 16
+    textRect.origin.x -= 8
     
     return textRect
   }

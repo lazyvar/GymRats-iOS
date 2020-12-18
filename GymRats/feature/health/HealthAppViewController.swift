@@ -81,6 +81,12 @@ class HealthAppViewController: BindableViewController {
 
     viewModel.input.viewDidLoad.trigger()
   }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    
+    Track.screen(.healthAppSettings)
+  }
 
   override func bindViewModel() {
     viewModel.output.autoSyncEnabled
@@ -135,11 +141,13 @@ class HealthAppViewController: BindableViewController {
   }
 
   @IBAction func autoSyncSwitchChanged(_ sender: UISwitch) {
+    Track.event(.autoSyncToggled, properties: ["enabled": "\(sender.isOn)"])
     viewModel.input.autoSyncSwitchChanged.on(.next(sender.isOn))
   }
   
   @IBAction func grantPermissionTapped(_ sender: Any) {
     tappedAllow = true
+    Track.event(.tappedAllowHealthApp)
     viewModel.input.grantPermissionTapped.trigger()
   }
   

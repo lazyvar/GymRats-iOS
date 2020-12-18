@@ -12,7 +12,7 @@ import RxSwift
 import RxDataSources
 
 typealias ImportWorkoutSection = SectionModel<Void, ImportWorkoutRow>
-typealias StepCount = Double
+typealias StepCount = Int
 
 protocol ImportWorkoutViewControllerDelegate: class {
   func importWorkoutViewController(_ importWorkoutViewController: ImportWorkoutViewController, imported workout: HKWorkout)
@@ -87,6 +87,7 @@ class ImportWorkoutViewController: BindableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    setupBackButton()
     navigationItem.leftBarButtonItem = UIBarButtonItem(image: .close, style: .plain, target: self, action: #selector(dismissSelf))
     title = "Import workout"
     

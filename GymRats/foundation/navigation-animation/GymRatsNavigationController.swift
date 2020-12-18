@@ -7,14 +7,20 @@
 //
 
 import UIKit
+import GradientLoadingBar
 
 class GymRatsNavigationController: UINavigationController, UINavigationBarDelegate {
+  private enum Config {
+    static let height: CGFloat = 3
+  }
+
   private let wtf = UIView().apply {
     $0.frame = .init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIApplication.shared.statusBarFrame.height)
     $0.backgroundColor = .background
     $0.layer.zPosition = .greatestFiniteMagnitude
   }
 
+  private let gradientProgressIndicatorView = GradientActivityIndicatorView()
   private var currentAnimationTransition: UIViewControllerAnimatedTransitioning? = nil
   
   override func viewDidLoad() {
@@ -39,7 +45,27 @@ class GymRatsNavigationController: UINavigationController, UINavigationBarDelega
       NSAttributedString.Key.foregroundColor: UIColor.primaryText
     ]
     
-//    delegate = self
+    gradientProgressIndicatorView.gradientColors = [UIColor.brand, UIColor.brand.withAlphaComponent(0.15), UIColor.brand.withAlphaComponent(0.45), UIColor.brand.withAlphaComponent(0.75)]
+    gradientProgressIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+    
+    navigationBar.addSubview(gradientProgressIndicatorView)
+
+    NSLayoutConstraint.activate([
+      gradientProgressIndicatorView.leadingAnchor.constraint(equalTo: navigationBar.leadingAnchor),
+      gradientProgressIndicatorView.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor),
+      gradientProgressIndicatorView.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor),
+      gradientProgressIndicatorView.heightAnchor.constraint(equalToConstant: Config.height)
+    ])
+    
+    gradientProgressIndicatorView.fadeOut(duration: 0, completion: nil)
+  }
+  
+  func showLoading() {
+    gradientProgressIndicatorView.fadeIn()
+  }
+  
+  func hideLoading() {
+    gradientProgressIndicatorView.fadeOut()
   }
 
   override func viewWillAppear(_ animated: Bool) {

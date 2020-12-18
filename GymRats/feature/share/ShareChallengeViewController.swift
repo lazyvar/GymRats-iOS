@@ -8,7 +8,6 @@
 
 import UIKit
 import RxSwift
-import NVActivityIndicatorView
 import Kingfisher
 
 class ShareChallengeViewController: UIViewController {
@@ -81,7 +80,7 @@ class ShareChallengeViewController: UIViewController {
       loadingBackground.isSkeletonable = true
       loadingBackground.showAnimatedSkeleton()
       
-      let spinner = NVActivityIndicatorView(frame: .init(x: 0, y: 0, width: 100, height: 100), type: .ballPulseSync, color: .brand, padding: 20)
+      let spinner = UIActivityIndicatorView()
       spinner.translatesAutoresizingMaskIntoConstraints = false
       spinner.startAnimating()
       

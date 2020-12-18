@@ -19,15 +19,16 @@ class SupportViewController: UIViewController {
       tableView.dataSource = self
       tableView.backgroundColor = .background
       tableView.tableHeaderView = UIView()
+      tableView.contentInsetAdjustmentBehavior = .never
     }
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    title = "Support"
     navigationItem.largeTitleDisplayMode = .always
     view.backgroundColor = .background
-    title = "Support"
   }
 }
 
@@ -73,6 +74,14 @@ extension SupportViewController: UITableViewDataSource {
 }
 
 extension SupportViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return .leastNormalMagnitude
+  }
+  
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    return nil
+  }
+
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     

@@ -23,10 +23,11 @@ class WorkoutViewController: BindableViewController {
   private let dismissPanGesture = UIPanGestureRecognizer()
 
   var isInteractivelyDismissing: Bool = false
-  weak var transitionController: WorkoutPopComplexTransition?
   var donePushing = false
   var pushedForFun = false
   
+  weak var transitionController: WorkoutPopComplexTransition?
+
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
       tableView.backgroundColor = .clear
@@ -45,7 +46,7 @@ class WorkoutViewController: BindableViewController {
       tableView.registerCellNibForClass(NewCommentCell.self)
     }
   }
-  
+
   @IBOutlet private weak var bottomConstraint: NSLayoutConstraint!
   
   init(workout: Workout, challenge: Challenge?) {
@@ -112,6 +113,16 @@ class WorkoutViewController: BindableViewController {
       }
       .disposed(by: disposeBag)
     
+    viewModel.output.loading
+      .do(onNext: { [weak self] loading in
+        if loading {
+          self?.showLoadingBar()
+        } else {
+          self?.hideLoadingBar()
+        }
+      })
+      .ignore(disposedBy: disposeBag)
+
     tableView.rx.itemSelected
       .do(onNext: { [weak self] indexPath in
         self?.tableView.deselectRow(at: indexPath, animated: true)

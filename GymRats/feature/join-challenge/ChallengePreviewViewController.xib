@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -32,7 +33,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="9aC-xD-tu1">
-                    <rect key="frame" x="20" y="44" width="374" height="426.5"/>
+                    <rect key="frame" x="20" y="49" width="374" height="426.5"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mkg-qP-bnS">
                             <rect key="frame" x="0.0" y="0.0" width="374" height="358.5"/>
@@ -86,7 +87,7 @@
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kVb-GG-QXD">
                                                             <rect key="frame" x="34" y="0.0" width="320" height="0.5"/>
-                                                            <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="backgroundColor" systemColor="separatorColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="0.5" id="khC-sP-zaf"/>
                                                             </constraints>
@@ -123,7 +124,7 @@
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9oH-9g-xEr">
                                                             <rect key="frame" x="34" y="0.0" width="320" height="0.5"/>
-                                                            <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="backgroundColor" systemColor="separatorColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="0.5" id="Xa8-L4-Iu3"/>
                                                             </constraints>
@@ -160,7 +161,7 @@
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRm-2d-UTO">
                                                             <rect key="frame" x="34" y="0.0" width="320" height="0.5"/>
-                                                            <color key="backgroundColor" systemColor="separatorColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <color key="backgroundColor" systemColor="separatorColor"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="0.5" id="pZI-eb-Dp2"/>
                                                             </constraints>
@@ -176,7 +177,7 @@
                                                                 <constraint firstAttribute="width" constant="24" id="xU6-zK-MKm"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="16" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YGf-gh-ECH" customClass="SmartLabel" customModule="GymRats" customModuleProvider="target">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="12" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YGf-gh-ECH" customClass="SmartLabel" customModule="GymRats" customModuleProvider="target">
                                                             <rect key="frame" x="34" y="0.0" width="320" height="24"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
@@ -190,7 +191,7 @@
                                     </subviews>
                                 </stackView>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstItem="5bx-0I-ZFr" firstAttribute="leading" secondItem="mkg-qP-bnS" secondAttribute="leading" id="0aE-Us-agq"/>
                                 <constraint firstAttribute="bottom" secondItem="5bx-0I-ZFr" secondAttribute="bottom" id="A5N-Zh-VWH"/>
@@ -205,7 +206,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="mDe-i9-C4d">
                             <rect key="frame" x="0.0" y="378.5" width="374" height="48"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SCI-tm-JxL" customClass="PrimaryButton" customModule="GymRats" customModuleProvider="target">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SCI-tm-JxL" customClass="PrimaryButton" customModule="GymRats" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="48"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="48" id="hqe-8V-yHr"/>
@@ -220,20 +221,31 @@
                     </subviews>
                 </stackView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="9aC-xD-tu1" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Fs7-hz-zlM"/>
+                <constraint firstItem="9aC-xD-tu1" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="5" id="Fs7-hz-zlM"/>
                 <constraint firstItem="9aC-xD-tu1" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="mup-BD-gUe"/>
                 <constraint firstAttribute="trailing" secondItem="9aC-xD-tu1" secondAttribute="trailing" constant="20" id="yBt-sD-e8J"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="236" y="147"/>
         </view>
     </objects>
+    <designables>
+        <designable name="YGf-gh-ECH">
+            <size key="intrinsicContentSize" width="42" height="21"/>
+        </designable>
+    </designables>
     <resources>
         <image name="cal" width="25" height="25"/>
         <image name="clipboard" width="24" height="24"/>
         <image name="clock" width="25" height="25"/>
         <image name="star" width="24" height="24"/>
+        <systemColor name="separatorColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

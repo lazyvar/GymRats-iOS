@@ -12,21 +12,37 @@ import FirebaseStorage
 import YPImagePicker
 
 class StorageService {
-  static func upload(localMedium: LocalMedium) -> Observable<NewWorkout.Medium> {
+  typealias FractionCompleted = Double
+  typealias ProgressBlock = (FractionCompleted) -> Void
+  
+  static func upload(localMedium: LocalMedium, progress: ProgressBlock? = nil) -> Observable<NewWorkout.Medium> {
     switch localMedium.mediumType {
-    case .image: return upload(photo: localMedium)
-    case .video: return upload(video: localMedium)
+    case .image: return upload(photo: localMedium, progress: progress)
+    case .video: return upload(video: localMedium, progress: progress)
     }
   }
   
-  static func upload(video: LocalMedium) -> Observable<NewWorkout.Medium> {
-    return Observable.zip(upload(video: video.videoURL!), upload(video.thumbnail!))
-      .map { videoUrl, thumbnailUrl in
-        return NewWorkout.Medium(url: videoUrl, thumbnailUrl: thumbnailUrl, mediumType: .video)
+  static func upload(video: LocalMedium, progress: ProgressBlock? = nil) -> Observable<NewWorkout.Medium> {
+    return Observable.from([video.videoURL as Any, video.thumbnail as Any])
+      .concatMap { obj -> Observable<String> in
+        if let url = obj as? URL {
+          return upload(video: url, progress: progress)
+        }
+        
+        if let image = obj as? UIImage {
+          return upload(image, progress: progress)
+        }
+        
+        fatalError()
       }
+      .toArray()
+      .map { urls in
+        return NewWorkout.Medium(url: urls[0], thumbnailUrl: urls[1], mediumType: .video)
+      }
+      .asObservable()
   }
 
-  static func upload(video fileURL: URL) -> Observable<String> {
+  static func upload(video fileURL: URL, progress: ProgressBlock? = nil) -> Observable<String> {
     return Observable.create { subscriber in
       let uuid = UUID().uuidString
 
@@ -37,7 +53,7 @@ class StorageService {
       let metadata = StorageMetadata()
       metadata.contentType = "video/mp4"
 
-      photoRef.putFile(from: fileURL, metadata: metadata) { _, error in
+      let task = photoRef.putFile(from: fileURL, metadata: metadata) { _, error in
         if let error = error {
           // Uh-oh, an error occurred!
           subscriber.onError(error)
@@ -59,22 +75,28 @@ class StorageService {
         }
       }
 
+      task.observe(.progress) { snapshot in
+        guard let fractionCompleted = snapshot.progress?.fractionCompleted else { return }
+  
+        progress?(fractionCompleted)
+      }
+      
       return Disposables.create()
     }
   }
 
-  static func upload(photo: LocalMedium) -> Observable<NewWorkout.Medium> {
+  static func upload(photo: LocalMedium, progress: ProgressBlock? = nil) -> Observable<NewWorkout.Medium> {
     if GymRats.environment == .development {
       return .just(.init(url: "https://picsum.photos/\((300...500).randomElement()!)/\((300...500).randomElement()!)", thumbnailUrl: nil, mediumType: .image))
     }
     
-    return upload(photo.photo!)
+    return upload(photo.photo!, progress: progress)
       .map { url in
         return NewWorkout.Medium(url: url, thumbnailUrl: nil, mediumType: .image)
       }
   }
 
-  static func upload(_ image: UIImage) -> Observable<String> {
+  static func upload(_ image: UIImage, progress: ProgressBlock? = nil) -> Observable<String> {
     if GymRats.environment == .development {
       return .just("https://picsum.photos/\((300...500).randomElement()!)/\((300...500).randomElement()!)")
     }
@@ -92,7 +114,7 @@ class StorageService {
       metadata.contentType = "image/jpeg"
 
       // Upload the file to the path "images/rivers.jpg"
-      photoRef.putData(data, metadata: metadata) { metadata, error in
+      let task = photoRef.putData(data, metadata: metadata) { metadata, error in
         if let error = error {
           // Uh-oh, an error occurred!
           subscriber.onError(error)
@@ -112,6 +134,12 @@ class StorageService {
           subscriber.onNext(downloadURL.absoluteString)
           subscriber.onCompleted()
         }
+      }
+      
+      task.observe(.progress) { snapshot in
+        guard let fractionCompleted = snapshot.progress?.fractionCompleted else { return }
+  
+        progress?(fractionCompleted)
       }
       
       return Disposables.create()

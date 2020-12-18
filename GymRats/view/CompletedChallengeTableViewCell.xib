@@ -30,7 +30,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="X8u-Lw-vBk">
-                                <rect key="frame" x="64" y="8.5" width="41.5" height="43"/>
+                                <rect key="frame" x="60" y="8.5" width="41.5" height="43"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iQM-M7-Ypg">
                                         <rect key="frame" x="0.0" y="0.0" width="41.5" height="20.5"/>
@@ -53,7 +53,7 @@
                             <constraint firstItem="X8u-Lw-vBk" firstAttribute="centerY" secondItem="8KB-08-ujE" secondAttribute="centerY" id="WGi-VD-IsU"/>
                             <constraint firstItem="8KB-08-ujE" firstAttribute="top" secondItem="sHb-Tb-yIc" secondAttribute="top" constant="10" id="YRL-Yb-AOz"/>
                             <constraint firstItem="8KB-08-ujE" firstAttribute="centerY" secondItem="sHb-Tb-yIc" secondAttribute="centerY" id="dGW-mg-lvu"/>
-                            <constraint firstItem="X8u-Lw-vBk" firstAttribute="leading" secondItem="8KB-08-ujE" secondAttribute="trailing" constant="14" id="pj6-0b-u8S"/>
+                            <constraint firstItem="X8u-Lw-vBk" firstAttribute="leading" secondItem="8KB-08-ujE" secondAttribute="trailing" constant="10" id="pj6-0b-u8S"/>
                             <constraint firstAttribute="bottom" secondItem="8KB-08-ujE" secondAttribute="bottom" constant="10" id="ryL-zX-9XH"/>
                         </constraints>
                     </view>

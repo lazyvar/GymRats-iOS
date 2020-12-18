@@ -45,6 +45,7 @@ extension UIImage {
   static let code               = UIImage(named: "code")!
   static let people             = UIImage(named: "people")!
   static let clipboard          = UIImage(named: "clipboard")!
+  static let checkTemplate      = UIImage(named: "check")!
   static let star               = UIImage(named: "star")!
   static let pencil             = UIImage(named: "pencil")!
   static let cal                = UIImage(named: "cal")!
@@ -58,7 +59,14 @@ extension UIImage {
   static let expand             = UIImage(named: "expand")!
   static let soundOn            = UIImage(named: "sound")!
   static let muted              = UIImage(named: "muted")!
-  
+  static let flashOff           = UIImage(named: "flash-off")!
+  static let flashOn            = UIImage(named: "flash-on")!
+  static let flashAuto          = UIImage(named: "flash-auto")!
+  static let reverse            = UIImage(named: "reverse")!
+  static let snap               = UIImage(named: "snap")!
+  static let videoSnap          = UIImage(named: "video-snap")!
+  static let videoRecording     = UIImage(named: "video-recording")!
+
   static var name: UIImage {
     switch UIDevice.contentMode {
     case .light: return .nameLight
