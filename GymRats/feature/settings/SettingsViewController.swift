@@ -19,6 +19,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
   
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
+      tableView.showsVerticalScrollIndicator = false
       tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: .leastNonzeroMagnitude))
     }
   }

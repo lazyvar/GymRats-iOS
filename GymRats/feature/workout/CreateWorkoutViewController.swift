@@ -263,6 +263,18 @@ class CreateWorkoutViewController: UIViewController {
   @IBAction private func tappedMedia(_ sender: Any) {
     presentSourceAlert(source: media) { [self] in
       let picker = YPImagePicker()
+      picker.modalPresentationStyle = .popover
+      picker.navigationBar.backgroundColor = .background
+      picker.navigationBar.tintColor = .primaryText
+      picker.navigationBar.barTintColor = .background
+      picker.navigationBar.isTranslucent = false
+      picker.navigationBar.shadowImage = UIImage()
+
+      DispatchQueue.main.async {
+        picker.viewControllers.first?.setupBackButton()
+        picker.viewControllers.first?.navigationItem.leftBarButtonItem = .close(target: picker)
+      }
+
       picker.didFinishPicking { [self] items, cancelled in
         if cancelled {
           picker.dismiss(animated: true, completion: nil)

@@ -16,7 +16,7 @@ enum DevLog {
   private static let fileURL = dir.appendingPathComponent(file)
   private static let dispatchQueue = DispatchQueue(label: "gym-rats-dev-log")
   
-  static var enabled: Bool = true
+  static var enabled: Bool = false
   
   static func autoSyncInitiated() {
     log("Auto sync initiated")
