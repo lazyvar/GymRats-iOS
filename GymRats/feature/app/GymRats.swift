@@ -314,8 +314,7 @@ private extension GymRats {
     config.filters = []
     config.hidesCancelButton = true
 
-    config.wordings.cameraTitle = "Camera"
-    config.wordings.next = "Done"
+    config.colors.tintColor = .brand
 
     config.library.maxNumberOfItems = 5
     config.library.isSquareByDefault = false

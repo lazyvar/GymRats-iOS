@@ -43,7 +43,7 @@ class LocationPickerViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    navigationItem.title = "Pick a location"
+    navigationItem.title = "Tag a location"
     
     locationManager = CLLocationManager()
     locationManager.delegate = self
