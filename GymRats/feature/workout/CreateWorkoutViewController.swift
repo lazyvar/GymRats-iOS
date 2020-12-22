@@ -28,6 +28,14 @@ class CreateWorkoutViewController: UIViewController {
   
   // MARK: Outlets
   
+  @IBOutlet private weak var previewImageView: UIImageView! {
+    didSet {
+      previewImageView.layer.cornerRadius = 4
+      previewImageView.clipsToBounds = true
+      previewImageView.contentMode = .scaleAspectFill
+    }
+  }
+  
   @IBOutlet private weak var stackView: UIStackView!
   
   @IBOutlet private weak var titleTextField: UITextField! {
@@ -61,14 +69,14 @@ class CreateWorkoutViewController: UIViewController {
   @IBOutlet private weak var sourcesLabel: UILabel! {
     didSet {
       sourcesLabel.textColor = .primaryText
-      sourcesLabel.font = .body
+      sourcesLabel.font = .emphasis
     }
   }
   
   @IBOutlet private weak var sourceDetailsLabel: UILabel! {
     didSet {
-      sourceDetailsLabel.textColor = .secondaryText
-      sourceDetailsLabel.font = .details
+      sourceDetailsLabel.textColor = .primaryText
+      sourceDetailsLabel.font = .body
     }
   }
   
@@ -158,6 +166,37 @@ class CreateWorkoutViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
         
+    let i1 = UIImageView(image: .chevronRight)
+    let i2 = UIImageView(image: .chevronRight)
+    let i3 = UIImageView(image: .chevronRight)
+
+    i1.translatesAutoresizingMaskIntoConstraints = false
+    i2.translatesAutoresizingMaskIntoConstraints = false
+    i3.translatesAutoresizingMaskIntoConstraints = false
+
+    i1.tintColor = .secondaryText
+    i2.tintColor = .secondaryText
+    i3.tintColor = .secondaryText
+
+    healthAppButton.addSubview(i1)
+    photoOrVideoButton.addSubview(i2)
+    locationButton.addSubview(i3)
+
+    i1.trailingAnchor.constraint(equalTo: healthAppButton.trailingAnchor, constant: -5).isActive = true
+    i2.trailingAnchor.constraint(equalTo: photoOrVideoButton.trailingAnchor, constant: -5).isActive = true
+    i3.trailingAnchor.constraint(equalTo: locationButton.trailingAnchor, constant: -5).isActive  = true
+
+    i1.centerYAnchor.constraint(equalTo: healthAppButton.centerYAnchor).isActive = true
+    i2.centerYAnchor.constraint(equalTo: photoOrVideoButton.centerYAnchor).isActive = true
+    i3.centerYAnchor.constraint(equalTo: locationButton.centerYAnchor).isActive = true
+
+    i1.constrainWidth(25)
+    i1.constrainHeight(25)
+    i2.constrainWidth(25)
+    i2.constrainHeight(25)
+    i3.constrainWidth(25)
+    i3.constrainHeight(25)
+  
     view.rx.panGesture()
       .subscribe(onNext: { [self] gesture in
         switch gesture.state {
@@ -174,6 +213,38 @@ class CreateWorkoutViewController: UIViewController {
       })
       .disposed(by: disposeBag)
     
+    mediaCheckbox.rx.tapGesture()
+      .subscribe(onNext: { [self] gesture in
+        if gesture.state == .ended {
+          tappedMedia(self)
+        }
+      })
+      .disposed(by: disposeBag)
+
+    locationCheckbox.rx.tapGesture()
+      .subscribe(onNext: { [self] gesture in
+        if gesture.state == .ended {
+          tappedLocation(self)
+        }
+      })
+      .disposed(by: disposeBag)
+
+    healthAppCheckbox.rx.tapGesture()
+      .subscribe(onNext: { [self] gesture in
+        if gesture.state == .ended {
+          tappedHealthApp(self)
+        }
+      })
+      .disposed(by: disposeBag)
+
+    previewImageView.rx.tapGesture()
+      .subscribe(onNext: { [self] gesture in
+        if gesture.state == .ended {
+          tappedMedia(self)
+        }
+      })
+      .disposed(by: disposeBag)
+    
     if let healthAppSource = healthAppSource {
       switch healthAppSource {
       case .left(let healthKitWorkout):
@@ -183,8 +254,6 @@ class CreateWorkoutViewController: UIViewController {
         workoutTitle = "\(Date().in(region: .current).toFormat("MM/dd")) steps"
         titleTextField.text = workoutTitle
       }
-    } else {
-      titleTextField.becomeFirstResponder()
     }
     
     updateViewFromState()
@@ -339,6 +408,8 @@ class CreateWorkoutViewController: UIViewController {
     }
   }
   
+  // MARK: Update view
+  
   private func updateViewFromState() {
     guard isViewLoaded else { return }
     
@@ -351,20 +422,20 @@ class CreateWorkoutViewController: UIViewController {
     healthAppCheckbox.image = hasHealthAppSource ? .checked : .notChecked
     mediaCheckbox.image = hasMedia ? .checked : .notChecked
     locationCheckbox.image = hasLocation ? .checked : .notChecked
-    healthAppCheckbox.tintColor = hasHealthAppSource ? .goodGreen : .secondaryText
-    mediaCheckbox.tintColor = hasMedia ? .goodGreen : .secondaryText
-    locationCheckbox.tintColor = hasLocation ? .goodGreen : .secondaryText
+    healthAppCheckbox.tintColor = hasHealthAppSource ? .brand : .primaryText
+    mediaCheckbox.tintColor = hasMedia ? .brand : .primaryText
+    locationCheckbox.tintColor = hasLocation ? .brand : .primaryText
     
     if hasHealthAppSource && !hasMedia {
-      sourceDetailsLabel.text = "Verified using a Health app workout. Optionally add a photo or video."
+      sourceDetailsLabel.text = "Verified using Apple Health. Optionally add a photo or video."
     } else if !hasHealthAppSource && hasMedia {
-      sourceDetailsLabel.text = "Verified using a photo or video. Optionally import a workout from the Health app."
+      sourceDetailsLabel.text = "Verified using visual evidence. Optionally import a workout from Apple Health."
     } else if hasHealthAppSource && hasMedia && !hasLocation {
-      sourceDetailsLabel.text = "Verified using using a Health app workout and a photo or video. Optionally tag a location."
+      sourceDetailsLabel.text = "Verified using using Apple Health and visual evidence. Optionally tag a location."
     } else if hasHealthAppSource && hasMedia && hasLocation {
       sourceDetailsLabel.text = "Fully verified."
     } else {
-      sourceDetailsLabel.text = "Either a workout imported from the Health app or a photo or video is required for proof."
+      sourceDetailsLabel.text = "Either a workout imported from Apple Health or visual evidence is required for proof."
     }
     
     if let healthAppSource = healthAppSource {
@@ -384,17 +455,23 @@ class CreateWorkoutViewController: UIViewController {
         healthAppButton.setTitle(content, for: .normal)
       }
     } else {
-      healthAppButton.setTitle("Health app", for: .normal)
+      healthAppButton.setTitle("Import from Apple Health", for: .normal)
+      healthAppButton.tintColor = .primaryText
+      healthAppButton.setTitleColor(.primaryText, for: .normal)
     }
     
     if let place = place {
       locationButton.setTitle("\(place.name)", for: .normal)
     } else {
-      locationButton.setTitle("Location", for: .normal)
+      locationButton.setTitle("Tag a location", for: .normal)
+      locationButton.tintColor = .primaryText
+      locationButton.setTitleColor(.primaryText, for: .normal)
     }
     
     if media.isEmpty {
-      photoOrVideoButton.setTitle("Photo or video", for: .normal)
+      photoOrVideoButton.setTitle("Select photo or video", for: .normal)
+      photoOrVideoButton.tintColor = .primaryText
+      photoOrVideoButton.setTitleColor(.primaryText, for: .normal)
     } else {
       let photos = media.filter { item -> Bool in
         switch item {
@@ -414,10 +491,25 @@ class CreateWorkoutViewController: UIViewController {
       let v = videos.isNotEmpty ? "\(videos.count) video\(videos.count == 1 ? "" : "s")" : nil
       let content = [p, v].compactMap { $0 }.joined(separator: ", ")
       
-      photoOrVideoButton.setTitle(content, for: .normal)
+      photoOrVideoButton.setTitle("\(content) selected", for: .normal)
+    }
+    
+    if let medium = media.first {
+      previewImageView.image = medium.photo ?? medium.thumbnail
+    } else if let healthAppSource = healthAppSource {
+      switch healthAppSource {
+      case .left(let workout):
+        previewImageView.image = workout.workoutActivityType.activityify.icon
+      case .right(let stepCount):
+        previewImageView.image = ImageGenerator.generateStepImage(steps: stepCount)
+      }
+    } else {
+      previewImageView.image = UIImage(color: .primaryText)
     }
   }
 }
+
+// MARK: Extensions
 
 extension CreateWorkoutViewController: UITextViewDelegate {
   func textViewDidChange(_ textView: UITextView) {

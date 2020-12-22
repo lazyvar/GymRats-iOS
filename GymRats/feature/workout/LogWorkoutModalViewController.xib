@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Rounded-Regular.otf">
+            <string>SFProRounded-Regular</string>
+        </array>
+        <array key="SF-Pro-Rounded-Semibold.otf">
+            <string>SFProRounded-Semibold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LogWorkoutModalViewController" customModule="GymRats" customModuleProvider="target">
             <connections>
-                <outlet property="tableView" destination="SIR-aj-WB8" id="Qlx-6l-K6v"/>
+                <outlet property="appleHealthView" destination="qr0-aU-FZG" id="DkZ-Jd-dyg"/>
+                <outlet property="cameraImageView" destination="rSv-7C-Cbm" id="BZk-YB-GgP"/>
+                <outlet property="cameraLabel" destination="Q0t-xy-TAw" id="cIt-E2-iH9"/>
+                <outlet property="chooseFromLibraryView" destination="e08-Cg-z0J" id="l6W-fw-WBw"/>
+                <outlet property="healthLabel" destination="Dtw-Nt-ret" id="cdf-rf-MJF"/>
+                <outlet property="heartImageView" destination="9cp-Wc-G0F" id="ppB-vq-WYi"/>
+                <outlet property="libraryImageView" destination="Oy7-Vi-Hd9" id="hAn-R6-2Qq"/>
+                <outlet property="libraryLabel" destination="lUA-s6-Txv" id="LBx-Dd-SVK"/>
+                <outlet property="takePictureView" destination="QT1-bu-VDv" id="DTS-Os-Lml"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,25 +36,152 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SIR-aj-WB8">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="YKs-VL-ECW"/>
-                    </connections>
-                </tableView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="PWN-Jn-5MM">
+                    <rect key="frame" x="0.0" y="44" width="414" height="191"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="gt2-gY-Q8r">
+                            <rect key="frame" x="20" y="10" width="374" height="41"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Log a workout" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="03G-c4-3A8">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="21.5"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <fontDescription key="fontDescription" name="SFProRounded-Semibold" family="SF Pro Rounded" pointSize="18"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Provide proof through Apple Health or visual evidence." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z4D-bd-Ruw">
+                                    <rect key="frame" x="0.0" y="26.5" width="374" height="14.5"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <fontDescription key="fontDescription" name="SFProRounded-Regular" family="SF Pro Rounded" pointSize="12"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Lqm-sX-pjn">
+                            <rect key="frame" x="20" y="66" width="374" height="115"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="IOk-ur-FXX">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="115"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qr0-aU-FZG">
+                                            <rect key="frame" x="0.0" y="0.0" width="112" height="115"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2zO-Lw-oFp">
+                                                    <rect key="frame" x="0.0" y="0.0" width="112" height="115"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalCompressionResistancePriority="749" image="apple-health-source" translatesAutoresizingMaskIntoConstraints="NO" id="9cp-Wc-G0F">
+                                                            <rect key="frame" x="8" y="8" width="96" height="80.5"/>
+                                                            <color key="tintColor" systemColor="labelColor"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Apple Health" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dtw-Nt-ret">
+                                                            <rect key="frame" x="8" y="88.5" width="96" height="14.5"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <fontDescription key="fontDescription" name="SFProRounded-Semibold" family="SF Pro Rounded" pointSize="12"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="tintColor" red="0.82745098039999998" green="0.2274509804" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="12" trailing="8"/>
+                                                </stackView>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="115" id="AWG-wd-Wyk"/>
+                                                <constraint firstAttribute="trailing" secondItem="2zO-Lw-oFp" secondAttribute="trailing" id="OQv-jH-82W"/>
+                                                <constraint firstItem="2zO-Lw-oFp" firstAttribute="leading" secondItem="qr0-aU-FZG" secondAttribute="leading" id="gMg-ay-vGf"/>
+                                                <constraint firstItem="2zO-Lw-oFp" firstAttribute="top" secondItem="qr0-aU-FZG" secondAttribute="top" id="qoE-BP-pDo"/>
+                                                <constraint firstAttribute="bottom" secondItem="2zO-Lw-oFp" secondAttribute="bottom" id="w7d-PG-R4y"/>
+                                            </constraints>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QT1-bu-VDv">
+                                            <rect key="frame" x="127" y="0.0" width="116" height="115"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="GS9-ad-M1y">
+                                                    <rect key="frame" x="0.0" y="0.0" width="116" height="115"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalCompressionResistancePriority="749" image="camera-source" translatesAutoresizingMaskIntoConstraints="NO" id="rSv-7C-Cbm">
+                                                            <rect key="frame" x="8" y="8" width="100" height="80.5"/>
+                                                            <color key="tintColor" systemColor="labelColor"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Camera" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0t-xy-TAw">
+                                                            <rect key="frame" x="8" y="88.5" width="100" height="14.5"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <fontDescription key="fontDescription" name="SFProRounded-Semibold" family="SF Pro Rounded" pointSize="12"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="tintColor" red="0.82745098039999998" green="0.2274509804" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="12" trailing="8"/>
+                                                </stackView>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="115" id="LKN-o1-vc6"/>
+                                                <constraint firstAttribute="trailing" secondItem="GS9-ad-M1y" secondAttribute="trailing" id="VUr-do-tKg"/>
+                                                <constraint firstAttribute="bottom" secondItem="GS9-ad-M1y" secondAttribute="bottom" id="fA5-ga-Upx"/>
+                                                <constraint firstItem="GS9-ad-M1y" firstAttribute="top" secondItem="QT1-bu-VDv" secondAttribute="top" id="gfL-F4-6vi"/>
+                                                <constraint firstItem="GS9-ad-M1y" firstAttribute="leading" secondItem="QT1-bu-VDv" secondAttribute="leading" id="kqM-Wr-YVx"/>
+                                            </constraints>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e08-Cg-z0J">
+                                            <rect key="frame" x="258" y="0.0" width="116" height="115"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="oy9-CO-7Xh">
+                                                    <rect key="frame" x="0.0" y="0.0" width="116" height="115"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalCompressionResistancePriority="749" image="library-source" translatesAutoresizingMaskIntoConstraints="NO" id="Oy7-Vi-Hd9">
+                                                            <rect key="frame" x="8" y="8" width="100" height="80.5"/>
+                                                            <color key="tintColor" systemColor="labelColor"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Library" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUA-s6-Txv">
+                                                            <rect key="frame" x="8" y="88.5" width="100" height="14.5"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <fontDescription key="fontDescription" name="SFProRounded-Semibold" family="SF Pro Rounded" pointSize="12"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="12" trailing="8"/>
+                                                </stackView>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="oy9-CO-7Xh" secondAttribute="trailing" id="Ucl-To-lEB"/>
+                                                <constraint firstItem="oy9-CO-7Xh" firstAttribute="top" secondItem="e08-Cg-z0J" secondAttribute="top" id="WqO-HP-C8t"/>
+                                                <constraint firstAttribute="height" constant="115" id="ZlW-Ll-EfI"/>
+                                                <constraint firstItem="oy9-CO-7Xh" firstAttribute="leading" secondItem="e08-Cg-z0J" secondAttribute="leading" id="d5z-hO-Zid"/>
+                                                <constraint firstAttribute="bottom" secondItem="oy9-CO-7Xh" secondAttribute="bottom" id="uaI-IV-eDF"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="qr0-aU-FZG" firstAttribute="width" secondItem="QT1-bu-VDv" secondAttribute="width" multiplier="0.965517" id="VEV-PS-uHu"/>
+                                        <constraint firstItem="e08-Cg-z0J" firstAttribute="width" secondItem="QT1-bu-VDv" secondAttribute="width" id="vUB-jn-XV0"/>
+                                    </constraints>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <directionalEdgeInsets key="directionalLayoutMargins" top="10" leading="20" bottom="10" trailing="20"/>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="SIR-aj-WB8" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="3Jf-zG-Tys"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="SIR-aj-WB8" secondAttribute="bottom" id="5Yd-f1-MUW"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="SIR-aj-WB8" secondAttribute="trailing" id="aLR-OS-Ave"/>
-                <constraint firstItem="SIR-aj-WB8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="eRQ-lI-gVy"/>
+                <constraint firstItem="PWN-Jn-5MM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="AJa-gY-YwV"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="PWN-Jn-5MM" secondAttribute="trailing" id="WaQ-wF-FsM"/>
+                <constraint firstItem="PWN-Jn-5MM" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="nsc-0Y-wQs"/>
             </constraints>
             <point key="canvasLocation" x="122" y="154"/>
         </view>
     </objects>
     <resources>
+        <image name="apple-health-source" width="100" height="100"/>
+        <image name="camera-source" width="100" height="100"/>
+        <image name="library-source" width="100" height="100"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

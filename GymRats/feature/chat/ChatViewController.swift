@@ -83,7 +83,7 @@ class ChatViewController: MessagesViewController {
     let photoButton = InputBarButtonItem()
       .configure {
         $0.spacing = .fixed(10)
-        $0.image = .image
+        $0.image = .photoLibrary
         $0.setSize(CGSize(width: 25, height: 25), animated: false)
         $0.tintColor = .primaryText
       }.onSelected {

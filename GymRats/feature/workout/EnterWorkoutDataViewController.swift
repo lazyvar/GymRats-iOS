@@ -164,42 +164,33 @@ class EnterWorkoutDataViewController: GRFormViewController {
     if let healthAppSource = healthAppSource {
       switch healthAppSource {
       case .left(let workout):
+        durationRow.cell.isUserInteractionEnabled = false
         durationRow.value = Int(workout.duration / 60).stringify
         duration.accept(durationRow.value)
-
+          
         if let distance = workout.totalDistance {
-          distanceRow.value = String(distance.doubleValue(for: .mile()).rounded(places: 1))
+          distanceRow.cell.isUserInteractionEnabled = false
+          distanceRow.value = String(distance.doubleValue(for: .mile()).rounded(places: 2))
           self.distance.accept(distanceRow.value)
-        } else {
-          dataSection <<< distanceRow
         }
-        
+
         if let calories = workout.totalEnergyBurned {
+          caloriesRow.cell.isUserInteractionEnabled = false
           caloriesRow.value = String(Int(calories.doubleValue(for: .kilocalorie()).rounded()))
           self.calories.accept(caloriesRow.value)
-        } else {
-          dataSection <<< caloriesRow
         }
-
-        dataSection <<< stepsRow
       case .right(let steps):
+        stepsRow.cell.isUserInteractionEnabled = false
         stepsRow.value = String(steps)
         self.steps.accept(String(steps))
-        
-        dataSection
-          <<< durationRow
-          <<< distanceRow
-          <<< caloriesRow
       }
-    } else {
-      dataSection
-        <<< durationRow
-        <<< distanceRow
-        <<< caloriesRow
-        <<< stepsRow
     }
     
     dataSection
+      <<< durationRow
+      <<< distanceRow
+      <<< caloriesRow
+      <<< stepsRow
       <<< pointsRow
     
     form +++ dataSection
@@ -280,20 +271,11 @@ class EnterWorkoutDataViewController: GRFormViewController {
             )
           ])
         case .right(let steps):
-          guard let steps = numberFormatter.string(from: NSDecimalNumber(value: steps)) else { return .right([]) }
-
-          let view = UIView(frame: CGRect(x: 0, y: 0, width: 600, height: 600))
-          view.backgroundColor = .brand
-          
-          let text = UILabel(frame: CGRect(x: 0, y: 0, width: 600, height: 600))
-          text.text = steps
-          text.textColor = .white
-          text.font = .proRoundedBold(size: 100)
-          text.textAlignment = .center
-          
-          view.addSubview(text)
-          
-          return .left([view.imageFromContext()].compactMap { $0 })
+          if let image = ImageGenerator.generateStepImage(steps: steps) {
+            return .left([image])
+          } else {
+            return .right([])
+          }
         }
       } else {
         return .left(media)
@@ -367,6 +349,4 @@ class EnterWorkoutDataViewController: GRFormViewController {
       })
       .disposed(by: disposeBag)
   }
-  
-  
 }

@@ -21,6 +21,7 @@ extension UIImage {
   static let gear               = UIImage(named: "gear")!
   static let info               = UIImage(named: "info")!
   static let chevronLeft        = UIImage(named: "chevron-left")!
+  static let chevronRight       = UIImage(named: "chevron-right")!
   static let eyeOn              = UIImage(named: "eye-on")!
   static let eyeOff             = UIImage(named: "eye-off")!
   static let nameLight          = UIImage(named: "name-light")!
@@ -33,7 +34,6 @@ extension UIImage {
   static let lockDark           = UIImage(named: "lock-dark")!
   static let heart              = UIImage(named: "heart")!
   static let proPic             = UIImage(named: "pro-pic")!
-  static let camera             = UIImage(named: "camera")!
   static let close              = UIImage(named: "close")!
   static let menu               = UIImage(named: "menu")!
   static let checked            = UIImage(named: "checked")!
@@ -51,7 +51,6 @@ extension UIImage {
   static let cal                = UIImage(named: "cal")!
   static let smallAppleHealth   = UIImage(named: "small-apple-health")!
   static let map                = UIImage(named: "map")!
-  static let image              = UIImage(named: "image")!
   static let help               = UIImage(named: "help")!
   static let messenger          = UIImage(named: "messenger")!
   static let mailTemplate       = UIImage(named: "mail-template")!
@@ -63,10 +62,12 @@ extension UIImage {
   static let flashOn            = UIImage(named: "flash-on")!
   static let flashAuto          = UIImage(named: "flash-auto")!
   static let reverse            = UIImage(named: "reverse")!
+  static let icon               = UIImage(named: "Icon")!
   static let snap               = UIImage(named: "snap")!
   static let videoSnap          = UIImage(named: "video-snap")!
   static let videoRecording     = UIImage(named: "video-recording")!
-
+  static let photoLibrary       = UIImage(named: "photo-library")!
+  
   static var name: UIImage {
     switch UIDevice.contentMode {
     case .light: return .nameLight
