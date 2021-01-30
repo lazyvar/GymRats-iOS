@@ -93,6 +93,8 @@ class CompletedChallengesViewController: UITableViewController {
     
     guard let challenge = challenges[safe: indexPath.row] else { return }
     
-    presentForClose(CompletedChallengeViewController(challenge: challenge))
+    push(
+      CompletedChallengeViewController(challenge: challenge)
+    )
   }
 }

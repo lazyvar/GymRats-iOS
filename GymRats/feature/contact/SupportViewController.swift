@@ -28,6 +28,7 @@ class SupportViewController: UIViewController {
     
     title = "Support"
     navigationItem.largeTitleDisplayMode = .always
+    navigationController?.navigationBar.sizeToFit()
     view.backgroundColor = .background
   }
 }
