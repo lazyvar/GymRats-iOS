@@ -161,10 +161,6 @@ enum GymRats {
     UserDefaults.standard.removeObject(forKey: "join-code")
     UserDefaults.standard.removeObject(forKey: "account-is-onboarding")
     replaceRoot(with: LoadingViewController())
-    
-    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-      UIViewController.topmost().presentPanModal(SupportAlert())
-    }
   }
   
   /// Animates the replacing of the rootViewController on the applications window.

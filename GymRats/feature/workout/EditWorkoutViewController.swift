@@ -39,7 +39,11 @@ class EditWorkoutViewController: GRFormViewController {
   init(workout: Workout) {
     self.workout = workout
     
-    super.init(nibName: nil, bundle: nil)
+    if #available(iOS 13.0, *) {
+      super.init(style: .insetGrouped)
+    } else {
+      super.init(style: .grouped)
+    }
   }
   
   required init?(coder aDecoder: NSCoder) {

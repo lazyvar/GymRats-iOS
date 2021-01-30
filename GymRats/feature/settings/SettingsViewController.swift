@@ -29,7 +29,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 
     view.backgroundColor = .background
     
-    if navigationController?.viewControllers.count == 1 {
+    if presentingViewController == nil {
       setupMenuButton()
     }
     
@@ -68,7 +68,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 36))
     view.backgroundColor = .background
     
-    let label = UILabel(frame: CGRect(x: 10, y: 8, width: tableView.frame.width, height: 18))
+    let label = UILabel(frame: CGRect(x: 5, y: 8, width: tableView.frame.width, height: 18))
     label.font = .details
     label.textColor = .brand
     label.backgroundColor = .clear
@@ -79,9 +79,11 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     case 1:
       label.text = "APP INFO"
     case 2:
-      label.text = "STORAGE"
-    case 3:
       label.text = "ACCOUNT"
+    case 3:
+      return UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: CGFloat.leastNormalMagnitude))
+    case 4:
+      label.text = "STORAGE"
     default: break
     }
     
@@ -90,20 +92,21 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     return view
   }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-      return 36
-    }
-    
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return section == 3 ? CGFloat.leastNormalMagnitude : 36
+  }
+
     func numberOfSections(in tableView: UITableView) -> Int {
-      return 4
+      return 5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       switch section {
       case 0: return 4
       case 1: return 4
-      case 2: return 1
-      case 3: return 3
+      case 2: return 2
+      case 3: return 1
+      case 4: return 1
       default: return 0
       }
     }
@@ -206,6 +209,18 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 break
             }
         case 2:
+          let healthAppViewController = HealthAppViewController()
+          healthAppViewController.title = "Health app settings"
+          healthAppViewController.delegate = self
+
+          switch indexPath.row {
+          case 0: push(NotificationSettingsViewController())
+          case 1: push(healthAppViewController)
+          default: break
+          }
+        case 3:
+          GymRats.logout()
+        case 4:
           showLoadingBar()
 
           DispatchQueue.global().async {
@@ -217,17 +232,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             DispatchQueue.main.async {
               self.hideLoadingBar()
             }
-          }
-        case 3:
-          let healthAppViewController = HealthAppViewController()
-          healthAppViewController.title = "Health app settings"
-          healthAppViewController.delegate = self
-
-          switch indexPath.row {
-          case 0: push(NotificationSettingsViewController())
-          case 1: push(healthAppViewController)
-          case 2: GymRats.logout()
-          default: break
           }
         default:
           break
@@ -288,7 +292,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 break
             }
         case 1:
-            switch indexPath.row {
+          switch indexPath.row {
             case 0:
                 theCell.textLabel?.text = "App Store page"
             case 1:
@@ -300,24 +304,51 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             default:
                 break
             }
+          
+          switch indexPath.row {
+          case 0, 1, 2:
+            let imageView = UIImageView(image: .externalLink)
+            imageView.tintColor = UIColor.secondaryText
+            
+            theCell.accessoryType = .none
+            theCell.accessoryView = imageView
+          default:
+            break
+          }
         case 2:
-            switch indexPath.row {
-            case 0:
-                theCell.textLabel?.text = "Clear cache"
-            default:
-                break
-            }
+          switch indexPath.row {
+          case 0:
+              theCell.textLabel?.text = "Notifications"
+          case 1:
+              theCell.textLabel?.text = "Health app"
+          default:
+              break
+          }
         case 3:
-            switch indexPath.row {
-            case 0:
-                theCell.textLabel?.text = "Notifications"
-            case 1:
-                theCell.textLabel?.text = "Health app"
-            case 2:
-                theCell.textLabel?.text = "Sign out"
-            default:
-                break
-            }
+          let cell = UITableViewCell(style: .default, reuseIdentifier: "DefaultCell")
+          cell.backgroundColor = .foreground
+          cell.isUserInteractionEnabled = true
+          cell.textLabel?.font = .body
+          cell.textLabel?.textAlignment = .center
+          cell.accessoryType = .none
+          cell.textLabel?.text = "Sign out"
+          
+          return cell
+        case 4:
+          switch indexPath.row {
+          case 0:
+            let cell = UITableViewCell(style: .default, reuseIdentifier: "DefaultCell")
+            cell.backgroundColor = .foreground
+            cell.isUserInteractionEnabled = true
+            cell.textLabel?.font = .body
+            cell.textLabel?.textAlignment = .center
+            cell.accessoryType = .none
+            cell.textLabel?.text = "Clear cache"
+            
+            return cell
+          default:
+              break
+          }
         default:
             break
         }

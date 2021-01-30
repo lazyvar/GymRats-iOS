@@ -43,17 +43,6 @@ class TransientAlertViewController: AlertViewController {
   }
 }
 
-class SupportAlert: TransientAlertViewController {
-  override var height: CGFloat { 88 }
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    alertView.titleLabel.text = "Shake for support"
-    alertView.message.text = "Shake your phone at any time to get help if you run into an issue."
-  }
-}
-
 class CopiedText: TransientAlertViewController {
   override var initialCountdown: Int { 3 }
   override var height: CGFloat { 64 }
