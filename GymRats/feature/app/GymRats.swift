@@ -103,7 +103,10 @@ enum GymRats {
     configureYPImagePicker()
     branch.initSession(launchOptions: launchOptions, andRegisterDeepLinkHandler: branchCallback)
     GMSPlacesClient.provideAPIKey("AIzaSyD1X4TH-TneFnDqjiJ2rb2FGgxK8JZyrIo")
+    
+    #if RELEASE
     FirebaseApp.configure()
+    #endif
   }
   
   /// Sets the current account and shows the home screen.
@@ -161,10 +164,6 @@ enum GymRats {
     UserDefaults.standard.removeObject(forKey: "join-code")
     UserDefaults.standard.removeObject(forKey: "account-is-onboarding")
     replaceRoot(with: LoadingViewController())
-    
-    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-      UIViewController.topmost().presentPanModal(SupportAlert())
-    }
   }
   
   /// Animates the replacing of the rootViewController on the applications window.

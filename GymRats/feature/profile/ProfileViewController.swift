@@ -156,9 +156,7 @@ class ProfileViewController: UIViewController {
   }
 
   @objc func pushSettings() {
-    push(
-      SettingsViewController()
-    )
+    presentForClose(SettingsViewController())
   }
     
   private func loadWorkouts() {

@@ -28,6 +28,7 @@ class SupportViewController: UIViewController {
     
     title = "Support"
     navigationItem.largeTitleDisplayMode = .always
+    navigationController?.navigationBar.sizeToFit()
     view.backgroundColor = .background
   }
 }
@@ -67,8 +68,13 @@ extension SupportViewController: UITableViewDataSource {
     cell.textLabel?.textColor = .primaryText
     cell.detailTextLabel?.textColor = .secondaryText
     cell.detailTextLabel?.font = .details
-    cell.accessoryType = .disclosureIndicator
     
+    let imageView = UIImageView(image: .externalLink)
+    imageView.tintColor = UIColor.secondaryText
+    
+    cell.accessoryType = .none
+    cell.accessoryView = imageView
+
     return cell
   }
 }

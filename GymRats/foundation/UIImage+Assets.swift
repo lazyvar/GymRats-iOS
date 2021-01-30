@@ -43,6 +43,7 @@ extension UIImage {
   static let clock              = UIImage(named: "clock")!
   static let plus               = UIImage(named: "plus")!
   static let code               = UIImage(named: "code")!
+  static let externalLink       = UIImage(named: "external-link")!
   static let people             = UIImage(named: "people")!
   static let clipboard          = UIImage(named: "clipboard")!
   static let checkTemplate      = UIImage(named: "check")!
