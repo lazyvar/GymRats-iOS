@@ -92,7 +92,7 @@ class ImageViewCell: UITableViewCell {
           cell.setImage(image)
         } else {
           cell._imageView.alpha = 0
-          cell._imageView.kf.setImage(with: url, options: [.forceRefresh]) { image, _, _, _ in
+          cell._imageView.kf.setImage(with: url, options: [.forceRefresh], completionHandler:  { image, _, _, _ in
             guard let image = image else { return }
             
             UIView.performWithoutAnimation {
@@ -109,7 +109,7 @@ class ImageViewCell: UITableViewCell {
             UIView.animate(withDuration: 0.1, delay: 0.15, options: .curveLinear, animations: {
               cell._imageView.alpha = 1
             }, completion:  nil)
-          }
+          })
         }
       } else {
         cell._imageView.isHidden = true

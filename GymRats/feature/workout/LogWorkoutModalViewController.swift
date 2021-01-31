@@ -190,14 +190,14 @@ class LogWorkoutModalViewController: UIViewController, UINavigationControllerDel
           let importWorkoutViewController = ImportWorkoutViewController()
           importWorkoutViewController.delegate = self
           
-          self.presentInNav(importWorkoutViewController)
+          self.presentForClose(importWorkoutViewController)
         }
       }, onError: { error in
         DispatchQueue.main.async {
           let importWorkoutViewController = ImportWorkoutViewController()
           importWorkoutViewController.delegate = self
           
-          self.presentInNav(importWorkoutViewController)
+          self.presentForClose(importWorkoutViewController)
         }
       })
       .disposed(by: disposeBag)

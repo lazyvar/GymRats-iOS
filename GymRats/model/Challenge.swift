@@ -11,7 +11,7 @@ import SwiftDate
 
 typealias ScoreBy = Challenge.ScoreBy
 
-struct Challenge: Codable, Equatable {
+struct Challenge: Codable, Equatable, Hashable {
   let id: Int
   let name: String
   let code: String
@@ -29,6 +29,10 @@ struct Challenge: Codable, Equatable {
     case steps
     case calories
     case points
+  }
+
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(id)
   }
 }
 
