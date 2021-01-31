@@ -271,6 +271,10 @@ extension ProfileViewController: CVCalendarViewDelegate, CVCalendarViewAppearanc
     showWorkouts(workouts.workouts(on: dayView.swiftDate))
   }
   
+  func dotMarkerColor() -> UIColor {
+    return .brand
+  }
+  
   func dotMarker(sizeOnDayView dayView: DayView) -> CGFloat { return 15 }
   
   func dotMarker(shouldShowOnDayView dayView: DayView) -> Bool {
@@ -283,6 +287,10 @@ extension ProfileViewController: CVCalendarViewDelegate, CVCalendarViewAppearanc
     return .init(repeating: .brand, count: limitedWorkouts)
   }
   
+  func dayLabelBackgroundColor(by weekDay: Weekday, status: CVStatus, present: CVPresent) -> UIColor? {
+    return .brand
+  }
+
   func presentedDateUpdated(_ date: CVDate) {
     monthLabel.text = date.convertedDate()!.toFormat("MMMM yyyy")
     self.calendarView.contentController.refreshPresentedMonth()

@@ -170,6 +170,12 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </stackView>
                     </subviews>
+                    <constraints>
+                        <constraint firstItem="3Vv-8l-gaw" firstAttribute="leading" secondItem="nYc-Mc-EAO" secondAttribute="leading" constant="20" symbolic="YES" id="Bns-S3-ffS"/>
+                        <constraint firstItem="3Vv-8l-gaw" firstAttribute="top" secondItem="nYc-Mc-EAO" secondAttribute="top" constant="20" symbolic="YES" id="axE-tr-Sys"/>
+                        <constraint firstAttribute="trailing" secondItem="3Vv-8l-gaw" secondAttribute="trailing" constant="20" symbolic="YES" id="faa-rG-q5C"/>
+                        <constraint firstItem="7cA-Hh-uic" firstAttribute="top" secondItem="3Vv-8l-gaw" secondAttribute="bottom" constant="8" symbolic="YES" id="sVq-9W-OkW"/>
+                    </constraints>
                     <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="20" bottom="8" trailing="20"/>
                 </stackView>
             </subviews>

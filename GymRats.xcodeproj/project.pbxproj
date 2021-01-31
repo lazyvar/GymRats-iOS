@@ -200,6 +200,9 @@
 		019D1276257D550C0019362F /* MediaPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019D1273257D550C0019362F /* MediaPageViewController.swift */; };
 		019D1285257D77D30019362F /* MediaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019D1283257D77D30019362F /* MediaTableViewCell.swift */; };
 		019D1286257D77D30019362F /* MediaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 019D1284257D77D30019362F /* MediaTableViewCell.xib */; };
+		019D46B225C632AF00FA7661 /* GoodGoodNotBadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019D46B125C632AF00FA7661 /* GoodGoodNotBadViewController.swift */; };
+		019D46BD25C6371000FA7661 /* WorkoutInformationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019D46BB25C6371000FA7661 /* WorkoutInformationTableViewCell.swift */; };
+		019D46BE25C6371000FA7661 /* WorkoutInformationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 019D46BC25C6371000FA7661 /* WorkoutInformationTableViewCell.xib */; };
 		019D899124DC58CF002BFD1B /* SmartLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019D899024DC58CF002BFD1B /* SmartLabel.swift */; };
 		019D899324DCCB97002BFD1B /* UpdateWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 019D899224DCCB97002BFD1B /* UpdateWorkout.swift */; };
 		01A03B7F2422E69A0099760F /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A03B7E2422E69A0099760F /* Environment.swift */; };
@@ -585,6 +588,10 @@
 		019D1273257D550C0019362F /* MediaPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPageViewController.swift; sourceTree = "<group>"; };
 		019D1283257D77D30019362F /* MediaTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTableViewCell.swift; sourceTree = "<group>"; };
 		019D1284257D77D30019362F /* MediaTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaTableViewCell.xib; sourceTree = "<group>"; };
+		019D46B125C632AF00FA7661 /* GoodGoodNotBadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodGoodNotBadViewController.swift; sourceTree = "<group>"; };
+		019D46BB25C6371000FA7661 /* WorkoutInformationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutInformationTableViewCell.swift; sourceTree = "<group>"; };
+		019D46BC25C6371000FA7661 /* WorkoutInformationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WorkoutInformationTableViewCell.xib; sourceTree = "<group>"; };
+		019D46C825C63FBA00FA7661 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		019D899024DC58CF002BFD1B /* SmartLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartLabel.swift; sourceTree = "<group>"; };
 		019D899224DCCB97002BFD1B /* UpdateWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateWorkout.swift; sourceTree = "<group>"; };
 		01A03B7E2422E69A0099760F /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
@@ -1175,6 +1182,8 @@
 				013C85C4257E83DA0008F580 /* WorkoutTitleTextFieldCell.xib */,
 				013C85C9257E86CA0008F580 /* WorkoutDescriptionCell.swift */,
 				013C85CA257E86CA0008F580 /* WorkoutDescriptionCell.xib */,
+				019D46BB25C6371000FA7661 /* WorkoutInformationTableViewCell.swift */,
+				019D46BC25C6371000FA7661 /* WorkoutInformationTableViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1191,6 +1200,7 @@
 		3C8DE20AD9E7BCFA336F569C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				019D46C825C63FBA00FA7661 /* WebKit.framework */,
 				01E700DD2460ACB50059017A /* HealthKit.framework */,
 				45AE0586E2D3E12AB034ED36 /* Pods_GymRats.framework */,
 				66C09C458F3D0EC49A95802E /* Pods_GymRatsTests.framework */,
@@ -1559,6 +1569,7 @@
 				017F4E802577D886005E8C6C /* CreateWorkoutViewController.xib */,
 				0193DC6725791F0A00AF536D /* EnterWorkoutDataViewController.swift */,
 				013C85BF257E6FFD0008F580 /* EditWorkoutViewController.swift */,
+				019D46B125C632AF00FA7661 /* GoodGoodNotBadViewController.swift */,
 			);
 			path = workout;
 			sourceTree = "<group>";
@@ -1766,6 +1777,7 @@
 				011FB62C22A33AAA004D5B8E /* UserProfileCell.xib in Resources */,
 				014CA89324DFB5FF00056DB1 /* WorkoutListViewController.xib in Resources */,
 				747D6FA12208DB330062BB39 /* Assets.xcassets in Resources */,
+				019D46BE25C6371000FA7661 /* WorkoutInformationTableViewCell.xib in Resources */,
 				01974541243F8700004ACB71 /* ImageViewCell.xib in Resources */,
 				74118067220C58C300EB9D11 /* Lato-LightItalic.ttf in Resources */,
 				010C05F724AD49AF001B37D7 /* NotificationSettingsViewController.xib in Resources */,
@@ -1982,6 +1994,7 @@
 				019D1285257D77D30019362F /* MediaTableViewCell.swift in Sources */,
 				0169395424D9D18C0011C1A8 /* ChallengeDetailsViewController.swift in Sources */,
 				01F5296524184B0000FA96E0 /* SecondaryButton.swift in Sources */,
+				019D46BD25C6371000FA7661 /* WorkoutInformationTableViewCell.swift in Sources */,
 				01A3EB17237747D30097FC2A /* CVDate.swift in Sources */,
 				0169395724D9D20F0011C1A8 /* ChallengeDetailsViewModel.swift in Sources */,
 				7405FE93222C249B0054F029 /* WebViewController.swift in Sources */,
@@ -2070,6 +2083,7 @@
 				013D02452419401F0063F189 /* Apply.swift in Sources */,
 				01610148242ABC2800731E30 /* ChallengeInfo.swift in Sources */,
 				0127B08C24490240000A48CB /* Membership.swift in Sources */,
+				019D46B225C632AF00FA7661 /* GoodGoodNotBadViewController.swift in Sources */,
 				013D0247241941C90063F189 /* UITableView+Extension.swift in Sources */,
 				0127B08F2449136D000A48CB /* InviteToChallengeViewController.swift in Sources */,
 				01863FB9241C66E2001B3CE2 /* Alert.swift in Sources */,

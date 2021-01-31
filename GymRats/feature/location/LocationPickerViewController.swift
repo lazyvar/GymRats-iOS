@@ -106,11 +106,10 @@ extension LocationPickerViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: Constant.id, for: indexPath)
-    cell.backgroundColor = .clear
+    cell.backgroundColor = .foreground
     cell.textLabel?.text = places[indexPath.row].name
     cell.textLabel?.font = .body
     cell.textLabel?.textColor = .primaryText
-    cell.accessoryType = .disclosureIndicator
     
     return cell
   }
