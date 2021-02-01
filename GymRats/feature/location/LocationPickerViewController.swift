@@ -28,7 +28,11 @@ class LocationPickerViewController: UIViewController {
     }
   }
 
-  @IBOutlet private weak var mapView: MKMapView!
+  @IBOutlet private weak var mapView: MKMapView! {
+    didSet {
+      mapView.delegate = self
+    }
+  }
 
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
@@ -63,13 +67,7 @@ class LocationPickerViewController: UIViewController {
     mapView.removeAnnotations(mapView.annotations)
     
     let annotations = places.map { place in
-      return PlaceAnnotation (
-        title: place.name,
-        coordinate: CLLocationCoordinate2D (
-          latitude: place.latitude,
-          longitude: place.longitude
-        )
-      )
+      return PlaceAnnotation(place: place)
     }
     
     mapView.addAnnotations(annotations)
@@ -96,6 +94,14 @@ class LocationPickerViewController: UIViewController {
         .compactMap { Place(from: $0.place) }
         .filter { seen.updateValue(true, forKey: $0.name) == nil }
     })
+  }
+}
+
+extension LocationPickerViewController: MKMapViewDelegate {
+  func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+    guard let annotation = view.annotation as? PlaceAnnotation else { return }
+    
+    delegate?.didPickLocation(self, place: annotation.place)
   }
 }
 

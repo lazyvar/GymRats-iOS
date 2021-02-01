@@ -100,6 +100,7 @@ enum GymRats {
     NetworkActivityLogger.shared.startLogging()
     #endif
     
+    initializeMaps()
     configureYPImagePicker()
     branch.initSession(launchOptions: launchOptions, andRegisterDeepLinkHandler: branchCallback)
     GMSPlacesClient.provideAPIKey("AIzaSyD1X4TH-TneFnDqjiJ2rb2FGgxK8JZyrIo")
@@ -302,6 +303,14 @@ private extension GymRats {
     }
   }
 
+  private static func initializeMaps() {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+      let map = MKMapView()
+      
+      map.setRegion(.init(center: CLLocationCoordinate2D(latitude: 40, longitude: 40), latitudinalMeters: 40, longitudinalMeters: 40), animated: false)
+    }
+  }
+  
   private static func configureYPImagePicker() {
     var config = YPImagePickerConfiguration()
     config.screens = [.photo, .video, .library]

@@ -20,7 +20,7 @@ class GoodGoodNotBadViewController: GRFormViewController {
   private let disposeBag = DisposeBag()
 
   private var healthAppSource: HealthAppSource? {
-    didSet { update() }
+    didSet { update(); updateHealthData() }
   }
 
   private var media: [YPMediaItem] = [] {
@@ -206,6 +206,8 @@ class GoodGoodNotBadViewController: GRFormViewController {
       to.selectableRowSetup = { row in
         row.title = row.selectableValue?.name
       }
+      to.view.backgroundColor = .background
+      to.tableView.backgroundColor = .background
     }
   }
   
@@ -277,6 +279,7 @@ class GoodGoodNotBadViewController: GRFormViewController {
     form +++ contentSection +++ detailsSection +++ sourcesSection +++ dataSection
 
     update()
+    updateHealthData()
   }
   
   @objc private func post() {
@@ -336,6 +339,34 @@ class GoodGoodNotBadViewController: GRFormViewController {
     
     [mediaRow, locationRow, locationRow].forEach { row in
       row.updateCell()
+    }
+  }
+  
+  private func updateHealthData() {
+    for row in [durationRow, distanceRow, caloriesRow, stepsRow] {
+      row.cell.isUserInteractionEnabled = true
+      row.value = nil
+    }
+    
+    guard let healthAppSource = healthAppSource else { return }
+    
+    switch healthAppSource {
+    case .left(let workout):
+      durationRow.cell.isUserInteractionEnabled = false
+      durationRow.value = Int(workout.duration / 60).stringify
+        
+      if let distance = workout.totalDistance {
+        distanceRow.cell.isUserInteractionEnabled = false
+        distanceRow.value = String(distance.doubleValue(for: .mile()).rounded(places: 2))
+      }
+
+      if let calories = workout.totalEnergyBurned {
+        caloriesRow.cell.isUserInteractionEnabled = false
+        caloriesRow.value = String(Int(calories.doubleValue(for: .kilocalorie()).rounded()))
+      }
+    case .right(let steps):
+      stepsRow.cell.isUserInteractionEnabled = false
+      stepsRow.value = String(steps)
     }
   }
   

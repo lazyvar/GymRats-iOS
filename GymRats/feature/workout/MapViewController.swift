@@ -55,13 +55,7 @@ class MapViewController: UIViewController {
             latitudinalMeters: 500, longitudinalMeters: 500
           )
           
-          let annotation = PlaceAnnotation (
-            title: place.name,
-            coordinate: CLLocationCoordinate2D (
-              latitude: place.latitude,
-              longitude: place.longitude
-            )
-          )
+          let annotation = PlaceAnnotation(place: place)
           
           self.mapView.setRegion(coordinateRegion, animated: false)
           self.mapView.mapType = .standard
@@ -75,11 +69,16 @@ class MapViewController: UIViewController {
 class PlaceAnnotation: NSObject, MKAnnotation {
   let title: String?
   let coordinate: CLLocationCoordinate2D
+  let place: Place
   
-  init(title: String, coordinate: CLLocationCoordinate2D) {
-    self.title = title
-    self.coordinate = coordinate
-    
+  init(place: Place) {
+    self.place = place
+    self.title = place.name
+    self.coordinate = CLLocationCoordinate2D (
+      latitude: place.latitude,
+      longitude: place.longitude
+    )
+
     super.init()
   }
     
