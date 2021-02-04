@@ -14,7 +14,7 @@ class ErrorLabelCell: Cell<String>, CellType {
 
   override func setup() {
     selectionStyle = .none
-    backgroundColor = .clear
+    backgroundColor = (row as? ErrorLabelRow)?.bgColor ?? .clear
     
     errorLabel.textColor = .brand
     errorLabel.font = .details
@@ -24,6 +24,7 @@ class ErrorLabelCell: Cell<String>, CellType {
 
 final class ErrorLabelRow: Row<ErrorLabelCell>, RowType {
   var placeholder: String?
+  var bgColor: UIColor?
   
   required public init(tag: String?) {
     super.init(tag: tag)

@@ -11,16 +11,6 @@ import PanModal
 import HealthKit
 import RxSwift
 import YPImagePicker
-
-//
-//  LogWorkoutModalViewController.swift
-//  GymRats
-//
-//  Created by mack on 1/5/20.
-//  Copyright © 2020 Mack Hasz. All rights reserved.
-//
-
-import UIKit
 import PanModal
 
 protocol LogWorkoutModalViewControllerDelegate: class {
@@ -200,14 +190,14 @@ class LogWorkoutModalViewController: UIViewController, UINavigationControllerDel
           let importWorkoutViewController = ImportWorkoutViewController()
           importWorkoutViewController.delegate = self
           
-          self.presentInNav(importWorkoutViewController)
+          self.presentForClose(importWorkoutViewController)
         }
       }, onError: { error in
         DispatchQueue.main.async {
           let importWorkoutViewController = ImportWorkoutViewController()
           importWorkoutViewController.delegate = self
           
-          self.presentInNav(importWorkoutViewController)
+          self.presentForClose(importWorkoutViewController)
         }
       })
       .disposed(by: disposeBag)

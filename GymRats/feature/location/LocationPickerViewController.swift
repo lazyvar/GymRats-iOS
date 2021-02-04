@@ -28,7 +28,11 @@ class LocationPickerViewController: UIViewController {
     }
   }
 
-  @IBOutlet private weak var mapView: MKMapView!
+  @IBOutlet private weak var mapView: MKMapView! {
+    didSet {
+      mapView.delegate = self
+    }
+  }
 
   @IBOutlet private weak var tableView: UITableView! {
     didSet {
@@ -63,13 +67,7 @@ class LocationPickerViewController: UIViewController {
     mapView.removeAnnotations(mapView.annotations)
     
     let annotations = places.map { place in
-      return PlaceAnnotation (
-        title: place.name,
-        coordinate: CLLocationCoordinate2D (
-          latitude: place.latitude,
-          longitude: place.longitude
-        )
-      )
+      return PlaceAnnotation(place: place)
     }
     
     mapView.addAnnotations(annotations)
@@ -99,6 +97,14 @@ class LocationPickerViewController: UIViewController {
   }
 }
 
+extension LocationPickerViewController: MKMapViewDelegate {
+  func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+    guard let annotation = view.annotation as? PlaceAnnotation else { return }
+    
+    delegate?.didPickLocation(self, place: annotation.place)
+  }
+}
+
 extension LocationPickerViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return places.count
@@ -106,11 +112,10 @@ extension LocationPickerViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: Constant.id, for: indexPath)
-    cell.backgroundColor = .clear
+    cell.backgroundColor = .foreground
     cell.textLabel?.text = places[indexPath.row].name
     cell.textLabel?.font = .body
     cell.textLabel?.textColor = .primaryText
-    cell.accessoryType = .disclosureIndicator
     
     return cell
   }

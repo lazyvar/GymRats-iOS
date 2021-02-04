@@ -100,13 +100,11 @@ enum GymRats {
     NetworkActivityLogger.shared.startLogging()
     #endif
     
+    initializeMaps()
     configureYPImagePicker()
     branch.initSession(launchOptions: launchOptions, andRegisterDeepLinkHandler: branchCallback)
     GMSPlacesClient.provideAPIKey("AIzaSyD1X4TH-TneFnDqjiJ2rb2FGgxK8JZyrIo")
-    
-    #if RELEASE
     FirebaseApp.configure()
-    #endif
   }
   
   /// Sets the current account and shows the home screen.
@@ -302,6 +300,14 @@ private extension GymRats {
     }
   }
 
+  private static func initializeMaps() {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+      let map = MKMapView()
+      
+      map.setRegion(.init(center: CLLocationCoordinate2D(latitude: 40, longitude: 40), latitudinalMeters: 40, longitudinalMeters: 40), animated: false)
+    }
+  }
+  
   private static func configureYPImagePicker() {
     var config = YPImagePickerConfiguration()
     config.screens = [.photo, .video, .library]
@@ -313,8 +319,10 @@ private extension GymRats {
     config.filters = []
     config.hidesCancelButton = true
 
+    config.wordings.next = "Done"
+    
     config.colors.tintColor = .brand
-
+    
     config.library.maxNumberOfItems = 5
     config.library.isSquareByDefault = false
     config.library.mediaType = .photoAndVideo

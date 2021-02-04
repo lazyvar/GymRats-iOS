@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -29,7 +29,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="x96-Cc-jGm">
-                    <rect key="frame" x="15" y="49" width="384" height="538.5"/>
+                    <rect key="frame" x="15" y="49" width="384" height="577"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="6p8-qU-HaF">
                             <rect key="frame" x="0.0" y="0.0" width="384" height="123"/>
@@ -95,10 +95,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QLI-fD-5v3" customClass="CVCalendarView" customModule="GymRats" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="193" width="384" height="345.5"/>
+                            <rect key="frame" x="0.0" y="193" width="384" height="384"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="QLI-fD-5v3" secondAttribute="height" multiplier="1:0.9" id="imr-BZ-1ou"/>
+                                <constraint firstAttribute="width" secondItem="QLI-fD-5v3" secondAttribute="height" multiplier="1:1" id="imr-BZ-1ou"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -107,7 +107,7 @@
                     </constraints>
                 </stackView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Czn-IW-CfS">
-                    <rect key="frame" x="15" y="537.5" width="384" height="324.5"/>
+                    <rect key="frame" x="15" y="626" width="384" height="236"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
             </subviews>
@@ -119,10 +119,10 @@
                 <constraint firstItem="x96-Cc-jGm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="R9n-HU-vYM"/>
                 <constraint firstItem="x96-Cc-jGm" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="5" id="VbG-pH-v2d"/>
                 <constraint firstItem="Czn-IW-CfS" firstAttribute="width" secondItem="x96-Cc-jGm" secondAttribute="width" id="ZPg-b5-xfy"/>
-                <constraint firstItem="Czn-IW-CfS" firstAttribute="top" secondItem="QLI-fD-5v3" secondAttribute="bottom" constant="-50" id="gzX-jA-k0i"/>
+                <constraint firstItem="Czn-IW-CfS" firstAttribute="top" secondItem="QLI-fD-5v3" secondAttribute="bottom" id="gzX-jA-k0i"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="x96-Cc-jGm" secondAttribute="trailing" constant="15" id="vva-13-g86"/>
             </constraints>
-            <point key="canvasLocation" x="47.826086956521742" y="160.71428571428569"/>
+            <point key="canvasLocation" x="230" y="143"/>
         </view>
     </objects>
     <resources>

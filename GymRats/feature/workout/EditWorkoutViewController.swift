@@ -53,6 +53,13 @@ class EditWorkoutViewController: GRFormViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    TextRow.defaultCellSetup = { cell, row in
+      cell.textLabel?.font = .body
+      cell.titleLabel?.font = .body
+      cell.height = { return 48 }
+      cell.tintColor = .brand
+    }
+
     saveButton.tintColor = .brand
     tableView.backgroundColor = .background
     
@@ -79,10 +86,6 @@ class EditWorkoutViewController: GRFormViewController {
       $0.placeholder = "-"
       $0.value = workout.duration?.stringify
     }.cellSetup { cell, _ in
-      cell.textLabel?.font = .body
-      cell.titleLabel?.font = .body
-      cell.height = { return 48 }
-      cell.tintColor = .brand
       cell.textField.keyboardType = .numberPad
     }
 
@@ -91,10 +94,6 @@ class EditWorkoutViewController: GRFormViewController {
       $0.placeholder = "-"
       $0.value = workout.distance
     }.cellSetup { cell, _ in
-      cell.textLabel?.font = .body
-      cell.titleLabel?.font = .body
-      cell.height = { return 48 }
-      cell.tintColor = .brand
       cell.textField.keyboardType = .decimalPad
     }
 
@@ -103,10 +102,6 @@ class EditWorkoutViewController: GRFormViewController {
       $0.placeholder = "-"
       $0.value = workout.steps?.stringify
     }.cellSetup { cell, _ in
-      cell.textLabel?.font = .body
-      cell.titleLabel?.font = .body
-      cell.height = { return 48 }
-      cell.tintColor = .brand
       cell.textField.keyboardType = .numberPad
     }
 
@@ -115,10 +110,6 @@ class EditWorkoutViewController: GRFormViewController {
       $0.placeholder = "-"
       $0.value = workout.calories?.stringify
     }.cellSetup { cell, _ in
-      cell.textLabel?.font = .body
-      cell.titleLabel?.font = .body
-      cell.height = { return 48 }
-      cell.tintColor = .brand
       cell.textField.keyboardType = .numberPad
     }
 
@@ -127,10 +118,6 @@ class EditWorkoutViewController: GRFormViewController {
       $0.placeholder = "-"
       $0.value = workout.points?.stringify
     }.cellSetup { cell, _ in
-      cell.textLabel?.font = .body
-      cell.titleLabel?.font = .body
-      cell.height = { return 48 }
-      cell.tintColor = .brand
       cell.textField.keyboardType = .numberPad
     }
     
