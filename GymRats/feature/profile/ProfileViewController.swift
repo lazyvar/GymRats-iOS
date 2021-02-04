@@ -130,7 +130,7 @@ class ProfileViewController: UIViewController {
   
     Track.screen(.profile)
   }
-      
+
   @objc private func currentAccountUpdated(notification: Notification) {
     guard let account = notification.object as? Account else { return }
   

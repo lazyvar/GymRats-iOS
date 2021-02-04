@@ -25,7 +25,12 @@ extension UIColor {
   static var primaryText: UIColor {
     switch UIDevice.contentMode {
     case .light: return .hex("#000000", alpha: 0.85)
-    case .dark: return .white
+    case .dark:
+      if #available(iOS 13.0, *) {
+        return .label
+      } else {
+        return .white
+      }
     }
   }
 
@@ -44,14 +49,24 @@ extension UIColor {
   static var background: UIColor {
     switch UIDevice.contentMode {
     case .light: return .hex("#F8F8F8")
-    case .dark: return .black
+    case .dark:
+      if #available(iOS 13.0, *) {
+        return .systemGroupedBackground
+      } else {
+        return .black
+      }
     }
   }
 
   static var foreground: UIColor {
     switch UIDevice.contentMode {
     case .light: return .hex("#FFFFFF")
-    case .dark:  return .hex("#262629")
+    case .dark:
+      if #available(iOS 13.0, *) {
+        return .secondarySystemGroupedBackground
+      } else {
+        return .hex("#262629")
+      }
     }
   }
 }

@@ -12,22 +12,22 @@ import YPImagePicker
 
 class LogWorkoutModalDelegate: LogWorkoutModalViewControllerDelegate {
   func didImportSteps(_ navigationController: UINavigationController, steps: StepCount) {
-    let createWorkoutViewController = GoodGoodNotBadViewController(healthAppSource: .right(steps))
-//    createWorkoutViewController.delegate = self
+    let createWorkoutViewController = CreateWorkoutViewController(healthAppSource: .right(steps))
+    createWorkoutViewController.delegate = self
 
     navigationController.pushViewController(createWorkoutViewController, animated: true)
   }
 
   func didImportWorkout(_ navigationController: UINavigationController, workout: HKWorkout) {
-    let createWorkoutViewController = GoodGoodNotBadViewController(healthAppSource: .left(workout))
-//    createWorkoutViewController.delegate = self
+    let createWorkoutViewController = CreateWorkoutViewController(healthAppSource: .left(workout))
+    createWorkoutViewController.delegate = self
 
     navigationController.pushViewController(createWorkoutViewController, animated: true)
   }
 
   func didPickMedia(_ picker: YPImagePicker, media: [YPMediaItem]) {
-    let createWorkoutViewController = GoodGoodNotBadViewController(media: media)
-//    createWorkoutViewController.delegate = self
+    let createWorkoutViewController = CreateWorkoutViewController(media: media)
+    createWorkoutViewController.delegate = self
 
     picker.pushViewController(createWorkoutViewController, animated: true)
   }
