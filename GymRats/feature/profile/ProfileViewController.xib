@@ -29,7 +29,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="x96-Cc-jGm">
-                    <rect key="frame" x="15" y="49" width="384" height="577"/>
+                    <rect key="frame" x="15" y="49" width="384" height="538.5"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="6p8-qU-HaF">
                             <rect key="frame" x="0.0" y="0.0" width="384" height="123"/>
@@ -95,10 +95,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QLI-fD-5v3" customClass="CVCalendarView" customModule="GymRats" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="193" width="384" height="384"/>
+                            <rect key="frame" x="0.0" y="193" width="384" height="345.5"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="QLI-fD-5v3" secondAttribute="height" multiplier="1:1" id="imr-BZ-1ou"/>
+                                <constraint firstAttribute="width" secondItem="QLI-fD-5v3" secondAttribute="height" multiplier="1:0.9" id="imr-BZ-1ou"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -107,7 +107,7 @@
                     </constraints>
                 </stackView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Czn-IW-CfS">
-                    <rect key="frame" x="15" y="626" width="384" height="236"/>
+                    <rect key="frame" x="15" y="587.5" width="384" height="274.5"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
             </subviews>

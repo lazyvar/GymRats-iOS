@@ -132,7 +132,7 @@ class WorkoutViewController: BindableViewController {
     
     RxKeyboard.instance.visibleHeight
       .drive(onNext: { [tableView] keyboardVisibleHeight in
-        tableView?.contentInset.bottom = keyboardVisibleHeight + 30
+        tableView?.contentInset.bottom = keyboardVisibleHeight + 70
       })
       .disposed(by: disposeBag)
   }
@@ -378,10 +378,12 @@ extension WorkoutViewController: UIGestureRecognizerDelegate {
   }
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    if workout.media.isNotEmpty && indexPath.section == 0 && indexPath.row == 0 {
-      return tableView.frame.width
-    } else {
+    guard indexPath.section == 0, indexPath.row == 0 else { return UITableView.automaticDimension }
+    
+    if (workout.media.count == 1 && workout.media.first?.mediumType == .image) || (workout.media.isEmpty && workout.photoUrl != nil) {
       return UITableView.automaticDimension
+    } else {
+      return tableView.frame.width
     }
   }
 }

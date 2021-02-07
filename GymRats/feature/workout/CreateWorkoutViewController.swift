@@ -123,6 +123,8 @@ class CreateWorkoutViewController: GRFormViewController {
   .cellUpdate { cell, row in
     let clear = SwipeAction(style: .destructive, title: "Remove") { _, _, completion in
       self.healthAppSource = nil
+      self.workoutTime.value = Date()
+      self.workoutTime.updateCell()
       completion?(false)
     }
     
@@ -340,6 +342,12 @@ class CreateWorkoutViewController: GRFormViewController {
         
         return
       }
+    }
+    
+    if healthAppSource == nil && media.isEmpty {
+      presentAlert(title: "Uh-oh", message: "Please provide either a photo or video or an Apple Health workout for proof.")
+
+      return
     }
     
     let duration = durationRow.value
