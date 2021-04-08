@@ -17,6 +17,8 @@ class WorkoutTitleTextFieldCell: Cell<String>, Eureka.TextFieldCell, CellType {
   override func setup() {
     selectionStyle = .none
     
+    textField.spellCheckingType = .yes
+    textField.autocorrectionType = .default
     textField.clearButtonMode = .whileEditing
     textField.font = .body
     textField.addTarget(self, action: #selector(editingChanged), for: .editingChanged)

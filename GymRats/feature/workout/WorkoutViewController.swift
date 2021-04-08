@@ -132,7 +132,7 @@ class WorkoutViewController: BindableViewController {
     
     RxKeyboard.instance.visibleHeight
       .drive(onNext: { [tableView] keyboardVisibleHeight in
-        tableView?.contentInset.bottom = keyboardVisibleHeight + 70
+        tableView?.contentInset.bottom = keyboardVisibleHeight + 100
       })
       .disposed(by: disposeBag)
   }

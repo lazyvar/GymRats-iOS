@@ -408,7 +408,7 @@ class CreateWorkoutViewController: GRFormViewController {
       media: newMedia,
       googlePlaceId: place?.id,
       duration: duration.value.map { Int($0) } ?? nil,
-      distance: distance.value,
+      distance: distance.value?.replacingOccurrences(of: ",", with: "."),
       steps: steps.value.map { Int($0) } ?? nil,
       calories: calories.value.map { Int($0) } ?? nil,
       points: points.value.map { Int($0) } ?? nil,

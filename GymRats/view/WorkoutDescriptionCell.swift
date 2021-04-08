@@ -21,6 +21,8 @@ class WorkoutDescriptionCell: Cell<String>, CellType {
     textView.tintColor = .none
     textView.backgroundColor = .clear
     textView.textContainer.lineFragmentPadding = 0
+    textView.autocorrectionType = .default
+    textView.spellCheckingType = .yes
 
     if #available(iOS 13.0, *) {
       if traitCollection.userInterfaceStyle == .dark {

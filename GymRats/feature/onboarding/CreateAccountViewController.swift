@@ -123,7 +123,6 @@ class CreateAccountViewController: GRFormViewController {
       label.font = .body
       label.text = "GymRats needs some information before getting started."
       label.frame = CGRect(x: 20, y: 0, width: self.view.frame.width - 40, height: 20)
-      label.sizeToFit()
       
       container.addSubview(label)
       

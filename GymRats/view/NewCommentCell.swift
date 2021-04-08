@@ -18,6 +18,8 @@ class NewCommentCell: UITableViewCell {
       commentTextField.font = .body
       commentTextField.delegate = self
       commentTextField.returnKeyType = .send
+      commentTextField.autocorrectionType = .default
+      commentTextField.spellCheckingType = .yes
     }
   }
   
