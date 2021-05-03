@@ -27,6 +27,7 @@ static SEGAnalytics *__sharedInstance = nil;
 @property (nonatomic, strong) SEGStoreKitTracker *storeKitTracker;
 @property (nonatomic, strong) SEGIntegrationsManager *integrationsManager;
 @property (nonatomic, strong) SEGMiddlewareRunner *runner;
+@property (nonatomic, copy) NSString *lastIDFA;
 @end
 
 
@@ -47,6 +48,7 @@ static SEGAnalytics *__sharedInstance = nil;
     if (self = [self init]) {
         self.oneTimeConfiguration = configuration;
         self.enabled = YES;
+        self.lastIDFA = nil;
 
         // In swift this would not have been OK... But hey.. It's objc
         // TODO: Figure out if this is really the best way to do things here.
@@ -291,7 +293,7 @@ NSString *const SEGBuildKeyV2 = @"SEGBuildKeyV2";
         [SEGState sharedInstance].userInfo.userId = userId;
     }
     // merge w/ existing traits and set them.
-    [existingTraitsCopy addEntriesFromDictionary:traits];
+    [existingTraitsCopy addEntriesFromDictionary:traitsCopy];
     [SEGState sharedInstance].userInfo.traits = existingTraitsCopy;
     
     [self run:SEGEventTypeIdentify payload:
@@ -328,20 +330,36 @@ NSString *const SEGBuildKeyV2 = @"SEGBuildKeyV2";
 
 - (void)screen:(NSString *)screenTitle
 {
-    [self screen:screenTitle properties:nil options:nil];
+    [self screen:screenTitle category:nil properties:nil options:nil];
+}
+
+- (void)screen:(NSString *)screenTitle category:(NSString *)category
+{
+    [self screen:screenTitle category:category properties:nil options:nil];
 }
 
 - (void)screen:(NSString *)screenTitle properties:(NSDictionary *)properties
 {
-    [self screen:screenTitle properties:properties options:nil];
+    [self screen:screenTitle category:nil properties:properties options:nil];
+}
+
+- (void)screen:(NSString *)screenTitle category:(NSString *)category properties:(SERIALIZABLE_DICT _Nullable)properties
+{
+    [self screen:screenTitle category:category properties:properties options:nil];
 }
 
 - (void)screen:(NSString *)screenTitle properties:(NSDictionary *)properties options:(NSDictionary *)options
+{
+    [self screen:screenTitle category:nil properties:properties options:options];
+}
+
+- (void)screen:(NSString *)screenTitle category:(NSString *)category properties:(SERIALIZABLE_DICT _Nullable)properties options:(SERIALIZABLE_DICT _Nullable)options
 {
     NSCAssert1(screenTitle.length > 0, @"screen name (%@) must not be empty.", screenTitle);
 
     [self run:SEGEventTypeScreen payload:
                                      [[SEGScreenPayload alloc] initWithName:screenTitle
+                                                                   category:category
                                                                  properties:SEGCoerceDictionary(properties)
                                                                     context:SEGCoerceDictionary([options objectForKey:@"context"])
                                                                integrations:[options objectForKey:@"integrations"]]];
@@ -529,7 +547,7 @@ NSString *const SEGBuildKeyV2 = @"SEGBuildKeyV2";
 {
     // this has to match the actual version, NOT what's in info.plist
     // because Apple only accepts X.X.X as versions in the review process.
-    return @"4.1.1";
+    return @"4.1.3";
 }
 
 #pragma mark - Helpers
@@ -538,6 +556,16 @@ NSString *const SEGBuildKeyV2 = @"SEGBuildKeyV2";
 {
     if (!self.enabled) {
         return;
+    }
+    
+    if (getAdTrackingEnabled(self.oneTimeConfiguration)) {
+        // if idfa has changed since last we looked, we need to rebuild
+        // the static context to pick up the change.
+        NSString *idfa = self.oneTimeConfiguration.adSupportBlock();
+        if (![idfa isEqualToString:self.lastIDFA]) {
+            self.lastIDFA = idfa;
+            [[SEGState sharedInstance].context updateStaticContext];
+        }
     }
     
     if (self.oneTimeConfiguration.experimental.nanosecondTimestamps) {

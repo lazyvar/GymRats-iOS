@@ -3,7 +3,7 @@
 //
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 #import "SEGAnalyticsUtils.h"
 #import "SEGSerializableValue.h"
 
@@ -14,6 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(Utilities)
 @interface SEGUtils : NSObject
+
++ (void)saveAPIHost:(nonnull NSString *)apiHost;
++ (nonnull NSString *)getAPIHost;
++ (nullable NSURL *)getAPIHostURL;
 
 + (NSData *_Nullable)dataFromPlist:(nonnull id)plist;
 + (id _Nullable)plistFromData:(NSData *)data;

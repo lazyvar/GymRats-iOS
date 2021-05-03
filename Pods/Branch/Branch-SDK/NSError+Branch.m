@@ -9,7 +9,6 @@
 */
 
 #import "NSError+Branch.h"
-#import "BNCLocalization.h"
 
 __attribute__((constructor)) void BNCForceNSErrorCategoryToLoad() {
     // Nothing here, but forces linker to load the category.
@@ -42,7 +41,7 @@ __attribute__((constructor)) void BNCForceNSErrorCategoryToLoad() {
         [messages setObject:@"Can't redeem zero credits." forKey:@(BNCRedeemZeroCreditsError)];
         [messages setObject:@"The Spotlight identifier is required to remove indexing from spotlight." forKey:@(BNCSpotlightIdentifierError)];
         [messages setObject:@"Spotlight cannot remove publicly indexed content." forKey:@(BNCSpotlightPublicIndexError)];
-        [messages setObject:@"User tracking is disabled and the request is not on the whitelist" forKey:@(BNCTrackingDisabledError)];
+        [messages setObject:@"User tracking is disabled and the request is not allowed" forKey:@(BNCTrackingDisabledError)];
     });
     
     NSString *errorMessage = [messages objectForKey:@(code)];
@@ -55,7 +54,7 @@ __attribute__((constructor)) void BNCForceNSErrorCategoryToLoad() {
 + (NSError *) branchErrorWithCode:(BNCErrorCode)errorCode error:(NSError*)error localizedMessage:(NSString*_Nullable)message {
     NSMutableDictionary *userInfo = [NSMutableDictionary new];
 
-    NSString *localizedString = BNCLocalizedString([self messageForCode:errorCode]);
+    NSString *localizedString = [self messageForCode:errorCode];
     if (localizedString) {
         userInfo[NSLocalizedDescriptionKey] = localizedString;
     }

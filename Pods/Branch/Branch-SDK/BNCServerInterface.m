@@ -15,8 +15,8 @@
 #import "NSMutableDictionary+Branch.h"
 #import "BNCLog.h"
 #import "Branch.h"
-#import "BNCLocalization.h"
 #import "NSString+Branch.h"
+#import "BNCApplication.h"
 
 @interface BNCServerInterface ()
 @property (strong) NSString *requestEndpoint;
@@ -196,7 +196,7 @@
                     dispatch_time(DISPATCH_TIME_NOW, self.preferenceHelper.retryInterval * NSEC_PER_SEC);
                 dispatch_after(dispatchTime, dispatch_get_main_queue(), ^{
                     if (retryHandler) {
-                        BNCLogDebug(@"Retrying request with url %@", request.URL.relativePath);
+                        BNCLogDebug([NSString stringWithFormat:@"Retrying request with url %@", request.URL.relativePath]);
                         // Create the next request
                         NSURLRequest *retryRequest = retryHandler(retryNumber);
                         [self genericHTTPRequest:retryRequest
@@ -225,7 +225,7 @@
                 if (!errorString)
                     errorString = underlyingError.localizedDescription;
                 if (!errorString)
-                    errorString = BNCLocalizedString(@"The request was invalid.");
+                    errorString = @"The request was invalid.";
                 branchError = [NSError branchErrorWithCode:BNCBadRequestError localizedMessage:errorString];
             }
             else if (underlyingError) {
@@ -233,8 +233,8 @@
             }
 
             if (branchError) {
-                BNCLogError(@"An error prevented request to %@ from completing: %@",
-                    request.URL.absoluteString, branchError);
+                BNCLogError([NSString stringWithFormat:@"An error prevented request to %@ from completing: %@",
+                    request.URL.absoluteString, branchError]);
             }
             
             //	Don't call on the main queue since it might be blocked.
@@ -245,11 +245,11 @@
     if (Branch.trackingDisabled) {
         NSString *endpoint = request.URL.absoluteString;
         
-        // if endpoint is not on the whitelist, fail it.
-        if (![self whiteListContainsEndpoint:endpoint]) {
+        // if endpoint is not linking related, fail it.
+        if (![self isLinkingRelatedRequest:endpoint]) {
             [[BNCPreferenceHelper preferenceHelper] clearTrackingInformation];
             NSError *error = [NSError branchErrorWithCode:BNCTrackingDisabledError];
-            BNCLogError(@"Network service error: %@.", error);
+            BNCLogWarning([NSString stringWithFormat:@"Dropping Request %@: - %@", endpoint, error]);
             if (callback) {
                 callback(nil, error);
             }
@@ -262,7 +262,7 @@
     [operation start];
     NSError *error = [self verifyNetworkOperation:operation];
     if (error) {
-        BNCLogError(@"Network service error: %@.", error);
+        BNCLogError([NSString stringWithFormat:@"Network service error: %@.", error]);
         if (callback) {
             callback(nil, error);
         }
@@ -270,7 +270,7 @@
     }
 }
 
-- (BOOL)whiteListContainsEndpoint:(NSString *)endpoint {
+- (BOOL)isLinkingRelatedRequest:(NSString *)endpoint {
     BNCPreferenceHelper *prefs = [BNCPreferenceHelper preferenceHelper];
     BOOL hasIdentifier = (prefs.linkClickIdentifier.length > 0 ) || (prefs.spotlightIdentifier.length > 0 ) || (prefs.universalLinkUrl.length > 0);
     
@@ -295,42 +295,33 @@
 - (NSError*) verifyNetworkOperation:(id<BNCNetworkOperationProtocol>)operation {
 
     if (!operation) {
-        NSString *message = BNCLocalizedString(
-            @"A network operation instance is expected to be returned by the"
-             " networkOperationWithURLRequest:completion: method."
-        );
+        NSString *message = @"A network operation instance is expected to be returned by the"
+             " networkOperationWithURLRequest:completion: method.";
         NSError *error = [NSError branchErrorWithCode:BNCNetworkServiceInterfaceError localizedMessage:message];
         return error;
     }
     if (![operation conformsToProtocol:@protocol(BNCNetworkOperationProtocol)]) {
-        NSString *message =
-            BNCLocalizedFormattedString(
+        NSString *message = [NSString stringWithFormat:
                 @"Network operation of class '%@' does not conform to the BNCNetworkOperationProtocol.",
-                NSStringFromClass([operation class]));
+                NSStringFromClass([operation class])];
         NSError *error = [NSError branchErrorWithCode:BNCNetworkServiceInterfaceError localizedMessage:message];
         return error;
     }
     if (!operation.startDate) {
-        NSString *message = BNCLocalizedString(
-            @"The network operation start date is not set. The Branch SDK expects the network operation"
-             " start date to be set by the network provider."
-        );
+        NSString *message = @"The network operation start date is not set. The Branch SDK expects the network operation"
+             " start date to be set by the network provider.";
         NSError *error = [NSError branchErrorWithCode:BNCNetworkServiceInterfaceError localizedMessage:message];
         return error;
     }
     if (!operation.timeoutDate) {
-        NSString*message = BNCLocalizedString(
-            @"The network operation timeout date is not set. The Branch SDK expects the network operation"
-             " timeout date to be set by the network provider."
-        );
+        NSString*message = @"The network operation timeout date is not set. The Branch SDK expects the network operation"
+             " timeout date to be set by the network provider.";
         NSError *error = [NSError branchErrorWithCode:BNCNetworkServiceInterfaceError localizedMessage:message];
         return error;
     }
     if (!operation.request) {
-        NSString *message = BNCLocalizedString(
-            @"The network operation request is not set. The Branch SDK expects the network operation"
-             " request to be set by the network provider."
-        );
+        NSString *message = @"The network operation request is not set. The Branch SDK expects the network operation"
+             " request to be set by the network provider.";
         NSError *error = [NSError branchErrorWithCode:BNCNetworkServiceInterfaceError localizedMessage:message];
         return error;
     }
@@ -371,7 +362,7 @@
         [self prepareParamDict:params key:key retryNumber:retryNumber requestType:@"GET"];
     NSString *requestUrlString =
         [NSString stringWithFormat:@"%@%@", url, [BNCEncodingUtils encodeDictionaryToQueryString:preparedParams]];
-    BNCLogDebug(@"URL: %@", requestUrlString);
+    BNCLogDebug([NSString stringWithFormat:@"URL: %@", requestUrlString]);
 
     NSMutableURLRequest *request =
         [NSMutableURLRequest requestWithURL:[NSURL URLWithString:requestUrlString]
@@ -412,10 +403,10 @@
     NSData *postData = [BNCEncodingUtils encodeDictionaryToJsonData:preparedParams];
     NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[postData length]];
 
-    BNCLogDebug(@"URL: %@.", url);
-    BNCLogDebug(@"Body: %@\nJSON: %@.",
+    BNCLogDebug([NSString stringWithFormat:@"URL: %@.", url]);
+    BNCLogDebug([NSString stringWithFormat:@"Body: %@\nJSON: %@.",
         preparedParams,
-        [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding]
+        [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding]]
     );
     
     NSMutableURLRequest *request =
@@ -453,10 +444,12 @@
         fullParamDict[BRANCH_REQUEST_KEY_STATE] = metadata;
     }
     // we only send instrumentation info in the POST body request
-    if (self.preferenceHelper.instrumentationDictionary.count && [reqType isEqualToString:@"POST"]) {
-        fullParamDict[BRANCH_REQUEST_KEY_INSTRUMENTATION] = self.preferenceHelper.instrumentationDictionary;
+    if ([reqType isEqualToString:@"POST"]) {
+        NSDictionary *instrumentationDictionary = self.preferenceHelper.instrumentationParameters;
+        if (instrumentationDictionary) {
+            fullParamDict[BRANCH_REQUEST_KEY_INSTRUMENTATION] = instrumentationDictionary;
+        }
     }
-    
     return fullParamDict;
 }
 
@@ -464,15 +457,26 @@
                                         data:(NSData *)data
                                        error:(NSError *)error {
     BNCServerResponse *serverResponse = [[BNCServerResponse alloc] init];
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+    NSString *requestId = httpResponse.allHeaderFields[@"X-Branch-Request-Id"];
+
+    NSString *sendCloseRequests = httpResponse.allHeaderFields[@"X-Branch-Send-Close-Request"];
+    if (sendCloseRequests != nil) {
+        [[BNCPreferenceHelper preferenceHelper] setSendCloseRequests:sendCloseRequests.boolValue];
+    }
+    
     if (!error) {
-        serverResponse.statusCode = @([(NSHTTPURLResponse *)response statusCode]);
+        serverResponse.statusCode = @([httpResponse statusCode]);
         serverResponse.data = [BNCEncodingUtils decodeJsonDataToDictionary:data];
+        serverResponse.requestId = requestId;
     }
     else {
         serverResponse.statusCode = @(error.code);
         serverResponse.data = error.userInfo;
+        serverResponse.requestId = requestId;
     }
-    BNCLogDebug(@"Server returned: %@.", serverResponse);
+
+    BNCLogDebug([NSString stringWithFormat:@"Server returned: %@.", serverResponse]);
     return serverResponse;
 }
 
@@ -508,7 +512,7 @@
         [self safeSetValue:deviceInfo.osName forKey:BRANCH_REQUEST_KEY_OS onDict:dict];
         [self safeSetValue:deviceInfo.osVersion forKey:BRANCH_REQUEST_KEY_OS_VERSION onDict:dict];
         [self safeSetValue:deviceInfo.osBuildVersion forKey:@"build" onDict:dict];
-        [self safeSetValue:deviceInfo.extensionType forKey:@"environment" onDict:dict];
+        [self safeSetValue:deviceInfo.environment forKey:@"environment" onDict:dict];
         [self safeSetValue:deviceInfo.locale forKey:@"locale" onDict:dict];
         [self safeSetValue:deviceInfo.country forKey:@"country" onDict:dict];
         [self safeSetValue:deviceInfo.language forKey:@"language" onDict:dict];
@@ -524,6 +528,13 @@
         [self safeSetValue:[deviceInfo connectionType] forKey:@"connection_type" onDict:dict];
         [self safeSetValue:[deviceInfo userAgentString] forKey:@"user_agent" onDict:dict];
         
+        [self safeSetValue:[deviceInfo optedInStatus] forKey:BRANCH_REQUEST_KEY_OPTED_IN_STATUS onDict:dict];
+        
+        if ([self installDateIsRecent] && [deviceInfo isFirstOptIn]) {
+            [self safeSetValue:@(deviceInfo.isFirstOptIn) forKey:BRANCH_REQUEST_KEY_FIRST_OPT_IN onDict:dict];
+            [BNCPreferenceHelper preferenceHelper].hasOptedInBefore = YES;
+        }
+        
         [self safeSetValue:@(deviceInfo.isAdTrackingEnabled) forKey:BRANCH_REQUEST_KEY_AD_TRACKING_ENABLED onDict:dict];
         
         [self safeSetValue:deviceInfo.applicationVersion forKey:@"app_version" onDict:dict];
@@ -534,6 +545,20 @@
         if (disableAdNetworkCallouts) {
             [dict setObject:[NSNumber numberWithBool:disableAdNetworkCallouts] forKey:@"disable_ad_network_callouts"];
         }
+    }
+}
+
+// we do not need to send first_opt_in, if the install is older than 30 days
+- (BOOL)installDateIsRecent {
+    //NSTimeInterval maxTimeSinceInstall = 60.0;
+    NSTimeInterval maxTimeSinceInstall = 3600.0 * 24.0 * 30;
+    NSDate *now = [NSDate date];
+    NSDate *maxDate = [[BNCApplication currentApplication].currentInstallDate dateByAddingTimeInterval:maxTimeSinceInstall];
+    
+    if ([now compare:maxDate] == NSOrderedDescending) {
+        return NO;
+    } else {
+        return YES;
     }
 }
 

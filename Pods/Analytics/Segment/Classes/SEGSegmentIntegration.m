@@ -10,12 +10,7 @@
 #import "SEGState.h"
 
 #if TARGET_OS_IPHONE
-#import <UIKit/UIKit.h>
-#endif
-
-#if TARGET_OS_IOS
-#import <CoreTelephony/CTCarrier.h>
-#import <CoreTelephony/CTTelephonyNetworkInfo.h>
+@import UIKit;
 #endif
 
 NSString *const SEGSegmentDidSendRequestNotification = @"SegmentDidSendRequest";
@@ -46,7 +41,6 @@ NSUInteger const kSEGBackgroundTaskInvalid = 0;
 @property (nonatomic, assign) SEGAnalyticsConfiguration *configuration;
 @property (atomic, copy) NSDictionary *referrer;
 @property (nonatomic, copy) NSString *userId;
-@property (nonatomic, strong) NSURL *apiURL;
 @property (nonatomic, strong) SEGHTTPClient *httpClient;
 @property (nonatomic, strong) id<SEGStorage> fileStorage;
 @property (nonatomic, strong) id<SEGStorage> userDefaultsStorage;
@@ -74,7 +68,6 @@ NSUInteger const kSEGBackgroundTaskInvalid = 0;
         self.httpClient.httpSessionDelegate = analytics.oneTimeConfiguration.httpSessionDelegate;
         self.fileStorage = fileStorage;
         self.userDefaultsStorage = userDefaultsStorage;
-        self.apiURL = [SEGMENT_API_BASE URLByAppendingPathComponent:@"import"];
         self.reachability = [SEGReachability reachabilityWithHostname:@"google.com"];
         [self.reachability startNotifier];
         self.serialQueue = seg_dispatch_queue_create_specific("io.segment.analytics.segmentio", DISPATCH_QUEUE_SERIAL);
@@ -312,6 +305,7 @@ NSUInteger const kSEGBackgroundTaskInvalid = 0;
 - (void)queuePayload:(NSDictionary *)payload
 {
     @try {
+        SEGLog(@"Queue is at max capacity (%tu), removing oldest payload.", self.queue.count);
         // Trim the queue to maxQueueSize - 1 before we add a new element.
         trimQueue(self.queue, self.analytics.oneTimeConfiguration.maxQueueSize - 1);
         [self.queue addObject:payload];

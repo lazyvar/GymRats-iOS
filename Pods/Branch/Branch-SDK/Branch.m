@@ -22,6 +22,7 @@
 #import "BranchContentDiscoverer.h"
 #import "BranchCreditHistoryRequest.h"
 #import "BranchInstallRequest.h"
+#import "BranchJsonConfig.h"
 #import "BranchLoadRewardsRequest.h"
 #import "BranchLogoutRequest.h"
 #import "BranchOpenRequest.h"
@@ -36,11 +37,14 @@
 #import "NSString+Branch.h"
 #import "Branch+Validator.h"
 #import "BNCApplication.h"
-#import "BNCURLBlackList.h"
+#import "BNCURLFilter.h"
 #import "BNCFacebookAppLinks.h"
 #import "BNCDeviceInfo.h"
 #import "BNCCallbackMap.h"
 #import "BNCSKAdNetwork.h"
+#import "BNCAppGroupsData.h"
+#import "BNCPartnerParameters.h"
+#import "BranchEvent.h"
 
 #if !TARGET_OS_TV
 #import "BNCUserAgentCollector.h"
@@ -120,7 +124,7 @@ typedef NS_ENUM(NSInteger, BNCInitStatus) {
 
 @interface Branch() <BranchDeepLinkingControllerCompletionDelegate> {
     NSInteger _networkCount;
-    BNCURLBlackList *_userURLBlackList;
+    BNCURLFilter *_userURLFilter;
 }
 
 // This isolation queue protects branch initialization and ensures things are processed in order.
@@ -137,8 +141,8 @@ typedef NS_ENUM(NSInteger, BNCInitStatus) {
 @property (strong, nonatomic) NSMutableDictionary *deepLinkControllers;
 @property (weak,   nonatomic) UIViewController *deepLinkPresentingController;
 @property (strong, nonatomic) NSDictionary *deepLinkDebugParams;
-@property (strong, nonatomic) NSMutableArray *whiteListedSchemeList;
-@property (strong, nonatomic) BNCURLBlackList *URLBlackList;
+@property (strong, nonatomic) NSMutableArray *allowedSchemeList;
+@property (strong, nonatomic) BNCURLFilter *urlFilter;
 
 #if !TARGET_OS_TV
 @property (strong, nonatomic) BNCContentDiscoveryManager *contentDiscoveryManager;
@@ -153,65 +157,6 @@ typedef NS_ENUM(NSInteger, BNCInitStatus) {
 #pragma mark - Public methods
 
 #pragma mark - GetInstance methods
-
-static NSURL* bnc_logURL = nil;
-
-+ (void)openLog {
-    // Initialize the log
-    @synchronized (self) {
-        if (bnc_logURL) {
-            #if defined(BNCKeepLogfiles)
-                BNCLogSetOutputToURLByteWrap(bnc_logURL, 102400);
-            #else
-                BNCLogSetOutputFunction(NULL);
-            #endif
-        } else {
-            BNCLogInitialize();
-            BNCLogSetDisplayLevel(BNCLogLevelAll);
-            bnc_logURL = BNCURLForBranchDirectory();
-            bnc_logURL = [[NSURL alloc] initWithString:@"Branch.log" relativeToURL:bnc_logURL];
-            #if defined(BNCKeepLogfiles)
-                BNCLogSetOutputToURLByteWrap(bnc_logURL, 102400);
-            #else
-                BNCLogSetOutputFunction(NULL);
-                if (bnc_logURL)
-                    [[NSFileManager defaultManager] removeItemAtURL:bnc_logURL error:nil];
-            #endif
-            BNCLogSetDisplayLevel(BNCLogLevelWarning);  // Default
-
-            // Try loading from the Info.plist
-            NSString *logLevelString = [[NSBundle mainBundle] infoDictionary][@"BranchLogLevel"];
-            if ([logLevelString isKindOfClass:[NSString class]]) {
-                BNCLogLevel logLevel = BNCLogLevelFromString(logLevelString);
-                BNCLogSetDisplayLevel(logLevel);
-            }
-
-            // Try loading from user defaults
-            NSNumber *logLevel = [[NSUserDefaults standardUserDefaults] objectForKey:BNCLogLevelKey];
-            if ([logLevel isKindOfClass:[NSNumber class]]) {
-                BNCLogSetDisplayLevel([logLevel integerValue]);
-            }
-
-            BNCLog(@"Branch version %@ started at %@.", BNC_SDK_VERSION, [NSDate date]);
-        }
-    }
-}
-
-+ (void)closeLog {
-    BNCLogCloseLogFile();
-}
-
-void BranchClassInitializeLog(void);
-void BranchClassInitializeLog(void) {
-    [Branch openLog];
-}
-
-+ (void)load {
-    static dispatch_once_t onceToken = 0;
-    dispatch_once(&onceToken, ^{
-        BNCLogSetClientInitializeFunction(BranchClassInitializeLog);
-    });
-}
 
 // deprecated
 + (Branch *)getTestInstance {
@@ -249,14 +194,14 @@ void BranchClassInitializeLog(void) {
     _processing_sema = dispatch_semaphore_create(1);
     _networkCount = 0;
     _deepLinkControllers = [[NSMutableDictionary alloc] init];
-    _whiteListedSchemeList = [[NSMutableArray alloc] init];
+    _allowedSchemeList = [[NSMutableArray alloc] init];
 
     #if !TARGET_OS_TV
     _contentDiscoveryManager = [[BNCContentDiscoveryManager alloc] init];
     #endif
 
     self.class.branchKey = key;
-    self.URLBlackList = [BNCURLBlackList new];
+    self.urlFilter = [BNCURLFilter new];
 
     [BranchOpenRequest setWaitNeededForOpenResponseLock];
 
@@ -277,6 +222,22 @@ void BranchClassInitializeLog(void) {
     // queue up async data loading
     [self loadApplicationData];
     [self loadUserAgent];
+    
+    BranchJsonConfig *config = BranchJsonConfig.instance;
+    
+    if (config.delayInitToCheckForSearchAds) {
+        [self delayInitToCheckForSearchAds];
+    }
+
+    if (config.enableFacebookLinkCheck) {
+        Class FBSDKAppLinkUtility = NSClassFromString(@"FBSDKAppLinkUtility");
+        if (FBSDKAppLinkUtility) {
+            [self registerFacebookDeepLinkingClass:FBSDKAppLinkUtility];
+        }
+        else {
+            BNCLogWarning(@"FBSDKAppLinkUtility not found but enableFacebookLinkCheck set to true. Please be sure you have integrated the Facebook SDK.");
+        }
+    }
 
     return self;
 }
@@ -290,9 +251,9 @@ static Class bnc_networkServiceClass = NULL;
             return;
         }
         if (![networkServiceClass conformsToProtocol:@protocol(BNCNetworkServiceProtocol)]) {
-            BNCLogError(@"Class '%@' doesn't conform to protocol '%@'.",
+            BNCLogError([NSString stringWithFormat:@"Class '%@' doesn't conform to protocol '%@'.",
                 NSStringFromClass(networkServiceClass),
-                NSStringFromProtocol(@protocol(BNCNetworkServiceProtocol))
+                NSStringFromProtocol(@protocol(BNCNetworkServiceProtocol))]
             );
             return;
         }
@@ -371,7 +332,7 @@ static BOOL bnc_enableFingerprintIDInCrashlyticsReports = YES;
     [self setBranchKey:branchKey error:&error];
 
     if (error) {
-        BNCLogError(@"Branch init error: %@", error.localizedDescription);
+        BNCLogError([NSString stringWithFormat:@"Branch init error: %@", error.localizedDescription]);
     }
 }
 
@@ -420,15 +381,23 @@ static BOOL bnc_enableFingerprintIDInCrashlyticsReports = YES;
 + (NSString *)branchKey {
     @synchronized (self) {
         if (bnc_branchKey) return bnc_branchKey;
-
-        NSDictionary *branchDictionary = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"branch_key"];
+        
         NSString *branchKey = nil;
-        if ([branchDictionary isKindOfClass:[NSString class]]) {
-            branchKey = (NSString*) branchDictionary;
-        } else
-        if ([branchDictionary isKindOfClass:[NSDictionary class]]) {
-            branchKey =
-                (self.useTestBranchKey) ? branchDictionary[@"test"] : branchDictionary[@"live"];
+        
+        BranchJsonConfig *config = BranchJsonConfig.instance;
+        BOOL usingTestInstance = bnc_useTestBranchKey || config.useTestInstance;
+        branchKey = config.branchKey ?: usingTestInstance ? config.testKey : config.liveKey;
+        [self setUseTestBranchKey:usingTestInstance];
+        
+        if (branchKey == nil) {
+            NSDictionary *branchDictionary = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"branch_key"];
+            if ([branchDictionary isKindOfClass:[NSString class]]) {
+                branchKey = (NSString*) branchDictionary;
+            } else
+            if ([branchDictionary isKindOfClass:[NSDictionary class]]) {
+                branchKey =
+                    (self.useTestBranchKey) ? branchDictionary[@"test"] : branchDictionary[@"live"];
+            }
         }
 
         self.branchKey = branchKey;
@@ -697,24 +666,24 @@ static BOOL bnc_enableFingerprintIDInCrashlyticsReports = YES;
     self.deepLinkDebugParams = debugParams;
 }
 
-- (void)setWhiteListedSchemes:(NSArray *)schemes {
-    self.whiteListedSchemeList = [schemes mutableCopy];
+- (void)setAllowedSchemes:(NSArray *)schemes {
+    self.allowedSchemeList = [schemes mutableCopy];
 }
 
-- (void)addWhiteListedScheme:(NSString *)scheme {
-    [self.whiteListedSchemeList addObject:scheme];
+- (void)addAllowedScheme:(NSString *)scheme {
+    [self.allowedSchemeList addObject:scheme];
 }
 
-- (void)setBlackListURLRegex:(NSArray<NSString*>*)blackListURLs {
+- (void)setUrlPatternsToIgnore:(NSArray<NSString*>*)urlsToIgnore {
     @synchronized (self) {
-        _userURLBlackList = [[BNCURLBlackList alloc] init];
-        _userURLBlackList.blackList = blackListURLs;
+        _userURLFilter = [[BNCURLFilter alloc] init];
+        _userURLFilter.patternList = urlsToIgnore;
     }
 }
 
-- (NSArray<NSString *> *)blackListURLRegex {
+- (NSArray<NSString *> *)urlPatternsToIgnore {
     @synchronized (self) {
-        return _userURLBlackList.blackList;
+        return _userURLFilter.patternList;
     }
 }
 
@@ -733,15 +702,15 @@ static BOOL bnc_enableFingerprintIDInCrashlyticsReports = YES;
     // this allows foreground links to callback
     self.initializationStatus = BNCInitStatusUninitialized;
 
-    NSString *blackListPattern = nil;
-    blackListPattern = [self.URLBlackList blackListPatternMatchingURL:url];
-    if (!blackListPattern) {
-        blackListPattern = [_userURLBlackList blackListPatternMatchingURL:url];
+    NSString *pattern = nil;
+    pattern = [self.urlFilter patternMatchingURL:url];
+    if (!pattern) {
+        pattern = [_userURLFilter patternMatchingURL:url];
     }
-    if (blackListPattern) {
-        self.preferenceHelper.blacklistURLOpen = YES;
-        self.preferenceHelper.externalIntentURI = blackListPattern;
-        self.preferenceHelper.referringURL = blackListPattern;
+    if (pattern) {
+        self.preferenceHelper.dropURLOpen = YES;
+        self.preferenceHelper.externalIntentURI = pattern;
+        self.preferenceHelper.referringURL = pattern;
 
         [self initUserSessionAndCallCallback:YES sceneIdentifier:sceneIdentifier];
         return NO;
@@ -763,8 +732,8 @@ static BOOL bnc_enableFingerprintIDInCrashlyticsReports = YES;
         NSString *urlScheme = [url scheme];
 
         // save the incoming url in the preferenceHelper in the externalIntentURI field
-        if ([self.whiteListedSchemeList count]) {
-            for (NSString *scheme in self.whiteListedSchemeList) {
+        if ([self.allowedSchemeList count]) {
+            for (NSString *scheme in self.allowedSchemeList) {
                 if (urlScheme && [scheme isEqualToString:urlScheme]) {
                     self.preferenceHelper.externalIntentURI = [url absoluteString];
                     self.preferenceHelper.referringURL = [url absoluteString];
@@ -997,8 +966,48 @@ static BOOL bnc_enableFingerprintIDInCrashlyticsReports = YES;
     #endif
 }
 
+- (void)setAppClipAppGroup:(NSString *)appGroup {
+    [BNCAppGroupsData shared].appGroup = appGroup;
+}
+
+- (void)handleATTAuthorizationStatus:(NSUInteger)status {
+    // limits impact if the client fails to check that status = notDetermined before calling
+    if ([BNCPreferenceHelper preferenceHelper].hasCalledHandleATTAuthorizationStatus) {
+        return;
+    } else {
+        [BNCPreferenceHelper preferenceHelper].hasCalledHandleATTAuthorizationStatus = YES;
+    }
+    
+    BranchEvent *event;
+    switch (status) {
+        case 2:
+            // denied
+            event = [BranchEvent standardEvent:BranchStandardEventOptOut];
+            break;
+        case 3:
+            // authorized
+            event = [BranchEvent standardEvent:BranchStandardEventOptIn];
+            break;
+        default:
+            break;
+    }
+    if (event) {
+        [event logEvent];
+    }
+}
+
 - (void)setSKAdNetworkCalloutMaxTimeSinceInstall:(NSTimeInterval)maxTimeInterval {
     [BNCSKAdNetwork sharedInstance].maxTimeSinceInstall = maxTimeInterval;
+}
+
+#pragma mark - Partner Parameters
+
+- (void)clearPartnerParameters {
+    [[BNCPartnerParameters shared] clearAllParameters];
+}
+
+- (void)addFacebookPartnerParameterWithName:(NSString *)name value:(NSString *)value {
+    [[BNCPartnerParameters shared] addFaceBookParameterWithName:name value:value];
 }
 
 #pragma mark - Pre-initialization support
@@ -1303,7 +1312,7 @@ static BOOL bnc_enableFingerprintIDInCrashlyticsReports = YES;
     });
 }
 
-- (void)lastAttributedTouchDataWithAttributionWindow:(NSInteger)window completion:(void(^) (BranchLastAttributedTouchData * _Nullable latd))completion {
+- (void)lastAttributedTouchDataWithAttributionWindow:(NSInteger)window completion:(void(^) (BranchLastAttributedTouchData * _Nullable latd, NSError * _Nullable error))completion {
     [self initSafetyCheck];
     dispatch_async(self.isolationQueue, ^(){
         [BranchLastAttributedTouchData requestLastTouchAttributedData:self.serverInterface key:self.class.branchKey attributionWindow:window completion:completion];
@@ -1888,8 +1897,6 @@ static BOOL bnc_enableFingerprintIDInCrashlyticsReports = YES;
         [self.requestQueue persistImmediately];
         [BranchOpenRequest setWaitNeededForOpenResponseLock];
         BNCLogDebugSDK(@"Application resigned active.");
-        [self.class closeLog];
-        [self.class openLog];
     }
 }
 
@@ -1900,7 +1907,8 @@ static BOOL bnc_enableFingerprintIDInCrashlyticsReports = YES;
         BranchContentDiscoverer *contentDiscoverer = [BranchContentDiscoverer getInstance];
         if (contentDiscoverer) [contentDiscoverer stopDiscoveryTask];
 
-        if (self.preferenceHelper.sessionID && ![self.requestQueue containsClose]) {
+        BOOL sendCloseRequests = [[BNCPreferenceHelper preferenceHelper] sendCloseRequests];
+        if (sendCloseRequests && self.preferenceHelper.sessionID && ![self.requestQueue containsClose]) {
             BranchCloseRequest *req = [[BranchCloseRequest alloc] init];
             [self.requestQueue enqueue:req];
             [self processNextQueueItem];
@@ -2041,21 +2049,23 @@ static inline void BNCPerformBlockOnMainThreadSync(dispatch_block_t block) {
 
         if (req) {
 
-            if (![req isKindOfClass:[BranchInstallRequest class]] && !self.preferenceHelper.identityID) {
-                BNCLogError(@"User session has not been initialized!");
-                BNCPerformBlockOnMainThreadSync(^{
-                    [req processResponse:nil error:[NSError branchErrorWithCode:BNCInitError]];
-                });
-                return;
+            // If tracking is disabled, then do not check for install event.  It won't exist.
+            if (!Branch.trackingDisabled) {
+                if (![req isKindOfClass:[BranchInstallRequest class]] && !self.preferenceHelper.identityID) {
+                    BNCLogError(@"User session has not been initialized!");
+                    BNCPerformBlockOnMainThreadSync(^{
+                        [req processResponse:nil error:[NSError branchErrorWithCode:BNCInitError]];
+                    });
+                    return;
 
-            } else if (![req isKindOfClass:[BranchOpenRequest class]] &&
-                (!self.preferenceHelper.deviceFingerprintID || !self.preferenceHelper.sessionID)) {
-                BNCLogError(@"Missing session items!");
-                BNCPerformBlockOnMainThreadSync(^{
-                    [req processResponse:nil error:[NSError branchErrorWithCode:BNCInitError]];
-                });
-                return;
-
+                } else if (![req isKindOfClass:[BranchOpenRequest class]] &&
+                    (!self.preferenceHelper.deviceFingerprintID || !self.preferenceHelper.sessionID)) {
+                    BNCLogError(@"Missing session items!");
+                    BNCPerformBlockOnMainThreadSync(^{
+                        [req processResponse:nil error:[NSError branchErrorWithCode:BNCInitError]];
+                    });
+                    return;
+                }
             }
 
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -2229,8 +2239,8 @@ static inline void BNCPerformBlockOnMainThreadSync(dispatch_block_t block) {
     }
     [self sendOpenNotificationWithLinkParameters:latestReferringParams error:nil];
 
-    if (!self.URLBlackList.hasRefreshedBlackListFromServer) {
-        [self.URLBlackList refreshBlackListFromServerWithCompletion:nil];
+    if (!self.urlFilter.hasUpdatedPatternList) {
+        [self.urlFilter updatePatternListWithCompletion:nil];
     }
 
     if (self.shouldAutomaticallyDeepLink) {
@@ -2256,8 +2266,8 @@ static inline void BNCPerformBlockOnMainThreadSync(dispatch_block_t block) {
             [branchSharingController configureControlWithData:latestReferringParams];
         }
         else {
-            BNCLogWarning(@"The automatic deeplink view controller '%@' for key '%@' does not implement 'configureControlWithData:'.",
-                branchSharingController, key);
+            BNCLogWarning([NSString stringWithFormat:@"The automatic deeplink view controller '%@' for key '%@' does not implement 'configureControlWithData:'.",
+                branchSharingController, key]);
         }
 
         self.deepLinkPresentingController = [UIViewController bnc_currentViewController];

@@ -1,9 +1,15 @@
 #import "SEGAmplitudeIntegration.h"
 #if defined(__has_include) && __has_include(<Analytics/Analytics.h>)
 #import <Analytics/Analytics.h>
-#else
+#elif defined(__has_include) && __has_include(<Segment/SEGAnalytics.h>)
 #import <Segment/SEGAnalyticsUtils.h>
 #import <Segment/SEGAnalytics.h>
+#elif defined(__has_include) && __has_include(<SEGAnalytics.h>)
+#import <SEGAnalyticsUtils.h>
+#import <SEGAnalytics.h>
+#else
+#import "SEGAnalyticsUtils.h"
+#import "SEGAnalytics.h"
 #endif
 
 
@@ -212,7 +218,7 @@
 - (void)group:(SEGGroupPayload *)payload
 {
     NSString *groupTypeTrait = self.settings[@"groupTypeTrait"];
-    NSString *groupTypeValue = self.settings[@"groupTypeValue"];
+    NSString *groupTypeValue = self.settings[@"groupValueTrait"];
     NSString *groupName = payload.traits[groupTypeTrait];
     NSString *groupValue = payload.traits[groupTypeValue];
 
@@ -221,7 +227,7 @@
         groupValue = payload.groupId;
     }
 
-    [self.amplitude setGroup:groupValue groupName:groupName];
+    [self.amplitude setGroup:groupName groupName:groupValue];
     SEGLog(@"[Amplitude setGroup:%@ groupName:%@]", groupValue, groupName);
 }
 
@@ -238,6 +244,9 @@
 
     [self.amplitude regenerateDeviceId];
     SEGLog(@"[Amplitude regnerateDeviceId];");
+    
+    self.identify = [AMPIdentify identify];
+    SEGLog(@"[Amplitude reset identify];");
 }
 
 #pragma utils

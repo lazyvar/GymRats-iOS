@@ -11,6 +11,7 @@
 #import "BNCCallbackMap.h"
 #import "BNCReachability.h"
 #import "BNCSKAdNetwork.h"
+#import "BNCPartnerParameters.h"
 
 #pragma mark BranchStandardEvents
 
@@ -45,6 +46,8 @@ BranchStandardEvent BranchStandardEventUnlockAchievement      = @"UNLOCK_ACHIEVE
 BranchStandardEvent BranchStandardEventInvite                 = @"INVITE";
 BranchStandardEvent BranchStandardEventLogin                  = @"LOGIN";
 BranchStandardEvent BranchStandardEventReserve                = @"RESERVE";
+BranchStandardEvent BranchStandardEventOptIn                  = @"OPT_IN";
+BranchStandardEvent BranchStandardEventOptOut                 = @"OPT_OUT";
 
 @implementation BranchEventRequest
 
@@ -73,8 +76,8 @@ BranchStandardEvent BranchStandardEventReserve                = @"RESERVE";
 - (void)processResponse:(BNCServerResponse*)response error:(NSError*)error {
 	NSDictionary *dictionary = ([response.data isKindOfClass:[NSDictionary class]])
 		? (NSDictionary*) response.data : nil;
-	
-    if (dictionary) {
+    
+    if (dictionary && [dictionary[BRANCH_RESPONSE_KEY_UPDATE_CONVERSION_VALUE] isKindOfClass:NSNumber.class]) {
         NSNumber *conversionValue = (NSNumber *)dictionary[BRANCH_RESPONSE_KEY_UPDATE_CONVERSION_VALUE];
         if (conversionValue) {
             [[BNCSKAdNetwork sharedInstance] updateConversionValue:conversionValue.integerValue];
@@ -225,12 +228,14 @@ BranchStandardEvent BranchStandardEventReserve                = @"RESERVE";
         BranchStandardEventStartTrial,
         BranchStandardEventClickAd,
         BranchStandardEventViewAd,
+        BranchStandardEventOptOut,
+        BranchStandardEventOptIn,
     ];
 }
 
 - (void)logEventWithCompletion:(void (^_Nullable)(BOOL success, NSError * _Nullable error))completion {
     if (![_eventName isKindOfClass:[NSString class]] || _eventName.length == 0) {
-        BNCLogError(@"Invalid event type '%@' or empty string.", NSStringFromClass(_eventName.class));
+        BNCLogError([NSString stringWithFormat:@"Invalid event type '%@' or empty string.", NSStringFromClass(_eventName.class)]);
         if (completion) {
             NSError *error = [NSError branchErrorWithCode:BNCGeneralError localizedMessage: @"Invalid event type"];
             completion(NO, error);
@@ -301,6 +306,12 @@ BranchStandardEvent BranchStandardEventReserve                = @"RESERVE";
     if (contentItemDictionaries.count) {
         eventDictionary[@"content_items"] = contentItemDictionaries;
     }
+    
+    NSDictionary *partnerParameters = [[BNCPartnerParameters shared] parameterJson];
+    if (partnerParameters.count > 0) {
+        eventDictionary[BRANCH_REQUEST_KEY_PARTNER_PARAMETERS] = partnerParameters;
+    }
+    
     return eventDictionary;
 }
 

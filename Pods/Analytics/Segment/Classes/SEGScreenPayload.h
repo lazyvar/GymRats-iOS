@@ -1,4 +1,4 @@
-#import <Foundation/Foundation.h>
+@import Foundation;
 #import "SEGPayload.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -14,6 +14,7 @@ NS_SWIFT_NAME(ScreenPayload)
 @property (nonatomic, readonly, nullable) NSDictionary *properties;
 
 - (instancetype)initWithName:(NSString *)name
+                    category:(NSString *)category
                   properties:(NSDictionary *_Nullable)properties
                      context:(NSDictionary *)context
                 integrations:(NSDictionary *)integrations;

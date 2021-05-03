@@ -17,7 +17,6 @@
 + (NSString *)getUniqueHardwareId:(BOOL *)isReal
                           isDebug:(BOOL)debug
                           andType:(NSString *__autoreleasing*)type;
-+ (NSString *)getVendorId;
 + (NSString *)getDefaultUriScheme;
 + (NSString *)getAppVersion;
 + (NSString *)getBundleID;
@@ -30,6 +29,8 @@
 + (NSNumber *)getScreenHeight;
 + (BOOL)isSimulator;
 + (BOOL)adTrackingSafe;
-+ (NSString*) getAdId;
++ (NSString *)getAdId;
++ (NSString *)attOptedInStatus;
++ (NSString *)appleAttributionToken;
 
 @end

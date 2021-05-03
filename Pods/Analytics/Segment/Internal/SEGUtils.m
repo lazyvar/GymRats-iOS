@@ -7,19 +7,45 @@
 #import "SEGAnalyticsConfiguration.h"
 #import "SEGReachability.h"
 #import "SEGAnalytics.h"
+#import "SEGHTTPClient.h"
 
 #include <sys/sysctl.h>
 
-#if TARGET_OS_IOS && TARGET_OS_MACCATALYST == 0
-#import <CoreTelephony/CTCarrier.h>
-#import <CoreTelephony/CTTelephonyNetworkInfo.h>
-
+#if TARGET_OS_IOS && !TARGET_OS_MACCATALYST
+@import CoreTelephony;
 static CTTelephonyNetworkInfo *_telephonyNetworkInfo;
-#elif TARGET_OS_OSX
-#import <Cocoa/Cocoa.h>
 #endif
 
+const NSString *segment_apiHost = @"segment_apihost";
+
 @implementation SEGUtils
+
++ (void)saveAPIHost:(nonnull NSString *)apiHost
+{
+    if (!apiHost) {
+        return;
+    }
+    if (![apiHost containsString:@"https://"]) {
+        apiHost = [NSString stringWithFormat:@"https://%@", apiHost];
+    }
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:apiHost forKey:[segment_apiHost copy]];
+}
+
++ (nonnull NSString *)getAPIHost
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *result = [defaults stringForKey:[segment_apiHost copy]];
+    if (!result) {
+        result = kSegmentAPIBaseHost;
+    }
+    return result;
+}
+
++ (nullable NSURL *)getAPIHostURL
+{
+    return [NSURL URLWithString:[SEGUtils getAPIHost]];
+}
 
 + (NSData *_Nullable)dataFromPlist:(nonnull id)plist
 {
@@ -333,7 +359,7 @@ NSDictionary *getLiveContext(SEGReachability *reachability, NSDictionary *referr
             network[@"cellular"] = @(reachability.isReachableViaWWAN);
         }
 
-#if TARGET_OS_IOS && TARGET_OS_MACCATALYST == 0
+#if TARGET_OS_IOS && !TARGET_OS_MACCATALYST
         static dispatch_once_t networkInfoOnceToken;
         dispatch_once(&networkInfoOnceToken, ^{
             _telephonyNetworkInfo = [[CTTelephonyNetworkInfo alloc] init];
@@ -543,10 +569,10 @@ NSString *SEGEventNameForScreenTitle(NSString *title)
         
         if ([aValue conformsToProtocol:@protocol(SEGSerializableDeepCopy)]) {
             theCopy = [aValue serializableDeepCopy:mutable];
-        } else if ([aValue conformsToProtocol:@protocol(NSCopying)]) {
-            theCopy = [aValue copy];
         } else if ([aValue conformsToProtocol:@protocol(SEGSerializable)]) {
             theCopy = [aValue serializeToAppropriateType];
+        } else if ([aValue conformsToProtocol:@protocol(NSCopying)]) {
+            theCopy = [aValue copy];
         } else {
             theCopy = aValue;
         }
@@ -594,10 +620,10 @@ NSString *SEGEventNameForScreenTitle(NSString *title)
 
         if ([aValue conformsToProtocol:@protocol(SEGSerializableDeepCopy)]) {
             theCopy = [aValue serializableDeepCopy:mutable];
-        } else if ([aValue conformsToProtocol:@protocol(NSCopying)]) {
-            theCopy = [aValue copy];
         } else if ([aValue conformsToProtocol:@protocol(SEGSerializable)]) {
             theCopy = [aValue serializeToAppropriateType];
+        } else if ([aValue conformsToProtocol:@protocol(NSCopying)]) {
+            theCopy = [aValue copy];
         } else {
             theCopy = aValue;
         }

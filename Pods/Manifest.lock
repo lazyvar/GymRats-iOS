@@ -2,7 +2,7 @@ PODS:
   - Alamofire (4.9.1)
   - Amplitude (7.0.1)
   - Analytics (4.1.1)
-  - Branch (0.35.0)
+  - Branch (1.39.2)
   - Cache (5.3.0)
   - Differentiator (4.0.1)
   - EasyNotificationBadge (1.2.0)
@@ -134,7 +134,7 @@ PODS:
   - SDWebImage (5.9.2):
     - SDWebImage/Core (= 5.9.2)
   - SDWebImage/Core (5.9.2)
-  - Segment-Amplitude (3.2.3):
+  - Segment-Amplitude (3.3.0):
     - Amplitude (~> 7.0.1)
     - Analytics
   - Segment-Firebase (2.7.0):
@@ -269,7 +269,7 @@ SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   Amplitude: 31a9038dca905b78294418ed277da9c2e07658ad
   Analytics: 952eac761f84ba0a508a4cf691598654073f9e3d
-  Branch: 9a37f707974a128c37829033c49018b79c7e7a2d
+  Branch: 6a281514287f99d707615ac62c2cca69e0213df0
   Cache: 48762993ec44e1d93483c4d4a13edd18452326f4
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   EasyNotificationBadge: afeb15ed6f9a4262d626a2b745297e96afa26c2e
@@ -310,7 +310,7 @@ SPEC CHECKSUMS:
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   SDWebImage: 0b42b8719ab0c5257177d5894306e8a336b21cbb
-  Segment-Amplitude: 79e13fa0aa58341212041f524f5f9679e40c23de
+  Segment-Amplitude: 65c094a8c43d2c4275a3b93dade8d16cb0e1bf63
   Segment-Firebase: 41677a446f58989db69912059949107afb0c3f38
   SkeletonView: 14fbe9702c7fb5c5f011b44ac3ae99fc73155726
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0

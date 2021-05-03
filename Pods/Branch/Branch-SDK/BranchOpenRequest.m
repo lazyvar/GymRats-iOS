@@ -19,6 +19,8 @@
 #import "BNCAppleReceipt.h"
 #import "BNCTuneUtility.h"
 #import "BNCSKAdNetwork.h"
+#import "BNCAppGroupsData.h"
+#import "BNCPartnerParameters.h"
 
 @interface BranchOpenRequest ()
 @property (assign, nonatomic) BOOL isInstall;
@@ -84,6 +86,19 @@
                     forKey:BRANCH_REQUEST_KEY_SEARCH_AD
                     onDict:params];
     }
+    
+    if (!preferenceHelper.appleAttributionTokenChecked) {
+        NSString *appleAttributionToken = [BNCSystemObserver appleAttributionToken];
+        if (appleAttributionToken) {
+            preferenceHelper.appleAttributionTokenChecked = YES;
+            [self safeSetValue:appleAttributionToken forKey:BRANCH_REQUEST_KEY_APPLE_ATTRIBUTION_TOKEN onDict:params];
+        }
+    }
+    
+    NSDictionary *partnerParameters = [[BNCPartnerParameters shared] parameterJson];
+    if (partnerParameters.count > 0) {
+        [self safeSetValue:partnerParameters forKey:BRANCH_REQUEST_KEY_PARTNER_PARAMETERS onDict:params];
+    }
 
     BNCApplication *application = [BNCApplication currentApplication];
     params[@"lastest_update_time"] = BNCWireFormatFromDate(application.currentBuildDate);
@@ -121,7 +136,7 @@ typedef NS_ENUM(NSInteger, BNCUpdateState) {
 
 - (void)processResponse:(BNCServerResponse *)response error:(NSError *)error {
     BNCPreferenceHelper *preferenceHelper = [BNCPreferenceHelper preferenceHelper];
-    if (error && preferenceHelper.blacklistURLOpen) {
+    if (error && preferenceHelper.dropURLOpen) {
         // Ignore this response from the server. Dummy up a response:
         error = nil;
         response.data = @{
@@ -152,8 +167,12 @@ typedef NS_ENUM(NSInteger, BNCUpdateState) {
     preferenceHelper.sessionID = data[BRANCH_RESPONSE_KEY_SESSION_ID];
     preferenceHelper.previousAppBuildDate = [BNCApplication currentApplication].currentBuildDate;
 
-    if (data[BRANCH_RESPONSE_KEY_INVOKE_REGISTER_APP]) {
-        [[BNCSKAdNetwork sharedInstance] registerAppForAdNetworkAttribution];
+    
+    if ([data[BRANCH_RESPONSE_KEY_INVOKE_REGISTER_APP] isKindOfClass:NSNumber.class]) {
+        NSNumber *invokeRegister = (NSNumber *)data[BRANCH_RESPONSE_KEY_INVOKE_REGISTER_APP];
+        if (invokeRegister.boolValue) {
+            [[BNCSKAdNetwork sharedInstance] registerAppForAdNetworkAttribution];
+        }
     }
     
     if (Branch.enableFingerprintIDInCrashlyticsReports) {
@@ -166,17 +185,17 @@ typedef NS_ENUM(NSInteger, BNCUpdateState) {
     if (sessionData == nil || [sessionData isKindOfClass:[NSString class]]) {
     } else
     if ([sessionData isKindOfClass:[NSDictionary class]]) {
-        BNCLogWarning(@"Received session data of type '%@' data is '%@'.",
-            NSStringFromClass(sessionData.class), sessionData);        
+        BNCLogWarning([NSString stringWithFormat:@"Received session data of type '%@' data is '%@'.",
+            NSStringFromClass(sessionData.class), sessionData]);
         sessionData = [BNCEncodingUtils encodeDictionaryToJsonString:(NSDictionary*)sessionData];
     } else
     if ([sessionData isKindOfClass:[NSArray class]]) {
-        BNCLogWarning(@"Received session data of type '%@' data is '%@'.",
-            NSStringFromClass(sessionData.class), sessionData);
+        BNCLogWarning([NSString stringWithFormat:@"Received session data of type '%@' data is '%@'.",
+            NSStringFromClass(sessionData.class), sessionData]);
         sessionData = [BNCEncodingUtils encodeArrayToJsonString:(NSArray*)sessionData];
     } else {
-        BNCLogError(@"Received session data of type '%@' data is '%@'.",
-            NSStringFromClass(sessionData.class), sessionData);
+        BNCLogError([NSString stringWithFormat:@"Received session data of type '%@' data is '%@'.",
+            NSStringFromClass(sessionData.class), sessionData]);
         sessionData = nil;
     }
 
@@ -237,7 +256,7 @@ typedef NS_ENUM(NSInteger, BNCUpdateState) {
     preferenceHelper.externalIntentURI = nil;
     preferenceHelper.appleSearchAdNeedsSend = NO;
     preferenceHelper.referringURL = referringURL;
-    preferenceHelper.blacklistURLOpen = NO;
+    preferenceHelper.dropURLOpen = NO;
 
     NSString *string = BNCStringFromWireFormat(data[BRANCH_RESPONSE_KEY_BRANCH_IDENTITY]);
     if (string) preferenceHelper.identityID = string;
@@ -249,7 +268,11 @@ typedef NS_ENUM(NSInteger, BNCUpdateState) {
     if ([cdManifest isCDEnabled]) {
         [[BranchContentDiscoverer getInstance] startDiscoveryTaskWithManifest:cdManifest];
     }
-
+    
+    if (self.isInstall) {
+        [[BNCAppGroupsData shared] saveAppClipData];
+    }
+    
     if (self.callback) {
         self.callback(YES, nil);
     }
