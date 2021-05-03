@@ -27,7 +27,7 @@ class InviteToChallengeViewController: UIViewController {
       textField.backgroundColor = .foreground
       textField.layer.cornerRadius = 4
       textField.clipsToBounds = true
-      textField.text = "https://share.gmyrats.app/join?code=\(challenge.code)"
+      textField.text = "https://share.gymrats.app/join?code=\(challenge.code)"
     }
   }
   

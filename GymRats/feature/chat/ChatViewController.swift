@@ -407,7 +407,13 @@ extension ChatViewController: MessagesDisplayDelegate {
   }
   
   func didSelectURL(_ url: URL) {
-    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    let code = URLComponents(url: url, resolvingAgainstBaseURL: true)?.queryItems?.first(where: { $0.name == "code" })?.value
+
+    if url.absoluteString.contains("share.gymrats.app/join"), let code = code {
+      ChallengeFlow.join(code: code)
+    } else {
+      UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
   }
   
   func detectorAttributes(for detector: DetectorType, and message: MessageType, at indexPath: IndexPath) -> [NSAttributedString.Key : Any] {
