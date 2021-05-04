@@ -73,7 +73,7 @@ class ChallengePreviewViewController: UIViewController {
         if challenge.isPast || challenge.isActive {
           return challenge.daysLeft
         } else {
-          return "Lasts \(challenge.allDays.count) days"
+          return "Spans \(challenge.allDays.count) days"
         }
       }()
 

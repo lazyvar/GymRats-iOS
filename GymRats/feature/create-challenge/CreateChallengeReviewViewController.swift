@@ -78,7 +78,7 @@ class CreateChallengeReviewViewController: UIViewController {
   
   @IBOutlet private weak var durationLabel: UILabel! {
     didSet {
-      durationLabel.text = "Lasts \(newChallenge.days) days"
+      durationLabel.text = "Spans \(newChallenge.days) days"
       durationLabel.font = .body
       durationLabel.textColor = .primaryText
     }

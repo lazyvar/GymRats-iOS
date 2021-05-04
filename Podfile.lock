@@ -39,7 +39,7 @@ PODS:
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/UserDefaults (~> 6.7)
     - PromisesObjC (~> 1.2)
-  - FirebaseStorage (3.9.0):
+  - FirebaseStorage (3.9.1):
     - FirebaseCore (~> 6.10)
     - GTMSessionFetcher/Core (~> 1.1)
   - GoogleAppMeasurement (6.8.3):
@@ -74,7 +74,7 @@ PODS:
     - GoogleUtilities/Logger
   - GradientLoadingBar (2.1.0):
     - LightweightObservable (~> 2.1)
-  - GTMSessionFetcher/Core (1.4.0)
+  - GTMSessionFetcher/Core (1.5.0)
   - ImageViewer.swift (3.0.12):
     - SDWebImage
   - InputBarAccessoryView (5.1.0):
@@ -280,14 +280,14 @@ SPEC CHECKSUMS:
   FirebaseCore: d889d9e12535b7f36ac8bfbf1713a0836a3012cd
   FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
-  FirebaseStorage: 33b92875a9b556824886cc7a65120c7d2cb3a8d8
+  FirebaseStorage: 15e0f15ef3c7fec3d1899d68623e47d4447066b4
   GoogleAppMeasurement: 966e88df9d19c15715137bb2ddaf52373f111436
   GoogleDataTransport: b7f406340a291370045a270c599e53c6fa6ec20f
   GoogleMaps: 8c080862ff2748ece9929471b30feb56a6c5079d
   GooglePlaces: 9a6f5f3a0c88da2aa1bf7426a65d3e004f5e69a1
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   GradientLoadingBar: 9992888de03a77c1e9364c087aefa1d9c3860ef7
-  GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
+  GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   ImageViewer.swift: d4769c57ff8aef6da7e01bb9283f8554469b2498
   InputBarAccessoryView: 19953f486a23e846e9487099f92bbe3456e46ce5
   JVFloatLabeledTextField: df48598472ee015701d509f43e59492a0d4ca208

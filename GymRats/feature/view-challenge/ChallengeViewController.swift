@@ -360,32 +360,6 @@ extension ChallengeViewController: UITableViewDelegate {
       label.showAnimatedSkeleton()
     }
     
-    if section == 1 && false {
-      headerView.addSubview(feedStyleButton)
-      
-      feedStyleButton.addTarget(self, action: #selector(self.tappedChangeFeedStyle), for: .touchUpInside)
-      feedStyleButton.verticallyCenter(in: headerView)
-      feedStyleButton.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: 0 - 20).isActive = true
-      feedStyleButton.constrainWidth(15)
-      feedStyleButton.constrainHeight(15)
-      feedStyleButton.imageView?.contentMode = .scaleAspectFit
-      
-      let tap = UITapGestureRecognizer(target: self, action: #selector(tappedChangeFeedStyle))
-      let ghostArea = UIView().apply {
-        $0.backgroundColor = .clear
-        $0.isUserInteractionEnabled = true
-        $0.addGestureRecognizer(tap)
-        $0.translatesAutoresizingMaskIntoConstraints = false
-      }
-  
-      headerView.addSubview(ghostArea)
-      
-      ghostArea.verticallyCenter(in: headerView)
-      ghostArea.trailingAnchor.constraint(equalTo: headerView.trailingAnchor).isActive = true
-      ghostArea.constrainWidth(80)
-      ghostArea.constrainHeight(30)
-    }
-    
     return headerView
   }
   
