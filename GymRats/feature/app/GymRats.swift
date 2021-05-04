@@ -104,7 +104,10 @@ enum GymRats {
     configureYPImagePicker()
     branch.initSession(launchOptions: launchOptions, andRegisterDeepLinkHandler: branchCallback)
     GMSPlacesClient.provideAPIKey("AIzaSyD1X4TH-TneFnDqjiJ2rb2FGgxK8JZyrIo")
-    FirebaseApp.configure()
+    
+    if FirebaseApp.app() == nil {
+      FirebaseApp.configure()
+    }
   }
   
   /// Sets the current account and shows the home screen.

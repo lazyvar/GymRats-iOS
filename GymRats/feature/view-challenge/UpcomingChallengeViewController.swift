@@ -11,21 +11,23 @@ import RxDataSources
 import RxSwift
 
 enum UpcomingChallengeRow {
-  case banner(Challenge)
-  case account(Account)
+  case warning
+  case challengeInfo(Challenge)
+  case rat(Account)
+  case teams([Team])
   case invite(Challenge)
 }
 
-typealias UpcomingChallengeSection = SectionModel<String, UpcomingChallengeRow>
+typealias UpcomingChallengeSection = SectionModel<String?, UpcomingChallengeRow>
 
 class UpcomingChallengeViewController: BindableViewController {
-  private let viewModel = UpcomingChallengeViewModel()
+  private let viewModel: UpcomingChallengeViewModel
   private let disposeBag = DisposeBag()
   private let challenge: Challenge
   
   init(challenge: Challenge) {
+    self.viewModel = UpcomingChallengeViewModel(challenge: challenge)
     self.challenge = challenge
-    self.viewModel.configure(challenge: challenge)
 
     super.init(nibName: Self.xibName, bundle: nil)
   }
@@ -34,37 +36,48 @@ class UpcomingChallengeViewController: BindableViewController {
     fatalError("init(coder:) has not been implemented")
   }
   
-  @IBOutlet private weak var collectionView: UICollectionView! {
+  @IBOutlet private weak var tableView: UITableView! {
     didSet {
-      collectionView.alwaysBounceVertical = true
-      collectionView.bounces = true
-      collectionView.backgroundColor = .background
-      collectionView.registerCellNibForClass(AccountCell.self)
-      collectionView.registerCellNibForClass(InviteCell.self)
-      collectionView.refreshControl = UIRefreshControl()
-      collectionView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
-      collectionView.setCollectionViewLayout(UpcomingChallengeFlowLayout(challenge: challenge), animated: false)
-      collectionView.register(UINib(nibName: "UpcomingChallengeHeaderView", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "UpcomingChallengeHeaderView")
-      collectionView.delegate = self
+      tableView.alwaysBounceVertical = true
+      tableView.bounces = true
+      tableView.backgroundColor = .background
+      tableView.separatorStyle = .none
+      tableView.refreshControl = UIRefreshControl()
+      tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+      tableView.registerCellNibForClass(UpcomingChallengeCell.self)
+      tableView.registerCellNibForClass(InviteToChallengeCell.self)
+      tableView.registerCellNibForClass(UpcomingRatCell.self)
+      tableView.registerCellNibForClass(UpcomingChallengeWarningCell.self)
+      tableView.registerCellNibForClass(RankingCell.self)
+      tableView.registerCellNibForClass(MembersCell.self)
+      tableView.registerCellNibForClass(ChoiceCell.self)
+      tableView.delegate = self
     }
   }
 
-  private lazy var dataSource = RxCollectionViewSectionedReloadDataSource<UpcomingChallengeSection>(configureCell: { _, collectionView, indexPath, row -> UICollectionViewCell in
+  private lazy var dataSource = RxTableViewSectionedReloadDataSource<UpcomingChallengeSection>(configureCell: { _, tableView, indexPath, row -> UITableViewCell in
     switch row {
-    case .account(let account): return AccountCell.configure(collectionView: collectionView, indexPath: indexPath, account: account)
-    case .banner(let challenge): return UICollectionViewCell()
-    case .invite(let challenge): return InviteCell.configure(collectionView: collectionView, indexPath: indexPath)
+    case .teams(let teams):
+      return MembersCell.configure(
+        tableView: tableView,
+        indexPath: indexPath,
+        challenge: self.challenge,
+        avatars: teams,
+        showInviteAtEnd: true,
+        onAdd: {
+          self.presentForClose(CreateTeamViewController(self.challenge))
+        },
+        press: { avatar in
+          guard let team = avatar as? Team else { return }
+          
+          self.push(TeamViewController(team, self.challenge, joiningChallenge: true))
+        }
+      )
+    case .warning: return UpcomingChallengeWarningCell.configure(tableView: tableView, indexPath: indexPath)
+    case .rat(let account): return UpcomingRatCell.configure(tableView: tableView, indexPath: indexPath, rat: account)
+    case .challengeInfo(let challenge): return UpcomingChallengeCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge)
+    case .invite(let challenge): return InviteToChallengeCell.configure(tableView: tableView, indexPath: indexPath, challenge: challenge)
     }
-  }, configureSupplementaryView: { _, collectionView, _, indexPath in
-    let view = collectionView.dequeueReusableSupplementaryView(
-      ofKind: UICollectionView.elementKindSectionHeader,
-      withReuseIdentifier: "UpcomingChallengeHeaderView",
-      for: indexPath
-    ) as! UpcomingChallengeHeaderView
-    
-    view.configure(self.challenge)
-    
-    return view
   })
   
   private lazy var chatBarButtonItem = UIBarButtonItem (
@@ -83,11 +96,22 @@ class UpcomingChallengeViewController: BindableViewController {
   
   override func bindViewModel() {
     viewModel.output.error
-      .do(onNext: { _ in self.hideLoadingBar() })
-      .do(onNext: { _ in self.collectionView.refreshControl?.endRefreshing() })
+      .do(onNext: { _ in self.tableView.refreshControl?.endRefreshing() })
       .flatMap { UIAlertController.present($0) }
       .ignore(disposedBy: disposeBag)
 
+    viewModel.output.loading
+      .subscribe { e in
+        if case .next(let loading) = e {
+          if loading {
+            self.showLoadingBar()
+          } else {
+            self.hideLoadingBar()
+          }
+        }
+      }
+      .disposed(by: disposeBag)
+    
     viewModel.output.navigation
       .subscribe(onNext: { [weak self] (navigation, screen) in
         self?.navigate(navigation, to: screen.viewController)
@@ -95,9 +119,8 @@ class UpcomingChallengeViewController: BindableViewController {
       .disposed(by: disposeBag)
 
     viewModel.output.sections
-      .do(onNext: { _ in self.hideLoadingBar() })
-      .do(onNext: { _ in self.collectionView.refreshControl?.endRefreshing() })
-      .bind(to: collectionView.rx.items(dataSource: dataSource))
+      .do(onNext: { _ in self.tableView.refreshControl?.endRefreshing() })
+      .bind(to: tableView.rx.items(dataSource: dataSource))
       .disposed(by: disposeBag)
   }
 
@@ -192,10 +215,29 @@ class UpcomingChallengeViewController: BindableViewController {
   }
 }
 
-extension UpcomingChallengeViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    collectionView.deselectItem(at: indexPath, animated: true)
-      
-    viewModel.input.selectedItem.onNext(indexPath)
+extension UpcomingChallengeViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    guard let title = dataSource[section].model else { return nil }
+    
+    let label = UILabel()
+    label.backgroundColor = .clear
+    label.font = .proRoundedBold(size: 16)
+    label.translatesAutoresizingMaskIntoConstraints = false
+    label.text = title
+
+    let headerView = UIView()
+    headerView.addSubview(label)
+    headerView.backgroundColor = .clear
+    
+    label.verticallyCenter(in: headerView)
+    label.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20).isActive = true
+    
+    return headerView
+  }
+  
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    guard dataSource[section].model != nil else { return .zero }
+
+    return 25
   }
 }
