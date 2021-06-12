@@ -104,13 +104,13 @@ class ChallengeBannerCell: UITableViewCell {
         $0.currentAccountAvatar.load(challengeInfo.currentTeam ?? GymRats.currentAccount)
         $0.leaderAvatar.load(challengeInfo.teamLeader ?? challengeInfo.leader)
 
-        $0.currentAccountLabel.text = "\(challengeInfo.currentTeamScore ?? challengeInfo.currentAccountScore)\nMy team"
+        $0.currentAccountLabel.text = "\(challengeInfo.currentTeamScore ?? challengeInfo.currentAccountScore)\nYour team"
         $0.leaderLabel.text = "\(challengeInfo.teamLeaderScore ?? challengeInfo.leaderScore)\nLeader"
       } else {
         $0.currentAccountAvatar.load(GymRats.currentAccount)
         $0.leaderAvatar.load(challengeInfo.leader)
 
-        $0.currentAccountLabel.text = "\(challengeInfo.currentAccountScore)\nMe"
+        $0.currentAccountLabel.text = "\(challengeInfo.currentAccountScore)\nYou"
         $0.leaderLabel.text = "\(challengeInfo.leaderScore)\nLeader"
       }
     }
